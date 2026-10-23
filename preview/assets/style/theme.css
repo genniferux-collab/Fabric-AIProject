@@ -1,0 +1,114 @@
+:root {
+  --primary: var(--color-brand);
+  --on-primary: var(--color-text-inverse);
+  --primary-hover: var(--color-brand-hover);
+  --primary-active: var(--color-brand-active);
+  --primary-disabled: var(--color-brand-disabled);
+  --primary-container: var(--color-info-primary-subtler);
+  --on-primary-container: var(--color-text-primary);
+  --primary-fixed: var(--color-brand);
+  --primary-fixed-dim: var(--color-brand-active);
+  --on-primary-fixed: var(--color-text-inverse);
+  --on-primary-fixed-variant: var(--color-text-inverse);
+
+  --surface: var(--color-bg-1);
+  --surface-dim: var(--color-bg-2);
+  --surface-bright: var(--color-bg-2);
+  --on-surface: var(--color-text-primary);
+  --surface-variant: var(--color-bg-1);
+  --on-surface-variant: var(--color-text-secondary);
+  --surface-container-lowest: var(--color-bg-1);
+  --surface-container-low: var(--color-bg-2);
+  --surface-container: var(--color-bg-2);
+  --surface-container-high: var(--color-bg-2);
+  --surface-container-highest: var(--color-bg-2);
+
+  --inverse-surface: var(--color-text-primary);
+  --inverse-on-surface: var(--color-text-inverse);
+  --inverse-on-surface-variant: var(--color-text-inverse-disabled);
+  --inverse-primary: var(--color-brand);
+
+  --error: var(--color-error);
+  --on-error: var(--color-text-inverse);
+  --error-container: var(--color-message-bg-error);
+  --on-error-container: var(--color-text-primary);
+
+  --success: var(--color-success);
+  --on-success: var(--color-text-inverse);
+  --success-container: var(--color-message-bg-success);
+  --on-success-container: var(--color-text-primary);
+
+  --critical: var(--color-alert);
+  --on-critical: var(--color-text-inverse);
+  --critical-container: var(--color-message-bg-alert);
+  --on-critical-container: var(--color-text-primary);
+
+  --warning: var(--color-warning);
+  --on-warning: var(--color-text-inverse);
+  --warning-container: var(--color-message-bg-warning);
+  --on-warning-container: var(--color-text-primary);
+
+  --info: var(--color-info-primary);
+  --on-info: var(--color-text-inverse);
+  --info-container: var(--color-message-bg-info);
+  --on-info-container: var(--color-text-primary);
+
+  --text-placeholder: var(--color-text-placeholder);
+  --text-disabled: var(--color-text-disabled);
+  --text-inverse-disabled: var(--color-text-inverse-disabled);
+
+  --interactive-link: var(--color-link);
+  --interactive-link-hover: var(--color-link-hover);
+  --interactive-link-active: var(--color-link-active);
+  --interactive-link-visited: var(--color-link-visited);
+  --interactive-link-disabled: var(--color-link-disabled);
+  
+  --scrim: var(--color-bg-mask);
+  --outline: var(--color-border);
+  --outline-variant: var(--color-border-separator);
+  --divider: var(--color-border-separator);
+  --focus-ring: var(--color-border-focus);
+  --selected: var(--color-border-focus);
+
+  /* ── spacing → --spacing-* ── */
+  --spacing-inline: var(--spacing-2);   /* 8px */
+  --spacing-stack: var(--spacing-3);    /* 12px */
+  --spacing-gutter: var(--spacing-4);  /* 16px */
+  --spacing-inset: var(--spacing-6);    /* 24px */
+  --spacing-section: var(--spacing-4); /* 16px */
+  --spacing-page: var(--spacing-8);      /* 32px */
+
+  /* ── boxShadow ── */
+  --shadow-card: var(--shadow-sm);
+  --shadow-popover: var(--shadow-lg);
+  --shadow-modal: var(--shadow-xl);
+
+  /* ── borderRadius → --radius-* ── */
+  --radius-badge: var(--radius-base);  /* 4px */
+  --radius-action: var(--radius-base); /* 4px */
+  --radius-container: var(--radius-lg); /* 8px */
+  --radius-overlay: var(--radius-lg);  /* 8px */
+
+  /* ── border & outline width ── */
+  --border-width-thin: 1px;    
+  --border-width-thick: 2px;  
+  --outline-width-focus: 1px;
+  --outline-offset-gap: 2px;
+
+  /* ── typography → --font-*（角色化 font 简写：字号/行高 字族；字重另行用 --font-weight-* 组合）── */
+  /* Display 展示文本 — 英雄标语、数据看板大数字 */
+  --font-display-l: var(--font-size-7xl)/var(--line-height-xs) var(--font-family);    /* 60px/1.25 */
+  --font-display-m: var(--font-size-6xl)/var(--line-height-sm) var(--font-family);    /* 48px/1.375 */
+  --font-display-s: var(--font-size-5xl)/var(--line-height-sm) var(--font-family);    /* 36px/1.375 */
+  /* Headline 标题 — 页面区块标题(H3)→卡片标题→表单区标题 */
+  --font-headline-l: var(--font-size-2xl)/var(--line-height-sm) var(--font-family);   /* 20px/1.375 */
+  --font-headline-m: var(--font-size-xl)/var(--line-height-sm) var(--font-family);    /* 18px/1.375 */
+  --font-headline-s: var(--font-size-lg)/var(--line-height-base) var(--font-family);  /* 16px/1.5 */
+  /* Body 正文 — 表单标签/按钮文字→表格正文→辅助说明 */
+  --font-body-l: var(--font-size-lg)/var(--line-height-base) var(--font-family);      /* 16px/1.5 */
+  --font-body-m: var(--font-size-md)/var(--line-height-base) var(--font-family);      /* 14px/1.5 */
+  --font-body-s: var(--font-size-base)/var(--line-height-md) var(--font-family);      /* 12px/1.625 */
+  /* Caption 注释 — 时间戳/表格附加信息→底部免责声明 */
+  --font-caption-m: var(--font-size-base)/var(--line-height-md) var(--font-family);   /* 12px/1.625 */
+  --font-caption-s: var(--font-size-sm)/var(--line-height-lg) var(--font-family);    /* 10px/1.8 */
+}
