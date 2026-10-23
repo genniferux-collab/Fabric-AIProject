@@ -1,0 +1,15 @@
+/* migrated from config-agent-merged.html — cockpit */
+
+.cockpit{position:absolute;inset:48px 0 0 48px;padding:32px;background:radial-gradient(ellipse at 55% 15%,#13203566,transparent 60%),#0b0d11}
+
+.cockpit h1{font-size:28px;font-weight:500;margin:16px 0 8px}
+
+.cockpit .welcome{font-size:18px;color:#c9c9c9}
+
+.cockpit-cards{display:flex;gap:16px;margin:40px 0}
+
+.cockpit-card{padding:24px;background:#191919;border-radius:8px;width:380px}
+
+.cockpit-card strong{display:block;font-size:36px;font-weight:500;margin:16px 0}
+
+.cockpit-map{height:580px;border:1px solid var(--line);border-radius:8px;display:grid;place-items:center;background-image:radial-gradient(#ffffff18 1px,transparent 1px);background-size:20px 20px;color:#7e899b}

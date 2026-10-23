@@ -1,0 +1,140 @@
+/* migrated from config-agent-merged.html — stage */
+
+.stage-root{color-scheme:dark;--primary:#0067d1;--link:#5ca2e9;--text:#fff;--secondary:#c9c9c9;--muted:#939393;--bg:#000;--panel:#191919;--sub:#242424;--line:rgba(243,243,243,.15);--blue:#5990fd;--purple:#a18bfa;--success:#36c18d;--shadow:0 1px 6px #0008}
+
+*{box-sizing:border-box}
+
+.stage-root{margin:0;background:#101010;color:var(--text);font:14px/1.5 "HarmonyOS Sans","Microsoft YaHei",Arial,"PingFang SC",sans-serif;overflow:hidden}
+
+button,input,textarea{font:inherit}
+
+button{cursor:pointer;color:inherit}
+
+button:disabled{cursor:default;opacity:.45}
+
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid #5ca2e9;outline-offset:3px}
+
+button{border:0;background:none}
+
+svg{flex-shrink:0}
+
+.ic{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}
+
+.icon-btn{width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border-radius:4px;color:var(--secondary)}
+
+.icon-btn:hover{color:#8abef3}
+
+.row{display:flex;align-items:center;gap:8px}
+
+.between{display:flex;align-items:center;justify-content:space-between}
+
+.secondary{color:var(--secondary)}
+
+.muted{color:var(--muted)}
+
+.small{font-size:12px}
+
+.link{color:var(--link)}
+
+.btn{height:32px;padding:0 16px;border:1px solid var(--line);border-radius:4px;display:inline-flex;gap:8px;align-items:center;justify-content:center}
+
+.btn:hover{border-color:var(--link);color:var(--link)}
+
+.btn.primary{border:0;background:var(--primary);color:#fff}
+
+.btn.primary:hover{background:#2e86de}
+
+.stage{position:absolute;width:1920px;height:1080px;transform-origin:top left;background:var(--bg)}
+
+.rail{position:absolute;top:48px;left:0;bottom:0;width:48px;background:var(--panel);border-right:1px solid var(--line);display:flex;align-items:center;flex-direction:column;gap:16px;padding:16px 0}
+
+.rail .icon-btn{width:36px;height:36px}
+
+.rail .active{background:#112857;color:#8abef3;position:relative}
+
+.rail .active:before{content:"";position:absolute;left:-6px;top:8px;bottom:8px;background:#5ca2e9;width:2px}
+
+.rail-bottom{margin-top:auto;display:grid;gap:16px}
+
+@keyframes flash{0%,100%{box-shadow:0 0 0 0 #5ca2e900}35%{box-shadow:0 0 0 2px #5ca2e9,0 0 24px #5ca2e933}}
+
+.tag{padding:2px 8px;font-size:12px;line-height:20px;border-radius:4px;background:#ffffff0a;color:var(--secondary)}
+
+.tag.blue{background:#2070f31a;color:#8abef3}
+
+.tag.purple{background:#a18bfa1a;color:#b5a3ff}
+
+.detail-card{scroll-margin-top:16px}
+
+.detail-card h3{font-size:16px;font-weight:500;margin:0}
+
+.detail-subtitle{font-size:12px;color:var(--muted);margin:8px 0 20px}
+
+.detail-devices{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+
+.detail-devices button{font-size:12px;padding:4px 10px;background:#ffffff0a;border-radius:4px;color:#c9c9c9}
+
+.detail-devices button:hover{color:var(--link)}
+
+.detail-count{font-size:12px;color:var(--muted);margin-top:16px}
+
+.toast{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);background:#393939;border:1px solid #555;padding:12px 20px;border-radius:6px;z-index:20;display:none;font-size:14px;box-shadow:0 8px 30px #0009}
+
+.pill{display:inline-flex;align-items:center;gap:4px}
+
+.hidden{display:none!important}
+
+html:not(.dark) .stage-root{color-scheme:light;--text:#191919;--secondary:#555;--muted:#777;--bg:#f3f3f3;--panel:#fff;--sub:#f3f3f3;--line:#dfdfdf;--link:#0067d1}
+
+.stage-root{--fail:#ed7880;--good:#48bc8e;--fail-bg:#e7434a14;--good-bg:#36c18d10}
+
+.bad{color:var(--fail)}
+
+.good{color:var(--good)}
+
+.minus{background:#e7434a15;color:#f19a9e}
+
+.plus{background:#36c18d15;color:#87d6b6}
+
+.result-head{display:flex;gap:8px;align-items:center;white-space:nowrap}
+
+.result-head .ic{width:16px;height:16px}
+
+.result-head .tag{white-space:nowrap}
+
+.rule-nav-search{width:100%;margin-bottom:12px}
+
+.bad-tag{color:var(--fail);background:var(--fail-bg);font-size:12px;padding:3px 8px;border-radius:4px}
+
+.good-tag{color:var(--good);background:var(--good-bg);font-size:12px;padding:3px 8px;border-radius:4px}
+
+.good-dot{background:var(--good)}
+
+.bad-dot{background:var(--fail)}
+
+#v7CheckDetails{border-top:0;padding-top:0;margin-top:24px}
+
+@media(prefers-reduced-motion:reduce){.v7-step-spinner{animation:none}}
+
+@media(prefers-reduced-motion:reduce){.v7-network-device>rect{transition:none}.v7-map-device-card{animation:none}.v7-network-sweep{display:none}}
+
+@keyframes aiWaveLift{0%,100%{transform:translateY(0);opacity:.65}50%{transform:translateY(-2.5px);opacity:1}}
+
+@keyframes aiStatusPulse{0%,100%{opacity:.55}50%{opacity:1}}
+
+@keyframes aiOrbit{to{transform:rotate(360deg)}}
+
+@keyframes aiChatPulse{0%,70%,100%{transform:translateY(0);opacity:.35}35%{transform:translateY(-2px);opacity:.95}}
+
+@media(prefers-reduced-motion:reduce){.ai-wave-column,.ai-engine-satellites,.mining-ai-state>i,.ai-chat-dots i{animation:none!important}.ai-flow-particles{display:none!important}}
+
+@media(prefers-reduced-motion:reduce){.unified-active .unified-orb-dots{animation:none!important}.unified-particles{display:none!important}}
+
+@media(prefers-reduced-motion:reduce){.fusion-graph.active .fusion-engine-dots{animation:none!important}.fusion-edge animateMotion{display:none}}
+
+@media(prefers-reduced-motion:reduce){.stage-root.uc2 #lui,.stage-root.uc2 #canvas{transition:none}.fusion-rule-drawer{animation:none}}
+
+/* stage viewport — 替代原 body 满屏容器 */
+/* 常规页面形态：视口自适应（原 1920×1080 等比缩放画布已移除） */
+.stage-viewport{position:fixed;inset:0;overflow:auto;background:#101010;z-index:0}
+.stage-root{position:relative;width:100%;height:100vh;min-width:1200px;background:var(--bg)}

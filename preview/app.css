@@ -1,0 +1,7 @@
+/* 应用级基础样式 — 页面根节点的 token 消费示例 */
+.app-root {
+  min-height: 100vh;
+  background: var(--surface-container-lowest);
+  color: var(--on-surface);
+  font: var(--font-body-m);
+}

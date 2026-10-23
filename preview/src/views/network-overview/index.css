@@ -1,0 +1,124 @@
+/* migrated from config-agent-merged.html — network-overview */
+
+.card.flash{animation:flash 1s ease}
+
+.canvas .v7-artifact-icon{display:block;width:14px;height:14px;flex-shrink:0;stroke:none;color:#DFDFDF}
+
+.canvas .v7-artifact-icon.process{color:#DFDFDF}
+
+.canvas .card.flash{animation:v7-artifact-locate 1s ease}
+
+@keyframes v7-artifact-locate{0%,100%{outline:1px solid transparent;outline-offset:0}35%{outline:1px solid #5ca2e9;outline-offset:0}}
+
+/* Compact LUI artifact tags share the canvas's filled artifact glyphs. */
+.v7-artifact-tag{display:inline-flex;vertical-align:middle;align-items:center;width:auto;max-width:100%;height:24px;gap:4px;padding:0 8px;border:0;border-radius:4px;background:rgba(174,174,174,.15);color:#DFDFDF;font-size:12px;font-weight:400;line-height:20px;text-align:left;white-space:nowrap}
+
+.v7-artifact-tag>span{overflow:hidden;text-overflow:ellipsis}
+
+.v7-artifact-tag:hover{background:rgba(174,174,174,.22)}
+
+.v7-artifact-tag .v7-artifact-icon{width:12px;height:12px;display:block;flex-shrink:0;stroke:none;color:#DFDFDF}
+
+.v7-step-artifact{margin-top:8px}
+
+.v7-running-process{margin:20px 0 0 10px}
+
+.v7-step-spinner{display:block;width:12px;height:12px;border:1.5px solid #5ca2e933;border-top-color:var(--link);border-radius:50%;animation:v7-step-spin 1s linear infinite}
+
+@keyframes v7-step-spin{to{transform:rotate(360deg)}}
+
+/* Digital-map scan overview. Device dots use the same inventory as the final report. */
+.v7-network-rescan{font-size:12px;height:28px;padding:0 8px}
+
+.v7-network-rescan .ic{width:14px;height:14px}
+
+.v7-network-summary{display:flex;align-items:center;gap:24px;margin:16px 0;color:var(--muted);font-size:12px}
+
+.v7-network-summary strong{font-size:14px;font-weight:500;color:var(--secondary);margin-left:4px}
+
+.v7-network-source{margin-left:auto}
+
+.v7-network-progress{display:flex;align-items:center;gap:16px;margin-bottom:12px;font-size:12px;color:var(--link)}
+
+.v7-network-progress>div{height:4px;background:#ffffff0d;border-radius:2px;flex:1;overflow:hidden}
+
+.v7-network-progress>div>i{height:100%;display:block;background:linear-gradient(90deg,#5CA2E9,#A18BFA);border-radius:2px}
+
+.v7-network-progress>strong{font-size:16px;font-weight:500;color:var(--text);min-width:100px;text-align:right}
+
+.v7-network-progress>strong>span{font-size:12px;font-weight:400;color:var(--muted)}
+
+.v7-network-map{position:relative;background-color:#19191970;background-image:radial-gradient(#ffffff0d .8px,transparent .8px);background-size:16px 16px;border-radius:8px;overflow:hidden}
+
+.v7-network-map>svg{width:100%;display:block}
+
+.v7-network-links path{fill:none;stroke:#70809a;stroke-width:1.5;stroke-dasharray:4 4;opacity:.6}
+
+.v7-network-cluster>rect{fill:#ffffff03;stroke:#ffffff1a;stroke-width:1}
+
+.v7-network-group-title{fill:#DFDFDF;font-size:14px;font-weight:500}
+
+.v7-network-group-count,.v7-network-model{fill:#939393;font-size:12px}
+
+.v7-network-vendor{fill:#C9C9C9;font-size:12px;font-weight:500}
+
+.v7-network-device{cursor:pointer}
+
+.v7-network-device>rect{fill:#535960;stroke:none}
+
+.v7-network-device.identified>rect{fill:#5CA2E9}
+
+.v7-network-device:hover>rect{fill:#B4A6EF}
+
+.v7-network-device>rect.v7-network-focus{fill:none;stroke:#B4A6EF;stroke-width:1.5}
+
+.v7-network-device[aria-disabled="true"]{cursor:default}
+
+.v7-network-sweep{position:absolute;top:0;bottom:0;width:12%;transform:translateX(-100%);background:linear-gradient(90deg,transparent,#5ca2e914);border-right:1px solid #8abef399;pointer-events:none}
+
+.v7-network-footer{display:flex;flex-direction:column;gap:12px;margin-top:12px;font-size:12px}
+
+.v7-network-legend,.v7-network-legend>span{display:flex;align-items:center;gap:6px}
+
+.v7-network-legend{gap:16px;color:var(--secondary)}
+
+.v7-network-legend i{display:block;width:6px;height:6px;border-radius:1px;background:#535960}
+
+.v7-network-legend i.identified{background:#5CA2E9}
+
+.v7-network-device-focus{display:flex;align-items:center;gap:12px;min-height:28px;color:var(--secondary)}
+
+.v7-network-device-focus>.link{font-size:12px;padding:0}
+
+.v7-network-device-focus>.link:last-child{margin-left:auto}
+
+html:not(.dark) .stage-root .v7-artifact-tag{color:#393939}
+
+html:not(.dark) .stage-root .v7-artifact-tag .v7-artifact-icon{color:#595959}
+
+html:not(.dark) .stage-root .v7-network-map{background-color:#f5f5f5}
+
+html:not(.dark) .stage-root .v7-network-cluster>rect{stroke:#00000020;fill:#fff8}
+
+html:not(.dark) .stage-root .v7-network-group-title,html:not(.dark) .stage-root .v7-network-vendor{fill:#393939}
+
+/* Scan updates retain the SVG; only the sweep and progress use composited transforms. */
+.v7-network-progress>div>i{width:100%;transform-origin:left center;will-change:transform}
+
+.v7-network-total{font-weight:500;font-variant-numeric:tabular-nums}
+
+.v7-network-device{cursor:default}
+
+.v7-network-device>rect{transition:fill 180ms linear}
+
+.v7-network-device:hover>rect{fill:#535960}
+
+.v7-network-device.identified:hover>rect{fill:#5CA2E9}
+
+.v7-network-sweep{left:0;width:100%;background:linear-gradient(90deg,transparent 88%,#5ca2e919);will-change:transform}
+
+.v7-network-sweep[hidden]{display:none}
+
+/* Lucide 移植:产物图标由填充字形改为描边字形 */
+.v7-artifact-icon{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.v7-artifact-icon.conclusion{color:#8FB0F5}
