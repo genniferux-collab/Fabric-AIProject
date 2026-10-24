@@ -1,0 +1,29 @@
+/* Home uses stable PC controls; only the map's own scene scales. */
+.stage-root.pc-layout{--agent-width:592px}
+.pc-layout .figma-network-page{--dashboard-width:592px}
+.pc-layout .figma-dashboard{border-right:1px solid var(--line);box-shadow:none;overflow:hidden}
+.pc-layout .figma-dashboard .dcna-container{height:100%;min-height:0;padding:24px;overflow:hidden;background-size:100% auto;background-position:top center;background-color:var(--panel)}
+.pc-layout .figma-dashboard .dcna-header,.pc-layout .figma-dashboard .dcna-summary,.pc-layout .figma-dashboard .dcna-stats,.pc-layout .figma-dashboard .dcna-section-title,.pc-layout .figma-dashboard .dcna-tabs{flex-shrink:0}
+.pc-layout .figma-dashboard .dcna-summary>div{min-width:0}.pc-layout .figma-dashboard .dcna-summary img{width:56px;height:56px;flex:none;margin-left:8px}
+.pc-layout .figma-dashboard .dcna-summary span{font-size:13px;line-height:1.7}.pc-layout .figma-dashboard .dcna-summary br{display:none}
+.pc-layout .figma-dashboard .dcna-stats{gap:12px}.pc-layout .figma-dashboard .dcna-stat{min-width:0;padding:14px 12px}.pc-layout .figma-dashboard .dcna-stat p{min-height:34px;align-items:flex-start;font-size:12px}.pc-layout .figma-dashboard .dcna-stat>strong{font-size:22px;letter-spacing:0;white-space:nowrap}
+.pc-layout .figma-dashboard .dcna-stat>span{font-size:11px}.pc-layout .figma-dashboard .dcna-tabs{height:38px;min-height:38px}.pc-layout .figma-dashboard .dcna-tabs button{font-size:12px;gap:5px;padding:0 4px;white-space:nowrap}
+.pc-layout .figma-dashboard .dcna-events{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:0 2px 16px 0}
+.pc-layout .figma-dashboard .dcna-event{flex-shrink:0;padding:14px;box-shadow:none}.pc-layout .figma-dashboard .dcna-event-head b{font-size:13px;line-height:1.7;overflow-wrap:anywhere}.pc-layout .figma-dashboard .dcna-event-body{font-size:12px;line-height:1.8}
+.pc-layout .figma-map{container:home-map / size;background:radial-gradient(ellipse at 54% 55%,#252627 0%,#202122 58%,#1b1c1d 100%)}
+.pc-layout .figma-map-canvas{inset:0;transform-origin:center}
+.pc-layout .figma-map-plane{position:absolute;left:50%;top:58%;width:max(150cqw,230cqh);aspect-ratio:2792 / 1398;transform:translate(-56%,-50%)}
+.pc-layout .figma-map-image{width:100%;height:100%;object-fit:contain;object-position:center;filter:brightness(.9);mask-image:radial-gradient(ellipse at 53% 50%,black 43%,rgba(0,0,0,.96) 63%,transparent 88%);mask-composite:add}
+.pc-layout .figma-map-marker{width:12px;height:12px;background:var(--good);box-shadow:0 0 0 3px var(--good-bg);border:1px solid var(--good);cursor:default}
+.pc-layout .figma-map-marker b{position:absolute;left:18px;top:-10px;white-space:nowrap;padding:5px 9px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--text);font-size:12px;font-weight:400}
+.pc-layout .figma-map-marker-west-sanqu{left:63.1%;top:33.5%}.pc-layout .figma-map-marker-jiading{left:69.5%;top:55.4%}.pc-layout .figma-map-marker-waigaoqiao{left:70.6%;top:55.8%}
+.pc-layout .figma-map-marker-jiading b{left:auto;right:18px;top:8px}.pc-layout .figma-map-marker-waigaoqiao b{top:-30px}
+.pc-layout .figma-map-controls{top:auto;bottom:24px;right:24px;border:1px solid var(--line);box-shadow:none;background:var(--panel)}.pc-layout .figma-map-controls button{background:var(--panel);color:var(--text);border-bottom-color:var(--line)}
+@media(max-height:850px){.pc-layout .figma-dashboard .dcna-container{padding:20px}.pc-layout .figma-dashboard .dcna-header{margin-bottom:18px}.pc-layout .figma-dashboard .dcna-summary{margin-bottom:16px}.pc-layout .figma-dashboard .dcna-stats{margin-bottom:18px}.pc-layout .figma-dashboard .dcna-stat p{margin-bottom:8px}}
+@media(max-width:760px){.pc-layout .figma-network-page{--dashboard-width:min(592px,100%)}.pc-layout .figma-map-plane{width:150cqw}}
+
+/* Hide obsolete zoom controls baked into the reference bitmap. */
+.pc-layout .figma-map-image{clip-path:inset(0 4.5% 2.5% 0)}
+
+/* Controls stay at the map edge, clear of the metrics overlay. */
+.pc-layout .figma-network-page:has(.effectiveness-metrics) .figma-map-controls{top:auto;bottom:24px}

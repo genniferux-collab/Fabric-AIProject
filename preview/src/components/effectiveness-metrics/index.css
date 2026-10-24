@@ -1,0 +1,41 @@
+.pc-layout .effectiveness-metrics {
+  position: absolute;
+  z-index: 3;
+  top: 24px;
+  left: calc(var(--dashboard-width) + 24px);
+  right: 24px;
+  width: auto;
+  height: auto;
+  min-height: 130px;
+  container: metrics-panel / inline-size;
+  box-sizing: border-box;
+  margin-inline: auto;
+  padding: 16px 24px;
+  background: #2A2A2A;
+  border-radius: var(--radius-container);
+  color: var(--text);
+}
+.effectiveness-metrics h2 { margin: 0 0 10px; font-size: 16px; line-height: 24px; font-weight: 600; }
+.effectiveness-metrics-grid { display: grid; grid-template-columns: max-content 1px max-content; justify-content: space-between; column-gap: 32px; align-items: center; min-height: 64px; min-width: 0; }
+.effectiveness-metric-group { display: flex; align-items: center; gap: 40px; min-width: 0; }
+.effectiveness-group-divider { display: block; width: 1px; height: 40px; background: rgba(211,211,211,.32); }
+.effectiveness-metric { display: flex; align-items: center; justify-content: flex-start; gap: 16px; min-width: 0; flex: 0 0 auto; }
+.effectiveness-metric-copy { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.effectiveness-metric-copy strong { font-size: 24px; line-height: 30px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.effectiveness-metric-copy strong>span { font-size: 16px; font-weight: 400; margin-left: 3px; }
+.effectiveness-metric-copy strong>.effectiveness-ratio-separator { font-size: 18px; color: var(--muted); margin: 0 6px; }
+.effectiveness-metric-copy>span { color: var(--secondary); font-size: 14px; line-height: 20px; white-space: nowrap; }
+.effectiveness-distribution { width: 140px; height: 52px; flex: 0 0 140px; }
+.effectiveness-trend { width: 112px; height: 44px; flex: 0 0 112px; }
+/* Smaller PC panes keep the two metric pairs intact instead of squeezing labels. */
+@container metrics-panel (max-width: 960px) {
+  .effectiveness-metrics-grid { grid-template-columns: minmax(0,1fr); justify-content: stretch; row-gap: 16px; }
+  .effectiveness-metric-group { justify-self: center; min-height: 54px; }
+  .effectiveness-group-divider { width: 40px; height: 1px; justify-self: center; }
+}
+@container metrics-panel (max-width: 540px) {
+  .effectiveness-metric-group { gap: 24px; }
+  .effectiveness-metric { gap: 12px; }
+  .effectiveness-distribution { width: 128px; flex-basis: 128px; }
+  .effectiveness-trend { width: 80px; flex-basis: 80px; }
+}

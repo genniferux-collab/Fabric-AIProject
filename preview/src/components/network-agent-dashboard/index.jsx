@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ChatComposer from "../chat-composer/index.jsx";
 import "./index.css";
 
 const defaultSummary = { weekCount: 465, healthyDays: 158, totalEvents: 1465 };
@@ -48,6 +49,7 @@ export default function DataCenterNetworkAgent({
     <div className="dcna-section-title"><h2>待您关注</h2><a onClick={onOpenAgent} role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter") onOpenAgent(); }}>更多</a></div>
     <div className="dcna-tabs" role="tablist">{tabs.map((tab, index) => <button key={tab.label} className={activeTab === index ? "active" : ""} onClick={() => setActiveTab(index)} role="tab" aria-selected={activeTab === index}>{tab.label}<strong className={tab.color || ""}>{count(tab)}</strong></button>)}</div>
     <div className="dcna-events">{visibleEvents.length ? visibleEvents.map((event, index) => <Event event={event} key={`${event.title}-${index}`} />) : <div className="dcna-empty"><Symbol name="description" /><p>暂无事件</p></div>}</div>
+    <ChatComposer onOpen={onOpenAgent} />
   </div>;
 }
 
