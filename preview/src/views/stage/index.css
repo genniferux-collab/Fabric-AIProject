@@ -138,3 +138,8 @@ html:not(.dark) .stage-root{color-scheme:light;--text:#191919;--secondary:#555;-
 /* 常规页面形态：视口自适应（原 1920×1080 等比缩放画布已移除） */
 .stage-viewport{position:fixed;inset:0;overflow:auto;background:#101010;z-index:0}
 .stage-root{position:relative;width:100%;height:100vh;min-width:1200px;background:var(--bg)}
+
+/* The outer canvas owns scaling; rem must stay at the design baseline. */
+html:has(.stage-viewport){font-size:16px}
+
+.stage-root.design-canvas{container-type:inline-size;container-name:stage-layout}

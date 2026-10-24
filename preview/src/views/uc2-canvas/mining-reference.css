@@ -1,0 +1,31 @@
+/* Geometry and reveal timing converted from config-agent-studio's mining board. */
+.stage-root.pc-layout{--agent-width:clamp(320px,31vw,592px)}
+.pc-layout .canvas-head,.pc-layout .lui-head{height:56px;min-height:56px;padding-left:16px;padding-right:16px}
+.pc-layout .card{border-radius:16px}
+.pc-layout #uc2Module2>.card{height:clamp(520px,calc(100dvh - 164px),898px);min-height:520px;max-height:898px;padding:0;overflow:hidden;position:relative;container:mining-board / inline-size}
+.pc-layout #uc2Module2 .fusion-mining{display:flex;flex-direction:column;height:100%;min-height:0;max-height:none}
+.pc-layout #uc2Module2 .unified-heading{height:56px;min-height:56px;flex:0 0 56px;display:flex;align-items:center;gap:16px;padding:16px;margin:0;border-bottom:1px solid var(--line)}
+.pc-layout #uc2Module2 .unified-heading>div:first-child{min-width:0}
+.pc-layout #uc2Module2 .unified-heading h2{font-size:14px;line-height:24px;margin:0;font-weight:500}
+.pc-layout #uc2Module2 .unified-heading p,.pc-layout #uc2Module2 .fusion-context,.pc-layout #uc2Module2 .fusion-process-caption{display:none}
+.pc-layout #uc2Module2 .fusion-scene,.pc-layout #uc2Module2 .fusion-scene:hover{flex:1;min-height:0;position:relative;overflow:hidden;background:transparent;border:0;box-shadow:none;border-radius:0}
+.pc-layout #uc2Module2 .fusion-workspace,.pc-layout #uc2Module2 .with-rule-drawer .fusion-workspace{height:100%;width:100%;padding:16px;display:block;position:relative}
+.pc-layout #uc2Module2 .fusion-visual{height:100%;width:100%;overflow:auto;min-height:0;scrollbar-width:thin}
+.pc-layout #uc2Module2 .fusion-graph{display:block;width:100%;height:100%;min-width:780px;min-height:400px;background:transparent}
+.pc-layout #uc2Module2 .fusion-rule-drawer{position:absolute;z-index:2;inset:0 0 0 auto;width:330px;height:100%;max-height:none;display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow-popover)}
+.pc-layout #uc2Module2 .fusion-drawer-header{flex:none;position:relative;min-height:56px;padding:16px}
+.pc-layout #uc2Module2 .fusion-drawer-body{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:16px}
+.fusion-replay-btn{display:flex;align-items:center;gap:6px;margin-left:auto;padding:6px 10px;border:1px solid var(--line);border-radius:var(--radius-base);font-size:12px;color:var(--secondary);white-space:nowrap}
+.fusion-replay-btn .ic{width:14px;height:14px}.fusion-replay-btn:hover{color:var(--link);border-color:var(--link)}
+.fusion-sequential .fusion-reveal{animation:fusionReferenceNode var(--fusion-duration,500ms) cubic-bezier(.22,.61,.36,1) var(--fusion-delay,0ms) both}
+.fusion-sequential .fusion-reveal-edge{animation:fusionReferenceEdge var(--fusion-duration,650ms) ease-out var(--fusion-delay,0ms) both}
+.fusion-sequential .fusion-node.dim{--fusion-opacity:.5}.fusion-sequential .fusion-edge.dim{--fusion-opacity:.28}
+@keyframes fusionReferenceNode{0%{opacity:0;transform:translateX(-14px);pointer-events:none}99%{pointer-events:none}100%{opacity:var(--fusion-opacity,1);transform:translateX(0);pointer-events:auto}}
+@keyframes fusionReferenceEdge{0%{opacity:0;clip-path:inset(0 100% 0 0)}100%{opacity:var(--fusion-opacity,1);clip-path:inset(0 0 0 0)}}
+@container mining-board (max-width:650px){.pc-layout #uc2Module2 .unified-status{font-size:10px}.pc-layout #uc2Module2 .unified-heading{gap:8px}.fusion-replay-btn{font-size:11px;padding:4px 6px}}
+@media(prefers-reduced-motion:reduce){.fusion-sequential .fusion-reveal,.fusion-sequential .fusion-reveal-edge{animation:none!important}}
+
+.fusion-sequential{--fusion-duration:500ms;--fusion-delay:0ms;--fusion-opacity:1}
+/* Opening a candidate overlays its details; the conversation and graph stay put. */
+.stage-root.pc-layout.uc2.uc2-rule-drawer #lui{width:var(--agent-width)}
+.stage-root.pc-layout.uc2.uc2-rule-drawer #canvas:not(.full){left:calc(48px + var(--agent-width))}

@@ -470,7 +470,7 @@ html:not(.dark) .stage-root.uc4 .v11-conclusion>.v7-conclusion-label{color:#7862
 .stage-root.uc4 .v13-evidence .code-scroll{max-height:160px;min-height:0;overflow:auto;scrollbar-width:thin;scrollbar-color:#555 transparent;scroll-behavior:auto}
 .stage-root.uc4 .v13-evidence.expanded .code-scroll{height:320px;max-height:320px}
 .stage-root.uc4 .v13-evidence .config-footer{min-height:28px}
-@media(max-width:1000px){
+@container stage-layout (max-width:1000px){
 .stage-root.uc4 .v13-instance-cards{grid-template-columns:1fr}
 .stage-root.uc4 .v13-snapshot{display:none}}
 @media(prefers-reduced-motion:reduce){
@@ -589,7 +589,7 @@ html:not(.dark) .stage-root.uc4 .v13-evidence .code-line mark{color:#b94758}
 html:not(.dark) .stage-root.uc4 .v14-copy-command,html:not(.dark) .stage-root.uc4 .rule-detail .fix-actions .btn{color:#397ab8}
 html:not(.dark) .stage-root.uc4 .rule-detail .fix-diff .minus{color:#ae4c5e}
 html:not(.dark) .stage-root.uc4 .rule-detail .fix-diff .plus{color:#277856}
-@media(max-width:1000px){
+@container stage-layout (max-width:1000px){
 .stage-root.uc4 .v14-device-meta{grid-template-columns:1fr 1fr;gap:12px 20px}
 .stage-root.uc4 .v14-device-meta>div+div{padding-left:0;border:0}
 .stage-root.uc4 .canvas .device-workspace>.rule-detail{padding:20px}
@@ -597,9 +597,9 @@ html:not(.dark) .stage-root.uc4 .rule-detail .fix-diff .plus{color:#277856}
 @media(prefers-reduced-motion:reduce){
 .stage-root.uc4 .rule-navigation .rule-list-item{transition:none}}
 
-/* UC4 shares the Site's design canvas without changing the UC2 page shell. */
-.stage-viewport:has(.stage-root.uc4){overflow:clip;background:#101010}
-.stage-root.uc4{position:absolute;left:50%;top:50%;width:1920px;height:1080px;min-width:1920px;transform:translate(-50%,-50%) scale(var(--uc4-scale,1));transform-origin:center;overflow:clip}
+/* All flows share one design canvas and one viewport scale. */
+.stage-viewport:has(.stage-root.design-canvas){overflow:clip;background:#101010}
+.stage-root.design-canvas{--canvas-scale:1;position:absolute;left:50%;top:50%;width:1920px;height:1080px;min-width:1920px;transform:translate(-50%,-50%) scale(var(--canvas-scale,1));transform-origin:center;overflow:clip}
 .stage-root.uc4 .canvas-head{border-bottom:1px solid #494949}
 .stage-root.uc4 .v7-card-tabbed{position:relative}
 .stage-root.uc4 .v7-artifact-pane{min-height:0;flex:1;overflow:auto;padding:16px;scrollbar-width:thin}

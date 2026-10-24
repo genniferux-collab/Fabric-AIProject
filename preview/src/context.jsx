@@ -33,7 +33,7 @@ export function AppProvider({ children }) {
   useEffect(() => { document.documentElement.classList.toggle("dark", isDark); }, [isDark]);
 
   // 布局
-  const [luiOpen, setLuiOpen] = useState(true);
+  const [luiOpen, setLuiOpen] = useState(false);
   const [canvasHidden, setCanvasHidden] = useState(true);
   const [agentActive, setAgentActive] = useState(false);
   const [full, setFull] = useState(false);

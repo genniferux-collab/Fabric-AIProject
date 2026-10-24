@@ -4182,6 +4182,11 @@ html:not(.dark) .stage-root{color-scheme:light;--text:#191919;--secondary:#555;-
 .stage-viewport{position:fixed;inset:0;overflow:auto;background:#101010;z-index:0}
 .stage-root{position:relative;width:100%;height:100vh;min-width:1200px;background:var(--bg)}
 
+/* The outer canvas owns scaling; rem must stay at the design baseline. */
+html:has(.stage-viewport){font-size:16px}
+
+.stage-root.design-canvas{container-type:inline-size;container-name:stage-layout}
+
 /* src/views/top-bar/index.css */
 /* migrated from config-agent-merged.html — top-bar */
 
@@ -4218,21 +4223,24 @@ html:not(.dark) .stage-root .version-compare{background:#f3f3f3;border-color:#df
 html:not(.dark) .stage-root .version-compare a[aria-current=page]{background:#fff;color:#191919}
 
 /* src/views/cockpit/index.css */
-/* migrated from config-agent-merged.html — cockpit */
+@font-face{font-family:"Material Symbols Rounded";src:url("./assets/uploads/material-symbols-rounded-filled.ttf") format("truetype");font-style:normal;font-weight:400}
 
-.cockpit{position:absolute;inset:48px 0 0 48px;padding:32px;background:radial-gradient(ellipse at 55% 15%,#13203566,transparent 60%),#0b0d11}
+/* The Figma frame is fixed at 1920 × 1080.  Keeping the source canvas ratio
+   prevents the sidebar from being laid over a map that has been cover-scaled. */
+.figma-network-page{position:relative;box-sizing:border-box;flex:0 0 1920px;width:1920px;height:1080px;overflow:hidden;background:#191919;font-family:var(--font-family)}
+/* The map occupies only the desktop area to the right of the 592px dashboard.
+   It preserves its intrinsic aspect ratio instead of using `cover` on the full page. */
+.figma-map{position:absolute;z-index:0;left:592px;right:0;top:48px;bottom:0;overflow:hidden;background:#171717;touch-action:none;cursor:grab}.figma-map:active{cursor:grabbing}.figma-map-canvas{position:absolute;inset:0;transform-origin:center;transition:transform .18s ease}.figma-map-canvas.is-panning{transition:none}.figma-map-image{display:block;width:100%;height:100%;object-fit:cover;object-position:center;filter:brightness(1.08) contrast(1.06);user-select:none;pointer-events:none}.figma-map-marker{position:absolute;z-index:1;width:16px;height:16px;border-radius:50%;background:var(--success);box-shadow:0 0 0 2px var(--on-success);transform:translate(-50%,-50%);pointer-events:auto}.figma-map-marker-west-sanqu{left:71.8%;top:34.2%}.figma-map-marker-jiading{left:80%;top:56%}.figma-map-marker-waigaoqiao{left:80.4%;top:56.1%}.figma-map-controls{position:absolute;top:30px;right:18px;z-index:1;display:flex;flex-direction:column;overflow:hidden;border:1px solid #3a3a3a;border-radius:6px;background:#121212;box-shadow:0 2px 8px rgba(0,0,0,.45)}.figma-map-controls button{display:grid;place-items:center;width:34px;height:34px;padding:0;border:0;border-bottom:1px solid #343434;background:#121212;color:#fff;font:700 21px/1 Arial,sans-serif;cursor:pointer}.figma-map-controls button:last-child{border-bottom:0;font-size:17px}.figma-map-controls button:hover{background:#2a2a2a}.figma-map-controls button:focus-visible{position:relative;z-index:1;outline:2px solid var(--focus-ring);outline-offset:-2px}
+.figma-dashboard{position:absolute;z-index:2;top:48px;left:0;width:592px;height:1032px;box-shadow:20px 0 30px rgba(0,0,0,.15)}.figma-dashboard .dcna-container{height:1032px}
 
-.cockpit h1{font-size:28px;font-weight:500;margin:16px 0 8px}
-
-.cockpit .welcome{font-size:18px;color:#c9c9c9}
-
-.cockpit-cards{display:flex;gap:16px;margin:40px 0}
-
-.cockpit-card{padding:24px;background:#191919;border-radius:8px;width:380px}
-
-.cockpit-card strong{display:block;font-size:36px;font-weight:500;margin:16px 0}
-
-.cockpit-map{height:580px;border:1px solid var(--line);border-radius:8px;display:grid;place-items:center;background-image:radial-gradient(#ffffff18 1px,transparent 1px);background-size:20px 20px;color:#7e899b}
+/* Fit the imported dashboard inside the existing 48px header and side rail. */
+.figma-network-page{position:absolute;inset:48px 0 0 48px;width:auto;height:auto;min-width:0;--dashboard-width:592px}
+.figma-map{left:var(--dashboard-width);top:0}
+.figma-dashboard{top:0;width:var(--dashboard-width);height:100%;overflow:auto}
+.figma-dashboard .dcna-container{width:100%;height:auto;min-height:100%;overflow:visible}
+.figma-dashboard .dcna-events{overflow:visible;flex:none}
+.dcna-agent-entry{cursor:pointer;text-align:left;width:100%}
+.dcna-agent-entry:focus-visible{outline:2px solid var(--focus-ring)}
 
 /* src/views/lui-panel/index.css */
 /* migrated from config-agent-merged.html — lui-panel */
@@ -7296,7 +7304,7 @@ html:not(.dark) .stage-root.uc4 .v11-conclusion>.v7-conclusion-label{color:#7862
 .stage-root.uc4 .v13-evidence .code-scroll{max-height:160px;min-height:0;overflow:auto;scrollbar-width:thin;scrollbar-color:#555 transparent;scroll-behavior:auto}
 .stage-root.uc4 .v13-evidence.expanded .code-scroll{height:320px;max-height:320px}
 .stage-root.uc4 .v13-evidence .config-footer{min-height:28px}
-@media(max-width:1000px){
+@container stage-layout (max-width:1000px){
 .stage-root.uc4 .v13-instance-cards{grid-template-columns:1fr}
 .stage-root.uc4 .v13-snapshot{display:none}}
 @media(prefers-reduced-motion:reduce){
@@ -7415,7 +7423,7 @@ html:not(.dark) .stage-root.uc4 .v13-evidence .code-line mark{color:#b94758}
 html:not(.dark) .stage-root.uc4 .v14-copy-command,html:not(.dark) .stage-root.uc4 .rule-detail .fix-actions .btn{color:#397ab8}
 html:not(.dark) .stage-root.uc4 .rule-detail .fix-diff .minus{color:#ae4c5e}
 html:not(.dark) .stage-root.uc4 .rule-detail .fix-diff .plus{color:#277856}
-@media(max-width:1000px){
+@container stage-layout (max-width:1000px){
 .stage-root.uc4 .v14-device-meta{grid-template-columns:1fr 1fr;gap:12px 20px}
 .stage-root.uc4 .v14-device-meta>div+div{padding-left:0;border:0}
 .stage-root.uc4 .canvas .device-workspace>.rule-detail{padding:20px}
@@ -7423,9 +7431,9 @@ html:not(.dark) .stage-root.uc4 .rule-detail .fix-diff .plus{color:#277856}
 @media(prefers-reduced-motion:reduce){
 .stage-root.uc4 .rule-navigation .rule-list-item{transition:none}}
 
-/* UC4 shares the Site's design canvas without changing the UC2 page shell. */
-.stage-viewport:has(.stage-root.uc4){overflow:clip;background:#101010}
-.stage-root.uc4{position:absolute;left:50%;top:50%;width:1920px;height:1080px;min-width:1920px;transform:translate(-50%,-50%) scale(var(--uc4-scale,1));transform-origin:center;overflow:clip}
+/* All flows share one design canvas and one viewport scale. */
+.stage-viewport:has(.stage-root.design-canvas){overflow:clip;background:#101010}
+.stage-root.design-canvas{--canvas-scale:1;position:absolute;left:50%;top:50%;width:1920px;height:1080px;min-width:1920px;transform:translate(-50%,-50%) scale(var(--canvas-scale,1));transform-origin:center;overflow:clip}
 .stage-root.uc4 .canvas-head{border-bottom:1px solid #494949}
 .stage-root.uc4 .v7-card-tabbed{position:relative}
 .stage-root.uc4 .v7-artifact-pane{min-height:0;flex:1;overflow:auto;padding:16px;scrollbar-width:thin}
@@ -7469,6 +7477,316 @@ html:not(.dark) .stage-root #canvas .canvas-tab.active .ic,html:not(.dark) .stag
 .stage-root.uc4 .locate-highlight::after{content:"";position:absolute;inset:0;box-sizing:border-box;padding:1px;border-radius:inherit;background:linear-gradient(110deg,#5ca2e9,#a18bfa);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;pointer-events:none;z-index:10;animation:smart-locate-border 2.4s ease forwards}
 @keyframes smart-locate-border{0%,100%{opacity:0}10%,75%{opacity:1}}
 .stage-root.uc4 .card[data-artifact-kind]:focus-visible{outline:1px solid #a18bfa;outline-offset:2px}
+
+/* src/views/stage/desktop.css */
+/* Desktop workbench: stable controls, fluid panes, local scrolling. */
+html:has(.stage-viewport),body:has(.stage-viewport){margin:0;width:100%;height:100%;overflow:hidden;font-size:16px}
+.stage-viewport:has(.pc-layout){overflow:hidden;background:var(--surface-container-lowest)}
+.stage-root.pc-layout{--agent-width:clamp(320px,28vw,420px);position:relative;inset:auto;width:100%;height:100%;min-width:0;min-height:0;transform:none;overflow:hidden;container:stage-layout / inline-size}
+.pc-layout .top{width:100%;padding:0 16px;gap:16px;white-space:nowrap}.pc-layout .top .left,.pc-layout .top .right{gap:16px;min-width:0}.pc-layout .brand{font-size:16px}.pc-layout .top .right{margin-left:auto}.pc-layout .version-compare a{padding:0 8px}
+.stage-root.pc-layout #lui{width:var(--agent-width);min-width:0;transition:transform .18s ease}
+.stage-root.pc-layout #lui.closed{transform:translateX(calc(-100% - 48px));pointer-events:none;visibility:hidden}
+.stage-root.pc-layout #canvas:not(.full){left:calc(48px + var(--agent-width));min-width:0;transition:none}
+.stage-root.pc-layout #canvas.full{left:48px}
+.pc-layout .canvas{container:workspace / inline-size}
+.pc-layout .canvas-content{min-width:0;min-height:0;scrollbar-width:thin}
+.pc-layout .figma-network-page{--dashboard-width:clamp(360px,32vw,480px);width:auto;height:auto;min-width:0}
+.pc-layout .figma-dashboard .dcna-container{padding:24px}.pc-layout .figma-dashboard .dcna-header{margin-bottom:24px}.pc-layout .figma-dashboard .dcna-header h1{font-size:18px}
+.pc-layout .figma-dashboard .dcna-stat{padding:12px}.pc-layout .figma-dashboard .dcna-stat>strong{font-size:22px}.pc-layout .figma-dashboard .dcna-stat p{font-size:12px;gap:6px}.pc-layout .dcna-events{padding-bottom:24px}
+.stage-root.pc-layout.uc2-intent .figma-network-page{visibility:visible}
+.pc-layout .uc2-report-grid,.stage-root.pc-layout .v7-top-grid{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.pc-layout .uc2-report-summary{grid-template-columns:240px minmax(0,1fr);gap:20px;padding:20px}
+.pc-layout .uc2-report-progress{padding-right:16px;gap:12px}
+.pc-layout .uc2-report-toolbar,.pc-layout .uc2-report-pagination,.pc-layout .v7-pagination{flex-wrap:wrap}
+.pc-layout .uc2-report-filters{flex-wrap:wrap}.pc-layout .uc2-report-filters .search{flex:1;min-width:220px;width:auto}
+.pc-layout .uc2-report-table-scroll,.pc-layout .v7-table-scroll{max-width:100%;overflow:auto}
+.pc-layout .uc2-report-status{gap:20px;overflow:auto;white-space:nowrap}
+.pc-layout .uc2-metrics{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.pc-layout .fusion-workspace{flex-wrap:wrap}.pc-layout .fusion-visual{min-width:0;flex:1 1 450px}.pc-layout .fusion-rule-drawer{flex:1 1 280px;max-height:none;width:auto}
+@container workspace (max-width:900px){
+ .pc-layout .uc2-report-summary,.stage-root.pc-layout .v7-summary{grid-template-columns:1fr;gap:20px}
+ .pc-layout .uc2-report-progress,.stage-root.pc-layout .v7-compliance{border-right:0;padding-right:0}
+ .pc-layout .uc2-report-grid,.stage-root.pc-layout .v7-top-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .pc-layout .uc2-report-grid.by-role{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .pc-layout .uc2-split{grid-template-columns:1fr}
+ .pc-layout .card{padding:20px}
+ .stage-root.pc-layout .v7-table-tools{flex-wrap:wrap}
+ .stage-root.pc-layout .v7-table-tools .search{flex:1;min-width:200px}
+}
+@container workspace (max-width:600px){
+ .pc-layout .uc2-report-grid,.pc-layout .uc2-report-grid.by-role,.stage-root.pc-layout .v7-top-grid{grid-template-columns:1fr}
+ .pc-layout .uc2-report-heading{align-items:flex-start;flex-wrap:wrap}
+ .pc-layout .uc2-report-heading h2{font-size:18px}
+ .pc-layout .uc2-report-status{gap:14px}
+ .pc-layout .uc2-report-filters select{flex:1;min-width:130px}
+ .pc-layout .uc2-report-pagination>.row{flex-wrap:wrap}
+ .pc-layout .uc2-report-summary{padding:16px}
+ .stage-root.pc-layout .canvas .device-workspace{grid-template-columns:1fr}
+}
+@media(max-width:1280px){.pc-layout .version-compare>span,.pc-layout .top .tag{display:none}.pc-layout .top .left,.pc-layout .top .right{gap:12px}.pc-layout .version-compare a{padding:0 6px}}
+@media(max-width:1050px){.pc-layout .version-compare{display:none}.stage-root.pc-layout{--agent-width:300px}.pc-layout .figma-network-page{--dashboard-width:360px}.pc-layout .uc2-report-meta{line-height:1.7}}
+@media(max-width:760px){.pc-layout .topnav:last-child,.pc-layout .top .divider,.pc-layout .top .right>.row{display:none}.stage-root.pc-layout{--agent-width:280px}.stage-root.pc-layout #lui{box-shadow:var(--shadow-popover)}.stage-root.pc-layout #canvas:not(.full){left:48px}.stage-root.pc-layout #canvas{z-index:1}.pc-layout .figma-network-page{--dashboard-width:min(360px,100%)}.pc-layout .figma-map{left:0}.pc-layout .figma-dashboard{background:var(--panel)}}
+
+/* src/components/network-agent-dashboard/index.css */
+.dcna-container{width:592px;height:1032px;box-sizing:border-box;overflow:hidden;position:relative;display:flex;flex-direction:column;padding:32px;color:#e4e4e7;background:#18181b url("./assets/uploads/bg.png") center/cover no-repeat;font-family:var(--font-family)}
+@font-face{font-family:"Material Symbols Rounded";src:url("./assets/uploads/material-symbols-rounded-filled.ttf") format("truetype");font-style:normal;font-weight:400}.dcna-material-symbol{font-family:"Material Symbols Rounded";font-weight:normal;font-style:normal;font-size:18px;line-height:1;letter-spacing:normal;white-space:nowrap;display:inline-block;font-variation-settings:"FILL" 1,"wght" 400,"GRAD" 0,"opsz" 24}
+.dcna-glow{position:absolute;top:-60px;left:50%;width:400px;height:200px;transform:translateX(-50%);background:radial-gradient(ellipse,rgba(99,102,241,.15),transparent 70%)}
+.dcna-header,.dcna-section-title,.dcna-event-head,.dcna-event-body,.dcna-stat p{display:flex;align-items:center}.dcna-header{position:relative;justify-content:space-between;margin-bottom:30px;z-index:10}.dcna-header h1{font-size:20px;color:#fff;margin:0;font-weight:500}.dcna-period-wrap{position:relative}.dcna-period{display:flex;gap:6px;align-items:center;border:0;background:transparent;color:#a1a1aa;font-size:14px;cursor:pointer;padding:5px 0}.dcna-period .dcna-material-symbol{font-size:17px;color:#a1a1aa;transition:transform .2s ease}.dcna-period .dcna-period-chevron-open{transform:rotate(180deg)}.dcna-period-menu{position:absolute;right:0;top:32px;min-width:120px;padding:4px;border:1px solid rgba(255,255,255,.1);border-radius:8px;background:#29292e;box-shadow:0 8px 24px rgba(0,0,0,.38)}.dcna-period-menu button{display:block;width:100%;padding:8px 10px;border:0;border-radius:5px;background:transparent;color:#d4d4d8;text-align:left;font:inherit;font-size:13px;cursor:pointer}.dcna-period-menu button:hover,.dcna-period-menu .dcna-period-option-selected{background:rgba(96,165,250,.15);color:#93c5fd}
+.dcna-summary{position:relative;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.dcna-summary p{font-size:16px;color:#fff;margin:0 0 12px;font-weight:500}.dcna-summary em{font-style:normal;color:#34d399}.dcna-summary span{font-size:14px;line-height:1.5;color:#a1a1aa}.dcna-summary b{color:#e4e4e7}.dcna-summary img{width:72px;height:72px;object-fit:contain}
+.dcna-stats{display:flex;gap:12px;margin-bottom:20px}.dcna-stat{flex:1;padding:16px;border:1px solid rgba(255,255,255,.04);border-radius:12px;background:rgba(255,255,255,.05)}.dcna-stat p{gap:8px;margin:0 0 12px;color:#d4d4d8;font-size:14px}.dcna-stat>strong{display:block;width:max-content;margin-bottom:2px;color:#fff;font-size:24px;letter-spacing:1px;font-weight:500}.dcna-stat-number{font-style:normal;text-decoration-line:underline;text-decoration-thickness:1px;text-decoration-color:#FFFFFF;text-underline-offset:6px}.dcna-stat-separator{font-style:normal;text-decoration:none}.dcna-stat>span{font-size:12px;color:#71717a}
+.dcna-solid-icon{position:relative;width:16px;height:16px;border-radius:4px;overflow:hidden;flex:none}.dcna-solid-icon--repair{background:#60a5fa}.dcna-solid-icon--repair::before{content:"";position:absolute;width:10px;height:4px;left:3px;top:6px;border-radius:2px;background:#172554;transform:rotate(-45deg)}.dcna-solid-icon--config{border-radius:50%;background:#34d399}.dcna-solid-icon--config::before{content:"";position:absolute;width:4px;height:6px;left:6px;top:3px;border-radius:3px;background:#064e3b}.dcna-solid-icon--config::after{content:"";position:absolute;width:5px;height:4px;left:7px;top:8px;border-radius:3px;background:#064e3b}
+.dcna-stat-icon{font-size:17px}.dcna-stat-icon--build{color:#60a5fa}.dcna-stat-icon--settings_ethernet{color:#34d399}
+.dcna-section-title{justify-content:space-between;margin-bottom:14px}.dcna-section-title h2{margin:0;color:#fff;font-size:16px;font-weight:500}.dcna-section-title a{font-size:14px;color:#60a5fa}.dcna-tabs{display:flex;height:38px;padding:4px;margin-bottom:14px;border-radius:9999px;background:rgba(42,42,42,.75)}.dcna-tabs button{flex:1;display:flex;gap:8px;align-items:center;justify-content:center;border:0;border-radius:9999px;background:transparent;color:#a1a1aa;font-size:14px}.dcna-tabs button.active{background:rgba(243,243,243,.1);color:#e4e4e7}.dcna-tabs strong{color:#fff}.dcna-tabs .red{color:#f87171}.dcna-tabs .blue{color:#60a5fa}
+.dcna-events{display:flex;flex:1;flex-direction:column;gap:10px;overflow:hidden}.dcna-event{min-height:85px;box-sizing:border-box;padding:16px;overflow:hidden;border:1px solid rgba(255,255,255,.04);border-radius:12px;background:linear-gradient(135deg,rgba(255,255,255,.05),transparent),#242424;box-shadow:0 8px 24px rgba(0,0,0,.5)}.dcna-event.highlight{border-color:rgba(239,68,68,.15);background:linear-gradient(135deg,rgba(239,68,68,.12),rgba(239,68,68,.04)),#242424}.dcna-event-head{gap:8px;margin-bottom:10px}.dcna-event-head b{color:#fff;font-size:14px}.dcna-event-icon{position:relative;display:inline-block;width:16px;height:16px;flex:none}.dcna-event-icon--alert{border-radius:7px 7px 5px 5px;background:#e7434a}.dcna-event-icon--alert::after{content:"";position:absolute;bottom:-2px;left:6px;width:4px;height:4px;border-radius:50%;background:#fca5a5}.dcna-event-icon--network{border-radius:3px;background:#2070f3;box-shadow:0 6px 0 #2070f3,0 12px 0 #2070f3}.dcna-event-body{align-items:flex-start;gap:6px;padding-left:22px;color:#a1a1aa;font-size:13px;line-height:1.65}.dcna-pin{position:relative;width:10px;height:13px;flex:none;margin-top:3px;border-radius:7px 7px 7px 0;background:#a1a1aa;transform:rotate(-45deg)}.dcna-pin::after{content:"";position:absolute;width:4px;height:4px;left:3px;top:3px;border-radius:50%;background:#242424}.dcna-event-body strong{color:#fff}.dcna-event-body i{font-style:normal;color:#a1a1aa}.dcna-empty{display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;color:#71717a}.dcna-empty-mark{width:48px;height:56px;border-radius:8px;background:#3f3f46;position:relative}.dcna-empty-mark::after{content:"";position:absolute;width:30px;height:4px;top:14px;left:9px;border-radius:3px;background:#71717a;box-shadow:0 10px 0 #71717a,0 20px 0 #71717a}.dcna-empty p{font-size:13px}
+.dcna-alert-icon{font-size:18px;color:#e7434a}.dcna-network-icon{font-size:18px;color:#2070f3}.dcna-event-body{align-items:flex-start;gap:6px;padding-left:22px;color:#a1a1aa;font-size:13px;line-height:1.65}.dcna-location-icon{flex:none;margin-top:2px;font-size:15px;color:#a1a1aa}.dcna-event-body strong{color:#fff}.dcna-event-body i{font-style:normal;color:#a1a1aa}.dcna-empty{display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;color:#71717a}.dcna-empty .dcna-material-symbol{font-size:56px;color:#52525b}.dcna-empty p{font-size:13px}
+
+.dcna-agent-entry{flex:1;min-width:0;padding:0}.dcna-agent-entry .dcna-stat{height:100%}.dcna-section-title a{cursor:pointer}
+
+/* src/views/uc2-canvas/mining-reference.css */
+/* Geometry and reveal timing converted from config-agent-studio's mining board. */
+.stage-root.pc-layout{--agent-width:clamp(320px,31vw,592px)}
+.pc-layout .canvas-head,.pc-layout .lui-head{height:56px;min-height:56px;padding-left:16px;padding-right:16px}
+.pc-layout .card{border-radius:16px}
+.pc-layout #uc2Module2>.card{height:clamp(520px,calc(100dvh - 164px),898px);min-height:520px;max-height:898px;padding:0;overflow:hidden;position:relative;container:mining-board / inline-size}
+.pc-layout #uc2Module2 .fusion-mining{display:flex;flex-direction:column;height:100%;min-height:0;max-height:none}
+.pc-layout #uc2Module2 .unified-heading{height:56px;min-height:56px;flex:0 0 56px;display:flex;align-items:center;gap:16px;padding:16px;margin:0;border-bottom:1px solid var(--line)}
+.pc-layout #uc2Module2 .unified-heading>div:first-child{min-width:0}
+.pc-layout #uc2Module2 .unified-heading h2{font-size:14px;line-height:24px;margin:0;font-weight:500}
+.pc-layout #uc2Module2 .unified-heading p,.pc-layout #uc2Module2 .fusion-context,.pc-layout #uc2Module2 .fusion-process-caption{display:none}
+.pc-layout #uc2Module2 .fusion-scene,.pc-layout #uc2Module2 .fusion-scene:hover{flex:1;min-height:0;position:relative;overflow:hidden;background:transparent;border:0;box-shadow:none;border-radius:0}
+.pc-layout #uc2Module2 .fusion-workspace,.pc-layout #uc2Module2 .with-rule-drawer .fusion-workspace{height:100%;width:100%;padding:16px;display:block;position:relative}
+.pc-layout #uc2Module2 .fusion-visual{height:100%;width:100%;overflow:auto;min-height:0;scrollbar-width:thin}
+.pc-layout #uc2Module2 .fusion-graph{display:block;width:100%;height:100%;min-width:780px;min-height:400px;background:transparent}
+.pc-layout #uc2Module2 .fusion-rule-drawer{position:absolute;z-index:2;inset:0 0 0 auto;width:330px;height:100%;max-height:none;display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow-popover)}
+.pc-layout #uc2Module2 .fusion-drawer-header{flex:none;position:relative;min-height:56px;padding:16px}
+.pc-layout #uc2Module2 .fusion-drawer-body{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:16px}
+.fusion-replay-btn{display:flex;align-items:center;gap:6px;margin-left:auto;padding:6px 10px;border:1px solid var(--line);border-radius:var(--radius-base);font-size:12px;color:var(--secondary);white-space:nowrap}
+.fusion-replay-btn .ic{width:14px;height:14px}.fusion-replay-btn:hover{color:var(--link);border-color:var(--link)}
+.fusion-sequential .fusion-reveal{animation:fusionReferenceNode var(--fusion-duration,500ms) cubic-bezier(.22,.61,.36,1) var(--fusion-delay,0ms) both}
+.fusion-sequential .fusion-reveal-edge{animation:fusionReferenceEdge var(--fusion-duration,650ms) ease-out var(--fusion-delay,0ms) both}
+.fusion-sequential .fusion-node.dim{--fusion-opacity:.5}.fusion-sequential .fusion-edge.dim{--fusion-opacity:.28}
+@keyframes fusionReferenceNode{0%{opacity:0;transform:translateX(-14px);pointer-events:none}99%{pointer-events:none}100%{opacity:var(--fusion-opacity,1);transform:translateX(0);pointer-events:auto}}
+@keyframes fusionReferenceEdge{0%{opacity:0;clip-path:inset(0 100% 0 0)}100%{opacity:var(--fusion-opacity,1);clip-path:inset(0 0 0 0)}}
+@container mining-board (max-width:650px){.pc-layout #uc2Module2 .unified-status{font-size:10px}.pc-layout #uc2Module2 .unified-heading{gap:8px}.fusion-replay-btn{font-size:11px;padding:4px 6px}}
+@media(prefers-reduced-motion:reduce){.fusion-sequential .fusion-reveal,.fusion-sequential .fusion-reveal-edge{animation:none!important}}
+
+.fusion-sequential{--fusion-duration:500ms;--fusion-delay:0ms;--fusion-opacity:1}
+/* Opening a candidate overlays its details; the conversation and graph stay put. */
+.stage-root.pc-layout.uc2.uc2-rule-drawer #lui{width:var(--agent-width)}
+.stage-root.pc-layout.uc2.uc2-rule-drawer #canvas:not(.full){left:calc(48px + var(--agent-width))}
+
+/* src/views/uc2-canvas/report.css */
+/* UC4 report visual contract, scoped to the UC2 candidate report. */
+.uc2-report .v7-report-heading{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.uc2-report .v7-report-heading>.row>.ic{color:#a18bfa}
+.uc2-report .v7-report-meta{font-size:12px;color:var(--muted);margin-top:8px}
+.uc2-report .v7-summary{display:grid;grid-template-columns:300px minmax(0,1fr);gap:28px;align-items:center;margin:24px 0}
+.uc2-report .v7-compliance{display:flex;align-items:center;gap:24px;padding-right:24px;border-right:1px solid var(--line)}
+.uc2-report .v7-ring{height:104px;width:104px;position:relative;flex-shrink:0}
+.uc2-report .v7-ring svg{height:104px;width:104px;transform:rotate(-90deg)}
+.uc2-report .v7-ring>div{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.uc2-report .v7-ring strong{font-size:28px;font-weight:500;line-height:36px}
+.uc2-report .v7-ring small{font-size:12px;font-weight:400;margin-left:2px}
+.uc2-report .v7-ring span{font-size:10px;color:var(--muted)}
+.uc2-report .v7-summary-counts{display:flex;flex-direction:column;gap:12px;font-size:12px;color:var(--secondary);white-space:nowrap}
+.uc2-report .v7-summary-counts>span,.uc2-report .v7-summary-counts>button{display:flex;align-items:center;gap:6px}
+.uc2-report .v7-summary-counts>button{padding:0;font-size:12px;text-align:left}
+.uc2-report .v7-summary-counts>button:hover{color:var(--link)}
+.uc2-report .v7-summary-counts i{height:5px;width:5px;border-radius:50%}
+.uc2-report .v7-summary-counts strong{font-size:18px;font-weight:500}
+.uc2-report .v7-conclusion-label{display:flex;align-items:center;gap:6px;font-size:12px;color:#b4a6ef;margin-bottom:8px}
+.uc2-report .v7-conclusion-label .ic{height:16px;width:16px}
+.uc2-report .v7-conclusion h3{font-size:16px;line-height:24px;margin:0 0 8px;font-weight:500}
+.uc2-report .v7-conclusion p{font-size:14px;color:var(--secondary);margin:0 0 8px}
+.uc2-report .v7-conclusion-note{font-size:12px;color:var(--muted)}
+.uc2-report .v7-result-toolbar{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);min-height:44px;margin-bottom:16px}
+.uc2-report .v7-view-tabs{display:flex;gap:24px;align-self:stretch}
+.uc2-report .v7-view-tabs>button{position:relative;padding:0 0 12px;color:var(--secondary);font-size:14px}
+.uc2-report .v7-view-tabs>button.active{color:var(--link)}
+.uc2-report .v7-view-tabs>button.active:after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--link)}
+.uc2-report .v7-view-tabs span{color:var(--muted);font-size:12px;margin-left:4px}
+.uc2-report .v7-lens{display:flex;gap:3px;padding:3px;border-radius:4px;background:var(--canvas-card-fill)}
+.uc2-report .v7-lens button{height:26px;padding:0 12px;font-size:12px;color:var(--muted);border-radius:3px}
+.uc2-report .v7-lens button.selected{background:#494949;color:#fff}
+.uc2-report .v7-top-caption{display:flex;justify-content:space-between;margin-bottom:12px;font-size:12px;color:var(--muted)}
+.uc2-report .v7-top-caption>span:first-child{color:var(--secondary)}
+.uc2-report .v7-top-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.uc2-report .v7-top-card{border-radius:6px;padding:16px 12px 0;background:#393939;border:1px solid var(--line);display:flex;flex-direction:column;min-width:0}
+.uc2-report .v7-top-card:hover{background-image:linear-gradient(#ffffff0d,#ffffff0d)}
+.uc2-report .v7-card-title{display:flex;align-items:flex-start;gap:8px;min-height:48px}
+.uc2-report .v7-rank{font-size:12px;color:var(--muted);line-height:24px;flex-shrink:0}
+.uc2-report .v7-card-title h3{font-size:16px;line-height:24px;font-weight:500;margin:0;min-width:0;overflow-wrap:anywhere}
+.uc2-report .v7-card-title h3 button{font:inherit;padding:0;color:var(--link);text-align:left}
+.uc2-report .v7-card-number{display:flex;align-items:baseline;gap:6px;margin-top:12px}
+.uc2-report .v7-card-number>strong{font-size:28px;line-height:36px;font-weight:500}
+.uc2-report .v7-card-number>span{color:var(--muted);font-size:12px;white-space:nowrap}
+.uc2-report .v7-rule-viz{height:84px;margin-top:12px;padding:10px 8px;background:#19191980;border-radius:4px;overflow:hidden}
+.uc2-report .v7-pair{display:grid;grid-template-columns:60px 1fr;gap:8px 4px;align-items:center;font-size:10px;line-height:20px}
+.uc2-report .v7-pair>span{color:var(--muted)}
+.uc2-report .v7-pair code{font:12px/20px ui-monospace,Consolas,monospace;color:var(--secondary);white-space:nowrap}
+.uc2-report .v7-pair code.bad{color:var(--fail)}
+.uc2-report .v7-time-labels{display:flex;justify-content:space-between;gap:4px;font-size:10px;color:var(--muted);white-space:nowrap}
+.uc2-report .v7-time-track{height:5px;position:relative;margin:14px 0 12px;background:#ffffff10;border-radius:3px}
+.uc2-report .v7-time-track .allowed{position:absolute;left:0;width:66.6667%;height:5px;background:#48bc8e66;border-radius:3px 0 0 3px}
+.uc2-report .v7-time-track .over{position:absolute;left:66.6667%;right:0;height:5px;background:var(--fail);border-radius:0 3px 3px 0}
+.uc2-report .v7-time-track .limit{position:absolute;left:66.6667%;height:15px;top:-5px;border-left:1px dashed var(--secondary)}
+.uc2-report .v7-viz-note{font-size:10px;color:var(--muted);line-height:18px}
+.uc2-report .v7-address-viz{display:flex;align-items:center;justify-content:space-around;font-size:12px;color:var(--secondary);gap:4px;padding:2px 0 10px}
+.uc2-report .v7-address-viz strong{color:var(--fail);font-size:24px;line-height:28px;font-weight:400}
+.uc2-report .v7-vlan-viz{display:flex;gap:6px;margin-bottom:8px}
+.uc2-report .v7-vlan-viz>span{padding:2px 6px;border-radius:3px;background:#ffffff09;color:var(--secondary);font-size:12px}
+.uc2-report .v7-vlan-viz>span.extra{background:#e7434a18;color:var(--fail)}
+.uc2-report .v7-vlan-viz small{font-size:9px;display:block;line-height:12px}
+.uc2-report .v7-card-footer{display:flex;align-items:center;justify-content:space-between;width:100%;padding:12px 0;margin-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--link)}
+.uc2-report .v7-card-footer .ic{width:14px;height:14px}
+.uc2-report .v7-overview-foot{margin-top:12px;color:var(--muted);font-size:12px}
+.uc2-report .v7-device-ip{font-size:12px;color:var(--muted);margin-top:-16px}
+.uc2-report .v7-rule-cells{display:grid;grid-template-columns:repeat(24,minmax(0,1fr));gap:2px;margin:10px 0 12px}
+.uc2-report .v7-rule-cells i{height:8px;border-radius:1px}
+.uc2-report .v7-rule-cells i.failed{background:var(--fail)}
+.uc2-report .v7-rule-cells i.passed{background:#48bc8e80}
+.uc2-report .v7-device-issues{min-height:64px;display:flex;flex-direction:column;gap:4px;flex:1}
+.uc2-report .v7-device-issues>button{font-size:10px;color:var(--secondary);padding:0;text-align:left;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;line-height:20px}
+.uc2-report .v7-device-issues>button:hover{color:var(--link)}
+.uc2-report .v7-device-issues i{display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--fail);margin-right:5px;vertical-align:middle}
+.uc2-report .v7-table-tools{display:flex;justify-content:flex-start;gap:8px;align-items:center;margin:0 0 16px}
+.uc2-report .v7-table-tools .search{width:280px}
+.uc2-report .v7-status-filters{display:flex;gap:8px}
+.uc2-report .v7-status-filters>button{height:30px;display:flex;align-items:center;gap:6px;padding:0 10px;border:1px solid transparent;border-radius:4px;font-size:12px;color:var(--secondary)}
+.uc2-report .v7-status-filters>button.selected{border-color:var(--link);color:var(--link)}
+.uc2-report .v7-status-filters i{width:5px;height:5px;border-radius:50%;background:var(--muted)}
+.uc2-report .v7-status-filters i.failed{background:var(--fail)}
+.uc2-report .v7-status-filters i.passed{background:var(--good)}
+.uc2-report .v7-status-filters strong{font-size:12px;font-weight:500}
+.uc2-report .v7-table-scroll{max-height:520px;overflow:auto;scrollbar-width:thin}
+.uc2-report .v7-table th{position:sticky;top:0;background:#393939;z-index:1}
+.uc2-report .v7-table td{padding:12px 16px}
+.uc2-report .v7-table th,.uc2-report .v7-table td{font-size:14px}
+.uc2-report .v7-table .link{padding:0;font-size:14px}
+.uc2-report .v7-pagination{display:flex;align-items:center;justify-content:space-between;margin-top:16px;color:var(--muted);font-size:12px}
+.uc2-report .v7-pagination .btn{height:28px;font-size:12px;padding:0 10px}
+.uc2-report .v7-page{height:28px;min-width:28px;border-radius:3px;color:var(--secondary);font-size:12px}
+.uc2-report .v7-page.active{background:#0067d1;color:#fff}
+.uc2-report .v7-filter-context{display:flex;align-items:center;gap:8px;width:fit-content;max-width:100%;padding:4px 8px;background:#2070f31a;color:var(--link);border-radius:4px;margin-bottom:12px;font-size:12px}
+.uc2-report .v7-filter-context button{padding:0;display:flex}
+.uc2-report .v7-filter-context .ic{width:12px;height:12px}
+.uc2-report .v7-top-grid{gap:16px}
+.uc2-report .v7-top-card{padding:20px 20px 0}
+.uc2-report .v7-card-title{min-height:24px}
+.uc2-report .v7-device-ip{margin-top:8px}
+html:not(.dark) .uc2-report .v7-top-card{background:#f5f5f5}
+html:not(.dark) .uc2-report .v7-rule-viz{background:#e9edf2}
+html:not(.dark) .uc2-report .v7-lens{background:#eee}
+html:not(.dark) .uc2-report .v7-lens button.selected{background:#fff;color:#191919}
+html:not(.dark) .uc2-report .v7-table th{background:#eee}
+.uc2-report .v7-repair-direction{padding-top:12px;margin-top:12px;border-top:1px solid var(--line);min-height:84px}
+.uc2-report .v7-repair-direction h4,.uc2-report .v7-related-devices h4{font-size:12px;font-weight:400;color:var(--muted);line-height:20px;margin:0 0 4px}
+.uc2-report .v7-repair-direction p{font-size:12px;line-height:20px;margin:0;color:var(--secondary)}
+.uc2-report .v7-related-devices{margin-top:12px}
+.uc2-report .v7-related-devices h4 span{margin-left:4px}
+.uc2-report .v7-device-tags{display:flex;gap:6px;flex-wrap:wrap;align-content:flex-start;min-height:54px}
+.uc2-report .v7-device-tag{height:24px;max-width:100%;padding:0 6px;border:1px solid #646464;border-radius:4px;color:var(--secondary);font-size:12px;white-space:nowrap;background:#ffffff04}
+.uc2-report .v7-device-tag:hover{background:#ffffff0d;border-color:var(--link);color:var(--link)}
+.uc2-report .v7-more-devices{color:var(--link);border-style:dashed}
+.uc2-report .v7-rule-select{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--secondary);margin-left:auto;min-width:0}
+.uc2-report .v7-rule-select select{width:264px;max-width:100%;height:32px;background:transparent;border:1px solid #595959;border-radius:4px;padding:0 8px;color:var(--text);font-size:12px;text-overflow:ellipsis;outline:none}
+.uc2-report .v7-rule-select select:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+.uc2-report .v7-rule-select option{color:var(--text);background:#393939}
+.uc2-report .v7-table-tools .search{width:252px;flex-shrink:0}
+html:not(.dark) .uc2-report .v7-rule-select option{background:#fff;color:#191919}
+.uc2-report .v7-top-grid:has(.v9-overview-card){gap:14px}
+.uc2-report .v9-overview-card,.uc2-report .v9-overview-card{position:relative;padding:20px 18px 16px;border:1px solid #ffffff0e;border-radius:12px;background:linear-gradient(145deg,#323538 0%,#2b2d30 58%,#292b2e 100%);box-shadow:inset 0 1px 0 #ffffff06,0 4px 12px #00000012;transition:border-color 180ms ease,box-shadow 180ms ease}
+.uc2-report .v9-overview-card:hover{background-image:linear-gradient(145deg,#363a3e,#2e3135 65%,#2c2f33);border-color:#91b6df38;box-shadow:inset 0 1px 0 #ffffff0a,0 5px 18px #00000020}
+.uc2-report .v9-card-eyebrow{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-bottom:18px;line-height:18px}
+.uc2-report .v9-card-kind{display:flex;align-items:center;gap:6px;font-size:11px;color:#a1a9b3}
+.uc2-report .v9-card-kind>.ic{height:14px;width:14px;color:#93a2b4}
+.uc2-report .v9-overview-card .v7-rank{font:12px/24px ui-monospace,Consolas,monospace;width:14px;text-align:left;color:#89929d}
+.uc2-report .v9-overview-card .v7-card-title,.uc2-report .v9-overview-card .v7-card-title{min-height:24px;gap:8px}
+.uc2-report .v9-overview-card .v7-card-title h3{font-size:16px;line-height:24px;font-weight:500;color:#edf1f6;letter-spacing:.1px}
+.uc2-report .v9-overview-card .v7-card-title h3 button{color:inherit;transition:color 150ms ease}
+.uc2-report .v9-overview-card .v7-card-title h3 button:hover{color:#8abef3}
+.uc2-report .v9-overview-card .v7-device-ip,.uc2-report .v9-overview-card .v7-device-ip{margin-top:4px;margin-left:22px;font:12px/20px ui-monospace,Consolas,monospace;color:#a1a9b3;letter-spacing:.1px}
+.uc2-report .v9-overview-card .v7-card-number{gap:8px;margin-top:24px}
+.uc2-report .v9-overview-card .v7-card-number>strong{font-size:44px;line-height:52px;letter-spacing:-1.5px;font-weight:500;color:#f2f4f7;font-variant-numeric:tabular-nums}
+.uc2-report .v9-overview-card .v7-card-number>span{font-size:11px;color:#adb4bd;line-height:20px}
+.uc2-report .v9-overview-card .v8-ratio{margin-top:14px}
+.uc2-report .v9-overview-card .v8-ratio-track{height:5px;background:#ffffff13}
+.uc2-report .v9-overview-card .v8-ratio-failed{background:#ef7a83;box-shadow:0 0 8px #ef7a8318;border-radius:999px}
+.uc2-report .v9-overview-card .v8-ratio-passed{background:transparent}
+.uc2-report .v9-overview-card .v8-ratio-labels{margin-top:9px;font-size:10px;color:#a1a9b3}
+.uc2-report .v9-overview-card .v8-ratio-labels>span:first-child{color:#e5a0a5;gap:5px}
+.uc2-report .v9-overview-card .v8-ratio-labels i{width:4px;height:4px;background:#ef7a83}
+.uc2-report .v9-overview-card .v7-device-priority{margin-top:24px;margin-bottom:0}
+.uc2-report .v9-overview-card .v7-device-priority>.v7-viz-note{font-size:10px;line-height:18px;color:#a1a9b3;margin-bottom:8px}
+.uc2-report .v9-overview-card .v7-priority-distribution{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.uc2-report .v9-overview-card .v7-priority-count{justify-content:center;gap:4px;min-height:28px;padding:3px 4px;border:1px solid #ffffff07;border-radius:5px;background:#ffffff04;font-size:11px;line-height:20px;color:#c9cfd7}
+.uc2-report .v9-overview-card .v7-priority-count.high:not(.zero){background:#e76f7c0d;border-color:#e76f7c1a}
+.uc2-report .v9-overview-card .v7-priority-count.medium:not(.zero){background:#dba46a0d;border-color:#dba46a1a}
+.uc2-report .v9-overview-card .v7-priority-count.high i{background:#ee8791}
+.uc2-report .v9-overview-card .v7-priority-count.medium i{background:#dfb17d}
+.uc2-report .v9-overview-card .v7-priority-count strong{font-size:12px;color:#e7ebf1}
+.uc2-report .v9-overview-card .v7-priority-count.zero{border-color:transparent;background:#ffffff02;color:#89929d}
+.uc2-report .v9-overview-card .v7-priority-count.zero strong{color:#89929d}
+.uc2-report .v9-overview-card .v7-priority-count.zero i{background:#79828d}
+.uc2-report .v9-overview-card>.v8-card-details{margin-top:24px;padding-top:14px;border-top:1px solid #ffffff09;color:#afbac8;font-size:11px;line-height:20px;transition:color 150ms ease}
+.uc2-report .v9-overview-card>.v8-card-details>span{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#ffffff06;color:#aab9cb;font-size:17px;transition:background 150ms ease,color 150ms ease}
+.uc2-report .v9-overview-card>.v8-card-details:hover{color:#8abef3}
+.uc2-report .v9-overview-card>.v8-card-details:hover>span{background:#5ca2e91a;color:#8abef3}
+.uc2-report .v9-overview-card button:focus-visible{outline:2px solid #8abef3;outline-offset:4px;border-radius:3px}
+.uc2-report .v9-overview-card[data-rule-card] .v7-card-title{min-height:108px}
+.uc2-report .v9-overview-card[data-rule-card] .v7-rule-heading{gap:10px}
+.uc2-report .v9-overview-card[data-rule-card] .v7-rule-heading h3{min-height:48px}
+.uc2-report .v9-overview-card[data-rule-card] .v7-priority-badge{border:1px solid #ffffff07;border-radius:5px;padding:2px 7px}
+.uc2-report .v9-overview-card[data-rule-card] .v7-card-number{margin-top:8px}
+.uc2-report .v9-overview-card[data-rule-card] .v7-rule-context{margin-top:22px;gap:16px}
+.uc2-report .v9-overview-card .v7-rule-context h4{color:#929ca8;font-size:10px;margin-bottom:5px}
+.uc2-report .v9-overview-card .v7-rule-context p{color:#c4cbd4;font-size:12px;line-height:21px}
+html:not(.dark) .uc2-report .v9-overview-card{background:linear-gradient(145deg,#fff,#f5f7fa);border-color:#192d4714;box-shadow:0 3px 12px #203c5c08}
+html:not(.dark) .uc2-report .v9-overview-card:hover{border-color:#5ca2e95c;background:linear-gradient(145deg,#fff,#f0f5fc)}
+html:not(.dark) .uc2-report .v9-overview-card .v7-card-title h3,html:not(.dark) .uc2-report .v9-overview-card .v7-card-number>strong{color:#233246}
+html:not(.dark) .uc2-report .v9-card-kind,html:not(.dark) .uc2-report .v9-overview-card .v7-device-ip,html:not(.dark) .uc2-report .v9-overview-card .v7-card-number>span,html:not(.dark) .uc2-report .v9-overview-card .v8-ratio-labels,html:not(.dark) .uc2-report .v9-overview-card .v7-device-priority>.v7-viz-note{color:#647184}
+html:not(.dark) .uc2-report .v9-overview-card .v8-ratio-track{background:#20334b12}
+html:not(.dark) .uc2-report .v9-overview-card .v8-ratio-labels>span:first-child{color:#b94b59}
+html:not(.dark) .uc2-report .v9-overview-card .v7-priority-count,html:not(.dark) .uc2-report .v9-overview-card .v7-priority-count strong{color:#344155}
+html:not(.dark) .uc2-report .v9-overview-card .v7-priority-count.zero,html:not(.dark) .uc2-report .v9-overview-card .v7-priority-count.zero strong{color:#8b94a0}
+html:not(.dark) .uc2-report .v9-overview-card>.v8-card-details{border-color:#20334b10;color:#53667e}
+html:not(.dark) .uc2-report .v9-overview-card>.v8-card-details>span{background:#20334b08;color:#53667e}
+html:not(.dark) .uc2-report .v9-overview-card .v7-rule-context p{color:#4c5b6e}
+@media(prefers-reduced-motion:reduce){
+.uc2-report .v9-overview-card,.uc2-report .v9-overview-card button,.uc2-report .v9-overview-card>.v8-card-details>span{transition:none}}/* UC4: retain the left compliance ring and enrich the right conclusion. */
+.uc2-report .v11-summary{align-items:center}
+.uc2-report .v11-conclusion{min-width:0}
+.uc2-report .v11-conclusion>.v7-conclusion-label{margin-bottom:6px}
+.uc2-report .v12-summary-copy{margin:0;font-size:14px;line-height:24px;color:var(--secondary);overflow-wrap:anywhere}
+.uc2-report .v12-summary-copy strong{font-weight:500;color:var(--text)}
+html:not(.dark) .uc2-report .v11-conclusion>.v7-conclusion-label{color:#7862b5}/* UC4 device detail: compact filters, selectable positions and expandable evidence. */
+
+.uc2-report{font-size:14px}.uc2-report a{color:var(--interactive-link);cursor:pointer}
+.uc2-report h2,.uc2-report h3,.uc2-report h4,.uc2-report p{margin-top:0}
+.uc2-report .card-title{font-size:18px;font-weight:500;margin:0}
+.uc2-report .v7-report-heading h2{font-size:18px;font-weight:500;margin:0}
+.uc2-report .v7-summary{margin:24px 0;padding:0;background:transparent;border-radius:0}
+.uc2-report .uc2-report-ring{--candidate-ratio:0%;width:104px;height:104px;padding:7px;flex:none;border-radius:50%;background:conic-gradient(var(--good) var(--candidate-ratio),var(--line) 0)}
+.uc2-report .uc2-report-ring>div{height:100%;border-radius:50%;background:var(--panel);display:flex;align-items:center;justify-content:center;flex-direction:column}
+.uc2-report .uc2-report-ring strong{font-size:28px;line-height:36px;font-weight:500}.uc2-report .uc2-report-ring small{font-size:12px;color:var(--muted);font-weight:400}.uc2-report .uc2-report-ring span{font-size:10px;color:var(--muted)}
+.uc2-report .uc2-report-notice{font-size:12px;color:var(--muted);line-height:20px;margin-top:8px}
+.uc2-report .v7-overview-section,.uc2-report .v7-check-details{margin-top:24px;padding-top:0;border:0;scroll-margin-top:16px}
+.uc2-report .v7-top-grid{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.uc2-report .v7-section-title{font-size:16px;font-weight:500;margin:0}
+.uc2-report .v7-card-title{min-height:72px!important}.uc2-report .v7-card-title h3{overflow-wrap:anywhere}
+.uc2-report .v7-card-number{margin-top:16px}.uc2-report .v7-device-ip{margin:4px 0 0!important;font-family:inherit!important}
+.uc2-report .uc2-report-support{height:5px;border-radius:999px;background:var(--line);overflow:hidden;margin-top:14px}.uc2-report .uc2-report-support>span{display:block;height:100%;background:var(--good)}
+.uc2-report .v7-top-card>section{margin-top:20px;padding-top:14px;border-top:1px solid var(--line)}.uc2-report .v7-top-card h5{font-size:10px;font-weight:400;color:var(--muted);margin:0 0 5px}.uc2-report .v7-top-card code{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:21px;color:var(--secondary)}
+.uc2-report .uc2-report-review{display:flex;align-items:center;gap:8px;font-size:11px;margin-top:auto;padding-top:20px}.uc2-report .uc2-report-review .ic{width:14px;height:14px}
+.uc2-report .uc2-report-footnote{font-size:11px;color:var(--muted);line-height:20px;margin-top:12px}
+.uc2-report .v7-status-filters{margin:12px 0 16px}.uc2-report .v7-table-tools{margin:0 0 16px;flex-wrap:wrap;gap:12px}
+.uc2-report .v7-table-tools select{height:32px;padding:0 10px;min-width:140px;background:transparent;border:1px solid var(--outline);border-radius:4px;color:var(--text);font-size:12px}
+.uc2-report .v7-table-tools .search{flex:1;min-width:220px;margin-left:auto}.uc2-report .v7-table-tools .search input{border:0;min-width:0;background:transparent}
+.uc2-report .v7-table-scroll{overflow:auto;max-width:100%}.uc2-report .v7-table{min-width:760px;width:100%;font-size:12px}
+.uc2-report .v7-table td:first-child>.small{display:inline-block;margin-top:5px}.uc2-report .uc2-report-confidence{font-size:12px;color:var(--muted)}.uc2-report .uc2-report-confidence.high{color:var(--good)}
+.uc2-report .v7-pagination{flex-wrap:wrap;gap:12px}.uc2-report .v7-pagination>.row{flex-wrap:wrap}
+@container workspace (max-width:900px){.uc2-report .v7-summary{grid-template-columns:1fr;gap:20px}.uc2-report .v7-compliance{border:0;padding:0}.uc2-report .v7-top-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@container workspace (max-width:600px){.uc2-report .v7-top-grid{grid-template-columns:1fr}.uc2-report .v7-report-heading{flex-wrap:wrap;align-items:flex-start}.uc2-report .v7-result-toolbar{gap:12px;flex-wrap:wrap}}
 
 </style></head><body><div id="root"></div><script>
 const LUCIDE={
@@ -57043,7 +57361,7 @@ const LUCIDE={
 (function(){
 const modules={},cache={};
 const external={"react":React,"react-dom":ReactDOM,"react-dom/client":ReactDOM,"antd":antd,"react-intl":ReactIntl,"dayjs":dayjs};
-modules["app.jsx"]={deps:{"./src/views/stage/index.css":"src/views/stage/index.css","./src/views/top-bar/index.css":"src/views/top-bar/index.css","./src/views/cockpit/index.css":"src/views/cockpit/index.css","./src/views/lui-panel/index.css":"src/views/lui-panel/index.css","./src/views/canvas-area/index.css":"src/views/canvas-area/index.css","./src/views/network-overview/index.css":"src/views/network-overview/index.css","./src/views/mapping-card/index.css":"src/views/mapping-card/index.css","./src/views/report-card/index.css":"src/views/report-card/index.css","./src/views/device-pane/index.css":"src/views/device-pane/index.css","./src/views/uc2-canvas/uc2.css":"src/views/uc2-canvas/uc2.css","./src/views/uc4-sync.css":"src/views/uc4-sync.css","./assets/shared/antd-zh.js":"assets/shared/antd-zh.js","./src/context.jsx":"src/context.jsx","./src/views/stage/index.jsx":"src/views/stage/index.jsx"},run:function(require,module,exports){
+modules["app.jsx"]={deps:{"./src/views/stage/index.css":"src/views/stage/index.css","./src/views/top-bar/index.css":"src/views/top-bar/index.css","./src/views/cockpit/index.css":"src/views/cockpit/index.css","./src/views/lui-panel/index.css":"src/views/lui-panel/index.css","./src/views/canvas-area/index.css":"src/views/canvas-area/index.css","./src/views/network-overview/index.css":"src/views/network-overview/index.css","./src/views/mapping-card/index.css":"src/views/mapping-card/index.css","./src/views/report-card/index.css":"src/views/report-card/index.css","./src/views/device-pane/index.css":"src/views/device-pane/index.css","./src/views/uc2-canvas/uc2.css":"src/views/uc2-canvas/uc2.css","./src/views/uc4-sync.css":"src/views/uc4-sync.css","./src/views/stage/desktop.css":"src/views/stage/desktop.css","./assets/shared/antd-zh.js":"assets/shared/antd-zh.js","./src/context.jsx":"src/context.jsx","./src/views/stage/index.jsx":"src/views/stage/index.jsx"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -57061,6 +57379,7 @@ require("./src/views/report-card/index.css");
 require("./src/views/device-pane/index.css");
 require("./src/views/uc2-canvas/uc2.css");
 require("./src/views/uc4-sync.css");
+require("./src/views/stage/desktop.css");
 var _antd = require("antd");
 var _antdZh = _interopRequireDefault(require("./assets/shared/antd-zh.js"));
 var _context = require("./src/context.jsx");
@@ -57452,7 +57771,7 @@ function AppProvider({
   }, [isDark]);
 
   // 布局
-  const [luiOpen, setLuiOpen] = (0, _react.useState)(true);
+  const [luiOpen, setLuiOpen] = (0, _react.useState)(false);
   const [canvasHidden, setCanvasHidden] = (0, _react.useState)(true);
   const [agentActive, setAgentActive] = (0, _react.useState)(false);
   const [full, setFull] = (0, _react.useState)(false);
@@ -58801,7 +59120,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = Stage;
-var _react = require("react");
 var _context = require("../../context.jsx");
 var _index = _interopRequireDefault(require("../top-bar/index.jsx"));
 var _index2 = _interopRequireDefault(require("../left-rail/index.jsx"));
@@ -58809,7 +59127,7 @@ var _index3 = _interopRequireDefault(require("../cockpit/index.jsx"));
 var _index4 = _interopRequireDefault(require("../lui-panel/index.jsx"));
 var _index5 = _interopRequireDefault(require("../canvas-area/index.jsx"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-// Layer 5: 页面壳 — 常规自适应布局（视口宽高驱动，画布区内部滚动）
+// 桌面工作台填满可用窗口，内容区按自身宽度重排。
 function Stage() {
   const {
     toastText,
@@ -58818,22 +59136,12 @@ function Stage() {
     luiView
   } = (0, _context.useApp)();
   const isUc4 = !uc2.active && (luiView === 'running' || luiView === 'done');
-  const [scale, setScale] = (0, _react.useState)(() => Math.min(window.innerWidth / 1920, window.innerHeight / 1080));
-  (0, _react.useEffect)(() => {
-    const resize = () => setScale(Math.min(window.innerWidth / 1920, window.innerHeight / 1080));
-    window.addEventListener('resize', resize);
-    resize();
-    return () => window.removeEventListener('resize', resize);
-  }, []);
-  const stageCls = ["stage-root", isUc4 ? "uc4" : "", uc2.active ? "uc2" : "", uc2.active && uc2.max === 0 ? "uc2-intent" : "", uc2.active && uc2.max >= 2 && uc2Fusion.drawer ? "uc2-rule-drawer" : ""].filter(Boolean).join(" ");
+  const stageCls = ["stage-root", "pc-layout", isUc4 ? "uc4" : "", uc2.active ? "uc2" : "", uc2.active && uc2.max === 0 ? "uc2-intent" : "", uc2.active && uc2.max >= 2 && uc2Fusion.drawer ? "uc2-rule-drawer" : ""].filter(Boolean).join(" ");
   return /*#__PURE__*/React.createElement("div", {
     className: "stage-viewport"
   }, /*#__PURE__*/React.createElement("div", {
     className: stageCls,
-    id: "stage",
-    style: isUc4 ? {
-      "--uc4-scale": scale
-    } : undefined
+    id: "stage"
   }, /*#__PURE__*/React.createElement(_index.default, null), /*#__PURE__*/React.createElement(_index2.default, null), /*#__PURE__*/React.createElement(_index3.default, null), /*#__PURE__*/React.createElement(_index4.default, null), /*#__PURE__*/React.createElement(_index5.default, null), /*#__PURE__*/React.createElement("div", {
     className: "toast",
     id: "toast",
@@ -59438,58 +59746,308 @@ function LeftRail() {
   }))));
 }
 }};
-modules["src/views/cockpit/index.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx"},run:function(require,module,exports){
+modules["src/views/cockpit/index.jsx"]={deps:{"../../components/network-agent-dashboard/index.jsx":"src/components/network-agent-dashboard/index.jsx","../../context.jsx":"src/context.jsx","./index.css":"src/views/cockpit/index.css"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = Cockpit;
+var _react = require("react");
+var _index = _interopRequireDefault(require("../../components/network-agent-dashboard/index.jsx"));
 var _context = require("../../context.jsx");
-var _index = _interopRequireDefault(require("../../components/icon-el/index.jsx"));
+require("./index.css");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-// 网络自治驾驶舱（欢迎页，被智能体面板/画布覆盖）
 function Cockpit() {
   const {
     openAgentHome
   } = (0, _context.useApp)();
-  return /*#__PURE__*/React.createElement("section", {
-    className: "cockpit"
+  const [mapScale, setMapScale] = (0, _react.useState)(1);
+  const [mapOffset, setMapOffset] = (0, _react.useState)({
+    x: 0,
+    y: 0
+  });
+  const [isPanning, setIsPanning] = (0, _react.useState)(false);
+  const dragStart = (0, _react.useRef)(null);
+  const changeScale = amount => setMapScale(value => Math.min(2.4, Math.max(1, Number((value + amount).toFixed(2)))));
+  return /*#__PURE__*/React.createElement("main", {
+    className: "figma-network-page"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "small muted"
-  }, "网络自治驾驶舱"), /*#__PURE__*/React.createElement("h1", null, "你好，今天网络运行平稳"), /*#__PURE__*/React.createElement("div", {
-    className: "welcome"
-  }, "Aico 持续守护网络，协助你发现风险、核验配置与处置故障。"), /*#__PURE__*/React.createElement("div", {
-    className: "cockpit-cards"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "cockpit-card"
-  }, "网络健康度", /*#__PURE__*/React.createElement("strong", null, "98.6", /*#__PURE__*/React.createElement("span", {
-    className: "small muted"
-  }, " 分")), /*#__PURE__*/React.createElement("span", {
-    className: "small secondary"
-  }, "较昨日保持稳定")), /*#__PURE__*/React.createElement("div", {
-    className: "cockpit-card"
-  }, "网络故障治理", /*#__PURE__*/React.createElement("strong", null, "24"), /*#__PURE__*/React.createElement("span", {
-    className: "small secondary"
-  }, "已处置 18 · 待人工决策 6")), /*#__PURE__*/React.createElement("div", {
-    className: "cockpit-card"
-  }, "配置合规", /*#__PURE__*/React.createElement("strong", null, "待检查"), /*#__PURE__*/React.createElement("button", {
-    className: "btn",
-    onClick: openAgentHome
-  }, "让 Aico 帮我检查 ", /*#__PURE__*/React.createElement(_index.default, {
-    icon: "arrow-right"
-  })))), /*#__PURE__*/React.createElement("div", {
-    className: "cockpit-map"
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      textAlign: "center"
+    className: "figma-map",
+    "aria-label": "可缩放的中国区域地图",
+    onWheel: event => {
+      event.preventDefault();
+      changeScale(event.deltaY < 0 ? 0.1 : -0.1);
+    },
+    onPointerDown: event => {
+      if (event.target.closest("button")) return;
+      dragStart.current = {
+        x: event.clientX,
+        y: event.clientY,
+        offsetX: mapOffset.x,
+        offsetY: mapOffset.y,
+        scale: event.currentTarget.getBoundingClientRect().width / event.currentTarget.offsetWidth
+      };
+      event.currentTarget.setPointerCapture(event.pointerId);
+      setIsPanning(true);
+    },
+    onPointerMove: event => {
+      if (!dragStart.current) return;
+      setMapOffset({
+        x: dragStart.current.offsetX + (event.clientX - dragStart.current.x) / dragStart.current.scale,
+        y: dragStart.current.offsetY + (event.clientY - dragStart.current.y) / dragStart.current.scale
+      });
+    },
+    onPointerUp: () => {
+      dragStart.current = null;
+      setIsPanning(false);
+    },
+    onPointerCancel: () => {
+      dragStart.current = null;
+      setIsPanning(false);
     }
-  }, /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(_index.default, {
-    icon: "network"
-  })), /*#__PURE__*/React.createElement("p", null, "全网资源 · 西三旗 DC"), /*#__PURE__*/React.createElement("button", {
-    className: "btn primary",
-    onClick: openAgentHome
-  }, "打开智能体"))));
+  }, /*#__PURE__*/React.createElement("div", {
+    className: `figma-map-canvas${isPanning ? " is-panning" : ""}`,
+    style: {
+      transform: `translate(${mapOffset.x}px, ${mapOffset.y}px) scale(${mapScale})`
+    }
+  }, /*#__PURE__*/React.createElement("img", {
+    className: "figma-map-image",
+    src: "./assets/uploads/figma/china-dark-map.png",
+    alt: "以中国为中心的深色地图"
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "figma-map-marker figma-map-marker-west-sanqu",
+    "aria-label": "西三旗",
+    title: "西三旗"
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "figma-map-marker figma-map-marker-jiading",
+    "aria-label": "嘉定",
+    title: "嘉定"
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "figma-map-marker figma-map-marker-waigaoqiao",
+    "aria-label": "外高桥",
+    title: "外高桥"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "figma-map-controls",
+    "aria-label": "地图缩放控制"
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    onClick: () => changeScale(0.2),
+    "aria-label": "放大地图"
+  }, "+"), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    onClick: () => changeScale(-0.2),
+    "aria-label": "缩小地图"
+  }, "−"), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    onClick: () => {
+      setMapScale(1);
+      setMapOffset({
+        x: 0,
+        y: 0
+      });
+    },
+    "aria-label": "重置地图视图"
+  }, "⌂"))), /*#__PURE__*/React.createElement("aside", {
+    className: "figma-dashboard"
+  }, /*#__PURE__*/React.createElement(_index.default, {
+    onOpenAgent: openAgentHome
+  })));
+}
+}};
+modules["src/components/network-agent-dashboard/index.jsx"]={deps:{"./index.css":"src/components/network-agent-dashboard/index.css"},run:function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = DataCenterNetworkAgent;
+var _react = require("react");
+require("./index.css");
+const defaultSummary = {
+  weekCount: 465,
+  healthyDays: 158,
+  totalEvents: 1465
+};
+const defaultFaultStats = {
+  pending: 12,
+  processing: 4,
+  resolved: 244
+};
+const defaultConfigStats = {
+  processing: 4,
+  resolved: 12
+};
+const defaultTabs = [{
+  label: "全部"
+}, {
+  label: "人工待接管",
+  color: "red"
+}, {
+  label: "自动处置中",
+  color: "blue"
+}];
+const defaultEvents = [{
+  type: "highlight",
+  iconType: "red",
+  title: "重保业务自诊断",
+  tag: "【重保业务自诊断】",
+  detail: "用户提交消费贷申请出现概率性失败，正在进行故障修复"
+}, ...Array.from({
+  length: 3
+}, () => ({
+  type: "normal",
+  iconType: "blue",
+  title: "【网络配置辅助生成】嘉定DC的互联网区域的Leaf1-2…",
+  tag: "【设备扩容】",
+  detail: "",
+  time: "2025-06-03 15:36 | 嘉定DC的互联网区域的Leaf1-2设备扩容"
+}))];
+const timeOptions = ["最近三小时", "最近一天", "最近一周", "最近半个月"];
+function DataCenterNetworkAgent({
+  summary = defaultSummary,
+  faultStats = defaultFaultStats,
+  configStats = defaultConfigStats,
+  tabs = defaultTabs,
+  events = defaultEvents,
+  onOpenAgent
+}) {
+  const [activeTab, setActiveTab] = (0, _react.useState)(0);
+  const [periodOpen, setPeriodOpen] = (0, _react.useState)(false);
+  const [period, setPeriod] = (0, _react.useState)("最近一周");
+  const filter = tabs[activeTab]?.color;
+  const visibleEvents = filter ? events.filter(event => event.iconType === filter) : events;
+  const count = tab => tab.color ? events.filter(event => event.iconType === tab.color).length : events.length;
+  return /*#__PURE__*/React.createElement("div", {
+    className: "dcna-container dark"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "dcna-glow"
+  }), /*#__PURE__*/React.createElement("header", {
+    className: "dcna-header"
+  }, /*#__PURE__*/React.createElement("h1", null, "数据中心网络智能体"), /*#__PURE__*/React.createElement("div", {
+    className: "dcna-period-wrap"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "dcna-period",
+    type: "button",
+    "aria-haspopup": "listbox",
+    "aria-expanded": periodOpen,
+    onClick: () => setPeriodOpen(!periodOpen)
+  }, period, " ", /*#__PURE__*/React.createElement(Symbol, {
+    name: "keyboard_arrow_down",
+    className: periodOpen ? "dcna-period-chevron-open" : ""
+  })), periodOpen && /*#__PURE__*/React.createElement("div", {
+    className: "dcna-period-menu",
+    role: "listbox",
+    "aria-label": "时间范围"
+  }, timeOptions.map(option => /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    role: "option",
+    "aria-selected": option === period,
+    className: option === period ? "dcna-period-option-selected" : "",
+    key: option,
+    onClick: () => {
+      setPeriod(option);
+      setPeriodOpen(false);
+    }
+  }, option))))), /*#__PURE__*/React.createElement("section", {
+    className: "dcna-summary"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", null, "本周处理 ", /*#__PURE__*/React.createElement("em", null, summary.weekCount), " 件"), /*#__PURE__*/React.createElement("span", null, "当前网络状态良好，已经连续守护 ", /*#__PURE__*/React.createElement("b", null, summary.healthyDays), " 天，", /*#__PURE__*/React.createElement("br", null), "累计共处置 ", /*#__PURE__*/React.createElement("b", null, summary.totalEvents), " 个事件。")), /*#__PURE__*/React.createElement("img", {
+    src: "./assets/uploads/summary-icon.png",
+    alt: ""
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "dcna-stats"
+  }, /*#__PURE__*/React.createElement(Stat, {
+    icon: "build",
+    title: "故障自处置",
+    number: `${faultStats.pending} / ${faultStats.processing} / ${faultStats.resolved}`,
+    note: "待处置 / 处置中 / 已处置"
+  }), /*#__PURE__*/React.createElement("button", {
+    className: "dcna-agent-entry",
+    type: "button",
+    "aria-label": "打开网络配置智能体",
+    onClick: onOpenAgent
+  }, /*#__PURE__*/React.createElement(Stat, {
+    icon: "settings_ethernet",
+    title: "网络配置辅助生成",
+    number: `${configStats.processing} / ${configStats.resolved}`,
+    note: "处置中 / 已处置"
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "dcna-section-title"
+  }, /*#__PURE__*/React.createElement("h2", null, "待您关注"), /*#__PURE__*/React.createElement("a", {
+    onClick: onOpenAgent,
+    role: "button",
+    tabIndex: 0,
+    onKeyDown: event => {
+      if (event.key === "Enter") onOpenAgent();
+    }
+  }, "更多")), /*#__PURE__*/React.createElement("div", {
+    className: "dcna-tabs",
+    role: "tablist"
+  }, tabs.map((tab, index) => /*#__PURE__*/React.createElement("button", {
+    key: tab.label,
+    className: activeTab === index ? "active" : "",
+    onClick: () => setActiveTab(index),
+    role: "tab",
+    "aria-selected": activeTab === index
+  }, tab.label, /*#__PURE__*/React.createElement("strong", {
+    className: tab.color || ""
+  }, count(tab))))), /*#__PURE__*/React.createElement("div", {
+    className: "dcna-events"
+  }, visibleEvents.length ? visibleEvents.map((event, index) => /*#__PURE__*/React.createElement(Event, {
+    event: event,
+    key: `${event.title}-${index}`
+  })) : /*#__PURE__*/React.createElement("div", {
+    className: "dcna-empty"
+  }, /*#__PURE__*/React.createElement(Symbol, {
+    name: "description"
+  }), /*#__PURE__*/React.createElement("p", null, "暂无事件"))));
+}
+function Symbol({
+  name,
+  className = ""
+}) {
+  return /*#__PURE__*/React.createElement("span", {
+    className: `dcna-material-symbol ${className}`.trim(),
+    "aria-hidden": "true"
+  }, name);
+}
+function Stat({
+  icon,
+  title,
+  number,
+  note
+}) {
+  const values = number.split(" / ");
+  return /*#__PURE__*/React.createElement("div", {
+    className: "dcna-stat"
+  }, /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement(Symbol, {
+    name: icon,
+    className: `dcna-stat-icon dcna-stat-icon--${icon}`
+  }), title), /*#__PURE__*/React.createElement("strong", null, values.map((value, index) => /*#__PURE__*/React.createElement("span", {
+    key: `${value}-${index}`
+  }, index > 0 && /*#__PURE__*/React.createElement("i", {
+    className: "dcna-stat-separator"
+  }, " / "), /*#__PURE__*/React.createElement("em", {
+    className: "dcna-stat-number"
+  }, value)))), /*#__PURE__*/React.createElement("span", null, note));
+}
+function Event({
+  event
+}) {
+  const isAlert = event.iconType === "red";
+  return /*#__PURE__*/React.createElement("article", {
+    className: `dcna-event ${event.type === "highlight" ? "highlight" : ""}`
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "dcna-event-head"
+  }, /*#__PURE__*/React.createElement(Symbol, {
+    name: isAlert ? "notifications" : "storage",
+    className: isAlert ? "dcna-alert-icon" : "dcna-network-icon"
+  }), /*#__PURE__*/React.createElement("b", null, event.title)), /*#__PURE__*/React.createElement("div", {
+    className: "dcna-event-body"
+  }, /*#__PURE__*/React.createElement(Symbol, {
+    name: "location_on",
+    className: "dcna-location-icon"
+  }), /*#__PURE__*/React.createElement("span", null, event.tag && /*#__PURE__*/React.createElement("strong", null, event.tag), event.detail, event.time && /*#__PURE__*/React.createElement("i", null, event.time))));
 }
 }};
 modules["src/views/lui-panel/index.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/workflow.js":"src/mock/workflow.js","../../components/status-marks/index.jsx":"src/components/status-marks/index.jsx","../report-card/index.jsx":"src/views/report-card/index.jsx","../../mock/audit.js":"src/mock/audit.js","./uc2-chat.jsx":"src/views/lui-panel/uc2-chat.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","./composer.jsx":"src/views/lui-panel/composer.jsx"},run:function(require,module,exports){
@@ -63033,7 +63591,7 @@ function MetricCard({
   }, /*#__PURE__*/React.createElement("label", null, label), /*#__PURE__*/React.createElement("strong", null, value), /*#__PURE__*/React.createElement("small", null, unit));
 }
 }};
-modules["src/views/uc2-canvas/mining.jsx"]={deps:{"../../../assets/shared/icon.jsx":"assets/shared/icon.jsx","../../context.jsx":"src/context.jsx","../../mock/uc2.js":"src/mock/uc2.js","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx"},run:function(require,module,exports){
+modules["src/views/uc2-canvas/mining.jsx"]={deps:{"./mining-reference.css":"src/views/uc2-canvas/mining-reference.css","../../../assets/shared/icon.jsx":"assets/shared/icon.jsx","../../context.jsx":"src/context.jsx","../../mock/uc2.js":"src/mock/uc2.js","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -63041,6 +63599,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Uc2Mining;
 var _react = require("react");
+require("./mining-reference.css");
 var _icon = require("../../../assets/shared/icon.jsx");
 var _context = require("../../context.jsx");
 var _uc = require("../../mock/uc2.js");
@@ -63072,9 +63631,30 @@ function RuleTooltip({
     className: "fusion-tooltip-counts"
   }, /*#__PURE__*/React.createElement("span", null, "依据 ", /*#__PURE__*/React.createElement("strong", null, r.support), " 台"), /*#__PURE__*/React.createElement("span", null, "适用 ", r.scope, " 台"), /*#__PURE__*/React.createElement("span", null, "偏离 ", r.deviations, " 台")), /*#__PURE__*/React.createElement("code", null, r.cmd), /*#__PURE__*/React.createElement("small", null, "点击打开规则详情")), document.body);
 }
+
+// Reference reveal order: role clusters → representatives → engine → candidates.
+function revealDelay(id) {
+  const steps = {
+    core: 0,
+    leaf: 220,
+    core1: 950,
+    core2: 1170,
+    leafsample: 1390,
+    engine: 2150
+  };
+  if (steps[id] !== undefined) return steps[id];
+  return 3100 + Math.max(0, _uc.fusionNodes.filter(n => n.rule).findIndex(n => n.id === id)) * 240;
+}
 function FusionGraph({
-  active
+  active,
+  playing,
+  completed
 }) {
+  const revealStyle = (delay, duration = 500) => ({
+    "--fusion-delay": `${delay - (completed ? 7000 : 0)}ms`,
+    "--fusion-duration": `${duration}ms`,
+    animationPlayState: playing ? "running" : "paused"
+  });
   const {
     uc2,
     uc2Fusion,
@@ -63094,7 +63674,8 @@ function FusionGraph({
     const hot = showRel.has(a) && showRel.has(b);
     return /*#__PURE__*/React.createElement("g", {
       key: a + ":" + b,
-      className: "fusion-edge " + (hot ? "related" : "dim"),
+      className: "fusion-edge fusion-reveal-edge " + (hot ? "related" : "dim"),
+      style: revealStyle(a === "engine" ? revealDelay(b) - 420 : b === "engine" ? 1700 : 560, 650),
       "data-fusion-from": a,
       "data-fusion-to": b
     }, /*#__PURE__*/React.createElement("path", {
@@ -63159,7 +63740,7 @@ function FusionGraph({
     }
   });
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("svg", {
-    className: "fusion-graph" + (active ? " active" : ""),
+    className: "fusion-graph fusion-sequential" + (active ? " active" : ""),
     viewBox: "0 0 1180 565",
     role: "img",
     "aria-label": "黄金基线挖掘过程：角色聚类、代表配置对比、AI共性提取、候选规则形成"
@@ -63196,18 +63777,26 @@ function FusionGraph({
   }), /*#__PURE__*/React.createElement("g", {
     className: "fusion-lane-labels"
   }, /*#__PURE__*/React.createElement("text", {
+    className: "fusion-reveal",
+    style: revealStyle(0),
     x: "105",
     y: "40",
     textAnchor: "middle"
   }, "角色聚类"), /*#__PURE__*/React.createElement("text", {
+    className: "fusion-reveal",
+    style: revealStyle(900),
     x: "324",
     y: "40",
     textAnchor: "middle"
   }, "代表配置对比"), /*#__PURE__*/React.createElement("text", {
+    className: "fusion-reveal",
+    style: revealStyle(2100),
     x: "595",
     y: "40",
     textAnchor: "middle"
   }, "共性提取"), /*#__PURE__*/React.createElement("text", {
+    className: "fusion-reveal",
+    style: revealStyle(2950),
     x: "985",
     y: "33",
     textAnchor: "middle"
@@ -63223,10 +63812,11 @@ function FusionGraph({
     const isEngine = n.id === "engine";
     const isRule = !!n.rule;
     const dim = !showRel.has(n.id);
-    const cls = ["fusion-node", selected === n.id ? "selected" : "", dim ? "dim" : "", hoverId === n.id ? "hovered" : "", isEngine ? "engine" : "", isRule ? "rule" : ""].filter(Boolean).join(" ");
+    const cls = ["fusion-node", "fusion-reveal", selected === n.id ? "selected" : "", dim ? "dim" : "", hoverId === n.id ? "hovered" : "", isEngine ? "engine" : "", isRule ? "rule" : ""].filter(Boolean).join(" ");
     return /*#__PURE__*/React.createElement("g", {
       key: n.id,
       className: cls,
+      style: revealStyle(revealDelay(n.id)),
       "data-fusion-node": n.id,
       role: "button",
       tabIndex: 0,
@@ -63311,7 +63901,8 @@ function FusionGraph({
     textAnchor: "middle",
     className: "fusion-comparison-sub"
   }, "SSH · AAA · VRRP"), /*#__PURE__*/React.createElement("g", {
-    className: "fusion-output-total"
+    className: "fusion-output-total fusion-reveal",
+    style: revealStyle(5950)
   }, /*#__PURE__*/React.createElement("text", {
     x: "985",
     y: "548",
@@ -63434,15 +64025,28 @@ function FusionDrawer() {
 function Uc2Mining() {
   const {
     uc2,
-    uc2Fusion
+    uc2Fusion,
+    uc2FusionPick
   } = (0, _context.useApp)();
+  const [replayKey, setReplayKey] = (0, _react.useState)(0);
+  const [completedAtMount] = (0, _react.useState)(uc2.max === 3);
   const done = uc2.max === 3;
   const active = uc2.running && !done;
   return /*#__PURE__*/React.createElement("div", {
     className: "fusion-mining"
   }, /*#__PURE__*/React.createElement("div", {
     className: "unified-heading"
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", null, "黄金基线挖掘"), /*#__PURE__*/React.createElement("p", null, "西三旗 DC · 100 台样本 · 核心 20 / Leaf 80 · 点击节点追踪挖掘依据")), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", null, "黄金基线挖掘"), /*#__PURE__*/React.createElement("p", null, "西三旗 DC · 100 台样本 · 核心 20 / Leaf 80 · 点击节点追踪挖掘依据")), /*#__PURE__*/React.createElement("button", {
+    className: "fusion-replay-btn",
+    type: "button",
+    "aria-label": "重播黄金基线挖掘动效",
+    onClick: () => {
+      uc2FusionPick("engine");
+      setReplayKey(k => k + 1);
+    }
+  }, /*#__PURE__*/React.createElement(_index.default, {
+    icon: "rotate-ccw"
+  }), "重播动效"), /*#__PURE__*/React.createElement("div", {
     className: "unified-status" + (active ? " running" : "")
   }, /*#__PURE__*/React.createElement("i", null), done ? "候选已形成" : active ? "正在提取配置共性" : "分析已暂停")), /*#__PURE__*/React.createElement("div", {
     className: "fusion-scene" + (uc2Fusion.drawer ? " with-rule-drawer" : "")
@@ -63451,13 +64055,16 @@ function Uc2Mining() {
   }, /*#__PURE__*/React.createElement("div", {
     className: "fusion-visual"
   }, /*#__PURE__*/React.createElement(FusionGraph, {
-    active: active
+    key: replayKey,
+    active: active || replayKey > 0,
+    playing: uc2.running || done || replayKey > 0,
+    completed: completedAtMount && replayKey === 0
   }), /*#__PURE__*/React.createElement(FusionContext, null)), uc2Fusion.drawer ? /*#__PURE__*/React.createElement(FusionDrawer, null) : null)), /*#__PURE__*/React.createElement("div", {
     className: "fusion-process-caption"
   }, /*#__PURE__*/React.createElement("span", null, "代表设备发现模式，适用样本回看验证。"), /*#__PURE__*/React.createElement("small", null, "完整结果与审阅操作见下方报告")));
 }
 }};
-modules["src/views/uc2-canvas/report.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/uc2.js":"src/mock/uc2.js","./topology.jsx":"src/views/uc2-canvas/topology.jsx","../../components/metric-card/index.jsx":"src/components/metric-card/index.jsx","../../components/empty-state/index.jsx":"src/components/empty-state/index.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx"},run:function(require,module,exports){
+modules["src/views/uc2-canvas/report.jsx"]={deps:{"../../components/option-group/index.jsx":"src/components/option-group/index.jsx","../../components/search-input/index.jsx":"src/components/search-input/index.jsx","./report.css":"src/views/uc2-canvas/report.css","../../context.jsx":"src/context.jsx","../../mock/uc2.js":"src/mock/uc2.js","./topology.jsx":"src/views/uc2-canvas/topology.jsx","../../components/metric-card/index.jsx":"src/components/metric-card/index.jsx","../../components/empty-state/index.jsx":"src/components/empty-state/index.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -63465,33 +64072,24 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Uc2Report = Uc2Report;
 exports.Uc2RuleDetail = Uc2RuleDetail;
+var _react = require("react");
+var _index = _interopRequireDefault(require("../../components/option-group/index.jsx"));
+var _index2 = _interopRequireDefault(require("../../components/search-input/index.jsx"));
+require("./report.css");
 var _context = require("../../context.jsx");
 var _uc = require("../../mock/uc2.js");
 var _topology = require("./topology.jsx");
-var _index = _interopRequireDefault(require("../../components/metric-card/index.jsx"));
-var _index2 = _interopRequireDefault(require("../../components/empty-state/index.jsx"));
-var _index3 = _interopRequireDefault(require("../../components/icon-el/index.jsx"));
+var _index3 = _interopRequireDefault(require("../../components/metric-card/index.jsx"));
+var _index4 = _interopRequireDefault(require("../../components/empty-state/index.jsx"));
+var _index5 = _interopRequireDefault(require("../../components/icon-el/index.jsx"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 const reviewLabels = {
   pending: "待审阅",
   accepted: "已采用",
   rejected: "暂不采用"
 };
-function Uc2Bar({
-  label,
-  n,
-  max
-}) {
-  return /*#__PURE__*/React.createElement("div", {
-    className: "uc2-bar"
-  }, /*#__PURE__*/React.createElement("label", null, label), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("i", {
-    style: {
-      width: n / max * 100 + "%"
-    }
-  })), /*#__PURE__*/React.createElement("b", null, n));
-}
 
-// 模块 3：候选报告
+// 模块 3：候选报告 — 与 UC4 共用摘要 / TOP 概览 / 明细的信息层级。
 function Uc2Report() {
   const {
     uc2,
@@ -63500,69 +64098,156 @@ function Uc2Report() {
     uc2Reviews,
     toast
   } = (0, _context.useApp)();
-  const accepted = _uc.uc2Rules.filter(r => (uc2Reviews[r.id] || "pending") === "accepted").length;
-  const rs = _uc.uc2Rules.filter(r => (uc2.role === "全部角色" || !uc2.role || r.role === uc2.role) && (uc2.category === "全部功能" || !uc2.category || r.category === uc2.category) && (uc2.status === "all" || !uc2.status || (uc2Reviews[r.id] || "pending") === uc2.status) && r.name.includes(uc2.query || ""));
+  const [lens, setLens] = (0, _react.useState)("rules");
+  const [page, setPage] = (0, _react.useState)(1);
+  const detailsRef = (0, _react.useRef)(null);
+  const reviewOf = r => uc2Reviews[r.id] || "pending";
+  const accepted = _uc.uc2Rules.filter(r => reviewOf(r) === "accepted").length;
+  const highConfidence = _uc.uc2Rules.filter(r => r.confidence === "高").length;
   const categories = [...new Set(_uc.uc2Rules.map(r => r.category))];
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_topology.Uc2Title, {
-    stage: 3,
-    title: "西三旗 DC · 黄金基线候选报告",
-    sub: "本轮分析 100 / 1,980 台交换机 · 候选规则尚未发布为正式基线",
-    tag: "待客户审阅"
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "uc2-metrics"
-  }, /*#__PURE__*/React.createElement(_index.default, {
-    label: "接入分析设备",
-    value: "100",
-    unit: "核心 20 · Leaf 80"
-  }), /*#__PURE__*/React.createElement(_index.default, {
-    label: "候选可用规则",
-    value: "18",
-    unit: "12 条高置信 · 6 条待验证"
-  }), /*#__PURE__*/React.createElement(_index.default, {
-    label: "存在候选偏离",
-    value: "9",
-    unit: "台样本设备 · 可重叠命中规则"
-  }), /*#__PURE__*/React.createElement(_index.default, {
-    label: "审阅已采用",
-    value: accepted,
-    unit: "条 · 尚未发布"
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "uc2-selection"
-  }, /*#__PURE__*/React.createElement("h3", null, /*#__PURE__*/React.createElement(_index3.default, {
-    icon: "sparkles"
-  }), " 黄金挖掘洞察"), /*#__PURE__*/React.createElement("p", null, "发现 4 条跨角色共性、6 条核心角色规则、8 条 Leaf 角色规则。优先审阅登录安全、核心冗余等高一致性配置模式。"), /*#__PURE__*/React.createElement("p", null, "偏离集中在超时、算法、VLAN 和接口描述；可能是业务差异或例外配置，应结合规划核验。9 台设备仅表示偏离候选规则，尚不能认定为正式违规。")), /*#__PURE__*/React.createElement("div", {
-    className: "uc2-split"
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, "按功能统计 · 18 条"), ["账户与访问安全", "VLAN 与二层网络", "路由与冗余", "运维可观测性", "接口可靠性"].map(c => /*#__PURE__*/React.createElement(Uc2Bar, {
-    key: c,
-    label: c,
-    n: _uc.uc2Rules.filter(r => r.category === c).length,
-    max: 6
-  }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, "按适用角色统计 · 互斥口径"), [["通用", 4], ["核心交换机", 6], ["Leaf 交换机", 8], ["防火墙", 0]].map(([c, n]) => /*#__PURE__*/React.createElement(Uc2Bar, {
-    key: c,
-    label: c,
-    n: n,
-    max: 8
-  })), /*#__PURE__*/React.createElement("p", {
-    className: "uc2-note"
-  }, "通用规则单独统计，不重复计入角色；防火墙未纳入本轮交换机范围，0 表示未分析。"))), /*#__PURE__*/React.createElement("div", {
-    className: "between"
-  }, /*#__PURE__*/React.createElement("h3", {
+  const rs = _uc.uc2Rules.filter(r => (uc2.role === "全部角色" || !uc2.role || r.role === uc2.role) && (uc2.category === "全部功能" || !uc2.category || r.category === uc2.category) && (uc2.status === "all" || !uc2.status || reviewOf(r) === uc2.status) && (r.name + " " + r.id + " " + r.category).toLowerCase().includes((uc2.query || "").trim().toLowerCase()));
+  const ranked = [..._uc.uc2Rules].sort((a, b) => b.deviations - a.deviations || b.support / b.scope - a.support / a.scope).slice(0, 5);
+  const pageSize = 10;
+  const pages = Math.max(1, Math.ceil(rs.length / pageSize));
+  const current = Math.min(page, pages);
+  const setFilter = filter => {
+    uc2SetFilter(filter);
+    setPage(1);
+  };
+  const showRole = role => {
+    setFilter({
+      role,
+      category: "全部功能",
+      status: "all",
+      query: ""
+    });
+    requestAnimationFrame(() => detailsRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    }));
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: "uc2-report v7-report"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "v7-report-heading"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "row"
+  }, /*#__PURE__*/React.createElement(_index5.default, {
+    icon: "file-text"
+  }), /*#__PURE__*/React.createElement("h2", null, "西三旗 DC · 黄金基线候选报告")), /*#__PURE__*/React.createElement("span", {
+    className: "uc2-tag"
+  }, "待客户审阅")), /*#__PURE__*/React.createElement("div", {
+    className: "v7-report-meta"
+  }, "西三旗 DC · 本轮分析 100 / 1,980 台交换机 · 18 条候选规则 · 基于本轮配置样本"), /*#__PURE__*/React.createElement("div", {
+    className: "v7-summary v11-summary"
+  }, /*#__PURE__*/React.createElement("section", {
+    className: "v7-compliance"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "uc2-report-ring",
     style: {
-      fontSize: "16px",
-      fontWeight: 500
+      "--candidate-ratio": `${highConfidence / _uc.uc2Rules.length * 100}%`
+    },
+    role: "img",
+    "aria-label": `${highConfidence}条高置信候选，共${_uc.uc2Rules.length}条`
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, highConfidence, /*#__PURE__*/React.createElement("small", null, " / ", _uc.uc2Rules.length)), /*#__PURE__*/React.createElement("span", null, "高置信候选"))), /*#__PURE__*/React.createElement("div", {
+    className: "v7-summary-counts"
+  }, /*#__PURE__*/React.createElement("span", null, "待验证 ", /*#__PURE__*/React.createElement("strong", null, _uc.uc2Rules.length - highConfidence), " 条"), /*#__PURE__*/React.createElement("span", null, "已采用 ", /*#__PURE__*/React.createElement("strong", null, accepted), " 条"))), /*#__PURE__*/React.createElement("section", {
+    className: "v7-conclusion v11-conclusion"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "v7-conclusion-label"
+  }, /*#__PURE__*/React.createElement(_index5.default, {
+    icon: "sparkles"
+  }), "挖掘结论"), /*#__PURE__*/React.createElement("p", {
+    className: "v12-summary-copy"
+  }, "分析 ", /*#__PURE__*/React.createElement("strong", null, "100 台样本设备"), "，发现 ", /*#__PURE__*/React.createElement("strong", null, "18 条候选规则"), "，其中 ", highConfidence, " 条高置信、", _uc.uc2Rules.length - highConfidence, " 条待验证。", /*#__PURE__*/React.createElement("strong", null, "9 台样本设备存在候选偏离"), "，集中在超时、算法、VLAN 和接口描述，建议优先核验登录安全与核心冗余配置。"), /*#__PURE__*/React.createElement("div", {
+    className: "uc2-report-notice"
+  }, "候选偏离不等于正式违规。采用仅保存审阅结果，不会发布正式基线或执行设备变更。"))), /*#__PURE__*/React.createElement("section", {
+    className: "v7-overview-section"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "v7-result-toolbar"
+  }, /*#__PURE__*/React.createElement("h3", {
+    className: "v7-section-title"
+  }, "TOP概览"), /*#__PURE__*/React.createElement(_index.default, {
+    cls: "v7-lens",
+    ariaLabel: "候选概览维度",
+    options: [["rules", "按候选规则"], ["roles", "按适用角色"]],
+    value: lens,
+    onChange: setLens
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "v7-top-grid " + (lens === "roles" ? "by-role" : "")
+  }, lens === "rules" ? ranked.map((r, i) => /*#__PURE__*/React.createElement("article", {
+    className: "v7-top-card v8-overview-card v9-overview-card",
+    key: r.id
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "v7-card-title"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "v7-rank"
+  }, i + 1), /*#__PURE__*/React.createElement("h3", null, /*#__PURE__*/React.createElement("button", {
+    onClick: () => uc2OpenRule(r.id)
+  }, r.name))), /*#__PURE__*/React.createElement("div", {
+    className: "v7-device-ip"
+  }, r.role, " · ", r.confidence === "高" ? "高置信" : "待验证"), /*#__PURE__*/React.createElement("div", {
+    className: "v7-card-number"
+  }, /*#__PURE__*/React.createElement("strong", null, r.deviations), /*#__PURE__*/React.createElement("span", null, "台样本偏离")), /*#__PURE__*/React.createElement("div", {
+    className: "uc2-report-support"
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: `${r.support / r.scope * 100}%`
     }
-  }, "候选结果详情"), /*#__PURE__*/React.createElement("button", {
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "v7-device-ip"
+  }, "配置支持 ", r.support, " / ", r.scope, " 台"), /*#__PURE__*/React.createElement("section", null, /*#__PURE__*/React.createElement("h5", null, "候选要求"), /*#__PURE__*/React.createElement("code", null, r.cmd)), /*#__PURE__*/React.createElement("a", {
+    className: "uc2-report-review",
+    onClick: () => uc2OpenRule(r.id)
+  }, "审阅候选 ", /*#__PURE__*/React.createElement(_index5.default, {
+    icon: "arrow-right"
+  })))) : ["通用", "核心交换机", "Leaf 交换机", "防火墙"].map(role => {
+    const rules = _uc.uc2Rules.filter(r => r.role === role);
+    return /*#__PURE__*/React.createElement("article", {
+      className: "v7-top-card v8-overview-card v9-overview-card",
+      key: role
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "v7-card-title"
+    }, /*#__PURE__*/React.createElement("h3", null, role)), /*#__PURE__*/React.createElement("div", {
+      className: "v7-card-number"
+    }, /*#__PURE__*/React.createElement("strong", null, rules.length), /*#__PURE__*/React.createElement("span", null, "条候选规则")), /*#__PURE__*/React.createElement("p", null, role === "防火墙" ? "未纳入本轮交换机分析范围" : role === "通用" ? "跨角色共性，单独统计不重复计入角色" : "基于同角色设备的配置共性提取"), /*#__PURE__*/React.createElement("a", {
+      className: "uc2-report-review",
+      onClick: () => showRole(role)
+    }, "查看候选 ", /*#__PURE__*/React.createElement(_index5.default, {
+      icon: "arrow-right"
+    })));
+  })), /*#__PURE__*/React.createElement("p", {
+    className: "uc2-report-footnote"
+  }, lens === "rules" ? "展示偏离样本数最高的 5 条候选；相同时按配置支持比例排序。设备可能命中多条规则，偏离数不可直接相加。" : "按适用角色互斥统计；防火墙 0 条表示未分析。")), /*#__PURE__*/React.createElement("section", {
+    className: "v7-check-details",
+    ref: detailsRef
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "v7-result-toolbar"
+  }, /*#__PURE__*/React.createElement("h3", {
+    className: "v7-section-title"
+  }, "候选规则明细"), /*#__PURE__*/React.createElement("button", {
     className: "btn",
     onClick: () => {
       (0, _uc.uc2ExportCsv)(uc2Reviews);
       toast("候选规则已导出为 CSV。");
     }
-  }, "导出候选规则")), /*#__PURE__*/React.createElement("div", {
-    className: "uc2-filter"
+  }, /*#__PURE__*/React.createElement(_index5.default, {
+    icon: "download"
+  }), " 导出候选规则")), /*#__PURE__*/React.createElement(_index.default, {
+    cls: "v7-status-filters",
+    ariaLabel: "候选审阅状态筛选",
+    options: [["all", "全部"], ["pending", "待审阅"], ["accepted", "已采用"], ["rejected", "暂不采用"]],
+    value: uc2.status || "all",
+    onChange: status => setFilter({
+      status
+    }),
+    renderOption: opt => /*#__PURE__*/React.createElement(React.Fragment, null, opt[1], " ", /*#__PURE__*/React.createElement("strong", null, opt[0] === "all" ? _uc.uc2Rules.length : _uc.uc2Rules.filter(r => reviewOf(r) === opt[0]).length))
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "uc2-filter v7-table-tools"
   }, /*#__PURE__*/React.createElement("select", {
     "aria-label": "候选规则角色筛选",
     value: uc2.role || "全部角色",
-    onChange: e => uc2SetFilter({
+    onChange: e => setFilter({
       role: e.target.value
     })
   }, ["全部角色", "通用", "核心交换机", "Leaf 交换机", "防火墙"].map(c => /*#__PURE__*/React.createElement("option", {
@@ -63570,52 +64255,63 @@ function Uc2Report() {
   }, c))), /*#__PURE__*/React.createElement("select", {
     "aria-label": "候选规则功能筛选",
     value: uc2.category || "全部功能",
-    onChange: e => uc2SetFilter({
+    onChange: e => setFilter({
       category: e.target.value
     })
   }, ["全部功能", ...categories].map(c => /*#__PURE__*/React.createElement("option", {
     key: c
-  }, c))), /*#__PURE__*/React.createElement("select", {
-    "aria-label": "候选审阅状态筛选",
-    value: uc2.status || "all",
-    onChange: e => uc2SetFilter({
-      status: e.target.value
-    })
-  }, [["all", "全部审阅状态"], ["pending", "待审阅"], ["accepted", "已采用"], ["rejected", "暂不采用"]].map(([v, n]) => /*#__PURE__*/React.createElement("option", {
-    key: v,
-    value: v
-  }, n))), /*#__PURE__*/React.createElement("input", {
-    "aria-label": "搜索候选规则",
-    placeholder: "搜索规则名称",
+  }, c))), /*#__PURE__*/React.createElement(_index2.default, {
     value: uc2.query || "",
-    onChange: e => uc2SetFilter({
-      query: e.target.value
-    })
-  })), /*#__PURE__*/React.createElement("table", {
-    className: "rule-table uc2-table"
-  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "候选规则名称"), /*#__PURE__*/React.createElement("th", null, "适用角色"), /*#__PURE__*/React.createElement("th", null, "支持度"), /*#__PURE__*/React.createElement("th", null, "偏离设备"), /*#__PURE__*/React.createElement("th", null, "置信度"), /*#__PURE__*/React.createElement("th", null, "审阅状态"), /*#__PURE__*/React.createElement("th", null, "操作"))), /*#__PURE__*/React.createElement("tbody", null, rs.map(r => /*#__PURE__*/React.createElement("tr", {
+    onChange: query => setFilter({
+      query
+    }),
+    placeholder: "搜索规则名称、编号或功能",
+    ariaLabel: "搜索候选规则",
+    clearable: true
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "v7-table-scroll"
+  }, /*#__PURE__*/React.createElement("table", {
+    className: "rule-table v7-table"
+  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "候选规则名称"), /*#__PURE__*/React.createElement("th", null, "适用角色"), /*#__PURE__*/React.createElement("th", null, "配置支持"), /*#__PURE__*/React.createElement("th", null, "偏离样本"), /*#__PURE__*/React.createElement("th", null, "置信度"), /*#__PURE__*/React.createElement("th", null, "审阅状态"), /*#__PURE__*/React.createElement("th", null, "操作"))), /*#__PURE__*/React.createElement("tbody", null, rs.slice((current - 1) * pageSize, current * pageSize).map(r => /*#__PURE__*/React.createElement("tr", {
     key: r.id
-  }, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
+  }, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("a", {
     onClick: () => uc2OpenRule(r.id)
   }, r.name), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
     className: "muted small"
-  }, r.id, " · ", r.category)), /*#__PURE__*/React.createElement("td", null, r.role), /*#__PURE__*/React.createElement("td", null, r.support, " / ", r.scope), /*#__PURE__*/React.createElement("td", null, r.deviations ? /*#__PURE__*/React.createElement("button", {
+  }, r.id, " · ", r.category)), /*#__PURE__*/React.createElement("td", null, r.role), /*#__PURE__*/React.createElement("td", null, r.support, " / ", r.scope), /*#__PURE__*/React.createElement("td", null, r.deviations ? /*#__PURE__*/React.createElement("a", {
     onClick: () => uc2OpenRule(r.id)
-  }, r.deviations, " 台 ›") : "0 台"), /*#__PURE__*/React.createElement("td", null, r.confidence), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("span", {
-    className: "uc2-status " + (uc2Reviews[r.id] || "pending")
-  }, reviewLabels[uc2Reviews[r.id] || "pending"])), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
+  }, r.deviations, " 台 ›") : "0 台"), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("span", {
+    className: "uc2-report-confidence " + (r.confidence === "高" ? "high" : "")
+  }, r.confidence)), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("span", {
+    className: "uc2-status " + reviewOf(r)
+  }, reviewLabels[reviewOf(r)])), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("a", {
     onClick: () => uc2OpenRule(r.id)
-  }, "审阅 →")))), !rs.length ? /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", {
+  }, "审阅 →")))), !rs.length && /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", {
     colSpan: "7"
-  }, /*#__PURE__*/React.createElement(_index2.default, {
+  }, /*#__PURE__*/React.createElement(_index4.default, {
     cls: "uc2-empty",
     text: "没有匹配的候选规则；防火墙未纳入本轮分析。"
-  }))) : null)), /*#__PURE__*/React.createElement("div", {
-    className: "uc2-note",
-    style: {
-      marginTop: "12px"
-    }
-  }, "当前 ", rs.length, " / 18 条候选规则 · 支持度为满足候选配置的样本数 / 适用样本数"));
+  })))))), /*#__PURE__*/React.createElement("div", {
+    className: "v7-pagination"
+  }, /*#__PURE__*/React.createElement("span", null, "共 ", rs.length, " 条 · ", pageSize, " 条/页 · 配置支持为满足候选配置 / 适用样本数"), /*#__PURE__*/React.createElement("div", {
+    className: "row"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "btn",
+    disabled: current === 1,
+    onClick: () => setPage(current - 1)
+  }, "上一页"), Array.from({
+    length: pages
+  }, (_, i) => /*#__PURE__*/React.createElement("button", {
+    key: i,
+    className: "v7-page " + (current === i + 1 ? "active" : ""),
+    "aria-label": `候选规则第${i + 1}页`,
+    "aria-current": current === i + 1 ? "page" : undefined,
+    onClick: () => setPage(i + 1)
+  }, i + 1)), /*#__PURE__*/React.createElement("button", {
+    className: "btn",
+    disabled: current === pages,
+    onClick: () => setPage(current + 1)
+  }, "下一页")))));
 }
 
 // 模块 3（规则视图）：单条候选审阅
@@ -63648,19 +64344,19 @@ function Uc2RuleDetail() {
     tag: "候选规则"
   }), /*#__PURE__*/React.createElement("div", {
     className: "uc2-metrics"
-  }, /*#__PURE__*/React.createElement(_index.default, {
+  }, /*#__PURE__*/React.createElement(_index3.default, {
     label: "适用样本",
     value: r.scope,
     unit: "台"
-  }), /*#__PURE__*/React.createElement(_index.default, {
+  }), /*#__PURE__*/React.createElement(_index3.default, {
     label: "配置支持",
     value: r.support,
     unit: "台"
-  }), /*#__PURE__*/React.createElement(_index.default, {
+  }), /*#__PURE__*/React.createElement(_index3.default, {
     label: "偏离样本",
     value: r.deviations,
     unit: "台 · 待核验"
-  }), /*#__PURE__*/React.createElement(_index.default, {
+  }), /*#__PURE__*/React.createElement(_index3.default, {
     label: "置信度",
     value: r.confidence,
     unit: "基于示例样本"
