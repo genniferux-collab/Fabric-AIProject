@@ -7557,12 +7557,8 @@ html:has(.stage-viewport),body:has(.stage-viewport){margin:0;width:100%;height:1
 .pc-layout .figma-dashboard .dcna-event{flex-shrink:0;padding:14px;box-shadow:none}.pc-layout .figma-dashboard .dcna-event-head b{font-size:13px;line-height:1.7;overflow-wrap:anywhere}.pc-layout .figma-dashboard .dcna-event-body{font-size:12px;line-height:1.8}
 .pc-layout .figma-map{container:home-map / size;background:radial-gradient(ellipse at 54% 55%,#252627 0%,#202122 58%,#1b1c1d 100%)}
 .pc-layout .figma-map-canvas{inset:0;transform-origin:center}
-.pc-layout .figma-map-plane{position:absolute;left:50%;top:58%;width:max(150cqw,230cqh);aspect-ratio:2792 / 1398;transform:translate(-56%,-50%)}
+.pc-layout .figma-map-plane{position:absolute;left:50%;top:calc(178px + (100cqh - 242px) / 2);width:min(calc((100cqw - 120px) / .5),calc((100cqh - 260px) * 1.997 / .84));aspect-ratio:2792 / 1398;transform:translate(-53%,-52.5%)}
 .pc-layout .figma-map-image{width:100%;height:100%;object-fit:contain;object-position:center;filter:brightness(.9);mask-image:radial-gradient(ellipse at 53% 50%,black 43%,rgba(0,0,0,.96) 63%,transparent 88%);mask-composite:add}
-.pc-layout .figma-map-marker{width:12px;height:12px;background:var(--good);box-shadow:0 0 0 3px var(--good-bg);border:1px solid var(--good);cursor:default}
-.pc-layout .figma-map-marker b{position:absolute;left:18px;top:-10px;white-space:nowrap;padding:5px 9px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--text);font-size:12px;font-weight:400}
-.pc-layout .figma-map-marker-west-sanqu{left:63.1%;top:33.5%}.pc-layout .figma-map-marker-jiading{left:69.5%;top:55.4%}.pc-layout .figma-map-marker-waigaoqiao{left:70.6%;top:55.8%}
-.pc-layout .figma-map-marker-jiading b{left:auto;right:18px;top:8px}.pc-layout .figma-map-marker-waigaoqiao b{top:-30px}
 .pc-layout .figma-map-controls{top:auto;bottom:24px;right:24px;border:1px solid var(--line);box-shadow:none;background:var(--panel)}.pc-layout .figma-map-controls button{background:var(--panel);color:var(--text);border-bottom-color:var(--line)}
 @media(max-height:850px){.pc-layout .figma-dashboard .dcna-container{padding:20px}.pc-layout .figma-dashboard .dcna-header{margin-bottom:18px}.pc-layout .figma-dashboard .dcna-summary{margin-bottom:16px}.pc-layout .figma-dashboard .dcna-stats{margin-bottom:18px}.pc-layout .figma-dashboard .dcna-stat p{margin-bottom:8px}}
 @media(max-width:760px){.pc-layout .figma-network-page{--dashboard-width:min(592px,100%)}.pc-layout .figma-map-plane{width:150cqw}}
@@ -7640,6 +7636,25 @@ html:has(.stage-viewport),body:has(.stage-viewport){margin:0;width:100%;height:1
   .effectiveness-distribution { width: 128px; flex-basis: 128px; }
   .effectiveness-trend { width: 80px; flex-basis: 80px; }
 }
+
+
+.map-network-overlay{position:absolute;inset:0;z-index:1;pointer-events:none}
+.map-network-connections{position:absolute;inset:0;overflow:visible;pointer-events:none}
+.map-network-connection{stroke:var(--good);stroke-opacity:.21;fill:none;transition:stroke-opacity .14s ease}
+.map-network-connection.is-emphasized{stroke-opacity:.68}.map-network-connection.is-muted{stroke-opacity:.035}
+.map-dc-anchor-line{stroke:var(--good);stroke-opacity:.7;stroke-dasharray:3 3}.map-dc-anchor{fill:var(--good);fill-opacity:.85}
+.map-branch-marker{position:absolute;z-index:1;width:6px;height:6px;transform:translate(-50%,-50%);border-radius:50%;background:var(--good);box-shadow:0 0 0 2px var(--good-bg);pointer-events:auto;cursor:default}
+.map-branch-marker.is-active{box-shadow:0 0 0 4px var(--good-bg);background:var(--on-success)}
+.map-dc-marker{position:absolute;z-index:2;box-sizing:border-box;width:48px;height:56px;padding:0;transform:translate(-50%,-50%);border:0;border-radius:50%;background:transparent;color:var(--good);pointer-events:auto;cursor:pointer}
+.map-dc-base{position:absolute;bottom:6px;left:2px;width:44px;height:22px;border-radius:50%;background:radial-gradient(ellipse at 50% 30%,#5bcb99,#24684e 72%);box-shadow:0 4px 0 #174431,inset 0 0 0 1px #8be5b880}
+.map-dc-building{position:absolute;left:10px;top:1px;display:grid;place-items:center;width:28px;height:32px;border-radius:4px;background:linear-gradient(135deg,#315f4f,#183b30);color:#c5f6db;transform:skewY(-7deg);box-shadow:3px 2px 0 #122c24}
+.map-dc-building svg{display:block}.map-dc-marker.is-active .map-dc-base{box-shadow:0 4px 0 #174431,inset 0 0 0 1px #b3ffdb,0 0 18px #4bd69a55}
+.map-dc-marker:focus-visible{outline:2px solid var(--focus-ring);outline-offset:5px}
+.map-dc-label{position:absolute;top:12px;display:flex;align-items:center;gap:5px;width:max-content;padding:5px 8px;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--text);font:500 12px/18px var(--font-family);white-space:nowrap}
+.map-dc-label--left{right:54px}.map-dc-label--right{left:54px}.map-dc-label small{font-size:10px;font-weight:400;color:var(--muted)}
+.map-network-legend{position:absolute;z-index:2;left:24px;bottom:24px;display:flex;align-items:center;gap:16px;padding:8px 12px;border-radius:8px;background:var(--panel);color:var(--secondary);font-size:11px;pointer-events:none}
+.map-network-legend>span{display:flex;align-items:center;gap:6px}.map-network-legend i{display:inline-block;flex:none;background:var(--good)}.map-network-legend .dc-key{width:12px;height:7px;border-radius:50%}.map-network-legend .branch-key{width:5px;height:5px;border-radius:50%}.map-network-legend .connection-key{width:18px;height:1px;opacity:.7}
+@media(prefers-reduced-motion:reduce){.map-network-connection{transition:none}}
 
 
 /* Geometry and reveal timing converted from config-agent-studio's mining board. */
@@ -9656,12 +9671,295 @@ function EffectivenessMetrics() {
   Object.assign(__export, { EffectivenessMetrics });
 })();
 
+/* ===== src/mock/map-network.js ===== */
+(function () {
+// Provincial reference points: Apache ECharts 4.9.0 map/json/china.json.
+// Projected onto the retained bitmap; branches are schematic provincial locations.
+const dataCenters = [
+  {
+    "id": "xisanqi",
+    "name": "西三旗",
+    "x": 63.1,
+    "y": 33.5,
+    "dx": -30,
+    "dy": -34,
+    "labelSide": "left"
+  },
+  {
+    "id": "wuqing",
+    "name": "武清",
+    "x": 64.4,
+    "y": 35.0,
+    "dx": 34,
+    "dy": 24,
+    "labelSide": "right"
+  },
+  {
+    "id": "waigaoqiao",
+    "name": "外高桥",
+    "x": 70.6,
+    "y": 55.8,
+    "dx": 38,
+    "dy": -24,
+    "labelSide": "right"
+  },
+  {
+    "id": "jiading",
+    "name": "嘉定",
+    "x": 69.5,
+    "y": 55.4,
+    "dx": -42,
+    "dy": 32,
+    "labelSide": "left"
+  }
+];
+
+const branches = [
+  {
+    "id": "branch-0",
+    "name": "台湾",
+    "x": 72.171,
+    "y": 76.194
+  },
+  {
+    "id": "branch-1",
+    "name": "河北",
+    "x": 61.711,
+    "y": 39.548
+  },
+  {
+    "id": "branch-2",
+    "name": "山西",
+    "x": 58.954,
+    "y": 43.26
+  },
+  {
+    "id": "branch-3",
+    "name": "内蒙古",
+    "x": 58.199,
+    "y": 29.7
+  },
+  {
+    "id": "branch-4",
+    "name": "辽宁",
+    "x": 70.12,
+    "y": 27.004
+  },
+  {
+    "id": "branch-5",
+    "name": "吉林",
+    "x": 71.268,
+    "y": 20.796
+  },
+  {
+    "id": "branch-6",
+    "name": "黑龙江",
+    "x": 73.183,
+    "y": 12.074
+  },
+  {
+    "id": "branch-7",
+    "name": "江苏",
+    "x": 68.443,
+    "y": 51.999
+  },
+  {
+    "id": "branch-8",
+    "name": "浙江",
+    "x": 69.617,
+    "y": 62.227
+  },
+  {
+    "id": "branch-9",
+    "name": "安徽",
+    "x": 65.914,
+    "y": 57.623
+  },
+  {
+    "id": "branch-10",
+    "name": "福建",
+    "x": 67.94,
+    "y": 71.675
+  },
+  {
+    "id": "branch-11",
+    "name": "江西",
+    "x": 64.416,
+    "y": 67.974
+  },
+  {
+    "id": "branch-12",
+    "name": "山东",
+    "x": 65.833,
+    "y": 43.61
+  },
+  {
+    "id": "branch-13",
+    "name": "河南",
+    "x": 61.368,
+    "y": 51.524
+  },
+  {
+    "id": "branch-14",
+    "name": "湖北",
+    "x": 61.301,
+    "y": 60.114
+  },
+  {
+    "id": "branch-15",
+    "name": "湖南",
+    "x": 59.724,
+    "y": 67.567
+  },
+  {
+    "id": "branch-16",
+    "name": "广东",
+    "x": 62.018,
+    "y": 81.068
+  },
+  {
+    "id": "branch-17",
+    "name": "广西",
+    "x": 55.69,
+    "y": 82.604
+  },
+  {
+    "id": "branch-18",
+    "name": "海南",
+    "x": 57.811,
+    "y": 92.87
+  },
+  {
+    "id": "branch-19",
+    "name": "四川",
+    "x": 50.238,
+    "y": 61.003
+  },
+  {
+    "id": "branch-20",
+    "name": "贵州",
+    "x": 53.533,
+    "y": 72.306
+  },
+  {
+    "id": "branch-21",
+    "name": "云南",
+    "x": 46.974,
+    "y": 77.376
+  },
+  {
+    "id": "branch-22",
+    "name": "西藏",
+    "x": 32.525,
+    "y": 58.043
+  },
+  {
+    "id": "branch-23",
+    "name": "陕西",
+    "x": 55.892,
+    "y": 50.775
+  },
+  {
+    "id": "branch-24",
+    "name": "甘肃",
+    "x": 49.989,
+    "y": 46.002
+  },
+  {
+    "id": "branch-25",
+    "name": "青海",
+    "x": 42.001,
+    "y": 46.64
+  },
+  {
+    "id": "branch-26",
+    "name": "宁夏",
+    "x": 52.731,
+    "y": 42.631
+  },
+  {
+    "id": "branch-27",
+    "name": "新疆",
+    "x": 31.106,
+    "y": 29.777
+  },
+  {
+    "id": "branch-31",
+    "name": "重庆",
+    "x": 54.174,
+    "y": 64.052
+  },
+  {
+    "id": "branch-32",
+    "name": "香港",
+    "x": 63.225,
+    "y": 83.103
+  },
+  {
+    "id": "branch-33",
+    "name": "澳门",
+    "x": 62.438,
+    "y": 83.568
+  }
+];
+  Object.assign(__export, { dataCenters, branches });
+})();
+
+/* ===== src/components/map-network-overlay/index.jsx ===== */
+(function () {
+  const { useEffect, useRef, useState } = React;
+  const { Icon, branches, dataCenters } = __export;
+function MapNetworkOverlay() {
+  const layerRef = useRef(null);
+  const [size, setSize] = useState({ width: 0, height: 0 });
+  const [hovered, setHovered] = useState(null);
+  const [selected, setSelected] = useState(null);
+  const focus = hovered || selected;
+  useEffect(() => {
+    const observer = new ResizeObserver(([entry]) => {
+      const { width, height } = entry.contentRect;
+      setSize({ width, height });
+    });
+    observer.observe(layerRef.current);
+    return () => observer.disconnect();
+  }, []);
+  const isRelated = (center, branch) => !focus || (focus.type === "center" ? focus.id === center.id : focus.id === branch.id);
+  const point = item => ({ x: item.x * size.width / 100, y: item.y * size.height / 100 });
+  const endpoint = center => ({ x: center.x * size.width / 100 + center.dx, y: center.y * size.height / 100 + center.dy + 12 });
+
+  return <div className="map-network-overlay" ref={layerRef} aria-label="全国支行到四个数据中心的连接示意">
+    {size.width > 0 && <svg className="map-network-connections" width="100%" height="100%" aria-hidden="true">
+      {dataCenters.map(center => {
+        const end = endpoint(center);
+        const anchor = point(center);
+        return <g key={center.id} data-center-id={center.id}>
+          {branches.map(branch => {
+            const start = point(branch);
+            return <line key={branch.id} className={`map-network-connection${focus ? isRelated(center, branch) ? " is-emphasized" : " is-muted" : ""}`} data-branch-id={branch.id} x1={start.x} y1={start.y} x2={end.x} y2={end.y} strokeWidth="1" vectorEffect="non-scaling-stroke" />;
+          })}
+          <line className="map-dc-anchor-line" x1={anchor.x} y1={anchor.y} x2={end.x} y2={end.y} strokeWidth="1" vectorEffect="non-scaling-stroke" />
+          <circle className="map-dc-anchor" cx={anchor.x} cy={anchor.y} r="2" />
+        </g>;
+      })}
+    </svg>}
+    {branches.map(branch => <span key={branch.id} className={`map-branch-marker${focus?.type === "branch" && focus.id === branch.id ? " is-active" : ""}`} style={{ left: `${branch.x}%`, top: `${branch.y}%` }} role="img" aria-label={`${branch.name}支行`} title={`${branch.name}支行 · 连接四个数据中心`} onMouseEnter={() => setHovered({ type: "branch", id: branch.id })} onMouseLeave={() => setHovered(null)} />)}
+    {dataCenters.map(center => <button key={center.id} type="button" className={`map-dc-marker${focus?.type === "center" && focus.id === center.id ? " is-active" : ""}`} style={{ left: `calc(${center.x}% + ${center.dx}px)`, top: `calc(${center.y}% + ${center.dy}px)` }} aria-label={`高亮${center.name}数据中心的${branches.length}条支行连接`} aria-pressed={selected?.type === "center" && selected.id === center.id} title={`${center.name}数据中心`} onMouseEnter={() => setHovered({ type: "center", id: center.id })} onMouseLeave={() => setHovered(null)} onFocus={() => setHovered({ type: "center", id: center.id })} onBlur={() => setHovered(null)} onClick={() => setSelected(selected?.id === center.id ? null : { type: "center", id: center.id })} onKeyDown={event => { if (event.key === "Escape") { setSelected(null); setHovered(null); } }}>
+      <span className="map-dc-base" />
+      <span className="map-dc-building"><Icon name="server" size="1.5rem" strokeWidth={1.6} /></span>
+      <span className={`map-dc-label map-dc-label--${center.labelSide}`}>{center.name}<small>DC</small></span>
+    </button>)}
+  </div>;
+}
+  Object.assign(__export, { MapNetworkOverlay });
+})();
+
 /* ===== src/views/cockpit/index.jsx ===== */
 (function () {
   const { useRef, useState } = React;
   const { useApp } = __export;
   const DataCenterNetworkAgent = __export.DataCenterNetworkAgent;
   const EffectivenessMetrics = __export.EffectivenessMetrics;
+  const MapNetworkOverlay = __export.MapNetworkOverlay;
 function Cockpit() {
   const { openAgentHome } = useApp();
   const [mapScale, setMapScale] = useState(1);
@@ -9709,11 +10007,10 @@ function Cockpit() {
             src="./assets/uploads/figma/china-dark-map.png"
             alt="以中国为中心的深色地图"
           />
-          <span className="figma-map-marker figma-map-marker-west-sanqu" aria-label="西三旗" title="西三旗"><b>西三旗 DC</b></span>
-          <span className="figma-map-marker figma-map-marker-jiading" aria-label="嘉定" title="嘉定"><b>嘉定 DC</b></span>
-          <span className="figma-map-marker figma-map-marker-waigaoqiao" aria-label="外高桥" title="外高桥"><b>外高桥 DC</b></span>
+          <MapNetworkOverlay />
           </div>
         </div>
+        <div className="map-network-legend" aria-label="地图图例"><span><i className="dc-key" />4 个数据中心</span><span><i className="branch-key" />31 个支行</span><span><i className="connection-key" />124 条直连</span></div>
         <div className="figma-map-controls" aria-label="地图缩放控制">
           <button type="button" onClick={() => changeScale(0.2)} aria-label="放大地图">+</button>
           <button type="button" onClick={() => changeScale(-0.2)} aria-label="缩小地图">−</button>
