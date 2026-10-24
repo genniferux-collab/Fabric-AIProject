@@ -325,7 +325,7 @@ html:not(.dark) .stage-root.uc4 .v7-map-split>.v7-map-device-card{background:#fa
 .stage-root.uc4 .v7-network-device>rect{transition:none}
 .stage-root.uc4 .v7-map-device-card{animation:none}
 .stage-root.uc4 .v7-network-sweep{display:none}}
-.stage-root.uc4 .v7-conclusion-card{display:flex;align-items:center;gap:16px;width:528px;max-width:100%;height:82px;margin-top:16px;padding:16px 20px;border:1px solid #ffffff0a;border-radius:8px;background:linear-gradient(100deg,transparent 38%,#2974cd24 78%,#3689e83d 100%),rgba(42,42,42,.75);text-align:left;color:#DFDFDF;transition:border-color .15s,box-shadow .15s}
+.stage-root.uc4 .v7-conclusion-card{display:flex;align-items:center;gap:16px;width:528px;max-width:100%;height:82px;margin-top:16px;padding:16px 20px;border:1px solid #ffffff0a;border-radius:12px;background:linear-gradient(100deg,transparent 38%,#2974cd24 78%,#3689e83d 100%),rgba(42,42,42,.75);text-align:left;color:#DFDFDF;transition:border-color .15s,box-shadow .15s}
 .stage-root.uc4 .v7-conclusion-card:hover{border-color:#5ca2e966;box-shadow:0 0 16px #2874cd12}
 .stage-root.uc4 .v7-conclusion-card>.v7-artifact-icon{width:32px;height:32px;flex-shrink:0}
 .stage-root.uc4 .v7-conclusion-copy{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
@@ -643,3 +643,9 @@ html:not(.dark) .stage-root #canvas .canvas-tab.active .ic,html:not(.dark) .stag
 .stage-root.uc4 .locate-highlight::after{content:"";position:absolute;inset:0;box-sizing:border-box;padding:1px;border-radius:inherit;background:linear-gradient(110deg,#5ca2e9,#a18bfa);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;pointer-events:none;z-index:10;animation:smart-locate-border 2.4s ease forwards}
 @keyframes smart-locate-border{0%,100%{opacity:0}10%,75%{opacity:1}}
 .stage-root.uc4 .card[data-artifact-kind]:focus-visible{outline:1px solid #a18bfa;outline-offset:2px}
+
+/* Keep network card actions in normal flow so they cannot overlap. */
+.stage-root.uc4 #networkOverviewCard>.between{padding-right:0;gap:16px}
+.stage-root.uc4 .v7-network-header-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.stage-root.uc4 .v7-network-header-actions .v7-open-card-tab{position:static;flex-shrink:0}
+.stage-root.uc4 .workflow-steps>.step:last-child::after{display:none}

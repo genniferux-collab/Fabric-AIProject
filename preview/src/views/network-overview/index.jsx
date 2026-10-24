@@ -105,15 +105,17 @@ export default function NetworkOverview({ cardRef }) {
 
   return (
     <section className="card artifact-card process-artifact v7-card-tabbed" id="networkOverviewCard" ref={cardRef}>
-      <ArtifactOpen kind="network" title="全网设备概览"/>
       <div className="between">
         <div className="v7-artifact-title">
           <ArtifactIcon type="process" shape="overview" />
           <h2 className="card-title">全网设备概览</h2>
         </div>
+        <div className="v7-network-header-actions">
         <button className="btn v7-network-rescan" disabled={busy} onClick={() => runScan()}>
           <Ic icon="rotate-ccw" />{busy ? "识别中" : "重新识别"}
         </button>
+        <ArtifactOpen kind="network" title="全网设备概览"/>
+        </div>
       </div>
       <div className="v7-network-summary">
         <span>西三旗 DC / <strong>HCS1</strong></span>
