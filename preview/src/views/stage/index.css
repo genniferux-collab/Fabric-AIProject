@@ -4,7 +4,7 @@
 
 *{box-sizing:border-box}
 
-.stage-root{margin:0;background:#101010;color:var(--text);font:14px/1.5 "HarmonyOS Sans","Microsoft YaHei",Arial,"PingFang SC",sans-serif;overflow:hidden}
+.stage-root{margin:0;background:#101010;color:var(--text);font:14px/1.5 "HarmonyOS Sans","Microsoft YaHei",Arial,"PingFang SC",sans-serif;overflow:clip}
 
 button,input,textarea{font:inherit}
 

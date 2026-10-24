@@ -18,6 +18,7 @@ import "./src/views/mapping-card/index.css";
 import "./src/views/report-card/index.css";
 import "./src/views/device-pane/index.css";
 import "./src/views/uc2-canvas/uc2.css";
+import "./src/views/uc4-sync.css";
 
 import { ConfigProvider } from "antd";
 import zhCN from "./assets/shared/antd-zh.js";

@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 import { useApp } from "../../context.jsx";
 import { v7WorkflowSteps, v7WorkflowRunning, recs } from "../../mock/workflow.js";
 import { ArtifactTag } from "../../components/status-marks/index.jsx";
+import { SummaryCopy } from "../report-card/index.jsx";
+import { affectedBy } from "../../mock/audit.js";
 import Uc2Chat from "./uc2-chat.jsx";
 import Ic from "../../components/icon-el/index.jsx";
 
@@ -57,11 +59,10 @@ function Completion({ prompt, onLocateReport }) {
       </details>
       <section className="completion audit-completion">
         <h2>已完成 HCS1 区的全量基线检查</h2>
-        <p>已对 <strong>380台设备</strong>执行全部 <strong>24条适用规则</strong>检查，<strong className="good">375台通过</strong>、<strong className="bad">5台不通过</strong>，整网合规度为 <strong>98.7%</strong>。</p>
-        <p>发现 <strong>5条违规规则</strong>：用户接口空闲超时、SSH 加密算法、管理 IP、NTP 时钟源和 Trunk 放通范围。单台设备最多有 <strong>4条</strong>规则不通过，详情见右侧报告。</p>
+        <p><SummaryCopy/></p>
         <h3>处理建议</h3>
         <ul className="audit-advice">
-          <li><strong>登录安全：</strong>4台设备存在空闲超时超限，3台设备使用不符合基线的 SSH 算法，建议核验后调整。</li>
+          <li><strong>登录安全：</strong>{affectedBy("timeout").length}台设备存在空闲超时超限，3台设备使用不符合基线的 SSH 算法，建议核验后调整。</li>
           <li><strong>规划一致性：</strong>2台管理 IP、2台 NTP 时钟源与规划不一致，建议核对变更审批，再恢复配置或更新台账。</li>
           <li><strong>网络访问范围：</strong>1台设备额外放通未规划 VLAN，建议核验业务依赖后收敛放通范围。</li>
         </ul>

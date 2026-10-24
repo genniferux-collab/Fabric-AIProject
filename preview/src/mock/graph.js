@@ -15,32 +15,11 @@ export const sets = [
 export const relations = [["g1", "s1"], ["g1", "s2"], ["g1", "s3"], ["g1", "s4"], ["g1", "s5"], ["g2", "s1"], ["g2", "s2"], ["g2", "s3"], ["g2", "s4"], ["g3", "s1"], ["g3", "s2"], ["g3", "s3"], ["g3", "s6"], ["g4", "s1"], ["g4", "s2"], ["g4", "s3"], ["g4", "s4"], ["g4", "s5"], ["g5", "s1"], ["g5", "s2"], ["g5", "s3"], ["g5", "s4"], ["g6", "s1"], ["g6", "s2"], ["g6", "s3"], ["g6", "s6"]];
 export const related = (id) => relations.filter((r) => r.includes(id)).map((r) => (r[0] === id ? r[1] : r[0]));
 
-// V7 映射模型：厂商 × 角色 两级设备组 × 4 类检查定义 × 2 厂商
-export const mapGroups = ["Huawei", "H3C"].flatMap((vendor) =>
-  ["switch", "firewall"].map((kind) => {
-    const sourceGroupsOfVendor = groups.filter((g) => g.vendor === vendor && (g.type.startsWith("FW") === (kind === "firewall")));
-    return {
-      id: "devices-" + vendor + "-" + kind,
-      vendor,
-      name: (vendor === "Huawei" ? "华为" : "H3C") + (kind === "firewall" ? "防火墙组" : "交换机组"),
-      type: kind === "firewall" ? sourceGroupsOfVendor[0].type : "Switch · 2种型号",
-      sourceGroupIds: sourceGroupsOfVendor.map((g) => g.id),
-      count: sourceGroupsOfVendor.reduce((sum, g) => sum + g.count, 0),
-    };
-  })
-);
-
-export const mapCheckDefinitions = [...sets.slice(0, 3), {
-  id: "network",
-  name: "网络与安全配置检查",
-  scope: "FW / Switch",
-  rules: sets.slice(3).reduce((sum, s) => sum + s.rules, 0),
-  items: sets.slice(3).flatMap((s) => s.items),
-}];
-
-export const mapSets = ["Huawei", "H3C"].flatMap((vendor) => mapCheckDefinitions.map((s) => ({ ...s, id: vendor + "-" + s.id, baseId: s.id, vendor })));
-export const mapRelations = mapGroups.flatMap((g) => mapSets.filter((s) => s.vendor === g.vendor).map((s) => [g.id, s.id]));
-export const mapRelated = (id) => mapRelations.filter((r) => r.includes(id)).map((r) => (r[0] === id ? r[1] : r[0]));
+export const mapGroups=groups.map(g=>({...g,sourceGroupIds:[g.id]}));
+export const mapCheckDefinitions=sets;
+export const mapSets=sets.map(s=>({...s,baseId:s.id,vendor:'shared'}));
+export const mapRelations=mapGroups.flatMap(g=>mapSets.filter(s=>g.type.startsWith('FW')?['s1','s2','s3','s6'].includes(s.id):['s1','s2','s3','s4','s5'].includes(s.id)).map(s=>[g.id,s.id]));
+export const mapRelated=id=>mapRelations.filter(r=>r.includes(id)).map(r=>r[0]===id?r[1]:r[0]);
 
 // 数字地图布局：华为防火墙/核心/接入 + H3C 防火墙/核心/接入
 export const networkLayoutGroups = [groups[2], groups[0], groups[1], groups[5], groups[3], groups[4]];

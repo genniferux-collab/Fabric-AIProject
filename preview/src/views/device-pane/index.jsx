@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useApp, stateFor } from "../../context.jsx";
 import { deviceById, failFor } from "../../mock/devices.js";
-import { checks, checkById, instancesFor } from "../../mock/checks.js";
+import { checks, checkById, instancesFor, applicableChecks, deviceRuleTotal } from "../../mock/checks.js";
 import { priorityLabels, priorityIndex, detailRulePosition } from "../../mock/audit.js";
 import { ArtifactIcon } from "../../components/status-marks/index.jsx";
 import RuleDetail from "./rule-detail.jsx";
@@ -29,8 +29,8 @@ export default function DevicePane({ deviceId }) {
   const d = deviceById(deviceId);
   const s = stateFor(deviceStatesRef.current, deviceId);
 
-  const list = checks
-    .filter((r) => (s.filter !== "failed" || failFor(d, r)) && r.name.toLowerCase().includes(s.search.toLowerCase()))
+  const list = applicableChecks(d)
+    .filter((r) => (s.filter === "all" || (s.filter === "failed" ? failFor(d,r) : !failFor(d,r))) && r.name.toLowerCase().includes(s.search.toLowerCase()))
     .sort((a, b) => Number(failFor(d, b)) - Number(failFor(d, a)) || priorityIndex(a.priority) - priorityIndex(b.priority) || detailRulePosition(d, a.id) - detailRulePosition(d, b.id));
 
   const patch = (fn) => { fn(s); bumpDevices(); };
@@ -38,14 +38,14 @@ export default function DevicePane({ deviceId }) {
   const chooseRule = (id) => patch((st) => { st.rule = id; st.instance = id === "timeout" ? "vty" : "single"; st.scroll = 0; });
   const setRuleFilter = (f) => patch((st) => {
     st.filter = f;
-    const visible = checks.filter((r) => (f !== "failed" || failFor(d, r)) && r.name.toLowerCase().includes(st.search.toLowerCase()));
+    const visible = applicableChecks(d).filter((r) => (f === "all" || (f === "failed" ? failFor(d,r) : !failFor(d,r))) && r.name.toLowerCase().includes(st.search.toLowerCase()));
     if (!visible.some((r) => r.id === st.rule)) st.rule = visible[0]?.id || null;
     st.instance = st.rule === "timeout" ? "vty" : "single";
     st.scroll = 0;
   });
   const searchRules = (q) => patch((st) => {
     st.search = q;
-    const visible = checks.filter((r) => (st.filter !== "failed" || failFor(d, r)) && r.name.toLowerCase().includes(q.toLowerCase()));
+    const visible = applicableChecks(d).filter((r) => (st.filter === "all" || (st.filter === "failed" ? failFor(d,r) : !failFor(d,r))) && r.name.toLowerCase().includes(q.toLowerCase()));
     if (!visible.some((r) => r.id === st.rule)) {
       st.rule = visible[0]?.id || null;
       st.instance = st.rule === "timeout" ? "vty" : "single";
@@ -72,42 +72,21 @@ export default function DevicePane({ deviceId }) {
 
   return (
     <>
-      <div className="v7-artifact-step-title">{CONCLUSION_STEP}</div>
       <section className="card device-overview artifact-card conclusion-artifact">
         <div className="between">
           <div className="row">
-            <ArtifactIcon type="conclusion" shape="server" />
             <h2 className="device-title">{d.name}</h2>
             <span className={d.fails.length ? "bad-tag" : "good-tag"}>{d.fails.length ? "检查不通过" : "检查通过"}</span>
           </div>
-          <button className="link small" onClick={() => locate("report")}>返回检查报告 →</button>
         </div>
-        <div className="device-meta">
-          <span>管理IP <strong>{d.ip}</strong></span>
-          <span>厂商/型号 <strong>{d.vendor === "H3C" ? "H3C" : "华为"} / {d.model}</strong></span>
-          <span>区域 <strong>西三旗 DC / HCS1</strong></span>
-          <span>检查时间 <strong>14:20:00</strong></span>
-          <span>规则版本 <strong>V1.2</strong></span>
-        </div>
-        <div className="device-result">
-          <div className="result-head">
-            <span className="bad">{d.fails.length}条不通过</span>
-            <span className="muted">/</span>
-            <span className="good">{checks.length - d.fails.length}条通过</span>
-            <span className="muted">共{checks.length}条规则</span>
-          </div>
-        </div>
+        <div className="device-meta v14-device-meta">{[['管理 IP',d.ip],['厂商 / 型号',(d.vendor==='H3C'?'H3C':'华为')+' / '+d.model],['区域','西三旗 DC / HCS1'],['检查时间','14:20:00']].map(([label,value])=><div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div>
       </section>
-      <div className="v7-artifact-step-title">{CONCLUSION_STEP}</div>
       <section className="card device-workspace artifact-card conclusion-artifact">
         <aside className="rule-navigation">
           <h3 className="rule-navigation-title v7-artifact-title">
-            <ArtifactIcon type="conclusion" shape="rules" />规则检查结果
+            规则检查结果
           </h3>
-          <div className="rule-status-tabs">
-            <button className={s.filter === "failed" ? "active" : ""} onClick={() => setRuleFilter("failed")}>不通过 {d.fails.length}</button>
-            <button className={s.filter === "all" ? "active" : ""} onClick={() => setRuleFilter("all")}>全部 {checks.length}</button>
-          </div>
+          <div className="rule-status-tabs v13-rule-filters" role="group" aria-label="规则检查状态筛选">{[['all','全部',deviceRuleTotal(d)],['failed','不通过',d.fails.length],['passed','通过',deviceRuleTotal(d)-d.fails.length]].map(([id,label,count])=><button key={id} className={s.filter===id?'active':''} aria-pressed={s.filter===id} onClick={()=>setRuleFilter(id)}><i className={id}/>{label} <span>{count}</span></button>)}</div>
           <SearchInput id="ruleSearch" className="rule-nav-search" value={s.search} onChange={searchRules} placeholder="搜索规则名称" ariaLabel="搜索检查规则" />
           {list.length ? list.map((r) => (
             <button

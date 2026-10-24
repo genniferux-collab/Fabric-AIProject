@@ -7,6 +7,13 @@ import { recs, DEFAULT_PROMPT } from "./mock/workflow.js";
 // Layer 1: 全局状态 — 主题（单轨 .dark）+ 画布/任务流/页签/设备详情状态
 const AppContext = createContext(null);
 
+export function scrollCanvasTo(element) {
+  const container = element?.closest('#canvasContent');
+  if (!container) return;
+  const top = container.scrollTop + element.getBoundingClientRect().top - container.getBoundingClientRect().top - container.clientTop;
+  container.scrollTo({ top, behavior: 'smooth' });
+}
+
 export function stateFor(map, id) {
   return map[id] || (map[id] = { rule: "timeout", instance: "vty", filter: "failed", search: "", excluded: false, mode: "related", scroll: 0 });
 }
@@ -42,6 +49,12 @@ export function AppProvider({ children }) {
   activePaneRef.current = activePane;
   const reportScrollRef = useRef(0);
 
+  // UC4 card tabs retain the same mounted card and its filters/scroll position.
+  const [artifactTabs,setArtifactTabs]=useState([]);
+  const [activeArtifact,setActiveArtifact]=useState(null);
+  const openArtifact=useCallback((kind,title)=>{setArtifactTabs(xs=>xs.some(x=>x.kind===kind)?xs:[...xs,{kind,title}]);setActivePane('task');setActiveArtifact(kind)},[]);
+  const closeArtifact=useCallback(kind=>{setArtifactTabs(xs=>xs.filter(x=>x.kind!==kind));setActiveArtifact(x=>x===kind?null:x)},[]);
+
   // 设备详情状态（跨页签保留）
   const deviceStatesRef = useRef({});
   const [deviceVersion, setDeviceVersion] = useState(0);
@@ -69,6 +82,7 @@ export function AppProvider({ children }) {
   const uc2StartRef = useRef(() => {});
 
   const openAgentHome = useCallback(() => {
+    setActiveArtifact(null);
     uc2LeaveRef.current();
     clearTimeout(timerRef.current);
     runningRef.current = false;
@@ -160,6 +174,7 @@ export function AppProvider({ children }) {
   uc2LeaveRef.current = uc2Leave;
 
   const uc2Start = useCallback(() => {
+    setActiveArtifact(null);
     stopScan();
     clearTimeout(timerRef.current);
     runningRef.current = false;
@@ -246,6 +261,7 @@ export function AppProvider({ children }) {
   }, []);
 
   const runTask = useCallback((prompt) => {
+    setActiveArtifact(null);setArtifactTabs([]);
     uc2Leave();
     clearTimeout(timerRef.current);
     stopScan();
@@ -293,7 +309,7 @@ export function AppProvider({ children }) {
   }, [runTask, toast]);
 
   // 画布页签/设备
-  const switchPane = useCallback((id) => { setActivePane(id); }, []);
+  const switchPane = useCallback((id) => { setActiveArtifact(null);setActivePane(id); }, []);
 
   const openDevice = useCallback((id, rule) => {
     const d = devices.find((x) => x.id === id);
@@ -310,6 +326,7 @@ export function AppProvider({ children }) {
       if (id === "d1" && !rule) s.mode = "related";
     }
     bumpDevices();
+    setActiveArtifact(null);
     setCanvasHidden(false);
     setActivePane(id);
   }, [openDevices, bumpDevices]);
@@ -324,11 +341,12 @@ export function AppProvider({ children }) {
   // 定位 + 闪动
   const locate = useCallback((kind) => {
     setCanvasHidden(false);
+    setActiveArtifact(null);
     setActivePane("task");
     requestAnimationFrame(() => requestAnimationFrame(() => {
       const el = cardRefs.current[kind];
       if (!el) return;
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      scrollCanvasTo(el);
       el.classList.remove("flash");
       void el.offsetWidth;
       el.classList.add("flash");
@@ -364,7 +382,7 @@ export function AppProvider({ children }) {
     reportScrollRef, deviceStatesRef, deviceVersion, bumpDevices,
     toast, toastText,
     resetMapSignal, clearSelSignal,
-    cardRefs, locate,
+    cardRefs, locate, artifactTabs, activeArtifact, openArtifact, closeArtifact,
     uc2, uc2Start, uc2Pause, uc2Next, uc2Show, uc2OpenRule, uc2SelectNode,
     uc2Review, uc2Reviews, uc2Fusion, uc2FusionPick, uc2FusionCloseDrawer,
     uc2SetFilter, uc2Scroll, uc2Extra, setUc2Extra,

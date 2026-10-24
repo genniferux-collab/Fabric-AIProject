@@ -1,0 +1,21 @@
+const assert=require('node:assert/strict'),vm=require('node:vm'),path=require('node:path');
+const {modules}=require('./build-preview.cjs');
+const cache={};
+function load(id){if(cache[id])return cache[id].exports;const m={exports:{}};cache[id]=m;const record=modules.get(id);if(!record)throw Error('Missing '+id);vm.runInThisContext('(function(require,module,exports){'+record.code+'\n})',{filename:id})(spec=>load(record.deps[spec]||spec),m,m.exports);return m.exports}
+const {devices}=load('src/mock/devices.js'),checks=load('src/mock/checks.js'),audit=load('src/mock/audit.js'),graph=load('src/mock/graph.js');
+assert.equal(devices.length,380);assert.equal(new Set(devices.map(d=>d.name)).size,380);
+assert.equal(audit.failedDevices().length,5);assert.equal(audit.priorityRankedRules().length,9);assert.equal(audit.compliance(),'98.7');
+assert.equal(devices.slice(0,5).map(checks.deviceRuleTotal).join(','),'24,20,18,22,16');
+assert.equal(graph.mapGroups.length,6);assert.equal(graph.mapSets.length,6);assert.equal(new Set(graph.mapSets.map(s=>s.name)).size,6);assert.equal(graph.mapSets.reduce((n,s)=>n+s.rules,0),24);
+for(const vendor of ['Huawei','H3C'])assert.equal(graph.mapGroups.filter(g=>g.vendor===vendor).length,3);
+assert.equal(devices[0].name,'SW-HCS1-01');assert.equal(devices[0].ip,'10.10.1.11');assert.equal(devices[0].fails.join(','),'timeout,ssh,mgmt,ntp2');
+assert.equal(audit.overviewDevices()[0].id,'d1');
+assert.equal(checks.instancesFor(devices[0],checks.checkById('ssh'))[1].line,108);
+assert(checks.sshCommands(devices[0],false,'hmac').includes('ssh server hmac sha2_256 sha2_512'));
+assert(checks.sshCommands(devices[0],true,'hmac').includes('ssh server hmac md5 sha1'));
+assert(!checks.sshCommands(devices[0],false,'hmac').includes('ssh server cipher'));
+for(const d of devices)assert(d.fails.every(id=>checks.applicableChecks(d).some(r=>r.id===id)));
+assert.equal(checks.instancesFor(devices[1],checks.checkById('sec3'))[0].raw,'disable');
+assert.equal(checks.instancesFor(devices[2],checks.checkById('sec5'))[0].raw,'password');
+assert(modules.has('src/views/uc2-canvas/index.jsx'));
+console.log('PASS: V42 inventory, report counts, applicable rules, mapping coverage, main case, per-position SSH commands, retained UC2 modules.');

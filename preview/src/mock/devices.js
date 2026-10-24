@@ -1,12 +1,14 @@
 // 设备清单 — 5 台演示设备 + 375 台生成的全量设备（V7 口径）
 // 语义键：id/name/ip/planned/model/group/fails/groupId/vendor/deviceType
 
+import { checks } from "./checks.js";
+
 const combinations = [
   ["timeout", "ssh", "mgmt", "ntp2"],
-  ["timeout", "ssh", "vlan3"],
-  ["timeout", "ssh"],
-  ["timeout", "ntp2"],
-  ["mgmt"],
+  ["timeout", "ssh", "sec3", "ntp3"],
+  ["ssh", "addr2", "sec5"],
+  ["timeout", "ntp2", "vlan3"],
+  ["mgmt", "ntp3"],
 ];
 
 const baseDevices = [
@@ -26,6 +28,12 @@ for (let n = 6; n <= 380; n++) {
 
 export const devices = [...baseDevices, ...generated];
 devices.forEach((d, i) => { d.fails = i < 5 ? combinations[i] : []; });
+
+for (const [a,b] of [[2,18],[3,67],[4,126],[5,203]]) {
+  [devices[a-1].name,devices[b-1].name]=[devices[b-1].name,devices[a-1].name];
+}
+const ruleTotals=[24,20,18,22,16];
+devices.forEach((d,i)=>{d.checkIds=[...new Set([...d.fails,...checks.map(r=>r.id)])].slice(0,ruleTotals[i%5])});
 
 // 设备组归属（V5 口径：按原始 6 组顺序切片分配）
 export const sourceGroups = [

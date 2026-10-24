@@ -1,3 +1,4 @@
+import ArtifactOpen from "../../components/artifact-open/index.jsx";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Icon } from "../../../assets/shared/icon.jsx";
 import { useApp } from "../../context.jsx";
@@ -45,7 +46,7 @@ function computeMapLayout(vendor, query, expanded, pages) {
   for (const brand of [...new Set(orderedGroups.map((g) => g.vendor))]) {
     const members = orderedGroups.filter((g) => g.vendor === brand);
     const linkedSets = visible.ss.filter((s) => members.some((g) => mapRelated(g.id).includes(s.id)));
-    const setsHeight = linkedSets.length * NODE_H + Math.max(0, linkedSets.length - 1) * GAP;
+    const setsHeight = 0;
     vendors.push({ vendor: brand, y: cursor, count: members.reduce((sum, g) => sum + g.count, 0), groups: members.length });
     let groupCursor = cursor + HEADER;
     for (const node of members) {
@@ -204,8 +205,8 @@ export default function MappingCard({ cardRef }) {
             >
               <span className="node-icon"><Icon name={d.deviceType === "防火墙" ? "shield" : "server"} className="ic" strokeWidth={1.6} /></span>
               <span className="v7-map-node-copy">
-                <span className="node-name">{d.name} <small>{d.ip}</small></span>
-                <span className="node-meta">{d.model}</span>
+                <span className="node-name">{d.name}</span>
+                <span className="node-meta"><span>{d.ip}</span><span>{d.model}</span></span>
               </span>
             </button>
           );
@@ -253,14 +254,14 @@ export default function MappingCard({ cardRef }) {
             <span className="node-meta">{meta}</span>
           </span>
           <span className="node-count">{isGroup ? n.count : n.rules}<span>{isGroup ? "台" : "条"}</span></span>
-          {isGroup ? <span className="v7-map-toggle">{isOpen ? "−" : "+"}</span> : null}
         </button>
       </div>
     );
   };
 
   return (
-    <section className="card artifact-card process-artifact" id="mappingCard" ref={cardRef}>
+    <section className="card artifact-card process-artifact v7-card-tabbed" id="mappingCard" ref={cardRef}>
+      <ArtifactOpen kind="artifact" title="HCS1合规检查规则&设备匹配"/>
       <div className="between">
         <div className="v7-artifact-title">
           <ArtifactIcon type="process" shape="mapping" />
@@ -271,20 +272,13 @@ export default function MappingCard({ cardRef }) {
         <div className="scope row"><Ic icon="map-pin" />西三旗 DC / HCS1</div>
         <div className="summary-item"><strong>380</strong><span>台设备</span></div>
         <div className="summary-item"><strong>120</strong><span>个配置文件</span></div>
-        <div className="summary-item"><strong>4</strong><span>个设备组</span></div>
-        <div className="summary-item"><strong>8</strong><span>个检查集</span></div>
+        <div className="summary-item"><strong>6</strong><span>个设备组</span></div>
+        <div className="summary-item"><strong>6</strong><span>个检查集</span></div>
         <div className="summary-item"><strong>24</strong><span>条规则</span></div>
       </div>
       <div className="between">
-        <OptionGroup cls="filters" buttonCls="filter" ariaLabel="厂商筛选"
-          options={[["all", "全部厂商"], ["Huawei", "华为"], ["H3C", "H3C"]]}
-          value={vendor} onChange={chooseVendor} />
-        <div className="toolbar">
-          <SearchInput id="graphSearch" value={searchText} onChange={onSearch} placeholder="搜索设备组或检查集" ariaLabel="搜索设备组或检查集" clearable />
-          <button className="btn" style={{ fontSize: "12px" }} onClick={() => { onSearch(""); setVendor("all"); setSelected(null); setHovered(null); setHoverDevice(null); setPicked(null); setExpanded(new Set()); setPages({}); }}>
-            <Ic icon="rotate-ccw" style={{ width: "14px", height: "14px" }} />重置
-          </button>
-        </div>
+        <SearchInput id="graphSearch" value={searchText} onChange={onSearch} placeholder="搜索设备组或检查集" ariaLabel="搜索设备组或检查集" clearable />
+        <OptionGroup cls="filters" buttonCls="filter" ariaLabel="厂商筛选" options={[["all","全部厂商"],["Huawei","华为"],["H3C","H3C"]]} value={vendor} onChange={chooseVendor} />
       </div>
       <div className="graph-head">
         <div className="column-title"><Ic icon="network" />设备组 <span className="small" id="groupCount">{visibleGroupCount} 组</span></div>

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useLayoutEffect } from "react";
 import { Icon } from "../../../assets/shared/icon.jsx";
 import { useApp } from "../../context.jsx";
 import { deviceById } from "../../mock/devices.js";
@@ -10,7 +10,7 @@ import Uc2Pane from "../uc2-canvas/index.jsx";
 import Ic from "../../components/icon-el/index.jsx";
 
 function CanvasTabs() {
-  const { activePane, openDevices, switchPane, closeDevice, uc2, uc2Show } = useApp();
+  const { activePane, openDevices, switchPane, closeDevice, uc2, uc2Show, artifactTabs, activeArtifact, openArtifact, closeArtifact } = useApp();
   if (uc2.active) {
     return (
       <div className="canvas-tabs" id="canvasTabs" role="tablist" aria-label="画布页签">
@@ -24,11 +24,12 @@ function CanvasTabs() {
   }
   return (
     <div className="canvas-tabs" id="canvasTabs" role="tablist" aria-label="画布页签">
-      <div className={"canvas-tab" + (activePane === "task" ? " active" : "")}>
-        <button role="tab" aria-selected={activePane === "task"} onClick={() => switchPane("task")}>
+      <div className={"canvas-tab" + (activePane === "task" && !activeArtifact ? " active" : "")}>
+        <button role="tab" aria-selected={activePane === "task" && !activeArtifact} onClick={() => switchPane("task")}>
           <Ic icon="layout-panel-top" />智能画布
         </button>
       </div>
+      {artifactTabs.map(t=><div key={'artifact:'+t.kind} className={'canvas-tab'+(activeArtifact===t.kind?' active':'')}><button role="tab" aria-selected={activeArtifact===t.kind} onClick={()=>openArtifact(t.kind,t.title)}>{t.title}</button><button className="close-tab" aria-label={'关闭'+t.title+'页签'} onClick={()=>closeArtifact(t.kind)}><Ic icon="x"/></button></div>)}
       {openDevices.map((id) => {
         const d = deviceById(id);
         return (
@@ -45,11 +46,20 @@ function CanvasTabs() {
 }
 
 export default function CanvasArea() {
-  const { canvasHidden, full, setFull, activePane, stage, cardRefs, reportScrollRef } = useApp();
+  const { canvasHidden, full, setFull, activePane, stage, cardRefs, reportScrollRef, activeArtifact } = useApp();
   const contentRef = useRef(null);
   const innerRef = useRef(null);
+  const artifactRef=useRef(null);
   const trackRef = useRef(null);
   const thumbRef = useRef(null);
+
+  useLayoutEffect(()=>{
+    if(!activeArtifact)return;
+    const card=cardRefs.current[activeArtifact],host=artifactRef.current;
+    if(!card||!host)return;
+    const anchor=document.createComment('UC4 artifact source');card.before(anchor);host.appendChild(card);
+    return ()=>{if(anchor.parentNode)anchor.replaceWith(card)};
+  },[activeArtifact,activePane,cardRefs]);
 
   // 自定义滚动条同步
   const syncScroll = () => {
@@ -80,7 +90,7 @@ export default function CanvasArea() {
       requestAnimationFrame(syncScroll);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activePane]);
+  }, [activePane,activeArtifact]);
 
   const onScroll = () => {
     if (activePane === "task") reportScrollRef.current = contentRef.current?.scrollTop || 0;
@@ -97,28 +107,30 @@ export default function CanvasArea() {
           <Icon name={full ? "minimize" : "maximize"} className="ic" strokeWidth={1.6} />
         </button>
       </div>
-      {activePane === "task" ? (
+      {activePane === "task" && !activeArtifact ? (
         <div className="scroll-track" id="scrollTrack" ref={trackRef}>
           <div className="scroll-thumb" id="scrollThumb" ref={thumbRef} />
         </div>
       ) : null}
-      <div className={"canvas-content" + (activePane === "task" ? "" : " hidden")} id="canvasContent" ref={contentRef} onScroll={onScroll}>
+      <div className={"canvas-content" + (activePane === "task" && !activeArtifact ? "" : " hidden")} id="canvasContent" ref={contentRef} onScroll={onScroll}>
         <div ref={innerRef}>
+          <div className={"v7-artifact-step-title" + (stage < 4 ? " hidden" : "")}>对HCS1区内的380台设备进行基线检查</div>
+          <div className={stage < 4 ? " hidden" : ""}>
+            <ReportCard cardRef={register("report")} />
+          </div>
           <div id="networkOverviewStep" className="v7-artifact-step-title">全网设备概览已获取</div>
           <NetworkOverview cardRef={register("network")} />
           <div className={"mapping-fold v7-artifact-step-title" + (stage < 2 ? " hidden" : "")}>规则选择与自动推荐</div>
           <div className={stage < 2 ? " hidden" : ""}>
             <MappingCard cardRef={register("artifact")} />
           </div>
-          <div className={"v7-artifact-step-title" + (stage < 4 ? " hidden" : "")}>对HCS1区内的380台设备进行基线检查</div>
-          <div className={stage < 4 ? " hidden" : ""}>
-            <ReportCard cardRef={register("report")} />
-          </div>
+
         </div>
       </div>
-      <section className={"device-pane" + (activePane === "task" ? " hidden" : "")} id="devicePane" aria-label="设备检查详情">
+      <section className={"device-pane" + (activePane === "task" || activeArtifact ? " hidden" : "")} id="devicePane" aria-label="设备检查详情">
         {activePane !== "task" ? <DevicePane deviceId={activePane} /> : null}
       </section>
+      <section ref={artifactRef} className={"v7-artifact-pane"+(activeArtifact?"":" hidden")} aria-label="独立卡片页签"/>
       <Uc2Pane />
     </main>
   );

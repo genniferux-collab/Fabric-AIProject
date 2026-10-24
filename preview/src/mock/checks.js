@@ -31,6 +31,11 @@ export const checks = [
 const rulePriorities = { mgmt: "high", addr2: "high", addr3: "medium", addr4: "high", ntp1: "low", ntp2: "medium", ntp3: "low", sec1: "high", ssh: "high", sec3: "high", timeout: "high", sec5: "high", vlan1: "medium", vlan2: "medium", vlan3: "medium", vlan4: "high", route1: "high", route2: "high", route3: "medium", route4: "medium", sshEnable: "high", loginType: "medium", authConsole: "medium", routerId: "medium" };
 checks.forEach((r) => { r.priority = rulePriorities[r.id] || "low"; });
 
+const extraValues={sec3:{bad:'disable',good:'three-of-kinds'},ntp3:{bad:'10.10.0.99',good:'10.10.0.11'},addr2:{bad:'172.16.101.1 255.255.255.0',good:'172.16.100.1 255.255.255.0'},sec5:{bad:'password',good:'aaa'}};
+for(const [id,value] of Object.entries(extraValues))checks.find(r=>r.id===id).target=value.good;
+export const applicableChecks=d=>checks.filter(r=>!d.checkIds||d.checkIds.includes(r.id));
+export const deviceRuleTotal=d=>applicableChecks(d).length;
+
 export const checkById = (id) => checks.find((r) => r.id === id);
 
 export const SSH_TARGET_HMAC = "sha2_256 sha2_512";
@@ -52,7 +57,7 @@ export function instancesFor(d, r) {
     const hmac = failed && d.id === "d1" ? "md5 sha1" : SSH_TARGET_HMAC;
     return [
       { id: "single", name: "Cipher 加密算法", path: "系统视图", cmd: "ssh server cipher", raw: cipher, line: 3, bad: failed, actual: cipher, delta: failed ? "命中基线禁止的 CBC 算法" : "通过检查" },
-      { id: "hmac", name: "HMAC 完整性校验", path: "系统视图", cmd: "ssh server hmac", raw: hmac, line: 4, bad: failed && d.id === "d1", actual: hmac, delta: failed && d.id === "d1" ? "含 MD5，未使用基线要求的 SHA2 套件" : "通过检查" },
+      { id: "hmac", name: "HMAC 完整性校验", path: "系统视图", cmd: "ssh server hmac", raw: hmac, line: 108, bad: failed && d.id === "d1", actual: hmac, delta: failed && d.id === "d1" ? "含 MD5，未使用基线要求的 SHA2 套件" : "通过检查" },
     ];
   }
   if (r.id === "timeout") {
@@ -69,6 +74,7 @@ export function instancesFor(d, r) {
   if (r.id === "vlan3") Object.assign(row, { raw: bad ? "100 200 300" : r.target, actual: bad ? "100、200、300" : "100、200", delta: bad ? "额外放通未规划的VLAN 300" : "通过检查" });
   if (r.id === "routerId") Object.assign(row, { raw: d.planned, actual: d.planned });
   if (!["mgmt", "ssh", "ntp2", "vlan3", "routerId"].includes(r.id)) row.actual = row.raw;
+  if(extraValues[r.id]){const value=extraValues[r.id];Object.assign(row,{raw:bad?value.bad:value.good,actual:bad?value.bad:value.good,delta:bad?"当前配置与本规则要求不一致":"通过检查"})}
   return [row];
 }
 
@@ -122,15 +128,11 @@ export function snapshotFor(d) {
   lines[1] = "ssh authentication-type default password";
   const sshRule = checkById("ssh");
   instancesFor(d, sshRule).forEach((i) => { lines[i.line - 1] = i.cmd + " " + i.raw; });
-  lines[107] = "#";
+  lines[3] = "#";
   return lines;
 }
 
-export function sshCommands(d, rollback = false) {
-  const records = instancesFor(d, checkById("ssh"));
-  return [
-    "system-view",
-    rollback ? records[0].cmd + " " + records[0].raw : "ssh server cipher " + checkById("ssh").target,
-    rollback ? records[1].cmd + " " + records[1].raw : "ssh server hmac " + SSH_TARGET_HMAC,
-  ].join("\n");
+export function sshCommands(d,rollback=false,instance='single') {
+  const records=instancesFor(d,checkById('ssh')),chosen=records.find(i=>i.id===instance)||records[0];
+  return ['system-view',chosen.cmd+' '+(rollback?chosen.raw:chosen.id==='single'?checkById('ssh').target:SSH_TARGET_HMAC)].join('\n');
 }

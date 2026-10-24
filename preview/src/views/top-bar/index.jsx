@@ -16,9 +16,9 @@ export default function TopBar() {
       <div className="right">
         <nav className="version-compare" aria-label="报告方案对比">
           <span>方案对比</span>
-          <a href="classic.html">原版 · V2</a>
-          <a href="v3.html">可视化 · V3</a>
-          <a href="./" aria-current="page">当前方案 · V7</a>
+          <a href="https://baseline-compliance-canvas.blithe-fir-3798.chatgpt.site/classic.html">原版 · V2</a>
+          <a href="https://baseline-compliance-canvas.blithe-fir-3798.chatgpt.site/fusion/">融合版</a>
+          <a href="./index.page.html" aria-current="page">新版本</a>
         </nav>
         <span className="tag">演示数据</span>
         <button className="icon-btn" title="切换主题" aria-label="切换主题" onClick={toggleDark}>

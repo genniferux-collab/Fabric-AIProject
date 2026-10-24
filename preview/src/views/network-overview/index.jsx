@@ -1,3 +1,4 @@
+import ArtifactOpen from "../../components/artifact-open/index.jsx";
 import { useEffect, useRef, useState } from "react";
 import { useApp } from "../../context.jsx";
 import { devices } from "../../mock/devices.js";
@@ -50,11 +51,13 @@ export default function NetworkOverview({ cardRef }) {
     setBusy(true);
     setRecognized(0);
     setFraction(0);
-    const started = performance.now();
+    let started = null, previous = 0;
     const duration = 3600;
     const tick = (now) => {
       if (generation !== genRef.current) return;
-      const f = Math.min(1, (now - started) / duration);
+      started ??= now;
+      const f = Math.max(previous, Math.min(1, Math.max(0,(now - started) / duration)));
+      previous=f;
       setFraction(f);
       setRecognized(Math.floor(f * devices.length));
       if (f < 1) animRef.current = requestAnimationFrame(tick);
@@ -101,7 +104,8 @@ export default function NetworkOverview({ cardRef }) {
   const fwCount = devices.filter((d) => d.deviceType === "防火墙").length;
 
   return (
-    <section className="card artifact-card process-artifact" id="networkOverviewCard" ref={cardRef}>
+    <section className="card artifact-card process-artifact v7-card-tabbed" id="networkOverviewCard" ref={cardRef}>
+      <ArtifactOpen kind="network" title="全网设备概览"/>
       <div className="between">
         <div className="v7-artifact-title">
           <ArtifactIcon type="process" shape="overview" />

@@ -1,9 +1,10 @@
+import ArtifactOpen from "../../components/artifact-open/index.jsx";
 import { useMemo, useRef, useState } from "react";
-import { useApp } from "../../context.jsx";
+import { useApp, scrollCanvasTo } from "../../context.jsx";
 import { devices } from "../../mock/devices.js";
-import { checks, checkById } from "../../mock/checks.js";
+import { checks, checkById, deviceRuleTotal } from "../../mock/checks.js";
 import {
-  audit, compliance, failedDevices, overviewDevices, priorityRankedRules, comparePriorityDevices,
+  summaryParts, audit, compliance, failedDevices, overviewDevices, priorityRankedRules, comparePriorityDevices,
   priorityLabels, priorityOf, priorityCounts, ruleShort, sortedFailedRules, v7RuleRequirements,
   v7RepairDirections, v7RuleDeviation, deviceTypeLabel, deviceVendorLabel,
 } from "../../mock/audit.js";
@@ -15,89 +16,10 @@ import EmptyState from "../../components/empty-state/index.jsx";
 
 const detailPageSize = 10;
 
-function RuleContext({ id }) {
-  const summary = v7RuleDeviation(id);
-  return (
-    <div className="v7-rule-context">
-      <section className="v7-check-requirement">
-        <h4>检查要求</h4>
-        <p>{v7RuleRequirements[id] || checkById(id)?.expected || "通过基线检查。"}</p>
-      </section>
-      {summary ? (
-        <section className="v7-deviation-summary">
-          <h4>偏差摘要</h4>
-          <p>{summary}</p>
-        </section>
-      ) : null}
-    </div>
-  );
-}
-
-function RuleCard({ r, index, onShowList }) {
-  const { openDevice } = useApp();
-  return (
-    <article className="v7-top-card" data-rule-card={r.id}>
-      <div className="v7-card-title">
-        <span className="v7-rank">0{index + 1}</span>
-        <div className="v7-rule-heading">
-          <h3 title={checkById(r.id).name}>{r.name}</h3>
-          <PriorityBadge priority={r.priority} />
-        </div>
-      </div>
-      <div className="v7-card-number"><strong>{r.devices.length}</strong><span>台设备受影响</span></div>
-      <RuleContext id={r.id} />
-      <section className="v7-repair-direction">
-        <h4>修复方向</h4>
-        <p>{v7RepairDirections[r.id]}</p>
-      </section>
-      <section className="v7-related-devices" aria-label={r.name + "的关联设备"}>
-        <h4>关联设备 <span>{r.devices.length}</span></h4>
-        <div className="v7-device-tags">
-          {r.devices.slice(0, 3).map((d) => (
-            <button key={d.id} className="v7-device-tag" data-device={d.id} data-rule={r.id} title={`${d.name} · ${d.ip} · 查看本规则配置证据`} onClick={() => openDevice(d.id, r.id)}>{d.name}</button>
-          ))}
-          {r.devices.length > 3 ? (
-            <button className="v7-device-tag v7-more-devices" title={`查看全部${r.devices.length}台关联设备，自动筛选本规则`} onClick={() => onShowList(r.id)}>其余{r.devices.length - 3}台</button>
-          ) : null}
-        </div>
-      </section>
-    </article>
-  );
-}
-
-function DeviceCard({ d, index }) {
-  const { openDevice } = useApp();
-  return (
-    <article className="v7-top-card">
-      <div className="v7-card-title">
-        <span className="v7-rank">0{index + 1}</span>
-        <h3><button onClick={() => openDevice(d.id)}>{d.name}</button></h3>
-      </div>
-      <div className="v7-device-ip">{d.ip}</div>
-      <div className="v7-card-number">
-        <strong>{d.fails.length}</strong>
-        <span>条规则不通过 <span className="muted">/ {checks.length}</span></span>
-      </div>
-      <div className="v7-rule-cells" role="img" aria-label={`${d.fails.length}条规则不通过，${checks.length - d.fails.length}条通过`}>
-        {checks.map((r) => (
-          <i key={r.id} className={d.fails.includes(r.id) ? "failed" : "passed"} title={`${r.name}：${d.fails.includes(r.id) ? "不通过" : "通过"}`} />
-        ))}
-      </div>
-      <div className="v7-device-priority">
-        <span className="v7-viz-note">不通过规则优先级</span>
-        <PriorityDistribution device={d} />
-      </div>
-      <div className="v7-device-issues">
-        {sortedFailedRules(d).slice(0, 2).map((id) => (
-          <button key={id} title={ruleShort[id]} onClick={() => openDevice(d.id, id)}>
-            <i />{ruleShort[id]}
-          </button>
-        ))}
-        {d.fails.length > 2 ? <span className="v7-viz-note">另有{d.fails.length - 2}条不通过规则</span> : null}
-      </div>
-    </article>
-  );
-}
+export function SummaryCopy(){const s=summaryParts();return <>已检查 HCS1 区 <strong>{s.total} 台设备</strong>，其中 <strong>{s.failed} 台未通过</strong>、{s.passed} 台通过，整网合规度 <strong>{s.compliance}%</strong>。发现共计 <strong>{s.rules} 条规则不通过</strong>，包括{s.top}等。建议优先核验高优先级项，结合变更记录确认后修复。</>}
+function RatioBar({failed,total}){const percent=total?failed/total*100:0;return <div className="v8-ratio"><div className="v8-ratio-track" role="img" aria-label={failed+'条不通过，'+(total-failed)+'条通过'}><span className="v8-ratio-failed" style={{width:percent+'%'}}/><span className="v8-ratio-passed" style={{width:(100-percent)+'%'}}/></div><div className="v8-ratio-labels"><span><i/>不通过 {Number(percent.toFixed(1))}%</span><span>共 {total}条</span></div></div>}
+function RuleCard({r,index}){return <article className="v7-top-card v8-overview-card v9-overview-card" data-rule-card={r.id}><div className="v7-card-title"><span className="v7-rank">{index+1}</span><div className="v7-rule-heading"><h3 title={checkById(r.id).name}>{r.name}</h3><PriorityBadge priority={r.priority}/></div></div><div className="v7-card-number"><strong>{r.devices.length}</strong><span>台设备不通过</span></div><div className="v7-rule-context"><section className="v7-check-requirement"><h4>检查要求</h4><p>{v7RuleRequirements[r.id]||checkById(r.id).expected}</p></section><section className="v7-repair-direction"><h4>修复方向</h4><p>{v7RepairDirections[r.id]}</p></section></div></article>}
+function DeviceCard({d,index}){const {openDevice}=useApp();return <article className="v7-top-card v8-overview-card v9-overview-card"><div className="v7-card-title"><span className="v7-rank">{index+1}</span><h3><button onClick={()=>openDevice(d.id)}>{d.name}</button></h3></div><div className="v7-device-ip">{d.ip}</div><div className="v7-card-number"><strong>{d.fails.length}</strong><span>条规则不通过</span></div><RatioBar failed={d.fails.length} total={deviceRuleTotal(d)}/><div className="v7-device-priority"><span className="v7-viz-note">规则优先级分布</span><PriorityDistribution device={d}/></div></article>}
 
 export default function ReportCard({ cardRef }) {
   const { openDevice } = useApp();
@@ -131,15 +53,16 @@ export default function ReportCard({ cardRef }) {
     setRuleFilter(rule);
     setQuery("");
     setPage(1);
-    requestAnimationFrame(() => requestAnimationFrame(() => detailsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })));
+    requestAnimationFrame(() => requestAnimationFrame(() => scrollCanvasTo(detailsRef.current)));
   };
 
   const closeDeviceList = () => {
-    overviewRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    scrollCanvasTo(overviewRef.current);
   };
 
   return (
-    <section className="card report-card v7-report artifact-card conclusion-artifact" id="reportCard" ref={cardRef}>
+    <section className="card report-card v7-report artifact-card conclusion-artifact v7-card-tabbed" id="reportCard" ref={cardRef}>
+      <ArtifactOpen kind="report" title="HCS1 区基线检查报告"/>
       <div className="v7-report-heading">
         <div className="row">
           <ArtifactIcon type="conclusion" shape="report" />
@@ -147,7 +70,7 @@ export default function ReportCard({ cardRef }) {
         </div>
       </div>
       <div className="v7-report-meta">西三旗 DC / HCS1 · 已检查{audit.total}台设备 · {checks.length}条适用规则 · 基于本次配置快照</div>
-      <div className="v7-summary">
+      <div className="v7-summary v11-summary">
         <section className="v7-compliance">
           <div className="v7-ring" role="img" aria-label={`整网合规度${compliance()}%，${audit.passed}台通过，${failedDevices().length}台不通过`}>
             <svg viewBox="0 0 104 104" aria-hidden="true">
@@ -166,14 +89,7 @@ export default function ReportCard({ cardRef }) {
             </button>
           </div>
         </section>
-        <section className="v7-conclusion">
-          <div className="v7-conclusion-label"><Ic icon="sparkles" />检查结论</div>
-          <h3>当前合规度{compliance()}%，{failedDevices().length}台设备不通过，{audit.passed}台设备通过。</h3>
-          <dl className="v7-top-names">
-            <div><dt>TOP5违规设备</dt><dd>{ranked.map((d) => d.name).join("、")}</dd></div>
-            <div><dt>TOP5规则</dt><dd>{rules.slice(0, 5).map((r) => r.name).join("、")}</dd></div>
-          </dl>
-        </section>
+        <section className="v7-conclusion v11-conclusion"><div className="v7-conclusion-label"><Ic icon="sparkles"/>检查结论</div><p className="v12-summary-copy"><SummaryCopy/></p></section>
       </div>
       <section id="v7TopOverview" className="v7-overview-section" ref={overviewRef}>
         <div className="v7-result-toolbar">
