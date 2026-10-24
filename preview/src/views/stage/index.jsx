@@ -6,7 +6,7 @@ import Cockpit from "../cockpit/index.jsx";
 import LuiPanel from "../lui-panel/index.jsx";
 import CanvasArea from "../canvas-area/index.jsx";
 
-// Layer 5: 页面壳 — 常规自适应布局（视口宽高驱动，画布区内部滚动）
+// 全流程共用固定设计画布，只由视口尺寸决定缩放。
 export default function Stage() {
   const { toastText, uc2, uc2Fusion, luiView } = useApp();
 
@@ -14,7 +14,7 @@ export default function Stage() {
   const [scale,setScale]=useState(()=>Math.min(window.innerWidth/1920,window.innerHeight/1080));
   useEffect(()=>{const resize=()=>setScale(Math.min(window.innerWidth/1920,window.innerHeight/1080));window.addEventListener('resize',resize);resize();return()=>window.removeEventListener('resize',resize)},[]);
   const stageCls = [
-    "stage-root",isUc4?"uc4":"",
+    "stage-root", "design-canvas", isUc4 ? "uc4" : "",
     uc2.active ? "uc2" : "",
     uc2.active && uc2.max === 0 ? "uc2-intent" : "",
     uc2.active && uc2.max >= 2 && uc2Fusion.drawer ? "uc2-rule-drawer" : "",
@@ -22,7 +22,7 @@ export default function Stage() {
 
   return (
     <div className="stage-viewport">
-      <div className={stageCls} id="stage" style={isUc4?{"--uc4-scale":scale}:undefined}>
+      <div className={stageCls} id="stage" style={{"--canvas-scale":scale}}>
         <TopBar />
         <LeftRail />
         <Cockpit />

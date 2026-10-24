@@ -10,7 +10,9 @@ const AppContext = createContext(null);
 export function scrollCanvasTo(element) {
   const container = element?.closest('#canvasContent');
   if (!container) return;
-  const top = container.scrollTop + element.getBoundingClientRect().top - container.getBoundingClientRect().top - container.clientTop;
+  const rect = container.getBoundingClientRect();
+  const scale = rect.height / container.offsetHeight || 1;
+  const top = container.scrollTop + (element.getBoundingClientRect().top - rect.top) / scale - container.clientTop;
   container.scrollTo({ top, behavior: 'smooth' });
 }
 
@@ -23,7 +25,7 @@ export function AppProvider({ children }) {
   useEffect(() => { document.documentElement.classList.toggle("dark", isDark); }, [isDark]);
 
   // 布局
-  const [luiOpen, setLuiOpen] = useState(true);
+  const [luiOpen, setLuiOpen] = useState(false);
   const [canvasHidden, setCanvasHidden] = useState(true);
   const [agentActive, setAgentActive] = useState(false);
   const [full, setFull] = useState(false);

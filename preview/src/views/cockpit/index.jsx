@@ -1,38 +1,64 @@
+import { useRef, useState } from "react";
+import DataCenterNetworkAgent from "../../components/network-agent-dashboard/index.jsx";
 import { useApp } from "../../context.jsx";
-import Ic from "../../components/icon-el/index.jsx";
+import "./index.css";
 
-// 网络自治驾驶舱（欢迎页，被智能体面板/画布覆盖）
 export default function Cockpit() {
   const { openAgentHome } = useApp();
+  const [mapScale, setMapScale] = useState(1);
+  const [mapOffset, setMapOffset] = useState({ x: 0, y: 0 });
+  const [isPanning, setIsPanning] = useState(false);
+  const dragStart = useRef(null);
+  const changeScale = (amount) => setMapScale((value) => Math.min(2.4, Math.max(1, Number((value + amount).toFixed(2)))));
+
   return (
-    <section className="cockpit">
-      <div className="small muted">网络自治驾驶舱</div>
-      <h1>你好，今天网络运行平稳</h1>
-      <div className="welcome">Aico 持续守护网络，协助你发现风险、核验配置与处置故障。</div>
-      <div className="cockpit-cards">
-        <div className="cockpit-card">
-          网络健康度
-          <strong>98.6<span className="small muted"> 分</span></strong>
-          <span className="small secondary">较昨日保持稳定</span>
+    <main className="figma-network-page">
+      <div
+        className="figma-map"
+        aria-label="可缩放的中国区域地图"
+        onWheel={(event) => {
+          event.preventDefault();
+          changeScale(event.deltaY < 0 ? 0.1 : -0.1);
+        }}
+        onPointerDown={(event) => {
+          if (event.target.closest("button")) return;
+          dragStart.current = { x: event.clientX, y: event.clientY, offsetX: mapOffset.x, offsetY: mapOffset.y, scale: event.currentTarget.getBoundingClientRect().width / event.currentTarget.offsetWidth };
+          event.currentTarget.setPointerCapture(event.pointerId);
+          setIsPanning(true);
+        }}
+        onPointerMove={(event) => {
+          if (!dragStart.current) return;
+          setMapOffset({
+            x: dragStart.current.offsetX + (event.clientX - dragStart.current.x) / dragStart.current.scale,
+            y: dragStart.current.offsetY + (event.clientY - dragStart.current.y) / dragStart.current.scale,
+          });
+        }}
+        onPointerUp={() => {
+          dragStart.current = null;
+          setIsPanning(false);
+        }}
+        onPointerCancel={() => {
+          dragStart.current = null;
+          setIsPanning(false);
+        }}
+      >
+        <div className={`figma-map-canvas${isPanning ? " is-panning" : ""}`} style={{ transform: `translate(${mapOffset.x}px, ${mapOffset.y}px) scale(${mapScale})` }}>
+          <img
+            className="figma-map-image"
+            src="./assets/uploads/figma/china-dark-map.png"
+            alt="以中国为中心的深色地图"
+          />
+          <span className="figma-map-marker figma-map-marker-west-sanqu" aria-label="西三旗" title="西三旗" />
+          <span className="figma-map-marker figma-map-marker-jiading" aria-label="嘉定" title="嘉定" />
+          <span className="figma-map-marker figma-map-marker-waigaoqiao" aria-label="外高桥" title="外高桥" />
         </div>
-        <div className="cockpit-card">
-          网络故障治理
-          <strong>24</strong>
-          <span className="small secondary">已处置 18 · 待人工决策 6</span>
-        </div>
-        <div className="cockpit-card">
-          配置合规
-          <strong>待检查</strong>
-          <button className="btn" onClick={openAgentHome}>让 Aico 帮我检查 <Ic icon="arrow-right" /></button>
+        <div className="figma-map-controls" aria-label="地图缩放控制">
+          <button type="button" onClick={() => changeScale(0.2)} aria-label="放大地图">+</button>
+          <button type="button" onClick={() => changeScale(-0.2)} aria-label="缩小地图">−</button>
+          <button type="button" onClick={() => { setMapScale(1); setMapOffset({ x: 0, y: 0 }); }} aria-label="重置地图视图">⌂</button>
         </div>
       </div>
-      <div className="cockpit-map">
-        <div style={{ textAlign: "center" }}>
-          <span><Ic icon="network" /></span>
-          <p>全网资源 · 西三旗 DC</p>
-          <button className="btn primary" onClick={openAgentHome}>打开智能体</button>
-        </div>
-      </div>
-    </section>
+      <aside className="figma-dashboard"><DataCenterNetworkAgent onOpenAgent={openAgentHome} /></aside>
+    </main>
   );
 }
