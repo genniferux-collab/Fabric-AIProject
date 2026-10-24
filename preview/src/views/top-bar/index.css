@@ -1,6 +1,6 @@
 /* migrated from config-agent-merged.html — top-bar */
 
-.top{height:48px;background:var(--panel);border-bottom:1px solid var(--line);padding:0 32px;display:flex;align-items:center;justify-content:space-between}
+.top{position:relative;z-index:10;height:48px;background:var(--panel);border-bottom:1px solid var(--line);padding:0 32px;display:flex;align-items:center;justify-content:space-between}
 
 .top .left,.top .right{display:flex;align-items:center;gap:24px}
 

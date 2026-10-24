@@ -45,9 +45,10 @@ export function ArtifactIcon({type='process',shape='report'}) {
 
 // 产物标签按钮（LUI 内嵌，点击定位画布卡片）
 export function ArtifactTag({ title, type, shape, onLocate }) {
-  if(type==='conclusion')return <button type="button" className="v7-conclusion-card" onClick={onLocate}><ArtifactIcon type={type} shape={shape}/><span className="v7-conclusion-copy"><strong>{title}</strong><span>整网合规度 · 违规设备 · 检查明细</span></span><span className="v7-conclusion-arrow" aria-hidden="true">›</span></button>;
+  const kind = shape === 'overview' ? 'network' : shape === 'mapping' ? 'artifact' : 'report';
+  if(type==='conclusion')return <button type="button" className="v7-conclusion-card" data-lui-artifact={kind} onClick={onLocate}><ArtifactIcon type={type} shape={shape}/><span className="v7-conclusion-copy"><strong>{title}</strong><span>整网合规度 · 违规设备 · 检查明细</span></span><span className="v7-conclusion-arrow" aria-hidden="true">›</span></button>;
   return (
-    <button type="button" className="v7-artifact-tag" onClick={onLocate}>
+    <button type="button" className="v7-artifact-tag" data-lui-artifact={kind} onClick={onLocate}>
       <ArtifactIcon type={type} shape={shape} />
       <span>{title}</span>
     </button>

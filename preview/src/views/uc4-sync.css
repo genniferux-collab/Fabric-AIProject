@@ -251,7 +251,7 @@ html:not(.dark) .stage-root.uc4 .v7-ssh-command pre,html:not(.dark) .stage-root.
 .stage-root.uc4 .canvas .device-workspace>.rule-navigation{padding:0 16px 0 0}
 .stage-root.uc4 .canvas .device-workspace>.rule-detail{padding:0 0 0 16px}
 .stage-root.uc4 .canvas .card.flash{animation:v7-artifact-locate 1s ease}
-@keyframes v7-artifact-locate{0%,100%{outline:1px solid transparent;outline-offset:0}35%{outline:1px solid #5ca2e9;outline-offset:0}}/* Compact LUI artifact tags share the canvas's filled artifact glyphs. */
+@keyframes v7-artifact-locate{0%,100%{outline:1px solid transparent;outline-offset:0}35%{outline:1px solid #a18bfa;outline-offset:0}}/* Compact LUI artifact tags share the canvas's filled artifact glyphs. */
 .stage-root.uc4 .v7-artifact-tag{display:inline-flex;vertical-align:middle;align-items:center;width:auto;max-width:100%;height:24px;gap:4px;padding:0 8px;border:0;border-radius:4px;background:rgba(174,174,174,.15);color:#DFDFDF;font-size:12px;font-weight:400;line-height:20px;text-align:left;white-space:nowrap}
 .stage-root.uc4 .v7-artifact-tag>span{overflow:hidden;text-overflow:ellipsis}
 .stage-root.uc4 .v7-artifact-tag:hover{background:rgba(174,174,174,.22)}
@@ -608,3 +608,38 @@ html:not(.dark) .stage-root.uc4 .rule-detail .fix-diff .plus{color:#277856}
 .stage-root.uc4 .v7-artifact-pane .v7-open-card-tab{display:none}
 .stage-root.uc4 .device-pane>.v7-artifact-step-title{display:none}
 .stage-root.uc4 .v13-instance-cards .v13-instance-card .v13-instance-location{margin-top:auto}
+
+/* Shared 56px canvas header and stable 32px tab geometry. */
+.stage-root #canvas>.canvas-head,.stage-root.uc4 #canvas>.canvas-head{height:56px;min-height:56px;padding:0 16px;gap:16px;border-bottom:1px solid rgba(243,243,243,.15)}
+.stage-root.uc4 #canvas>.canvas-head::after{content:none}
+.stage-root #canvas>.canvas-head>.canvas-tabs{display:flex;align-items:center;align-self:center;flex:1;min-width:0;height:32px;padding:0;border:0;background:transparent;overflow-x:auto;overflow-y:hidden}
+.stage-root #canvas .canvas-tab{height:32px;box-sizing:border-box;display:flex;align-items:center;gap:4px;padding:0 16px;border:0;border-radius:8px;background:transparent;color:#939393;flex-shrink:0}
+.stage-root #canvas .canvas-tab.active{background:rgba(174,174,174,.15);color:#fff}
+.stage-root #canvas .canvas-tab>button[role=tab]{display:flex;align-items:center;gap:4px;padding:0;height:100%;font-size:14px;font-weight:500;line-height:22px;color:inherit}
+.stage-root #canvas .canvas-tab .ic{width:14px;height:14px;color:#aeaeae}
+.stage-root #canvas .canvas-tab.active .ic{color:#fff}
+.stage-root #canvas .canvas-tab .close-tab{width:14px;height:20px;padding:0;color:inherit}
+.stage-root #canvas .canvas-tab .close-tab:hover{background:#ffffff15}
+.stage-root #canvas .canvas-tab-divider{display:block;width:1px;height:20px;margin:0 12px;background:rgba(243,243,243,.15);flex-shrink:0}
+.stage-root #canvas #expandBtn{width:20px;height:20px;flex-shrink:0;padding:0;color:#dfdfdf}
+.stage-root #canvas .canvas-expand-icon{display:block;width:20px;height:20px}
+.stage-root #canvas #expandBtn:hover{color:#fff}
+html:not(.dark) .stage-root #canvas .canvas-tab.active{color:#191919}
+html:not(.dark) .stage-root #canvas .canvas-tab.active .ic,html:not(.dark) .stage-root #canvas #expandBtn{color:#393939}
+
+/* Canvas products follow the same order as the LUI workflow. */
+.stage-root.uc4 .workflow-canvas-flow{display:flex;flex-direction:column;gap:24px}
+.stage-root.uc4 .workflow-canvas-step{min-width:0;scroll-margin-top:16px}
+.stage-root.uc4 .workflow-canvas-step>.v7-artifact-step-title{margin:0 0 16px}
+.stage-root.uc4 .workflow-canvas-step .card{margin-bottom:0}
+.stage-root.uc4 .workflow-canvas-step.flash{animation:v7-artifact-locate 1s ease}
+.stage-root.uc4 .workflow-checking{display:flex;align-items:center;gap:8px;color:var(--secondary);font-size:14px;line-height:22px}
+
+/* Bidirectional location uses the shared intelligence gradient without changing layout. */
+.stage-root.uc4 #reportCard{border-radius:12px}
+.stage-root.uc4 .workflow-canvas-step .card{scroll-margin-top:16px}
+.stage-root.uc4 .workflow-canvas-step{border-radius:12px}
+.stage-root.uc4 .locate-highlight{position:relative;isolation:isolate}
+.stage-root.uc4 .locate-highlight::after{content:"";position:absolute;inset:0;box-sizing:border-box;padding:1px;border-radius:inherit;background:linear-gradient(110deg,#5ca2e9,#a18bfa);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;pointer-events:none;z-index:10;animation:smart-locate-border 2.4s ease forwards}
+@keyframes smart-locate-border{0%,100%{opacity:0}10%,75%{opacity:1}}
+.stage-root.uc4 .card[data-artifact-kind]:focus-visible{outline:1px solid #a18bfa;outline-offset:2px}

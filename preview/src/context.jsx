@@ -7,11 +7,21 @@ import { recs, DEFAULT_PROMPT } from "./mock/workflow.js";
 // Layer 1: 全局状态 — 主题（单轨 .dark）+ 画布/任务流/页签/设备详情状态
 const AppContext = createContext(null);
 
-export function scrollCanvasTo(element) {
+export function scrollCanvasTo(element, behavior = 'smooth') {
   const container = element?.closest('#canvasContent');
   if (!container) return;
-  const top = container.scrollTop + element.getBoundingClientRect().top - container.getBoundingClientRect().top - container.clientTop;
-  container.scrollTo({ top, behavior: 'smooth' });
+  const rect = container.getBoundingClientRect();
+  const scale = container.offsetHeight ? rect.height / container.offsetHeight : 1;
+  const margin = parseFloat(getComputedStyle(element).scrollMarginTop) || 0;
+  const top = container.scrollTop + (element.getBoundingClientRect().top - rect.top) / (scale || 1) - container.clientTop - margin;
+  container.scrollTo({ top: Math.max(0, top), behavior });
+}
+
+export function highlightLocate(element) {
+  if (!element) return;
+  element.classList.remove('flash', 'locate-highlight');
+  void element.offsetWidth;
+  element.classList.add('locate-highlight');
 }
 
 export function stateFor(map, id) {
@@ -68,6 +78,14 @@ export function AppProvider({ children }) {
 
   // 卡片定位注册表（CanvasArea 填充）
   const cardRefs = useRef({});
+  const [luiFocus, setLuiFocus] = useState(null);
+  const luiFocusSeq = useRef(0);
+  const focusLuiArtifact = useCallback(kind => {
+    setLuiOpen(true);
+    setAgentActive(true);
+    setFull(false);
+    setLuiFocus({ kind, seq: ++luiFocusSeq.current });
+  }, []);
 
   const toast = useCallback((t) => {
     clearTimeout(toastTimer.current);
@@ -82,6 +100,7 @@ export function AppProvider({ children }) {
   const uc2StartRef = useRef(() => {});
 
   const openAgentHome = useCallback(() => {
+    setLuiFocus(null);
     setActiveArtifact(null);
     uc2LeaveRef.current();
     clearTimeout(timerRef.current);
@@ -123,7 +142,7 @@ export function AppProvider({ children }) {
   advanceRef.current = (index) => {
     if (index >= 4) {
       completeTask(taskPromptRef.current);
-      locateRef.current("report");
+      locateRef.current("report", "step");
       return;
     }
     setStage(index);
@@ -261,6 +280,7 @@ export function AppProvider({ children }) {
   }, []);
 
   const runTask = useCallback((prompt) => {
+    setLuiFocus(null);
     setActiveArtifact(null);setArtifactTabs([]);
     uc2Leave();
     clearTimeout(timerRef.current);
@@ -339,17 +359,16 @@ export function AppProvider({ children }) {
   }, [openDevices, switchPane]);
 
   // 定位 + 闪动
-  const locate = useCallback((kind) => {
+  const locate = useCallback((kind, target = 'card') => {
     setCanvasHidden(false);
     setActiveArtifact(null);
     setActivePane("task");
     requestAnimationFrame(() => requestAnimationFrame(() => {
-      const el = cardRefs.current[kind];
+      const card = cardRefs.current[kind];
+      const el = target === 'step' ? card?.closest('.workflow-canvas-step') || card : card;
       if (!el) return;
       scrollCanvasTo(el);
-      el.classList.remove("flash");
-      void el.offsetWidth;
-      el.classList.add("flash");
+      highlightLocate(el);
     }));
   }, []);
   const locateRef = useRef(() => {});
@@ -382,7 +401,7 @@ export function AppProvider({ children }) {
     reportScrollRef, deviceStatesRef, deviceVersion, bumpDevices,
     toast, toastText,
     resetMapSignal, clearSelSignal,
-    cardRefs, locate, artifactTabs, activeArtifact, openArtifact, closeArtifact,
+    cardRefs, locate, luiFocus, focusLuiArtifact, artifactTabs, activeArtifact, openArtifact, closeArtifact,
     uc2, uc2Start, uc2Pause, uc2Next, uc2Show, uc2OpenRule, uc2SelectNode,
     uc2Review, uc2Reviews, uc2Fusion, uc2FusionPick, uc2FusionCloseDrawer,
     uc2SetFilter, uc2Scroll, uc2Extra, setUc2Extra,

@@ -4185,7 +4185,7 @@ html:not(.dark) .stage-root{color-scheme:light;--text:#191919;--secondary:#555;-
 /* src/views/top-bar/index.css */
 /* migrated from config-agent-merged.html — top-bar */
 
-.top{height:48px;background:var(--panel);border-bottom:1px solid var(--line);padding:0 32px;display:flex;align-items:center;justify-content:space-between}
+.top{position:relative;z-index:10;height:48px;background:var(--panel);border-bottom:1px solid var(--line);padding:0 32px;display:flex;align-items:center;justify-content:space-between}
 
 .top .left,.top .right{display:flex;align-items:center;gap:24px}
 
@@ -4376,6 +4376,113 @@ html:not(.dark) .stage-root .completion strong{color:#191919}
 .step.is-running .step-title{color:var(--text)}
 
 .status.running{border-color:var(--link);background:#5ca2e914}
+
+/* UC4 conversation surfaces. UC2 retains its existing conversation layout. */
+.lui.lui-refresh{padding:0;background:#2a2a2a;gap:0}
+.lui-refresh .lui-main{min-height:0;padding:16px;overflow-x:hidden;overflow-y:auto}
+.lui-refresh .composer-wrap{padding:0 16px 16px;background:transparent;flex-shrink:0}
+.lui-refresh .user-msg{width:fit-content;max-width:80%;margin:0 0 16px auto;padding:12px 16px;background:rgba(0,103,209,.4);border-radius:16px 0 16px 16px;font-size:14px;font-weight:400;line-height:22px;overflow-wrap:anywhere;white-space:pre-wrap}
+.lui-refresh .generated-card{background:#393939;border-radius:0 16px 16px 16px;padding:16px;min-width:0;font-size:14px;line-height:22px;overflow-wrap:anywhere}
+.lui-refresh .response-title{display:flex;align-items:center;gap:8px;max-width:100%;padding:0;border:0;background:transparent;color:var(--text);font-size:14px;font-weight:500;line-height:22px;text-align:left;cursor:pointer}
+.lui-refresh .response-title .ic{width:16px;height:16px;flex-shrink:0}
+.lui-refresh .response-steps{margin-top:16px}
+.lui-refresh .response-steps[hidden]{display:none}
+.lui-refresh .response-steps .steps{margin:0}
+.lui-refresh .step .status{background:#393939}
+.lui-refresh .step .status.done{background:#283d33}
+.lui-refresh .step .step-content{line-height:22px}
+.lui-refresh .generated-card .completion{margin-top:16px}
+.lui-refresh .generated-card .completion h2{font-size:14px;font-weight:500;line-height:22px;margin:0 0 16px}
+.lui-refresh .generated-card .completion p{font-size:14px;line-height:22px}
+html:not(.dark) .stage-root .lui-refresh{background:#fafafa}
+html:not(.dark) .stage-root .lui-refresh .user-msg{background:rgba(0,103,209,.12)}
+html:not(.dark) .stage-root .lui-refresh .generated-card{background:#f0f0f0}
+
+.lui .lui-head{position:relative;z-index:5;height:56px;min-height:56px;padding:16px;border-bottom:1px solid rgba(243,243,243,.15);gap:16px}
+.lui-detail-heading{display:flex;align-items:center;gap:8px;min-width:0}
+.lui-detail-title{font-size:18px;font-weight:500;line-height:24px;color:#dfdfdf;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lui-header-icon{display:flex;align-items:center;justify-content:center;width:20px;height:20px;padding:0;flex-shrink:0;color:#dfdfdf}
+.lui-header-icon .ic{width:20px;height:20px;color:inherit}
+.lui-header-icon:hover{color:#fff}
+.lui-more{position:relative;flex-shrink:0;margin-left:auto}
+.lui-more-menu{position:absolute;right:0;top:calc(100% + 16px);min-width:144px;padding:4px;background:#393939;border:1px solid rgba(243,243,243,.15);border-radius:8px;box-shadow:0 4px 16px #0005}
+.lui-more-menu button{display:block;width:100%;padding:8px 12px;text-align:left;font-size:14px;line-height:22px;color:#dfdfdf;border-radius:4px}
+.lui-more-menu button:hover{background:#ffffff0d}
+html:not(.dark) .stage-root .lui-detail-title,html:not(.dark) .stage-root .lui-header-icon{color:#393939}
+html:not(.dark) .stage-root .lui-more-menu{background:#fff}
+html:not(.dark) .stage-root .lui-more-menu button{color:#393939}
+
+/* Overlay scrollbar: no native gutter, so folding content never changes its width. */
+.lui-main-shell{position:relative;display:flex;flex-direction:column;flex:1;min-height:0;min-width:0}
+.lui-flow{display:flow-root;min-height:100%}
+.lui-refresh .lui-main{scrollbar-width:none;-ms-overflow-style:none}
+.lui-refresh .lui-main::-webkit-scrollbar{width:0;height:0;display:none}
+.lui-refresh .lui-flow>.landing{height:auto;min-height:100%}
+.lui-scroll-track{display:none;position:absolute;top:4px;bottom:4px;right:4px;width:6px;z-index:2;background:transparent;touch-action:none;cursor:pointer}
+.lui-scroll-thumb{position:absolute;top:0;left:0;width:6px;min-height:32px;border-radius:4px;background:#595959;cursor:grab;touch-action:none}
+.lui-scroll-track:active .lui-scroll-thumb{cursor:grabbing}
+.lui-scroll-track:focus-visible{outline:1px solid var(--link);outline-offset:1px;border-radius:4px}
+
+/* The border is drawn inside the panel and input, preserving the 560px content width. */
+.lui.lui-refresh{border-right:0;box-shadow:inset -1px 0 0 var(--line)}
+.lui .composer-wrap{padding:16px;background:transparent;flex-shrink:0;min-width:0}
+.command-capsules{display:flex;align-items:center;gap:8px;margin-bottom:8px;overflow-x:auto;scrollbar-width:none}
+.command-capsule{height:32px;padding:0 12px;border-radius:999px;background:#393939;color:#dfdfdf;display:inline-flex;align-items:center;gap:4px;flex-shrink:0;font-size:12px;font-weight:400;line-height:20px;white-space:nowrap}
+.command-capsule:hover{background:#454545}
+.command-icon{display:block;width:14px;height:14px;flex-shrink:0}
+.composer-box{position:relative;width:560px;max-width:100%}
+.lui .composer{width:560px;max-width:100%;height:96px;padding:12px;border:0;border-radius:16px;box-shadow:inset 0 0 0 1px #4d4d4d;background:#393939;display:flex;flex-direction:column;gap:8px;margin:0}
+.lui .composer:focus-within{border:0;box-shadow:inset 0 0 0 1px #4d4d4d}
+.lui .composer textarea{display:block;flex:1;min-height:0;height:32px;width:100%;padding:0;margin:0;color:#dfdfdf;font:400 14px/22px "HarmonyOS Sans","Microsoft YaHei",sans-serif;background:transparent;border:0;resize:none;scrollbar-width:none}
+.lui .composer textarea::-webkit-scrollbar{display:none}
+.lui .composer textarea::placeholder{color:#939393;opacity:1}
+.lui .composer-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;height:32px;min-height:32px;margin:0}
+.composer-count{font-size:12px;line-height:20px;color:#939393;font-variant-numeric:tabular-nums}
+.composer-actions{display:flex;align-items:center;gap:4px}
+.composer-tool,.composer-send{display:grid;place-items:center;height:32px;width:32px;padding:6px;flex-shrink:0;opacity:1}
+.composer-tool{color:#aeaeae;background:transparent;border-radius:4px}
+.composer-tool .ic,.composer-send .ic{display:block;width:20px;height:20px}
+.composer-tool:hover{background:#ffffff0a}
+.composer-tool.is-recording{color:#5ca2e9;background:#5ca2e926}
+.composer-send{border-radius:50%;background:rgba(92,162,233,.15);color:#5ca2e9}
+.composer-send:disabled{opacity:1;background:rgba(92,162,233,.15);color:rgba(92,162,233,.5);cursor:not-allowed}
+.composer-file-input{display:none}
+.lui .composer-hint{font-size:12px;font-weight:400;line-height:20px;color:#939393;margin-top:8px;text-align:center}
+.composer-prompts{position:absolute;bottom:calc(100% + 8px);left:0;right:0;padding:4px;background:#393939;border:1px solid #4d4d4d;border-radius:8px;box-shadow:0 4px 16px #0004;z-index:5}
+.composer-prompts>button{display:flex;align-items:center;gap:8px;width:100%;padding:8px 12px;border-radius:4px;text-align:left;font-size:14px;line-height:22px;color:#dfdfdf}
+.composer-prompts>button[aria-selected=true],.composer-prompts>button:hover{background:#5ca2e926}
+.composer-prompts>span{display:block;padding:8px 12px;font-size:12px;color:#939393}
+.composer-attachments{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.composer-attachments>span{display:inline-flex;align-items:center;gap:4px;max-width:100%;padding:4px 8px;border-radius:4px;background:#393939;font-size:12px;color:#dfdfdf}
+.composer-attachments>span>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.composer-attachments button{display:grid;place-items:center;width:16px;height:16px;padding:0}
+.composer-attachments .ic{width:12px;height:12px}
+html:not(.dark) .stage-root .lui .composer,html:not(.dark) .stage-root .command-capsule{background:#f3f3f3;color:#393939}
+html:not(.dark) .stage-root .lui .composer textarea{color:#393939}
+
+/* Sequential, individually collapsible workflow steps. */
+.lui-refresh .response-title .ic{width:12px;height:12px;color:#dfdfdf}
+.lui-refresh .workflow-steps{margin:0}
+.lui-refresh .workflow-steps .step{position:relative;padding:0 0 15px 24px;border-left:0;color:var(--secondary)}
+.lui-refresh .workflow-steps .step:last-child{padding-bottom:15px}
+.lui-refresh .workflow-steps .step:not(:last-child)::before{content:"";position:absolute;left:7.5px;top:23px;bottom:0;width:1px;background:#595959}
+.lui-refresh .workflow-steps .step>.status{top:3px;left:0;width:16px;height:16px;box-sizing:border-box;padding:0;display:flex;align-items:center;justify-content:center;line-height:1;border:1px solid #595959;background:#393939;color:#939393;font-size:10px;z-index:1}
+.lui-refresh .workflow-steps .step.is-done>.status{color:#36c18d;border-color:#36c18d;background:rgba(9,170,113,.15)}
+.lui-refresh .workflow-steps .step.is-done.is-selected>.status{background:#36c18d;border-color:#36c18d;color:#fff}
+.lui-refresh .workflow-steps .step.is-running>.status{background:#2070f3;border-color:#2070f3;color:#fff}
+.lui-refresh .workflow-node-check{display:block;width:10px;height:10px;flex-shrink:0;fill:currentColor;stroke:none}
+.lui-refresh .workflow-steps .status.running .v7-step-spinner{border-color:#ffffff40;border-top-color:#fff}
+.lui-refresh .step-heading{display:flex;align-items:center;gap:8px;min-height:22px}
+.lui-refresh .step-heading>.step-title{display:block;min-width:0;flex:0 1 auto;padding:0;text-align:left;font-size:14px;font-weight:500;line-height:22px;color:inherit;overflow-wrap:anywhere}
+.lui-refresh .step-heading>.step-title:disabled{opacity:1;color:var(--muted);cursor:default}
+.lui-refresh .step.is-running .step-title,.lui-refresh .step.is-selected .step-title{color:var(--text)}
+.lui-refresh .step-actions{display:flex;align-items:center;align-self:flex-start;gap:8px;height:22px;flex-shrink:0}
+.lui-refresh .step-action{display:grid;place-items:center;width:12px;height:12px;padding:0;color:#dfdfdf}
+.lui-refresh .step-action .ic{width:12px;height:12px;color:inherit}
+.lui-refresh .step-action:hover{color:#fff}
+.lui-refresh .step-action-divider{display:block;width:1px;height:12px;background:rgba(243,243,243,.15)}
+.lui-refresh .workflow-steps .step-content[hidden]{display:none}
+.lui-refresh .workflow-steps .step-content{padding-top:11px}
 
 /* src/views/canvas-area/index.css */
 /* migrated from config-agent-merged.html — canvas-area */
@@ -6970,7 +7077,7 @@ html:not(.dark) .stage-root.uc4 .v7-ssh-command pre,html:not(.dark) .stage-root.
 .stage-root.uc4 .canvas .device-workspace>.rule-navigation{padding:0 16px 0 0}
 .stage-root.uc4 .canvas .device-workspace>.rule-detail{padding:0 0 0 16px}
 .stage-root.uc4 .canvas .card.flash{animation:v7-artifact-locate 1s ease}
-@keyframes v7-artifact-locate{0%,100%{outline:1px solid transparent;outline-offset:0}35%{outline:1px solid #5ca2e9;outline-offset:0}}/* Compact LUI artifact tags share the canvas's filled artifact glyphs. */
+@keyframes v7-artifact-locate{0%,100%{outline:1px solid transparent;outline-offset:0}35%{outline:1px solid #a18bfa;outline-offset:0}}/* Compact LUI artifact tags share the canvas's filled artifact glyphs. */
 .stage-root.uc4 .v7-artifact-tag{display:inline-flex;vertical-align:middle;align-items:center;width:auto;max-width:100%;height:24px;gap:4px;padding:0 8px;border:0;border-radius:4px;background:rgba(174,174,174,.15);color:#DFDFDF;font-size:12px;font-weight:400;line-height:20px;text-align:left;white-space:nowrap}
 .stage-root.uc4 .v7-artifact-tag>span{overflow:hidden;text-overflow:ellipsis}
 .stage-root.uc4 .v7-artifact-tag:hover{background:rgba(174,174,174,.22)}
@@ -7327,6 +7434,41 @@ html:not(.dark) .stage-root.uc4 .rule-detail .fix-diff .plus{color:#277856}
 .stage-root.uc4 .v7-artifact-pane .v7-open-card-tab{display:none}
 .stage-root.uc4 .device-pane>.v7-artifact-step-title{display:none}
 .stage-root.uc4 .v13-instance-cards .v13-instance-card .v13-instance-location{margin-top:auto}
+
+/* Shared 56px canvas header and stable 32px tab geometry. */
+.stage-root #canvas>.canvas-head,.stage-root.uc4 #canvas>.canvas-head{height:56px;min-height:56px;padding:0 16px;gap:16px;border-bottom:1px solid rgba(243,243,243,.15)}
+.stage-root.uc4 #canvas>.canvas-head::after{content:none}
+.stage-root #canvas>.canvas-head>.canvas-tabs{display:flex;align-items:center;align-self:center;flex:1;min-width:0;height:32px;padding:0;border:0;background:transparent;overflow-x:auto;overflow-y:hidden}
+.stage-root #canvas .canvas-tab{height:32px;box-sizing:border-box;display:flex;align-items:center;gap:4px;padding:0 16px;border:0;border-radius:8px;background:transparent;color:#939393;flex-shrink:0}
+.stage-root #canvas .canvas-tab.active{background:rgba(174,174,174,.15);color:#fff}
+.stage-root #canvas .canvas-tab>button[role=tab]{display:flex;align-items:center;gap:4px;padding:0;height:100%;font-size:14px;font-weight:500;line-height:22px;color:inherit}
+.stage-root #canvas .canvas-tab .ic{width:14px;height:14px;color:#aeaeae}
+.stage-root #canvas .canvas-tab.active .ic{color:#fff}
+.stage-root #canvas .canvas-tab .close-tab{width:14px;height:20px;padding:0;color:inherit}
+.stage-root #canvas .canvas-tab .close-tab:hover{background:#ffffff15}
+.stage-root #canvas .canvas-tab-divider{display:block;width:1px;height:20px;margin:0 12px;background:rgba(243,243,243,.15);flex-shrink:0}
+.stage-root #canvas #expandBtn{width:20px;height:20px;flex-shrink:0;padding:0;color:#dfdfdf}
+.stage-root #canvas .canvas-expand-icon{display:block;width:20px;height:20px}
+.stage-root #canvas #expandBtn:hover{color:#fff}
+html:not(.dark) .stage-root #canvas .canvas-tab.active{color:#191919}
+html:not(.dark) .stage-root #canvas .canvas-tab.active .ic,html:not(.dark) .stage-root #canvas #expandBtn{color:#393939}
+
+/* Canvas products follow the same order as the LUI workflow. */
+.stage-root.uc4 .workflow-canvas-flow{display:flex;flex-direction:column;gap:24px}
+.stage-root.uc4 .workflow-canvas-step{min-width:0;scroll-margin-top:16px}
+.stage-root.uc4 .workflow-canvas-step>.v7-artifact-step-title{margin:0 0 16px}
+.stage-root.uc4 .workflow-canvas-step .card{margin-bottom:0}
+.stage-root.uc4 .workflow-canvas-step.flash{animation:v7-artifact-locate 1s ease}
+.stage-root.uc4 .workflow-checking{display:flex;align-items:center;gap:8px;color:var(--secondary);font-size:14px;line-height:22px}
+
+/* Bidirectional location uses the shared intelligence gradient without changing layout. */
+.stage-root.uc4 #reportCard{border-radius:12px}
+.stage-root.uc4 .workflow-canvas-step .card{scroll-margin-top:16px}
+.stage-root.uc4 .workflow-canvas-step{border-radius:12px}
+.stage-root.uc4 .locate-highlight{position:relative;isolation:isolate}
+.stage-root.uc4 .locate-highlight::after{content:"";position:absolute;inset:0;box-sizing:border-box;padding:1px;border-radius:inherit;background:linear-gradient(110deg,#5ca2e9,#a18bfa);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;pointer-events:none;z-index:10;animation:smart-locate-border 2.4s ease forwards}
+@keyframes smart-locate-border{0%,100%{opacity:0}10%,75%{opacity:1}}
+.stage-root.uc4 .card[data-artifact-kind]:focus-visible{outline:1px solid #a18bfa;outline-offset:2px}
 
 </style></head><body><div id="root"></div><script>
 const LUCIDE={
@@ -57261,6 +57403,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.AppProvider = AppProvider;
+exports.highlightLocate = highlightLocate;
 exports.scrollCanvasTo = scrollCanvasTo;
 exports.stateFor = stateFor;
 exports.useApp = useApp;
@@ -57271,14 +57414,23 @@ var _audit = require("./mock/audit.js");
 var _workflow = require("./mock/workflow.js");
 // Layer 1: 全局状态 — 主题（单轨 .dark）+ 画布/任务流/页签/设备详情状态
 const AppContext = /*#__PURE__*/(0, _react.createContext)(null);
-function scrollCanvasTo(element) {
+function scrollCanvasTo(element, behavior = 'smooth') {
   const container = element?.closest('#canvasContent');
   if (!container) return;
-  const top = container.scrollTop + element.getBoundingClientRect().top - container.getBoundingClientRect().top - container.clientTop;
+  const rect = container.getBoundingClientRect();
+  const scale = container.offsetHeight ? rect.height / container.offsetHeight : 1;
+  const margin = parseFloat(getComputedStyle(element).scrollMarginTop) || 0;
+  const top = container.scrollTop + (element.getBoundingClientRect().top - rect.top) / (scale || 1) - container.clientTop - margin;
   container.scrollTo({
-    top,
-    behavior: 'smooth'
+    top: Math.max(0, top),
+    behavior
   });
+}
+function highlightLocate(element) {
+  if (!element) return;
+  element.classList.remove('flash', 'locate-highlight');
+  void element.offsetWidth;
+  element.classList.add('locate-highlight');
 }
 function stateFor(map, id) {
   return map[id] || (map[id] = {
@@ -57355,6 +57507,17 @@ function AppProvider({
 
   // 卡片定位注册表（CanvasArea 填充）
   const cardRefs = (0, _react.useRef)({});
+  const [luiFocus, setLuiFocus] = (0, _react.useState)(null);
+  const luiFocusSeq = (0, _react.useRef)(0);
+  const focusLuiArtifact = (0, _react.useCallback)(kind => {
+    setLuiOpen(true);
+    setAgentActive(true);
+    setFull(false);
+    setLuiFocus({
+      kind,
+      seq: ++luiFocusSeq.current
+    });
+  }, []);
   const toast = (0, _react.useCallback)(t => {
     clearTimeout(toastTimer.current);
     setToastText(t);
@@ -57368,6 +57531,7 @@ function AppProvider({
   const uc2LeaveRef = (0, _react.useRef)(() => {});
   const uc2StartRef = (0, _react.useRef)(() => {});
   const openAgentHome = (0, _react.useCallback)(() => {
+    setLuiFocus(null);
     setActiveArtifact(null);
     uc2LeaveRef.current();
     clearTimeout(timerRef.current);
@@ -57404,7 +57568,7 @@ function AppProvider({
   advanceRef.current = index => {
     if (index >= 4) {
       completeTask(taskPromptRef.current);
-      locateRef.current("report");
+      locateRef.current("report", "step");
       return;
     }
     setStage(index);
@@ -57608,6 +57772,7 @@ function AppProvider({
     if (runningRef.current) advanceRef.current(1);
   }, []);
   const runTask = (0, _react.useCallback)(prompt => {
+    setLuiFocus(null);
     setActiveArtifact(null);
     setArtifactTabs([]);
     uc2Leave();
@@ -57697,17 +57862,16 @@ function AppProvider({
   }, [openDevices, switchPane]);
 
   // 定位 + 闪动
-  const locate = (0, _react.useCallback)(kind => {
+  const locate = (0, _react.useCallback)((kind, target = 'card') => {
     setCanvasHidden(false);
     setActiveArtifact(null);
     setActivePane("task");
     requestAnimationFrame(() => requestAnimationFrame(() => {
-      const el = cardRefs.current[kind];
+      const card = cardRefs.current[kind];
+      const el = target === 'step' ? card?.closest('.workflow-canvas-step') || card : card;
       if (!el) return;
       scrollCanvasTo(el);
-      el.classList.remove("flash");
-      void el.offsetWidth;
-      el.classList.add("flash");
+      highlightLocate(el);
     }));
   }, []);
   const locateRef = (0, _react.useRef)(() => {});
@@ -57774,6 +57938,8 @@ function AppProvider({
     clearSelSignal,
     cardRefs,
     locate,
+    luiFocus,
+    focusLuiArtifact,
     artifactTabs,
     activeArtifact,
     openArtifact,
@@ -58691,7 +58857,8 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 // 顶栏：品牌 + 导航 + 方案对比 + 主题切换 + 用户
 function TopBar() {
   const {
-    toggleDark
+    toggleDark,
+    isDark
   } = (0, _context.useApp)();
   return /*#__PURE__*/React.createElement("header", {
     className: "top"
@@ -58700,6 +58867,7 @@ function TopBar() {
   }, /*#__PURE__*/React.createElement("span", {
     className: "secondary"
   }, /*#__PURE__*/React.createElement(_index.default, {
+    variant: isDark ? "filled" : "lined",
     icon: "menu"
   })), /*#__PURE__*/React.createElement("span", {
     className: "brand"
@@ -58708,10 +58876,12 @@ function TopBar() {
   }), /*#__PURE__*/React.createElement("span", {
     className: "topnav active"
   }, /*#__PURE__*/React.createElement(_index.default, {
+    variant: isDark ? "filled" : "lined",
     icon: "house"
   }), "健康看板"), /*#__PURE__*/React.createElement("span", {
     className: "topnav"
   }, /*#__PURE__*/React.createElement(_index.default, {
+    variant: isDark ? "filled" : "lined",
     icon: "monitor"
   }), "大屏")), /*#__PURE__*/React.createElement("div", {
     className: "right"
@@ -58733,6 +58903,7 @@ function TopBar() {
     "aria-label": "切换主题",
     onClick: toggleDark
   }, /*#__PURE__*/React.createElement(_index.default, {
+    variant: isDark ? "filled" : "lined",
     icon: "sun"
   })), /*#__PURE__*/React.createElement("span", {
     className: "row"
@@ -58749,16 +58920,55 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Ic;
 var _icon = require("../../../assets/shared/icon.jsx");
-// 图标原子组件 — 统一 .ic 规格描边（20px / strokeWidth 1.6 / 尺寸与配色交给 .ic CSS）
-// 注意：prop 必须命名为 `icon` 且传字符串字面量（构建期按 icon="x" 属性静态提取 Lucide 名）；
-// 条件图标名无法被静态提取，此类场景请直接使用 assets/shared/icon.jsx 的 Icon 组件并自行传 className="ic"。
+// Public chrome uses local filled glyphs, including when the icon service is offline.
+const filled = {
+  menu: 'M3 5h18v2H3zm0 6h18v2H3zm0 6h18v2H3z',
+  house: 'M12 2 1.8 10.5l1.4 1.6L5 10.6V22h14V10.6l1.8 1.5 1.4-1.6zM10 14h4v8h-4z',
+  monitor: 'M3 3h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-8v3h5v2H6v-2h5v-3H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z',
+  'layout-dashboard': 'M3 3h8v8H3zm10 0h8v5h-8zm0 7h8v11h-8zM3 13h8v8H3z',
+  network: 'M8 2h8v6h-3v3h7v5h3v6h-8v-6h3v-3h-5v3h3v6H8v-6h3v-3H6v3h3v6H1v-6h3v-5h7V8H8z',
+  sparkles: 'm14 1 3 7.7 7 3.3-7 3.3L14 23l-3-7.7L4 12l7-3.3zM4 1l1.2 2.8L8 5 5.2 6.2 4 9 2.8 6.2 0 5l2.8-1.2z',
+  'circle-question-mark': 'M12 1a11 11 0 1 1 0 22 11 11 0 0 1 0-22zm-1 14h2v-1c0-.6.5-.9 1.3-1.4 1.1-.7 2.2-1.5 2.2-3.4 0-2.3-1.8-3.7-4.3-3.7-2.6 0-4.2 1.6-4.3 3.8h2.2c.1-1.1.8-1.8 2-1.8s2 .6 2 1.6c0 .9-.6 1.3-1.5 1.9-1 .6-1.6 1.2-1.6 2.6zm0 2v2h2v-2z',
+  sun: 'M12 6a6 6 0 1 1 0 12 6 6 0 0 1 0-12zM11 0h2v4h-2zm0 20h2v4h-2zM0 11h4v2H0zm20 0h4v2h-4zM3 1.6l2.8 2.8-1.4 1.4L1.6 3zm15.2 16.6 1.4-1.4 2.8 2.8-1.4 1.4zM21 1.6 22.4 3l-2.8 2.8-1.4-1.4zM4.4 18.2l1.4 1.4L3 22.4 1.6 21z',
+  'arrow-left': 'M10.6 3.3 2 12l8.6 8.7 1.5-1.4L5.8 13H22v-2H5.8l6.3-6.3z',
+  'arrow-up': 'm3.3 10.6 1.4 1.5L11 5.8V22h2V5.8l6.3 6.3 1.4-1.5L12 2z',
+  ellipsis: 'M5 10a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm7 0a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm7 0a2 2 0 1 1 0 4 2 2 0 0 1 0-4z',
+  plus: 'M11 3h2v8h8v2h-8v8h-2v-8H3v-2h8z',
+  x: 'm5.4 4 6.6 6.6L18.6 4 20 5.4 13.4 12l6.6 6.6-1.4 1.4-6.6-6.6L5.4 20 4 18.6l6.6-6.6L4 5.4z',
+  'chevron-up': 'm12 6.6 8.7 8.7-1.4 1.4-7.3-7.3-7.3 7.3-1.4-1.4z',
+  'chevron-down': 'm4.7 7.3 7.3 7.3 7.3-7.3 1.4 1.4-8.7 8.7-8.7-8.7z',
+  'layout-panel-top': 'M2 3h20v5H2zm0 7h6v11H2zm8 0h12v11H10z',
+  'file-text': 'M4 2h11l5 5v15H4zm10 2v5h5zM7 12v2h10v-2zm0 5v2h10v-2z',
+  server: 'M2 2h20v9H2zm3 3v3h3V5zM2 13h20v9H2zm3 3v3h3v-3z',
+  map: 'M2 5 8 2v17l-6 3zm8-3 4 3v17l-4-3zm6 3 6-3v17l-6 3z',
+  upload: 'M3 16h2v4h14v-4h2v6H3zm8 0V7.8L7.4 11.4 6 10l6-6 6 6-1.4 1.4L13 7.8V16z',
+  mic: 'M12 1a3 3 0 0 1 3 3v8a3 3 0 0 1-6 0V4a3 3 0 0 1 3-3zM5 10h2v2a5 5 0 0 0 10 0v-2h2v2a7 7 0 0 1-6 6.9V21h4v2H7v-2h4v-2.1A7 7 0 0 1 5 12z',
+  send: 'M22 2 15.3 22l-4.4-8.9L2 8.7zM18.6 5.4l-8.4 5.1 1.7.8.8 1.7z',
+  'locate-fixed': 'M11 0h2v4h-2zm0 20h2v4h-2zM0 11h4v2H0zm20 0h4v2h-4zM12 4a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12zm0 4a2 2 0 1 1 0 4 2 2 0 0 1 0-4z'
+};
 function Ic({
   icon,
+  variant = "lined",
   className = "ic",
   style,
   title,
   onClick
 }) {
+  if (variant === "filled" && filled[icon]) return /*#__PURE__*/React.createElement("svg", {
+    className: className + " ic-filled",
+    viewBox: "0 0 24 24",
+    "aria-hidden": "true",
+    focusable: "false",
+    style: {
+      ...style,
+      fill: "currentColor",
+      stroke: "none"
+    },
+    onClick: onClick
+  }, title && /*#__PURE__*/React.createElement("title", null, title), /*#__PURE__*/React.createElement("path", {
+    fillRule: "evenodd",
+    d: filled[icon]
+  }));
   return /*#__PURE__*/React.createElement(_icon.Icon, {
     name: icon,
     className: className,
@@ -59185,7 +59395,8 @@ function LeftRail() {
     agentActive,
     toggleAgent,
     goCockpit,
-    toast
+    toast,
+    isDark
   } = (0, _context.useApp)();
   return /*#__PURE__*/React.createElement("aside", {
     className: "rail"
@@ -59195,6 +59406,7 @@ function LeftRail() {
     title: "健康看板",
     onClick: goCockpit
   }, /*#__PURE__*/React.createElement(_index.default, {
+    variant: isDark ? "filled" : "lined",
     icon: "layout-dashboard"
   })), /*#__PURE__*/React.createElement("button", {
     className: "icon-btn",
@@ -59202,6 +59414,7 @@ function LeftRail() {
     "aria-label": "查看网络资源",
     onClick: goCockpit
   }, /*#__PURE__*/React.createElement(_index.default, {
+    variant: isDark ? "filled" : "lined",
     icon: "network"
   })), /*#__PURE__*/React.createElement("button", {
     className: "icon-btn" + (agentActive ? " active" : ""),
@@ -59210,6 +59423,7 @@ function LeftRail() {
     "aria-label": "智能体 Aico",
     onClick: toggleAgent
   }, /*#__PURE__*/React.createElement(_index.default, {
+    variant: isDark ? "filled" : "lined",
     icon: "sparkles"
   })), /*#__PURE__*/React.createElement("div", {
     className: "rail-bottom"
@@ -59219,6 +59433,7 @@ function LeftRail() {
     "aria-label": "帮助",
     onClick: () => toast("点击节点查看关联关系，点击产物标签可回到匹配图。")
   }, /*#__PURE__*/React.createElement(_index.default, {
+    variant: isDark ? "filled" : "lined",
     icon: "circle-question-mark"
   }))));
 }
@@ -59277,7 +59492,7 @@ function Cockpit() {
   }, "打开智能体"))));
 }
 }};
-modules["src/views/lui-panel/index.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/workflow.js":"src/mock/workflow.js","../../components/status-marks/index.jsx":"src/components/status-marks/index.jsx","../report-card/index.jsx":"src/views/report-card/index.jsx","../../mock/audit.js":"src/mock/audit.js","./uc2-chat.jsx":"src/views/lui-panel/uc2-chat.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx"},run:function(require,module,exports){
+modules["src/views/lui-panel/index.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/workflow.js":"src/mock/workflow.js","../../components/status-marks/index.jsx":"src/components/status-marks/index.jsx","../report-card/index.jsx":"src/views/report-card/index.jsx","../../mock/audit.js":"src/mock/audit.js","./uc2-chat.jsx":"src/views/lui-panel/uc2-chat.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","./composer.jsx":"src/views/lui-panel/composer.jsx"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -59292,32 +59507,255 @@ var _index2 = require("../report-card/index.jsx");
 var _audit = require("../../mock/audit.js");
 var _uc2Chat = _interopRequireDefault(require("./uc2-chat.jsx"));
 var _index3 = _interopRequireDefault(require("../../components/icon-el/index.jsx"));
+var _composer = _interopRequireDefault(require("./composer.jsx"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function LuiScrollArea({
+  children,
+  scrollRef,
+  enhanced
+}) {
+  const flowRef = (0, _react.useRef)(null);
+  const trackRef = (0, _react.useRef)(null);
+  const thumbRef = (0, _react.useRef)(null);
+  const dragRef = (0, _react.useRef)(null);
+  const sync = (0, _react.useCallback)(() => {
+    const main = scrollRef.current,
+      track = trackRef.current,
+      thumb = thumbRef.current;
+    if (!main || !track || !thumb) return;
+    const overflow = main.scrollHeight - main.clientHeight;
+    track.style.display = overflow > 1 ? "block" : "none";
+    if (overflow <= 1) return;
+    const height = Math.min(track.clientHeight, Math.max(32, track.clientHeight * main.clientHeight / main.scrollHeight));
+    thumb.style.height = `${height}px`;
+    thumb.style.transform = `translateY(${(track.clientHeight - height) * main.scrollTop / overflow}px)`;
+    track.setAttribute("aria-valuenow", String(Math.round(main.scrollTop / overflow * 100)));
+  }, [scrollRef]);
+  (0, _react.useEffect)(() => {
+    const observer = new ResizeObserver(sync);
+    if (scrollRef.current) observer.observe(scrollRef.current);
+    if (flowRef.current) observer.observe(flowRef.current);
+    const frame = requestAnimationFrame(sync);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(frame);
+    };
+  }, [enhanced, sync, scrollRef]);
+  const onPointerDown = event => {
+    const main = scrollRef.current,
+      track = trackRef.current,
+      thumb = thumbRef.current;
+    if (!main || !track || !thumb) return;
+    event.preventDefault();
+    const rect = track.getBoundingClientRect();
+    const scale = rect.height / track.clientHeight;
+    const travel = track.clientHeight - thumb.clientHeight;
+    const overflow = main.scrollHeight - main.clientHeight;
+    if (travel <= 0 || overflow <= 0) return;
+    if (event.target !== thumb) {
+      main.scrollTop = Math.max(0, Math.min(travel, (event.clientY - rect.top) / scale - thumb.clientHeight / 2)) / travel * overflow;
+      sync();
+    }
+    dragRef.current = {
+      y: event.clientY,
+      scroll: main.scrollTop,
+      ratio: overflow / travel / scale
+    };
+    track.setPointerCapture(event.pointerId);
+  };
+  const onKeyDown = event => {
+    const main = scrollRef.current;
+    if (!main) return;
+    const delta = {
+      ArrowDown: 40,
+      ArrowUp: -40,
+      PageDown: main.clientHeight * .8,
+      PageUp: -main.clientHeight * .8
+    }[event.key];
+    if (delta !== undefined) main.scrollTop += delta;else if (event.key === "Home") main.scrollTop = 0;else if (event.key === "End") main.scrollTop = main.scrollHeight;else return;
+    event.preventDefault();
+    sync();
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: "lui-main-shell"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "lui-main",
+    id: "luiMain",
+    ref: scrollRef,
+    onScroll: sync
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "lui-flow",
+    ref: flowRef
+  }, children)), enhanced && /*#__PURE__*/React.createElement("div", {
+    className: "lui-scroll-track",
+    ref: trackRef,
+    role: "scrollbar",
+    tabIndex: 0,
+    "aria-label": "LUI 内容滚动条",
+    "aria-controls": "luiMain",
+    "aria-orientation": "vertical",
+    "aria-valuemin": 0,
+    "aria-valuemax": 100,
+    onKeyDown: onKeyDown,
+    onPointerDown: onPointerDown,
+    onPointerMove: event => {
+      if (dragRef.current) {
+        scrollRef.current.scrollTop = dragRef.current.scroll + (event.clientY - dragRef.current.y) * dragRef.current.ratio;
+        sync();
+      }
+    },
+    onPointerUp: () => {
+      dragRef.current = null;
+    },
+    onPointerCancel: () => {
+      dragRef.current = null;
+    },
+    onLostPointerCapture: () => {
+      dragRef.current = null;
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "lui-scroll-thumb",
+    ref: thumbRef
+  })));
+}
+
 // 四阶段执行步骤（active = 当前进行到第几步，0 基）
 function WorkflowSteps({
-  active
+  active,
+  groupExpanded
 }) {
   const {
-    locate
+    locate,
+    isDark,
+    luiFocus
   } = (0, _context.useApp)();
+  const [openSteps, setOpenSteps] = (0, _react.useState)({});
+  const [selectedStep, setSelectedStep] = (0, _react.useState)(null);
+  const stepsRef = (0, _react.useRef)(null);
+  const revealedSeq = (0, _react.useRef)(0);
+  const highlightedSeq = (0, _react.useRef)(0);
+  (0, _react.useEffect)(() => {
+    setOpenSteps(active < 4 && groupExpanded ? {
+      [active]: true
+    } : {});
+    setSelectedStep(active < 4 ? active : null);
+  }, [active, groupExpanded]);
+  (0, _react.useEffect)(() => {
+    if (!luiFocus || !groupExpanded || revealedSeq.current === luiFocus.seq) return;
+    const index = {
+      network: 0,
+      artifact: 2,
+      report: 3
+    }[luiFocus.kind];
+    if (index === undefined || index > active) return;
+    revealedSeq.current = luiFocus.seq;
+    setOpenSteps(steps => ({
+      ...steps,
+      [index]: true
+    }));
+    setSelectedStep(index);
+  }, [luiFocus, groupExpanded, active]);
+  (0, _react.useLayoutEffect)(() => {
+    if (!luiFocus || !groupExpanded || highlightedSeq.current === luiFocus.seq) return;
+    const index = {
+      network: 0,
+      artifact: 2,
+      report: 3
+    }[luiFocus.kind];
+    if (!openSteps[index]) return;
+    const frame = requestAnimationFrame(() => {
+      const tag = stepsRef.current?.querySelector(`[data-step-index="${index}"] [data-lui-artifact="${luiFocus.kind}"]`);
+      const step = tag?.closest('.step'),
+        main = tag?.closest('#luiMain');
+      if (!tag || !step || !main || !tag.getClientRects().length) return;
+      const rect = main.getBoundingClientRect();
+      const scale = rect.height / main.offsetHeight || 1;
+      main.scrollTo({
+        top: Math.max(0, main.scrollTop + (step.getBoundingClientRect().top - rect.top) / scale - 16),
+        behavior: 'smooth'
+      });
+      (0, _context.highlightLocate)(tag);
+      highlightedSeq.current = luiFocus.seq;
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [luiFocus, groupExpanded, openSteps]);
+  const products = {
+    0: "network",
+    2: "artifact",
+    3: "report"
+  };
+  const toggle = index => {
+    setSelectedStep(index);
+    setOpenSteps(steps => ({
+      ...steps,
+      [index]: !steps[index]
+    }));
+  };
   return /*#__PURE__*/React.createElement("div", {
-    className: "steps"
+    className: "steps workflow-steps",
+    ref: stepsRef
   }, _workflow.v7WorkflowSteps.map((step, index) => {
     const done = index < active;
     const current = index === active;
+    const available = done || current;
+    const expanded = available && !!openSteps[index];
+    const product = products[index];
     const body = done ? step.description : current ? _workflow.v7WorkflowRunning[index] : "";
     return /*#__PURE__*/React.createElement("div", {
       key: step.title,
-      className: "step " + (done ? "" : current ? "is-running" : "pending")
+      className: "step " + (done ? "is-done" : current ? "is-running" : "pending") + (selectedStep === index ? " is-selected" : ""),
+      "data-step-index": index
     }, /*#__PURE__*/React.createElement("span", {
       className: "status " + (done ? "done" : current ? "running" : ""),
       "aria-label": done ? "已完成" : current ? "进行中" : "待执行"
-    }, done ? "✓" : current ? /*#__PURE__*/React.createElement("i", {
+    }, done ? /*#__PURE__*/React.createElement("svg", {
+      className: "workflow-node-check",
+      viewBox: "0 0 12 12",
+      "aria-hidden": "true"
+    }, /*#__PURE__*/React.createElement("path", {
+      d: "M1 6.5 2.2 5.3 4.4 7.5 9.8 2.1 11 3.3 4.4 9.9Z"
+    })) : current ? /*#__PURE__*/React.createElement("i", {
       className: "v7-step-spinner"
     }) : index + 1), /*#__PURE__*/React.createElement("div", {
-      className: "step-title"
-    }, step.title), body ? /*#__PURE__*/React.createElement("div", {
-      className: "step-content"
+      className: "step-heading"
+    }, /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      className: "step-title",
+      disabled: !available,
+      "aria-expanded": expanded,
+      "aria-controls": `workflowStep${index}`,
+      onClick: () => toggle(index)
+    }, step.title), available && /*#__PURE__*/React.createElement("div", {
+      className: "step-actions"
+    }, product && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      className: "step-action",
+      "aria-label": `定位步骤：${step.title}`,
+      title: "定位到画布",
+      onClick: () => {
+        setSelectedStep(index);
+        locate(product, "step");
+      }
+    }, /*#__PURE__*/React.createElement(_index3.default, {
+      variant: isDark ? "filled" : "lined",
+      icon: "locate-fixed"
+    })), /*#__PURE__*/React.createElement("span", {
+      className: "step-action-divider",
+      "aria-hidden": "true"
+    })), /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      className: "step-action",
+      "aria-label": `${expanded ? "收起" : "展开"}步骤：${step.title}`,
+      "aria-expanded": expanded,
+      "aria-controls": `workflowStep${index}`,
+      onClick: () => toggle(index)
+    }, /*#__PURE__*/React.createElement(_index3.default, {
+      variant: isDark ? "filled" : "lined",
+      icon: expanded ? "chevron-up" : "chevron-down"
+    })))), body ? /*#__PURE__*/React.createElement("div", {
+      className: "step-content",
+      id: `workflowStep${index}`,
+      hidden: !expanded
     }, body, index === 0 && (done || current) ? /*#__PURE__*/React.createElement("div", {
       className: "v7-step-artifact"
     }, /*#__PURE__*/React.createElement(_index.ArtifactTag, {
@@ -59332,42 +59770,22 @@ function WorkflowSteps({
       type: "process",
       shape: "mapping",
       onLocate: () => locate("artifact")
+    })) : null, index === 3 && done ? /*#__PURE__*/React.createElement("div", {
+      className: "v7-step-artifact"
+    }, /*#__PURE__*/React.createElement(_index.ArtifactTag, {
+      title: "HCS1 区基线检查报告",
+      type: "process",
+      shape: "report",
+      onLocate: () => locate("report")
     })) : null) : null);
   }));
 }
 
 // 完成态汇报（最终文案口径）
 function Completion({
-  prompt,
   onLocateReport
 }) {
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
-    className: "task-label"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "dot",
-    style: {
-      background: "var(--good)"
-    }
-  }), "配置合规检查 ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      marginLeft: "auto"
-    }
-  }, "任务已完成")), /*#__PURE__*/React.createElement("div", {
-    className: "user-msg"
-  }, prompt), /*#__PURE__*/React.createElement("div", {
-    className: "agent-caption"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "aico-icon"
-  }, /*#__PURE__*/React.createElement(_index3.default, {
-    icon: "sparkles"
-  })), "Aico"), /*#__PURE__*/React.createElement("details", {
-    className: "task-process",
-    open: true
-  }, /*#__PURE__*/React.createElement("summary", null, /*#__PURE__*/React.createElement(_index3.default, {
-    icon: "check"
-  }), "已完成基线检查 · 4个步骤"), /*#__PURE__*/React.createElement(WorkflowSteps, {
-    active: 4
-  })), /*#__PURE__*/React.createElement("section", {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("section", {
     className: "completion audit-completion"
   }, /*#__PURE__*/React.createElement("h2", null, "已完成 HCS1 区的全量基线检查"), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement(_index2.SummaryCopy, null)), /*#__PURE__*/React.createElement("h3", null, "处理建议"), /*#__PURE__*/React.createElement("ul", {
     className: "audit-advice"
@@ -59381,6 +59799,53 @@ function Completion({
     shape: "report",
     onLocate: onLocateReport
   }))));
+}
+
+// Keep the same response card mounted while execution progresses and completes.
+function InspectionConversation({
+  running,
+  active,
+  prompt,
+  onLocateReport
+}) {
+  const {
+    isDark,
+    luiFocus
+  } = (0, _context.useApp)();
+  const [expanded, setExpanded] = (0, _react.useState)(true);
+  (0, _react.useEffect)(() => {
+    if (!running) setExpanded(false);
+  }, [running]);
+  (0, _react.useEffect)(() => {
+    if (luiFocus) setExpanded(true);
+  }, [luiFocus]);
+  const title = running ? "正在执行处置步骤" : "已完成基线检查 · 4个步骤";
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    className: "user-msg"
+  }, prompt), /*#__PURE__*/React.createElement("article", {
+    className: "generated-card",
+    "aria-label": "基线检查回答"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "response-process"
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "response-title",
+    "aria-expanded": expanded,
+    "aria-controls": "uc4WorkflowSteps",
+    onClick: () => setExpanded(value => !value)
+  }, /*#__PURE__*/React.createElement("span", null, title), /*#__PURE__*/React.createElement(_index3.default, {
+    variant: isDark ? "filled" : "lined",
+    icon: expanded ? "chevron-up" : "chevron-down"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "response-steps",
+    id: "uc4WorkflowSteps",
+    hidden: !expanded
+  }, /*#__PURE__*/React.createElement(WorkflowSteps, {
+    active: running ? active : 4,
+    groupExpanded: expanded
+  }))), !running && /*#__PURE__*/React.createElement(Completion, {
+    onLocateReport: onLocateReport
+  })));
 }
 function LuiPanel() {
   const app = (0, _context.useApp)();
@@ -59397,9 +59862,31 @@ function LuiPanel() {
     goCockpit,
     toast,
     locate,
-    uc2Extra
+    uc2Extra,
+    isDark
   } = app;
   const mainRef = (0, _react.useRef)(null);
+  const menuRef = (0, _react.useRef)(null);
+  const [menuOpen, setMenuOpen] = (0, _react.useState)(false);
+  const detailTitle = luiView === "home" ? "网络运维智能体" : luiView === "uc2" ? "黄金基线挖掘" : "检查基线要求";
+  (0, _react.useEffect)(() => {
+    if (!menuOpen) return;
+    const closeOutside = event => {
+      if (!menuRef.current?.contains(event.target)) setMenuOpen(false);
+    };
+    const closeOnEscape = event => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    document.addEventListener("pointerdown", closeOutside);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOutside);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [menuOpen]);
+  (0, _react.useEffect)(() => {
+    setMenuOpen(false);
+  }, [luiView, luiOpen]);
   (0, _react.useEffect)(() => {
     if (mainRef.current) mainRef.current.scrollTop = 0;
   }, [luiView]);
@@ -59407,52 +59894,60 @@ function LuiPanel() {
   (0, _react.useEffect)(() => {
     if (uc2Extra.length && mainRef.current) mainRef.current.scrollTop = mainRef.current.scrollHeight;
   }, [uc2Extra.length]);
-  const onKeyDown = e => {
-    if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
-      e.preventDefault();
-      submitPrompt(promptText);
-    }
-  };
   return /*#__PURE__*/React.createElement("aside", {
-    className: "lui" + (luiOpen ? "" : " closed"),
+    className: "lui" + (luiView !== "uc2" ? " lui-refresh" : "") + (luiOpen ? "" : " closed"),
     id: "lui"
   }, /*#__PURE__*/React.createElement("div", {
     className: "lui-head between"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "row"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "aico-icon"
-  }, /*#__PURE__*/React.createElement(_index3.default, {
-    icon: "sparkles"
-  })), /*#__PURE__*/React.createElement("span", {
-    className: "lui-name"
-  }, "Aico"), /*#__PURE__*/React.createElement("span", {
-    className: "small muted"
-  }, "网络运维智能体")), /*#__PURE__*/React.createElement("div", {
-    className: "row"
+    className: "lui-detail-heading"
   }, /*#__PURE__*/React.createElement("button", {
-    className: "icon-btn",
-    title: "新对话",
-    "aria-label": "新对话",
-    onClick: openAgentHome
+    className: "lui-header-icon",
+    "aria-label": luiView === "home" ? "返回首页" : "返回智能体首页",
+    onClick: luiView === "home" ? goCockpit : openAgentHome
   }, /*#__PURE__*/React.createElement(_index3.default, {
-    icon: "plus"
-  })), /*#__PURE__*/React.createElement("button", {
-    className: "icon-btn",
-    title: "关闭面板",
-    "aria-label": "关闭LUI面板",
-    onClick: goCockpit
+    variant: isDark ? "filled" : "lined",
+    icon: "arrow-left"
+  })), /*#__PURE__*/React.createElement("span", {
+    className: "lui-detail-title"
+  }, detailTitle)), /*#__PURE__*/React.createElement("div", {
+    className: "lui-more",
+    ref: menuRef
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "lui-header-icon",
+    title: "更多",
+    "aria-label": "更多",
+    "aria-haspopup": "menu",
+    "aria-expanded": menuOpen,
+    onClick: () => setMenuOpen(value => !value)
   }, /*#__PURE__*/React.createElement(_index3.default, {
-    icon: "x"
-  })))), /*#__PURE__*/React.createElement("div", {
-    className: "lui-main",
-    id: "luiMain",
-    ref: mainRef
+    variant: isDark ? "filled" : "lined",
+    icon: "ellipsis"
+  })), menuOpen && /*#__PURE__*/React.createElement("div", {
+    className: "lui-more-menu",
+    role: "menu",
+    "aria-label": "LUI 更多操作"
+  }, /*#__PURE__*/React.createElement("button", {
+    role: "menuitem",
+    onClick: () => {
+      setMenuOpen(false);
+      openAgentHome();
+    }
+  }, "新对话"), /*#__PURE__*/React.createElement("button", {
+    role: "menuitem",
+    onClick: () => {
+      setMenuOpen(false);
+      goCockpit();
+    }
+  }, "关闭面板")))), /*#__PURE__*/React.createElement(LuiScrollArea, {
+    scrollRef: mainRef,
+    enhanced: luiView !== "uc2"
   }, luiView === "home" ? /*#__PURE__*/React.createElement("div", {
     className: "landing"
   }, /*#__PURE__*/React.createElement("div", {
     className: "aico-icon hero-icon"
   }, /*#__PURE__*/React.createElement(_index3.default, {
+    variant: isDark ? "filled" : "lined",
     icon: "sparkles"
   })), /*#__PURE__*/React.createElement("h2", null, "你好，我是 Aico"), /*#__PURE__*/React.createElement("div", {
     className: "secondary"
@@ -59471,74 +59966,23 @@ function LuiPanel() {
     style: {
       marginTop: "20px"
     }
-  }, "试试描述设备、区域或需要检查的配置")) : luiView === "running" ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
-    className: "task-label"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "dot"
-  }), "配置合规检查 ", /*#__PURE__*/React.createElement("span", {
-    style: {
-      marginLeft: "auto"
-    }
-  }, "执行步骤 ", runningIndex + 1, " / 4")), /*#__PURE__*/React.createElement("div", {
-    className: "user-msg"
-  }, taskPrompt), /*#__PURE__*/React.createElement("div", {
-    className: "agent-caption"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "aico-icon"
-  }, /*#__PURE__*/React.createElement(_index3.default, {
-    icon: "sparkles"
-  })), "Aico"), /*#__PURE__*/React.createElement("div", {
-    className: "v7-running-process"
-  }, /*#__PURE__*/React.createElement(WorkflowSteps, {
-    active: runningIndex
-  }))) : luiView === "uc2" ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_uc2Chat.default, null), uc2Extra.map((m, i) => /*#__PURE__*/React.createElement("div", {
+  }, "试试描述设备、区域或需要检查的配置")) : luiView === "running" || luiView === "done" ? /*#__PURE__*/React.createElement(InspectionConversation, {
+    running: luiView === "running",
+    active: runningIndex,
+    prompt: taskPrompt,
+    onLocateReport: () => locate("report")
+  }) : luiView === "uc2" ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_uc2Chat.default, null), uc2Extra.map((m, i) => /*#__PURE__*/React.createElement("div", {
     key: i,
     className: m.user !== undefined ? "user-msg" : "secondary small",
     style: m.user !== undefined ? undefined : {
       margin: "12px 0"
     }
-  }, m.user !== undefined ? m.user : m.reply))) : /*#__PURE__*/React.createElement(Completion, {
+  }, m.user !== undefined ? m.user : m.reply))) : /*#__PURE__*/React.createElement(InspectionConversation, {
+    running: false,
+    active: 4,
     prompt: taskPrompt,
     onLocateReport: () => locate("report")
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "composer-wrap"
-  }, /*#__PURE__*/React.createElement("form", {
-    className: "composer",
-    id: "promptForm",
-    onSubmit: e => {
-      e.preventDefault();
-      submitPrompt(promptText);
-    }
-  }, /*#__PURE__*/React.createElement("textarea", {
-    id: "prompt",
-    "aria-label": "向 Aico 发送问题",
-    placeholder: "向 Aico 提问，或描述你的运维任务…",
-    value: promptText,
-    onChange: e => setPromptText(e.target.value),
-    onKeyDown: onKeyDown
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "composer-bottom"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "row"
-  }, /*#__PURE__*/React.createElement("button", {
-    type: "button",
-    className: "icon-btn",
-    title: "添加上下文",
-    "aria-label": "添加上下文",
-    onClick: () => toast("当前任务上下文：西三旗 DC / HCS1 区")
-  }, /*#__PURE__*/React.createElement(_index3.default, {
-    icon: "plus"
-  })), /*#__PURE__*/React.createElement("span", {
-    className: "small muted"
-  }, "西三旗 DC")), /*#__PURE__*/React.createElement("button", {
-    type: "submit",
-    className: "send",
-    "aria-label": "发送问题"
-  }, /*#__PURE__*/React.createElement(_index3.default, {
-    icon: "arrow-up"
-  })))), /*#__PURE__*/React.createElement("div", {
-    className: "composer-hint"
-  }, "AI 生成内容仅供参考，请结合实际网络情况核验")));
+  })), /*#__PURE__*/React.createElement(_composer.default, null));
 }
 }};
 modules["src/components/status-marks/index.jsx"]={deps:{"../../../assets/shared/icon.jsx":"assets/shared/icon.jsx","../../mock/audit.js":"src/mock/audit.js"},run:function(require,module,exports){
@@ -59638,9 +60082,11 @@ function ArtifactTag({
   shape,
   onLocate
 }) {
+  const kind = shape === 'overview' ? 'network' : shape === 'mapping' ? 'artifact' : 'report';
   if (type === 'conclusion') return /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: "v7-conclusion-card",
+    "data-lui-artifact": kind,
     onClick: onLocate
   }, /*#__PURE__*/React.createElement(ArtifactIcon, {
     type: type,
@@ -59654,6 +60100,7 @@ function ArtifactTag({
   return /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: "v7-artifact-tag",
+    "data-lui-artifact": kind,
     onClick: onLocate
   }, /*#__PURE__*/React.createElement(ArtifactIcon, {
     type: type,
@@ -60433,7 +60880,274 @@ function uc2ExportCsv(reviews) {
   URL.revokeObjectURL(url);
 }
 }};
-modules["src/views/canvas-area/index.jsx"]={deps:{"../../../assets/shared/icon.jsx":"assets/shared/icon.jsx","../../context.jsx":"src/context.jsx","../../mock/devices.js":"src/mock/devices.js","../network-overview/index.jsx":"src/views/network-overview/index.jsx","../mapping-card/index.jsx":"src/views/mapping-card/index.jsx","../report-card/index.jsx":"src/views/report-card/index.jsx","../device-pane/index.jsx":"src/views/device-pane/index.jsx","../uc2-canvas/index.jsx":"src/views/uc2-canvas/index.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx"},run:function(require,module,exports){
+modules["src/views/lui-panel/composer.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx"},run:function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Composer;
+var _react = require("react");
+var _context = require("../../context.jsx");
+var _index = _interopRequireDefault(require("../../components/icon-el/index.jsx"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+const commands = [{
+  kind: "change",
+  label: "配置变更",
+  prompt: "请根据变更目标生成配置变更方案，并给出风险与回退建议。",
+  colors: ["#6fd6ff", "#9d7aff"]
+}, {
+  kind: "check",
+  label: "配置检查",
+  prompt: "检查HCS1的设备是否符合基线要求，并给出修复建议。",
+  colors: ["#7decc7", "#5ca2e9"]
+}, {
+  kind: "document",
+  label: "MOP文档变更",
+  prompt: "请帮我修改MOP文档，补充操作步骤、验证方法和回退方案。",
+  colors: ["#ffcf83", "#ee83bb"]
+}];
+function CommandIcon({
+  command
+}) {
+  const id = "command-" + (0, _react.useId)().replace(/:/g, "");
+  const paths = {
+    change: "M5 5h10V2l6 5-6 5V9H5zm14 10H9v-3l-6 5 6 5v-3h10z",
+    check: "M5 3h14v18H5zm4 5v2h7V8zm-1 6 3 3 6-6-1.5-1.5-4.5 4.5-1.5-1.5z",
+    document: "M6 2h9l5 5v15H6zm8 2v5h5zM9 12v2h8v-2zm0 5v2h6v-2z"
+  };
+  return /*#__PURE__*/React.createElement("svg", {
+    className: "command-icon",
+    width: "14",
+    height: "14",
+    viewBox: "0 0 24 24",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
+    id: id,
+    x1: "0",
+    y1: "0",
+    x2: "1",
+    y2: "1"
+  }, /*#__PURE__*/React.createElement("stop", {
+    stopColor: command.colors[0]
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "1",
+    stopColor: command.colors[1]
+  }))), /*#__PURE__*/React.createElement("rect", {
+    x: "1",
+    y: "1",
+    width: "22",
+    height: "22",
+    rx: "5",
+    fill: `url(#${id})`,
+    opacity: ".18"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: paths[command.kind],
+    fill: `url(#${id})`,
+    fillRule: "evenodd"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M4 2h12",
+    stroke: "#fff",
+    strokeOpacity: ".35",
+    strokeLinecap: "round"
+  }));
+}
+function Composer() {
+  const {
+    promptText,
+    setPromptText,
+    submitPrompt,
+    toast
+  } = (0, _context.useApp)();
+  const promptRef = (0, _react.useRef)(null),
+    fileRef = (0, _react.useRef)(null),
+    speechRef = (0, _react.useRef)(null);
+  const [attachments, setAttachments] = (0, _react.useState)([]);
+  const [recording, setRecording] = (0, _react.useState)(false);
+  const [slashDismissed, setSlashDismissed] = (0, _react.useState)(false);
+  const [selected, setSelected] = (0, _react.useState)(0);
+  const canSend = promptText.trim().length > 0;
+  const query = promptText.trimStart();
+  const slashOpen = query.startsWith("/") && !slashDismissed;
+  const matches = commands.filter(command => command.label.toLowerCase().includes(query.slice(1).toLowerCase()));
+  (0, _react.useEffect)(() => () => {
+    speechRef.current?.abort();
+  }, []);
+  const choose = command => {
+    setPromptText(command.prompt);
+    setSlashDismissed(true);
+    promptRef.current?.focus();
+  };
+  const send = () => {
+    if (!canSend) return;
+    speechRef.current?.stop();
+    submitPrompt(promptText);
+    setAttachments([]);
+  };
+  const onKeyDown = event => {
+    if (event.nativeEvent.isComposing) return;
+    if (slashOpen && event.key === "Escape") {
+      event.preventDefault();
+      setSlashDismissed(true);
+      return;
+    }
+    if (slashOpen && matches.length && ["ArrowDown", "ArrowUp"].includes(event.key)) {
+      event.preventDefault();
+      setSelected(index => (index + (event.key === "ArrowDown" ? 1 : -1) + matches.length) % matches.length);
+      return;
+    }
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      if (slashOpen && matches.length) choose(matches[selected % matches.length]);else send();
+    }
+  };
+  const toggleSpeech = () => {
+    if (recording) {
+      speechRef.current?.stop();
+      return;
+    }
+    const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!Recognition) {
+      toast("当前浏览器不支持语音输入，请使用文本输入。");
+      return;
+    }
+    const speech = new Recognition();
+    speech.lang = "zh-CN";
+    speech.continuous = false;
+    speech.interimResults = true;
+    const prefix = promptText;
+    speech.onresult = event => {
+      const transcript = Array.from(event.results).map(result => result[0].transcript).join("");
+      setPromptText((prefix + transcript).slice(0, 2000));
+    };
+    speech.onend = () => {
+      setRecording(false);
+      speechRef.current = null;
+    };
+    speech.onerror = event => {
+      setRecording(false);
+      if (event.error !== "aborted") toast(event.error === "not-allowed" ? "麦克风未获授权，请在浏览器中允许访问后重试。" : "语音识别暂不可用，请重试或使用文本输入。");
+    };
+    speechRef.current = speech;
+    try {
+      speech.start();
+      setRecording(true);
+    } catch {
+      speechRef.current = null;
+      toast("语音输入暂不可用，请稍后重试。");
+    }
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: "composer-wrap"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "command-capsules",
+    "aria-label": "快捷指令"
+  }, commands.map(command => /*#__PURE__*/React.createElement("button", {
+    key: command.kind,
+    type: "button",
+    className: "command-capsule",
+    onClick: () => choose(command)
+  }, /*#__PURE__*/React.createElement(CommandIcon, {
+    command: command
+  }), /*#__PURE__*/React.createElement("span", null, command.label)))), attachments.length > 0 && /*#__PURE__*/React.createElement("div", {
+    className: "composer-attachments",
+    "aria-label": "已选择的附件"
+  }, attachments.map((file, index) => /*#__PURE__*/React.createElement("span", {
+    key: file.name + index,
+    title: file.name
+  }, /*#__PURE__*/React.createElement("span", null, file.name), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    "aria-label": `移除附件 ${file.name}`,
+    onClick: () => setAttachments(files => files.filter((_, i) => i !== index))
+  }, /*#__PURE__*/React.createElement(_index.default, {
+    variant: "filled",
+    icon: "x"
+  }))))), /*#__PURE__*/React.createElement("div", {
+    className: "composer-box"
+  }, slashOpen && /*#__PURE__*/React.createElement("div", {
+    className: "composer-prompts",
+    role: "listbox",
+    "aria-label": "提示词"
+  }, matches.length ? matches.map((command, index) => /*#__PURE__*/React.createElement("button", {
+    key: command.kind,
+    type: "button",
+    role: "option",
+    "aria-selected": index === selected % matches.length,
+    onMouseDown: event => event.preventDefault(),
+    onClick: () => choose(command)
+  }, /*#__PURE__*/React.createElement(CommandIcon, {
+    command: command
+  }), command.label)) : /*#__PURE__*/React.createElement("span", null, "暂无匹配提示词")), /*#__PURE__*/React.createElement("form", {
+    className: "composer",
+    id: "promptForm",
+    onSubmit: event => {
+      event.preventDefault();
+      send();
+    }
+  }, /*#__PURE__*/React.createElement("textarea", {
+    ref: promptRef,
+    id: "prompt",
+    "aria-label": "向 Aico 发送问题",
+    placeholder: '输入问题或输入“/”触发提示词',
+    maxLength: 2000,
+    value: promptText,
+    onChange: event => {
+      setPromptText(event.target.value.slice(0, 2000));
+      setSlashDismissed(false);
+      setSelected(0);
+    },
+    onKeyDown: onKeyDown
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "composer-bottom"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "composer-count",
+    "aria-label": `已输入 ${promptText.length} 字符，最多 2000 字符`
+  }, promptText.length, "/2000"), /*#__PURE__*/React.createElement("div", {
+    className: "composer-actions"
+  }, /*#__PURE__*/React.createElement("input", {
+    className: "composer-file-input",
+    ref: fileRef,
+    type: "file",
+    multiple: true,
+    tabIndex: -1,
+    "aria-label": "选择附件",
+    onChange: event => {
+      setAttachments(files => [...files, ...Array.from(event.target.files || [])]);
+      event.target.value = "";
+    }
+  }), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "composer-tool",
+    title: "上传附件",
+    "aria-label": "上传附件",
+    onClick: () => fileRef.current?.click()
+  }, /*#__PURE__*/React.createElement(_index.default, {
+    variant: "filled",
+    icon: "upload"
+  })), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "composer-tool" + (recording ? " is-recording" : ""),
+    title: recording ? "停止语音输入" : "语音输入",
+    "aria-label": recording ? "停止语音输入" : "语音输入",
+    "aria-pressed": recording,
+    onClick: toggleSpeech
+  }, /*#__PURE__*/React.createElement(_index.default, {
+    variant: "filled",
+    icon: "mic"
+  })), /*#__PURE__*/React.createElement("button", {
+    type: "submit",
+    className: "composer-send",
+    "aria-label": "发送问题",
+    disabled: !canSend
+  }, /*#__PURE__*/React.createElement(_index.default, {
+    variant: "filled",
+    icon: "send"
+  })))))), /*#__PURE__*/React.createElement("div", {
+    className: "composer-hint"
+  }, "内容由AI生成，无法确保准确性和完整性，仅供参考"));
+}
+}};
+modules["src/views/canvas-area/index.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/devices.js":"src/mock/devices.js","../network-overview/index.jsx":"src/views/network-overview/index.jsx","../mapping-card/index.jsx":"src/views/mapping-card/index.jsx","../report-card/index.jsx":"src/views/report-card/index.jsx","../device-pane/index.jsx":"src/views/device-pane/index.jsx","../uc2-canvas/index.jsx":"src/views/uc2-canvas/index.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -60441,7 +61155,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = CanvasArea;
 var _react = require("react");
-var _icon = require("../../../assets/shared/icon.jsx");
 var _context = require("../../context.jsx");
 var _devices = require("../../mock/devices.js");
 var _index = _interopRequireDefault(require("../network-overview/index.jsx"));
@@ -60462,7 +61175,8 @@ function CanvasTabs() {
     artifactTabs,
     activeArtifact,
     openArtifact,
-    closeArtifact
+    closeArtifact,
+    isDark
   } = (0, _context.useApp)();
   if (uc2.active) {
     return /*#__PURE__*/React.createElement("div", {
@@ -60471,14 +61185,15 @@ function CanvasTabs() {
       role: "tablist",
       "aria-label": "画布页签"
     }, /*#__PURE__*/React.createElement("div", {
-      className: "canvas-tab active"
+      className: "canvas-tab panorama-tab active"
     }, /*#__PURE__*/React.createElement("button", {
       role: "tab",
       "aria-selected": "true",
       onClick: () => uc2Show(uc2.max)
     }, /*#__PURE__*/React.createElement(_index6.default, {
+      variant: isDark ? "filled" : "lined",
       icon: "layout-panel-top"
-    }), "智能画布")));
+    }), "全景画布")));
   }
   return /*#__PURE__*/React.createElement("div", {
     className: "canvas-tabs",
@@ -60486,25 +61201,33 @@ function CanvasTabs() {
     role: "tablist",
     "aria-label": "画布页签"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "canvas-tab" + (activePane === "task" && !activeArtifact ? " active" : "")
+    className: "canvas-tab panorama-tab" + (activePane === "task" && !activeArtifact ? " active" : "")
   }, /*#__PURE__*/React.createElement("button", {
     role: "tab",
     "aria-selected": activePane === "task" && !activeArtifact,
     onClick: () => switchPane("task")
   }, /*#__PURE__*/React.createElement(_index6.default, {
+    variant: isDark ? "filled" : "lined",
     icon: "layout-panel-top"
-  }), "智能画布")), artifactTabs.map(t => /*#__PURE__*/React.createElement("div", {
+  }), "全景画布")), (artifactTabs.length > 0 || openDevices.length > 0) && /*#__PURE__*/React.createElement("span", {
+    className: "canvas-tab-divider",
+    "aria-hidden": "true"
+  }), artifactTabs.map(t => /*#__PURE__*/React.createElement("div", {
     key: 'artifact:' + t.kind,
     className: 'canvas-tab' + (activeArtifact === t.kind ? ' active' : '')
   }, /*#__PURE__*/React.createElement("button", {
     role: "tab",
     "aria-selected": activeArtifact === t.kind,
     onClick: () => openArtifact(t.kind, t.title)
-  }, t.title), /*#__PURE__*/React.createElement("button", {
+  }, /*#__PURE__*/React.createElement(_index6.default, {
+    variant: isDark ? "filled" : "lined",
+    icon: t.kind === 'network' ? 'map' : t.kind === 'artifact' ? 'network' : 'file-text'
+  }), t.title), /*#__PURE__*/React.createElement("button", {
     className: "close-tab",
     "aria-label": '关闭' + t.title + '页签',
     onClick: () => closeArtifact(t.kind)
   }, /*#__PURE__*/React.createElement(_index6.default, {
+    variant: isDark ? "filled" : "lined",
     icon: "x"
   })))), openDevices.map(id => {
     const d = (0, _devices.deviceById)(id);
@@ -60515,11 +61238,15 @@ function CanvasTabs() {
       role: "tab",
       "aria-selected": activePane === id,
       onClick: () => switchPane(id)
-    }, d.name), /*#__PURE__*/React.createElement("button", {
+    }, /*#__PURE__*/React.createElement(_index6.default, {
+      variant: isDark ? "filled" : "lined",
+      icon: "server"
+    }), d.name), /*#__PURE__*/React.createElement("button", {
       className: "close-tab",
       "aria-label": "关闭" + d.name + "页签",
       onClick: () => closeDevice(id)
     }, /*#__PURE__*/React.createElement(_index6.default, {
+      variant: isDark ? "filled" : "lined",
       icon: "x"
     })));
   }));
@@ -60533,13 +61260,32 @@ function CanvasArea() {
     stage,
     cardRefs,
     reportScrollRef,
-    activeArtifact
+    activeArtifact,
+    luiView,
+    focusLuiArtifact
   } = (0, _context.useApp)();
   const contentRef = (0, _react.useRef)(null);
   const innerRef = (0, _react.useRef)(null);
   const artifactRef = (0, _react.useRef)(null);
   const trackRef = (0, _react.useRef)(null);
   const thumbRef = (0, _react.useRef)(null);
+  const followedStepRef = (0, _react.useRef)(null);
+
+  // Follow the active workflow inside the canvas, accounting for the scaled UC4 shell.
+  (0, _react.useLayoutEffect)(() => {
+    if (canvasHidden || activePane !== "task" || activeArtifact || !["running", "done"].includes(luiView)) return;
+    const key = `${stage}:${luiView}`;
+    if (followedStepRef.current === key) return;
+    const frame = requestAnimationFrame(() => {
+      const step = stage < 2 ? 0 : stage === 2 ? 2 : 3;
+      const target = innerRef.current?.querySelector(`[data-canvas-step="${step}"]`);
+      if (target && !target.classList.contains("hidden")) {
+        (0, _context.scrollCanvasTo)(target, "auto");
+        followedStepRef.current = key;
+      }
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [stage, luiView, canvasHidden, activePane, activeArtifact]);
   (0, _react.useLayoutEffect)(() => {
     if (!activeArtifact) return;
     const card = cardRefs.current[activeArtifact],
@@ -60596,11 +61342,27 @@ function CanvasArea() {
     syncScroll();
   };
   const register = kind => el => {
-    if (el) cardRefs.current[kind] = el;
+    if (el) {
+      cardRefs.current[kind] = el;
+      el.dataset.artifactKind = kind;
+      el.tabIndex = 0;
+    }
+  };
+  const onCanvasClick = event => {
+    if (event.target.closest('button,a,input,textarea,select,[role="button"],[role="tab"],[role="checkbox"]')) return;
+    const card = event.target.closest('.card[data-artifact-kind]');
+    if (card && event.currentTarget.contains(card)) focusLuiArtifact(card.dataset.artifactKind);
+  };
+  const onCanvasKeyDown = event => {
+    if (!['Enter', ' '].includes(event.key) || !event.target.matches('.card[data-artifact-kind]')) return;
+    event.preventDefault();
+    focusLuiArtifact(event.target.dataset.artifactKind);
   };
   return /*#__PURE__*/React.createElement("main", {
     className: "canvas" + (canvasHidden ? " hidden" : "") + (full ? " full" : ""),
-    id: "canvas"
+    id: "canvas",
+    onClickCapture: onCanvasClick,
+    onKeyDown: onCanvasKeyDown
   }, /*#__PURE__*/React.createElement("div", {
     className: "canvas-head between"
   }, /*#__PURE__*/React.createElement(CanvasTabs, null), /*#__PURE__*/React.createElement("button", {
@@ -60609,11 +61371,16 @@ function CanvasArea() {
     title: full ? "还原画布" : "放大画布",
     "aria-label": full ? "还原画布" : "放大画布",
     onClick: () => setFull(!full)
-  }, /*#__PURE__*/React.createElement(_icon.Icon, {
-    name: full ? "minimize" : "maximize",
-    className: "ic",
-    strokeWidth: 1.6
-  }))), activePane === "task" && !activeArtifact ? /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("svg", {
+    className: "canvas-expand-icon",
+    width: "20",
+    height: "20",
+    viewBox: "0 0 24 24",
+    fill: "currentColor",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: full ? "M2.3 3.7 7.6 9H3v2h8V3H9v4.6L3.7 2.3zM21.7 20.3 16.4 15H21v-2h-8v8h2v-4.6l5.3 5.3z" : "M2 2h8v2H5.4l5.3 5.3-1.4 1.4L4 5.4V10H2zM22 22h-8v-2h4.6l-5.3-5.3 1.4-1.4 5.3 5.3V14h2z"
+  })))), activePane === "task" && !activeArtifact ? /*#__PURE__*/React.createElement("div", {
     className: "scroll-track",
     id: "scrollTrack",
     ref: trackRef
@@ -60627,25 +61394,41 @@ function CanvasArea() {
     ref: contentRef,
     onScroll: onScroll
   }, /*#__PURE__*/React.createElement("div", {
-    ref: innerRef
+    ref: innerRef,
+    className: "workflow-canvas-flow"
+  }, /*#__PURE__*/React.createElement("section", {
+    className: "workflow-canvas-step",
+    "data-canvas-step": "0",
+    "aria-label": "步骤1：全网设备概览"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "v7-artifact-step-title" + (stage < 4 ? " hidden" : "")
-  }, "对HCS1区内的380台设备进行基线检查"), /*#__PURE__*/React.createElement("div", {
-    className: stage < 4 ? " hidden" : ""
-  }, /*#__PURE__*/React.createElement(_index3.default, {
-    cardRef: register("report")
-  })), /*#__PURE__*/React.createElement("div", {
     id: "networkOverviewStep",
     className: "v7-artifact-step-title"
   }, "全网设备概览已获取"), /*#__PURE__*/React.createElement(_index.default, {
     cardRef: register("network")
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "mapping-fold v7-artifact-step-title" + (stage < 2 ? " hidden" : "")
-  }, "规则选择与自动推荐"), /*#__PURE__*/React.createElement("div", {
-    className: stage < 2 ? " hidden" : ""
-  }, /*#__PURE__*/React.createElement(_index2.default, {
+  })), /*#__PURE__*/React.createElement("section", {
+    className: "workflow-canvas-step" + (stage < 2 ? " hidden" : ""),
+    "data-canvas-step": "2",
+    "aria-label": "步骤3：规则选择与自动推荐"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "v7-artifact-step-title"
+  }, "规则选择与自动推荐"), /*#__PURE__*/React.createElement(_index2.default, {
     cardRef: register("artifact")
-  })))), /*#__PURE__*/React.createElement("section", {
+  })), /*#__PURE__*/React.createElement("section", {
+    className: "workflow-canvas-step" + (stage < 3 ? " hidden" : ""),
+    "data-canvas-step": "3",
+    "aria-label": "步骤4：设备基线检查"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "v7-artifact-step-title"
+  }, "对HCS1区内的380台设备进行基线检查"), stage === 3 && /*#__PURE__*/React.createElement("div", {
+    className: "card workflow-checking",
+    role: "status"
+  }, /*#__PURE__*/React.createElement("i", {
+    className: "v7-step-spinner"
+  }), "正在对 HCS1 区的 380 台设备执行基线检查…"), /*#__PURE__*/React.createElement("div", {
+    className: stage < 4 ? " hidden" : ""
+  }, /*#__PURE__*/React.createElement(_index3.default, {
+    cardRef: register("report")
+  }))))), /*#__PURE__*/React.createElement("section", {
     className: "device-pane" + (activePane === "task" || activeArtifact ? " hidden" : ""),
     id: "devicePane",
     "aria-label": "设备检查详情"
