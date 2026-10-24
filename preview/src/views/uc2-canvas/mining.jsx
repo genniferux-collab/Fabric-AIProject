@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./mining-reference.css";
 import { Icon } from "../../../assets/shared/icon.jsx";
 import { useApp } from "../../context.jsx";
 import { fusionNodes, fusionEdges, fusionRelevant, fusionTopRules, fusionImpact, uc2RuleById, miningImpact, uc2DeviationDevices, uc2Actual } from "../../mock/uc2.js";
@@ -25,7 +26,15 @@ function RuleTooltip({ rule, rect, onOpen }) {
   );
 }
 
-function FusionGraph({ active }) {
+// Reference reveal order: role clusters → representatives → engine → candidates.
+function revealDelay(id) {
+  const steps = { core: 0, leaf: 220, core1: 950, core2: 1170, leafsample: 1390, engine: 2150 };
+  if (steps[id] !== undefined) return steps[id];
+  return 3100 + Math.max(0, fusionNodes.filter((n) => n.rule).findIndex((n) => n.id === id)) * 240;
+}
+
+function FusionGraph({ active, playing, completed }) {
+  const revealStyle = (delay, duration = 500) => ({ "--fusion-delay": `${delay - (completed ? 7000 : 0)}ms`, "--fusion-duration": `${duration}ms`, animationPlayState: playing ? "running" : "paused" });
   const { uc2, uc2Fusion, uc2FusionPick } = useApp();
   const [hoverId, setHoverId] = useState(null);
   const [tooltip, setTooltip] = useState(null); // {rule, rect}
@@ -42,7 +51,7 @@ function FusionGraph({ active }) {
       : `M${start} ${f.y} C${start + (end - start) * 0.53} ${f.y} ${start + (end - start) * 0.47} ${t.y} ${end} ${t.y}`;
     const hot = showRel.has(a) && showRel.has(b);
     return (
-      <g key={a + ":" + b} className={"fusion-edge " + (hot ? "related" : "dim")} data-fusion-from={a} data-fusion-to={b}>
+      <g key={a + ":" + b} className={"fusion-edge fusion-reveal-edge " + (hot ? "related" : "dim")} style={revealStyle(a === "engine" ? revealDelay(b) - 420 : b === "engine" ? 1700 : 560, 650)} data-fusion-from={a} data-fusion-to={b}>
         <path d={d} className="fusion-flow-width" strokeWidth={a === "leaf" || a === "leafsample" ? 9 : 4} />
         <path d={d} className="fusion-flow-line" />
         {active && hot ? <circle r="2" fill="#a1d3d1"><animateMotion dur={3.5 + i * 0.2 + "s"} begin={-i * 0.3 + "s"} repeatCount="indefinite" path={d} /></circle> : null}
@@ -73,7 +82,7 @@ function FusionGraph({ active }) {
 
   return (
     <>
-      <svg className={"fusion-graph" + (active ? " active" : "")} viewBox="0 0 1180 565" role="img" aria-label="黄金基线挖掘过程：角色聚类、代表配置对比、AI共性提取、候选规则形成">
+      <svg className={"fusion-graph fusion-sequential" + (active ? " active" : "")} viewBox="0 0 1180 565" role="img" aria-label="黄金基线挖掘过程：角色聚类、代表配置对比、AI共性提取、候选规则形成">
         <defs>
           <radialGradient id="fusionGlow"><stop stopColor="#557c7e" stopOpacity=".16" /><stop offset="1" stopColor="#557c7e" stopOpacity="0" /></radialGradient>
           <pattern id="fusionDots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r=".5" fill="#95a8b1" opacity=".13" /></pattern>
@@ -81,10 +90,10 @@ function FusionGraph({ active }) {
         <rect width="1180" height="565" fill="url(#fusionDots)" />
         <ellipse cx="595" cy="285" rx="190" ry="180" fill="url(#fusionGlow)" />
         <g className="fusion-lane-labels">
-          <text x="105" y="40" textAnchor="middle">角色聚类</text>
-          <text x="324" y="40" textAnchor="middle">代表配置对比</text>
-          <text x="595" y="40" textAnchor="middle">共性提取</text>
-          <text x="985" y="33" textAnchor="middle">候选规则 · TOP{fusionTopRules().length}</text>
+          <text className="fusion-reveal" style={revealStyle(0)} x="105" y="40" textAnchor="middle">角色聚类</text>
+          <text className="fusion-reveal" style={revealStyle(900)} x="324" y="40" textAnchor="middle">代表配置对比</text>
+          <text className="fusion-reveal" style={revealStyle(2100)} x="595" y="40" textAnchor="middle">共性提取</text>
+          <text className="fusion-reveal" style={revealStyle(2950)} x="985" y="33" textAnchor="middle">候选规则 · TOP{fusionTopRules().length}</text>
           <text x="985" y="55" textAnchor="middle" className="fusion-comparison-sub">置信度 → 影响级别 → 支持设备数</text>
         </g>
         <path d="M215 58V505M448 58V505M790 58V520" className="fusion-lane-divider" />
@@ -93,9 +102,9 @@ function FusionGraph({ active }) {
           const isEngine = n.id === "engine";
           const isRule = !!n.rule;
           const dim = !showRel.has(n.id);
-          const cls = ["fusion-node", selected === n.id ? "selected" : "", dim ? "dim" : "", hoverId === n.id ? "hovered" : "", isEngine ? "engine" : "", isRule ? "rule" : ""].filter(Boolean).join(" ");
+          const cls = ["fusion-node", "fusion-reveal", selected === n.id ? "selected" : "", dim ? "dim" : "", hoverId === n.id ? "hovered" : "", isEngine ? "engine" : "", isRule ? "rule" : ""].filter(Boolean).join(" ");
           return (
-            <g key={n.id} className={cls} data-fusion-node={n.id} role="button" tabIndex={0} aria-label={"挖掘过程：" + n.label} {...nodeHandlers(n)}>
+            <g key={n.id} className={cls} style={revealStyle(revealDelay(n.id))} data-fusion-node={n.id} role="button" tabIndex={0} aria-label={"挖掘过程：" + n.label} {...nodeHandlers(n)}>
               {!isRule ? <title>{n.label} · {n.sub}</title> : null}
               <rect x={n.x - (isRule ? 18 : 65)} y={n.y - (isRule ? 18 : 40)} width={isRule ? 370 : 140} height={isRule ? 42 : 115} fill="transparent" />
               {isEngine ? (
@@ -128,7 +137,7 @@ function FusionGraph({ active }) {
         })}
         <text x="324" y="345" textAnchor="middle" className="fusion-comparison">同角色配置对比</text>
         <text x="324" y="366" textAnchor="middle" className="fusion-comparison-sub">SSH · AAA · VRRP</text>
-        <g className="fusion-output-total">
+        <g className="fusion-output-total fusion-reveal" style={revealStyle(5950)}>
           <text x="985" y="548" textAnchor="middle"><tspan className="fusion-candidate-total">18</tspan> 条候选 · 12 高置信 · 6 待验证</text>
         </g>
       </svg>
@@ -257,7 +266,9 @@ function FusionDrawer() {
 
 // 模块 2：黄金基线挖掘（fusion 图）
 export default function Uc2Mining() {
-  const { uc2, uc2Fusion } = useApp();
+  const { uc2, uc2Fusion, uc2FusionPick } = useApp();
+  const [replayKey, setReplayKey] = useState(0);
+  const [completedAtMount] = useState(uc2.max === 3);
   const done = uc2.max === 3;
   const active = uc2.running && !done;
   return (
@@ -267,12 +278,13 @@ export default function Uc2Mining() {
           <h2>黄金基线挖掘</h2>
           <p>西三旗 DC · 100 台样本 · 核心 20 / Leaf 80 · 点击节点追踪挖掘依据</p>
         </div>
+        <button className="fusion-replay-btn" type="button" aria-label="重播黄金基线挖掘动效" onClick={() => { uc2FusionPick("engine"); setReplayKey((k) => k + 1); }}><Ic icon="rotate-ccw" />重播动效</button>
         <div className={"unified-status" + (active ? " running" : "")}><i />{done ? "候选已形成" : active ? "正在提取配置共性" : "分析已暂停"}</div>
       </div>
       <div className={"fusion-scene" + (uc2Fusion.drawer ? " with-rule-drawer" : "")}>
         <div className="fusion-workspace">
           <div className="fusion-visual">
-            <FusionGraph active={active} />
+            <FusionGraph key={replayKey} active={active || replayKey > 0} playing={uc2.running || done || replayKey > 0} completed={completedAtMount && replayKey === 0} />
             <FusionContext />
           </div>
           {uc2Fusion.drawer ? <FusionDrawer /> : null}

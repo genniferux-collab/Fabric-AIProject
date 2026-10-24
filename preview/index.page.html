@@ -7352,6 +7352,55 @@ html:not(.dark) .stage-root.uc4 .rule-detail .fix-diff .plus{color:#277856}
 .stage-root.uc4 .v13-instance-cards .v13-instance-card .v13-instance-location{margin-top:auto}
 
 
+/* Desktop workbench: stable controls, fluid panes, local scrolling. */
+html:has(.stage-viewport),body:has(.stage-viewport){margin:0;width:100%;height:100%;overflow:hidden;font-size:16px}
+.stage-viewport:has(.pc-layout){overflow:hidden;background:var(--surface-container-lowest)}
+.stage-root.pc-layout{--agent-width:clamp(320px,28vw,420px);position:relative;inset:auto;width:100%;height:100%;min-width:0;min-height:0;transform:none;overflow:hidden;container:stage-layout / inline-size}
+.pc-layout .top{width:100%;padding:0 16px;gap:16px;white-space:nowrap}.pc-layout .top .left,.pc-layout .top .right{gap:16px;min-width:0}.pc-layout .brand{font-size:16px}.pc-layout .top .right{margin-left:auto}.pc-layout .version-compare a{padding:0 8px}
+.stage-root.pc-layout #lui{width:var(--agent-width);min-width:0;transition:transform .18s ease}
+.stage-root.pc-layout #lui.closed{transform:translateX(calc(-100% - 48px));pointer-events:none;visibility:hidden}
+.stage-root.pc-layout #canvas:not(.full){left:calc(48px + var(--agent-width));min-width:0;transition:none}
+.stage-root.pc-layout #canvas.full{left:48px}
+.pc-layout .canvas{container:workspace / inline-size}
+.pc-layout .canvas-content{min-width:0;min-height:0;scrollbar-width:thin}
+.pc-layout .figma-network-page{--dashboard-width:clamp(360px,32vw,480px);width:auto;height:auto;min-width:0}
+.pc-layout .figma-dashboard .dcna-container{padding:24px}.pc-layout .figma-dashboard .dcna-header{margin-bottom:24px}.pc-layout .figma-dashboard .dcna-header h1{font-size:18px}
+.pc-layout .figma-dashboard .dcna-stat{padding:12px}.pc-layout .figma-dashboard .dcna-stat>strong{font-size:22px}.pc-layout .figma-dashboard .dcna-stat p{font-size:12px;gap:6px}.pc-layout .dcna-events{padding-bottom:24px}
+.stage-root.pc-layout.uc2-intent .figma-network-page{visibility:visible}
+.pc-layout .uc2-report-grid,.stage-root.pc-layout .v7-top-grid{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.pc-layout .uc2-report-summary{grid-template-columns:240px minmax(0,1fr);gap:20px;padding:20px}
+.pc-layout .uc2-report-progress{padding-right:16px;gap:12px}
+.pc-layout .uc2-report-toolbar,.pc-layout .uc2-report-pagination,.pc-layout .v7-pagination{flex-wrap:wrap}
+.pc-layout .uc2-report-filters{flex-wrap:wrap}.pc-layout .uc2-report-filters .search{flex:1;min-width:220px;width:auto}
+.pc-layout .uc2-report-table-scroll,.pc-layout .v7-table-scroll{max-width:100%;overflow:auto}
+.pc-layout .uc2-report-status{gap:20px;overflow:auto;white-space:nowrap}
+.pc-layout .uc2-metrics{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.pc-layout .fusion-workspace{flex-wrap:wrap}.pc-layout .fusion-visual{min-width:0;flex:1 1 450px}.pc-layout .fusion-rule-drawer{flex:1 1 280px;max-height:none;width:auto}
+@container workspace (max-width:900px){
+ .pc-layout .uc2-report-summary,.stage-root.pc-layout .v7-summary{grid-template-columns:1fr;gap:20px}
+ .pc-layout .uc2-report-progress,.stage-root.pc-layout .v7-compliance{border-right:0;padding-right:0}
+ .pc-layout .uc2-report-grid,.stage-root.pc-layout .v7-top-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .pc-layout .uc2-report-grid.by-role{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .pc-layout .uc2-split{grid-template-columns:1fr}
+ .pc-layout .card{padding:20px}
+ .stage-root.pc-layout .v7-table-tools{flex-wrap:wrap}
+ .stage-root.pc-layout .v7-table-tools .search{flex:1;min-width:200px}
+}
+@container workspace (max-width:600px){
+ .pc-layout .uc2-report-grid,.pc-layout .uc2-report-grid.by-role,.stage-root.pc-layout .v7-top-grid{grid-template-columns:1fr}
+ .pc-layout .uc2-report-heading{align-items:flex-start;flex-wrap:wrap}
+ .pc-layout .uc2-report-heading h2{font-size:18px}
+ .pc-layout .uc2-report-status{gap:14px}
+ .pc-layout .uc2-report-filters select{flex:1;min-width:130px}
+ .pc-layout .uc2-report-pagination>.row{flex-wrap:wrap}
+ .pc-layout .uc2-report-summary{padding:16px}
+ .stage-root.pc-layout .canvas .device-workspace{grid-template-columns:1fr}
+}
+@media(max-width:1280px){.pc-layout .version-compare>span,.pc-layout .top .tag{display:none}.pc-layout .top .left,.pc-layout .top .right{gap:12px}.pc-layout .version-compare a{padding:0 6px}}
+@media(max-width:1050px){.pc-layout .version-compare{display:none}.stage-root.pc-layout{--agent-width:300px}.pc-layout .figma-network-page{--dashboard-width:360px}.pc-layout .uc2-report-meta{line-height:1.7}}
+@media(max-width:760px){.pc-layout .topnav:last-child,.pc-layout .top .divider,.pc-layout .top .right>.row{display:none}.stage-root.pc-layout{--agent-width:280px}.stage-root.pc-layout #lui{box-shadow:var(--shadow-popover)}.stage-root.pc-layout #canvas:not(.full){left:48px}.stage-root.pc-layout #canvas{z-index:1}.pc-layout .figma-network-page{--dashboard-width:min(360px,100%)}.pc-layout .figma-map{left:0}.pc-layout .figma-dashboard{background:var(--panel)}}
+
+
 .dcna-container{width:592px;height:1032px;box-sizing:border-box;overflow:hidden;position:relative;display:flex;flex-direction:column;padding:32px;color:#e4e4e7;background:#18181b url("./assets/uploads/bg.png") center/cover no-repeat;font-family:var(--font-family)}
 @font-face{font-family:"Material Symbols Rounded";src:url("./assets/uploads/material-symbols-rounded-filled.ttf") format("truetype");font-style:normal;font-weight:400}.dcna-material-symbol{font-family:"Material Symbols Rounded";font-weight:normal;font-style:normal;font-size:18px;line-height:1;letter-spacing:normal;white-space:nowrap;display:inline-block;font-variation-settings:"FILL" 1,"wght" 400,"GRAD" 0,"opsz" 24}
 .dcna-glow{position:absolute;top:-60px;left:50%;width:400px;height:200px;transform:translateX(-50%);background:radial-gradient(ellipse,rgba(99,102,241,.15),transparent 70%)}
@@ -7365,6 +7414,252 @@ html:not(.dark) .stage-root.uc4 .rule-detail .fix-diff .plus{color:#277856}
 .dcna-alert-icon{font-size:18px;color:#e7434a}.dcna-network-icon{font-size:18px;color:#2070f3}.dcna-event-body{align-items:flex-start;gap:6px;padding-left:22px;color:#a1a1aa;font-size:13px;line-height:1.65}.dcna-location-icon{flex:none;margin-top:2px;font-size:15px;color:#a1a1aa}.dcna-event-body strong{color:#fff}.dcna-event-body i{font-style:normal;color:#a1a1aa}.dcna-empty{display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;color:#71717a}.dcna-empty .dcna-material-symbol{font-size:56px;color:#52525b}.dcna-empty p{font-size:13px}
 
 .dcna-agent-entry{flex:1;min-width:0;padding:0}.dcna-agent-entry .dcna-stat{height:100%}.dcna-section-title a{cursor:pointer}
+
+
+/* Geometry and reveal timing converted from config-agent-studio's mining board. */
+.stage-root.pc-layout{--agent-width:clamp(320px,31vw,592px)}
+.pc-layout .canvas-head,.pc-layout .lui-head{height:56px;min-height:56px;padding-left:16px;padding-right:16px}
+.pc-layout .card{border-radius:16px}
+.pc-layout #uc2Module2>.card{height:clamp(520px,calc(100dvh - 164px),898px);min-height:520px;max-height:898px;padding:0;overflow:hidden;position:relative;container:mining-board / inline-size}
+.pc-layout #uc2Module2 .fusion-mining{display:flex;flex-direction:column;height:100%;min-height:0;max-height:none}
+.pc-layout #uc2Module2 .unified-heading{height:56px;min-height:56px;flex:0 0 56px;display:flex;align-items:center;gap:16px;padding:16px;margin:0;border-bottom:1px solid var(--line)}
+.pc-layout #uc2Module2 .unified-heading>div:first-child{min-width:0}
+.pc-layout #uc2Module2 .unified-heading h2{font-size:14px;line-height:24px;margin:0;font-weight:500}
+.pc-layout #uc2Module2 .unified-heading p,.pc-layout #uc2Module2 .fusion-context,.pc-layout #uc2Module2 .fusion-process-caption{display:none}
+.pc-layout #uc2Module2 .fusion-scene,.pc-layout #uc2Module2 .fusion-scene:hover{flex:1;min-height:0;position:relative;overflow:hidden;background:transparent;border:0;box-shadow:none;border-radius:0}
+.pc-layout #uc2Module2 .fusion-workspace,.pc-layout #uc2Module2 .with-rule-drawer .fusion-workspace{height:100%;width:100%;padding:16px;display:block;position:relative}
+.pc-layout #uc2Module2 .fusion-visual{height:100%;width:100%;overflow:auto;min-height:0;scrollbar-width:thin}
+.pc-layout #uc2Module2 .fusion-graph{display:block;width:100%;height:100%;min-width:780px;min-height:400px;background:transparent}
+.pc-layout #uc2Module2 .fusion-rule-drawer{position:absolute;z-index:2;inset:0 0 0 auto;width:330px;height:100%;max-height:none;display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow-popover)}
+.pc-layout #uc2Module2 .fusion-drawer-header{flex:none;position:relative;min-height:56px;padding:16px}
+.pc-layout #uc2Module2 .fusion-drawer-body{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:16px}
+.fusion-replay-btn{display:flex;align-items:center;gap:6px;margin-left:auto;padding:6px 10px;border:1px solid var(--line);border-radius:var(--radius-base);font-size:12px;color:var(--secondary);white-space:nowrap}
+.fusion-replay-btn .ic{width:14px;height:14px}.fusion-replay-btn:hover{color:var(--link);border-color:var(--link)}
+.fusion-sequential .fusion-reveal{animation:fusionReferenceNode var(--fusion-duration,500ms) cubic-bezier(.22,.61,.36,1) var(--fusion-delay,0ms) both}
+.fusion-sequential .fusion-reveal-edge{animation:fusionReferenceEdge var(--fusion-duration,650ms) ease-out var(--fusion-delay,0ms) both}
+.fusion-sequential .fusion-node.dim{--fusion-opacity:.5}.fusion-sequential .fusion-edge.dim{--fusion-opacity:.28}
+@keyframes fusionReferenceNode{0%{opacity:0;transform:translateX(-14px);pointer-events:none}99%{pointer-events:none}100%{opacity:var(--fusion-opacity,1);transform:translateX(0);pointer-events:auto}}
+@keyframes fusionReferenceEdge{0%{opacity:0;clip-path:inset(0 100% 0 0)}100%{opacity:var(--fusion-opacity,1);clip-path:inset(0 0 0 0)}}
+@container mining-board (max-width:650px){.pc-layout #uc2Module2 .unified-status{font-size:10px}.pc-layout #uc2Module2 .unified-heading{gap:8px}.fusion-replay-btn{font-size:11px;padding:4px 6px}}
+@media(prefers-reduced-motion:reduce){.fusion-sequential .fusion-reveal,.fusion-sequential .fusion-reveal-edge{animation:none!important}}
+
+.fusion-sequential{--fusion-duration:500ms;--fusion-delay:0ms;--fusion-opacity:1}
+/* Opening a candidate overlays its details; the conversation and graph stay put. */
+.stage-root.pc-layout.uc2.uc2-rule-drawer #lui{width:var(--agent-width)}
+.stage-root.pc-layout.uc2.uc2-rule-drawer #canvas:not(.full){left:calc(48px + var(--agent-width))}
+
+
+/* UC4 report visual contract, scoped to the UC2 candidate report. */
+.uc2-report .v7-report-heading{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.uc2-report .v7-report-heading>.row>.ic{color:#a18bfa}
+.uc2-report .v7-report-meta{font-size:12px;color:var(--muted);margin-top:8px}
+.uc2-report .v7-summary{display:grid;grid-template-columns:300px minmax(0,1fr);gap:28px;align-items:center;margin:24px 0}
+.uc2-report .v7-compliance{display:flex;align-items:center;gap:24px;padding-right:24px;border-right:1px solid var(--line)}
+.uc2-report .v7-ring{height:104px;width:104px;position:relative;flex-shrink:0}
+.uc2-report .v7-ring svg{height:104px;width:104px;transform:rotate(-90deg)}
+.uc2-report .v7-ring>div{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.uc2-report .v7-ring strong{font-size:28px;font-weight:500;line-height:36px}
+.uc2-report .v7-ring small{font-size:12px;font-weight:400;margin-left:2px}
+.uc2-report .v7-ring span{font-size:10px;color:var(--muted)}
+.uc2-report .v7-summary-counts{display:flex;flex-direction:column;gap:12px;font-size:12px;color:var(--secondary);white-space:nowrap}
+.uc2-report .v7-summary-counts>span,.uc2-report .v7-summary-counts>button{display:flex;align-items:center;gap:6px}
+.uc2-report .v7-summary-counts>button{padding:0;font-size:12px;text-align:left}
+.uc2-report .v7-summary-counts>button:hover{color:var(--link)}
+.uc2-report .v7-summary-counts i{height:5px;width:5px;border-radius:50%}
+.uc2-report .v7-summary-counts strong{font-size:18px;font-weight:500}
+.uc2-report .v7-conclusion-label{display:flex;align-items:center;gap:6px;font-size:12px;color:#b4a6ef;margin-bottom:8px}
+.uc2-report .v7-conclusion-label .ic{height:16px;width:16px}
+.uc2-report .v7-conclusion h3{font-size:16px;line-height:24px;margin:0 0 8px;font-weight:500}
+.uc2-report .v7-conclusion p{font-size:14px;color:var(--secondary);margin:0 0 8px}
+.uc2-report .v7-conclusion-note{font-size:12px;color:var(--muted)}
+.uc2-report .v7-result-toolbar{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);min-height:44px;margin-bottom:16px}
+.uc2-report .v7-view-tabs{display:flex;gap:24px;align-self:stretch}
+.uc2-report .v7-view-tabs>button{position:relative;padding:0 0 12px;color:var(--secondary);font-size:14px}
+.uc2-report .v7-view-tabs>button.active{color:var(--link)}
+.uc2-report .v7-view-tabs>button.active:after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--link)}
+.uc2-report .v7-view-tabs span{color:var(--muted);font-size:12px;margin-left:4px}
+.uc2-report .v7-lens{display:flex;gap:3px;padding:3px;border-radius:4px;background:var(--canvas-card-fill)}
+.uc2-report .v7-lens button{height:26px;padding:0 12px;font-size:12px;color:var(--muted);border-radius:3px}
+.uc2-report .v7-lens button.selected{background:#494949;color:#fff}
+.uc2-report .v7-top-caption{display:flex;justify-content:space-between;margin-bottom:12px;font-size:12px;color:var(--muted)}
+.uc2-report .v7-top-caption>span:first-child{color:var(--secondary)}
+.uc2-report .v7-top-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.uc2-report .v7-top-card{border-radius:6px;padding:16px 12px 0;background:#393939;border:1px solid var(--line);display:flex;flex-direction:column;min-width:0}
+.uc2-report .v7-top-card:hover{background-image:linear-gradient(#ffffff0d,#ffffff0d)}
+.uc2-report .v7-card-title{display:flex;align-items:flex-start;gap:8px;min-height:48px}
+.uc2-report .v7-rank{font-size:12px;color:var(--muted);line-height:24px;flex-shrink:0}
+.uc2-report .v7-card-title h3{font-size:16px;line-height:24px;font-weight:500;margin:0;min-width:0;overflow-wrap:anywhere}
+.uc2-report .v7-card-title h3 button{font:inherit;padding:0;color:var(--link);text-align:left}
+.uc2-report .v7-card-number{display:flex;align-items:baseline;gap:6px;margin-top:12px}
+.uc2-report .v7-card-number>strong{font-size:28px;line-height:36px;font-weight:500}
+.uc2-report .v7-card-number>span{color:var(--muted);font-size:12px;white-space:nowrap}
+.uc2-report .v7-rule-viz{height:84px;margin-top:12px;padding:10px 8px;background:#19191980;border-radius:4px;overflow:hidden}
+.uc2-report .v7-pair{display:grid;grid-template-columns:60px 1fr;gap:8px 4px;align-items:center;font-size:10px;line-height:20px}
+.uc2-report .v7-pair>span{color:var(--muted)}
+.uc2-report .v7-pair code{font:12px/20px ui-monospace,Consolas,monospace;color:var(--secondary);white-space:nowrap}
+.uc2-report .v7-pair code.bad{color:var(--fail)}
+.uc2-report .v7-time-labels{display:flex;justify-content:space-between;gap:4px;font-size:10px;color:var(--muted);white-space:nowrap}
+.uc2-report .v7-time-track{height:5px;position:relative;margin:14px 0 12px;background:#ffffff10;border-radius:3px}
+.uc2-report .v7-time-track .allowed{position:absolute;left:0;width:66.6667%;height:5px;background:#48bc8e66;border-radius:3px 0 0 3px}
+.uc2-report .v7-time-track .over{position:absolute;left:66.6667%;right:0;height:5px;background:var(--fail);border-radius:0 3px 3px 0}
+.uc2-report .v7-time-track .limit{position:absolute;left:66.6667%;height:15px;top:-5px;border-left:1px dashed var(--secondary)}
+.uc2-report .v7-viz-note{font-size:10px;color:var(--muted);line-height:18px}
+.uc2-report .v7-address-viz{display:flex;align-items:center;justify-content:space-around;font-size:12px;color:var(--secondary);gap:4px;padding:2px 0 10px}
+.uc2-report .v7-address-viz strong{color:var(--fail);font-size:24px;line-height:28px;font-weight:400}
+.uc2-report .v7-vlan-viz{display:flex;gap:6px;margin-bottom:8px}
+.uc2-report .v7-vlan-viz>span{padding:2px 6px;border-radius:3px;background:#ffffff09;color:var(--secondary);font-size:12px}
+.uc2-report .v7-vlan-viz>span.extra{background:#e7434a18;color:var(--fail)}
+.uc2-report .v7-vlan-viz small{font-size:9px;display:block;line-height:12px}
+.uc2-report .v7-card-footer{display:flex;align-items:center;justify-content:space-between;width:100%;padding:12px 0;margin-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--link)}
+.uc2-report .v7-card-footer .ic{width:14px;height:14px}
+.uc2-report .v7-overview-foot{margin-top:12px;color:var(--muted);font-size:12px}
+.uc2-report .v7-device-ip{font-size:12px;color:var(--muted);margin-top:-16px}
+.uc2-report .v7-rule-cells{display:grid;grid-template-columns:repeat(24,minmax(0,1fr));gap:2px;margin:10px 0 12px}
+.uc2-report .v7-rule-cells i{height:8px;border-radius:1px}
+.uc2-report .v7-rule-cells i.failed{background:var(--fail)}
+.uc2-report .v7-rule-cells i.passed{background:#48bc8e80}
+.uc2-report .v7-device-issues{min-height:64px;display:flex;flex-direction:column;gap:4px;flex:1}
+.uc2-report .v7-device-issues>button{font-size:10px;color:var(--secondary);padding:0;text-align:left;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;line-height:20px}
+.uc2-report .v7-device-issues>button:hover{color:var(--link)}
+.uc2-report .v7-device-issues i{display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--fail);margin-right:5px;vertical-align:middle}
+.uc2-report .v7-table-tools{display:flex;justify-content:flex-start;gap:8px;align-items:center;margin:0 0 16px}
+.uc2-report .v7-table-tools .search{width:280px}
+.uc2-report .v7-status-filters{display:flex;gap:8px}
+.uc2-report .v7-status-filters>button{height:30px;display:flex;align-items:center;gap:6px;padding:0 10px;border:1px solid transparent;border-radius:4px;font-size:12px;color:var(--secondary)}
+.uc2-report .v7-status-filters>button.selected{border-color:var(--link);color:var(--link)}
+.uc2-report .v7-status-filters i{width:5px;height:5px;border-radius:50%;background:var(--muted)}
+.uc2-report .v7-status-filters i.failed{background:var(--fail)}
+.uc2-report .v7-status-filters i.passed{background:var(--good)}
+.uc2-report .v7-status-filters strong{font-size:12px;font-weight:500}
+.uc2-report .v7-table-scroll{max-height:520px;overflow:auto;scrollbar-width:thin}
+.uc2-report .v7-table th{position:sticky;top:0;background:#393939;z-index:1}
+.uc2-report .v7-table td{padding:12px 16px}
+.uc2-report .v7-table th,.uc2-report .v7-table td{font-size:14px}
+.uc2-report .v7-table .link{padding:0;font-size:14px}
+.uc2-report .v7-pagination{display:flex;align-items:center;justify-content:space-between;margin-top:16px;color:var(--muted);font-size:12px}
+.uc2-report .v7-pagination .btn{height:28px;font-size:12px;padding:0 10px}
+.uc2-report .v7-page{height:28px;min-width:28px;border-radius:3px;color:var(--secondary);font-size:12px}
+.uc2-report .v7-page.active{background:#0067d1;color:#fff}
+.uc2-report .v7-filter-context{display:flex;align-items:center;gap:8px;width:fit-content;max-width:100%;padding:4px 8px;background:#2070f31a;color:var(--link);border-radius:4px;margin-bottom:12px;font-size:12px}
+.uc2-report .v7-filter-context button{padding:0;display:flex}
+.uc2-report .v7-filter-context .ic{width:12px;height:12px}
+.uc2-report .v7-top-grid{gap:16px}
+.uc2-report .v7-top-card{padding:20px 20px 0}
+.uc2-report .v7-card-title{min-height:24px}
+.uc2-report .v7-device-ip{margin-top:8px}
+html:not(.dark) .uc2-report .v7-top-card{background:#f5f5f5}
+html:not(.dark) .uc2-report .v7-rule-viz{background:#e9edf2}
+html:not(.dark) .uc2-report .v7-lens{background:#eee}
+html:not(.dark) .uc2-report .v7-lens button.selected{background:#fff;color:#191919}
+html:not(.dark) .uc2-report .v7-table th{background:#eee}
+.uc2-report .v7-repair-direction{padding-top:12px;margin-top:12px;border-top:1px solid var(--line);min-height:84px}
+.uc2-report .v7-repair-direction h4,.uc2-report .v7-related-devices h4{font-size:12px;font-weight:400;color:var(--muted);line-height:20px;margin:0 0 4px}
+.uc2-report .v7-repair-direction p{font-size:12px;line-height:20px;margin:0;color:var(--secondary)}
+.uc2-report .v7-related-devices{margin-top:12px}
+.uc2-report .v7-related-devices h4 span{margin-left:4px}
+.uc2-report .v7-device-tags{display:flex;gap:6px;flex-wrap:wrap;align-content:flex-start;min-height:54px}
+.uc2-report .v7-device-tag{height:24px;max-width:100%;padding:0 6px;border:1px solid #646464;border-radius:4px;color:var(--secondary);font-size:12px;white-space:nowrap;background:#ffffff04}
+.uc2-report .v7-device-tag:hover{background:#ffffff0d;border-color:var(--link);color:var(--link)}
+.uc2-report .v7-more-devices{color:var(--link);border-style:dashed}
+.uc2-report .v7-rule-select{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--secondary);margin-left:auto;min-width:0}
+.uc2-report .v7-rule-select select{width:264px;max-width:100%;height:32px;background:transparent;border:1px solid #595959;border-radius:4px;padding:0 8px;color:var(--text);font-size:12px;text-overflow:ellipsis;outline:none}
+.uc2-report .v7-rule-select select:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+.uc2-report .v7-rule-select option{color:var(--text);background:#393939}
+.uc2-report .v7-table-tools .search{width:252px;flex-shrink:0}
+html:not(.dark) .uc2-report .v7-rule-select option{background:#fff;color:#191919}
+.uc2-report .v7-top-grid:has(.v9-overview-card){gap:14px}
+.uc2-report .v9-overview-card,.uc2-report .v9-overview-card{position:relative;padding:20px 18px 16px;border:1px solid #ffffff0e;border-radius:12px;background:linear-gradient(145deg,#323538 0%,#2b2d30 58%,#292b2e 100%);box-shadow:inset 0 1px 0 #ffffff06,0 4px 12px #00000012;transition:border-color 180ms ease,box-shadow 180ms ease}
+.uc2-report .v9-overview-card:hover{background-image:linear-gradient(145deg,#363a3e,#2e3135 65%,#2c2f33);border-color:#91b6df38;box-shadow:inset 0 1px 0 #ffffff0a,0 5px 18px #00000020}
+.uc2-report .v9-card-eyebrow{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-bottom:18px;line-height:18px}
+.uc2-report .v9-card-kind{display:flex;align-items:center;gap:6px;font-size:11px;color:#a1a9b3}
+.uc2-report .v9-card-kind>.ic{height:14px;width:14px;color:#93a2b4}
+.uc2-report .v9-overview-card .v7-rank{font:12px/24px ui-monospace,Consolas,monospace;width:14px;text-align:left;color:#89929d}
+.uc2-report .v9-overview-card .v7-card-title,.uc2-report .v9-overview-card .v7-card-title{min-height:24px;gap:8px}
+.uc2-report .v9-overview-card .v7-card-title h3{font-size:16px;line-height:24px;font-weight:500;color:#edf1f6;letter-spacing:.1px}
+.uc2-report .v9-overview-card .v7-card-title h3 button{color:inherit;transition:color 150ms ease}
+.uc2-report .v9-overview-card .v7-card-title h3 button:hover{color:#8abef3}
+.uc2-report .v9-overview-card .v7-device-ip,.uc2-report .v9-overview-card .v7-device-ip{margin-top:4px;margin-left:22px;font:12px/20px ui-monospace,Consolas,monospace;color:#a1a9b3;letter-spacing:.1px}
+.uc2-report .v9-overview-card .v7-card-number{gap:8px;margin-top:24px}
+.uc2-report .v9-overview-card .v7-card-number>strong{font-size:44px;line-height:52px;letter-spacing:-1.5px;font-weight:500;color:#f2f4f7;font-variant-numeric:tabular-nums}
+.uc2-report .v9-overview-card .v7-card-number>span{font-size:11px;color:#adb4bd;line-height:20px}
+.uc2-report .v9-overview-card .v8-ratio{margin-top:14px}
+.uc2-report .v9-overview-card .v8-ratio-track{height:5px;background:#ffffff13}
+.uc2-report .v9-overview-card .v8-ratio-failed{background:#ef7a83;box-shadow:0 0 8px #ef7a8318;border-radius:999px}
+.uc2-report .v9-overview-card .v8-ratio-passed{background:transparent}
+.uc2-report .v9-overview-card .v8-ratio-labels{margin-top:9px;font-size:10px;color:#a1a9b3}
+.uc2-report .v9-overview-card .v8-ratio-labels>span:first-child{color:#e5a0a5;gap:5px}
+.uc2-report .v9-overview-card .v8-ratio-labels i{width:4px;height:4px;background:#ef7a83}
+.uc2-report .v9-overview-card .v7-device-priority{margin-top:24px;margin-bottom:0}
+.uc2-report .v9-overview-card .v7-device-priority>.v7-viz-note{font-size:10px;line-height:18px;color:#a1a9b3;margin-bottom:8px}
+.uc2-report .v9-overview-card .v7-priority-distribution{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.uc2-report .v9-overview-card .v7-priority-count{justify-content:center;gap:4px;min-height:28px;padding:3px 4px;border:1px solid #ffffff07;border-radius:5px;background:#ffffff04;font-size:11px;line-height:20px;color:#c9cfd7}
+.uc2-report .v9-overview-card .v7-priority-count.high:not(.zero){background:#e76f7c0d;border-color:#e76f7c1a}
+.uc2-report .v9-overview-card .v7-priority-count.medium:not(.zero){background:#dba46a0d;border-color:#dba46a1a}
+.uc2-report .v9-overview-card .v7-priority-count.high i{background:#ee8791}
+.uc2-report .v9-overview-card .v7-priority-count.medium i{background:#dfb17d}
+.uc2-report .v9-overview-card .v7-priority-count strong{font-size:12px;color:#e7ebf1}
+.uc2-report .v9-overview-card .v7-priority-count.zero{border-color:transparent;background:#ffffff02;color:#89929d}
+.uc2-report .v9-overview-card .v7-priority-count.zero strong{color:#89929d}
+.uc2-report .v9-overview-card .v7-priority-count.zero i{background:#79828d}
+.uc2-report .v9-overview-card>.v8-card-details{margin-top:24px;padding-top:14px;border-top:1px solid #ffffff09;color:#afbac8;font-size:11px;line-height:20px;transition:color 150ms ease}
+.uc2-report .v9-overview-card>.v8-card-details>span{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#ffffff06;color:#aab9cb;font-size:17px;transition:background 150ms ease,color 150ms ease}
+.uc2-report .v9-overview-card>.v8-card-details:hover{color:#8abef3}
+.uc2-report .v9-overview-card>.v8-card-details:hover>span{background:#5ca2e91a;color:#8abef3}
+.uc2-report .v9-overview-card button:focus-visible{outline:2px solid #8abef3;outline-offset:4px;border-radius:3px}
+.uc2-report .v9-overview-card[data-rule-card] .v7-card-title{min-height:108px}
+.uc2-report .v9-overview-card[data-rule-card] .v7-rule-heading{gap:10px}
+.uc2-report .v9-overview-card[data-rule-card] .v7-rule-heading h3{min-height:48px}
+.uc2-report .v9-overview-card[data-rule-card] .v7-priority-badge{border:1px solid #ffffff07;border-radius:5px;padding:2px 7px}
+.uc2-report .v9-overview-card[data-rule-card] .v7-card-number{margin-top:8px}
+.uc2-report .v9-overview-card[data-rule-card] .v7-rule-context{margin-top:22px;gap:16px}
+.uc2-report .v9-overview-card .v7-rule-context h4{color:#929ca8;font-size:10px;margin-bottom:5px}
+.uc2-report .v9-overview-card .v7-rule-context p{color:#c4cbd4;font-size:12px;line-height:21px}
+html:not(.dark) .uc2-report .v9-overview-card{background:linear-gradient(145deg,#fff,#f5f7fa);border-color:#192d4714;box-shadow:0 3px 12px #203c5c08}
+html:not(.dark) .uc2-report .v9-overview-card:hover{border-color:#5ca2e95c;background:linear-gradient(145deg,#fff,#f0f5fc)}
+html:not(.dark) .uc2-report .v9-overview-card .v7-card-title h3,html:not(.dark) .uc2-report .v9-overview-card .v7-card-number>strong{color:#233246}
+html:not(.dark) .uc2-report .v9-card-kind,html:not(.dark) .uc2-report .v9-overview-card .v7-device-ip,html:not(.dark) .uc2-report .v9-overview-card .v7-card-number>span,html:not(.dark) .uc2-report .v9-overview-card .v8-ratio-labels,html:not(.dark) .uc2-report .v9-overview-card .v7-device-priority>.v7-viz-note{color:#647184}
+html:not(.dark) .uc2-report .v9-overview-card .v8-ratio-track{background:#20334b12}
+html:not(.dark) .uc2-report .v9-overview-card .v8-ratio-labels>span:first-child{color:#b94b59}
+html:not(.dark) .uc2-report .v9-overview-card .v7-priority-count,html:not(.dark) .uc2-report .v9-overview-card .v7-priority-count strong{color:#344155}
+html:not(.dark) .uc2-report .v9-overview-card .v7-priority-count.zero,html:not(.dark) .uc2-report .v9-overview-card .v7-priority-count.zero strong{color:#8b94a0}
+html:not(.dark) .uc2-report .v9-overview-card>.v8-card-details{border-color:#20334b10;color:#53667e}
+html:not(.dark) .uc2-report .v9-overview-card>.v8-card-details>span{background:#20334b08;color:#53667e}
+html:not(.dark) .uc2-report .v9-overview-card .v7-rule-context p{color:#4c5b6e}
+@media(prefers-reduced-motion:reduce){
+.uc2-report .v9-overview-card,.uc2-report .v9-overview-card button,.uc2-report .v9-overview-card>.v8-card-details>span{transition:none}}/* UC4: retain the left compliance ring and enrich the right conclusion. */
+.uc2-report .v11-summary{align-items:center}
+.uc2-report .v11-conclusion{min-width:0}
+.uc2-report .v11-conclusion>.v7-conclusion-label{margin-bottom:6px}
+.uc2-report .v12-summary-copy{margin:0;font-size:14px;line-height:24px;color:var(--secondary);overflow-wrap:anywhere}
+.uc2-report .v12-summary-copy strong{font-weight:500;color:var(--text)}
+html:not(.dark) .uc2-report .v11-conclusion>.v7-conclusion-label{color:#7862b5}/* UC4 device detail: compact filters, selectable positions and expandable evidence. */
+
+.uc2-report{font-size:14px}.uc2-report a{color:var(--interactive-link);cursor:pointer}
+.uc2-report h2,.uc2-report h3,.uc2-report h4,.uc2-report p{margin-top:0}
+.uc2-report .card-title{font-size:18px;font-weight:500;margin:0}
+.uc2-report .v7-report-heading h2{font-size:18px;font-weight:500;margin:0}
+.uc2-report .v7-summary{margin:24px 0;padding:0;background:transparent;border-radius:0}
+.uc2-report .uc2-report-ring{--candidate-ratio:0%;width:104px;height:104px;padding:7px;flex:none;border-radius:50%;background:conic-gradient(var(--good) var(--candidate-ratio),var(--line) 0)}
+.uc2-report .uc2-report-ring>div{height:100%;border-radius:50%;background:var(--panel);display:flex;align-items:center;justify-content:center;flex-direction:column}
+.uc2-report .uc2-report-ring strong{font-size:28px;line-height:36px;font-weight:500}.uc2-report .uc2-report-ring small{font-size:12px;color:var(--muted);font-weight:400}.uc2-report .uc2-report-ring span{font-size:10px;color:var(--muted)}
+.uc2-report .uc2-report-notice{font-size:12px;color:var(--muted);line-height:20px;margin-top:8px}
+.uc2-report .v7-overview-section,.uc2-report .v7-check-details{margin-top:24px;padding-top:0;border:0;scroll-margin-top:16px}
+.uc2-report .v7-top-grid{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.uc2-report .v7-section-title{font-size:16px;font-weight:500;margin:0}
+.uc2-report .v7-card-title{min-height:72px!important}.uc2-report .v7-card-title h3{overflow-wrap:anywhere}
+.uc2-report .v7-card-number{margin-top:16px}.uc2-report .v7-device-ip{margin:4px 0 0!important;font-family:inherit!important}
+.uc2-report .uc2-report-support{height:5px;border-radius:999px;background:var(--line);overflow:hidden;margin-top:14px}.uc2-report .uc2-report-support>span{display:block;height:100%;background:var(--good)}
+.uc2-report .v7-top-card>section{margin-top:20px;padding-top:14px;border-top:1px solid var(--line)}.uc2-report .v7-top-card h5{font-size:10px;font-weight:400;color:var(--muted);margin:0 0 5px}.uc2-report .v7-top-card code{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:21px;color:var(--secondary)}
+.uc2-report .uc2-report-review{display:flex;align-items:center;gap:8px;font-size:11px;margin-top:auto;padding-top:20px}.uc2-report .uc2-report-review .ic{width:14px;height:14px}
+.uc2-report .uc2-report-footnote{font-size:11px;color:var(--muted);line-height:20px;margin-top:12px}
+.uc2-report .v7-status-filters{margin:12px 0 16px}.uc2-report .v7-table-tools{margin:0 0 16px;flex-wrap:wrap;gap:12px}
+.uc2-report .v7-table-tools select{height:32px;padding:0 10px;min-width:140px;background:transparent;border:1px solid var(--outline);border-radius:4px;color:var(--text);font-size:12px}
+.uc2-report .v7-table-tools .search{flex:1;min-width:220px;margin-left:auto}.uc2-report .v7-table-tools .search input{border:0;min-width:0;background:transparent}
+.uc2-report .v7-table-scroll{overflow:auto;max-width:100%}.uc2-report .v7-table{min-width:760px;width:100%;font-size:12px}
+.uc2-report .v7-table td:first-child>.small{display:inline-block;margin-top:5px}.uc2-report .uc2-report-confidence{font-size:12px;color:var(--muted)}.uc2-report .uc2-report-confidence.high{color:var(--good)}
+.uc2-report .v7-pagination{flex-wrap:wrap;gap:12px}.uc2-report .v7-pagination>.row{flex-wrap:wrap}
+@container workspace (max-width:900px){.uc2-report .v7-summary{grid-template-columns:1fr;gap:20px}.uc2-report .v7-compliance{border:0;padding:0}.uc2-report .v7-top-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@container workspace (max-width:600px){.uc2-report .v7-top-grid{grid-template-columns:1fr}.uc2-report .v7-report-heading{flex-wrap:wrap;align-items:flex-start}.uc2-report .v7-result-toolbar{gap:12px;flex-wrap:wrap}}
 
 </style>
 <!-- 7. Base styles -->
@@ -8386,11 +8681,13 @@ function useApp() {
 /* ===== assets/shared/icon.jsx ===== */
 (function () {
   const LUCIDE = {
+    "arrow-right": [["path",{"d":"M5 12h14"}],["path",{"d":"m12 5 7 7-7 7"}]],
     "arrow-up": [["path",{"d":"m5 12 7-7 7 7"}],["path",{"d":"M12 19V5"}]],
     "check": [["path",{"d":"M20 6 9 17l-5-5"}]],
     "chevron-right": [["path",{"d":"m9 18 6-6-6-6"}]],
     "circle-question-mark": [["circle",{"cx":"12","cy":"12","r":"10"}],["path",{"d":"M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"}],["path",{"d":"M12 17h.01"}]],
     "clipboard-list": [["rect",{"width":"8","height":"4","x":"8","y":"2","rx":"1","ry":"1"}],["path",{"d":"M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"}],["path",{"d":"M12 11h4"}],["path",{"d":"M12 16h4"}],["path",{"d":"M8 11h.01"}],["path",{"d":"M8 16h.01"}]],
+    "download": [["path",{"d":"M12 15V3"}],["path",{"d":"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"}],["path",{"d":"m7 10 5 5 5-5"}]],
     "external-link": [["path",{"d":"M15 3h6v6"}],["path",{"d":"M10 14 21 3"}],["path",{"d":"M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"}]],
     "file-text": [["path",{"d":"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"}],["path",{"d":"M14 2v5a1 1 0 0 0 1 1h5"}],["path",{"d":"M10 9H8"}],["path",{"d":"M16 13H8"}],["path",{"d":"M16 17H8"}]],
     "house": [["path",{"d":"M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"}],["path",{"d":"M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"}]],
@@ -10576,7 +10873,15 @@ function RuleTooltip({ rule, rect, onOpen }) {
   );
 }
 
-function FusionGraph({ active }) {
+// Reference reveal order: role clusters → representatives → engine → candidates.
+function revealDelay(id) {
+  const steps = { core: 0, leaf: 220, core1: 950, core2: 1170, leafsample: 1390, engine: 2150 };
+  if (steps[id] !== undefined) return steps[id];
+  return 3100 + Math.max(0, fusionNodes.filter((n) => n.rule).findIndex((n) => n.id === id)) * 240;
+}
+
+function FusionGraph({ active, playing, completed }) {
+  const revealStyle = (delay, duration = 500) => ({ "--fusion-delay": `${delay - (completed ? 7000 : 0)}ms`, "--fusion-duration": `${duration}ms`, animationPlayState: playing ? "running" : "paused" });
   const { uc2, uc2Fusion, uc2FusionPick } = useApp();
   const [hoverId, setHoverId] = useState(null);
   const [tooltip, setTooltip] = useState(null); // {rule, rect}
@@ -10593,7 +10898,7 @@ function FusionGraph({ active }) {
       : `M${start} ${f.y} C${start + (end - start) * 0.53} ${f.y} ${start + (end - start) * 0.47} ${t.y} ${end} ${t.y}`;
     const hot = showRel.has(a) && showRel.has(b);
     return (
-      <g key={a + ":" + b} className={"fusion-edge " + (hot ? "related" : "dim")} data-fusion-from={a} data-fusion-to={b}>
+      <g key={a + ":" + b} className={"fusion-edge fusion-reveal-edge " + (hot ? "related" : "dim")} style={revealStyle(a === "engine" ? revealDelay(b) - 420 : b === "engine" ? 1700 : 560, 650)} data-fusion-from={a} data-fusion-to={b}>
         <path d={d} className="fusion-flow-width" strokeWidth={a === "leaf" || a === "leafsample" ? 9 : 4} />
         <path d={d} className="fusion-flow-line" />
         {active && hot ? <circle r="2" fill="#a1d3d1"><animateMotion dur={3.5 + i * 0.2 + "s"} begin={-i * 0.3 + "s"} repeatCount="indefinite" path={d} /></circle> : null}
@@ -10624,7 +10929,7 @@ function FusionGraph({ active }) {
 
   return (
     <>
-      <svg className={"fusion-graph" + (active ? " active" : "")} viewBox="0 0 1180 565" role="img" aria-label="黄金基线挖掘过程：角色聚类、代表配置对比、AI共性提取、候选规则形成">
+      <svg className={"fusion-graph fusion-sequential" + (active ? " active" : "")} viewBox="0 0 1180 565" role="img" aria-label="黄金基线挖掘过程：角色聚类、代表配置对比、AI共性提取、候选规则形成">
         <defs>
           <radialGradient id="fusionGlow"><stop stopColor="#557c7e" stopOpacity=".16" /><stop offset="1" stopColor="#557c7e" stopOpacity="0" /></radialGradient>
           <pattern id="fusionDots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r=".5" fill="#95a8b1" opacity=".13" /></pattern>
@@ -10632,10 +10937,10 @@ function FusionGraph({ active }) {
         <rect width="1180" height="565" fill="url(#fusionDots)" />
         <ellipse cx="595" cy="285" rx="190" ry="180" fill="url(#fusionGlow)" />
         <g className="fusion-lane-labels">
-          <text x="105" y="40" textAnchor="middle">角色聚类</text>
-          <text x="324" y="40" textAnchor="middle">代表配置对比</text>
-          <text x="595" y="40" textAnchor="middle">共性提取</text>
-          <text x="985" y="33" textAnchor="middle">候选规则 · TOP{fusionTopRules().length}</text>
+          <text className="fusion-reveal" style={revealStyle(0)} x="105" y="40" textAnchor="middle">角色聚类</text>
+          <text className="fusion-reveal" style={revealStyle(900)} x="324" y="40" textAnchor="middle">代表配置对比</text>
+          <text className="fusion-reveal" style={revealStyle(2100)} x="595" y="40" textAnchor="middle">共性提取</text>
+          <text className="fusion-reveal" style={revealStyle(2950)} x="985" y="33" textAnchor="middle">候选规则 · TOP{fusionTopRules().length}</text>
           <text x="985" y="55" textAnchor="middle" className="fusion-comparison-sub">置信度 → 影响级别 → 支持设备数</text>
         </g>
         <path d="M215 58V505M448 58V505M790 58V520" className="fusion-lane-divider" />
@@ -10644,9 +10949,9 @@ function FusionGraph({ active }) {
           const isEngine = n.id === "engine";
           const isRule = !!n.rule;
           const dim = !showRel.has(n.id);
-          const cls = ["fusion-node", selected === n.id ? "selected" : "", dim ? "dim" : "", hoverId === n.id ? "hovered" : "", isEngine ? "engine" : "", isRule ? "rule" : ""].filter(Boolean).join(" ");
+          const cls = ["fusion-node", "fusion-reveal", selected === n.id ? "selected" : "", dim ? "dim" : "", hoverId === n.id ? "hovered" : "", isEngine ? "engine" : "", isRule ? "rule" : ""].filter(Boolean).join(" ");
           return (
-            <g key={n.id} className={cls} data-fusion-node={n.id} role="button" tabIndex={0} aria-label={"挖掘过程：" + n.label} {...nodeHandlers(n)}>
+            <g key={n.id} className={cls} style={revealStyle(revealDelay(n.id))} data-fusion-node={n.id} role="button" tabIndex={0} aria-label={"挖掘过程：" + n.label} {...nodeHandlers(n)}>
               {!isRule ? <title>{n.label} · {n.sub}</title> : null}
               <rect x={n.x - (isRule ? 18 : 65)} y={n.y - (isRule ? 18 : 40)} width={isRule ? 370 : 140} height={isRule ? 42 : 115} fill="transparent" />
               {isEngine ? (
@@ -10679,7 +10984,7 @@ function FusionGraph({ active }) {
         })}
         <text x="324" y="345" textAnchor="middle" className="fusion-comparison">同角色配置对比</text>
         <text x="324" y="366" textAnchor="middle" className="fusion-comparison-sub">SSH · AAA · VRRP</text>
-        <g className="fusion-output-total">
+        <g className="fusion-output-total fusion-reveal" style={revealStyle(5950)}>
           <text x="985" y="548" textAnchor="middle"><tspan className="fusion-candidate-total">18</tspan> 条候选 · 12 高置信 · 6 待验证</text>
         </g>
       </svg>
@@ -10808,7 +11113,9 @@ function FusionDrawer() {
 
 // 模块 2：黄金基线挖掘（fusion 图）
 function Uc2Mining() {
-  const { uc2, uc2Fusion } = useApp();
+  const { uc2, uc2Fusion, uc2FusionPick } = useApp();
+  const [replayKey, setReplayKey] = useState(0);
+  const [completedAtMount] = useState(uc2.max === 3);
   const done = uc2.max === 3;
   const active = uc2.running && !done;
   return (
@@ -10818,12 +11125,13 @@ function Uc2Mining() {
           <h2>黄金基线挖掘</h2>
           <p>西三旗 DC · 100 台样本 · 核心 20 / Leaf 80 · 点击节点追踪挖掘依据</p>
         </div>
+        <button className="fusion-replay-btn" type="button" aria-label="重播黄金基线挖掘动效" onClick={() => { uc2FusionPick("engine"); setReplayKey((k) => k + 1); }}><Ic icon="rotate-ccw" />重播动效</button>
         <div className={"unified-status" + (active ? " running" : "")}><i />{done ? "候选已形成" : active ? "正在提取配置共性" : "分析已暂停"}</div>
       </div>
       <div className={"fusion-scene" + (uc2Fusion.drawer ? " with-rule-drawer" : "")}>
         <div className="fusion-workspace">
           <div className="fusion-visual">
-            <FusionGraph active={active} />
+            <FusionGraph key={replayKey} active={active || replayKey > 0} playing={uc2.running || done || replayKey > 0} completed={completedAtMount && replayKey === 0} />
             <FusionContext />
           </div>
           {uc2Fusion.drawer ? <FusionDrawer /> : null}
@@ -10841,97 +11149,93 @@ function Uc2Mining() {
 
 /* ===== src/views/uc2-canvas/report.jsx ===== */
 (function () {
+  const { useRef, useState } = React;
   const { useApp, uc2Rules, uc2DeviationDevices, uc2Actual, uc2ExportCsv, Uc2Title } = __export;
+  const OptionGroup = __export.OptionGroup;
+  const SearchInput = __export.SearchInput;
   const MetricCard = __export.MetricCard;
   const EmptyState = __export.EmptyState;
   const Ic = __export.Ic;
 const reviewLabels = { pending: "待审阅", accepted: "已采用", rejected: "暂不采用" };
 
-function Uc2Bar({ label, n, max }) {
-  return (
-    <div className="uc2-bar"><label>{label}</label><span><i style={{ width: (n / max) * 100 + "%" }} /></span><b>{n}</b></div>
-  );
-}
-
-// 模块 3：候选报告
+// 模块 3：候选报告 — 与 UC4 共用摘要 / TOP 概览 / 明细的信息层级。
 function Uc2Report() {
   const { uc2, uc2SetFilter, uc2OpenRule, uc2Reviews, toast } = useApp();
-  const accepted = uc2Rules.filter((r) => (uc2Reviews[r.id] || "pending") === "accepted").length;
+  const [lens, setLens] = useState("rules");
+  const [page, setPage] = useState(1);
+  const detailsRef = useRef(null);
+  const reviewOf = (r) => uc2Reviews[r.id] || "pending";
+  const accepted = uc2Rules.filter((r) => reviewOf(r) === "accepted").length;
+  const highConfidence = uc2Rules.filter((r) => r.confidence === "高").length;
+  const categories = [...new Set(uc2Rules.map((r) => r.category))];
   const rs = uc2Rules.filter((r) =>
     (uc2.role === "全部角色" || !uc2.role || r.role === uc2.role) &&
     (uc2.category === "全部功能" || !uc2.category || r.category === uc2.category) &&
-    (uc2.status === "all" || !uc2.status || (uc2Reviews[r.id] || "pending") === uc2.status) &&
-    r.name.includes(uc2.query || "")
+    (uc2.status === "all" || !uc2.status || reviewOf(r) === uc2.status) &&
+    (r.name + " " + r.id + " " + r.category).toLowerCase().includes((uc2.query || "").trim().toLowerCase())
   );
-  const categories = [...new Set(uc2Rules.map((r) => r.category))];
-
+  const ranked = [...uc2Rules].sort((a, b) => b.deviations - a.deviations || b.support / b.scope - a.support / a.scope).slice(0, 5);
+  const pageSize = 10;
+  const pages = Math.max(1, Math.ceil(rs.length / pageSize));
+  const current = Math.min(page, pages);
+  const setFilter = (filter) => { uc2SetFilter(filter); setPage(1); };
+  const showRole = (role) => {
+    setFilter({ role, category: "全部功能", status: "all", query: "" });
+    requestAnimationFrame(() => detailsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
+  };
   return (
-    <>
-      <Uc2Title stage={3} title="西三旗 DC · 黄金基线候选报告" sub="本轮分析 100 / 1,980 台交换机 · 候选规则尚未发布为正式基线" tag="待客户审阅" />
-      <div className="uc2-metrics">
-        <MetricCard label="接入分析设备" value="100" unit="核心 20 · Leaf 80" />
-        <MetricCard label="候选可用规则" value="18" unit="12 条高置信 · 6 条待验证" />
-        <MetricCard label="存在候选偏离" value="9" unit="台样本设备 · 可重叠命中规则" />
-        <MetricCard label="审阅已采用" value={accepted} unit="条 · 尚未发布" />
+    <div className="uc2-report v7-report">
+      <div className="v7-report-heading">
+        <div className="row"><Ic icon="file-text" /><h2>西三旗 DC · 黄金基线候选报告</h2></div>
+        <span className="uc2-tag">待客户审阅</span>
       </div>
-      <div className="uc2-selection">
-        <h3><Ic icon="sparkles" /> 黄金挖掘洞察</h3>
-        <p>发现 4 条跨角色共性、6 条核心角色规则、8 条 Leaf 角色规则。优先审阅登录安全、核心冗余等高一致性配置模式。</p>
-        <p>偏离集中在超时、算法、VLAN 和接口描述；可能是业务差异或例外配置，应结合规划核验。9 台设备仅表示偏离候选规则，尚不能认定为正式违规。</p>
+      <div className="v7-report-meta">西三旗 DC · 本轮分析 100 / 1,980 台交换机 · 18 条候选规则 · 基于本轮配置样本</div>
+      <div className="v7-summary v11-summary">
+        <section className="v7-compliance">
+          <div className="uc2-report-ring" style={{ "--candidate-ratio": `${highConfidence / uc2Rules.length * 100}%` }} role="img" aria-label={`${highConfidence}条高置信候选，共${uc2Rules.length}条`}>
+            <div><strong>{highConfidence}<small> / {uc2Rules.length}</small></strong><span>高置信候选</span></div>
+          </div>
+          <div className="v7-summary-counts"><span>待验证 <strong>{uc2Rules.length - highConfidence}</strong> 条</span><span>已采用 <strong>{accepted}</strong> 条</span></div>
+        </section>
+        <section className="v7-conclusion v11-conclusion">
+          <div className="v7-conclusion-label"><Ic icon="sparkles" />挖掘结论</div>
+          <p className="v12-summary-copy">分析 <strong>100 台样本设备</strong>，发现 <strong>18 条候选规则</strong>，其中 {highConfidence} 条高置信、{uc2Rules.length - highConfidence} 条待验证。<strong>9 台样本设备存在候选偏离</strong>，集中在超时、算法、VLAN 和接口描述，建议优先核验登录安全与核心冗余配置。</p>
+          <div className="uc2-report-notice">候选偏离不等于正式违规。采用仅保存审阅结果，不会发布正式基线或执行设备变更。</div>
+        </section>
       </div>
-      <div className="uc2-split">
-        <div>
-          <h3>按功能统计 · 18 条</h3>
-          {["账户与访问安全", "VLAN 与二层网络", "路由与冗余", "运维可观测性", "接口可靠性"].map((c) => (
-            <Uc2Bar key={c} label={c} n={uc2Rules.filter((r) => r.category === c).length} max={6} />
-          ))}
+      <section className="v7-overview-section">
+        <div className="v7-result-toolbar"><h3 className="v7-section-title">TOP概览</h3><OptionGroup cls="v7-lens" ariaLabel="候选概览维度" options={[["rules", "按候选规则"], ["roles", "按适用角色"]]} value={lens} onChange={setLens} /></div>
+        <div className={"v7-top-grid " + (lens === "roles" ? "by-role" : "")}>
+          {lens === "rules" ? ranked.map((r, i) => <article className="v7-top-card v8-overview-card v9-overview-card" key={r.id}>
+            <div className="v7-card-title"><span className="v7-rank">{i + 1}</span><h3><button onClick={() => uc2OpenRule(r.id)}>{r.name}</button></h3></div>
+            <div className="v7-device-ip">{r.role} · {r.confidence === "高" ? "高置信" : "待验证"}</div>
+            <div className="v7-card-number"><strong>{r.deviations}</strong><span>台样本偏离</span></div>
+            <div className="uc2-report-support"><span style={{ width: `${r.support / r.scope * 100}%` }} /></div>
+            <div className="v7-device-ip">配置支持 {r.support} / {r.scope} 台</div>
+            <section><h5>候选要求</h5><code>{r.cmd}</code></section>
+            <a className="uc2-report-review" onClick={() => uc2OpenRule(r.id)}>审阅候选 <Ic icon="arrow-right" /></a>
+          </article>) : ["通用", "核心交换机", "Leaf 交换机", "防火墙"].map((role) => {
+            const rules = uc2Rules.filter((r) => r.role === role);
+            return <article className="v7-top-card v8-overview-card v9-overview-card" key={role}><div className="v7-card-title"><h3>{role}</h3></div><div className="v7-card-number"><strong>{rules.length}</strong><span>条候选规则</span></div><p>{role === "防火墙" ? "未纳入本轮交换机分析范围" : role === "通用" ? "跨角色共性，单独统计不重复计入角色" : "基于同角色设备的配置共性提取"}</p><a className="uc2-report-review" onClick={() => showRole(role)}>查看候选 <Ic icon="arrow-right" /></a></article>;
+          })}
         </div>
-        <div>
-          <h3>按适用角色统计 · 互斥口径</h3>
-          {[["通用", 4], ["核心交换机", 6], ["Leaf 交换机", 8], ["防火墙", 0]].map(([c, n]) => (
-            <Uc2Bar key={c} label={c} n={n} max={8} />
-          ))}
-          <p className="uc2-note">通用规则单独统计，不重复计入角色；防火墙未纳入本轮交换机范围，0 表示未分析。</p>
+        <p className="uc2-report-footnote">{lens === "rules" ? "展示偏离样本数最高的 5 条候选；相同时按配置支持比例排序。设备可能命中多条规则，偏离数不可直接相加。" : "按适用角色互斥统计；防火墙 0 条表示未分析。"}</p>
+      </section>
+      <section className="v7-check-details" ref={detailsRef}>
+        <div className="v7-result-toolbar"><h3 className="v7-section-title">候选规则明细</h3><button className="btn" onClick={() => { uc2ExportCsv(uc2Reviews); toast("候选规则已导出为 CSV。"); }}><Ic icon="download" /> 导出候选规则</button></div>
+        <OptionGroup cls="v7-status-filters" ariaLabel="候选审阅状态筛选" options={[["all", "全部"], ["pending", "待审阅"], ["accepted", "已采用"], ["rejected", "暂不采用"]]} value={uc2.status || "all"} onChange={(status) => setFilter({ status })} renderOption={(opt) => <>{opt[1]} <strong>{opt[0] === "all" ? uc2Rules.length : uc2Rules.filter((r) => reviewOf(r) === opt[0]).length}</strong></>} />
+        <div className="uc2-filter v7-table-tools">
+          <select aria-label="候选规则角色筛选" value={uc2.role || "全部角色"} onChange={(e) => setFilter({ role: e.target.value })}>{["全部角色", "通用", "核心交换机", "Leaf 交换机", "防火墙"].map((c) => <option key={c}>{c}</option>)}</select>
+          <select aria-label="候选规则功能筛选" value={uc2.category || "全部功能"} onChange={(e) => setFilter({ category: e.target.value })}>{["全部功能", ...categories].map((c) => <option key={c}>{c}</option>)}</select>
+          <SearchInput value={uc2.query || ""} onChange={(query) => setFilter({ query })} placeholder="搜索规则名称、编号或功能" ariaLabel="搜索候选规则" clearable />
         </div>
-      </div>
-      <div className="between">
-        <h3 style={{ fontSize: "16px", fontWeight: 500 }}>候选结果详情</h3>
-        <button className="btn" onClick={() => { uc2ExportCsv(uc2Reviews); toast("候选规则已导出为 CSV。"); }}>导出候选规则</button>
-      </div>
-      <div className="uc2-filter">
-        <select aria-label="候选规则角色筛选" value={uc2.role || "全部角色"} onChange={(e) => uc2SetFilter({ role: e.target.value })}>
-          {["全部角色", "通用", "核心交换机", "Leaf 交换机", "防火墙"].map((c) => <option key={c}>{c}</option>)}
-        </select>
-        <select aria-label="候选规则功能筛选" value={uc2.category || "全部功能"} onChange={(e) => uc2SetFilter({ category: e.target.value })}>
-          {["全部功能", ...categories].map((c) => <option key={c}>{c}</option>)}
-        </select>
-        <select aria-label="候选审阅状态筛选" value={uc2.status || "all"} onChange={(e) => uc2SetFilter({ status: e.target.value })}>
-          {[["all", "全部审阅状态"], ["pending", "待审阅"], ["accepted", "已采用"], ["rejected", "暂不采用"]].map(([v, n]) => <option key={v} value={v}>{n}</option>)}
-        </select>
-        <input aria-label="搜索候选规则" placeholder="搜索规则名称" value={uc2.query || ""} onChange={(e) => uc2SetFilter({ query: e.target.value })} />
-      </div>
-      <table className="rule-table uc2-table">
-        <thead><tr><th>候选规则名称</th><th>适用角色</th><th>支持度</th><th>偏离设备</th><th>置信度</th><th>审阅状态</th><th>操作</th></tr></thead>
-        <tbody>
-          {rs.map((r) => (
-            <tr key={r.id}>
-              <td>
-                <button onClick={() => uc2OpenRule(r.id)}>{r.name}</button><br />
-                <span className="muted small">{r.id} · {r.category}</span>
-              </td>
-              <td>{r.role}</td>
-              <td>{r.support} / {r.scope}</td>
-              <td>{r.deviations ? <button onClick={() => uc2OpenRule(r.id)}>{r.deviations} 台 ›</button> : "0 台"}</td>
-              <td>{r.confidence}</td>
-              <td><span className={"uc2-status " + (uc2Reviews[r.id] || "pending")}>{reviewLabels[uc2Reviews[r.id] || "pending"]}</span></td>
-              <td><button onClick={() => uc2OpenRule(r.id)}>审阅 →</button></td>
-            </tr>
-          ))}
-          {!rs.length ? <tr><td colSpan="7"><EmptyState cls="uc2-empty" text="没有匹配的候选规则；防火墙未纳入本轮分析。" /></td></tr> : null}
-        </tbody>
-      </table>
-      <div className="uc2-note" style={{ marginTop: "12px" }}>当前 {rs.length} / 18 条候选规则 · 支持度为满足候选配置的样本数 / 适用样本数</div>
-    </>
+        <div className="v7-table-scroll"><table className="rule-table v7-table"><thead><tr><th>候选规则名称</th><th>适用角色</th><th>配置支持</th><th>偏离样本</th><th>置信度</th><th>审阅状态</th><th>操作</th></tr></thead><tbody>
+          {rs.slice((current - 1) * pageSize, current * pageSize).map((r) => <tr key={r.id}><td><a onClick={() => uc2OpenRule(r.id)}>{r.name}</a><br /><span className="muted small">{r.id} · {r.category}</span></td><td>{r.role}</td><td>{r.support} / {r.scope}</td><td>{r.deviations ? <a onClick={() => uc2OpenRule(r.id)}>{r.deviations} 台 ›</a> : "0 台"}</td><td><span className={"uc2-report-confidence " + (r.confidence === "高" ? "high" : "")}>{r.confidence}</span></td><td><span className={"uc2-status " + reviewOf(r)}>{reviewLabels[reviewOf(r)]}</span></td><td><a onClick={() => uc2OpenRule(r.id)}>审阅 →</a></td></tr>)}
+          {!rs.length && <tr><td colSpan="7"><EmptyState cls="uc2-empty" text="没有匹配的候选规则；防火墙未纳入本轮分析。" /></td></tr>}
+        </tbody></table></div>
+        <div className="v7-pagination"><span>共 {rs.length} 条 · {pageSize} 条/页 · 配置支持为满足候选配置 / 适用样本数</span><div className="row"><button className="btn" disabled={current === 1} onClick={() => setPage(current - 1)}>上一页</button>{Array.from({ length: pages }, (_, i) => <button key={i} className={"v7-page " + (current === i + 1 ? "active" : "")} aria-label={`候选规则第${i + 1}页`} aria-current={current === i + 1 ? "page" : undefined} onClick={() => setPage(i + 1)}>{i + 1}</button>)}<button className="btn" disabled={current === pages} onClick={() => setPage(current + 1)}>下一页</button></div></div>
+      </section>
+    </div>
   );
 }
 
@@ -11182,22 +11486,19 @@ function CanvasArea() {
 
 /* ===== src/views/stage/index.jsx ===== */
 (function () {
-  const { useEffect, useState } = React;
   const { useApp } = __export;
   const TopBar = __export.TopBar;
   const LeftRail = __export.LeftRail;
   const Cockpit = __export.Cockpit;
   const LuiPanel = __export.LuiPanel;
   const CanvasArea = __export.CanvasArea;
-// 全流程共用固定设计画布，只由视口尺寸决定缩放。
+// 桌面工作台填满可用窗口，内容区按自身宽度重排。
 function Stage() {
   const { toastText, uc2, uc2Fusion, luiView } = useApp();
 
   const isUc4=!uc2.active&&(luiView==='running'||luiView==='done');
-  const [scale,setScale]=useState(()=>Math.min(window.innerWidth/1920,window.innerHeight/1080));
-  useEffect(()=>{const resize=()=>setScale(Math.min(window.innerWidth/1920,window.innerHeight/1080));window.addEventListener('resize',resize);resize();return()=>window.removeEventListener('resize',resize)},[]);
   const stageCls = [
-    "stage-root", "design-canvas", isUc4 ? "uc4" : "",
+    "stage-root", "pc-layout", isUc4 ? "uc4" : "",
     uc2.active ? "uc2" : "",
     uc2.active && uc2.max === 0 ? "uc2-intent" : "",
     uc2.active && uc2.max >= 2 && uc2Fusion.drawer ? "uc2-rule-drawer" : "",
@@ -11205,7 +11506,7 @@ function Stage() {
 
   return (
     <div className="stage-viewport">
-      <div className={stageCls} id="stage" style={{"--canvas-scale":scale}}>
+      <div className={stageCls} id="stage">
         <TopBar />
         <LeftRail />
         <Cockpit />
@@ -11235,6 +11536,7 @@ function Stage() {
 //   Layer 5 layout        → app.jsx (本文件)
 
 // 样式按原 HTML 中 <style> 块的级联顺序导入（stage 基础令牌最先）
+
 
 
 
