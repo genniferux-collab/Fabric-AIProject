@@ -68,10 +68,10 @@ export default function Composer() {
     speech.lang = "zh-CN";
     speech.continuous = false;
     speech.interimResults = true;
-    const prefix = promptText;
+    const existingPrompt = promptText;
     speech.onresult = event => {
       const transcript = Array.from(event.results).map(result => result[0].transcript).join("");
-      setPromptText((prefix + transcript).slice(0, 2000));
+      setPromptText((existingPrompt + transcript).slice(0, 2000));
     };
     speech.onend = () => { setRecording(false); speechRef.current = null; };
     speech.onerror = event => { setRecording(false); if (event.error !== "aborted") toast(event.error === "not-allowed" ? "麦克风未获授权，请在浏览器中允许访问后重试。" : "语音识别暂不可用，请重试或使用文本输入。"); };

@@ -1,0 +1,8 @@
+.home-composer-region{position:relative;flex:none;padding-top:16px;z-index:5}
+.home-composer-launcher{display:flex;align-items:center;justify-content:space-between;gap:12px;box-sizing:border-box;width:100%;height:48px;padding:0 8px 0 16px;border:1.5px solid transparent;border-radius:9999px;background:linear-gradient(var(--sub),var(--sub)) padding-box,linear-gradient(120deg,#628fff,#a079ec,#e398bf,#66cbdb,#628fff) border-box;background-size:100% 100%,300% 300%;background-position:0 0,0 50%;animation:home-composer-spectrum 8s ease-in-out infinite;animation-play-state:paused;color:var(--text);font:inherit;cursor:pointer;text-align:left}
+.home-composer-launcher:hover,.home-composer-launcher:focus-visible{animation-play-state:running}
+.home-composer-launcher:focus-visible{outline:2px solid var(--focus-ring);outline-offset:3px}
+.home-composer-placeholder{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:13px;line-height:22px;color:var(--muted)}
+.home-composer-launcher .home-composer-send{display:flex;align-items:center;justify-content:center;flex:0 0 30px;width:30px;height:30px;border-radius:50%;background:var(--primary);color:var(--on-primary)}
+@keyframes home-composer-spectrum{0%,100%{background-position:0 0,0 50%}50%{background-position:0 0,100% 50%}}
+@media(prefers-reduced-motion:reduce){.home-composer-launcher{animation:none}}

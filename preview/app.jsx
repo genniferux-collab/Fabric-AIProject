@@ -20,6 +20,7 @@ import "./src/views/device-pane/index.css";
 import "./src/views/uc2-canvas/uc2.css";
 import "./src/views/uc4-sync.css";
 import "./src/views/stage/desktop.css";
+import "./src/views/cockpit/responsive.css";
 
 import { ConfigProvider } from "antd";
 import zhCN from "./assets/shared/antd-zh.js";

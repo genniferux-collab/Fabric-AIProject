@@ -7533,6 +7533,47 @@ html:has(.stage-viewport),body:has(.stage-viewport){margin:0;width:100%;height:1
 @media(max-width:1050px){.pc-layout .version-compare{display:none}.stage-root.pc-layout{--agent-width:300px}.pc-layout .figma-network-page{--dashboard-width:360px}.pc-layout .uc2-report-meta{line-height:1.7}}
 @media(max-width:760px){.pc-layout .topnav:last-child,.pc-layout .top .divider,.pc-layout .top .right>.row{display:none}.stage-root.pc-layout{--agent-width:280px}.stage-root.pc-layout #lui{box-shadow:var(--shadow-popover)}.stage-root.pc-layout #canvas:not(.full){left:48px}.stage-root.pc-layout #canvas{z-index:1}.pc-layout .figma-network-page{--dashboard-width:min(360px,100%)}.pc-layout .figma-map{left:0}.pc-layout .figma-dashboard{background:var(--panel)}}
 
+/* src/views/cockpit/responsive.css */
+/* Home uses stable PC controls; only the map's own scene scales. */
+.stage-root.pc-layout:not(.uc4){--agent-width:592px}
+.pc-layout .figma-network-page{--dashboard-width:592px}
+.pc-layout .figma-dashboard{border-right:1px solid var(--line);box-shadow:none;overflow:hidden}
+.pc-layout .figma-dashboard .dcna-container{height:100%;min-height:0;padding:24px;overflow:hidden;background-size:100% auto;background-position:top center;background-color:var(--panel)}
+.pc-layout .figma-dashboard .dcna-header,.pc-layout .figma-dashboard .dcna-summary,.pc-layout .figma-dashboard .dcna-stats,.pc-layout .figma-dashboard .dcna-section-title,.pc-layout .figma-dashboard .dcna-tabs{flex-shrink:0}
+.pc-layout .figma-dashboard .dcna-summary>div{min-width:0}.pc-layout .figma-dashboard .dcna-summary img{width:56px;height:56px;flex:none;margin-left:8px}
+.pc-layout .figma-dashboard .dcna-summary span{font-size:13px;line-height:1.7}.pc-layout .figma-dashboard .dcna-summary br{display:none}
+.pc-layout .figma-dashboard .dcna-stats{gap:12px}.pc-layout .figma-dashboard .dcna-stat{min-width:0;padding:14px 12px}.pc-layout .figma-dashboard .dcna-stat p{min-height:34px;align-items:flex-start;font-size:12px}.pc-layout .figma-dashboard .dcna-stat>strong{font-size:22px;letter-spacing:0;white-space:nowrap}
+.pc-layout .figma-dashboard .dcna-stat>span{font-size:11px}.pc-layout .figma-dashboard .dcna-tabs{height:38px;min-height:38px}.pc-layout .figma-dashboard .dcna-tabs button{font-size:12px;gap:5px;padding:0 4px;white-space:nowrap}
+.pc-layout .figma-dashboard .dcna-events{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:0 2px 16px 0}
+.pc-layout .figma-dashboard .dcna-event{flex-shrink:0;padding:14px;box-shadow:none}.pc-layout .figma-dashboard .dcna-event-head b{font-size:13px;line-height:1.7;overflow-wrap:anywhere}.pc-layout .figma-dashboard .dcna-event-body{font-size:12px;line-height:1.8}
+.pc-layout .figma-map{container:home-map / size;background:radial-gradient(ellipse at 54% 55%,#252627 0%,#202122 58%,#1b1c1d 100%)}
+.pc-layout .figma-map-canvas{inset:0;transform-origin:center}
+.pc-layout .figma-map-plane{position:absolute;left:50%;top:58%;width:max(150cqw,230cqh);aspect-ratio:2792 / 1398;transform:translate(-56%,-50%)}
+.pc-layout .figma-map-image{width:100%;height:100%;object-fit:contain;object-position:center;filter:brightness(.9);mask-image:radial-gradient(ellipse at 53% 50%,black 43%,rgba(0,0,0,.96) 63%,transparent 88%);mask-composite:add}
+.pc-layout .figma-map-marker{width:12px;height:12px;background:var(--good);box-shadow:0 0 0 3px var(--good-bg);border:1px solid var(--good);cursor:default}
+.pc-layout .figma-map-marker b{position:absolute;left:18px;top:-10px;white-space:nowrap;padding:5px 9px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--text);font-size:12px;font-weight:400}
+.pc-layout .figma-map-marker-west-sanqu{left:63.1%;top:33.5%}.pc-layout .figma-map-marker-jiading{left:69.5%;top:55.4%}.pc-layout .figma-map-marker-waigaoqiao{left:70.6%;top:55.8%}
+.pc-layout .figma-map-marker-jiading b{left:auto;right:18px;top:8px}.pc-layout .figma-map-marker-waigaoqiao b{top:-30px}
+.pc-layout .figma-map-controls{top:auto;bottom:24px;right:24px;border:1px solid var(--line);box-shadow:none;background:var(--panel)}.pc-layout .figma-map-controls button{background:var(--panel);color:var(--text);border-bottom-color:var(--line)}
+@media(max-height:850px){.pc-layout .figma-dashboard .dcna-container{padding:20px}.pc-layout .figma-dashboard .dcna-header{margin-bottom:18px}.pc-layout .figma-dashboard .dcna-summary{margin-bottom:16px}.pc-layout .figma-dashboard .dcna-stats{margin-bottom:18px}.pc-layout .figma-dashboard .dcna-stat p{margin-bottom:8px}}
+@media(max-width:760px){.pc-layout .figma-network-page{--dashboard-width:min(592px,100%)}.pc-layout .figma-map-plane{width:150cqw}}
+
+/* Hide obsolete zoom controls baked into the reference bitmap. */
+.pc-layout .figma-map-image{clip-path:inset(0 4.5% 2.5% 0)}
+
+/* Controls stay at the map edge, clear of the metrics overlay. */
+.pc-layout .figma-network-page:has(.effectiveness-metrics) .figma-map-controls{top:auto;bottom:24px}
+
+/* src/components/chat-composer/index.css */
+.home-composer-region{position:relative;flex:none;padding-top:16px;z-index:5}
+.home-composer-launcher{display:flex;align-items:center;justify-content:space-between;gap:12px;box-sizing:border-box;width:100%;height:48px;padding:0 8px 0 16px;border:1.5px solid transparent;border-radius:9999px;background:linear-gradient(var(--sub),var(--sub)) padding-box,linear-gradient(120deg,#628fff,#a079ec,#e398bf,#66cbdb,#628fff) border-box;background-size:100% 100%,300% 300%;background-position:0 0,0 50%;animation:home-composer-spectrum 8s ease-in-out infinite;animation-play-state:paused;color:var(--text);font:inherit;cursor:pointer;text-align:left}
+.home-composer-launcher:hover,.home-composer-launcher:focus-visible{animation-play-state:running}
+.home-composer-launcher:focus-visible{outline:2px solid var(--focus-ring);outline-offset:3px}
+.home-composer-placeholder{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:13px;line-height:22px;color:var(--muted)}
+.home-composer-launcher .home-composer-send{display:flex;align-items:center;justify-content:center;flex:0 0 30px;width:30px;height:30px;border-radius:50%;background:var(--primary);color:var(--on-primary)}
+@keyframes home-composer-spectrum{0%,100%{background-position:0 0,0 50%}50%{background-position:0 0,100% 50%}}
+@media(prefers-reduced-motion:reduce){.home-composer-launcher{animation:none}}
+
 /* src/components/network-agent-dashboard/index.css */
 .dcna-container{width:592px;height:1032px;box-sizing:border-box;overflow:hidden;position:relative;display:flex;flex-direction:column;padding:32px;color:#e4e4e7;background:#18181b url("./assets/uploads/bg.png") center/cover no-repeat;font-family:var(--font-family)}
 @font-face{font-family:"Material Symbols Rounded";src:url("./assets/uploads/material-symbols-rounded-filled.ttf") format("truetype");font-style:normal;font-weight:400}.dcna-material-symbol{font-family:"Material Symbols Rounded";font-weight:normal;font-style:normal;font-size:18px;line-height:1;letter-spacing:normal;white-space:nowrap;display:inline-block;font-variation-settings:"FILL" 1,"wght" 400,"GRAD" 0,"opsz" 24}
@@ -7547,6 +7588,49 @@ html:has(.stage-viewport),body:has(.stage-viewport){margin:0;width:100%;height:1
 .dcna-alert-icon{font-size:18px;color:#e7434a}.dcna-network-icon{font-size:18px;color:#2070f3}.dcna-event-body{align-items:flex-start;gap:6px;padding-left:22px;color:#a1a1aa;font-size:13px;line-height:1.65}.dcna-location-icon{flex:none;margin-top:2px;font-size:15px;color:#a1a1aa}.dcna-event-body strong{color:#fff}.dcna-event-body i{font-style:normal;color:#a1a1aa}.dcna-empty{display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;color:#71717a}.dcna-empty .dcna-material-symbol{font-size:56px;color:#52525b}.dcna-empty p{font-size:13px}
 
 .dcna-agent-entry{flex:1;min-width:0;padding:0}.dcna-agent-entry .dcna-stat{height:100%}.dcna-section-title a{cursor:pointer}
+
+/* src/components/effectiveness-metrics/index.css */
+.pc-layout .effectiveness-metrics {
+  position: absolute;
+  z-index: 3;
+  top: 24px;
+  left: calc(var(--dashboard-width) + 24px);
+  right: 24px;
+  width: auto;
+  height: auto;
+  min-height: 130px;
+  container: metrics-panel / inline-size;
+  box-sizing: border-box;
+  margin-inline: auto;
+  padding: 16px 24px;
+  background: #2A2A2A;
+  border-radius: var(--radius-container);
+  color: var(--text);
+}
+.effectiveness-metrics h2 { margin: 0 0 10px; font-size: 16px; line-height: 24px; font-weight: 600; }
+.effectiveness-metrics-grid { display: grid; grid-template-columns: max-content 1px max-content; justify-content: space-between; column-gap: 32px; align-items: center; min-height: 64px; min-width: 0; }
+.effectiveness-metric-group { display: flex; align-items: center; gap: 40px; min-width: 0; }
+.effectiveness-group-divider { display: block; width: 1px; height: 40px; background: rgba(211,211,211,.32); }
+.effectiveness-metric { display: flex; align-items: center; justify-content: flex-start; gap: 16px; min-width: 0; flex: 0 0 auto; }
+.effectiveness-metric-copy { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.effectiveness-metric-copy strong { font-size: 24px; line-height: 30px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.effectiveness-metric-copy strong>span { font-size: 16px; font-weight: 400; margin-left: 3px; }
+.effectiveness-metric-copy strong>.effectiveness-ratio-separator { font-size: 18px; color: var(--muted); margin: 0 6px; }
+.effectiveness-metric-copy>span { color: var(--secondary); font-size: 14px; line-height: 20px; white-space: nowrap; }
+.effectiveness-distribution { width: 140px; height: 52px; flex: 0 0 140px; }
+.effectiveness-trend { width: 112px; height: 44px; flex: 0 0 112px; }
+/* Smaller PC panes keep the two metric pairs intact instead of squeezing labels. */
+@container metrics-panel (max-width: 960px) {
+  .effectiveness-metrics-grid { grid-template-columns: minmax(0,1fr); justify-content: stretch; row-gap: 16px; }
+  .effectiveness-metric-group { justify-self: center; min-height: 54px; }
+  .effectiveness-group-divider { width: 40px; height: 1px; justify-self: center; }
+}
+@container metrics-panel (max-width: 540px) {
+  .effectiveness-metric-group { gap: 24px; }
+  .effectiveness-metric { gap: 12px; }
+  .effectiveness-distribution { width: 128px; flex-basis: 128px; }
+  .effectiveness-trend { width: 80px; flex-basis: 80px; }
+}
 
 /* src/views/uc2-canvas/mining-reference.css */
 /* Geometry and reveal timing converted from config-agent-studio's mining board. */
@@ -57367,7 +57451,7 @@ const LUCIDE={
 (function(){
 const modules={},cache={};
 const external={"react":React,"react-dom":ReactDOM,"react-dom/client":ReactDOM,"antd":antd,"react-intl":ReactIntl,"dayjs":dayjs};
-modules["app.jsx"]={deps:{"./src/views/stage/index.css":"src/views/stage/index.css","./src/views/top-bar/index.css":"src/views/top-bar/index.css","./src/views/cockpit/index.css":"src/views/cockpit/index.css","./src/views/lui-panel/index.css":"src/views/lui-panel/index.css","./src/views/canvas-area/index.css":"src/views/canvas-area/index.css","./src/views/network-overview/index.css":"src/views/network-overview/index.css","./src/views/mapping-card/index.css":"src/views/mapping-card/index.css","./src/views/report-card/index.css":"src/views/report-card/index.css","./src/views/device-pane/index.css":"src/views/device-pane/index.css","./src/views/uc2-canvas/uc2.css":"src/views/uc2-canvas/uc2.css","./src/views/uc4-sync.css":"src/views/uc4-sync.css","./src/views/stage/desktop.css":"src/views/stage/desktop.css","./assets/shared/antd-zh.js":"assets/shared/antd-zh.js","./src/context.jsx":"src/context.jsx","./src/views/stage/index.jsx":"src/views/stage/index.jsx"},run:function(require,module,exports){
+modules["app.jsx"]={deps:{"./src/views/stage/index.css":"src/views/stage/index.css","./src/views/top-bar/index.css":"src/views/top-bar/index.css","./src/views/cockpit/index.css":"src/views/cockpit/index.css","./src/views/lui-panel/index.css":"src/views/lui-panel/index.css","./src/views/canvas-area/index.css":"src/views/canvas-area/index.css","./src/views/network-overview/index.css":"src/views/network-overview/index.css","./src/views/mapping-card/index.css":"src/views/mapping-card/index.css","./src/views/report-card/index.css":"src/views/report-card/index.css","./src/views/device-pane/index.css":"src/views/device-pane/index.css","./src/views/uc2-canvas/uc2.css":"src/views/uc2-canvas/uc2.css","./src/views/uc4-sync.css":"src/views/uc4-sync.css","./src/views/stage/desktop.css":"src/views/stage/desktop.css","./src/views/cockpit/responsive.css":"src/views/cockpit/responsive.css","./assets/shared/antd-zh.js":"assets/shared/antd-zh.js","./src/context.jsx":"src/context.jsx","./src/views/stage/index.jsx":"src/views/stage/index.jsx"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -57386,6 +57470,7 @@ require("./src/views/device-pane/index.css");
 require("./src/views/uc2-canvas/uc2.css");
 require("./src/views/uc4-sync.css");
 require("./src/views/stage/desktop.css");
+require("./src/views/cockpit/responsive.css");
 var _antd = require("antd");
 var _antdZh = _interopRequireDefault(require("./assets/shared/antd-zh.js"));
 var _context = require("./src/context.jsx");
@@ -59752,7 +59837,7 @@ function LeftRail() {
   }))));
 }
 }};
-modules["src/views/cockpit/index.jsx"]={deps:{"../../components/network-agent-dashboard/index.jsx":"src/components/network-agent-dashboard/index.jsx","../../context.jsx":"src/context.jsx","./index.css":"src/views/cockpit/index.css"},run:function(require,module,exports){
+modules["src/views/cockpit/index.jsx"]={deps:{"../../components/network-agent-dashboard/index.jsx":"src/components/network-agent-dashboard/index.jsx","../../context.jsx":"src/context.jsx","../../components/effectiveness-metrics/index.jsx":"src/components/effectiveness-metrics/index.jsx","./index.css":"src/views/cockpit/index.css"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -59762,6 +59847,7 @@ exports.default = Cockpit;
 var _react = require("react");
 var _index = _interopRequireDefault(require("../../components/network-agent-dashboard/index.jsx"));
 var _context = require("../../context.jsx");
+var _index2 = _interopRequireDefault(require("../../components/effectiveness-metrics/index.jsx"));
 require("./index.css");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function Cockpit() {
@@ -59778,7 +59864,7 @@ function Cockpit() {
   const changeScale = amount => setMapScale(value => Math.min(2.4, Math.max(1, Number((value + amount).toFixed(2)))));
   return /*#__PURE__*/React.createElement("main", {
     className: "figma-network-page"
-  }, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement(_index2.default, null), /*#__PURE__*/React.createElement("div", {
     className: "figma-map",
     "aria-label": "可缩放的中国区域地图",
     onWheel: event => {
@@ -59817,6 +59903,8 @@ function Cockpit() {
     style: {
       transform: `translate(${mapOffset.x}px, ${mapOffset.y}px) scale(${mapScale})`
     }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "figma-map-plane"
   }, /*#__PURE__*/React.createElement("img", {
     className: "figma-map-image",
     src: "./assets/uploads/figma/china-dark-map.png",
@@ -59825,15 +59913,15 @@ function Cockpit() {
     className: "figma-map-marker figma-map-marker-west-sanqu",
     "aria-label": "西三旗",
     title: "西三旗"
-  }), /*#__PURE__*/React.createElement("span", {
+  }, /*#__PURE__*/React.createElement("b", null, "西三旗 DC")), /*#__PURE__*/React.createElement("span", {
     className: "figma-map-marker figma-map-marker-jiading",
     "aria-label": "嘉定",
     title: "嘉定"
-  }), /*#__PURE__*/React.createElement("span", {
+  }, /*#__PURE__*/React.createElement("b", null, "嘉定 DC")), /*#__PURE__*/React.createElement("span", {
     className: "figma-map-marker figma-map-marker-waigaoqiao",
     "aria-label": "外高桥",
     title: "外高桥"
-  })), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("b", null, "外高桥 DC")))), /*#__PURE__*/React.createElement("div", {
     className: "figma-map-controls",
     "aria-label": "地图缩放控制"
   }, /*#__PURE__*/React.createElement("button", {
@@ -59861,7 +59949,7 @@ function Cockpit() {
   })));
 }
 }};
-modules["src/components/network-agent-dashboard/index.jsx"]={deps:{"./index.css":"src/components/network-agent-dashboard/index.css"},run:function(require,module,exports){
+modules["src/components/network-agent-dashboard/index.jsx"]={deps:{"../chat-composer/index.jsx":"src/components/chat-composer/index.jsx","./index.css":"src/components/network-agent-dashboard/index.css"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -59869,7 +59957,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = DataCenterNetworkAgent;
 var _react = require("react");
+var _index = _interopRequireDefault(require("../chat-composer/index.jsx"));
 require("./index.css");
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 const defaultSummary = {
   weekCount: 465,
   healthyDays: 158,
@@ -60006,7 +60096,9 @@ function DataCenterNetworkAgent({
     className: "dcna-empty"
   }, /*#__PURE__*/React.createElement(Symbol, {
     name: "description"
-  }), /*#__PURE__*/React.createElement("p", null, "暂无事件"))));
+  }), /*#__PURE__*/React.createElement("p", null, "暂无事件"))), /*#__PURE__*/React.createElement(_index.default, {
+    onOpen: onOpenAgent
+  }));
 }
 function Symbol({
   name,
@@ -60055,6 +60147,265 @@ function Event({
     className: "dcna-location-icon"
   }), /*#__PURE__*/React.createElement("span", null, event.tag && /*#__PURE__*/React.createElement("strong", null, event.tag), event.detail, event.time && /*#__PURE__*/React.createElement("i", null, event.time))));
 }
+}};
+modules["src/components/chat-composer/index.jsx"]={deps:{"../../../assets/shared/icon.jsx":"assets/shared/icon.jsx","./index.css":"src/components/chat-composer/index.css"},run:function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = ChatComposer;
+var _icon = require("../../../assets/shared/icon.jsx");
+require("./index.css");
+function ChatComposer({
+  onOpen
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "home-composer-region"
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "home-composer home-composer-launcher",
+    "aria-label": "打开 AI 对话侧边栏",
+    "aria-controls": "lui",
+    onClick: onOpen
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "home-composer-placeholder"
+  }, "描述运维任务，或向 Aico 提问…"), /*#__PURE__*/React.createElement("span", {
+    className: "home-composer-send",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement(_icon.Icon, {
+    name: "arrow-up",
+    size: "1rem"
+  }))));
+}
+}};
+modules["src/components/effectiveness-metrics/index.jsx"]={deps:{"../../../assets/shared/chart.jsx":"assets/shared/chart.jsx","./index.css":"src/components/effectiveness-metrics/index.css"},run:function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = EffectivenessMetrics;
+var _chart = _interopRequireDefault(require("../../../assets/shared/chart.jsx"));
+require("./index.css");
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+const workflowDistribution = [{
+  name: "人工生成",
+  value: 96
+}, {
+  name: "AI 辅助生成",
+  value: 100
+}];
+const complianceTrend = [{
+  日期: "10/18",
+  合规率: 82
+}, {
+  日期: "10/19",
+  合规率: 85
+}, {
+  日期: "10/20",
+  合规率: 84
+}, {
+  日期: "10/21",
+  合规率: 88
+}, {
+  日期: "10/22",
+  合规率: 86
+}, {
+  日期: "10/23",
+  合规率: 89
+}, {
+  日期: "10/24",
+  合规率: 90
+}];
+function EffectivenessMetrics() {
+  return /*#__PURE__*/React.createElement("section", {
+    className: "effectiveness-metrics",
+    "aria-labelledby": "effectiveness-title"
+  }, /*#__PURE__*/React.createElement("h2", {
+    id: "effectiveness-title"
+  }, "成效指标"), /*#__PURE__*/React.createElement("div", {
+    className: "effectiveness-metrics-grid"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "effectiveness-metric-group",
+    "aria-label": "配置生成成效"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "effectiveness-metric"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "effectiveness-metric-copy"
+  }, /*#__PURE__*/React.createElement("strong", null, "95", /*#__PURE__*/React.createElement("span", null, "%")), /*#__PURE__*/React.createElement("span", null, "AI 辅助生成率"))), /*#__PURE__*/React.createElement("div", {
+    className: "effectiveness-metric"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "effectiveness-metric-copy"
+  }, /*#__PURE__*/React.createElement("strong", null, "96", /*#__PURE__*/React.createElement("span", {
+    className: "effectiveness-ratio-separator"
+  }, "/"), "100"), /*#__PURE__*/React.createElement("span", null, "人工 / AI 辅助生成工作流")), /*#__PURE__*/React.createElement("div", {
+    className: "effectiveness-distribution",
+    role: "img",
+    "aria-label": "工作流分布：蓝色人工生成 96，绿色 AI 辅助生成 100"
+  }, /*#__PURE__*/React.createElement(_chart.default, {
+    name: "PieChart",
+    option: {
+      data: workflowDistribution,
+      a2ui: false,
+      adaptive: false,
+      title: {
+        text: ""
+      },
+      legendPosition: "centerRight",
+      legend: {
+        show: true,
+        orient: "vertical",
+        left: 52,
+        right: "auto",
+        top: "middle",
+        itemWidth: 6,
+        itemHeight: 6,
+        itemGap: 8,
+        icon: "circle",
+        textStyle: {
+          fontSize: 10
+        }
+      },
+      label: {
+        show: false
+      },
+      position: {
+        radius: [14, 20],
+        center: [20, 26]
+      },
+      series: [{
+        name: "工作流分布",
+        type: "pie",
+        radius: [14, 20],
+        center: [20, 26],
+        label: {
+          show: false
+        },
+        labelLine: {
+          show: false
+        },
+        emphasis: {
+          scale: false
+        }
+      }]
+    }
+  })))), /*#__PURE__*/React.createElement("span", {
+    className: "effectiveness-group-divider",
+    "aria-hidden": "true"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "effectiveness-metric-group",
+    "aria-label": "配置检查成效"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "effectiveness-metric"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "effectiveness-metric-copy"
+  }, /*#__PURE__*/React.createElement("strong", null, "90", /*#__PURE__*/React.createElement("span", null, "%")), /*#__PURE__*/React.createElement("span", null, "近期检查合规率")), /*#__PURE__*/React.createElement("div", {
+    className: "effectiveness-trend",
+    role: "img",
+    "aria-label": "近期合规率示意趋势：82%、85%、84%、88%、86%、89%、90%"
+  }, /*#__PURE__*/React.createElement(_chart.default, {
+    name: "LineChart",
+    option: {
+      data: complianceTrend,
+      xAxis: {
+        data: "日期"
+      },
+      yAxisTitle: "合规率 (%)",
+      mini: true,
+      smooth: true,
+      area: true
+    }
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "effectiveness-metric"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "effectiveness-metric-copy"
+  }, /*#__PURE__*/React.createElement("strong", null, "3280"), /*#__PURE__*/React.createElement("span", null, "累计检查设备"))))));
+}
+}};
+modules["assets/shared/chart.jsx"]={deps:{},run:function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = require("react");
+// Chart — HUICharts 的 React 封装(命令式 → 声明式)
+// 底层: echarts + hui-charts.umd.js(全局 HUICharts),配置项 option 原样透传给 setSimpleOption。
+// 暗色联动:自动监听 <html> 的 .dark class,切换 hdesign-light / hdesign-dark 主题并重建图表。
+const Chart = /*#__PURE__*/(0, _react.forwardRef)(function Chart({
+  name,
+  option,
+  className,
+  style,
+  onChartRendered
+}, ref) {
+  const containerRef = (0, _react.useRef)(null);
+  const chartRef = (0, _react.useRef)(null);
+  const renderedRef = (0, _react.useRef)(onChartRendered);
+  renderedRef.current = onChartRendered;
+
+  // .dark 切换 → 递增 tick 触发主 effect 重建(走同一条 init/dispose 路径)
+  const [darkTick, setDarkTick] = (0, _react.useState)(0);
+  (0, _react.useEffect)(() => {
+    const mo = new MutationObserver(() => setDarkTick(t => t + 1));
+    mo.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"]
+    });
+    return () => mo.disconnect();
+  }, []);
+  (0, _react.useEffect)(() => {
+    const dom = containerRef.current;
+    if (!dom || !window.HUICharts) return;
+    const isDark = document.documentElement.classList.contains("dark");
+    const chart = new HUICharts();
+    chart.init(dom, {
+      renderer: "svg"
+    });
+    chart.setSimpleOption(name, {
+      theme: isDark ? "hdesign-dark" : "hdesign-light",
+      a2ui: true,
+      ...option
+    });
+    chart.render();
+    chartRef.current = chart;
+    if (renderedRef.current) renderedRef.current(chart);
+
+    // 容器尺寸变化(侧栏折叠/窗口缩放/响应式) → 同步画布
+    const ro = new ResizeObserver(() => {
+      if (chartRef.current && !chartRef.current._disposed) chart.resize();
+    });
+    ro.observe(dom);
+    return () => {
+      ro.disconnect();
+      try {
+        chart.dispose();
+      } catch (e) {/* 容器已卸载时静默 */}
+      chartRef.current = null;
+    };
+    // JSON.stringify 作 dep:option 是 JSX 内联对象,内容不变则不重建
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [name, JSON.stringify(option), darkTick]);
+  (0, _react.useImperativeHandle)(ref, () => ({
+    getEchartsInstance: () => chartRef.current ? chartRef.current.getEchartsInstance() : null,
+    resizeHandler: () => {
+      if (chartRef.current) chartRef.current.resize();
+    }
+  }), []);
+  const wrapperStyle = {
+    width: "100%",
+    height: "100%",
+    ...style
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    ref: containerRef,
+    className: className,
+    style: wrapperStyle
+  });
+});
+var _default = exports.default = Chart;
 }};
 modules["src/views/lui-panel/index.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/workflow.js":"src/mock/workflow.js","../../components/status-marks/index.jsx":"src/components/status-marks/index.jsx","../report-card/index.jsx":"src/views/report-card/index.jsx","../../mock/audit.js":"src/mock/audit.js","./uc2-chat.jsx":"src/views/lui-panel/uc2-chat.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","./composer.jsx":"src/views/lui-panel/composer.jsx"},run:function(require,module,exports){
 "use strict";
@@ -61571,10 +61922,10 @@ function Composer() {
     speech.lang = "zh-CN";
     speech.continuous = false;
     speech.interimResults = true;
-    const prefix = promptText;
+    const existingPrompt = promptText;
     speech.onresult = event => {
       const transcript = Array.from(event.results).map(result => result[0].transcript).join("");
-      setPromptText((prefix + transcript).slice(0, 2000));
+      setPromptText((existingPrompt + transcript).slice(0, 2000));
     };
     speech.onend = () => {
       setRecording(false);
