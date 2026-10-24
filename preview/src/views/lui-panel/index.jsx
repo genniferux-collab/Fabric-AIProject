@@ -92,8 +92,10 @@ function WorkflowSteps({ active, groupExpanded }) {
     const index = { network: 0, artifact: 2, report: 3 }[luiFocus.kind];
     if (!openSteps[index]) return;
     const frame = requestAnimationFrame(() => {
-      const tag = stepsRef.current?.querySelector(`[data-step-index="${index}"] [data-lui-artifact="${luiFocus.kind}"]`);
-      const step = tag?.closest('.step'), main = tag?.closest('#luiMain');
+      const tag = luiFocus.kind === "report"
+        ? stepsRef.current?.closest(".generated-card")?.querySelector(".v7-conclusion-card")
+        : stepsRef.current?.querySelector(`[data-step-index="${index}"] [data-lui-artifact="${luiFocus.kind}"]`);
+      const step = tag?.closest('.step') || tag, main = tag?.closest('#luiMain');
       if (!tag || !step || !main || !tag.getClientRects().length) return;
       const rect = main.getBoundingClientRect();
       const scale = rect.height / main.offsetHeight || 1;
@@ -103,11 +105,11 @@ function WorkflowSteps({ active, groupExpanded }) {
     });
     return () => cancelAnimationFrame(frame);
   }, [luiFocus, groupExpanded, openSteps]);
-  const products = { 0: "network", 2: "artifact", 3: "report" };
+  const products = { 0: "network", 2: "artifact" };
   const toggle = index => { setSelectedStep(index); setOpenSteps(steps => ({ ...steps, [index]: !steps[index] })); };
   return (
     <div className="steps workflow-steps" ref={stepsRef}>
-      {v7WorkflowSteps.map((step, index) => {
+      {v7WorkflowSteps.slice(0, Math.min(active + 1, v7WorkflowSteps.length)).map((step, index) => {
         const done = index < active;
         const current = index === active;
         const available = done || current;
@@ -139,7 +141,6 @@ function WorkflowSteps({ active, groupExpanded }) {
                     <ArtifactTag title="HCS1合规检查规则&设备匹配" type="process" shape="mapping" onLocate={() => locate("artifact")} />
                   </div>
                 ) : null}
-                {index === 3 && done ? <div className="v7-step-artifact"><ArtifactTag title="HCS1 区基线检查报告" type="process" shape="report" onLocate={() => locate("report")} /></div> : null}
               </div>
             ) : null}
           </div>

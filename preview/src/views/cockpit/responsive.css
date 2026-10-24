@@ -1,5 +1,5 @@
 /* Home uses stable PC controls; only the map's own scene scales. */
-.stage-root.pc-layout{--agent-width:592px}
+.stage-root.pc-layout:not(.uc4){--agent-width:592px}
 .pc-layout .figma-network-page{--dashboard-width:592px}
 .pc-layout .figma-dashboard{border-right:1px solid var(--line);box-shadow:none;overflow:hidden}
 .pc-layout .figma-dashboard .dcna-container{height:100%;min-height:0;padding:24px;overflow:hidden;background-size:100% auto;background-position:top center;background-color:var(--panel)}
@@ -23,3 +23,6 @@
 
 /* Controls stay at the map edge, clear of the metrics overlay. */
 .pc-layout .figma-network-page:has(.effectiveness-metrics) .figma-map-controls{top:auto;bottom:24px}
+
+/* Fit all branch nodes below the taller metrics panel on smaller PC panes. */
+@media (max-width:1696px){.pc-layout .figma-map-plane{top:calc(261px + (100cqh - 325px) / 2);width:min(calc((100cqw - 120px) / .5),calc((100cqh - 343px) * 1.997 / .84))}}

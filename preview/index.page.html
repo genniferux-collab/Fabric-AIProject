@@ -7174,7 +7174,7 @@ html:not(.dark) .stage-root.uc4 .v7-map-split>.v7-map-device-card{background:#fa
 .stage-root.uc4 .v7-network-device>rect{transition:none}
 .stage-root.uc4 .v7-map-device-card{animation:none}
 .stage-root.uc4 .v7-network-sweep{display:none}}
-.stage-root.uc4 .v7-conclusion-card{display:flex;align-items:center;gap:16px;width:528px;max-width:100%;height:82px;margin-top:16px;padding:16px 20px;border:1px solid #ffffff0a;border-radius:8px;background:linear-gradient(100deg,transparent 38%,#2974cd24 78%,#3689e83d 100%),rgba(42,42,42,.75);text-align:left;color:#DFDFDF;transition:border-color .15s,box-shadow .15s}
+.stage-root.uc4 .v7-conclusion-card{display:flex;align-items:center;gap:16px;width:528px;max-width:100%;height:82px;margin-top:16px;padding:16px 20px;border:1px solid #ffffff0a;border-radius:12px;background:linear-gradient(100deg,transparent 38%,#2974cd24 78%,#3689e83d 100%),rgba(42,42,42,.75);text-align:left;color:#DFDFDF;transition:border-color .15s,box-shadow .15s}
 .stage-root.uc4 .v7-conclusion-card:hover{border-color:#5ca2e966;box-shadow:0 0 16px #2874cd12}
 .stage-root.uc4 .v7-conclusion-card>.v7-artifact-icon{width:32px;height:32px;flex-shrink:0}
 .stage-root.uc4 .v7-conclusion-copy{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
@@ -7493,6 +7493,12 @@ html:not(.dark) .stage-root #canvas .canvas-tab.active .ic,html:not(.dark) .stag
 @keyframes smart-locate-border{0%,100%{opacity:0}10%,75%{opacity:1}}
 .stage-root.uc4 .card[data-artifact-kind]:focus-visible{outline:1px solid #a18bfa;outline-offset:2px}
 
+/* Keep network card actions in normal flow so they cannot overlap. */
+.stage-root.uc4 #networkOverviewCard>.between{padding-right:0;gap:16px}
+.stage-root.uc4 .v7-network-header-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.stage-root.uc4 .v7-network-header-actions .v7-open-card-tab{position:static;flex-shrink:0}
+.stage-root.uc4 .workflow-steps>.step:last-child::after{display:none}
+
 
 /* Desktop workbench: stable controls, fluid panes, local scrolling. */
 html:has(.stage-viewport),body:has(.stage-viewport){margin:0;width:100%;height:100%;overflow:hidden;font-size:16px}
@@ -7544,7 +7550,7 @@ html:has(.stage-viewport),body:has(.stage-viewport){margin:0;width:100%;height:1
 
 
 /* Home uses stable PC controls; only the map's own scene scales. */
-.stage-root.pc-layout{--agent-width:592px}
+.stage-root.pc-layout:not(.uc4){--agent-width:592px}
 .pc-layout .figma-network-page{--dashboard-width:592px}
 .pc-layout .figma-dashboard{border-right:1px solid var(--line);box-shadow:none;overflow:hidden}
 .pc-layout .figma-dashboard .dcna-container{height:100%;min-height:0;padding:24px;overflow:hidden;background-size:100% auto;background-position:top center;background-color:var(--panel)}
@@ -7568,6 +7574,9 @@ html:has(.stage-viewport),body:has(.stage-viewport){margin:0;width:100%;height:1
 
 /* Controls stay at the map edge, clear of the metrics overlay. */
 .pc-layout .figma-network-page:has(.effectiveness-metrics) .figma-map-controls{top:auto;bottom:24px}
+
+/* Fit all branch nodes below the taller metrics panel on smaller PC panes. */
+@media (max-width:1696px){.pc-layout .figma-map-plane{top:calc(261px + (100cqh - 325px) / 2);width:min(calc((100cqw - 120px) / .5),calc((100cqh - 343px) * 1.997 / .84))}}
 
 
 .dcna-container{width:592px;height:1032px;box-sizing:border-box;overflow:hidden;position:relative;display:flex;flex-direction:column;padding:32px;color:#e4e4e7;background:#18181b url("./assets/uploads/bg.png") center/cover no-repeat;font-family:var(--font-family)}
@@ -9718,188 +9727,188 @@ const branches = [
   {
     "id": "branch-0",
     "name": "台湾",
-    "x": 72.171,
-    "y": 76.194
+    "x": 70.596,
+    "y": 75.232
   },
   {
     "id": "branch-1",
     "name": "河北",
-    "x": 61.711,
-    "y": 39.548
+    "x": 61.379,
+    "y": 39.463
   },
   {
     "id": "branch-2",
     "name": "山西",
-    "x": 58.954,
-    "y": 43.26
+    "x": 58.429,
+    "y": 43.267
   },
   {
     "id": "branch-3",
     "name": "内蒙古",
-    "x": 58.199,
-    "y": 29.7
+    "x": 57.856,
+    "y": 29.622
   },
   {
     "id": "branch-4",
     "name": "辽宁",
-    "x": 70.12,
-    "y": 27.004
+    "x": 70.234,
+    "y": 27.511
   },
   {
     "id": "branch-5",
     "name": "吉林",
-    "x": 71.268,
-    "y": 20.796
+    "x": 70.686,
+    "y": 20.874
   },
   {
     "id": "branch-6",
     "name": "黑龙江",
-    "x": 73.183,
-    "y": 12.074
+    "x": 72.58,
+    "y": 12.139
   },
   {
     "id": "branch-7",
     "name": "江苏",
-    "x": 68.443,
-    "y": 51.999
+    "x": 67.807,
+    "y": 51.786
   },
   {
     "id": "branch-8",
     "name": "浙江",
-    "x": 69.617,
-    "y": 62.227
+    "x": 68.908,
+    "y": 61.954
   },
   {
     "id": "branch-9",
     "name": "安徽",
-    "x": 65.914,
-    "y": 57.623
+    "x": 65.211,
+    "y": 57.365
   },
   {
     "id": "branch-10",
     "name": "福建",
-    "x": 67.94,
-    "y": 71.675
+    "x": 66.631,
+    "y": 70.876
   },
   {
     "id": "branch-11",
     "name": "江西",
-    "x": 64.416,
-    "y": 67.974
+    "x": 63.952,
+    "y": 67.692
   },
   {
     "id": "branch-12",
     "name": "山东",
-    "x": 65.833,
-    "y": 43.61
+    "x": 65.558,
+    "y": 43.593
   },
   {
     "id": "branch-13",
     "name": "河南",
-    "x": 61.368,
-    "y": 51.524
+    "x": 60.811,
+    "y": 51.525
   },
   {
     "id": "branch-14",
     "name": "湖北",
-    "x": 61.301,
-    "y": 60.114
+    "x": 60.816,
+    "y": 60.112
   },
   {
     "id": "branch-15",
     "name": "湖南",
-    "x": 59.724,
-    "y": 67.567
+    "x": 60.893,
+    "y": 67.794
   },
   {
     "id": "branch-16",
     "name": "广东",
-    "x": 62.018,
-    "y": 81.068
+    "x": 62.506,
+    "y": 81.264
   },
   {
     "id": "branch-17",
     "name": "广西",
-    "x": 55.69,
-    "y": 82.604
+    "x": 58.7,
+    "y": 82.989
   },
   {
     "id": "branch-18",
     "name": "海南",
-    "x": 57.811,
-    "y": 92.87
+    "x": 57.532,
+    "y": 92.196
   },
   {
     "id": "branch-19",
     "name": "四川",
-    "x": 50.238,
-    "y": 61.003
+    "x": 50.209,
+    "y": 61.095
   },
   {
     "id": "branch-20",
     "name": "贵州",
-    "x": 53.533,
-    "y": 72.306
+    "x": 56.191,
+    "y": 72.66
   },
   {
     "id": "branch-21",
     "name": "云南",
-    "x": 46.974,
-    "y": 77.376
+    "x": 49.506,
+    "y": 77.719
   },
   {
     "id": "branch-22",
     "name": "西藏",
-    "x": 32.525,
-    "y": 58.043
+    "x": 31.56,
+    "y": 57.597
   },
   {
     "id": "branch-23",
     "name": "陕西",
-    "x": 55.892,
-    "y": 50.775
+    "x": 55.314,
+    "y": 50.812
   },
   {
     "id": "branch-24",
     "name": "甘肃",
-    "x": 49.989,
-    "y": 46.002
+    "x": 49.457,
+    "y": 46.039
   },
   {
     "id": "branch-25",
     "name": "青海",
-    "x": 42.001,
-    "y": 46.64
+    "x": 41.307,
+    "y": 46.437
   },
   {
     "id": "branch-26",
     "name": "宁夏",
-    "x": 52.731,
-    "y": 42.631
+    "x": 52.161,
+    "y": 42.663
   },
   {
     "id": "branch-27",
     "name": "新疆",
-    "x": 31.106,
-    "y": 29.777
+    "x": 29.48,
+    "y": 29.095
   },
   {
     "id": "branch-31",
     "name": "重庆",
-    "x": 54.174,
-    "y": 64.052
+    "x": 54.438,
+    "y": 64.174
   },
   {
     "id": "branch-32",
     "name": "香港",
-    "x": 63.225,
-    "y": 83.103
+    "x": 63.704,
+    "y": 83.299
   },
   {
     "id": "branch-33",
     "name": "澳门",
-    "x": 62.438,
-    "y": 83.568
+    "x": 62.917,
+    "y": 83.764
   }
 ];
   Object.assign(__export, { dataCenters, branches });
@@ -10726,8 +10735,10 @@ function WorkflowSteps({ active, groupExpanded }) {
     const index = { network: 0, artifact: 2, report: 3 }[luiFocus.kind];
     if (!openSteps[index]) return;
     const frame = requestAnimationFrame(() => {
-      const tag = stepsRef.current?.querySelector(`[data-step-index="${index}"] [data-lui-artifact="${luiFocus.kind}"]`);
-      const step = tag?.closest('.step'), main = tag?.closest('#luiMain');
+      const tag = luiFocus.kind === "report"
+        ? stepsRef.current?.closest(".generated-card")?.querySelector(".v7-conclusion-card")
+        : stepsRef.current?.querySelector(`[data-step-index="${index}"] [data-lui-artifact="${luiFocus.kind}"]`);
+      const step = tag?.closest('.step') || tag, main = tag?.closest('#luiMain');
       if (!tag || !step || !main || !tag.getClientRects().length) return;
       const rect = main.getBoundingClientRect();
       const scale = rect.height / main.offsetHeight || 1;
@@ -10737,11 +10748,11 @@ function WorkflowSteps({ active, groupExpanded }) {
     });
     return () => cancelAnimationFrame(frame);
   }, [luiFocus, groupExpanded, openSteps]);
-  const products = { 0: "network", 2: "artifact", 3: "report" };
+  const products = { 0: "network", 2: "artifact" };
   const toggle = index => { setSelectedStep(index); setOpenSteps(steps => ({ ...steps, [index]: !steps[index] })); };
   return (
     <div className="steps workflow-steps" ref={stepsRef}>
-      {v7WorkflowSteps.map((step, index) => {
+      {v7WorkflowSteps.slice(0, Math.min(active + 1, v7WorkflowSteps.length)).map((step, index) => {
         const done = index < active;
         const current = index === active;
         const available = done || current;
@@ -10773,7 +10784,6 @@ function WorkflowSteps({ active, groupExpanded }) {
                     <ArtifactTag title="HCS1合规检查规则&设备匹配" type="process" shape="mapping" onLocate={() => locate("artifact")} />
                   </div>
                 ) : null}
-                {index === 3 && done ? <div className="v7-step-artifact"><ArtifactTag title="HCS1 区基线检查报告" type="process" shape="report" onLocate={() => locate("report")} /></div> : null}
               </div>
             ) : null}
           </div>
@@ -11042,15 +11052,17 @@ function NetworkOverview({ cardRef }) {
 
   return (
     <section className="card artifact-card process-artifact v7-card-tabbed" id="networkOverviewCard" ref={cardRef}>
-      <ArtifactOpen kind="network" title="全网设备概览"/>
       <div className="between">
         <div className="v7-artifact-title">
           <ArtifactIcon type="process" shape="overview" />
           <h2 className="card-title">全网设备概览</h2>
         </div>
+        <div className="v7-network-header-actions">
         <button className="btn v7-network-rescan" disabled={busy} onClick={() => runScan()}>
           <Ic icon="rotate-ccw" />{busy ? "识别中" : "重新识别"}
         </button>
+        <ArtifactOpen kind="network" title="全网设备概览"/>
+        </div>
       </div>
       <div className="v7-network-summary">
         <span>西三旗 DC / <strong>HCS1</strong></span>
