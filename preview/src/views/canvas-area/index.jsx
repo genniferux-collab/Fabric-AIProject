@@ -52,6 +52,7 @@ export default function CanvasArea() {
   const artifactRef=useRef(null);
   const trackRef = useRef(null);
   const thumbRef = useRef(null);
+  const scrollbarDragRef = useRef(null);
   const followedStepRef = useRef(null);
 
   // Follow the active workflow inside the canvas, accounting for the scaled UC4 shell.
@@ -111,6 +112,22 @@ export default function CanvasArea() {
     syncScroll();
   };
 
+  const onScrollbarPointerDown = event => {
+    const content = contentRef.current, track = trackRef.current, thumb = thumbRef.current;
+    if (!content || !track || !thumb) return;
+    const travel = track.clientHeight - thumb.clientHeight;
+    const overflow = content.scrollHeight - content.clientHeight;
+    if (travel <= 0 || overflow <= 0) return;
+    event.preventDefault();
+    const rect = track.getBoundingClientRect(), scale = rect.height / track.clientHeight;
+    if (event.target !== thumb) {
+      content.scrollTop = Math.max(0, Math.min(travel, (event.clientY - rect.top) / scale - thumb.clientHeight / 2)) / travel * overflow;
+      syncScroll();
+    }
+    scrollbarDragRef.current = { y:event.clientY, scroll:content.scrollTop, ratio:overflow / travel / scale };
+    track.setPointerCapture(event.pointerId);
+  };
+
   const register = (kind) => (el) => { if (el) { cardRefs.current[kind] = el; el.dataset.artifactKind = kind; el.tabIndex = 0; } };
   const onCanvasClick = event => {
     if (event.target.closest('button,a,input,textarea,select,[role="button"],[role="tab"],[role="checkbox"]')) return;
@@ -132,18 +149,18 @@ export default function CanvasArea() {
         </button>
       </div>
       {activePane === "task" && !activeArtifact ? (
-        <div className="scroll-track" id="scrollTrack" ref={trackRef}>
+        <div className="scroll-track" id="scrollTrack" ref={trackRef} onPointerDown={onScrollbarPointerDown} onPointerMove={event => { const drag = scrollbarDragRef.current; if (drag) { contentRef.current.scrollTop = drag.scroll + (event.clientY - drag.y) * drag.ratio; syncScroll(); } }} onPointerUp={() => { scrollbarDragRef.current = null; }} onPointerCancel={() => { scrollbarDragRef.current = null; }} onLostPointerCapture={() => { scrollbarDragRef.current = null; }}>
           <div className="scroll-thumb" id="scrollThumb" ref={thumbRef} />
         </div>
       ) : null}
       <div className={"canvas-content" + (activePane === "task" && !activeArtifact ? "" : " hidden")} id="canvasContent" ref={contentRef} onScroll={onScroll}>
         <div ref={innerRef} className="workflow-canvas-flow">
           <section className="workflow-canvas-step" data-canvas-step="0" aria-label="步骤1：全网设备概览">
-            <div id="networkOverviewStep" className="v7-artifact-step-title">全网设备概览已获取</div>
+            <div id="networkOverviewStep" className="v7-artifact-step-title">{luiView === "running" && stage === 0 ? "正在扫描拓扑并识别全网设备" : "全网设备概览已获取"}</div>
             <NetworkOverview cardRef={register("network")} />
           </section>
           <section className={"workflow-canvas-step" + (stage < 2 ? " hidden" : "")} data-canvas-step="2" aria-label="步骤3：规则选择与自动推荐">
-            <div className="v7-artifact-step-title">规则选择与自动推荐</div>
+            <div className="v7-artifact-step-title">规则选择与自动推荐<img className="artifact-step-locate" src="./assets/uploads/artifact-locate-panel.svg" width="12" height="12" alt="" aria-hidden="true" /></div>
             <MappingCard cardRef={register("artifact")} />
           </section>
           <section className={"workflow-canvas-step" + (stage < 3 ? " hidden" : "")} data-canvas-step="3" aria-label="步骤4：设备基线检查">

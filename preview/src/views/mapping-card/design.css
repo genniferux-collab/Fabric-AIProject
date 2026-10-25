@@ -1,0 +1,46 @@
+/* Pixso 8:522844. Scoped to mapping content; canvas frame rules stay shared. */
+.stage-root.uc4 #mappingCard.mapping-design{--mapping-column:33.305921%;--mapping-green:#329d7c}
+.stage-root.uc4 #mappingCard.mapping-design .mapping-design-toolbar{display:flex;justify-content:space-between;align-items:center;gap:24px;margin-top:16px;height:32px}
+.stage-root.uc4 #mappingCard.mapping-design .summary-strip{display:flex;gap:20px;margin:0;padding:0;border:0}
+.stage-root.uc4 #mappingCard.mapping-design .summary-item{gap:4px}
+.stage-root.uc4 #mappingCard.mapping-design .summary-item strong{font-size:24px;font-weight:600;line-height:28px;color:var(--text)}
+.stage-root.uc4 #mappingCard.mapping-design .summary-item span{color:var(--secondary)}
+html.dark .stage-root.uc4 #mappingCard.mapping-design .filters[aria-label="厂商筛选"]{width:220px;height:32px;padding:2px;gap:0;background:#555;border-radius:6px;flex-shrink:0}
+.stage-root.uc4 #mappingCard.mapping-design .filter{flex:1;height:28px;padding:0 8px;color:#c9c9c9;font-size:14px;white-space:nowrap}
+.stage-root.uc4 #mappingCard.mapping-design .filter:first-child{flex:0 0 88px}
+.stage-root.uc4 #mappingCard.mapping-design .filter.selected{background:#0067d1;color:#fff;box-shadow:0 1px 4px #0005}
+.stage-root.uc4 #mappingCard.mapping-design .mapping-design-search{margin-top:8px;height:32px}
+.stage-root.uc4 #mappingCard.mapping-design .search{width:286px;max-width:100%;height:32px;border:1px solid #777;border-radius:3px;background:transparent}
+.stage-root.uc4 #mappingCard.mapping-design .search input{font-size:14px}
+.stage-root.uc4 #mappingCard.mapping-design .graph-head{grid-template-columns:var(--mapping-column) 1fr var(--mapping-column);margin:46px 0 12px;height:22px}
+.stage-root.uc4 #mappingCard.mapping-design .column-title{gap:0;font-size:14px;line-height:22px;color:var(--text)}
+.stage-root.uc4 #mappingCard.mapping-design .column-title:last-child{transform:translateY(24px)}
+.stage-root.uc4 #mappingCard.mapping-design .match-caption{font-size:12px}
+.stage-root.uc4 #mappingCard.mapping-design .graph{background:none;border-radius:0}
+.stage-root.uc4 #mappingCard.mapping-design .vendor{width:var(--mapping-column);height:22px;gap:0;font-size:14px;line-height:22px;color:#c9c9c9}
+.stage-root.uc4 #mappingCard.mapping-design .vendor span:last-child{margin-left:0;color:#c9c9c9}
+.stage-root.uc4 #mappingCard.mapping-design .mapping-vendor-mark{width:95.24px;height:20px;object-fit:contain;object-position:left center;flex-shrink:0}
+.stage-root.uc4 #mappingCard.mapping-design .h3c .mapping-vendor-mark{width:57.7px;height:15px}
+.stage-root.uc4 #mappingCard.mapping-design .v7-map-node,.stage-root.uc4 #mappingCard.mapping-design .v7-map-split{width:var(--mapping-column)}
+.stage-root.uc4 #mappingCard.mapping-design .v7-map-split>.v7-map-device-card{width:100%}
+.stage-root.uc4 #mappingCard.mapping-design .v7-map-node{border:0;border-radius:8px;background:#393939}
+.stage-root.uc4 #mappingCard.mapping-design .v7-map-node::after{inset:0;border-color:transparent}
+.stage-root.uc4 #mappingCard.mapping-design .v7-map-node>.node{gap:12px;padding:12px;border-radius:8px;background:#393939}
+.stage-root.uc4 #mappingCard.mapping-design .node-name{font-size:14px;line-height:22px;font-weight:400;color:#f3f3f3}
+.stage-root.uc4 #mappingCard.mapping-design .node-meta{font-size:12px;line-height:20px;color:#939393}
+.stage-root.uc4 #mappingCard.mapping-design .node-count{font-size:20px;line-height:28px;font-weight:500;color:#fff}
+.stage-root.uc4 #mappingCard.mapping-design .node-count span{font-size:12px;color:#939393}
+.stage-root.uc4 #mappingCard.mapping-design .node-icon{height:32px;width:32px;flex-shrink:0;background:transparent;color:#20c398;border-radius:4px}
+.stage-root.uc4 #mappingCard.mapping-design .ruleset .node-icon{width:36px;height:36px;color:#a9baff;border-radius:50%}
+.stage-root.uc4 #mappingCard.mapping-design .node-icon img{display:block;width:100%;height:100%}
+.stage-root.uc4 #mappingCard.mapping-design .node.group::after,.stage-root.uc4 #mappingCard.mapping-design .node.ruleset::before{width:4px;height:4px;border:0;top:calc(50% - 2px);background:var(--mapping-green)}
+.stage-root.uc4 #mappingCard.mapping-design .node.group::after{right:-2px}
+.stage-root.uc4 #mappingCard.mapping-design .node.ruleset::before{left:-2px}
+.stage-root.uc4 #mappingCard.mapping-design .v7-match-base{stroke:var(--mapping-green);stroke-width:1;opacity:.36}
+.stage-root.uc4 #mappingCard.mapping-design .v7-match-flow{stroke-width:1.3;opacity:.42;filter:drop-shadow(0 0 2px #60d8b866)}
+.stage-root.uc4 #mappingCard.mapping-design .v7-match-route.is-growing .v7-match-base{stroke:#5cc7a2;opacity:.8}
+.stage-root.uc4 #mappingCard.mapping-design .v7-match-route.is-growing .v7-match-flow{stroke-width:2;opacity:.95}
+.stage-root.uc4 #mappingCard.mapping-design .v7-map-node.is-matching::after{border-color:#a3a3eb}
+.stage-root.uc4 #mappingCard.mapping-design .v7-map-node.pinned::after,.stage-root.uc4 #mappingCard.mapping-design .v7-map-node.focused::after{border-color:#5990fd}
+.stage-root.uc4 #mappingCard.mapping-design .v7-matching-status{border:0;padding:0;margin:64px 0 0;min-height:22px}
+.stage-root.uc4 #mappingCard.mapping-design .empty{background:transparent}

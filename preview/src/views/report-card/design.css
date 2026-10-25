@@ -1,0 +1,104 @@
+/* Pixso 8:450302: report content only; the shared artifact frame stays intact. */
+.stage-root.uc4 #reportCard.report-design .v7-report-meta{display:flex;align-items:center;gap:0;margin-top:16px;font-size:12px;line-height:20px;color:#c9c9c9}
+.stage-root.uc4 #reportCard.report-design .v7-report-meta>span{display:flex;align-items:center;gap:4px}
+.stage-root.uc4 #reportCard.report-design .v7-report-meta>span+span{margin-left:12px;padding-left:12px;border-left:1px solid #777;line-height:12px}
+.stage-root.uc4 #reportCard.report-design .v7-report-meta .ic{width:14px;height:14px}
+.stage-root.uc4 #reportCard.report-design .v7-summary{grid-template-columns:287px minmax(0,1fr);gap:16px;align-items:center;margin:16px 0 24px;min-height:167px}
+.stage-root.uc4 #reportCard.report-design .v7-compliance{gap:24px;padding:0;border:0}
+.stage-root.uc4 #reportCard.report-design .v7-ring{width:176px;height:167px}
+.stage-root.uc4 #reportCard.report-design .v7-ring svg{width:167px;height:167px;margin-left:10px}
+.stage-root.uc4 #reportCard.report-design .v7-ring>div{left:10px;right:-1px;justify-content:center;gap:4px}
+.stage-root.uc4 #reportCard.report-design .v7-ring strong{font-size:32px;line-height:40px;font-weight:600}
+.stage-root.uc4 #reportCard.report-design .v7-ring small{font-size:12px;font-weight:400;margin-left:1px}
+.stage-root.uc4 #reportCard.report-design .v7-ring span{font-size:12px;line-height:20px;color:#c9c9c9}
+.stage-root.uc4 #reportCard.report-design .v7-summary-counts{gap:8px;font-size:12px;color:#c9c9c9}
+.stage-root.uc4 #reportCard.report-design .v7-summary-counts>span,.stage-root.uc4 #reportCard.report-design .v7-summary-counts>button{font-size:12px;gap:6px;line-height:22px}
+.stage-root.uc4 #reportCard.report-design .v7-summary-counts strong{font-size:16px;font-weight:500;color:#fff;margin-left:2px}
+.stage-root.uc4 #reportCard.report-design .v7-summary-counts i{width:6px;height:6px}
+.stage-root.uc4 #reportCard.report-design .v11-conclusion{position:relative;min-height:106px;padding:16px;border:1px solid transparent;border-radius:5px;background:linear-gradient(105deg,#353535,#343640) padding-box,linear-gradient(110deg,#985a6e,#8371ae 55%,#47619c) border-box}
+.stage-root.uc4 #reportCard.report-design .v7-conclusion-label{gap:8px;margin:0 0 8px;font-size:14px;line-height:22px;color:#f3f3f3}
+.stage-root.uc4 #reportCard.report-design .v12-summary-copy{font-size:12px;line-height:24px;color:#c9c9c9;margin:0}
+.stage-root.uc4 #reportCard.report-design .v12-summary-copy strong{font-weight:400;color:#f3f3f3}
+.stage-root.uc4 #reportCard.report-design .report-advice-primary{color:#b58cff}
+.stage-root.uc4 #reportCard.report-design .report-advice-confirm{background:linear-gradient(90deg,#d290ff,#f68f5a);background-clip:text;color:transparent}
+.stage-root.uc4 #reportCard.report-design #v7TopOverview>.v7-result-toolbar{min-height:32px;height:32px;margin-bottom:12px}
+.stage-root.uc4 #reportCard.report-design .v7-section-title{font-size:16px;line-height:24px;font-weight:500}
+.stage-root.uc4 #reportCard.report-design .v7-lens{height:32px;width:156px;padding:2px;gap:0;border-radius:5px;background:#454545}
+.stage-root.uc4 #reportCard.report-design .v7-lens button{height:28px;flex:1;padding:0 12px;font-size:14px;color:#c9c9c9}
+.stage-root.uc4 #reportCard.report-design .v7-lens button.selected{background:#0067d1;color:#fff}
+.stage-root.uc4 #reportCard.report-design .v7-top-grid{gap:8px}
+.stage-root.uc4 #reportCard.report-design .report-device-card{padding:0;border:0;border-radius:8px;background:transparent;min-width:0;overflow:hidden;box-shadow:none}
+.stage-root.uc4 #reportCard.report-design .report-device-main{height:176px;padding:24px 16px 16px;background:#333}
+.stage-root.uc4 #reportCard.report-design .report-device-card:hover .report-device-main{background:#393939}
+.stage-root.uc4 #reportCard.report-design .report-device-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;height:22px}
+.stage-root.uc4 #reportCard.report-design .report-device-heading h3{margin:0;font-size:16px;line-height:22px;font-weight:500;min-width:0}
+.stage-root.uc4 #reportCard.report-design .report-device-heading button{font:inherit;color:#f3f3f3;padding:0;white-space:nowrap}
+.stage-root.uc4 #reportCard.report-design .report-device-heading button:hover{color:var(--link)}
+.stage-root.uc4 #reportCard.report-design .report-device-rank{font-size:14px;color:#939393}
+.stage-root.uc4 #reportCard.report-design .report-device-ip{display:flex;align-items:center;gap:4px;font-size:14px;color:#939393;line-height:22px;margin-top:2px}
+.stage-root.uc4 #reportCard.report-design .report-device-ip .ic{width:12px;height:12px}
+.stage-root.uc4 #reportCard.report-design .report-device-main .v7-card-number{margin-top:24px;gap:4px;height:48px}
+.stage-root.uc4 #reportCard.report-design .report-device-main .v7-card-number>strong{font-size:40px;line-height:48px;font-weight:500;color:#fff}
+.stage-root.uc4 #reportCard.report-design .report-device-main .v7-card-number>span{font-size:12px;color:#c9c9c9}
+.stage-root.uc4 #reportCard.report-design .report-ratio{display:flex;align-items:center;gap:12px;font-size:12px;line-height:20px;margin-top:0;white-space:nowrap}
+.stage-root.uc4 #reportCard.report-design .report-ratio-track{flex:1;min-width:24px;height:8px;border-radius:6px;background:#5b5b5b;overflow:hidden}
+.stage-root.uc4 #reportCard.report-design .report-ratio-track i{display:block;height:100%;background:#ef454f;border-radius:6px}
+.stage-root.uc4 #reportCard.report-design .report-ratio>span{font-size:12px;color:#c9c9c9}
+.stage-root.uc4 #reportCard.report-design .report-ratio strong{font-size:12px;font-weight:500;color:#fff}
+.stage-root.uc4 #reportCard.report-design .report-device-priority{height:80px;padding:16px;background:#2a2a2a}
+.stage-root.uc4 #reportCard.report-design .report-device-priority>span{display:block;font-size:12px;line-height:20px;color:#939393;margin-bottom:4px}
+.stage-root.uc4 #reportCard.report-design .v7-priority-distribution{gap:16px;font-size:14px}
+.stage-root.uc4 #reportCard.report-design .v7-priority-count{gap:4px;font-size:14px}
+.stage-root.uc4 #reportCard.report-design .v7-priority-count i{width:8px;height:8px}
+.stage-root.uc4 #reportCard.report-design .v7-priority-count strong{font-size:14px;font-weight:400}
+.stage-root.uc4 #reportCard.report-design .v7-check-details{margin-top:40px;padding-top:0;border:0}
+.stage-root.uc4 #reportCard.report-design .v7-check-details>.v7-section-title{margin-bottom:16px}
+.stage-root.uc4 #reportCard.report-design .v7-status-row{margin-bottom:16px}
+.stage-root.uc4 #reportCard.report-design .v7-status-filters{height:22px;gap:16px}
+.stage-root.uc4 #reportCard.report-design .v7-status-filters button{height:22px;padding:0;border:0;border-radius:0;font-size:14px;gap:6px;color:#c9c9c9}
+.stage-root.uc4 #reportCard.report-design .v7-status-filters button+button{padding-left:16px;border-left:1px solid #666}
+.stage-root.uc4 #reportCard.report-design .v7-status-filters button.selected{background:transparent;color:#f3f3f3}
+.stage-root.uc4 #reportCard.report-design .v7-status-filters i.all{display:none}
+.stage-root.uc4 #reportCard.report-design .v7-status-filters i{width:8px;height:8px}
+.stage-root.uc4 #reportCard.report-design .v7-status-filters strong{font-size:16px;line-height:20px;font-weight:400;padding:0 4px}
+.stage-root.uc4 #reportCard.report-design .v7-status-filters .selected strong{border:1px solid #5ca2e9;background:#0067d160;border-radius:12px}
+.stage-root.uc4 #reportCard.report-design .v7-table-tools{gap:8px;margin-bottom:12px}
+.stage-root.uc4 #reportCard.report-design .v7-table-tools .search{width:296px;height:32px;border-color:#777;border-radius:3px;background:transparent}
+.stage-root.uc4 #reportCard.report-design .v7-rule-select{margin-left:0}
+.stage-root.uc4 #reportCard.report-design .v7-rule-select select{width:174px;height:32px;border-color:#777;font-size:14px}
+.stage-root.uc4 #reportCard.report-design .v7-table{width:100%;table-layout:auto}
+.stage-root.uc4 #reportCard.report-design .v7-table th{height:32px;padding:0 16px;background:#454545;font-size:14px;font-weight:500;line-height:22px;border-bottom:1px solid #666;text-align:left}
+.stage-root.uc4 #reportCard.report-design .v7-table td{height:40px;padding:0 16px;font-size:14px;line-height:22px;border-bottom:1px solid #494949;text-align:left}
+.stage-root.uc4 #reportCard.report-design .v7-table tbody tr:nth-child(odd){background:transparent}
+.stage-root.uc4 #reportCard.report-design .v7-table tbody tr:nth-child(even){background:#ffffff0a}
+.stage-root.uc4 #reportCard.report-design .v7-table tbody tr:hover{background:#ffffff14}
+.stage-root.uc4 #reportCard.report-design .v7-table .link{font-size:14px;color:#f3f3f3}
+.stage-root.uc4 #reportCard.report-design .v7-table .link:hover{color:var(--link)}
+.stage-root.uc4 #reportCard.report-design .v7-table td:nth-child(5) .bad{color:#f3f3f3}
+.stage-root.uc4 #reportCard.report-design .v7-table .bad-tag{background:#e7434a26;color:#ef454f;border:0;border-radius:3px;padding:2px 8px;font-size:12px}
+.stage-root.uc4 #reportCard.report-design .v7-pagination{margin-top:12px;font-size:14px;min-height:32px}
+.stage-root.uc4 #reportCard.report-design .v7-pagination .btn{height:32px;font-size:14px}
+.stage-root.uc4 #reportCard.report-design .v11-conclusion::before{content:"";position:absolute;left:-6px;top:35px;width:10px;height:10px;transform:rotate(45deg);background:#353535;border-left:1px solid #985a6e;border-bottom:1px solid #985a6e}
+.stage-root.uc4 #reportCard.report-design .report-sort-button{display:flex;align-items:center;gap:10px;padding:0;font:inherit;color:inherit;text-align:left;white-space:nowrap}
+.stage-root.uc4 #reportCard.report-design .report-sort-button .ic{width:12px;height:12px;color:#939393}
+.stage-root.uc4 #reportCard.report-design th[aria-sort="ascending"] .ic,.stage-root.uc4 #reportCard.report-design th[aria-sort="descending"] .ic{color:#c9c9c9}
+.stage-root.uc4 #reportCard.report-design .report-page-size{height:32px;width:155px;padding:0 12px;color:#f3f3f3;background:transparent;border:1px solid #777;border-radius:3px;font:inherit}
+.stage-root.uc4 #reportCard.report-design .report-page-size option{background:#393939}
+.stage-root.uc4 #reportCard.report-design .report-page-arrow{width:24px;min-width:24px;padding:0;border:0;background:transparent;color:#c9c9c9}
+.stage-root.uc4 #reportCard.report-design .report-page-arrow .ic{width:16px;height:16px}
+.stage-root.uc4 #reportCard.report-design .v7-pagination .v7-page{background:transparent;min-width:16px;width:auto;padding:0;color:#f3f3f3;font-size:14px}
+.stage-root.uc4 #reportCard.report-design .v9-overview-card{border:0;border-radius:8px;background:#333;box-shadow:none}
+.stage-root.uc4 #reportCard.report-design .v9-overview-card:hover{background:#393939;box-shadow:none}
+/* Pixso 8:472877 — rule TOP cards share the existing upper section, with guidance below. */
+.stage-root.uc4 #reportCard.report-design .report-rule-card{padding:0;border:0;border-radius:8px;background:transparent;min-width:0;overflow:hidden;box-shadow:none}
+.stage-root.uc4 #reportCard.report-design .report-rule-card:hover .report-device-main{background:#393939}
+.stage-root.uc4 #reportCard.report-design .report-rule-heading h3{flex:1;min-width:0}
+.stage-root.uc4 #reportCard.report-design .report-rule-heading h3 button{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stage-root.uc4 #reportCard.report-design .report-rule-priority{height:22px;margin-top:2px;display:flex;align-items:center}
+.stage-root.uc4 #reportCard.report-design .report-rule-priority .v7-priority-badge{padding:0;border:0;border-radius:0;background:transparent;gap:4px;font-size:14px;line-height:22px;color:#939393}
+.stage-root.uc4 #reportCard.report-design .report-rule-priority .v7-priority-badge i{width:8px;height:8px}
+.stage-root.uc4 #reportCard.report-design .report-rule-guidance{height:164px;min-height:164px;padding:16px;background:#2a2a2a}
+.stage-root.uc4 #reportCard.report-design .report-rule-guidance section+section{margin-top:12px}
+.stage-root.uc4 #reportCard.report-design .report-rule-guidance h4{display:flex;align-items:center;gap:4px;font-size:12px;line-height:20px;font-weight:400;color:#dfdfdf;margin:0}
+.stage-root.uc4 #reportCard.report-design .report-rule-guidance h4 img{display:block;flex-shrink:0}
+.stage-root.uc4 #reportCard.report-design .report-rule-guidance p{margin:0 0 0 18px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;min-height:40px;max-height:40px;font-size:12px;line-height:20px;color:#939393}

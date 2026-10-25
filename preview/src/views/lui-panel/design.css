@@ -1,0 +1,72 @@
+/* Pixso 13:10354. LUI and generated-answer content only. */
+.stage-root #lui.lui-refresh{background:#2a2a2a}
+.stage-root #lui.lui-refresh .lui-detail-title{color:#fff;line-height:26px}
+.stage-root #lui.lui-refresh .lui-glyph{display:block;flex-shrink:0;object-fit:contain}
+.stage-root #lui.lui-refresh .generated-card{background:#393939;color:#fff;padding:16px;border-radius:0 16px 16px 16px}
+.stage-root #lui.lui-refresh .response-title{gap:8px;font-size:14px;line-height:22px;font-weight:400;color:#fff}
+.stage-root #lui.lui-refresh .response-title>.ic{width:12px;height:12px}
+.stage-root #lui.lui-refresh .response-steps{margin-top:16px}
+.stage-root #lui.lui-refresh .response-thought{margin:0;color:#939393;font-size:14px;line-height:22px}
+.stage-root #lui.lui-refresh .response-thought summary{display:flex;align-items:center;gap:8px;width:fit-content;list-style:none;cursor:pointer}
+.stage-root #lui.lui-refresh .response-thought summary::-webkit-details-marker{display:none}
+.stage-root #lui.lui-refresh .response-thought summary .ic{width:12px;height:12px}
+.stage-root #lui.lui-refresh .response-thought[open] summary .ic{transform:rotate(180deg)}
+.stage-root #lui.lui-refresh .response-thought p{margin:8px 0 0 22px;color:#c9c9c9;font-size:14px;line-height:22px}
+.stage-root #lui.lui-refresh .response-intent{margin:12px 0;font-size:14px;line-height:22px;color:#fff}
+.stage-root #lui.lui-refresh .workflow-steps .step{padding:0 0 16px 24px;color:#fff}
+.stage-root #lui.lui-refresh .workflow-steps .step:last-child{padding-bottom:0}
+.stage-root #lui.lui-refresh .workflow-steps .step:not(:last-child)::before{background:#494949}
+.stage-root #lui.lui-refresh .step-heading>.step-title{font-size:14px;line-height:22px;font-weight:400;color:#fff}
+.stage-root #lui.lui-refresh .workflow-steps .step-content{padding-top:12px;line-height:22px;color:#fff}
+.stage-root #lui.lui-refresh .step-content .v7-step-artifact{margin-top:12px}
+.stage-root #lui.lui-refresh .workflow-steps .step.is-done>.status{border:0;background:transparent}
+.stage-root #lui.lui-refresh .workflow-steps .step.is-done.is-selected>.status,.stage-root #lui.lui-refresh .workflow-steps .step.is-running>.status{border:0;background:transparent}
+.stage-root #lui.lui-refresh .step.is-running>.status .lui-glyph{animation:lui-step-rotate 1s linear infinite}
+@keyframes lui-step-rotate{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.stage-root #lui.lui-refresh .step.is-running>.status .lui-glyph{animation:none}}
+.stage-root #lui.lui-refresh .generated-card .completion{margin-top:16px;padding-top:16px;border-top:1px solid rgba(243,243,243,.15)}
+.stage-root #lui.lui-refresh .generated-card .completion h2{font-size:14px;line-height:22px;font-weight:400;color:#fff;margin:0 0 20px}
+.stage-root #lui.lui-refresh .generated-card .completion p{font-size:14px;line-height:22px;color:#fff;margin:0 0 20px}
+.stage-root #lui.lui-refresh .completion h3{font-size:14px;line-height:22px;font-weight:500;color:#fff;margin:0 0 8px}
+.stage-root #lui.lui-refresh .audit-advice{list-style:none;padding:0;margin:0 0 20px}
+.stage-root #lui.lui-refresh .audit-advice li{position:relative;display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px;padding:0 0 0 8px;margin:0 0 4px;font-size:14px;line-height:22px;color:#fff}
+.stage-root #lui.lui-refresh .audit-advice li::before{content:"";position:absolute;top:10px;left:0;width:3px;height:3px;background:#939393;border-radius:50%}
+.stage-root #lui.lui-refresh .audit-advice strong{font-weight:400;color:#c9c9c9}
+.stage-root #lui.lui-refresh .completion>.small.muted{font-size:12px;line-height:20px;color:#939393}
+.stage-root #lui.lui-refresh .completion>.v7-step-artifact{margin-top:20px}
+.stage-root #lui.lui-refresh .v7-conclusion-card{position:relative;isolation:isolate;display:flex;align-items:center;gap:16px;width:100%;height:82px;margin:0;padding:16px;border:0;border-radius:12px;background:radial-gradient(ellipse at 100% 50%,rgba(49,99,244,.05),rgba(49,99,244,.0125) 63%,transparent),linear-gradient(#ffffff0d,#ffffff0d),rgba(119,119,119,.15);box-shadow:none;color:#fff}
+.stage-root #lui.lui-refresh .v7-conclusion-card:hover{box-shadow:inset 0 0 0 100px #ffffff0d}
+.stage-root #lui.lui-refresh .v7-conclusion-card>.v7-artifact-icon{width:28px;height:28px}
+.stage-root #lui.lui-refresh .v7-conclusion-copy{gap:4px;flex:1;min-width:0}
+.stage-root #lui.lui-refresh .v7-conclusion-copy strong{padding-right:36px;color:#fff;font-size:16px;font-weight:700;line-height:24px}
+.stage-root #lui.lui-refresh .v7-conclusion-copy>span{font-size:14px;color:#939393;line-height:22px}
+.stage-root #lui.lui-refresh .v7-conclusion-preview{position:absolute;right:16px;top:16px;font-size:14px;color:#5ca2e9;line-height:22px}
+.stage-root #lui.lui-refresh .response-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px;font-size:12px;line-height:20px;color:#939393}
+.stage-root #lui.lui-refresh .response-tools{display:flex;align-items:center;gap:20px}
+.stage-root #lui.lui-refresh .response-tools>button,.stage-root #lui.lui-refresh .response-more>button{display:grid;place-items:center;width:20px;height:20px;padding:0;color:#dfdfdf;background:transparent}
+.stage-root #lui.lui-refresh .response-tools button:hover{opacity:.8}
+.stage-root #lui.lui-refresh .response-tools button[aria-pressed="true"]{background:#5ca2e926;border-radius:4px}
+.stage-root #lui.lui-refresh .response-more{position:relative}
+.stage-root #lui.lui-refresh .response-more-menu{position:absolute;right:0;bottom:28px;min-width:128px;padding:4px;background:#393939;border:1px solid #595959;border-radius:4px;z-index:5}
+.stage-root #lui.lui-refresh .response-more-menu button{display:block;white-space:nowrap;padding:6px 8px;font-size:12px;color:#fff}
+.stage-root #lui.lui-refresh .command-capsule{color:#fff}
+.stage-root #lui.lui-refresh .composer-tool,.stage-root #lui.lui-refresh .composer-send{padding:0;background:transparent}
+.stage-root #lui.lui-refresh .composer-send:disabled{background:transparent;opacity:1}
+.stage-root #lui.lui-refresh .composer-send:not(:disabled){filter:none}
+.stage-root #lui.lui-refresh .composer-tool.is-recording{background:#5ca2e926}
+.stage-root #lui.lui-refresh .composer-hint{display:flex;align-items:center;justify-content:center;gap:4px}
+html:not(.dark) .stage-root #lui.lui-refresh{background:#fafafa}
+html:not(.dark) .stage-root #lui.lui-refresh .generated-card{background:#f0f0f0;color:#191919}
+@media(max-width:1200px){.stage-root #lui.lui-refresh .response-footer{flex-wrap:wrap}.stage-root #lui.lui-refresh .response-tools{margin-left:auto;gap:16px}}
+html:not(.dark) .stage-root #lui.lui-refresh :is(.lui-detail-title,.response-title,.response-intent,.step-heading>.step-title,.workflow-steps .step-content,.completion h2,.completion h3,.completion p,.audit-advice li,.v7-conclusion-copy strong,.command-capsule){color:#191919}
+html:not(.dark) .stage-root #lui.lui-refresh .audit-advice strong{color:#595959}
+
+/* Shared scroll appearance: same 6px thumb in LUI and canvas. */
+.stage-root :is(.lui-scroll-track,.canvas>.scroll-track){right:4px;width:6px;background:transparent;pointer-events:auto;touch-action:none;cursor:pointer}
+.stage-root :is(.lui-scroll-thumb,.canvas>.scroll-track>.scroll-thumb){width:6px;min-height:32px;border-radius:4px;background:#595959;opacity:.3;transition:opacity .15s;cursor:grab;touch-action:none}
+.stage-root :is(.lui-scroll-track,.canvas>.scroll-track):is(:hover,:active,:focus-visible)>div{opacity:1}
+.stage-root :is(.lui-scroll-track,.canvas>.scroll-track):active>div{cursor:grabbing}
+.stage-root.pc-layout .canvas-content{scrollbar-width:none}
+.stage-root *{scrollbar-color:#5959594d transparent}
+.stage-root ::-webkit-scrollbar-thumb{background:#5959594d;border-radius:4px}
+.stage-root ::-webkit-scrollbar-thumb:hover{background:#595959}

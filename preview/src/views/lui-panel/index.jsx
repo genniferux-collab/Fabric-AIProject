@@ -2,8 +2,10 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 import { useApp, highlightLocate } from "../../context.jsx";
 import { v7WorkflowSteps, v7WorkflowRunning, recs } from "../../mock/workflow.js";
 import { ArtifactTag } from "../../components/status-marks/index.jsx";
-import { SummaryCopy } from "../report-card/index.jsx";
-import { affectedBy } from "../../mock/audit.js";
+import { affectedBy, summaryParts } from "../../mock/audit.js";
+import LuiGlyph from "./glyph.jsx";
+import ResponseTools from "./response-tools.jsx";
+import "./design.css";
 import Uc2Chat from "./uc2-chat.jsx";
 import Ic from "../../components/icon-el/index.jsx";
 import Composer from "./composer.jsx";
@@ -76,7 +78,7 @@ function WorkflowSteps({ active, groupExpanded }) {
   const revealedSeq = useRef(0);
   const highlightedSeq = useRef(0);
   useEffect(() => {
-    setOpenSteps(active < 4 && groupExpanded ? { [active]: true } : {});
+    setOpenSteps(groupExpanded ? (active < 4 ? { [active]: true } : {0:true,1:true,2:true,3:true}) : {});
     setSelectedStep(active < 4 ? active : null);
   }, [active, groupExpanded]);
   useEffect(() => {
@@ -105,7 +107,7 @@ function WorkflowSteps({ active, groupExpanded }) {
     });
     return () => cancelAnimationFrame(frame);
   }, [luiFocus, groupExpanded, openSteps]);
-  const products = { 0: "network", 2: "artifact" };
+  const products = { 0: "network", 1: "network", 2: "artifact", 3: "report" };
   const toggle = index => { setSelectedStep(index); setOpenSteps(steps => ({ ...steps, [index]: !steps[index] })); };
   return (
     <div className="steps workflow-steps" ref={stepsRef}>
@@ -119,12 +121,12 @@ function WorkflowSteps({ active, groupExpanded }) {
         return (
           <div key={step.title} className={"step " + (done ? "is-done" : current ? "is-running" : "pending") + (selectedStep === index ? " is-selected" : "")} data-step-index={index}>
             <span className={"status " + (done ? "done" : current ? "running" : "")} aria-label={done ? "已完成" : current ? "进行中" : "待执行"}>
-              {done ? <svg className="workflow-node-check" viewBox="0 0 12 12" aria-hidden="true"><path d="M1 6.5 2.2 5.3 4.4 7.5 9.8 2.1 11 3.3 4.4 9.9Z" /></svg> : current ? <i className="v7-step-spinner" /> : index + 1}
+              {done ? <LuiGlyph name={selectedStep === index ? "step-selected" : "step-done"} size={16}/> : current ? <LuiGlyph name="step-running" size={16}/> : index + 1}
             </span>
             <div className="step-heading">
-              <button type="button" className="step-title" disabled={!available} aria-expanded={expanded} aria-controls={`workflowStep${index}`} onClick={() => toggle(index)}>{step.title}</button>
+              <button type="button" className="step-title" disabled={!available} aria-expanded={expanded} aria-controls={`workflowStep${index}`} onClick={() => toggle(index)}>{index === 0 && current ? "扫描拓扑并识别全网设备" : step.title}</button>
               {available && <div className="step-actions">
-                {product && <><button type="button" className="step-action" aria-label={`定位步骤：${step.title}`} title="定位到画布" onClick={() => { setSelectedStep(index); locate(product, "step"); }}><Ic variant={isDark ? "filled" : "lined"} icon="locate-fixed" /></button><span className="step-action-divider" aria-hidden="true" /></>}
+                {product && <><button type="button" className="step-action" aria-label={`定位步骤：${step.title}`} title="定位到画布" onClick={() => { setSelectedStep(index); locate(product, "step"); }}><img className="lui-glyph" src="./assets/uploads/lui-step-locate.svg" width="12" height="12" alt=""/></button><span className="step-action-divider" aria-hidden="true" /></>}
                 <button type="button" className="step-action" aria-label={`${expanded ? "收起" : "展开"}步骤：${step.title}`} aria-expanded={expanded} aria-controls={`workflowStep${index}`} onClick={() => toggle(index)}><Ic variant={isDark ? "filled" : "lined"} icon={expanded ? "chevron-up" : "chevron-down"} /></button>
               </div>}
             </div>
@@ -151,12 +153,14 @@ function WorkflowSteps({ active, groupExpanded }) {
 }
 
 // 完成态汇报（最终文案口径）
-function Completion({ onLocateReport }) {
+function Completion({ onLocateReport, timestamp }) {
+  const summary = summaryParts();
   return (
     <>
       <section className="completion audit-completion">
         <h2>已完成 HCS1 区的全量基线检查</h2>
-        <p><SummaryCopy/></p>
+        <p>已对 {summary.total}台设备执行全部 24条适用规则检查，{summary.passed}台通过、{summary.failed}台不通过，整网合规度为 {summary.compliance}%。</p>
+        <p>发现 {summary.rules}条规则不通过，包括{summary.top}等。单台设备最多有 4条规则不通过，详情见右侧报告。</p>
         <h3>处理建议</h3>
         <ul className="audit-advice">
           <li><strong>登录安全：</strong>{affectedBy("timeout").length}台设备存在空闲超时超限，3台设备使用不符合基线的 SSH 算法，建议核验后调整。</li>
@@ -165,7 +169,7 @@ function Completion({ onLocateReport }) {
         </ul>
         <div className="small muted">以上为建议，尚未执行；具体配置与修复命令按设备、规则分别查看。</div>
         <div className="v7-step-artifact">
-          <ArtifactTag title="HCS1 区基线检查报告" type="conclusion" shape="report" onLocate={onLocateReport} />
+          <ArtifactTag title="HCS1 区基线检查报告" type="conclusion" shape="report" timestamp={timestamp} onLocate={onLocateReport} />
         </div>
       </section>
     </>
@@ -176,22 +180,28 @@ function Completion({ onLocateReport }) {
 function InspectionConversation({ running, active, prompt, onLocateReport }) {
   const { isDark, luiFocus } = useApp();
   const [expanded, setExpanded] = useState(true);
-  useEffect(() => { if (!running) setExpanded(false); }, [running]);
+  const started = useRef(Date.now());
+  const [finished, setFinished] = useState(null);
+  useEffect(() => { setExpanded(true); if(running){started.current=Date.now();setFinished(null);} else {setFinished({at:new Date(),duration:((Date.now()-started.current)/1000).toFixed(1)});} }, [running]);
   useEffect(() => { if (luiFocus) setExpanded(true); }, [luiFocus]);
-  const title = running ? "正在执行处置步骤" : "已完成基线检查 · 4个步骤";
+  const title = running ? "正在执行处置步骤" : "已完成思考";
+  const timestamp = finished ? `${finished.at.getFullYear()}-${String(finished.at.getMonth()+1).padStart(2,"0")}-${String(finished.at.getDate()).padStart(2,"0")} ${finished.at.toTimeString().slice(0,8)}` : "";
+  const summary = summaryParts();
   return (
     <>
       <div className="user-msg">{prompt}</div>
       <article className="generated-card" aria-label="基线检查回答">
         <div className="response-process">
           <button type="button" className="response-title" aria-expanded={expanded} aria-controls="uc4WorkflowSteps" onClick={() => setExpanded(value => !value)}>
-            <span>{title}</span><Ic variant={isDark ? "filled" : "lined"} icon={expanded ? "chevron-up" : "chevron-down"} />
+            <LuiGlyph name={running ? "processing" : "completed"} size={14}/><span>{title}</span><Ic variant={isDark ? "filled" : "lined"} icon={expanded ? "chevron-up" : "chevron-down"} />
           </button>
           <div className="response-steps" id="uc4WorkflowSteps" hidden={!expanded}>
+            <details className="response-thought"><summary><LuiGlyph name="thought" size={14}/><span>已思考</span><Ic icon="chevron-down"/></summary><p>根据 HCS1 的设备配置和既定基线规则执行检查。</p></details>
+            <p className="response-intent">已理解您的意图，开始为您检查设备配置。</p>
             <WorkflowSteps active={running ? active : 4} groupExpanded={expanded} />
           </div>
         </div>
-        {!running && <Completion onLocateReport={onLocateReport} />}
+        {!running && <><Completion onLocateReport={onLocateReport} timestamp={timestamp}/><ResponseTools timestamp={timestamp.slice(5)} duration={finished?.duration || "0.0"} text={`已检查 HCS1 区 ${summary.total} 台设备，${summary.passed} 台通过、${summary.failed} 台不通过，整网合规度 ${summary.compliance}%。发现 ${summary.rules} 条规则不通过。`}/></>}
       </article>
     </>
   );
@@ -225,11 +235,11 @@ export default function LuiPanel() {
     <aside className={"lui" + (luiView !== "uc2" ? " lui-refresh" : "") + (luiOpen ? "" : " closed")} id="lui">
       <div className="lui-head between">
         <div className="lui-detail-heading">
-          <button className="lui-header-icon" aria-label={luiView === "home" ? "返回首页" : "返回智能体首页"} onClick={luiView === "home" ? goCockpit : openAgentHome}><Ic variant={isDark ? "filled" : "lined"} icon="arrow-left" /></button>
+          <button className="lui-header-icon" aria-label={luiView === "home" ? "返回首页" : "返回智能体首页"} onClick={luiView === "home" ? goCockpit : openAgentHome}><LuiGlyph name="back" size={20}/></button>
           <span className="lui-detail-title">{detailTitle}</span>
         </div>
         <div className="lui-more" ref={menuRef}>
-          <button className="lui-header-icon" title="更多" aria-label="更多" aria-haspopup="menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(value => !value)}><Ic variant={isDark ? "filled" : "lined"} icon="ellipsis" /></button>
+          <button className="lui-header-icon" title="更多" aria-label="更多" aria-haspopup="menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(value => !value)}><img className="lui-glyph" src="./assets/uploads/lui-more.svg" width="20" height="20" alt=""/></button>
           {menuOpen && <div className="lui-more-menu" role="menu" aria-label="LUI 更多操作">
             <button role="menuitem" onClick={() => { setMenuOpen(false); openAgentHome(); }}>新对话</button>
             <button role="menuitem" onClick={() => { setMenuOpen(false); goCockpit(); }}>关闭面板</button>

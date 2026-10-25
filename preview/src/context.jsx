@@ -17,11 +17,17 @@ export function scrollCanvasTo(element, behavior = 'smooth') {
   container.scrollTo({ top: Math.max(0, top), behavior });
 }
 
+const locateHighlightTimers = new WeakMap();
 export function highlightLocate(element) {
   if (!element) return;
+  clearTimeout(locateHighlightTimers.get(element));
   element.classList.remove('flash', 'locate-highlight');
   void element.offsetWidth;
   element.classList.add('locate-highlight');
+  locateHighlightTimers.set(element, setTimeout(() => {
+    element.classList.remove('locate-highlight');
+    locateHighlightTimers.delete(element);
+  }, 2400));
 }
 
 export function stateFor(map, id) {
@@ -147,7 +153,8 @@ export function AppProvider({ children }) {
     }
     setStage(index);
     setRunningIndex(index);
-    timerRef.current = setTimeout(() => advanceRef.current(index + 1), 1200);
+    // Matching owns completion, so its connections can finish before advancing.
+    if (index !== 2) timerRef.current = setTimeout(() => advanceRef.current(index + 1), 1200);
   };
 
   // ---- UC2 黄金基线挖掘状态机 ----
@@ -279,6 +286,10 @@ export function AppProvider({ children }) {
     if (runningRef.current) advanceRef.current(1);
   }, []);
 
+  const notifyMappingComplete = useCallback(() => {
+    if (runningRef.current) advanceRef.current(3);
+  }, []);
+
   const runTask = useCallback((prompt) => {
     setLuiFocus(null);
     setActiveArtifact(null);setArtifactTabs([]);
@@ -368,7 +379,7 @@ export function AppProvider({ children }) {
       const el = target === 'step' ? card?.closest('.workflow-canvas-step') || card : card;
       if (!el) return;
       scrollCanvasTo(el);
-      highlightLocate(el);
+      highlightLocate(card);
     }));
   }, []);
   const locateRef = useRef(() => {});
@@ -395,7 +406,7 @@ export function AppProvider({ children }) {
     isDark, toggleDark: () => setIsDark((d) => !d),
     luiOpen, canvasHidden, agentActive, full, setFull,
     luiView, taskPrompt, stage, runningIndex, scanSeq, promptText, setPromptText,
-    scanCtlRef, notifyScanComplete,
+    scanCtlRef, notifyScanComplete, notifyMappingComplete,
     openAgentHome, goCockpit, toggleAgent, runTask, chooseUC, submitPrompt,
     openDevices, activePane, switchPane, openDevice, closeDevice,
     reportScrollRef, deviceStatesRef, deviceVersion, bumpDevices,

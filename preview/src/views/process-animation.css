@@ -1,0 +1,60 @@
+/* UC4 discovery and matching states; keep other use cases isolated. */
+.stage-root.uc4 .v7-physical-topology path{fill:none;stroke:#7895b8;stroke-width:1.2;opacity:.55}
+.stage-root.uc4 .v7-physical-topology .v7-physical-backbone{stroke:#9aaee5;stroke-width:1.6}
+.stage-root.uc4 .v7-physical-vendor{fill:var(--secondary);font-size:13px;font-weight:500}
+.stage-root.uc4 .v7-physical-role{fill:var(--muted);font-size:11px}
+.stage-root.uc4 .v7-physical-topology .v7-topology-signal{stroke:#8eddf5;stroke-width:2.5;stroke-dasharray:32 220;opacity:.95;animation:v7-topology-flow 2s linear infinite;filter:drop-shadow(0 0 3px #74b6f5)}
+.stage-root.uc4 .v7-network-map:not(.is-scanning) .v7-topology-signal{animation:none;opacity:0}
+.stage-root.uc4 .v7-topology-scan-beam{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 70%,#75b7ff03 80%,#86caff20 98%,#a2d4ff9c 99%,transparent);animation:v7-topology-scan 2.38s linear both}
+.stage-root.uc4 .is-scanning .v7-network-device:not(.identified)>rect{fill:#7893b1}
+.stage-root.uc4 [data-scan-phase="counting"] .v7-network-device:not(.identified)>rect{fill:#535960}
+.stage-root.uc4 .v7-network-device.identified>rect{transition:fill .18s ease;filter:drop-shadow(0 0 1.5px #5ca2e947)}
+.stage-root.uc4 .v7-network-progress>[role="status"]{min-width:235px}
+.stage-root.uc4 .v7-network-summary strong{display:inline-block;min-width:26px;font-variant-numeric:tabular-nums}
+.stage-root.uc4 .v7-network-legend>.v7-scan-phases{margin-left:auto;gap:14px;font-size:11px;color:var(--muted)}
+.stage-root.uc4 .v7-scan-phases>span{display:flex;align-items:center;gap:5px}
+.stage-root.uc4 .v7-scan-phases>span::before{content:'';width:4px;height:4px;border-radius:50%;background:currentColor;opacity:.5}
+.stage-root.uc4 .v7-scan-phases>.active{color:#a5bcff}
+.stage-root.uc4 .v7-scan-phases>.active::before{box-shadow:0 0 6px #a18bfa;opacity:1}
+.stage-root.uc4 .v7-scan-phases>.finished{color:#82afc0}
+@keyframes v7-topology-flow{to{stroke-dashoffset:-252}}
+@keyframes v7-topology-scan{from{transform:translateY(-100%)}to{transform:translateY(15%)}}
+
+.stage-root.uc4 #mappingCard .match-caption{white-space:nowrap}
+.stage-root.uc4 #mappingCard .match-caption.is-active{color:#b0b4fa}
+.stage-root.uc4 #mappingCard .v7-match-base{stroke:#7e94b9;stroke-width:1.2;opacity:.47;stroke-linecap:butt}
+.stage-root.uc4 #mappingCard .v7-match-route.is-growing .v7-match-base{stroke:#a4b2f5;opacity:.85}
+.stage-root.uc4 #mappingCard .v7-match-flow{fill:none;stroke-width:2;stroke-linecap:round;stroke-dasharray:.045 .195;opacity:.65;animation:v7-match-flow 3.2s linear infinite;filter:drop-shadow(0 0 2px #9c8bfa77);pointer-events:none}
+.stage-root.uc4 #mappingCard .v7-match-route.is-growing .v7-match-flow{stroke-width:2.5;opacity:1}
+.stage-root.uc4 #mappingCard .v7-match-route.hot .v7-match-base{stroke:#a0bbff;stroke-width:2;opacity:.85}
+.stage-root.uc4 #mappingCard .v7-match-route.hot .v7-match-flow{opacity:1}
+.stage-root.uc4 #mappingCard .v7-match-route.fade{opacity:.1}
+.stage-root.uc4 #mappingCard .v7-map-node{transition:border-color .4s ease,box-shadow .5s ease,opacity .2s ease}
+.stage-root.uc4 #mappingCard .v7-map-node.is-matching{border-color:#a7a1ed;box-shadow:0 0 13px #9484ff16}
+/* A clipped, moving chromatic band lights the inside perimeter, like Siri. */
+.stage-root.uc4 #mappingCard .v7-map-node.is-matching::before,
+.stage-root.uc4 #mappingCard .v7-map-split.is-matching>.node::before{content:'';position:absolute;inset:0;width:auto;height:auto;top:0;left:0;border:0;border-radius:inherit;pointer-events:none;z-index:2;background:radial-gradient(ellipse at 0% 30%,#67dcffbb,transparent 52%),radial-gradient(ellipse at 100% 70%,#e79ccdbb,transparent 52%),radial-gradient(ellipse at 55% 0%,#9d7fffb0,transparent 65%);background-size:180% 180%;padding:8px;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;filter:blur(5px);opacity:.85;animation:v7-intelligence-glow 2s ease-in-out infinite alternate}
+.stage-root.uc4 #mappingCard .v7-map-node.is-matching::after{border-color:#a3a3eb;box-shadow:inset 6px 0 13px -8px #70dfff,inset -6px 0 13px -8px #eda4e0,inset 0 5px 13px -8px #ad8aff}
+.stage-root.uc4 #mappingCard .v7-map-node.is-matching>.node .node-icon{color:#c2c7ff;background:#9a8ff51e;box-shadow:inset 0 0 12px #9a8ff51c}
+.stage-root.uc4 #mappingCard .v7-map-node.is-matching>.node.group::after,
+.stage-root.uc4 #mappingCard .v7-map-node.is-matching>.node.ruleset::before{background:#c2b3ff;box-shadow:0 0 8px #ad8aff}
+.stage-root.uc4 #mappingCard .v7-matching-status{display:flex;justify-content:space-between;gap:16px;align-items:center;border-top:1px solid var(--line);padding-top:14px;margin-top:12px;font-size:12px;color:var(--muted)}
+.stage-root.uc4 #mappingCard .v7-matching-status>span:first-child{display:flex;align-items:center;gap:8px}
+.stage-root.uc4 #mappingCard .v7-matching-status i{display:block;width:5px;height:5px;border-radius:50%;background:#879ab8}
+.stage-root.uc4 #mappingCard .v7-matching-status>.is-active{color:#b6b8ee}
+.stage-root.uc4 #mappingCard .v7-matching-status>.is-active i{background:#b2a0ff;box-shadow:0 0 7px #ab8eff;animation:v7-match-breathe 1.5s ease-in-out infinite}
+.stage-root.uc4 #mappingCard .v7-matching-status>span:last-child{white-space:nowrap;font-variant-numeric:tabular-nums}
+@keyframes v7-match-flow{from{stroke-dashoffset:0}to{stroke-dashoffset:-.24}}
+@keyframes v7-intelligence-glow{0%{background-position:0% 15%;opacity:.6}100%{background-position:100% 85%;opacity:1}}
+@keyframes v7-match-breathe{50%{opacity:.4}}
+html:not(.dark) .stage-root.uc4 #mappingCard .match-caption.is-active,
+html:not(.dark) .stage-root.uc4 #mappingCard .v7-matching-status>.is-active,
+html:not(.dark) .stage-root.uc4 .v7-scan-phases>.active{color:#6d59bc}
+html:not(.dark) .stage-root.uc4 #mappingCard .v7-match-flow{opacity:.9;filter:none}
+html:not(.dark) .stage-root.uc4 #mappingCard .v7-map-node.is-matching::before{opacity:.6}
+@media(prefers-reduced-motion:reduce){
+  .stage-root.uc4 .v7-topology-signal,.stage-root.uc4 .v7-topology-scan-beam,
+  .stage-root.uc4 #mappingCard .v7-match-flow,.stage-root.uc4 #mappingCard .is-matching::before,
+  .stage-root.uc4 #mappingCard .v7-matching-status i{animation:none!important}
+  .stage-root.uc4 .v7-topology-scan-beam{display:none}
+}

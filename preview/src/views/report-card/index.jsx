@@ -2,7 +2,7 @@ import ArtifactOpen from "../../components/artifact-open/index.jsx";
 import { useMemo, useRef, useState } from "react";
 import { useApp, scrollCanvasTo } from "../../context.jsx";
 import { devices } from "../../mock/devices.js";
-import { checks, checkById, deviceRuleTotal } from "../../mock/checks.js";
+import { checks, checkById, deviceRuleTotal, applicableChecks } from "../../mock/checks.js";
 import {
   summaryParts, audit, compliance, failedDevices, overviewDevices, priorityRankedRules, comparePriorityDevices,
   priorityLabels, priorityOf, priorityCounts, ruleShort, sortedFailedRules, v7RuleRequirements,
@@ -13,13 +13,29 @@ import Ic from "../../components/icon-el/index.jsx";
 import SearchInput from "../../components/search-input/index.jsx";
 import OptionGroup from "../../components/option-group/index.jsx";
 import EmptyState from "../../components/empty-state/index.jsx";
+import "./design.css";
 
-const detailPageSize = 10;
 
 export function SummaryCopy(){const s=summaryParts();return <>已检查 HCS1 区 <strong>{s.total} 台设备</strong>，其中 <strong>{s.failed} 台未通过</strong>、{s.passed} 台通过，整网合规度 <strong>{s.compliance}%</strong>。发现共计 <strong>{s.rules} 条规则不通过</strong>，包括{s.top}等。建议优先核验高优先级项，结合变更记录确认后修复。</>}
-function RatioBar({failed,total}){const percent=total?failed/total*100:0;return <div className="v8-ratio"><div className="v8-ratio-track" role="img" aria-label={failed+'条不通过，'+(total-failed)+'条通过'}><span className="v8-ratio-failed" style={{width:percent+'%'}}/><span className="v8-ratio-passed" style={{width:(100-percent)+'%'}}/></div><div className="v8-ratio-labels"><span><i/>不通过 {Number(percent.toFixed(1))}%</span><span>共 {total}条</span></div></div>}
-function RuleCard({r,index}){return <article className="v7-top-card v8-overview-card v9-overview-card" data-rule-card={r.id}><div className="v7-card-title"><span className="v7-rank">{index+1}</span><div className="v7-rule-heading"><h3 title={checkById(r.id).name}>{r.name}</h3><PriorityBadge priority={r.priority}/></div></div><div className="v7-card-number"><strong>{r.devices.length}</strong><span>台设备不通过</span></div><div className="v7-rule-context"><section className="v7-check-requirement"><h4>检查要求</h4><p>{v7RuleRequirements[r.id]||checkById(r.id).expected}</p></section><section className="v7-repair-direction"><h4>修复方向</h4><p>{v7RepairDirections[r.id]}</p></section></div></article>}
-function DeviceCard({d,index}){const {openDevice}=useApp();return <article className="v7-top-card v8-overview-card v9-overview-card"><div className="v7-card-title"><span className="v7-rank">{index+1}</span><h3><button onClick={()=>openDevice(d.id)}>{d.name}</button></h3></div><div className="v7-device-ip">{d.ip}</div><div className="v7-card-number"><strong>{d.fails.length}</strong><span>条规则不通过</span></div><RatioBar failed={d.fails.length} total={deviceRuleTotal(d)}/><div className="v7-device-priority"><span className="v7-viz-note">规则优先级分布</span><PriorityDistribution device={d}/></div></article>}
+function RatioBar({failed,total,unit="条"}){const percent=total?failed/total*100:0;return <div className="report-ratio"><div className="report-ratio-track" role="img" aria-label={failed+unit+'不通过，'+(total-failed)+unit+'通过'}><i style={{width:percent+'%'}} /></div><span>不通过率<strong>{Number(percent.toFixed(1))}%</strong></span></div>}
+function RuleCard({r,index,onShowList}){
+  const total = devices.filter(d => applicableChecks(d).some(rule => rule.id === r.id)).length;
+  const requirement = v7RuleRequirements[r.id] || checkById(r.id).expected;
+  const repair = v7RepairDirections[r.id];
+  return <article className="v7-top-card report-rule-card" data-rule-card={r.id}>
+    <div className="report-device-main">
+      <div className="report-device-heading report-rule-heading"><h3 title={r.name}><button aria-label={"查看"+r.name+"的检查明细"} onClick={()=>onShowList(r.id)}>{r.name}</button></h3><span className="report-device-rank">{index+1}</span></div>
+      <div className="report-rule-priority"><PriorityBadge priority={r.priority}/></div>
+      <div className="v7-card-number"><strong>{r.devices.length}</strong><span>台设备不通过</span></div>
+      <RatioBar failed={r.devices.length} total={total} unit="台设备"/>
+    </div>
+    <div className="report-rule-guidance">
+      <section><h4><img src="./assets/uploads/report-rule-requirement.svg" width="14" height="14" alt=""/>检查要求</h4><p title={requirement}>{requirement}</p></section>
+      <section><h4><img src="./assets/uploads/report-rule-repair.svg" width="14" height="14" alt=""/>修复方向</h4><p title={repair}>{repair}</p></section>
+    </div>
+  </article>;
+}
+function DeviceCard({d,index}){const {openDevice}=useApp();return <article className="v7-top-card report-device-card"><div className="report-device-main"><div className="report-device-heading"><h3><button onClick={()=>openDevice(d.id)}>{d.name}</button></h3><span className="report-device-rank">{index+1}</span></div><div className="report-device-ip"><img src="./assets/uploads/report-ip-address.svg" width="14" height="14" alt=""/><span>{d.ip}</span></div><div className="v7-card-number"><strong>{d.fails.length}</strong><span>条规则不通过</span></div><RatioBar failed={d.fails.length} total={deviceRuleTotal(d)}/></div><div className="report-device-priority"><span>规则优先级分布</span><PriorityDistribution device={d}/></div></article>}
 
 export default function ReportCard({ cardRef }) {
   const { openDevice } = useApp();
@@ -28,6 +44,9 @@ export default function ReportCard({ cardRef }) {
   const [ruleFilter, setRuleFilter] = useState(null);
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
+  const [detailPageSize, setDetailPageSize] = useState(10);
+  const [sortKey, setSortKey] = useState("priority");
+  const [sortDirection, setSortDirection] = useState("desc");
   const overviewRef = useRef(null);
   const detailsRef = useRef(null);
 
@@ -41,8 +60,14 @@ export default function ReportCard({ cardRef }) {
         (!ruleFilter || d.fails.includes(ruleFilter)) &&
         (d.name + " " + d.ip + " " + d.model + " " + deviceTypeLabel(d) + " " + deviceVendorLabel(d)).toLowerCase().includes(query.toLowerCase())
       ))
-      .sort(comparePriorityDevices)
-  ), [status, ruleFilter, query]);
+      .sort((a,b) => {
+        if(sortKey === "priority") return (sortDirection === "desc" ? 1 : -1) * comparePriorityDevices(a,b);
+        const value = d => sortKey === "name" ? d.name : sortKey === "ip" ? d.ip : sortKey === "type" ? deviceTypeLabel(d) : sortKey === "vendor" ? deviceVendorLabel(d) : d.fails.length ? "不通过" : "通过";
+        return value(a).localeCompare(value(b), "zh-CN", {numeric:true}) * (sortDirection === "asc" ? 1 : -1) || comparePriorityDevices(a,b);
+      })
+  ), [status, ruleFilter, query, sortKey, sortDirection]);
+
+  const sortHeader = (label, key) => <th aria-sort={sortKey === key ? (sortDirection === "asc" ? "ascending" : "descending") : "none"}><button className="report-sort-button" aria-label={"按"+label+"排序"} onClick={() => {setSortKey(key);setSortDirection(sortKey === key && sortDirection === "asc" ? "desc" : "asc");setPage(1);}}>{label}<Ic icon="arrow-down-up" /></button></th>;
 
   const pages = Math.max(1, Math.ceil(rows.length / detailPageSize));
   const current = Math.max(1, Math.min(page, pages));
@@ -61,7 +86,7 @@ export default function ReportCard({ cardRef }) {
   };
 
   return (
-    <section className="card report-card v7-report artifact-card conclusion-artifact v7-card-tabbed" id="reportCard" ref={cardRef}>
+    <section className="card report-card v7-report artifact-card conclusion-artifact v7-card-tabbed report-design" id="reportCard" ref={cardRef}>
       <ArtifactOpen kind="report" title="HCS1 区基线检查报告"/>
       <div className="v7-report-heading">
         <div className="row">
@@ -69,13 +94,13 @@ export default function ReportCard({ cardRef }) {
           <h2 className="card-title">HCS1 区基线检查报告</h2>
         </div>
       </div>
-      <div className="v7-report-meta">西三旗 DC / HCS1 · 已检查{audit.total}台设备 · {checks.length}条适用规则 · 基于本次配置快照</div>
+      <div className="v7-report-meta"><span><Ic icon="map-pin"/>西三旗 DC / HCS1</span><span>已检查{audit.total}台设备</span><span>{checks.length}条适用规则</span></div>
       <div className="v7-summary v11-summary">
         <section className="v7-compliance">
           <div className="v7-ring" role="img" aria-label={`整网合规度${compliance()}%，${audit.passed}台通过，${failedDevices().length}台不通过`}>
             <svg viewBox="0 0 104 104" aria-hidden="true">
-              <circle cx="52" cy="52" r="44" pathLength="100" fill="none" stroke="var(--fail)" strokeWidth="7" />
-              <circle cx="52" cy="52" r="44" pathLength="100" fill="none" stroke="var(--good)" strokeWidth="7" strokeDasharray={`${(audit.passed / audit.total) * 100} 100`} />
+              <defs><linearGradient id="report-compliance-green"><stop stopColor="#25bc91"/><stop offset=".72" stopColor="#36c9a0"/><stop offset="1" stopColor="#d7fff2"/></linearGradient><filter id="report-ring-glow"><feGaussianBlur stdDeviation="2"/></filter></defs><circle cx="52" cy="52" r="44" fill="none" stroke="#ffffff04" strokeWidth="22"/><circle cx="52" cy="52" r="44" pathLength="100" fill="none" stroke="#ef454f" strokeWidth="6.5" />
+              <circle cx="52" cy="52" r="44" pathLength="100" fill="none" stroke="url(#report-compliance-green)" strokeWidth="6.5" strokeDasharray={`${(audit.passed / audit.total) * 100} 100`} />
             </svg>
             <div>
               <strong>{compliance()}<small>%</small></strong>
@@ -83,13 +108,13 @@ export default function ReportCard({ cardRef }) {
             </div>
           </div>
           <div className="v7-summary-counts">
-            <span><i className="good-dot" /><strong>{audit.passed}</strong> 台通过</span>
+            <span><i className="good-dot" />已通过 <strong>{audit.passed}</strong></span>
             <button title="定位不通过设备的检查明细" onClick={() => showDeviceList()}>
-              <i className="bad-dot" /><strong>{failedDevices().length}</strong> 台不通过 ›
+              <i className="bad-dot" />不通过 <strong>{failedDevices().length}</strong>
             </button>
           </div>
         </section>
-        <section className="v7-conclusion v11-conclusion"><div className="v7-conclusion-label"><Ic icon="sparkles"/>检查结论</div><p className="v12-summary-copy"><SummaryCopy/></p></section>
+        <section className="v7-conclusion v11-conclusion"><div className="v7-conclusion-label"><img src="./assets/uploads/report-conclusion-sparkle.svg" width="20" height="20" alt=""/>检查结论</div><p className="v12-summary-copy">已检查 HCS1 区 <strong>{audit.total}</strong> 台设备，其中 <strong>{failedDevices().length}</strong> 台未通过、<strong>{audit.passed}</strong> 台通过，整网合规度 <strong>{compliance()}%</strong>。发现共计 <strong>{rules.length}</strong> 条规则不通过，包括{summaryParts().top}等。建议<span className="report-advice-primary">优先核验高优先级项</span>，<span className="report-advice-confirm">结合变更记录确认后修复。</span></p></section>
       </div>
       <section id="v7TopOverview" className="v7-overview-section" ref={overviewRef}>
         <div className="v7-result-toolbar">
@@ -116,6 +141,7 @@ export default function ReportCard({ cardRef }) {
               renderOption={(opt) => <><i className={opt[0]} />{opt[1]} <strong>{opt[2]}</strong></>} />
           </div>
           <div className="v7-table-tools">
+            <SearchInput id="v7DeviceSearch" value={query} onChange={(v) => { setQuery(v); setPage(1); }} placeholder="请输入设备名称/管理IP/型号" ariaLabel="搜索设备明细" />
             <label className="v7-rule-select">
               <select id="v7RuleFilter" aria-label="规则筛选" value={ruleFilter || ""} onChange={(e) => { setRuleFilter(e.target.value || null); setPage(1); }}>
                 <option value="">全部规则</option>
@@ -124,7 +150,6 @@ export default function ReportCard({ cardRef }) {
                 ))}
               </select>
             </label>
-            <SearchInput id="v7DeviceSearch" value={query} onChange={(v) => { setQuery(v); setPage(1); }} placeholder="搜索设备名称、IP、类型或厂商" ariaLabel="搜索设备明细" />
           </div>
           {ruleFilter ? (
             <div className="v7-filter-context">
@@ -136,8 +161,8 @@ export default function ReportCard({ cardRef }) {
             <table className="rule-table v7-table">
               <thead>
                 <tr>
-                  <th>设备名称</th><th>设备IP</th><th>设备类型</th><th>厂商</th><th>不通过规则数</th>
-                  <th title="先按不通过规则数降序；数量相同时依次比较高、中、低优先级数量">优先级分布</th><th>检查结果</th>
+                  {sortHeader("设备名称","name")}{sortHeader("设备IP","ip")}{sortHeader("设备类型","type")}{sortHeader("厂商","vendor")}<th>不通过规则数量</th>
+                  {sortHeader("优先级分布","priority")}{sortHeader("检查结果","result")}
                 </tr>
               </thead>
               <tbody>
@@ -157,16 +182,18 @@ export default function ReportCard({ cardRef }) {
             </table>
           </div>
           <div className="v7-pagination">
-            <span>共{rows.length}台 · {detailPageSize}条/页 · 按不通过规则数排序</span>
+            <span>总计：{rows.length}</span>
             <div className="row">
-              <button className="btn" disabled={current === 1} onClick={() => setPage(current - 1)}>上一页</button>
+              <select className="report-page-size" aria-label="每页条数" value={detailPageSize} onChange={e => {setDetailPageSize(Number(e.target.value));setPage(1);}}>{[10,20,50].map(size=><option key={size} value={size}>{size} 条/页</option>)}</select>
+              <button className="btn report-page-arrow" aria-label="上一页" disabled={current === 1} onClick={() => setPage(current - 1)}><Ic icon="chevron-left"/></button>
               {near.map((n, i) => (
                 <span key={n} style={{ display: "contents" }}>
                   {i && n - near[i - 1] > 1 ? <span>…</span> : null}
                   <button className={"v7-page" + (n === current ? " active" : "")} aria-label={"第" + n + "页"} aria-current={n === current ? "page" : undefined} onClick={() => setPage(n)}>{n}</button>
                 </span>
               ))}
-              <button className="btn" disabled={current === pages} onClick={() => setPage(current + 1)}>下一页</button>
+              {near.length === 1 && <span className="report-page-total">/ {pages}</span>}
+              <button className="btn report-page-arrow" aria-label="下一页" disabled={current === pages} onClick={() => setPage(current + 1)}><Ic icon="chevron-right"/></button>
             </div>
           </div>
         </div>

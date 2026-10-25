@@ -1,0 +1,13 @@
+/* Every stage fills the same normal-flow canvas card, independently of its asset size. */
+.stage-root.uc4 #canvasContent{scrollbar-gutter:stable}
+.stage-root.uc4 #networkOverviewCard.network-overview-stable-card{position:relative;width:100%;aspect-ratio:1248 / 885;padding:0;overflow:hidden;background-color:rgba(42,42,42,.75);background-image:radial-gradient(rgba(255,255,255,.065) .8px,transparent .8px);background-size:16px 16px}
+.network-region-scan{position:relative;width:100%;height:100%;margin:0;isolation:isolate}
+.network-region-scan-art{display:block;width:100%;height:100%}
+.v7-network-art-layer,.v7-network-native-content{position:absolute;inset:0}
+.v7-network-native-content{display:flex;flex-direction:column;min-height:0;padding:16px}
+.stage-root.uc4 .v7-network-native-content>.v7-network-map{flex:1;min-height:0}
+.stage-root.uc4 .v7-network-native-content>.v7-network-map>svg{height:100%}
+.stage-root.uc4 .v7-network-native-content>.between{padding-right:0;gap:16px}
+.network-region-scan-open{position:absolute;top:1.5%;right:.8%;width:3.2%;height:4.4%;padding:0;border:0;background:transparent;cursor:pointer;border-radius:var(--radius-base)}
+.network-region-scan-open:focus-visible{outline:var(--outline-width-focus) solid var(--focus-ring);outline-offset:var(--outline-offset-gap)}
+.network-region-scan-caption{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}

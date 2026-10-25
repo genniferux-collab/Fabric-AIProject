@@ -2,13 +2,13 @@
 export const v7WorkflowSteps = [
   { title: "全网设备概览已获取", description: "检查并获取当前现网网络环境基线设备配置。" },
   { title: "定位检索HCS1的设备配置", description: "已定位HCS1区的设备共380台，关联设备配置文件120个。" },
-  { title: "规则选择与自动推荐", description: "已匹配到现存《基线检查准则》1条，并通过正反例测试。" },
+  { title: "规则选择与自动推荐", description: "已完成6个设备组与6个合规检查集的规则匹配。" },
   { title: "对HCS1区内的380台设备进行基线检查", description: "已完成HCS1区的基线检查，通过375台，不通过5台。" },
 ];
 export const v7WorkflowRunning = [
   "正在扫描现网拓扑并识别HCS1设备…",
   "正在定位设备配置与关联文件…",
-  "正在选择检查规则并执行正反例测试…",
+  "正在按设备组匹配合规检查集…",
   "正在对380台设备执行基线检查…",
 ];
 export const DEFAULT_PROMPT = "检查HCS1的设备是否符合基线要求，并给出修复建议";

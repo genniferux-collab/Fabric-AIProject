@@ -1,0 +1,10 @@
+/* Use the existing SC font files under their explicit design-family name. */
+@font-face{font-family:"HarmonyOS Sans SC";src:url("./assets/font/HarmonyOS_SansSC/Light.woff2") format("woff2");font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:"HarmonyOS Sans SC";src:url("./assets/font/HarmonyOS_SansSC/Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"HarmonyOS Sans SC";src:url("./assets/font/HarmonyOS_SansSC/Medium.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"HarmonyOS Sans SC";src:url("./assets/font/HarmonyOS_SansSC/Bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+.stage-root{--font-family:"HarmonyOS Sans SC",sans-serif}
+/* The design specifies one family for every text style, including controls and code. */
+body:has(.stage-root),body:has(.stage-root) *{font-family:"HarmonyOS Sans SC",sans-serif!important}
+/* Ligature-based glyphs are icons, not text; retain their original icon font. */
+body:has(.stage-root) .dcna-material-symbol,body:has(.stage-root) .cockpit-material-symbol{font-family:"Material Symbols Rounded"!important}

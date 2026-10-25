@@ -1,0 +1,37 @@
+<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16.000000" height="16.000000" fill="none">
+	<defs>
+		<filter id="pixso_custom_mask_type_outline">
+			<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0 " />
+		</filter>
+		<linearGradient id="paint_linear_6124" x1="8.00169086" x2="8.00169086" y1="0.166748047" y2="15.5305471" gradientUnits="userSpaceOnUse">
+			<stop stop-color="rgb(140,163,250)" offset="0" stop-opacity="1" />
+			<stop stop-color="rgb(32,112,243)" offset="1" stop-opacity="1" />
+		</linearGradient>
+		<linearGradient id="paint_linear_6125" x1="10.223403" x2="14.7767382" y1="1.31182396" y2="6.08205414" gradientUnits="userSpaceOnUse">
+			<stop stop-color="rgb(255,255,255)" offset="0" stop-opacity="1" />
+			<stop stop-color="rgb(255,255,255)" offset="1" stop-opacity="0.0549019985" />
+			<stop stop-color="rgb(255,255,255)" offset="1" stop-opacity="0" />
+		</linearGradient>
+		<linearGradient id="paint_linear_6126" x1="6.34842539" x2="6.34842539" y1="7.18760109" y2="11.4909868" gradientUnits="userSpaceOnUse">
+			<stop stop-color="rgb(255,255,255)" offset="0" stop-opacity="0.800000012" />
+			<stop stop-color="rgb(255,255,255)" offset="1" stop-opacity="0.600000024" />
+		</linearGradient>
+	</defs>
+	<mask id="mask_623" width="16.000000" height="16.000000" x="0.000000" y="0.000000" maskUnits="userSpaceOnUse">
+		<g filter="url(#pixso_custom_mask_type_outline)">
+			<g id="clip177_15092">
+				<rect id="ic_public_word_file_ textured-文档文件_质感" width="16.000000" height="16.000000" x="0.000000" y="0.000000" fill="rgb(255,255,255)" />
+			</g>
+		</g>
+	</mask>
+	<rect id="组件集 1" width="16.000000" height="16.000000" x="0.000000" y="0.000000" />
+	<g id="clip path group" mask="url(#mask_623)">
+		<g id="组合 1112942">
+			<path id="path3" d="M10.4334 0.166748L3.72339 0.166748C2.34006 0.166748 1.22339 1.28341 1.22339 2.66675L1.22339 13.3334C1.22339 14.7134 2.34006 15.8334 3.72339 15.8334L12.2767 15.8334C13.6567 15.8334 14.7767 14.7134 14.7767 13.3334L14.7767 4.50675C14.7767 4.33008 14.7034 4.16008 14.5801 4.03675L10.9034 0.360081C10.7801 0.236748 10.6101 0.166748 10.4334 0.166748Z" fill="url(#paint_linear_6124)" fill-rule="evenodd" />
+			<g id="组合 1112943" opacity="0.600000024">
+				<path id="pah4" d="M10.4334 0.166748L10.2234 0.166748C10.4901 0.166748 10.7101 0.383415 10.7101 0.650081L10.7101 2.90008C10.7101 3.63341 11.3067 4.23341 12.0434 4.23341L14.2901 4.23341C14.5567 4.23341 14.7767 4.45008 14.7767 4.71675L14.7767 4.50675C14.7767 4.33008 14.7034 4.16008 14.5801 4.03675L10.9034 0.360081C10.7801 0.236748 10.6101 0.166748 10.4334 0.166748Z" fill="url(#paint_linear_6125)" fill-rule="evenodd" />
+			</g>
+			<path id="path5" d="M3.70337 11.4901L8.99004 11.4901C9.27004 11.4901 9.49004 11.2701 9.49004 10.9901C9.49004 10.7101 9.27004 10.4901 8.99004 10.4901L3.70337 10.4901C3.42337 10.4901 3.20337 10.7101 3.20337 10.9901C3.20337 11.2701 3.42337 11.4901 3.70337 11.4901ZM3.70337 8.18677L7.0067 8.18677C7.2867 8.18677 7.5067 7.96677 7.5067 7.68677C7.5067 7.40677 7.2867 7.18677 7.0067 7.18677L3.70337 7.18677C3.42337 7.18677 3.20337 7.40677 3.20337 7.68677C3.20337 7.96677 3.42337 8.18677 3.70337 8.18677Z" fill="url(#paint_linear_6126)" fill-rule="evenodd" />
+		</g>
+	</g>
+</svg>
