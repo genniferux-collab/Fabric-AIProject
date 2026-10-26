@@ -3,7 +3,20 @@ import { devices } from "./mock/devices.js";
 import { checks } from "./mock/checks.js";
 import { sortedFailedRules } from "./mock/audit.js";
 import { recs, DEFAULT_PROMPT } from "./mock/workflow.js";
-import { uc2RestorationDuration } from "./mock/uc2.js";
+import { uc2RestorationDuration, uc2Timing } from "./mock/uc2.js";
+
+function uc2StageState(cur, stage, phase = "text") {
+  return { ...cur, stage, max: Math.max(cur.max, stage), phase, phaseElapsed: 0, canvasStarted: phase === "complete" || (phase === "canvas" && stage < 2),
+    phaseStartedAt: cur.running && (phase !== "canvas" || stage < 2) ? Date.now() : null, view: "stage", node: null,
+    ...(stage === 1 ? { restoration: phase === "complete" ? 2 : 0, restorationElapsed: phase === "complete" ? uc2RestorationDuration : 0,
+      restorationStartedAt: phase === "canvas" && cur.running ? Date.now() : null } : {}) };
+}
+function uc2PhaseState(cur, phase) {
+  return { ...cur, phase, phaseElapsed: 0, canvasStarted: phase === "complete" || (phase === "canvas" && cur.stage < 2), phaseStartedAt: cur.running && (phase !== "canvas" || cur.stage < 2) ? Date.now() : null,
+    ...(cur.stage === 1 && phase === "canvas" ? { restoration: 0, restorationElapsed: 0, restorationStartedAt: cur.running ? Date.now() : null } : {}),
+    ...(cur.stage === 1 && phase === "complete" ? { restoration: 2, restorationElapsed: uc2RestorationDuration, restorationStartedAt: null } : {}),
+    ...(cur.stage === 3 && phase === "complete" ? { running: false, phaseStartedAt: null } : {}) };
+}
 
 // Layer 1: 全局状态 — 主题（单轨 .dark）+ 画布/任务流/页签/设备详情状态
 const AppContext = createContext(null);
@@ -159,7 +172,7 @@ export function AppProvider({ children }) {
   };
 
   // ---- UC2 黄金基线挖掘状态机 ----
-  const [uc2, setUc2] = useState({ active: false, stage: 0, max: 0, restoration: 0, restorationElapsed: 0, restorationStartedAt: null, running: false, view: "stage", rule: null, node: null });
+  const [uc2, setUc2] = useState({ active: false, stage: 0, max: 0, phase: "text", phaseElapsed: 0, canvasStarted: false, phaseStartedAt: null, restoration: 0, restorationElapsed: 0, restorationStartedAt: null, running: false, view: "stage", rule: null, node: null });
   const uc2Ref = useRef(uc2);
   uc2Ref.current = uc2;
   const uc2TimerRef = useRef(0);
@@ -174,23 +187,34 @@ export function AppProvider({ children }) {
     clearTimeout(uc2TimerRef.current);
     const s = uc2Ref.current;
     if (!s.active || !s.running) return;
-    const elapsed = (s.restorationElapsed || 0) + (s.restorationStartedAt ? Date.now() - s.restorationStartedAt : 0);
-    const delay = s.stage === 0 ? 4500 : s.stage === 1 ? s.restoration === 2 ? 900 : Math.max(0, uc2RestorationDuration - elapsed) : 8000;
+    // The mining canvas reports its real animation end instead of a second fixed timer.
+    if (s.phase === "canvas" && (s.stage >= 2 || !s.canvasStarted)) return;
+    const elapsed = s.phaseElapsed + (s.phaseStartedAt ? Date.now() - s.phaseStartedAt : 0);
+    const duration = s.phase === "text" ? uc2Timing.text[s.stage] : s.phase === "canvas" ? uc2Timing.canvas[s.stage] : uc2Timing.settle;
     uc2TimerRef.current = setTimeout(() => {
       const cur = uc2Ref.current;
       if (!cur.active || !cur.running) return;
-      if (cur.stage < 3) {
-        const next = cur.stage === 1 && cur.restoration !== 2
-          ? { ...cur, restoration: 2, restorationElapsed: uc2RestorationDuration, restorationStartedAt: null, view: "stage", node: null }
-          : { ...cur, stage: cur.stage + 1, max: Math.max(cur.max, cur.stage + 1), view: "stage", node: null };
-        if (next.stage === 1 && next.restoration !== 2) next.restorationStartedAt = next.running ? Date.now() : null;
-        if (next.stage === 3) next.running = false;
-        uc2Ref.current = next;
-        setUc2(next);
-        uc2ScheduleRef.current();
-      }
-    }, delay);
+      const next = cur.phase === "text" ? uc2PhaseState(cur, "canvas")
+        : cur.phase === "canvas" ? uc2PhaseState(cur, "complete")
+        : uc2StageState(cur, cur.stage + 1);
+      uc2Ref.current = next; setUc2(next); uc2ScheduleRef.current();
+    }, Math.max(0, duration - elapsed));
   };
+
+  const uc2CanvasStart = useCallback((stage) => {
+    const cur = uc2Ref.current;
+    if (!cur.active || cur.stage !== stage || cur.phase !== "canvas" || cur.canvasStarted) return;
+    const next = { ...cur, canvasStarted: true, phaseElapsed: 0, phaseStartedAt: cur.running ? Date.now() : null };
+    uc2Ref.current = next; setUc2(next); uc2ScheduleRef.current();
+  }, []);
+
+  const uc2CanvasComplete = useCallback((stage) => {
+    const cur = uc2Ref.current;
+    if (!cur.active || cur.stage !== stage || cur.phase !== "canvas") return;
+    clearTimeout(uc2TimerRef.current);
+    const next = uc2PhaseState(cur, "complete");
+    uc2Ref.current = next; setUc2(next); uc2ScheduleRef.current();
+  }, []);
 
   const uc2Leave = useCallback(() => {
     clearTimeout(uc2TimerRef.current);
@@ -212,7 +236,7 @@ export function AppProvider({ children }) {
     clearTimeout(uc2TimerRef.current);
     setUc2Fusion({ selected: "engine", rule: null, drawer: null });
     setUc2Extra([]);
-    const next = { active: true, stage: 0, max: 0, restoration: 0, restorationElapsed: 0, restorationStartedAt: null, running: true, view: "stage", rule: null, node: null };
+    const next = { active: true, stage: 0, max: 0, phase: "text", phaseElapsed: 0, canvasStarted: false, phaseStartedAt: Date.now(), restoration: 0, restorationElapsed: 0, restorationStartedAt: null, running: true, view: "stage", rule: null, node: null };
     uc2Ref.current = next;
     setUc2(next);
     setActivePane("task");
@@ -229,8 +253,10 @@ export function AppProvider({ children }) {
     clearTimeout(uc2TimerRef.current);
     const cur = uc2Ref.current;
     if (!cur.active) return;
-    const next = { ...cur, running: !cur.running };
-    if (cur.stage === 1 && cur.restoration !== 2) {
+    const next = { ...cur, running: !cur.running,
+      phaseElapsed: cur.phaseElapsed + (cur.running && cur.phaseStartedAt ? Date.now() - cur.phaseStartedAt : 0),
+      phaseStartedAt: !cur.running && (cur.phase !== "canvas" || cur.canvasStarted) ? Date.now() : null };
+    if (cur.stage === 1 && cur.phase === "canvas" && cur.restoration !== 2) {
       next.restorationElapsed = Math.min(uc2RestorationDuration, (cur.restorationElapsed || 0) + (cur.restorationStartedAt ? Date.now() - cur.restorationStartedAt : 0));
       next.restorationStartedAt = next.running ? Date.now() : null;
     }
@@ -242,12 +268,11 @@ export function AppProvider({ children }) {
   const uc2Next = useCallback(() => {
     clearTimeout(uc2TimerRef.current);
     const cur = uc2Ref.current;
-    if (!cur.active || cur.stage >= 3) return;
-    const next = cur.stage === 1 && cur.restoration !== 2
-          ? { ...cur, restoration: 2, restorationElapsed: uc2RestorationDuration, restorationStartedAt: null, view: "stage", node: null }
-          : { ...cur, stage: cur.stage + 1, max: Math.max(cur.max, cur.stage + 1), view: "stage", node: null };
-        if (next.stage === 1 && next.restoration !== 2) next.restorationStartedAt = next.running ? Date.now() : null;
-    if (next.stage === 3) next.running = false;
+    if (!cur.active || (cur.stage === 3 && cur.phase === "complete")) return;
+    const next = cur.stage === 3 ? uc2PhaseState(cur, "complete")
+      : cur.stage === 1 && cur.restoration !== 2 ? uc2PhaseState(cur, "complete")
+      : uc2StageState(cur, cur.stage + 1, cur.running ? "text" : cur.stage + 1 === 1 ? "canvas" : "complete");
+    if (next.stage === 3 && next.phase === "complete") next.running = false;
     uc2Ref.current = next;
     setUc2(next);
     uc2ScheduleRef.current();
@@ -425,7 +450,7 @@ export function AppProvider({ children }) {
     toast, toastText,
     resetMapSignal, clearSelSignal,
     cardRefs, locate, luiFocus, focusLuiArtifact, artifactTabs, activeArtifact, openArtifact, closeArtifact,
-    uc2, uc2Start, uc2Pause, uc2Next, uc2Show, uc2OpenRule, uc2SelectNode,
+    uc2, uc2Start, uc2Pause, uc2Next, uc2CanvasStart, uc2CanvasComplete, uc2Show, uc2OpenRule, uc2SelectNode,
     uc2Review, uc2Reviews, uc2Fusion, uc2FusionPick, uc2FusionCloseDrawer,
     uc2SetFilter, uc2Scroll, uc2Extra, setUc2Extra,
   };

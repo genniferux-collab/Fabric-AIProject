@@ -8,8 +8,8 @@ body:has(.stage-root) .mining-reference,body:has(.stage-root) .mining-reference 
 .golden-header h2{display:flex;align-items:center;gap:8px;min-width:0;margin:0;font-size:16px;font-weight:400;line-height:24px;white-space:nowrap}
 .golden-header h2>img{width:16px;height:16px;flex:none}
 .golden-header h2>span{margin-left:2px}.golden-header strong{color:#00d995;font-weight:600;letter-spacing:1px}
-.golden-header>button{display:grid;place-items:center;flex:none;width:24px;height:24px;border:0;background:transparent;cursor:pointer;border-radius:4px}
-.golden-header>button:hover{background:#ffffff14}.golden-header>button img{width:14px;height:14px}
+.golden-header button{display:grid;place-items:center;flex:none;width:24px;height:24px;border:0;background:transparent;cursor:pointer;border-radius:4px}
+.golden-header button:hover{background:#ffffff14}.golden-header button img{width:14px;height:14px}
 .golden-scene{position:relative;flex:1;min-height:0;overflow:hidden;background:radial-gradient(#ffffff10 .8px,transparent .9px) 0 0/16px 16px,linear-gradient(#2a2a2a,#252525)}
 .golden-diagram{display:block;width:100%;height:100%;overflow:visible}
 .golden-columns text{fill:#999;font-size:14px;line-height:22px}.golden-columns .golden-columns-sub{font-size:12px;fill:#999}
@@ -73,3 +73,40 @@ body:has(.stage-root) .mining-reference,body:has(.stage-root) .mining-reference 
 .golden-edge:not([data-edge-from="engine"]) .golden-edge-tube,.golden-edge:not([data-edge-from="engine"]) .golden-edge-line{stroke:#6d9ab5}
 .golden-rule-counts{border-bottom:1px solid #ffffff14;padding-bottom:16px;margin-bottom:16px}
 .golden-rule-body section+section{border-top:1px solid #ffffff14;padding-top:16px}
+
+
+/* Keep reveal transforms separate from selection opacity and drawer scaling. */
+.mining-reference{--mining-delay:0ms;--mining-reveal-state:running;--mining-ambient-state:running}
+.golden-header-actions{display:flex;align-items:center;gap:12px;flex:none}
+.golden-header-actions button{color:#d7d7d7;padding:0}
+.is-revealing .golden-reveal{animation:goldenReveal 480ms cubic-bezier(.22,.61,.36,1) var(--mining-delay) both;animation-play-state:var(--mining-reveal-state)}
+.is-revealing .golden-engine-reveal{animation-duration:600ms}
+.is-revealing .golden-candidate-total{animation-duration:400ms}
+.is-revealing .golden-edge-reveal{animation:goldenEdgeAppear 600ms ease-out var(--mining-delay) both;animation-play-state:var(--mining-reveal-state)}
+.is-revealing .golden-edge-reveal>path{stroke-dasharray:1;animation:goldenEdgeDraw 600ms cubic-bezier(.22,.61,.36,1) var(--mining-delay) both;animation-play-state:var(--mining-reveal-state)}
+
+.golden-engine-halo,.golden-engine-aura,.golden-engine-breath{transform-box:fill-box;transform-origin:center;pointer-events:none}
+.golden-engine-halo{animation:goldenHalo 4200ms ease-in-out infinite;animation-play-state:var(--mining-ambient-state)}
+.golden-engine-aura{animation:goldenAura 5200ms ease-in-out infinite;animation-play-state:var(--mining-ambient-state)}
+.golden-engine-breath{fill:none;stroke:#7ed5ff;stroke-width:1;animation:goldenBreath 3000ms ease-in-out infinite;animation-play-state:var(--mining-ambient-state)}
+@keyframes goldenReveal{0%{opacity:0;transform:translateX(-10px);pointer-events:none}99%{pointer-events:none}100%{opacity:1;transform:translateX(0);pointer-events:auto}}
+@keyframes goldenEdgeAppear{0%{opacity:0}12%,100%{opacity:1}}
+@keyframes goldenEdgeDraw{0%{stroke-dashoffset:1}100%{stroke-dashoffset:0}}
+@keyframes goldenHalo{0%,100%{opacity:.38;transform:scale(.97)}50%{opacity:.78;transform:scale(1.05)}}
+@keyframes goldenAura{0%,100%{opacity:.55}50%{opacity:.9}}
+@keyframes goldenBreath{0%,100%{opacity:.2;transform:scale(.96)}50%{opacity:.65;transform:scale(1.08)}}
+
+
+.mining-reference{--particle-duration:4000ms;--particle-delay:0ms}
+.golden-particles{pointer-events:none}
+.is-revealing .golden-particles{animation:goldenParticlesReady 120ms linear calc(var(--mining-delay) + 600ms) both;animation-play-state:var(--mining-reveal-state)}
+.golden-link-particle{offset-rotate:0deg;animation:goldenParticleTravel var(--particle-duration) linear var(--particle-delay) infinite;animation-play-state:var(--mining-ambient-state);opacity:.9}
+.golden-orb-meridian{fill:none;stroke:#69cfff;stroke-width:.8;opacity:.23}
+.golden-orb-meridian.is-purple{stroke:#a89cff;opacity:.25}
+.golden-latitude-scan{animation:goldenSphereScan 3400ms ease-in-out infinite;animation-play-state:var(--mining-ambient-state)}
+.golden-latitude-scan ellipse{fill:none;stroke:#95e3ff;stroke-width:.9;filter:drop-shadow(0 0 3px #5bbaff)}
+.golden-sphere-loading:not(.is-loading) .golden-latitude-scan{animation-duration:6200ms;opacity:.45}
+@keyframes goldenParticlesReady{from{opacity:0}to{opacity:1}}
+@keyframes goldenParticleTravel{from{offset-distance:0%}to{offset-distance:100%}}
+@keyframes goldenSphereScan{0%{transform:translateY(-60px) scaleX(.43);opacity:0}20%{transform:translateY(-38px) scaleX(.83);opacity:.3}50%{transform:translateY(0) scaleX(1);opacity:.65}80%{transform:translateY(38px) scaleX(.83);opacity:.3}100%{transform:translateY(60px) scaleX(.43);opacity:0}}
+@media(prefers-reduced-motion:reduce){.mining-reference .golden-reveal,.mining-reference .golden-edge-reveal,.mining-reference .golden-edge-reveal>path,.mining-reference .golden-engine-halo,.mining-reference .golden-engine-aura,.mining-reference .golden-engine-breath,.mining-reference .golden-particles,.mining-reference .golden-link-particle,.mining-reference .golden-latitude-scan{animation:none!important;opacity:1;transform:none;stroke-dasharray:none;pointer-events:auto}.mining-reference .golden-particles,.mining-reference .golden-engine-halo,.mining-reference .golden-sphere-loading{display:none}}

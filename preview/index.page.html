@@ -8229,6 +8229,27 @@ body:has(.stage-root) .stage-root.uc2 :is(#lui,.uc2-intent-view,.uc2-restoration
 .uc2-restoration-header .ic,.uc2-device-popover .ic{width:14px;height:14px}.uc2-topology-back .ic{width:12px;height:12px}
 
 
+.uc2-typed-copy{min-height:22px}
+.uc2-typing-cursor{display:inline-block;width:2px;height:14px;margin-left:3px;vertical-align:-2px;background:#89bfff;animation:uc2TextCaret 850ms steps(1) infinite}
+.uc2-canvas-progress{font-size:12px;line-height:20px;color:#aaa;margin:10px 0 0}
+.uc2-restoration-host{container-type:inline-size}
+.uc2-canvas-preparing{height:100%;min-height:320px;display:flex;flex-direction:column;overflow:hidden;border-radius:16px;background:#2a2a2a;color:#999}
+.uc2-canvas-preparing.preparing-stage-0{aspect-ratio:1233/845;height:auto}
+.uc2-canvas-preparing.preparing-stage-1{height:calc(160px + 100cqi * .607955)}
+.uc2-canvas-preparing.preparing-stage-3{min-height:700px}
+.uc2-preparing-heading{height:56px;flex:none;padding:16px 20px;font-size:16px;line-height:24px;color:#ddd;border-bottom:1px solid #ffffff0d;background:#262626}
+.uc2-preparing-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;font-size:14px;line-height:22px;background:radial-gradient(#ffffff10 .8px,transparent .9px) 0 0/16px 16px}
+.uc2-preparing-orb{width:12px;height:12px;display:block;border-radius:50%;background:radial-gradient(circle at 35% 30%,#c5ebff,#398de5 50%,#1e4583);box-shadow:0 0 22px #3886df55;animation:uc2PreparingPulse 1600ms ease-in-out infinite}
+.uc2-report-generation{position:relative;--uc2-report-play-state:running}
+.uc2-report-generation-anchor{position:absolute;left:0;top:0;width:1px;height:56px;pointer-events:none}
+.uc2-report-generation.is-waiting{opacity:0}
+.uc2-report-generation.is-generating{animation:uc2ReportGenerate 1600ms cubic-bezier(.22,.61,.36,1) both;animation-play-state:var(--uc2-report-play-state)}
+@keyframes uc2TextCaret{50%{opacity:0}}
+@keyframes uc2PreparingPulse{0%,100%{opacity:.45;transform:scale(.85)}50%{opacity:1;transform:scale(1.1)}}
+@keyframes uc2ReportGenerate{from{opacity:0;clip-path:inset(0 0 100% 0);transform:translateY(6px)}25%{opacity:1}to{opacity:1;clip-path:inset(0);transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.uc2-typing-cursor,.uc2-preparing-orb,.uc2-report-generation.is-generating{animation:none}.uc2-report-generation.is-waiting{opacity:1}}
+
+
 /* Pixso 23:350169: default, selected and single-rule detail states. */
 .stage-root.pc-layout{--agent-width:clamp(320px,31vw,592px)}
 .pc-layout #uc2Module2{scroll-margin-top:20px}
@@ -8239,8 +8260,8 @@ body:has(.stage-root) .mining-reference,body:has(.stage-root) .mining-reference 
 .golden-header h2{display:flex;align-items:center;gap:8px;min-width:0;margin:0;font-size:16px;font-weight:400;line-height:24px;white-space:nowrap}
 .golden-header h2>img{width:16px;height:16px;flex:none}
 .golden-header h2>span{margin-left:2px}.golden-header strong{color:#00d995;font-weight:600;letter-spacing:1px}
-.golden-header>button{display:grid;place-items:center;flex:none;width:24px;height:24px;border:0;background:transparent;cursor:pointer;border-radius:4px}
-.golden-header>button:hover{background:#ffffff14}.golden-header>button img{width:14px;height:14px}
+.golden-header button{display:grid;place-items:center;flex:none;width:24px;height:24px;border:0;background:transparent;cursor:pointer;border-radius:4px}
+.golden-header button:hover{background:#ffffff14}.golden-header button img{width:14px;height:14px}
 .golden-scene{position:relative;flex:1;min-height:0;overflow:hidden;background:radial-gradient(#ffffff10 .8px,transparent .9px) 0 0/16px 16px,linear-gradient(#2a2a2a,#252525)}
 .golden-diagram{display:block;width:100%;height:100%;overflow:visible}
 .golden-columns text{fill:#999;font-size:14px;line-height:22px}.golden-columns .golden-columns-sub{font-size:12px;fill:#999}
@@ -8304,6 +8325,43 @@ body:has(.stage-root) .mining-reference,body:has(.stage-root) .mining-reference 
 .golden-edge:not([data-edge-from="engine"]) .golden-edge-tube,.golden-edge:not([data-edge-from="engine"]) .golden-edge-line{stroke:#6d9ab5}
 .golden-rule-counts{border-bottom:1px solid #ffffff14;padding-bottom:16px;margin-bottom:16px}
 .golden-rule-body section+section{border-top:1px solid #ffffff14;padding-top:16px}
+
+
+/* Keep reveal transforms separate from selection opacity and drawer scaling. */
+.mining-reference{--mining-delay:0ms;--mining-reveal-state:running;--mining-ambient-state:running}
+.golden-header-actions{display:flex;align-items:center;gap:12px;flex:none}
+.golden-header-actions button{color:#d7d7d7;padding:0}
+.is-revealing .golden-reveal{animation:goldenReveal 480ms cubic-bezier(.22,.61,.36,1) var(--mining-delay) both;animation-play-state:var(--mining-reveal-state)}
+.is-revealing .golden-engine-reveal{animation-duration:600ms}
+.is-revealing .golden-candidate-total{animation-duration:400ms}
+.is-revealing .golden-edge-reveal{animation:goldenEdgeAppear 600ms ease-out var(--mining-delay) both;animation-play-state:var(--mining-reveal-state)}
+.is-revealing .golden-edge-reveal>path{stroke-dasharray:1;animation:goldenEdgeDraw 600ms cubic-bezier(.22,.61,.36,1) var(--mining-delay) both;animation-play-state:var(--mining-reveal-state)}
+
+.golden-engine-halo,.golden-engine-aura,.golden-engine-breath{transform-box:fill-box;transform-origin:center;pointer-events:none}
+.golden-engine-halo{animation:goldenHalo 4200ms ease-in-out infinite;animation-play-state:var(--mining-ambient-state)}
+.golden-engine-aura{animation:goldenAura 5200ms ease-in-out infinite;animation-play-state:var(--mining-ambient-state)}
+.golden-engine-breath{fill:none;stroke:#7ed5ff;stroke-width:1;animation:goldenBreath 3000ms ease-in-out infinite;animation-play-state:var(--mining-ambient-state)}
+@keyframes goldenReveal{0%{opacity:0;transform:translateX(-10px);pointer-events:none}99%{pointer-events:none}100%{opacity:1;transform:translateX(0);pointer-events:auto}}
+@keyframes goldenEdgeAppear{0%{opacity:0}12%,100%{opacity:1}}
+@keyframes goldenEdgeDraw{0%{stroke-dashoffset:1}100%{stroke-dashoffset:0}}
+@keyframes goldenHalo{0%,100%{opacity:.38;transform:scale(.97)}50%{opacity:.78;transform:scale(1.05)}}
+@keyframes goldenAura{0%,100%{opacity:.55}50%{opacity:.9}}
+@keyframes goldenBreath{0%,100%{opacity:.2;transform:scale(.96)}50%{opacity:.65;transform:scale(1.08)}}
+
+
+.mining-reference{--particle-duration:4000ms;--particle-delay:0ms}
+.golden-particles{pointer-events:none}
+.is-revealing .golden-particles{animation:goldenParticlesReady 120ms linear calc(var(--mining-delay) + 600ms) both;animation-play-state:var(--mining-reveal-state)}
+.golden-link-particle{offset-rotate:0deg;animation:goldenParticleTravel var(--particle-duration) linear var(--particle-delay) infinite;animation-play-state:var(--mining-ambient-state);opacity:.9}
+.golden-orb-meridian{fill:none;stroke:#69cfff;stroke-width:.8;opacity:.23}
+.golden-orb-meridian.is-purple{stroke:#a89cff;opacity:.25}
+.golden-latitude-scan{animation:goldenSphereScan 3400ms ease-in-out infinite;animation-play-state:var(--mining-ambient-state)}
+.golden-latitude-scan ellipse{fill:none;stroke:#95e3ff;stroke-width:.9;filter:drop-shadow(0 0 3px #5bbaff)}
+.golden-sphere-loading:not(.is-loading) .golden-latitude-scan{animation-duration:6200ms;opacity:.45}
+@keyframes goldenParticlesReady{from{opacity:0}to{opacity:1}}
+@keyframes goldenParticleTravel{from{offset-distance:0%}to{offset-distance:100%}}
+@keyframes goldenSphereScan{0%{transform:translateY(-60px) scaleX(.43);opacity:0}20%{transform:translateY(-38px) scaleX(.83);opacity:.3}50%{transform:translateY(0) scaleX(1);opacity:.65}80%{transform:translateY(38px) scaleX(.83);opacity:.3}100%{transform:translateY(60px) scaleX(.43);opacity:0}}
+@media(prefers-reduced-motion:reduce){.mining-reference .golden-reveal,.mining-reference .golden-edge-reveal,.mining-reference .golden-edge-reveal>path,.mining-reference .golden-engine-halo,.mining-reference .golden-engine-aura,.mining-reference .golden-engine-breath,.mining-reference .golden-particles,.mining-reference .golden-link-particle,.mining-reference .golden-latitude-scan{animation:none!important;opacity:1;transform:none;stroke-dasharray:none;pointer-events:auto}.mining-reference .golden-particles,.mining-reference .golden-engine-halo,.mining-reference .golden-sphere-loading{display:none}}
 
 
 /* UC2 candidate data uses the shared UC4 report design.css contract. */
@@ -9011,6 +9069,7 @@ const recs = [
 (function () {
 // UC2 黄金基线挖掘 — 数据与纯逻辑（最终口径：fusion 图 + 候选报告）
 const uc2RestorationDuration = 6400;
+const uc2Timing = { text: [240, 240, 240, 240], canvas: [2500, uc2RestorationDuration, 4800, 1600], settle: 600 };
 const uc2Prompt = "帮我自动挖掘一下西三旗DC的黄金基线，看看现网有哪些不合规？";
 const uc2Names = ["意图分析", "设备还原", "黄金基线挖掘", "生成报告"];
 
@@ -9133,13 +9192,26 @@ function uc2ExportCsv(reviews) {
   a.click();
   URL.revokeObjectURL(url);
 }
-  Object.assign(__export, { fusionTopRules, fusionRelevant, uc2Actual, uc2ExportCsv, uc2RestorationDuration, uc2Prompt, uc2Names, uc2Rules, uc2DeviationDevices, miningImpact, fusionImpact, fusionNodes, fusionEdges, uc2RuleById });
+  Object.assign(__export, { fusionTopRules, fusionRelevant, uc2Actual, uc2ExportCsv, uc2RestorationDuration, uc2Timing, uc2Prompt, uc2Names, uc2Rules, uc2DeviationDevices, miningImpact, fusionImpact, fusionNodes, fusionEdges, uc2RuleById });
 })();
 
 /* ===== src/context.jsx ===== */
 (function () {
   const { useState, useEffect, useRef, createContext, useContext, useCallback } = React;
-  const { devices, checks, sortedFailedRules, recs, DEFAULT_PROMPT, uc2RestorationDuration } = __export;
+  const { devices, checks, sortedFailedRules, recs, DEFAULT_PROMPT, uc2RestorationDuration, uc2Timing } = __export;
+function uc2StageState(cur, stage, phase = "text") {
+  return { ...cur, stage, max: Math.max(cur.max, stage), phase, phaseElapsed: 0, canvasStarted: phase === "complete" || (phase === "canvas" && stage < 2),
+    phaseStartedAt: cur.running && (phase !== "canvas" || stage < 2) ? Date.now() : null, view: "stage", node: null,
+    ...(stage === 1 ? { restoration: phase === "complete" ? 2 : 0, restorationElapsed: phase === "complete" ? uc2RestorationDuration : 0,
+      restorationStartedAt: phase === "canvas" && cur.running ? Date.now() : null } : {}) };
+}
+function uc2PhaseState(cur, phase) {
+  return { ...cur, phase, phaseElapsed: 0, canvasStarted: phase === "complete" || (phase === "canvas" && cur.stage < 2), phaseStartedAt: cur.running && (phase !== "canvas" || cur.stage < 2) ? Date.now() : null,
+    ...(cur.stage === 1 && phase === "canvas" ? { restoration: 0, restorationElapsed: 0, restorationStartedAt: cur.running ? Date.now() : null } : {}),
+    ...(cur.stage === 1 && phase === "complete" ? { restoration: 2, restorationElapsed: uc2RestorationDuration, restorationStartedAt: null } : {}),
+    ...(cur.stage === 3 && phase === "complete" ? { running: false, phaseStartedAt: null } : {}) };
+}
+
 // Layer 1: 全局状态 — 主题（单轨 .dark）+ 画布/任务流/页签/设备详情状态
 const AppContext = createContext(null);
 
@@ -9294,7 +9366,7 @@ function AppProvider({ children }) {
   };
 
   // ---- UC2 黄金基线挖掘状态机 ----
-  const [uc2, setUc2] = useState({ active: false, stage: 0, max: 0, restoration: 0, restorationElapsed: 0, restorationStartedAt: null, running: false, view: "stage", rule: null, node: null });
+  const [uc2, setUc2] = useState({ active: false, stage: 0, max: 0, phase: "text", phaseElapsed: 0, canvasStarted: false, phaseStartedAt: null, restoration: 0, restorationElapsed: 0, restorationStartedAt: null, running: false, view: "stage", rule: null, node: null });
   const uc2Ref = useRef(uc2);
   uc2Ref.current = uc2;
   const uc2TimerRef = useRef(0);
@@ -9309,23 +9381,34 @@ function AppProvider({ children }) {
     clearTimeout(uc2TimerRef.current);
     const s = uc2Ref.current;
     if (!s.active || !s.running) return;
-    const elapsed = (s.restorationElapsed || 0) + (s.restorationStartedAt ? Date.now() - s.restorationStartedAt : 0);
-    const delay = s.stage === 0 ? 4500 : s.stage === 1 ? s.restoration === 2 ? 900 : Math.max(0, uc2RestorationDuration - elapsed) : 8000;
+    // The mining canvas reports its real animation end instead of a second fixed timer.
+    if (s.phase === "canvas" && (s.stage >= 2 || !s.canvasStarted)) return;
+    const elapsed = s.phaseElapsed + (s.phaseStartedAt ? Date.now() - s.phaseStartedAt : 0);
+    const duration = s.phase === "text" ? uc2Timing.text[s.stage] : s.phase === "canvas" ? uc2Timing.canvas[s.stage] : uc2Timing.settle;
     uc2TimerRef.current = setTimeout(() => {
       const cur = uc2Ref.current;
       if (!cur.active || !cur.running) return;
-      if (cur.stage < 3) {
-        const next = cur.stage === 1 && cur.restoration !== 2
-          ? { ...cur, restoration: 2, restorationElapsed: uc2RestorationDuration, restorationStartedAt: null, view: "stage", node: null }
-          : { ...cur, stage: cur.stage + 1, max: Math.max(cur.max, cur.stage + 1), view: "stage", node: null };
-        if (next.stage === 1 && next.restoration !== 2) next.restorationStartedAt = next.running ? Date.now() : null;
-        if (next.stage === 3) next.running = false;
-        uc2Ref.current = next;
-        setUc2(next);
-        uc2ScheduleRef.current();
-      }
-    }, delay);
+      const next = cur.phase === "text" ? uc2PhaseState(cur, "canvas")
+        : cur.phase === "canvas" ? uc2PhaseState(cur, "complete")
+        : uc2StageState(cur, cur.stage + 1);
+      uc2Ref.current = next; setUc2(next); uc2ScheduleRef.current();
+    }, Math.max(0, duration - elapsed));
   };
+
+  const uc2CanvasStart = useCallback((stage) => {
+    const cur = uc2Ref.current;
+    if (!cur.active || cur.stage !== stage || cur.phase !== "canvas" || cur.canvasStarted) return;
+    const next = { ...cur, canvasStarted: true, phaseElapsed: 0, phaseStartedAt: cur.running ? Date.now() : null };
+    uc2Ref.current = next; setUc2(next); uc2ScheduleRef.current();
+  }, []);
+
+  const uc2CanvasComplete = useCallback((stage) => {
+    const cur = uc2Ref.current;
+    if (!cur.active || cur.stage !== stage || cur.phase !== "canvas") return;
+    clearTimeout(uc2TimerRef.current);
+    const next = uc2PhaseState(cur, "complete");
+    uc2Ref.current = next; setUc2(next); uc2ScheduleRef.current();
+  }, []);
 
   const uc2Leave = useCallback(() => {
     clearTimeout(uc2TimerRef.current);
@@ -9347,7 +9430,7 @@ function AppProvider({ children }) {
     clearTimeout(uc2TimerRef.current);
     setUc2Fusion({ selected: "engine", rule: null, drawer: null });
     setUc2Extra([]);
-    const next = { active: true, stage: 0, max: 0, restoration: 0, restorationElapsed: 0, restorationStartedAt: null, running: true, view: "stage", rule: null, node: null };
+    const next = { active: true, stage: 0, max: 0, phase: "text", phaseElapsed: 0, canvasStarted: false, phaseStartedAt: Date.now(), restoration: 0, restorationElapsed: 0, restorationStartedAt: null, running: true, view: "stage", rule: null, node: null };
     uc2Ref.current = next;
     setUc2(next);
     setActivePane("task");
@@ -9364,8 +9447,10 @@ function AppProvider({ children }) {
     clearTimeout(uc2TimerRef.current);
     const cur = uc2Ref.current;
     if (!cur.active) return;
-    const next = { ...cur, running: !cur.running };
-    if (cur.stage === 1 && cur.restoration !== 2) {
+    const next = { ...cur, running: !cur.running,
+      phaseElapsed: cur.phaseElapsed + (cur.running && cur.phaseStartedAt ? Date.now() - cur.phaseStartedAt : 0),
+      phaseStartedAt: !cur.running && (cur.phase !== "canvas" || cur.canvasStarted) ? Date.now() : null };
+    if (cur.stage === 1 && cur.phase === "canvas" && cur.restoration !== 2) {
       next.restorationElapsed = Math.min(uc2RestorationDuration, (cur.restorationElapsed || 0) + (cur.restorationStartedAt ? Date.now() - cur.restorationStartedAt : 0));
       next.restorationStartedAt = next.running ? Date.now() : null;
     }
@@ -9377,12 +9462,11 @@ function AppProvider({ children }) {
   const uc2Next = useCallback(() => {
     clearTimeout(uc2TimerRef.current);
     const cur = uc2Ref.current;
-    if (!cur.active || cur.stage >= 3) return;
-    const next = cur.stage === 1 && cur.restoration !== 2
-          ? { ...cur, restoration: 2, restorationElapsed: uc2RestorationDuration, restorationStartedAt: null, view: "stage", node: null }
-          : { ...cur, stage: cur.stage + 1, max: Math.max(cur.max, cur.stage + 1), view: "stage", node: null };
-        if (next.stage === 1 && next.restoration !== 2) next.restorationStartedAt = next.running ? Date.now() : null;
-    if (next.stage === 3) next.running = false;
+    if (!cur.active || (cur.stage === 3 && cur.phase === "complete")) return;
+    const next = cur.stage === 3 ? uc2PhaseState(cur, "complete")
+      : cur.stage === 1 && cur.restoration !== 2 ? uc2PhaseState(cur, "complete")
+      : uc2StageState(cur, cur.stage + 1, cur.running ? "text" : cur.stage + 1 === 1 ? "canvas" : "complete");
+    if (next.stage === 3 && next.phase === "complete") next.running = false;
     uc2Ref.current = next;
     setUc2(next);
     uc2ScheduleRef.current();
@@ -9560,7 +9644,7 @@ function AppProvider({ children }) {
     toast, toastText,
     resetMapSignal, clearSelSignal,
     cardRefs, locate, luiFocus, focusLuiArtifact, artifactTabs, activeArtifact, openArtifact, closeArtifact,
-    uc2, uc2Start, uc2Pause, uc2Next, uc2Show, uc2OpenRule, uc2SelectNode,
+    uc2, uc2Start, uc2Pause, uc2Next, uc2CanvasStart, uc2CanvasComplete, uc2Show, uc2OpenRule, uc2SelectNode,
     uc2Review, uc2Reviews, uc2Fusion, uc2FusionPick, uc2FusionCloseDrawer,
     uc2SetFilter, uc2Scroll, uc2Extra, setUc2Extra,
   };
@@ -10490,6 +10574,47 @@ function ResponseTools({ timestamp, duration, text, onRegenerate, onLocate, subj
   Object.assign(__export, { ResponseTools });
 })();
 
+/* ===== src/views/lui-panel/uc2-typed-copy.jsx ===== */
+(function () {
+  const { cloneElement, isValidElement, useEffect, useState } = React;
+  const { useApp, uc2Timing } = __export;
+function textLength(node) {
+  if (typeof node === "string" || typeof node === "number") return Array.from(String(node)).length;
+  if (Array.isArray(node)) return node.reduce((sum, child) => sum + textLength(child), 0);
+  return isValidElement(node) ? textLength(node.props.children) : 0;
+}
+function revealText(node, budget) {
+  if (typeof node === "string" || typeof node === "number") {
+    const chars = Array.from(String(node)), shown = chars.slice(0, Math.max(0, budget.left)).join("");
+    budget.left -= chars.length; return shown;
+  }
+  if (Array.isArray(node)) return node.map(child => revealText(child, budget));
+  if (!isValidElement(node) || budget.left <= 0) return null;
+  return cloneElement(node, undefined, revealText(node.props.children, budget));
+}
+
+function Uc2TypedCopy({ step, children }) {
+  const { uc2 } = useApp();
+  const [fraction, setFraction] = useState(0);
+  const typing = step === uc2.stage && uc2.phase !== "complete";
+  useEffect(() => {
+    if (!typing) return;
+    let frame = 0, lastPaint = 0;
+    const tick = now => {
+      const elapsed = uc2.phaseElapsed + (uc2.running && uc2.phaseStartedAt ? Date.now() - uc2.phaseStartedAt : 0);
+      if (now - lastPaint >= 32 || !uc2.running) { const progress = uc2.phase === "text" ? .08 * Math.min(1, elapsed / uc2Timing.text[step])
+        : uc2.canvasStarted ? .08 + .92 * Math.min(.995, elapsed / uc2Timing.canvas[step]) : .08;
+        setFraction(progress); lastPaint = now; }
+      if (uc2.running) frame = requestAnimationFrame(tick);
+    };
+    tick(0); return () => cancelAnimationFrame(frame);
+  }, [typing, step, uc2.running, uc2.phaseElapsed, uc2.phaseStartedAt, uc2.phase, uc2.canvasStarted]);
+  const content = typing ? revealText(children, { left: Math.floor(textLength(children) * fraction) }) : children;
+  return <div className="uc2-typed-copy" data-text-state={typing ? "typing" : "complete"} aria-busy={typing}>{content}{typing && <span className="uc2-typing-cursor" aria-hidden="true" />}</div>;
+}
+  Object.assign(__export, { Uc2TypedCopy });
+})();
+
 /* ===== src/views/lui-panel/uc2-chat.jsx ===== */
 (function () {
   const { useEffect, useLayoutEffect, useRef, useState } = React;
@@ -10497,37 +10622,43 @@ function ResponseTools({ timestamp, duration, text, onRegenerate, onLocate, subj
   const Ic = __export.Ic;
   const LuiGlyph = __export.LuiGlyph;
   const ResponseTools = __export.ResponseTools;
+  const Uc2TypedCopy = __export.Uc2TypedCopy;
 // UC2 uses the same answer, progressive steps and artifact controls as UC4.
 function Uc2Chat() {
   const { uc2, uc2Pause, uc2Next, uc2Start, uc2Show, uc2Scroll, isDark } = useApp();
-  const done = uc2.max === 3;
+  const done = uc2.max === 3 && uc2.phase === "complete";
   const [expanded, setExpanded] = useState(true);
   const [openSteps, setOpenSteps] = useState({ 0: true });
   const [selectedStep, setSelectedStep] = useState(0);
   const started = useRef(Date.now());
-  const miningRevealed = useRef(false);
+  const followOutput = useRef(true);
   const [finished, setFinished] = useState(null);
 
   useEffect(() => {
-    setOpenSteps(done ? { 0: true, 1: true, 2: true, 3: true } : uc2.max < 2 ? { 0: true, [uc2.max]: true } : { 0: true, 1: true, 2: true });
+    setOpenSteps({ 0: true, 1: uc2.max >= 1, 2: uc2.max >= 2, 3: uc2.max >= 3 });
     setSelectedStep(done ? null : uc2.max);
     if (uc2.max === 0) { started.current = Date.now(); setFinished(null); setExpanded(true); }
-    if (uc2.max === 0) miningRevealed.current = false;
+
     if (done) setFinished({ at: new Date(), duration: ((Date.now() - started.current) / 1000).toFixed(1) });
   }, [uc2.max, done]);
   useLayoutEffect(() => {
-    if (uc2.max !== 2 || !openSteps[2] || miningRevealed.current) return;
-    let nextFrame;
-    const frame = requestAnimationFrame(() => { nextFrame = requestAnimationFrame(() => {
-      const main = document.getElementById("luiMain");
-      if (main) main.scrollTop = main.scrollHeight;
-      miningRevealed.current = true;
-    }); });
-    return () => { cancelAnimationFrame(frame); cancelAnimationFrame(nextFrame); };
-  }, [uc2.max, openSteps]);
+    const main = document.getElementById("luiMain"), flow = main?.firstElementChild;
+    if (!main || !flow) return;
+    followOutput.current = true;
+    let frame = 0;
+    const align = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => { if (followOutput.current) main.scrollTop = main.scrollHeight; });
+    };
+    const wheel = event => { if (event.deltaY < 0) followOutput.current = false; };
+    const observer = new ResizeObserver(align);
+    observer.observe(flow); observer.observe(main); main.addEventListener("wheel", wheel, { passive: true }); align();
+    return () => { observer.disconnect(); cancelAnimationFrame(frame); main.removeEventListener("wheel", wheel); };
+  }, [uc2.max, uc2.phase, done, finished]);
   useEffect(() => {
     if (!uc2Scroll) return;
     const step = uc2Scroll.module;
+    if (step < uc2.stage) followOutput.current = false;
     setOpenSteps(value => ({ ...value, [step]: true }));
     setSelectedStep(step);
   }, [uc2Scroll]);
@@ -10538,14 +10669,9 @@ function Uc2Chat() {
     2: <><p className="uc2-step-result">分析设备配置，按设备角色提取共性配置项，计算各规则的一致性，形成候选黄金基线，并识别偏离主流配置的设备。</p><ul className="uc2-mining-stats"><li>分析设备：1980 台</li><li>共性配置项：47 条</li><li>一致性 100%：44 条</li><li>一致性 99%：2 条</li><li>一致性 97%：1 条</li></ul><p className="uc2-mining-scope">1980 台配置初筛后，本轮以 20 台核心交换机、80 台 Leaf 交换机作为角色样本，形成 18 条候选规则。</p></>,
     3: <>已生成 <strong>18 条候选规则</strong>，其中 12 条高置信、6 条待验证；100 台分析样本中有 <strong>9 台</strong>存在候选规则偏离，仍需审阅确认。</>,
   };
-  const runningCopy = {
-    1: <><p className="uc2-step-result">调用数字地图接口，获取西三旗 DC 的设备清单及拓扑关系，并根据设备角色进行分组，为后续基线挖掘建立分析对象。</p><p className="uc2-restore-progress" role="status">正在扫描 32 个区域，识别交换机及区域间的拓扑关系，并逐步展开设备拓扑。</p></>,
-    2: "正在按角色与配置特征聚类，选择代表设备并提取配置共性。",
-    3: "正在汇总候选规则与偏离样本，生成供审阅的黄金基线候选报告。",
-  };
   const artifacts = { 1: "网络拓扑图", 2: "基线挖掘图谱" };
   const timestamp = finished ? `${finished.at.getFullYear()}-${String(finished.at.getMonth() + 1).padStart(2, "0")}-${String(finished.at.getDate()).padStart(2, "0")} ${finished.at.toTimeString().slice(0, 8)}` : "";
-  const toggleStep = step => { setSelectedStep(step); setOpenSteps(value => ({ ...value, [step]: !value[step] })); };
+  const toggleStep = step => { followOutput.current = false; setSelectedStep(step); setOpenSteps(value => ({ ...value, [step]: !value[step] })); };
 
   return <>
     <div className="uc2-task-time">{new Date(started.current).toLocaleString("zh-CN", { year:"numeric",month:"long",day:"numeric",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false })}</div>
@@ -10560,7 +10686,7 @@ function Uc2Chat() {
           <p className="response-intent">已理解您的需求并明确实施路径。我将通过黄金基线挖掘 Skill，依次完成意图识别、设备发现、基线挖掘和结果呈现，下面开始执行。</p>
           <div className="steps workflow-steps uc2-workflow-steps">
             {[0, 1, 2, 3].slice(0, uc2.max + 1).map(step => {
-              const completed = done || step < uc2.max || step === 0 || (step === 1 && uc2.restoration === 2) || (step === 2 && uc2.max >= 2);
+              const completed = step < uc2.max || (step === uc2.stage && uc2.phase === "complete");
               const current = !completed && step === uc2.max;
               const open = !!openSteps[step];
               return <div key={step} className={"step " + (completed ? "is-done" : "is-running") + (selectedStep === step ? " is-selected" : "") + (current && !uc2.running ? " is-paused" : "")}>
@@ -10573,7 +10699,8 @@ function Uc2Chat() {
                   </div>
                 </div>
                 <div className="step-content" id={`uc2WorkflowStep${step}`} hidden={!open}>
-                  {completed ? copy[step] : runningCopy[step]}
+                  <Uc2TypedCopy step={step}>{copy[step]}</Uc2TypedCopy>
+                  {current && uc2.phase === "canvas" && <p className="uc2-canvas-progress" role="status">正在生成对应画布…</p>}
                   {completed && step > 0 && step < 3 && <div className="v7-step-artifact"><ArtifactTag title={artifacts[step]} type="process" shape={step === 1 ? "overview" : "mapping"} onLocate={() => uc2Show(step)} /></div>}
                 </div>
               </div>;
@@ -10584,7 +10711,7 @@ function Uc2Chat() {
       </div>
       {!done && <ResponseTools timestamp={new Date(started.current).toLocaleTimeString("zh-CN", {hour12:false})} subject="分析" duration={((Date.now() - started.current) / 1000).toFixed(1)} text="已识别黄金基线挖掘意图，分析西三旗DC交换机，重点关注一致性95%～99.9%的配置规则。" onRegenerate={uc2Start} onLocate={()=>uc2Show(uc2.max)} locateLabel="定位当前分析画布" />}
       {done && <>
-        <section className="completion audit-completion">
+        <section className="completion audit-completion" id="uc2Conclusion" data-report-result="true">
           <h2>黄金基线候选报告已生成</h2>
           <p>本轮分析 <strong>100 台样本设备</strong>，发现 <strong>18 条候选规则</strong>，其中 12 条高置信、6 条待验证；<strong>9 台设备</strong>存在候选偏离，详情见右侧报告。</p>
           <h3>审阅建议</h3>
@@ -12247,10 +12374,47 @@ function Uc2Intent() {
   Object.assign(__export, { Uc2Intent });
 })();
 
+/* ===== src/views/uc2-canvas/orb.jsx ===== */
+(function () {
+  const { useEffect, useRef } = React;
+const points = Array.from({ length: 72 }, (_, index) => {
+  const y = 1 - (index / 71) * 2, radius = Math.sqrt(1 - y * y), theta = index * Math.PI * (3 - Math.sqrt(5));
+  return { x: Math.cos(theta) * radius * 67, y: y * 67, z: Math.sin(theta) * radius * 67 };
+});
+
+function MiningOrb({ paused, loading }) {
+  const cloudRef = useRef(null), angleRef = useRef(0);
+  useEffect(() => {
+    if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let frame = 0, previous = 0;
+    const tick = now => {
+      const delta = previous ? Math.min(50, now - previous) : 0;
+      if (!previous || delta >= 28) {
+        angleRef.current += delta * (loading ? .00055 : .00018); previous = now;
+        const angle = angleRef.current, cos = Math.cos(angle), sin = Math.sin(angle);
+        points.forEach((point, index) => {
+          const x = point.x * cos + point.z * sin, z = -point.x * sin + point.z * cos, depth = (z + 67) / 134;
+          const dot = cloudRef.current?.children[index];
+          if (dot) { dot.setAttribute("cx", x.toFixed(2)); dot.setAttribute("cy", point.y.toFixed(2)); dot.setAttribute("r", (.65 + depth * 1.1).toFixed(2)); dot.setAttribute("opacity", (.12 + depth * .7).toFixed(2)); }
+        });
+      }
+      frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick); return () => cancelAnimationFrame(frame);
+  }, [paused, loading]);
+  return <g className={"golden-sphere-loading" + (loading ? " is-loading" : "")} pointerEvents="none" aria-hidden="true">
+    <g transform="translate(604 488)"><ellipse className="golden-orb-meridian" rx="27" ry="70" transform="rotate(28)"/><ellipse className="golden-orb-meridian is-purple" rx="31" ry="70" transform="rotate(-38)"/><g className="golden-sphere-cloud" ref={cloudRef}>{points.map((point,index)=><circle key={index} cx={point.x} cy={point.y} r="1" fill={index%4===0?"#b9a9ff":"#94e6ff"} opacity=".5"/>)}</g><g className="golden-latitude-scan"><ellipse rx="68" ry="12"/></g></g>
+    <circle className="golden-engine-breath" cx="604" cy="488" r="26"/>
+  </g>;
+}
+  Object.assign(__export, { MiningOrb });
+})();
+
 /* ===== src/views/uc2-canvas/mining.jsx ===== */
 (function () {
   const { useEffect, useRef, useState } = React;
   const { useApp, fusionRelevant, fusionTopRules, fusionImpact, uc2RuleById, miningImpact, uc2DeviationDevices, uc2Actual } = __export;
+  const MiningOrb = __export.MiningOrb;
 const art = "./assets/uploads/pixso-uc2-mining/";
 const nodes = [
   {id:"core",x:105,y:373,label:"核心角色簇",sub:"20台·CE12800",type:"role"},
@@ -12259,6 +12423,8 @@ const nodes = [
   {id:"core2",x:330,y:450,label:"CoreSwitch-02",sub:"核心代表设备",type:"device"},
   {id:"leafsample",x:330,y:627,label:"Leaf 配置样本",sub:"同角色标准化分析",type:"device"},
 ];
+const reveal = delay => ({ "--mining-delay": `${delay}ms` });
+const nodeDelays = { core: 120, leaf: 300, core1: 1000, core2: 1200, leafsample: 1400 };
 const anchors = [872,900,924,934,944,944,936,923,900,876];
 const links = [
   ["core","core1","M134 373C211 369 249 287 301 287"],
@@ -12301,40 +12467,62 @@ function RulePanel({ rule, onClose }) {
 }
 
 function Uc2Mining() {
-  const { uc2, uc2Fusion, uc2FusionPick, uc2FusionCloseDrawer, uc2Pause, full, setFull } = useApp();
+  const { uc2, uc2Fusion, uc2FusionPick, uc2FusionCloseDrawer, uc2Pause, uc2CanvasStart, uc2CanvasComplete, full, setFull } = useApp();
   const [hover, setHover] = useState(null), [summary, setSummary] = useState(null);
   const sceneRef = useRef(null), clearRef = useRef(0);
+  const [motionMode, setMotionMode] = useState(() => uc2.running && uc2.stage === 2 && !window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "waiting" : "complete");
+  const [motionKey, setMotionKey] = useState(0);
+  const revealing = motionMode !== "complete";
+  const playState = motionMode === "waiting" || (motionMode === "workflow" && !uc2.running) ? "paused" : "running";
+  useEffect(() => { if (uc2.stage > 2 && (motionMode === "workflow" || motionMode === "waiting")) setMotionMode("complete"); }, [uc2.stage, motionMode]);
+  // Start once the smooth-scrolling canvas is actually in view.
+  useEffect(() => {
+    if (motionMode !== "waiting") return;
+    const observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.intersectionRatio >= .9)) { uc2CanvasStart(2); setMotionMode("workflow"); observer.disconnect(); }
+    }, { threshold: [.9] });
+    if (sceneRef.current) observer.observe(sceneRef.current);
+    return () => observer.disconnect();
+  }, [motionMode, uc2CanvasStart]);
+  useEffect(() => { if (motionMode === "complete") uc2CanvasComplete(2); }, [motionMode, uc2CanvasComplete]);
+  const replay = () => {
+    if (uc2.running) uc2Pause();
+    uc2FusionPick("engine"); setHover(null); setSummary(null); clearTimeout(clearRef.current);
+    setMotionKey(value => value + 1);
+    setMotionMode(window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "complete" : "replay");
+  };
   const rules = fusionTopRules(), drawerRule = uc2RuleById(uc2Fusion.drawer);
   const activeId = hover || uc2Fusion.selected || "engine", related = fusionRelevant(activeId);
   const all = activeId === "engine";
   useEffect(()=>()=>clearTimeout(clearRef.current),[]);
   useEffect(()=>{if(drawerRule){setSummary(null);setHover(null);}},[drawerRule?.id]);
-  const open = id => { clearTimeout(clearRef.current);setSummary(null);setHover(null);if(uc2.running&&uc2.stage===2)uc2Pause();uc2FusionPick("rule:"+id); };
+  const open = id => { setMotionMode("complete"); clearTimeout(clearRef.current);setSummary(null);setHover(null);if(uc2.running&&uc2.stage===2)uc2Pause();uc2FusionPick("rule:"+id); };
   const leave = () => {clearTimeout(clearRef.current);clearRef.current=setTimeout(()=>{setHover(null);setSummary(null);},160);};
   const enter = () => clearTimeout(clearRef.current);
   const inspect = (id, event, rule) => {
-    if(drawerRule)return;enter();setHover(id);
+    if(drawerRule || revealing)return;enter();setHover(id);
     if(rule){const node=event.currentTarget.getBoundingClientRect(),host=sceneRef.current.getBoundingClientRect();const width=Math.min(354,host.width-32);setSummary({rule,position:{left:Math.max(16,Math.min(host.width-width-54,node.left-host.left-87)),top:Math.max(16,Math.min(host.height-262,node.top-host.top+114))}});}
     else setSummary(null);
   };
-  const handlers = (id, rule) => ({onMouseEnter:e=>inspect(id,e,rule),onMouseLeave:leave,onFocus:e=>inspect(id,e,rule),onBlur:leave,onClick:e=>{e.stopPropagation();if(rule)open(rule.id);else uc2FusionPick(id);},onKeyDown:e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();if(rule)open(rule.id);else uc2FusionPick(id);}}});
-  const drawEdge = (from,to,path,key) => {const hot=related.has(from)&&related.has(to);return <g key={key} className={"golden-edge"+(hot?" is-related":" is-muted")+(all?" is-default":"")} data-edge-from={from} data-edge-to={to}><path className="golden-edge-tube" d={path}/><path className="golden-edge-line" d={path}/>{!all&&hot&&<path className="golden-edge-selected" d={path}/>}</g>;};
-  return <div className={"mining-reference"+(drawerRule?" has-rule-panel":"")} onKeyDown={e=>{if(e.key==="Escape"){uc2FusionCloseDrawer();setSummary(null);setHover(null);}}}>
-    <header className="golden-header"><h2><img src={art+"title-icon.svg"} alt=""/>西三旗DC黄金基线挖掘 <span>检索交换机设备：<strong>1980</strong> 台</span></h2><button type="button" aria-label={full?"还原基线挖掘画布":"放大基线挖掘画布"} onClick={()=>setFull(!full)}><img src="./assets/uploads/pixso-uc2-restoration/expand-icon.svg" alt=""/></button></header>
+  const handlers = (id, rule) => ({onMouseEnter:e=>inspect(id,e,rule),onMouseLeave:leave,onFocus:e=>inspect(id,e,rule),onBlur:leave,onClick:e=>{e.stopPropagation();setMotionMode("complete");if(rule)open(rule.id);else uc2FusionPick(id);},onKeyDown:e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();setMotionMode("complete");if(rule)open(rule.id);else uc2FusionPick(id);}}});
+  const drawEdge = (from,to,path,key,delay) => {const hot=related.has(from)&&related.has(to);return <g key={key} className={"golden-edge"+(hot?" is-related":" is-muted")+(all?" is-default":"")} data-edge-from={from} data-edge-to={to}><g className="golden-edge-reveal" style={reveal(delay)}><path className="golden-edge-tube" pathLength="1" d={path}/><path className="golden-edge-line" pathLength="1" d={path}/>{!all&&hot&&<path className="golden-edge-selected" pathLength="1" d={path}/>}<g className="golden-particles">{[0,1].map(index=><g key={index} className="golden-link-particle" style={{offsetPath:`path("${path}")`,"--particle-duration":`${3000+((delay*7+index*931)%2400)}ms`,"--particle-delay":`${-((delay*13+index*1741)%4900)}ms`,animationDirection:(delay+index)%3===0?"reverse":"normal"}}><circle r={index?4:5.5} fill="url(#goldenParticleGlow)"/><circle r={index?1.7:2.3} fill="#b4e9ff"/><circle cx="-.55" cy="-.55" r=".7" fill="#f1fbff"/></g>)}</g></g></g>;};
+  return <div className={"mining-reference"+(drawerRule?" has-rule-panel":"")+(revealing?" is-revealing":"")} data-motion-mode={motionMode} style={{"--mining-reveal-state":playState,"--mining-ambient-state":playState}} onAnimationEnd={e=>{if(e.animationName==="goldenReveal"&&e.target.dataset.motionLast==="true")setMotionMode("complete");}} onKeyDown={e=>{if(e.key==="Escape"){uc2FusionCloseDrawer();setSummary(null);setHover(null);}}}>
+    <header className="golden-header"><h2><img src={art+"title-icon.svg"} alt=""/>西三旗DC黄金基线挖掘 <span>检索交换机设备：<strong>1980</strong> 台</span></h2><div className="golden-header-actions"><button type="button" aria-label="重播挖掘动效" title="重播挖掘动效" onClick={replay}><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 5a5.2 5.2 0 1 1-.1 5.8M3 1.8V5h3.2" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/></svg></button><button type="button" aria-label={full?"还原基线挖掘画布":"放大基线挖掘画布"} onClick={()=>setFull(!full)}><img src="./assets/uploads/pixso-uc2-restoration/expand-icon.svg" alt=""/></button></div></header>
     <div className="golden-scene" ref={sceneRef}>
-      <svg className="golden-diagram" viewBox="0 56 1232 842" role="group" aria-label="黄金基线挖掘图谱" onClick={e=>{if(e.target===e.currentTarget){uc2FusionPick("engine");setSummary(null);setHover(null);}}}>
-        <defs><linearGradient id="goldenFlow" x1="0" x2="1"><stop stopColor="#6d9ab5"/><stop offset="1" stopColor="#9582cb"/></linearGradient><radialGradient id="goldenGlow"><stop stopColor="#154dab" stopOpacity=".22"/><stop offset="1" stopColor="#154dab" stopOpacity="0"/></radialGradient></defs>
-        <g className="golden-columns"><text x={drawerRule?30:77} y="104">角色聚类</text><text x={drawerRule?167:289} y="104">代表配置对比</text><text x={drawerRule?374:576} y="104">共性提取</text><text x={drawerRule?585:915} y="104">候选规则 TOP10</text><text className="golden-columns-sub" x={drawerRule?558:889} y="126">置信度·影响级别·支持设备数</text></g>
+      <svg key={motionKey} className="golden-diagram" aria-busy={revealing} viewBox="0 56 1232 842" role="group" aria-label="黄金基线挖掘图谱" onClick={e=>{if(e.target===e.currentTarget){uc2FusionPick("engine");setSummary(null);setHover(null);}}}>
+        <defs><linearGradient id="goldenFlow" x1="0" x2="1"><stop stopColor="#6d9ab5"/><stop offset="1" stopColor="#9582cb"/></linearGradient><radialGradient id="goldenGlow"><stop stopColor="#154dab" stopOpacity=".22"/><stop offset="1" stopColor="#154dab" stopOpacity="0"/></radialGradient><radialGradient id="goldenEnergyGlow"><stop stopColor="#419eff" stopOpacity=".26"/><stop offset=".65" stopColor="#47c7ff" stopOpacity=".12"/><stop offset="1" stopColor="#68a7ff" stopOpacity="0"/></radialGradient><radialGradient id="goldenParticleGlow"><stop stopColor="#a5e7ff" stopOpacity=".75"/><stop offset=".35" stopColor="#57bbff" stopOpacity=".35"/><stop offset="1" stopColor="#419bff" stopOpacity="0"/></radialGradient></defs>
+        <g className="golden-columns"><text className="golden-reveal" style={reveal(0)} x={drawerRule?30:77} y="104">角色聚类</text><text className="golden-reveal" style={reveal(850)} x={drawerRule?167:289} y="104">代表配置对比</text><text className="golden-reveal" style={reveal(1950)} x={drawerRule?374:576} y="104">共性提取</text><g className="golden-reveal" style={reveal(2750)}><text x={drawerRule?585:915} y="104">候选规则 TOP10</text><text className="golden-columns-sub" x={drawerRule?558:889} y="126">置信度·影响级别·支持设备数</text></g></g>
         <g className="golden-flow">
-          <ellipse cx="604" cy="486" rx="260" ry="250" fill="url(#goldenGlow)"/>
-          <path className="golden-candidate-arc" d="M850 167Q1044 491 850 815"/>
-          {links.map(([a,b,d],i)=>drawEdge(a,b,d,"in-"+i))}
-          {rules.map((r,i)=>drawEdge("engine","rule:"+r.id,`M${698-Math.abs(i-4.5)*1.5} ${486+(i-4.5)*8}C764 ${486+(i-4.5)*8} ${anchors[i]-76} ${203+i*64} ${anchors[i]} ${203+i*64}`,r.id))}
-          {nodes.map(n=><g key={n.id} className={"golden-node"+(!all&&!related.has(n.id)?" is-muted":"")+(!all&&related.has(n.id)?" is-related":"")} role="button" tabIndex={0} aria-label={"挖掘过程："+n.label} data-fusion-node={n.id} {...handlers(n.id)}><image href={art+(n.type==="role"?"role-node.svg":"device-node.svg")} x={n.x-84.67} y={n.y-84.67} width="169.34" height="169.34"/>{!all&&related.has(n.id)&&<circle className="golden-node-selected" cx={n.x} cy={n.y} r="29"/>}<text className="golden-node-title" x={n.x} y={n.y+59} textAnchor="middle">{n.label}</text><text className="golden-node-sub" x={n.x} y={n.y+83} textAnchor="middle">{n.sub}</text><rect className="golden-hit" x={n.x-58} y={n.y-40} width="116" height="130" fill="transparent"/></g>)}
-          <g className="golden-engine" role="button" tabIndex={0} aria-label="挖掘过程：AI配置共性提取" data-fusion-node="engine" {...handlers("engine")}><image href={art+"engine-reference.png"} x="504" y="388" width="200" height="200"/><text x="604" y="593" textAnchor="middle" className="golden-engine-title">AI配置共性提取</text><text x="604" y="619" textAnchor="middle" className="golden-engine-sub">标准化·对比·样本回看</text></g>
-          {rules.map((rule,i)=>{const id="rule:"+rule.id,x=anchors[i],y=203+i*64,hot=related.has(id);return <g key={rule.id} className={"golden-rule-node"+(!all&&!hot?" is-muted":"")+(!all&&hot?" is-related":"")} role="button" tabIndex={0} aria-label={"候选规则："+rule.name} data-fusion-node={id} {...handlers(id,rule)}><circle className="golden-rule-dot" cx={x} cy={y} r={!all&&hot?6.5:5}/><text className="golden-rule-name" x={x+30} y={y-7}>{rule.name.length>19?rule.name.slice(0,18)+"…":rule.name}</text><text className="golden-rule-sub" x={x+30} y={y+13}>{rule.confidence==="高"?"高置信":"待验证"}·{fusionImpact[rule.id]}影响·依据{rule.support}台</text><rect className="golden-hit" x={x-14} y={y-27} width="270" height="52" fill="transparent"/></g>;})}
+          <g className="golden-reveal" style={reveal(2150)}><ellipse className="golden-engine-aura" cx="604" cy="488" rx="230" ry="220" fill="url(#goldenGlow)"/></g>
+          <path style={reveal(2750)} className="golden-candidate-arc golden-reveal" d="M850 167Q1044 491 850 815"/>
+          {links.map(([a,b,d],i)=>drawEdge(a,b,d,"in-"+i,i<3?500+i*200:1700+(i-3)*100))}
+          {rules.map((r,i)=>drawEdge("engine","rule:"+r.id,`M${698-Math.abs(i-4.5)*1.5} ${486+(i-4.5)*8}C764 ${486+(i-4.5)*8} ${anchors[i]-76} ${203+i*64} ${anchors[i]} ${203+i*64}`,r.id,2900+i*115))}
+          {nodes.map(n=><g key={n.id} className={"golden-node"+(!all&&!related.has(n.id)?" is-muted":"")+(!all&&related.has(n.id)?" is-related":"")} role="button" tabIndex={revealing?-1:0} aria-label={"挖掘过程："+n.label} data-fusion-node={n.id} {...handlers(n.id)}><g className="golden-reveal" data-motion-stage={n.type==="role"?"role":"device"} style={reveal(nodeDelays[n.id])}><image href={art+(n.type==="role"?"role-node.svg":"device-node.svg")} x={n.x-84.67} y={n.y-84.67} width="169.34" height="169.34"/>{!all&&related.has(n.id)&&<circle className="golden-node-selected" cx={n.x} cy={n.y} r="29"/>}<text className="golden-node-title" x={n.x} y={n.y+59} textAnchor="middle">{n.label}</text><text className="golden-node-sub" x={n.x} y={n.y+83} textAnchor="middle">{n.sub}</text><rect className="golden-hit" x={n.x-58} y={n.y-40} width="116" height="130" fill="transparent"/></g></g>)}
+          <g className="golden-engine" role="button" tabIndex={revealing?-1:0} aria-label="挖掘过程：AI配置共性提取" data-fusion-node="engine" {...handlers("engine")}><g className="golden-reveal golden-engine-reveal" data-motion-stage="engine" style={reveal(2300)}><circle className="golden-engine-halo" cx="604" cy="488" r="112" fill="url(#goldenEnergyGlow)"/><image href={art+"engine-reference.png"} x="504" y="388" width="200" height="200"/><MiningOrb paused={playState==="paused"} loading={revealing}/>
+<text x="604" y="593" textAnchor="middle" className="golden-engine-title">AI配置共性提取</text><text x="604" y="619" textAnchor="middle" className="golden-engine-sub">标准化·对比·样本回看</text></g></g>
+          {rules.map((rule,i)=>{const id="rule:"+rule.id,x=anchors[i],y=203+i*64,hot=related.has(id);return <g key={rule.id} className={"golden-rule-node"+(!all&&!hot?" is-muted":"")+(!all&&hot?" is-related":"")} role="button" tabIndex={revealing?-1:0} aria-label={"候选规则："+rule.name} data-fusion-node={id} {...handlers(id,rule)}><g className="golden-reveal" data-motion-stage="rule" style={reveal(3150+i*115)}><circle className="golden-rule-dot" cx={x} cy={y} r={!all&&hot?6.5:5}/><text className="golden-rule-name" x={x+30} y={y-7}>{rule.name.length>19?rule.name.slice(0,18)+"…":rule.name}</text><text className="golden-rule-sub" x={x+30} y={y+13}>{rule.confidence==="高"?"高置信":"待验证"}·{fusionImpact[rule.id]}影响·依据{rule.support}台</text><rect className="golden-hit" x={x-14} y={y-27} width="270" height="52" fill="transparent"/></g></g>;})}
         </g>
-        <g className="golden-candidate-total"><path d={drawerRule?"M558 854H582M711 854H736":"M895 854H919M1048 854H1073"}/><text x={drawerRule?591:923} y="860">18条候选规则</text></g>
+        <g className="golden-candidate-total golden-reveal" data-motion-last="true" style={reveal(4400)}><path d={drawerRule?"M558 854H582M711 854H736":"M895 854H919M1048 854H1073"}/><text x={drawerRule?591:923} y="860">18条候选规则</text></g>
       </svg>
       {summary&&!drawerRule&&<RuleSummary rule={summary.rule} position={summary.position} onOpen={open} onEnter={enter} onLeave={leave}/>}
       {drawerRule&&<RulePanel rule={drawerRule} onClose={uc2FusionCloseDrawer}/>}
@@ -12342,6 +12530,30 @@ function Uc2Mining() {
   </div>;
 }
   Object.assign(__export, { Uc2Mining });
+})();
+
+/* ===== src/views/uc2-canvas/report-generation.jsx ===== */
+(function () {
+  const { useEffect, useRef } = React;
+  const { useApp } = __export;
+function Uc2ReportGeneration({ children }) {
+  const { uc2, uc2CanvasStart, uc2CanvasComplete } = useApp();
+  const headerRef = useRef(null);
+  const generating = uc2.stage === 3 && uc2.phase === "canvas";
+  useEffect(() => {
+    if (!generating || uc2.canvasStarted) return;
+    const observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) { uc2CanvasStart(3); observer.disconnect(); }
+    });
+    if (headerRef.current) observer.observe(headerRef.current);
+    return () => observer.disconnect();
+  }, [generating, uc2.canvasStarted, uc2CanvasStart]);
+  useEffect(() => {
+    if (generating && uc2.canvasStarted && window.matchMedia("(prefers-reduced-motion: reduce)").matches) uc2CanvasComplete(3);
+  }, [generating, uc2.canvasStarted, uc2CanvasComplete]);
+  return <div className={"uc2-report-generation" + (generating ? uc2.canvasStarted ? " is-generating" : " is-waiting" : "")} style={{"--uc2-report-play-state":uc2.running?"running":"paused"}} onAnimationEnd={event=>{if(event.animationName==="uc2ReportGenerate"&&event.target===event.currentTarget)uc2CanvasComplete(3);}}><span className="uc2-report-generation-anchor" ref={headerRef} aria-hidden="true"/>{children}</div>;
+}
+  Object.assign(__export, { Uc2ReportGeneration });
 })();
 
 /* ===== src/components/metric-card/index.jsx ===== */
@@ -12512,6 +12724,12 @@ function Uc2RuleDetail() {
   const Uc2Topology = __export.Uc2Topology;
   const Uc2Intent = __export.Uc2Intent;
   const Uc2Mining = __export.Uc2Mining;
+  const Uc2ReportGeneration = __export.Uc2ReportGeneration;
+function CanvasPreparing({ stage }) {
+  const titles = ["意图分析", "网络拓扑图", "黄金基线挖掘", "黄金基线候选报告"];
+  return <div className={"uc2-canvas-preparing preparing-stage-" + stage} aria-label={titles[stage] + "准备中"} aria-busy="true"><div className="uc2-preparing-heading">{titles[stage]}</div><div className="uc2-preparing-body"><span className="uc2-preparing-orb" aria-hidden="true"/><span>正在分析任务…</span></div></div>;
+}
+
 // UC2 画布：三级瀑布模块（设备还原 → 黄金基线挖掘 → 生成报告）
 function Uc2Pane() {
   const { uc2, uc2Scroll } = useApp();
@@ -12519,11 +12737,11 @@ function Uc2Pane() {
 
   // 新模块出现 → 平滑定位
   useEffect(() => {
-    if (uc2.max > 1 && uc2.max > renderedMaxRef.current) {
+    if ((uc2.max > 1 && uc2.max > renderedMaxRef.current) || (uc2.stage === 3 && uc2.phase === "canvas")) {
       requestAnimationFrame(() => document.getElementById("uc2Module" + uc2.max)?.scrollIntoView({ behavior: "smooth", block: "start" }));
     }
     renderedMaxRef.current = uc2.max;
-  }, [uc2.max]);
+  }, [uc2.max, uc2.phase, uc2.stage]);
 
   // 定位信号（步骤跳转 / 打开规则 / 抽屉滚动）
   useEffect(() => {
@@ -12532,12 +12750,13 @@ function Uc2Pane() {
   }, [uc2Scroll]);
 
   if (!uc2.active) return null;
-  if (uc2.max === 0 || uc2.view === "intent") return <section id="uc2Pane" aria-label="黄金基线挖掘画布"><Uc2Intent /></section>;
+  if (uc2.max === 0 || uc2.view === "intent") return <section id="uc2Pane" data-generation-phase={uc2.phase} data-generation-stage={uc2.stage} aria-label="黄金基线挖掘画布">{uc2.max === 0 && uc2.phase === "text" ? <><h2 className="uc2-reference-label">意图分析</h2><CanvasPreparing stage={0}/></> : <Uc2Intent />}</section>;
 
   const headings = { 1: "设备还原", 2: "黄金基线挖掘", 3: "生成报告 · 黄金基线候选结果" };
   const modules = [];
   for (let i = 1; i <= uc2.max; i++) {
-    const content = i === 1 ? <Uc2Topology /> : i === 2 ? <Uc2Mining /> : uc2.view === "rule" ? <Uc2RuleDetail /> : <Uc2Report />;
+    const pendingText = i === uc2.stage && uc2.phase === "text";
+    const content = pendingText ? <CanvasPreparing stage={i}/> : i === 1 ? <Uc2Topology /> : i === 2 ? <Uc2Mining /> : uc2.view === "rule" ? <Uc2RuleDetail /> : <Uc2ReportGeneration><Uc2Report /></Uc2ReportGeneration>;
     modules.push(
       <section key={i} className="uc2-waterfall-module" id={"uc2Module" + i} aria-label={headings[i]}>
         <h2 className="uc2-module-name">
@@ -12550,7 +12769,7 @@ function Uc2Pane() {
   }
 
   return (
-    <section id="uc2Pane" aria-label="黄金基线挖掘画布">
+    <section id="uc2Pane" data-generation-phase={uc2.phase} data-generation-stage={uc2.stage} aria-label="黄金基线挖掘画布">
       {modules}
     </section>
   );

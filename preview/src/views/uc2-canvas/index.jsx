@@ -5,7 +5,14 @@ import Uc2Topology from "./topology.jsx";
 import Uc2Intent from "./intent.jsx";
 import "./restoration.css";
 import Uc2Mining from "./mining.jsx";
+import Uc2ReportGeneration from "./report-generation.jsx";
+import "./generation.css";
 import { Uc2Report, Uc2RuleDetail } from "./report.jsx";
+
+function CanvasPreparing({ stage }) {
+  const titles = ["意图分析", "网络拓扑图", "黄金基线挖掘", "黄金基线候选报告"];
+  return <div className={"uc2-canvas-preparing preparing-stage-" + stage} aria-label={titles[stage] + "准备中"} aria-busy="true"><div className="uc2-preparing-heading">{titles[stage]}</div><div className="uc2-preparing-body"><span className="uc2-preparing-orb" aria-hidden="true"/><span>正在分析任务…</span></div></div>;
+}
 
 // UC2 画布：三级瀑布模块（设备还原 → 黄金基线挖掘 → 生成报告）
 export default function Uc2Pane() {
@@ -14,11 +21,11 @@ export default function Uc2Pane() {
 
   // 新模块出现 → 平滑定位
   useEffect(() => {
-    if (uc2.max > 1 && uc2.max > renderedMaxRef.current) {
+    if ((uc2.max > 1 && uc2.max > renderedMaxRef.current) || (uc2.stage === 3 && uc2.phase === "canvas")) {
       requestAnimationFrame(() => document.getElementById("uc2Module" + uc2.max)?.scrollIntoView({ behavior: "smooth", block: "start" }));
     }
     renderedMaxRef.current = uc2.max;
-  }, [uc2.max]);
+  }, [uc2.max, uc2.phase, uc2.stage]);
 
   // 定位信号（步骤跳转 / 打开规则 / 抽屉滚动）
   useEffect(() => {
@@ -27,12 +34,13 @@ export default function Uc2Pane() {
   }, [uc2Scroll]);
 
   if (!uc2.active) return null;
-  if (uc2.max === 0 || uc2.view === "intent") return <section id="uc2Pane" aria-label="黄金基线挖掘画布"><Uc2Intent /></section>;
+  if (uc2.max === 0 || uc2.view === "intent") return <section id="uc2Pane" data-generation-phase={uc2.phase} data-generation-stage={uc2.stage} aria-label="黄金基线挖掘画布">{uc2.max === 0 && uc2.phase === "text" ? <><h2 className="uc2-reference-label">意图分析</h2><CanvasPreparing stage={0}/></> : <Uc2Intent />}</section>;
 
   const headings = { 1: "设备还原", 2: "黄金基线挖掘", 3: "生成报告 · 黄金基线候选结果" };
   const modules = [];
   for (let i = 1; i <= uc2.max; i++) {
-    const content = i === 1 ? <Uc2Topology /> : i === 2 ? <Uc2Mining /> : uc2.view === "rule" ? <Uc2RuleDetail /> : <Uc2Report />;
+    const pendingText = i === uc2.stage && uc2.phase === "text";
+    const content = pendingText ? <CanvasPreparing stage={i}/> : i === 1 ? <Uc2Topology /> : i === 2 ? <Uc2Mining /> : uc2.view === "rule" ? <Uc2RuleDetail /> : <Uc2ReportGeneration><Uc2Report /></Uc2ReportGeneration>;
     modules.push(
       <section key={i} className="uc2-waterfall-module" id={"uc2Module" + i} aria-label={headings[i]}>
         <h2 className="uc2-module-name">
@@ -45,7 +53,7 @@ export default function Uc2Pane() {
   }
 
   return (
-    <section id="uc2Pane" aria-label="黄金基线挖掘画布">
+    <section id="uc2Pane" data-generation-phase={uc2.phase} data-generation-stage={uc2.stage} aria-label="黄金基线挖掘画布">
       {modules}
     </section>
   );

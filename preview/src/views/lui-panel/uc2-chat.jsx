@@ -5,38 +5,44 @@ import { ArtifactTag } from "../../components/status-marks/index.jsx";
 import Ic from "../../components/icon-el/index.jsx";
 import LuiGlyph from "./glyph.jsx";
 import ResponseTools from "./response-tools.jsx";
+import Uc2TypedCopy from "./uc2-typed-copy.jsx";
 
 // UC2 uses the same answer, progressive steps and artifact controls as UC4.
 export default function Uc2Chat() {
   const { uc2, uc2Pause, uc2Next, uc2Start, uc2Show, uc2Scroll, isDark } = useApp();
-  const done = uc2.max === 3;
+  const done = uc2.max === 3 && uc2.phase === "complete";
   const [expanded, setExpanded] = useState(true);
   const [openSteps, setOpenSteps] = useState({ 0: true });
   const [selectedStep, setSelectedStep] = useState(0);
   const started = useRef(Date.now());
-  const miningRevealed = useRef(false);
+  const followOutput = useRef(true);
   const [finished, setFinished] = useState(null);
 
   useEffect(() => {
-    setOpenSteps(done ? { 0: true, 1: true, 2: true, 3: true } : uc2.max < 2 ? { 0: true, [uc2.max]: true } : { 0: true, 1: true, 2: true });
+    setOpenSteps({ 0: true, 1: uc2.max >= 1, 2: uc2.max >= 2, 3: uc2.max >= 3 });
     setSelectedStep(done ? null : uc2.max);
     if (uc2.max === 0) { started.current = Date.now(); setFinished(null); setExpanded(true); }
-    if (uc2.max === 0) miningRevealed.current = false;
+
     if (done) setFinished({ at: new Date(), duration: ((Date.now() - started.current) / 1000).toFixed(1) });
   }, [uc2.max, done]);
   useLayoutEffect(() => {
-    if (uc2.max !== 2 || !openSteps[2] || miningRevealed.current) return;
-    let nextFrame;
-    const frame = requestAnimationFrame(() => { nextFrame = requestAnimationFrame(() => {
-      const main = document.getElementById("luiMain");
-      if (main) main.scrollTop = main.scrollHeight;
-      miningRevealed.current = true;
-    }); });
-    return () => { cancelAnimationFrame(frame); cancelAnimationFrame(nextFrame); };
-  }, [uc2.max, openSteps]);
+    const main = document.getElementById("luiMain"), flow = main?.firstElementChild;
+    if (!main || !flow) return;
+    followOutput.current = true;
+    let frame = 0;
+    const align = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => { if (followOutput.current) main.scrollTop = main.scrollHeight; });
+    };
+    const wheel = event => { if (event.deltaY < 0) followOutput.current = false; };
+    const observer = new ResizeObserver(align);
+    observer.observe(flow); observer.observe(main); main.addEventListener("wheel", wheel, { passive: true }); align();
+    return () => { observer.disconnect(); cancelAnimationFrame(frame); main.removeEventListener("wheel", wheel); };
+  }, [uc2.max, uc2.phase, done, finished]);
   useEffect(() => {
     if (!uc2Scroll) return;
     const step = uc2Scroll.module;
+    if (step < uc2.stage) followOutput.current = false;
     setOpenSteps(value => ({ ...value, [step]: true }));
     setSelectedStep(step);
   }, [uc2Scroll]);
@@ -47,14 +53,9 @@ export default function Uc2Chat() {
     2: <><p className="uc2-step-result">分析设备配置，按设备角色提取共性配置项，计算各规则的一致性，形成候选黄金基线，并识别偏离主流配置的设备。</p><ul className="uc2-mining-stats"><li>分析设备：1980 台</li><li>共性配置项：47 条</li><li>一致性 100%：44 条</li><li>一致性 99%：2 条</li><li>一致性 97%：1 条</li></ul><p className="uc2-mining-scope">1980 台配置初筛后，本轮以 20 台核心交换机、80 台 Leaf 交换机作为角色样本，形成 18 条候选规则。</p></>,
     3: <>已生成 <strong>18 条候选规则</strong>，其中 12 条高置信、6 条待验证；100 台分析样本中有 <strong>9 台</strong>存在候选规则偏离，仍需审阅确认。</>,
   };
-  const runningCopy = {
-    1: <><p className="uc2-step-result">调用数字地图接口，获取西三旗 DC 的设备清单及拓扑关系，并根据设备角色进行分组，为后续基线挖掘建立分析对象。</p><p className="uc2-restore-progress" role="status">正在扫描 32 个区域，识别交换机及区域间的拓扑关系，并逐步展开设备拓扑。</p></>,
-    2: "正在按角色与配置特征聚类，选择代表设备并提取配置共性。",
-    3: "正在汇总候选规则与偏离样本，生成供审阅的黄金基线候选报告。",
-  };
   const artifacts = { 1: "网络拓扑图", 2: "基线挖掘图谱" };
   const timestamp = finished ? `${finished.at.getFullYear()}-${String(finished.at.getMonth() + 1).padStart(2, "0")}-${String(finished.at.getDate()).padStart(2, "0")} ${finished.at.toTimeString().slice(0, 8)}` : "";
-  const toggleStep = step => { setSelectedStep(step); setOpenSteps(value => ({ ...value, [step]: !value[step] })); };
+  const toggleStep = step => { followOutput.current = false; setSelectedStep(step); setOpenSteps(value => ({ ...value, [step]: !value[step] })); };
 
   return <>
     <div className="uc2-task-time">{new Date(started.current).toLocaleString("zh-CN", { year:"numeric",month:"long",day:"numeric",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false })}</div>
@@ -69,7 +70,7 @@ export default function Uc2Chat() {
           <p className="response-intent">已理解您的需求并明确实施路径。我将通过黄金基线挖掘 Skill，依次完成意图识别、设备发现、基线挖掘和结果呈现，下面开始执行。</p>
           <div className="steps workflow-steps uc2-workflow-steps">
             {[0, 1, 2, 3].slice(0, uc2.max + 1).map(step => {
-              const completed = done || step < uc2.max || step === 0 || (step === 1 && uc2.restoration === 2) || (step === 2 && uc2.max >= 2);
+              const completed = step < uc2.max || (step === uc2.stage && uc2.phase === "complete");
               const current = !completed && step === uc2.max;
               const open = !!openSteps[step];
               return <div key={step} className={"step " + (completed ? "is-done" : "is-running") + (selectedStep === step ? " is-selected" : "") + (current && !uc2.running ? " is-paused" : "")}>
@@ -82,7 +83,8 @@ export default function Uc2Chat() {
                   </div>
                 </div>
                 <div className="step-content" id={`uc2WorkflowStep${step}`} hidden={!open}>
-                  {completed ? copy[step] : runningCopy[step]}
+                  <Uc2TypedCopy step={step}>{copy[step]}</Uc2TypedCopy>
+                  {current && uc2.phase === "canvas" && <p className="uc2-canvas-progress" role="status">正在生成对应画布…</p>}
                   {completed && step > 0 && step < 3 && <div className="v7-step-artifact"><ArtifactTag title={artifacts[step]} type="process" shape={step === 1 ? "overview" : "mapping"} onLocate={() => uc2Show(step)} /></div>}
                 </div>
               </div>;
@@ -93,7 +95,7 @@ export default function Uc2Chat() {
       </div>
       {!done && <ResponseTools timestamp={new Date(started.current).toLocaleTimeString("zh-CN", {hour12:false})} subject="分析" duration={((Date.now() - started.current) / 1000).toFixed(1)} text="已识别黄金基线挖掘意图，分析西三旗DC交换机，重点关注一致性95%～99.9%的配置规则。" onRegenerate={uc2Start} onLocate={()=>uc2Show(uc2.max)} locateLabel="定位当前分析画布" />}
       {done && <>
-        <section className="completion audit-completion">
+        <section className="completion audit-completion" id="uc2Conclusion" data-report-result="true">
           <h2>黄金基线候选报告已生成</h2>
           <p>本轮分析 <strong>100 台样本设备</strong>，发现 <strong>18 条候选规则</strong>，其中 12 条高置信、6 条待验证；<strong>9 台设备</strong>存在候选偏离，详情见右侧报告。</p>
           <h3>审阅建议</h3>
