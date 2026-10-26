@@ -4,7 +4,7 @@ const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
 const root=path.resolve(__dirname,'..');
 const Babel=require(path.join(root,'assets/library/babel.min.js'));
 const modules=new Map(),styles=new Set();
-const externals={react:'React','react-dom':'ReactDOM','react-dom/client':'ReactDOM',antd:'antd','react-intl':'ReactIntl',dayjs:'dayjs'};
+const externals={react:'React','react-dom':'ReactDOM','react-dom/client':'ReactDOM',antd:'antd','react-intl':'ReactIntl',dayjs:'dayjs','react/jsx-runtime':'ReactJsxRuntime'};
 function visit(id){
  if(id.endsWith('.css')){styles.add(id);return}
  if(modules.has(id))return;
@@ -16,6 +16,7 @@ function visit(id){
  for(const match of code.matchAll(/\brequire\(["']([^"']+)["']\)/g)){
   const spec=match[1];
   if(spec.startsWith('.')){const dep=path.posix.normalize(path.posix.join(path.posix.dirname(id),spec));modules.get(id).deps[spec]=dep;visit(dep)}
+  else if(spec==='border-beam'){const dep='assets/library/border-beam/index.cjs';modules.get(id).deps[spec]=dep;visit(dep)}
   else if(!externals[spec])throw Error('Unsupported external '+spec+' in '+id);
  }
 }
@@ -23,7 +24,7 @@ visit('app.jsx');
 const baseStyles=['base','light','theme','dark','ant'].map(name=>fs.readFileSync(path.join(root,'assets/style/'+name+'.css'),'utf8')).join('\n');
 const css=baseStyles+'\n'+[...styles].map(id=>'/* '+id+' */\n'+fs.readFileSync(path.join(root,id),'utf8')).join('\n');
 const lucide=fs.readFileSync(path.join(root,'assets/library/lucide-icon-nodes.json'),'utf8');
-const bundle=`const LUCIDE=${lucide};\n(function(){\nconst modules={},cache={};\nconst external={${Object.entries(externals).map(([id,value])=>JSON.stringify(id)+':'+value).join(',')}};\n`+
+const bundle=`const ReactJsxRuntime={Fragment:React.Fragment,jsx:(type,props,key)=>React.createElement(type,key===undefined?props:{...props,key}),jsxs:(type,props,key)=>React.createElement(type,key===undefined?props:{...props,key})};\nconst LUCIDE=${lucide};\n(function(){\nconst modules={},cache={};\nconst external={${Object.entries(externals).map(([id,value])=>JSON.stringify(id)+':'+value).join(',')}};\n`+
  [...modules].map(([id,m])=>'modules['+JSON.stringify(id)+']={deps:'+JSON.stringify(m.deps)+',run:function(require,module,exports){\n'+m.code+'\n}};').join('\n')+
  `\nfunction load(id){if(Object.hasOwn(external,id))return external[id];if(id.endsWith('.css'))return {};if(cache[id])return cache[id].exports;const record=modules[id];if(!record)throw Error('Missing module '+id);const module={exports:{}};cache[id]=module;record.run(spec=>load(record.deps[spec]||spec),module,module.exports);return module.exports;}\nconst App=load('app.jsx').default;ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));\n})();`;
 new vm.Script(bundle,{filename:'preview-bundle.js'});

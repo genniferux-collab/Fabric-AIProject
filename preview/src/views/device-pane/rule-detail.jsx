@@ -1,8 +1,17 @@
+import { useState } from "react";
 import { useApp } from "../../context.jsx";
 import { v7RuleRequirements,v7RepairDirections } from "../../mock/audit.js";
 import { failFor } from "../../mock/devices.js";
 import { checkById, instancesFor, snapshotFor, rawSegments, sshCommands, SSH_TARGET_HMAC } from "../../mock/checks.js";
 import { PriorityBadge, StatusMark } from "../../components/status-marks/index.jsx";
+
+function CommandHeader({ onCopy, expanded, onExpand, label = "配置" }) {
+  return <div className="detail-command-header"><span><img src="./assets/uploads/detail-terminal.svg" width="14" height="14" alt=""/>命令行</span><div><button type="button" aria-label={"复制"+label} title={"复制"+label} onClick={onCopy}><img src="./assets/uploads/detail-copy.svg" width="12" height="12" alt=""/></button><button type="button" aria-label={(expanded?"收起":"展开")+label} aria-expanded={expanded} title={expanded?"收起":"展开"} onClick={onExpand}><img src="./assets/uploads/detail-expand.svg" width="12" height="12" alt=""/></button></div></div>;
+}
+function RepairCommands({ onCopy, children }) {
+  const [expanded,setExpanded]=useState(false);
+  return <div className={"detail-repair-panel"+(expanded?" expanded":"")}><CommandHeader onCopy={onCopy} expanded={expanded} onExpand={()=>setExpanded(value=>!value)} label="修复命令"/><div className="fix-diff">{children}</div></div>;
+}
 
 // 原始值高亮（mark 形态 — 配置快照行内标记）
 function RawMarks({ r, i }) {
@@ -85,11 +94,11 @@ function FixSection({ d, r, i, onCopy }) {
     <section className="fix-section">
       <div className="between"><h4 className="fix-heading">修复建议</h4><span className="small muted">建议修改 · 尚未执行</span></div>
       <p className="fix-text">{reason}</p>
-      <div className="fix-diff">
+      <RepairCommands onCopy={onCopy}>
         <div className="context">{ntp ? "system-view" : context}</div>
         <div className="minus">{minus}</div>
         <div className="plus">{plus}</div>
-      </div>
+      </RepairCommands>
       <div className="fix-actions">
         <span className="small muted">红/绿表示拟删除与新增内容</span>
         <button className="btn" onClick={onCopy}>复制修复命令</button>
@@ -99,12 +108,12 @@ function FixSection({ d, r, i, onCopy }) {
 }
 
 
-function ConfigView({d,r,i,s,records,onSetMode}) {
+function ConfigView({d,r,i,s,records,onSetMode,onCopy}) {
   const expanded=s.mode==='full',snapshot=snapshotFor(d);
   const start=Math.max(1,i.line-2),end=Math.min(snapshot.length,i.line+1);
   return <div className={'config-view v13-evidence '+(expanded?'expanded':'')}>
-    <div className="source-line"><span>{d.name}.cfg <span className="v13-snapshot">· 快照 2026-10-21 14:19:55</span></span><button className="v13-expand-config" aria-label={expanded?'收起配置':'展开配置'} aria-expanded={expanded} onClick={()=>onSetMode(expanded?'related':'full')}>{expanded?'收起':'展开'}<span aria-hidden="true">{expanded?'⌃':'⌄'}</span></button></div>
-    <div className="v13-evidence-context">{i.name} · {expanded?snapshot.length+' 行配置，可滚动查看':'L'+start+'–L'+end}</div>
+    <CommandHeader onCopy={onCopy} expanded={expanded} onExpand={()=>onSetMode(expanded?'related':'full')} label="配置"/>
+    <div className="v13-evidence-context">{d.name}.cfg · {i.name} · {expanded?snapshot.length+' 行配置，可滚动查看':'L'+start+'–L'+end}</div>
     <div className="code-scroll" id="codeScroll" tabIndex="0" aria-label="配置命中片段">{snapshot.map((text,index)=>({text,line:index+1})).filter(row=>expanded||(row.line>=start&&row.line<=end)).map(({text,line})=>{
       const match=records.find(x=>x.line===line);
       if(!match)return <CodeLine key={line} num={line} content={text} note={r.id==='ssh'&&line===2?'认证上下文，不参与弱算法判定':''} noteClass="muted"/>;
@@ -122,10 +131,10 @@ function InstanceCards({d,r,s,records,onChoose}) {
 function SshRepair({d,i,onCopy,onCopyRollback}) {
   const r=checkById('ssh'),cipher=i.id==='single';
   return <section className="fix-section v7-ssh-fix">
-    <div className="between"><h4 className="fix-heading">修复建议</h4><div className="v14-fix-actions"><span className="small muted">尚未执行</span><button className="v14-copy-command" onClick={onCopy}>复制整改命令</button></div></div>
+    <div className="between"><h4 className="fix-heading">修复建议</h4><span className="small muted">建议修改 · 尚未执行</span></div>
     <p className="fix-text">{cipher?'将当前 Cipher 加密算法替换为允许的 CTR 套件。':'将当前 HMAC 完整性校验替换为 SHA2 套件。'}建议在凌晨维护窗口执行，执行前核验 SSH 客户端兼容性。</p>
     <div className="v7-ssh-change"><span>变更单 <strong>CH20261021-003</strong></span><span>建议窗口：凌晨</span><span>含回退命令</span></div>
-    <div className="fix-diff"><div className="minus">− {i.cmd} {i.raw}</div><div className="plus">+ {i.cmd} {cipher?r.target:SSH_TARGET_HMAC}</div></div>
+    <RepairCommands onCopy={onCopy}><div className="minus">− {i.cmd} {i.raw}</div><div className="plus">+ {i.cmd} {cipher?r.target:SSH_TARGET_HMAC}</div></RepairCommands>
     <details className="v7-ssh-rollback"><summary>回退命令</summary><p className="small muted">变更异常时恢复本次快照中的原配置。</p><pre><code>{sshCommands(d,true,i.id)}</code></pre><button className="link" onClick={onCopyRollback}>复制回退命令</button></details>
   </section>;
 }
@@ -152,10 +161,10 @@ export default function RuleDetail({d,s,patch}) {
     {!isSsh&&<details className="scope-details"><summary>检查范围与判定说明</summary><p>{isTime?'检查范围：所有 user-interface 视图块（VTY / CONSOLE / AUX）下的直接子命令 idle-timeout。排除 NETCONF、RESTCONF、gRPC 视图。分钟×60＋秒≤600秒为通过，省略秒数按0计算。':'检查范围：'+r.view+'。基于当前配置快照解析参数后，与本规则条件比较。'}</p></details>}
     <div className="instance-heading"><span className="v14-section-label">检查项</span><span>{status}</span>{isTime&&<button onClick={toggleExcluded}>{s.excluded?'收起':'查看'}已排除项（1）</button>}</div>
     <InstanceCards d={d} r={r} s={s} records={records} onChoose={choose}/>
-    {isSsh&&chosen.bad&&<section className="v7-ssh-impact"><h4>影响说明</h4><p>当前启用了基线禁止的 {chosen.id==='single'?'CBC':'MD5'} 算法，增加 SSH 会话的密码安全与完整性保护风险。建议按组织密码安全基线整改，并复核相关合规要求。</p></section>}
     <div className="evidence-heading"><h4>{isSsh?'当前配置命中片段':<>配置证据 <span className="small muted" style={{fontWeight:400,marginLeft:8}}>{chosen.name}</span></>}</h4></div>
+    {isSsh&&chosen.bad&&<section className="v7-ssh-impact"><img src="./assets/uploads/detail-warning.svg" width="14" height="14" alt=""/><p><strong>影响说明：</strong>当前启用了基线禁止的 {chosen.id==='single'?'CBC':'MD5'} 算法，增加 SSH 会话的密码安全与完整性保护风险。建议按组织密码安全基线整改。</p></section>}
     {!isSsh&&<SemanticComparison d={d} r={r} i={chosen}/>}
-    <ConfigView d={d} r={r} i={chosen} s={s} records={records} onSetMode={setMode}/>
+    <ConfigView d={d} r={r} i={chosen} s={s} records={records} onSetMode={setMode} onCopy={()=>copy(snapshotFor(d).map((text,index)=>({text,line:index+1})).filter(row=>s.mode==='full'||(row.line>=Math.max(1,chosen.line-2)&&row.line<=chosen.line+1)).map(row=>row.text).join("\n"),"配置片段")}/>
     {chosen.excluded?<div className="excluded-note">已排除：不属于本规则检查范围，未参与通过/不通过统计。</div>:chosen.bad?(isSsh?<SshRepair d={d} i={chosen} onCopy={repair} onCopyRollback={()=>copy(sshCommands(d,true,chosen.id),'回退命令')}/>:<FixSection d={d} r={r} i={chosen} onCopy={repair}/>):<div className="passed-note">✓ 当前检查位置通过检查，无需修复。</div>}
   </>;
 }

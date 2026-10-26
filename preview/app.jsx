@@ -24,6 +24,7 @@ import "./src/views/stage/desktop.css";
 import "./src/views/cockpit/responsive.css";
 import "./src/views/artifact-surfaces/index.css";
 import "./src/views/stage/typography.css";
+import "./src/views/device-pane/design.css";
 
 import { ConfigProvider } from "antd";
 import zhCN from "./assets/shared/antd-zh.js";

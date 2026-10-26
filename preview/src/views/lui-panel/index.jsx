@@ -10,6 +10,8 @@ import Uc2Chat from "./uc2-chat.jsx";
 import Ic from "../../components/icon-el/index.jsx";
 import Composer from "./composer.jsx";
 import WelcomeHome from "./welcome.jsx";
+import { ThinkingDetails } from "./thinking.jsx";
+import { StreamText, RevealAfter, MotionTitle, SoftHeight, streamDuration } from "./motion.jsx";
 
 function LuiScrollArea({ children, scrollRef, enhanced }) {
   const flowRef = useRef(null);
@@ -79,7 +81,7 @@ function WorkflowSteps({ active, groupExpanded }) {
   const revealedSeq = useRef(0);
   const highlightedSeq = useRef(0);
   useEffect(() => {
-    setOpenSteps(groupExpanded ? (active < 4 ? { [active]: true } : {0:true,1:true,2:true,3:true}) : {});
+    setOpenSteps(active < 4 && groupExpanded ? { [active]: true } : {});
     setSelectedStep(active < 4 ? active : null);
   }, [active, groupExpanded]);
   useEffect(() => {
@@ -125,7 +127,7 @@ function WorkflowSteps({ active, groupExpanded }) {
               {done ? <LuiGlyph name={selectedStep === index ? "step-selected" : "step-done"} size={16}/> : current ? <LuiGlyph name="step-running" size={16}/> : index + 1}
             </span>
             <div className="step-heading">
-              <button type="button" className="step-title" disabled={!available} aria-expanded={expanded} aria-controls={`workflowStep${index}`} onClick={() => toggle(index)}>{index === 0 && current ? "扫描拓扑并识别全网设备" : step.title}</button>
+              <button type="button" className="step-title" disabled={!available} aria-expanded={expanded} aria-controls={`workflowStep${index}`} onClick={() => toggle(index)}><MotionTitle text={index === 0 && current ? "扫描拓扑并识别全网设备" : step.title} active={current}/></button>
               {available && <div className="step-actions">
                 {product && <><button type="button" className="step-action" aria-label={`定位步骤：${step.title}`} title="定位到画布" onClick={() => { setSelectedStep(index); locate(product, "step"); }}><img className="lui-glyph" src="./assets/uploads/lui-step-locate.svg" width="12" height="12" alt=""/></button><span className="step-action-divider" aria-hidden="true" /></>}
                 <button type="button" className="step-action" aria-label={`${expanded ? "收起" : "展开"}步骤：${step.title}`} aria-expanded={expanded} aria-controls={`workflowStep${index}`} onClick={() => toggle(index)}><Ic variant={isDark ? "filled" : "lined"} icon={expanded ? "chevron-up" : "chevron-down"} /></button>
@@ -133,7 +135,7 @@ function WorkflowSteps({ active, groupExpanded }) {
             </div>
             {body ? (
               <div className="step-content" id={`workflowStep${index}`} hidden={!expanded}>
-                {body}
+                <StreamText text={body} animate={current}/>
                 {index === 0 && (done || current) ? (
                   <div className="v7-step-artifact">
                     <ArtifactTag title="全网设备概览" type="process" shape="overview" onLocate={() => locate("network")} />
@@ -153,28 +155,32 @@ function WorkflowSteps({ active, groupExpanded }) {
   );
 }
 
-// 完成态汇报（最终文案口径）
+// Stream completion content without changing the workflow completion/collapse rules.
+function completionLines(summary) {
+  return [
+    ['h2','已完成 HCS1 区的全量基线检查'],
+    ['p',`已对 ${summary.total}台设备执行全部 24条适用规则检查，${summary.passed}台通过、${summary.failed}台不通过，整网合规度为 ${summary.compliance}%。`],
+    ['p',`发现 ${summary.rules}条规则不通过，包括${summary.top}等。单台设备最多有 4条规则不通过，详情见右侧报告。`],
+    ['h3','处理建议'],
+    ['li',`${affectedBy('timeout').length}台设备存在空闲超时超限，3台设备使用不符合基线的 SSH 算法，建议核验后调整。`,'登录安全：'],
+    ['li','2台管理 IP、2台 NTP 时钟源与规划不一致，建议核对变更审批，再恢复配置或更新台账。','规划一致性：'],
+    ['li','1台设备额外放通未规划 VLAN，建议核验业务依赖后收敛放通范围。','网络访问范围：'],
+    ['div','以上为建议，尚未执行；具体配置与修复命令按设备、规则分别查看。']
+  ];
+}
+function completionTimeline(summary) {
+  let delay=0;
+  return completionLines(summary).map(([as,text,leading])=>{const item={as,text,leading,delay};delay+=streamDuration(text)+80;return item;});
+}
 function Completion({ onLocateReport, timestamp }) {
-  const summary = summaryParts();
-  return (
-    <>
-      <section className="completion audit-completion">
-        <h2>已完成 HCS1 区的全量基线检查</h2>
-        <p>已对 {summary.total}台设备执行全部 24条适用规则检查，{summary.passed}台通过、{summary.failed}台不通过，整网合规度为 {summary.compliance}%。</p>
-        <p>发现 {summary.rules}条规则不通过，包括{summary.top}等。单台设备最多有 4条规则不通过，详情见右侧报告。</p>
-        <h3>处理建议</h3>
-        <ul className="audit-advice">
-          <li><strong>登录安全：</strong>{affectedBy("timeout").length}台设备存在空闲超时超限，3台设备使用不符合基线的 SSH 算法，建议核验后调整。</li>
-          <li><strong>规划一致性：</strong>2台管理 IP、2台 NTP 时钟源与规划不一致，建议核对变更审批，再恢复配置或更新台账。</li>
-          <li><strong>网络访问范围：</strong>1台设备额外放通未规划 VLAN，建议核验业务依赖后收敛放通范围。</li>
-        </ul>
-        <div className="small muted">以上为建议，尚未执行；具体配置与修复命令按设备、规则分别查看。</div>
-        <div className="v7-step-artifact">
-          <ArtifactTag title="HCS1 区基线检查报告" type="conclusion" shape="report" timestamp={timestamp} onLocate={onLocateReport} />
-        </div>
-      </section>
-    </>
-  );
+  const lines=completionTimeline(summaryParts());
+  const end=lines.at(-1).delay+streamDuration(lines.at(-1).text)+180;
+  return <section className="completion audit-completion" aria-label="基线检查结论">
+    {lines.slice(0,4).map((line,index)=><StreamText key={index} {...line}/>)}
+    <ul className="audit-advice">{lines.slice(4,7).map((line,index)=><StreamText key={index} {...line}/>)}</ul>
+    <StreamText {...lines[7]} className="small muted"/>
+    <RevealAfter delay={end}><div className="v7-step-artifact"><ArtifactTag title="HCS1 区基线检查报告" type="conclusion" shape="report" timestamp={timestamp} onLocate={onLocateReport}/></div></RevealAfter>
+  </section>;
 }
 
 // Keep the same response card mounted while execution progresses and completes.
@@ -183,7 +189,7 @@ function InspectionConversation({ running, active, prompt, onLocateReport }) {
   const [expanded, setExpanded] = useState(true);
   const started = useRef(Date.now());
   const [finished, setFinished] = useState(null);
-  useEffect(() => { setExpanded(true); if(running){started.current=Date.now();setFinished(null);} else {setFinished({at:new Date(),duration:((Date.now()-started.current)/1000).toFixed(1)});} }, [running]);
+  useEffect(() => { setExpanded(running); if(running){started.current=Date.now();setFinished(null);} else {setFinished({at:new Date(),duration:((Date.now()-started.current)/1000).toFixed(1)});} }, [running]);
   useEffect(() => { if (luiFocus) setExpanded(true); }, [luiFocus]);
   const title = running ? "正在执行处置步骤" : "已完成思考";
   const timestamp = finished ? `${finished.at.getFullYear()}-${String(finished.at.getMonth()+1).padStart(2,"0")}-${String(finished.at.getDate()).padStart(2,"0")} ${finished.at.toTimeString().slice(0,8)}` : "";
@@ -191,18 +197,20 @@ function InspectionConversation({ running, active, prompt, onLocateReport }) {
   return (
     <>
       <div className="user-msg">{prompt}</div>
-      <article className="generated-card" aria-label="基线检查回答">
+      <article className={"generated-card" + (expanded ? "" : " is-process-collapsed")} aria-label="基线检查回答">
+        <SoftHeight>
         <div className="response-process">
           <button type="button" className="response-title" aria-expanded={expanded} aria-controls="uc4WorkflowSteps" onClick={() => setExpanded(value => !value)}>
-            <LuiGlyph name={running ? "processing" : "completed"} size={14}/><span>{title}</span><Ic variant={isDark ? "filled" : "lined"} icon={expanded ? "chevron-up" : "chevron-down"} />
+            <LuiGlyph name={running ? "processing" : "completed"} size={14}/><MotionTitle text={title} active={running}/><Ic variant={isDark ? "filled" : "lined"} icon={expanded ? "chevron-up" : "chevron-down"} />
           </button>
           <div className="response-steps" id="uc4WorkflowSteps" hidden={!expanded}>
-            <details className="response-thought"><summary><LuiGlyph name="thought" size={14}/><span>已思考</span><Ic icon="chevron-down"/></summary><p>根据 HCS1 的设备配置和既定基线规则执行检查。</p></details>
-            <p className="response-intent">已理解您的意图，开始为您检查设备配置。</p>
-            <WorkflowSteps active={running ? active : 4} groupExpanded={expanded} />
+            <ThinkingDetails thinking={running && active < 0} isDark={isDark}/>
+            {active >= 0 && <p className="response-intent">已理解您的意图，开始为您检查设备配置。</p>}
+            {active >= 0 && <WorkflowSteps active={running ? active : 4} groupExpanded={expanded} />}
           </div>
         </div>
-        {!running && <><Completion onLocateReport={onLocateReport} timestamp={timestamp}/><ResponseTools timestamp={timestamp.slice(5)} duration={finished?.duration || "0.0"} text={`已检查 HCS1 区 ${summary.total} 台设备，${summary.passed} 台通过、${summary.failed} 台不通过，整网合规度 ${summary.compliance}%。发现 ${summary.rules} 条规则不通过。`}/></>}
+        {!running && <><Completion onLocateReport={onLocateReport} timestamp={timestamp}/><RevealAfter delay={completionTimeline(summary).reduce((end,line)=>line.delay+streamDuration(line.text),0)+180}><ResponseTools timestamp={timestamp.slice(5)} duration={finished?.duration || "0.0"} text={`已检查 HCS1 区 ${summary.total} 台设备，${summary.passed} 台通过、${summary.failed} 台不通过，整网合规度 ${summary.compliance}%。发现 ${summary.rules} 条规则不通过。`}/></RevealAfter></>}
+        </SoftHeight>
       </article>
     </>
   );

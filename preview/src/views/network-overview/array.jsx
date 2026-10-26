@@ -16,7 +16,7 @@ export function OverviewHeader({ countProgress, phase }) {
     <text x="16" y="76">已识别/总设备:</text><text x="120" y="77" className="array-total">{count()}</text><text x="158" y="77" className="array-muted">/{countProgress === 1 ? devices.length : "--"}台</text>
     <DeviceGlyph x={240} y={62} type={1} /><text x="258" y="76">交换机:</text><text x="314" y="77" className="array-total">{count("交换机")}</text>
     <DeviceGlyph x={380} y={62} /><text x="398" y="76">防火墙:</text><text x="454" y="77" className="array-total">{count("防火墙")}</text>
-    {!["regions", "focus", "topology"].includes(phase) && <g className="array-legend"><circle cx="1116" cy="72" r="4" fill="#00B886" /><text x="1124" y="76">已识别</text><circle cx="1188" cy="72" r="4" fill="#777" /><text x="1196" y="76">未识别</text></g>}
+    {!["regions", "focus", "topology"].includes(phase) && <g className="array-legend"><circle cx="1116" cy="72" r="4" fill="#00B886" /><text x="1124" y="76">已识别</text><circle cx="1188" cy="72" r="4" fill="#777777" /><text x="1196" y="76">未识别</text></g>}
   </g>;
 }
 
@@ -41,8 +41,11 @@ export default function NetworkArray({ morph, countProgress }) {
           const pairColumns = Math.ceil(blockSize / 2), inBlock = i - block * group.columns * 2;
           const row = Math.floor(inBlock / pairColumns), col = inBlock % pairColumns;
           const targetX = group.x + 32 + col * 18, targetY = group.y + 28 + block * 54 + row * 18;
-          const fromX = 200 + (i % 20) * 40 + index * 8, fromY = 190 + index * 70 + Math.floor(i / 20) * 5;
-          return <g key={device.id} className={"v7-network-device" + (i < knownCount ? " identified" : "")} data-overview-device={device.id} transform={`translate(${fromX + (targetX - fromX) * morph} ${fromY + (targetY - fromY) * morph})`}><title>{`${device.name} · ${device.ip} · ${device.model}`}</title><rect width="14.4" height="14.4" rx="2" /></g>;
+          // Keep blocks within their own group lane instead of crossing neighboring panels.
+          const fromX = targetX + (col - (pairColumns - 1) / 2) * 2;
+          const fromY = targetY - 28 - row * 6;
+          const settle = Math.max(0, Math.min(1, (morph - index * .012) / (1 - index * .012)));
+          return <g key={device.id} className={"v7-network-device" + (i < knownCount ? " identified" : "")} data-overview-device={device.id} transform={`translate(${fromX + (targetX - fromX) * settle} ${fromY + (targetY - fromY) * settle})`}><title>{`${device.name} · ${device.ip} · ${device.model}`}</title><rect width="14.4" height="14.4" rx="2" /></g>;
         })}
       </g>;
     })}

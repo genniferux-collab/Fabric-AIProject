@@ -3,6 +3,7 @@ import { useApp, scrollCanvasTo } from "../../context.jsx";
 import { deviceById } from "../../mock/devices.js";
 import NetworkOverview from "../network-overview/index.jsx";
 import MappingCard from "../mapping-card/index.jsx";
+import { GeneratingCanvas } from "../lui-panel/thinking.jsx";
 import ReportCard from "../report-card/index.jsx";
 import DevicePane from "../device-pane/index.jsx";
 import Uc2Pane from "../uc2-canvas/index.jsx";
@@ -60,12 +61,13 @@ export default function CanvasArea() {
     if (canvasHidden || activePane !== "task" || activeArtifact || !["running", "done"].includes(luiView)) return;
     const key = `${stage}:${luiView}`;
     if (followedStepRef.current === key) return;
+    let cancelScroll;
     const frame = requestAnimationFrame(() => {
-      const step = stage < 2 ? 0 : stage === 2 ? 2 : 3;
+      const step = stage < 0 ? -1 : stage < 2 ? 0 : stage === 2 ? 2 : 3;
       const target = innerRef.current?.querySelector(`[data-canvas-step="${step}"]`);
-      if (target && !target.classList.contains("hidden")) { scrollCanvasTo(target, "auto"); followedStepRef.current = key; }
+      if (target && !target.classList.contains("hidden")) { cancelScroll = scrollCanvasTo(target, "linear"); followedStepRef.current = key; }
     });
-    return () => cancelAnimationFrame(frame);
+    return () => { cancelAnimationFrame(frame); cancelScroll?.(); };
   }, [stage, luiView, canvasHidden, activePane, activeArtifact]);
 
   useLayoutEffect(()=>{
@@ -155,9 +157,10 @@ export default function CanvasArea() {
       ) : null}
       <div className={"canvas-content" + (activePane === "task" && !activeArtifact ? "" : " hidden")} id="canvasContent" ref={contentRef} onScroll={onScroll}>
         <div ref={innerRef} className="workflow-canvas-flow">
-          <section className="workflow-canvas-step" data-canvas-step="0" aria-label="步骤1：全网设备概览">
+          {luiView === "running" && stage < 0 && <section className="workflow-canvas-step" data-canvas-step="-1" aria-label="思考阶段：正在生成画布"><GeneratingCanvas/></section>}
+          <section className={"workflow-canvas-step" + (stage < 0 ? " hidden" : "")} data-canvas-step="0" aria-label="步骤1：全网设备概览">
             <div id="networkOverviewStep" className="v7-artifact-step-title">{luiView === "running" && stage === 0 ? "正在扫描拓扑并识别全网设备" : "全网设备概览已获取"}</div>
-            <NetworkOverview cardRef={register("network")} />
+            {stage >= 0 && <NetworkOverview cardRef={register("network")} />}
           </section>
           <section className={"workflow-canvas-step" + (stage < 2 ? " hidden" : "")} data-canvas-step="2" aria-label="步骤3：规则选择与自动推荐">
             <div className="v7-artifact-step-title">规则选择与自动推荐<img className="artifact-step-locate" src="./assets/uploads/artifact-locate-panel.svg" width="12" height="12" alt="" aria-hidden="true" /></div>
