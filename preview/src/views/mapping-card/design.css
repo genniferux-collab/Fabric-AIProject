@@ -44,3 +44,35 @@ html.dark .stage-root.uc4 #mappingCard.mapping-design .filters[aria-label="åŽ‚å•
 .stage-root.uc4 #mappingCard.mapping-design .v7-map-node.pinned::after,.stage-root.uc4 #mappingCard.mapping-design .v7-map-node.focused::after{border-color:#5990fd}
 .stage-root.uc4 #mappingCard.mapping-design .v7-matching-status{border:0;padding:0;margin:64px 0 0;min-height:22px}
 .stage-root.uc4 #mappingCard.mapping-design .empty{background:transparent}
+
+/* Libraries.dev BorderBeam replaces only the active matching card glow. */
+.stage-root.uc4 #mappingCard.mapping-design .v7-map-node.is-matching{box-shadow:none}
+.stage-root.uc4 #mappingCard.mapping-design .v7-map-node.is-matching::before,
+.stage-root.uc4 #mappingCard.mapping-design .v7-map-split.is-matching>.node::before{content:none;animation:none}
+.stage-root.uc4 #mappingCard.mapping-design .v7-map-node.is-matching::after{box-shadow:none;border-color:transparent}
+.stage-root.uc4 #mappingCard.mapping-design .v7-map-node.is-matching.pinned::after,
+.stage-root.uc4 #mappingCard.mapping-design .v7-map-node.is-matching.focused::after{border-color:#5990fd}
+.stage-root.uc4 #mappingCard.mapping-design .mapping-node-beam{border-radius:8px;z-index:3;pointer-events:none;isolation:isolate}
+.stage-root.uc4 #mappingCard.mapping-design .mapping-beam-surface{display:block;width:100%;height:100%;border-radius:inherit}
+
+/* Video reference: a single bright leading edge and a fading curved trail. */
+.stage-root.uc4 #mappingCard.mapping-design .v7-match-base{stroke:#329d7c;stroke-width:1.4;opacity:.3;stroke-linecap:round}
+.stage-root.uc4 #mappingCard.mapping-design .v7-match-route.is-growing .v7-match-base{stroke:#329d7c;opacity:.45}
+.stage-root.uc4 #mappingCard.mapping-design .mapping-flow-pulse{opacity:.42;pointer-events:none}
+.stage-root.uc4 #mappingCard.mapping-design .v7-match-route.is-active-route .mapping-flow-pulse{opacity:1}
+.stage-root.uc4 #mappingCard.mapping-design .v7-match-route.hot .mapping-flow-pulse{opacity:1}
+.stage-root.uc4 #mappingCard.mapping-design .v7-match-route.hot .v7-match-base{stroke:#62c9a8;opacity:.65;stroke-width:1.6}
+.stage-root.uc4 #mappingCard.mapping-design .v7-match-route .v7-match-flow{fill:none;stroke-linecap:round;stroke-width:1.6;opacity:1;filter:none;animation:mapping-travel-pulse 3.8s linear infinite}
+.stage-root.uc4 #mappingCard.mapping-design .v7-match-route .mapping-flow-halo{stroke:#46d6a6;stroke-width:4.5;opacity:.2;filter:blur(1.6px)}
+.stage-root.uc4 #mappingCard.mapping-design .v7-match-route .mapping-flow-tail{stroke:#25876c;stroke-width:1.4;opacity:.4}
+.stage-root.uc4 #mappingCard.mapping-design .v7-match-route .mapping-flow-body{stroke:#40ba91;stroke-width:1.7;opacity:.7}
+.stage-root.uc4 #mappingCard.mapping-design .v7-match-route .mapping-flow-core{stroke:#79e3ba;stroke-width:2;opacity:.95}
+.stage-root.uc4 #mappingCard.mapping-design .v7-match-route .mapping-flow-head{stroke:#d5ffef;stroke-width:2.2;opacity:1;filter:drop-shadow(0 0 1px #79e3ba66)}
+@keyframes mapping-travel-pulse{from{stroke-dashoffset:var(--flow-start)}to{stroke-dashoffset:var(--flow-end)}}
+@media(prefers-reduced-motion:reduce){.stage-root.uc4 #mappingCard.mapping-design .mapping-flow-pulse{display:none}}
+
+/* Reduce unrelated cards only while a matching group is active. */
+.stage-root.uc4 #mappingCard.mapping-design[aria-busy="true"] .v7-map-node,
+.stage-root.uc4 #mappingCard.mapping-design[aria-busy="true"] .v7-map-split{transition:opacity .2s ease}
+.stage-root.uc4 #mappingCard.mapping-design[aria-busy="true"] .v7-map-node.dim,
+.stage-root.uc4 #mappingCard.mapping-design[aria-busy="true"] .v7-map-split.dim{opacity:.27}

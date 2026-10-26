@@ -1,3 +1,5 @@
+import { BorderBeam } from "border-beam";
+import { matchingBeamPaletteCss } from "./beam-palette.js";
 import ArtifactOpen from "../../components/artifact-open/index.jsx";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { Icon } from "../../../assets/shared/icon.jsx";
@@ -10,6 +12,13 @@ import SearchInput from "../../components/search-input/index.jsx";
 import OptionGroup from "../../components/option-group/index.jsx";
 import "./design.css";
 
+const BEAM_CYCLE_SECONDS = 2;
+const BEAM_CROSSFADE_MS = 300;
+function MatchingBeam({ active, isDark, opacity = 1 }) {
+  if (!active) return null;
+  return <BorderBeam className="mapping-node-beam" size="md" colorVariant="colorful" hueRange={10} strength={0.7} duration={BEAM_CYCLE_SECONDS} css={'[data-beam="{id}"][data-active]{animation:beam-spin-{id} 2s linear infinite,beam-fade-in-{id} .2s ease forwards;}' + matchingBeamPaletteCss(isDark)} theme={isDark ? "dark" : "light"} borderRadius={8} active={active} style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none",opacity}} aria-hidden="true"><span className="mapping-beam-surface"/></BorderBeam>;
+}
+
 // The shared safety check appears once per vendor, as in the design; its rules stay shared.
 const mappingSets = mapSets.flatMap(s => s.id === "s6" ? ["Huawei", "H3C"].map(vendor => ({ ...s, id: s.id + "-" + vendor, sourceSetId: s.id, vendor })) : [s]);
 const mappingRelations = mapRelations.map(([gid, sid]) => [gid, sid === "s6" ? sid + "-" + mapGroups.find(g => g.id === gid).vendor : sid]);
@@ -17,7 +26,8 @@ const mappingRelated = id => mappingRelations.filter(r => r.includes(id)).map(r 
 
 const mapPageSize = 5;
 const NODE_H = 66, GAP = 12, TOP = 0, HEADER = 34;
-const MATCH_LEAD = 650, GROUP_DURATION = 1250, EDGE_GROW = 680, EDGE_STAGGER = 90;
+// Crossfade into the next group at 90% of a revolution; finish the old turn during the fade.
+const MATCH_LEAD = 650, GROUP_DURATION = BEAM_CYCLE_SECONDS * 1000 * .9, EDGE_GROW = 680, EDGE_STAGGER = 90;
 const MATCH_DURATION = MATCH_LEAD + mapGroups.length * GROUP_DURATION + 400;
 const clamp = (n) => Math.max(0, Math.min(1, n));
 
@@ -80,7 +90,7 @@ function groupPorts(record, expanded, pages) {
 }
 
 export default function MappingCard({ cardRef }) {
-  const { resetMapSignal, clearSelSignal, luiView, stage, scanSeq, notifyMappingComplete } = useApp();
+  const { resetMapSignal, clearSelSignal, luiView, stage, scanSeq, notifyMappingComplete, isDark } = useApp();
   const [elapsed, setElapsed] = useState(0);
   const effectId = useId().replace(/:/g, "");
   const [vendor, setVendor] = useState("all");
@@ -114,6 +124,12 @@ export default function MappingCard({ cardRef }) {
   const activeGroupIndex = matching && elapsed >= MATCH_LEAD ? Math.floor((elapsed - MATCH_LEAD) / GROUP_DURATION) : -1;
   const activeGroup = mapGroups[activeGroupIndex];
   const activeNodes = new Set(activeGroup ? [activeGroup.id, ...mappingRelated(activeGroup.id)] : []);
+  const groupElapsed = elapsed - MATCH_LEAD - activeGroupIndex * GROUP_DURATION;
+  const previousGroup = matching && activeGroupIndex > 0 && groupElapsed < BEAM_CROSSFADE_MS ? mapGroups[activeGroupIndex - 1] : null;
+  const renderMatchingBeams = (id) => [previousGroup, activeGroup].filter(Boolean).map(group => {
+    if (id !== group.id && !mappingRelated(group.id).includes(id)) return null;
+    return <MatchingBeam key={group.id} active isDark={isDark} opacity={group === previousGroup ? Math.max(0, 1 - groupElapsed / BEAM_CROSSFADE_MS) : 1}/>;
+  });
   const completedGroups = elapsed >= MATCH_DURATION ? mapGroups.length : Math.max(0, Math.min(mapGroups.length, Math.floor((elapsed - MATCH_LEAD) / GROUP_DURATION)));
 
   // 容器宽度测量（连线坐标依赖）
@@ -149,7 +165,7 @@ export default function MappingCard({ cardRef }) {
   const details = hovered ? { device: hoverDevice } : picked ? { device: picked } : null;
 
   const stateClasses = (id) => ({
-    dim: !matching && !!connected && !connected.has(id),
+    dim: matching ? !!activeGroup && !activeNodes.has(id) : !!connected && !connected.has(id),
     pinned: id === selected,
     focused: id === hovered,
     related: !!connected && connected.has(id) && id !== focus,
@@ -258,8 +274,9 @@ export default function MappingCard({ cardRef }) {
     const meta = isGroup ? n.type : `${n.scope} · ${visibilityOf(vendor, query).gs.filter((g) => mappingRelated(n.id).includes(g.id)).length}个设备组`;
     if (isOpen) {
       return (
-        <div key={n.id} className={"v7-map-split" + (cls.matching ? " is-matching" : "")} data-map-node={n.id} data-vendor={n.vendor} style={{ top: record.y + "px", height: record.height + "px" }}>
+        <div key={n.id} className={"v7-map-split" + (cls.matching ? " is-matching" : "") + (cls.dim ? " dim" : "")} data-map-node={n.id} data-vendor={n.vendor} style={{ top: record.y + "px", height: record.height + "px" }}>
           {renderGroupBody(n)}
+          {renderMatchingBeams(n.id)}
         </div>
       );
     }
@@ -287,6 +304,7 @@ export default function MappingCard({ cardRef }) {
           </span>
           <span className="node-count">{isGroup ? n.count : n.rules}<span>{isGroup ? "台" : "条"}</span></span>
         </button>
+        {renderMatchingBeams(n.id)}
       </div>
     );
   };
@@ -325,10 +343,12 @@ export default function MappingCard({ cardRef }) {
             const d = `M ${x1} ${e.from} C ${x1 + (x2 - x1) * 0.46} ${e.from},${x2 - (x2 - x1) * 0.46} ${e.to},${x2} ${e.to}`;
             const maskId = `${effectId}-${e.gid}-${e.sid}-${e.device || "group"}`;
             return (
-              <g key={maskId} className={"v7-match-route" + (!matching && focus ? (e.hot ? " hot" : " fade") : "") + (e.progress < 1 ? " is-growing" : "")} data-group={e.gid} data-set={e.sid} data-vendor={e.vendor} data-progress={e.progress.toFixed(3)}>
+              <g key={maskId} className={"v7-match-route" + (!matching && focus ? (e.hot ? " hot" : " fade") : "") + (e.progress < 1 ? " is-growing" : "") + (matching && activeGroup?.id === e.gid ? " is-active-route" : "")} data-group={e.gid} data-set={e.sid} data-vendor={e.vendor} data-progress={e.progress.toFixed(3)}>
                 <defs><mask id={maskId} maskUnits="userSpaceOnUse" x="0" y="0" width={width} height={layout.height}><path d={d} pathLength="1" fill="none" stroke="white" strokeWidth="8" strokeDasharray="1" strokeDashoffset={1 - e.progress} /></mask></defs>
                 <path className="edge v7-match-base" d={d} pathLength="1" strokeDasharray="1" strokeDashoffset={1 - e.progress} />
-                <g mask={`url(#${maskId})`}><path className="v7-match-flow" d={d} pathLength="1" stroke={`url(#${effectId}-intelligence)`} style={{ animationDelay: `${-i * .17}s` }} /></g>
+                <g mask={`url(#${maskId})`} className="mapping-flow-pulse">
+                  {[['halo',.16],['tail',.16],['body',.09],['core',.035],['head',.009]].map(([layer,length])=><path key={layer} className={"v7-match-flow mapping-flow-"+layer} d={d} pathLength="1" strokeDasharray={`${length} ${1.36-length}`} style={{strokeDasharray:`${length} ${1.36-length}`,'--flow-start':length+'px','--flow-end':(length-1.36)+'px',animationDelay:`${-i*.27}s`}} />)}
+                </g>
               </g>
             );
           })}

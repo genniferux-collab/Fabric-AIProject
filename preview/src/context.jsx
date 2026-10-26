@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, createContext, useContext, useCallback } from "react";
+import { THINKING_DURATION } from './views/lui-panel/thought-copy.js';
 import { devices } from "./mock/devices.js";
 import { checks } from "./mock/checks.js";
 import { sortedFailedRules } from "./mock/audit.js";
@@ -21,6 +22,7 @@ function uc2PhaseState(cur, phase) {
 // Layer 1: 全局状态 — 主题（单轨 .dark）+ 画布/任务流/页签/设备详情状态
 const AppContext = createContext(null);
 
+const canvasScrollAnimations = new WeakMap();
 export function scrollCanvasTo(element, behavior = 'smooth') {
   const container = element?.closest('#canvasContent');
   if (!container) return;
@@ -28,7 +30,33 @@ export function scrollCanvasTo(element, behavior = 'smooth') {
   const scale = container.offsetHeight ? rect.height / container.offsetHeight : 1;
   const margin = parseFloat(getComputedStyle(element).scrollMarginTop) || 0;
   const top = container.scrollTop + (element.getBoundingClientRect().top - rect.top) / (scale || 1) - container.clientTop - margin;
-  container.scrollTo({ top: Math.max(0, top), behavior });
+  canvasScrollAnimations.get(container)?.();
+  const destination = Math.max(0, Math.min(top, container.scrollHeight - container.clientHeight));
+  if (behavior !== 'linear' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    container.scrollTo({ top: destination, behavior: behavior === 'linear' ? 'instant' : behavior });
+    return;
+  }
+  const start = container.scrollTop, distance = destination - start;
+  if (Math.abs(distance) < 1) return;
+  const duration = Math.max(350, Math.min(900, Math.abs(distance) / 2));
+  let frame, started;
+  const inputs = ['wheel', 'touchstart', 'pointerdown', 'keydown'];
+  const cancel = () => {
+    cancelAnimationFrame(frame);
+    inputs.forEach(type => container.removeEventListener(type, cancel));
+    if (canvasScrollAnimations.get(container) === cancel) canvasScrollAnimations.delete(container);
+  };
+  const tick = now => {
+    started ??= now;
+    const progress = Math.min(1, (now - started) / duration);
+    container.scrollTo({ top: start + distance * progress, behavior: 'instant' });
+    if (progress < 1) frame = requestAnimationFrame(tick);
+    else cancel();
+  };
+  inputs.forEach(type => container.addEventListener(type, cancel, { passive: true }));
+  canvasScrollAnimations.set(container, cancel);
+  frame = requestAnimationFrame(tick);
+  return cancel;
 }
 
 const locateHighlightTimers = new WeakMap();
@@ -162,7 +190,7 @@ export function AppProvider({ children }) {
   advanceRef.current = (index) => {
     if (index >= 4) {
       completeTask(taskPromptRef.current);
-      locateRef.current("report", "step");
+
       return;
     }
     setStage(index);
@@ -343,10 +371,16 @@ export function AppProvider({ children }) {
     setCanvasHidden(false);
     setAgentActive(true);
     setLuiView("running");
-    setRunningIndex(0);
-    setStage(0);
+    // Preparation has no real canvas artifact; start the scan only after thinking finishes.
+    setRunningIndex(-1);
+    setStage(-1);
     setPromptText("");
-    setScanSeq((s) => s + 1);
+    timerRef.current = setTimeout(() => {
+      if (!runningRef.current) return;
+      setRunningIndex(0);
+      setStage(0);
+      setScanSeq(s => s + 1);
+    }, THINKING_DURATION);
   }, [stopScan]);
 
   const chooseUC = useCallback((i) => {
@@ -419,8 +453,8 @@ export function AppProvider({ children }) {
       highlightLocate(card);
     }));
   }, []);
-  const locateRef = useRef(() => {});
-  locateRef.current = locate;
+
+
 
   const escape = useCallback(() => {
     if (uc2Fusion.drawer) {

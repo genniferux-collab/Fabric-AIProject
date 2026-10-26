@@ -7,3 +7,5 @@
 - 交付真实渲染截图和同一站点链接；工具仅返回 queued 时不能声称预览已刷新。
 - AI 欢迎页、特性选择和模板状态是 UC1–UC4 共用的入口，维护一套共享实现；发送任务后再进入各用例流程。
 - Site 首页必须使用 `preview/site-preview.html` 的 PC 预览外层；默认逻辑视口为 1920×1080，并在宿主预览区域内等比缩小。应用本身保留 `index.page.html` 的响应式布局。发布时复制 `site-preview.html` 为 `dist/index.html`，不得再将应用 HTML 直接覆盖站点首页。
+
+- 构建使用 `node preview/scripts/build-preview.cjs`，它包含 border-beam 等本项目依赖的打包支持；基础数据验证使用 `node preview/scripts/verify-uc4.cjs`，界面改动还需实际浏览器检查。

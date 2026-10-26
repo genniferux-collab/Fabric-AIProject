@@ -11,8 +11,11 @@
 .network-array-art .array-group-title{font-size:16px}
 .network-array-art .array-vendor{fill:#777;font-size:14px}
 .network-array-art .array-model{fill:#939393;font-size:11px}
-.stage-root.uc4 .network-array-art .v7-network-device>rect{fill:#666;transition:fill 180ms linear;filter:url(#array-panel-shadow)}
+.stage-root.uc4 .network-array-art .v7-network-device>rect{fill:#777777;transition:fill 180ms linear;filter:url(#array-panel-shadow)}
 .stage-root.uc4 .network-array-art .v7-network-device.identified>rect{fill:#12b886}
 .network-array-rescan{position:absolute;right:5%;top:1.9%;padding:2px 6px;border:0;border-radius:4px;background:transparent;color:var(--secondary);font:inherit;font-size:12px;cursor:pointer;opacity:0;transition:opacity .15s}
 #networkOverviewCard:hover .network-array-rescan,.network-array-rescan:focus-visible{opacity:1}
 .network-array-rescan:disabled{cursor:default}
+
+/* Keep the moving array cheap to paint; restore its static shadow after settling. */
+#networkOverviewCard[data-scan-phase="clustering"] .v7-network-device>rect{filter:none}

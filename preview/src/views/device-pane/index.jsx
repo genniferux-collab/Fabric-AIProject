@@ -75,11 +75,11 @@ export default function DevicePane({ deviceId }) {
       <section className="card device-overview artifact-card conclusion-artifact">
         <div className="between">
           <div className="row">
-            <h2 className="device-title">{d.name}</h2>
+            <img className="device-design-icon" src="./assets/uploads/detail-device.svg" width="20" height="20" alt=""/><h2 className="device-title">{d.name}</h2>
             <span className={d.fails.length ? "bad-tag" : "good-tag"}>{d.fails.length ? "检查不通过" : "检查通过"}</span>
           </div>
         </div>
-        <div className="device-meta v14-device-meta">{[['管理 IP',d.ip],['厂商 / 型号',(d.vendor==='H3C'?'H3C':'华为')+' / '+d.model],['区域','西三旗 DC / HCS1'],['检查时间','14:20:00']].map(([label,value])=><div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div>
+        <div className="device-meta v14-device-meta">{[['设备IP',d.ip],['厂商',d.vendor==='H3C'?'H3C':'华为'],['型号',d.model],['区域','西三旗 DC / HCS1'],['检查时间','14:20:00']].map(([label,value])=><div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div>
       </section>
       <section className="card device-workspace artifact-card conclusion-artifact">
         <aside className="rule-navigation">
@@ -87,7 +87,7 @@ export default function DevicePane({ deviceId }) {
             规则检查结果
           </h3>
           <div className="rule-status-tabs v13-rule-filters" role="group" aria-label="规则检查状态筛选">{[['all','全部',deviceRuleTotal(d)],['failed','不通过',d.fails.length],['passed','通过',deviceRuleTotal(d)-d.fails.length]].map(([id,label,count])=><button key={id} className={s.filter===id?'active':''} aria-pressed={s.filter===id} onClick={()=>setRuleFilter(id)}><i className={id}/>{label} <span>{count}</span></button>)}</div>
-          <SearchInput id="ruleSearch" className="rule-nav-search" value={s.search} onChange={searchRules} placeholder="搜索规则名称" ariaLabel="搜索检查规则" />
+          <SearchInput id="ruleSearch" className="rule-nav-search" value={s.search} onChange={searchRules} placeholder="请输入规则名称" ariaLabel="搜索检查规则" />
           {list.length ? list.map((r) => (
             <button
               key={r.id}

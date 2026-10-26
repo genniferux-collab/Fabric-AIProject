@@ -8,7 +8,7 @@ import NetworkRegionScan from "../network-region-scan/index.jsx";
 
 const clamp = (n) => Math.max(0, Math.min(1, n));
 const ease = (n) => n * n * (3 - 2 * n);
-const REGION_DURATION = 4600, FOCUS_DURATION = 3400, TOPOLOGY_DURATION = 8200;
+const REGION_DURATION = 2400, FOCUS_DURATION = 1600, TOPOLOGY_DURATION = 4000;
 const SCAN_DURATION = REGION_DURATION + FOCUS_DURATION + TOPOLOGY_DURATION;
 export default function NetworkOverview({ cardRef }) {
   const { scanSeq, notifyScanComplete, scanCtlRef, luiView } = useApp();
@@ -16,8 +16,8 @@ export default function NetworkOverview({ cardRef }) {
   const animRef = useRef(0), genRef = useRef(0);
   const elapsed = fraction * SCAN_DURATION;
   const topologyFraction = clamp((elapsed - REGION_DURATION - FOCUS_DURATION) / TOPOLOGY_DURATION);
-  const morph = ease(clamp((topologyFraction - .29) / .27)), countProgress = clamp((topologyFraction - .58) / .36);
-  const phase = elapsed < REGION_DURATION ? "regions" : elapsed < REGION_DURATION + FOCUS_DURATION ? "focus" : fraction === 1 ? "complete" : topologyFraction < .29 ? "topology" : topologyFraction < .58 ? "clustering" : "counting";
+  const morph = ease(clamp((topologyFraction - .29) / .22)), countProgress = clamp((topologyFraction - .53) / .41);
+  const phase = elapsed < REGION_DURATION ? "regions" : elapsed < REGION_DURATION + FOCUS_DURATION ? "focus" : fraction === 1 ? "complete" : topologyFraction < .29 ? "topology" : topologyFraction < .53 ? "clustering" : "counting";
   const status = { topology: "正在扫描物理拓扑", clustering: "网络架构已明确 · 正在聚类设备", counting: "正在识别设备类型与数量", complete: "设备识别完成" }[phase];
 
   const runScan = (onDone) => {
@@ -29,7 +29,7 @@ export default function NetworkOverview({ cardRef }) {
       if (generation !== genRef.current) return;
       started ??= now;
       const f = clamp((now - started) / SCAN_DURATION);
-      if (now - lastPaint >= 32 || f === 1) { setFraction(f); lastPaint = now; }
+      if (now - lastPaint >= 16 || f === 1) { setFraction(f); lastPaint = now; }
       if (f < 1) animRef.current = requestAnimationFrame(tick);
       else { setBusy(false); onDone?.(); }
     };
@@ -48,7 +48,7 @@ export default function NetworkOverview({ cardRef }) {
     if (luiView === "done") { genRef.current++; cancelAnimationFrame(animRef.current); setBusy(false); setFraction(1); }
   }, [luiView]);
 
-  const nativeOpacity = ease(clamp((topologyFraction - .29) / .09));
+  const nativeOpacity = ease(clamp((topologyFraction - .29) / .06));
   const artworkVisible = phase !== "complete" && nativeOpacity < 1;
   const nativeVisible = ["clustering", "counting", "complete"].includes(phase);
 
