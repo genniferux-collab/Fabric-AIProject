@@ -1,0 +1,5 @@
+<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16.000000" height="16.000000" fill="none">
+	<rect id="ic/UIicon/next/line" width="16.000000" height="16.000000" x="0.000000" y="0.000000" fill="rgb(255,255,255)" fill-opacity="0" transform="matrix(-1,0,0,1,16,0)" />
+	<path id="ic/UIicon/next/line" d="M0 0L16 0L16 16L0 16L0 0Z" fill-rule="evenodd" transform="matrix(-1,0,0,1,16,0)" />
+	<path id="形状结合" d="M7.5 0.75L7.49316 0.64822C7.4435 0.28216 7.1297 0 6.75 0C6.33578 0 6 0.33578 6 0.75L6 6L0.75 6L0.64822 6.00684C0.28216 6.0565 -0 6.3703 -0 6.75C0 7.16422 0.33578 7.5 0.75 7.5L6 7.5L6 12.75L6.00684 12.8518C6.0565 13.2179 6.3703 13.5 6.75 13.5C7.16422 13.5 7.5 13.1642 7.5 12.75L7.5 7.5L12.75 7.5L12.8518 7.49316C13.2179 7.4435 13.5 7.1297 13.5 6.75C13.5 6.33578 13.1642 6 12.75 6L7.5 6L7.5 0.75Z" fill="rgb(238,238,238)" fill-rule="evenodd" transform="matrix(-1,0,0,1,14.75,1.25)" />
+</svg>

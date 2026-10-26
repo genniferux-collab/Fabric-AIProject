@@ -1,68 +1,46 @@
-import { useRef, useState } from "react";
+import {useEffect,useRef,useState} from "react";
 import DataCenterNetworkAgent from "../../components/network-agent-dashboard/index.jsx";
-import { useApp } from "../../context.jsx";
+import {useApp} from "../../context.jsx";
 import EffectivenessMetrics from "../../components/effectiveness-metrics/index.jsx";
 import MapNetworkOverlay from "../../components/map-network-overlay/index.jsx";
 import "./index.css";
 
-export default function Cockpit() {
-  const { openAgentHome } = useApp();
-  const [mapScale, setMapScale] = useState(1);
-  const [mapOffset, setMapOffset] = useState({ x: 0, y: 0 });
-  const [isPanning, setIsPanning] = useState(false);
-  const dragStart = useRef(null);
-  const changeScale = (amount) => setMapScale((value) => Math.min(2.4, Math.max(1, Number((value + amount).toFixed(2)))));
+import useMapNavigation from "./use-map-navigation.js";
 
-  return (
-    <main className="figma-network-page">
-      <EffectivenessMetrics />
-      <div
-        className="figma-map"
-        aria-label="可缩放的中国区域地图"
-        onWheel={(event) => {
-          event.preventDefault();
-          changeScale(event.deltaY < 0 ? 0.1 : -0.1);
-        }}
-        onPointerDown={(event) => {
-          if (event.target.closest("button")) return;
-          dragStart.current = { x: event.clientX, y: event.clientY, offsetX: mapOffset.x, offsetY: mapOffset.y, scale: event.currentTarget.getBoundingClientRect().width / event.currentTarget.offsetWidth };
-          event.currentTarget.setPointerCapture(event.pointerId);
-          setIsPanning(true);
-        }}
-        onPointerMove={(event) => {
-          if (!dragStart.current) return;
-          setMapOffset({
-            x: dragStart.current.offsetX + (event.clientX - dragStart.current.x) / dragStart.current.scale,
-            y: dragStart.current.offsetY + (event.clientY - dragStart.current.y) / dragStart.current.scale,
-          });
-        }}
-        onPointerUp={() => {
-          dragStart.current = null;
-          setIsPanning(false);
-        }}
-        onPointerCancel={() => {
-          dragStart.current = null;
-          setIsPanning(false);
-        }}
-      >
-        <div className={`figma-map-canvas${isPanning ? " is-panning" : ""}`} style={{ transform: `translate(${mapOffset.x}px, ${mapOffset.y}px) scale(${mapScale})` }}>
-          <div className="figma-map-plane">
-          <img
-            className="figma-map-image"
-            src="./assets/uploads/figma/china-dark-map.png"
-            alt="以中国为中心的深色地图"
-          />
-          <MapNetworkOverlay />
-          </div>
-        </div>
-        <div className="map-network-legend" aria-label="地图图例"><span><i className="dc-key" />4 个数据中心</span><span><i className="branch-key" />31 个支行</span><span><i className="connection-key" />124 条直连</span></div>
-        <div className="figma-map-controls" aria-label="地图缩放控制">
-          <button type="button" onClick={() => changeScale(0.2)} aria-label="放大地图">+</button>
-          <button type="button" onClick={() => changeScale(-0.2)} aria-label="缩小地图">−</button>
-          <button type="button" onClick={() => { setMapScale(1); setMapOffset({ x: 0, y: 0 }); }} aria-label="重置地图视图">⌂</button>
+const assetRoot="./assets/uploads/pixso-home-map/";
+export default function Cockpit(){
+  const {openAgentHome}=useApp();
+  const [gisOpen,setGisOpen]=useState(false),[mapView,setMapView]=useState("全国视图");
+  const mapRef=useRef(null),metricsRef=useRef(null),gisRef=useRef(null);
+  const {view,scene,isPanning,handlers,changeScale,reset:resetMap,focusCenters,minZoom,maxZoom}=useMapNavigation(mapRef,metricsRef);
+  useEffect(()=>{
+    if(!gisOpen)return;
+    const close=event=>{if(event.type==="keydown"?event.key==="Escape":!gisRef.current?.contains(event.target))setGisOpen(false);};
+    document.addEventListener("pointerdown",close);document.addEventListener("keydown",close);
+    return()=>{document.removeEventListener("pointerdown",close);document.removeEventListener("keydown",close);};
+  },[gisOpen]);
+  const reset=()=>{resetMap();setMapView("全国视图");};
+  return <main className="figma-network-page">
+    <EffectivenessMetrics panelRef={metricsRef}/>
+    <div className="figma-map" ref={mapRef} aria-label="可缩放的中国区域地图" {...handlers}>
+      <div className="figma-map-edges" aria-hidden="true" style={{backgroundSize:`${1691*scene.scale*view.scale}px 1px`,backgroundPosition:`${scene.left*view.scale+view.x}px ${scene.top*view.scale+view.y}px`}}/>
+      <div className={`figma-map-canvas${isPanning?" is-panning":""}`} style={{transform:`translate(${view.x}px,${view.y}px) scale(${view.scale})`}}>
+        <div className="figma-map-plane" style={{width:1691*scene.scale,height:1261*scene.scale,left:scene.left,top:scene.top,"--source-map-scale":scene.scale}}>
+          <img className="figma-map-image" src={`${assetRoot}source-map.png`} alt="原始设计地图：省份边界、支行连线和数据中心分布" draggable="false"/>
+          <MapNetworkOverlay/>
         </div>
       </div>
-      <aside className="figma-dashboard"><DataCenterNetworkAgent onOpenAgent={openAgentHome} /></aside>
-    </main>
-  );
+      <div className="figma-map-top-mask" style={{height:scene.maskHeight}} aria-hidden="true"/>
+      <div className="map-gis-region" ref={gisRef}>
+        <button type="button" className="map-gis-switch" aria-label="GIS 地图视图" aria-haspopup="menu" aria-expanded={gisOpen} onClick={()=>setGisOpen(!gisOpen)}><img src={`${assetRoot}gis.svg`} alt=""/></button>
+        {gisOpen&&<div className="map-gis-menu" role="menu" aria-label="地图视图">{["全国视图","数据中心视图"].map(view=><button type="button" role="menuitemradio" aria-checked={mapView===view} key={view} onClick={()=>{if(view==="全国视图")reset();else{focusCenters();setMapView(view);}setGisOpen(false);}}>{view}</button>)}</div>}
+      </div>
+      <div className="figma-map-controls" aria-label="地图缩放控制">
+        <button type="button" disabled={view.scale>=maxZoom} onClick={()=>changeScale(.2)} aria-label="放大地图"><img src={`${assetRoot}zoom-plus.svg`} alt=""/></button>
+        <button type="button" disabled={view.scale<=minZoom} onClick={()=>changeScale(-.2)} aria-label="缩小地图"><img src={`${assetRoot}zoom-minus.svg`} alt=""/></button>
+        <button type="button" onClick={reset} aria-label="重置地图视图"><img src={`${assetRoot}zoom-reset.svg`} alt=""/></button>
+      </div>
+    </div>
+    <aside className="figma-dashboard"><DataCenterNetworkAgent onOpenAgent={openAgentHome}/></aside>
+  </main>;
 }

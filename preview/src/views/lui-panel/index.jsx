@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useApp, highlightLocate } from "../../context.jsx";
-import { v7WorkflowSteps, v7WorkflowRunning, recs } from "../../mock/workflow.js";
+import { v7WorkflowSteps, v7WorkflowRunning } from "../../mock/workflow.js";
 import { ArtifactTag } from "../../components/status-marks/index.jsx";
 import { affectedBy, summaryParts } from "../../mock/audit.js";
 import LuiGlyph from "./glyph.jsx";
@@ -9,6 +9,7 @@ import "./design.css";
 import Uc2Chat from "./uc2-chat.jsx";
 import Ic from "../../components/icon-el/index.jsx";
 import Composer from "./composer.jsx";
+import WelcomeHome from "./welcome.jsx";
 
 function LuiScrollArea({ children, scrollRef, enhanced }) {
   const flowRef = useRef(null);
@@ -213,7 +214,8 @@ export default function LuiPanel() {
   const mainRef = useRef(null);
   const menuRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
-  const detailTitle = luiView === "home" ? "网络运维智能体" : luiView === "uc2" ? "黄金基线挖掘" : "检查基线要求";
+  const [welcomeFeature,setWelcomeFeature]=useState(null);
+  const detailTitle = luiView === "home" ? "网络运维智能体" : luiView === "uc2" ? "挖掘黄金基线" : "检查基线要求";
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -232,7 +234,7 @@ export default function LuiPanel() {
   }, [uc2Extra.length]);
 
   return (
-    <aside className={"lui" + (luiView !== "uc2" ? " lui-refresh" : "") + (luiOpen ? "" : " closed")} id="lui">
+    <aside className={"lui lui-refresh" + (luiView === "home" ? " lui-welcome" : "") + (luiOpen ? "" : " closed")} id="lui">
       <div className="lui-head between">
         <div className="lui-detail-heading">
           <button className="lui-header-icon" aria-label={luiView === "home" ? "返回首页" : "返回智能体首页"} onClick={luiView === "home" ? goCockpit : openAgentHome}><LuiGlyph name="back" size={20}/></button>
@@ -246,29 +248,16 @@ export default function LuiPanel() {
           </div>}
         </div>
       </div>
-      <LuiScrollArea scrollRef={mainRef} enhanced={luiView !== "uc2"}>
+      <LuiScrollArea scrollRef={mainRef} enhanced={true}>
         {luiView === "home" ? (
-          <div className="landing">
-            <div className="aico-icon hero-icon"><Ic variant={isDark ? "filled" : "lined"} icon="sparkles" /></div>
-            <h2>你好，我是 Aico</h2>
-            <div className="secondary">从配置洞察到基线检查，<br />我可以协助你完成网络运维任务。</div>
-            <div className="recommendations">
-              {recs.map((r, i) => (
-                <button key={i} className="rec" onClick={() => chooseUC(i)}>
-                  <span className="rec-title">{r[0]}</span>
-                  <span className="rec-sub">{r[1]}</span>
-                </button>
-              ))}
-            </div>
-            <span className="small muted" style={{ marginTop: "20px" }}>试试描述设备、区域或需要检查的配置</span>
-          </div>
+          <WelcomeHome onChoose={(prompt,feature)=>{setWelcomeFeature(feature);setPromptText(prompt);requestAnimationFrame(()=>document.getElementById("prompt")?.focus({preventScroll:true}));}}/>
         ) : luiView === "running" || luiView === "done" ? (
           <InspectionConversation running={luiView === "running"} active={runningIndex} prompt={taskPrompt} onLocateReport={() => locate("report")} />
         ) : luiView === "uc2" ? (
           <>
             <Uc2Chat />
             {uc2Extra.map((m, i) => (
-              <div key={i} className={m.user !== undefined ? "user-msg" : "secondary small"} style={m.user !== undefined ? undefined : { margin: "12px 0" }}>
+              <div key={i} className={m.user !== undefined ? "user-msg uc2-followup" : "generated-card uc2-followup"}>
                 {m.user !== undefined ? m.user : m.reply}
               </div>
             ))}
@@ -277,7 +266,7 @@ export default function LuiPanel() {
           <InspectionConversation running={false} active={4} prompt={taskPrompt} onLocateReport={() => locate("report")} />
         )}
       </LuiScrollArea>
-      <Composer />
+      <Composer welcome={luiView === "home"} feature={welcomeFeature} onFeatureChange={setWelcomeFeature}/>
     </aside>
   );
 }

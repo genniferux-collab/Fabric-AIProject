@@ -38,13 +38,13 @@ const Chart = forwardRef(function Chart(
 
     // 容器尺寸变化(侧栏折叠/窗口缩放/响应式) → 同步画布
     const ro = new ResizeObserver(() => {
-      if (chartRef.current && !chartRef.current._disposed) chart.resize();
+      if (chartRef.current && !chartRef.current._disposed) chart.setResize();
     });
     ro.observe(dom);
 
     return () => {
       ro.disconnect();
-      try { chart.dispose(); } catch (e) { /* 容器已卸载时静默 */ }
+      try { chart.uninstall(); } catch (e) { /* 容器已卸载时静默 */ }
       chartRef.current = null;
     };
     // JSON.stringify 作 dep:option 是 JSX 内联对象,内容不变则不重建
@@ -54,7 +54,7 @@ const Chart = forwardRef(function Chart(
   useImperativeHandle(ref, () => ({
     getEchartsInstance: () => (chartRef.current ? chartRef.current.getEchartsInstance() : null),
     resizeHandler: () => {
-      if (chartRef.current) chartRef.current.resize();
+      if (chartRef.current) chartRef.current.setResize();
     },
   }), []);
 

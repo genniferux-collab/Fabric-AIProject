@@ -1,0 +1,38 @@
+{
+  "source": "https://pixso.net/app/design/v0ssSa5uEPmc2W4raTIzdA",
+  "file_key": "v0ssSa5uEPmc2W4raTIzdA",
+  "references": {
+    "sidebar": "13:362553",
+    "component_rules": "8:538159",
+    "input_states": "8:538925",
+    "sidebar_background": "23:347432"
+  },
+  "assets": {
+    "generation": "13:363007",
+    "inspection": "13:363396",
+    "manual": "13:364914",
+    "robot": "13:364941",
+    "send": "13:365016",
+    "attachment": "8:538979",
+    "microphone": "8:538981",
+    "info": "13:363458",
+    "pin": "13:364924",
+    "period": "13:362558",
+    "deep-think": "8:538976",
+    "input-active": "8:538949",
+    "input-default": "8:538930",
+    "summary-art": "13:362553",
+    "orb": "13:364985",
+    "sidebar-background": "23:347432"
+  },
+  "crops": {
+    "summary-art": [
+      463,
+      126,
+      90,
+      90
+    ]
+  },
+  "note": "Native Pixso SVG icons, source-rendered PNG sidebar background and original document illustration; editable runtime labels, layout and interactions remain code.",
+  "format": "Native SVG assets; CSS layout and source conic gradient; original raster document illustration retained."
+}

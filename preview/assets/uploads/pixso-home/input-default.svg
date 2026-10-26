@@ -1,0 +1,37 @@
+<svg viewBox="0 0 586 74" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="586.000000" height="74.000000" fill="none" customFrame="#000000">
+	<defs>
+		<g id="pixso_custom_effect_15">
+			<effect visibility="visible" effectType="gaussianBlur" stdDeviation="12" />
+		</g>
+		<filter id="filter_15" width="586.000000" height="74.000000" x="0.000000" y="0.000000" filterUnits="userSpaceOnUse" customEffect="url(#pixso_custom_effect_15)" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix" />
+			<feBlend result="shape" in="SourceGraphic" in2="BackgroundImageFix" mode="normal" />
+			<feGaussianBlur stdDeviation="4" result="effect_layerBlur_1" />
+		</filter>
+		<linearGradient id="paint_custom_gradient_3">
+			<stop stop-color="rgb(102,159,255)" offset="0.0185235161" stop-opacity="1" />
+			<stop stop-color="rgb(123,103,255)" offset="0.119999997" stop-opacity="1" />
+			<stop stop-color="rgb(149,103,255)" offset="0.39323613" stop-opacity="1" />
+			<stop stop-color="rgb(255,102,107)" offset="0.500816941" stop-opacity="1" />
+			<stop stop-color="rgb(255,149,102)" offset="0.611401379" stop-opacity="1" />
+			<stop stop-color="rgb(255,173,102)" offset="0.890374482" stop-opacity="1" />
+			<stop stop-color="rgb(102,159,255)" offset="0.992514968" stop-opacity="1" />
+		</linearGradient>
+		<mask id="outline_mask_3">
+			<path d="M549 12C562.807 12 574 23.1929 574 37C574 50.8071 562.807 62 549 62L37 62C23.1929 62 12 50.8071 12 37C12 23.1929 23.1929 12 37 12L549 12L549 12ZM549 14L37 14C24.2975 14 14 24.2975 14 37C14 49.7025 24.2975 60 37 60L549 60C561.703 60 572 49.7025 572 37C572 24.2975 561.703 14 549 14Z" fill="rgb(255,255,255)" fill-rule="nonzero" />
+		</mask>
+		<clipPath id="clipPath_2">
+			<rect width="562.000000" height="50.000000" x="12.000000" y="12.000000" rx="25.000000" fill="rgb(255,255,255)" />
+		</clipPath>
+	</defs>
+	<g id="随行组件" filter="url(#filter_15)" customFrame="url(#clipPath_2)">
+		<g id="custom_gradient_3" opacity="0.300000012" angularGradient="url(#paint_custom_gradient_3); 0.000000 24.000000 280.000000 24.000000 280.000000 48.000000" mask="url(#outline_mask_3)">
+			<g>
+				<foreignObject width="562.000000" height="50.000000" x="12.000002" y="12.000000">
+					<div xmlns="http://www.w3.org/1999/xhtml" style="background:conic-gradient(from 233.753616deg, rgba(102,159,255,1) 0%, rgba(123,103,255,1) 8.61974%, rgba(148.5,102.5,255,1) 11.7808%, rgba(255,102,107,1) 36.0204%, rgba(255,149,102,1) 58.4542%, rgba(255,173,102,1) 61.7194%, rgba(102,159,255,1) 77.0766%, rgba(102,159,255,1) 100%);width:100%;height:100%;" />
+				</foreignObject>
+			</g>
+		</g>
+		<rect id="随行组件" width="560.000000" height="48.000000" x="13.000000" y="13.000000" rx="24.000000" stroke="rgb(0,0,0)" stroke-opacity="0" stroke-width="2.000000" customGradient="url(#custom_gradient_3)" />
+	</g>
+</svg>

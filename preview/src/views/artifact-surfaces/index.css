@@ -1,38 +1,43 @@
 /* Artifact hover changes fill only; discovery and mapping keep their dot grid. */
-html.dark .stage-root.uc4 .canvas .card.artifact-card,
-html.dark .stage-root.uc4 .canvas .card.artifact-card:hover,
-html.dark .stage-root.uc4 #networkOverviewCard.network-overview-stable-card,
-html.dark .stage-root.uc4 #networkOverviewCard.network-overview-stable-card:hover{
+html.dark .stage-root:is(.uc4,.uc2) .canvas .card.artifact-card,
+html.dark .stage-root:is(.uc4,.uc2) .canvas .card.artifact-card:hover,
+html.dark .stage-root:is(.uc4,.uc2) #networkOverviewCard.network-overview-stable-card,
+html.dark .stage-root:is(.uc4,.uc2) #networkOverviewCard.network-overview-stable-card:hover{
   background-image:radial-gradient(rgba(255,255,255,.065) .8px,transparent .8px);
   background-size:16px 16px;
 }
-html.dark .stage-root.uc4 .canvas .card.artifact-card,
-html.dark .stage-root.uc4 #networkOverviewCard.network-overview-stable-card{background-color:rgba(42,42,42,.75)}
-html.dark .stage-root.uc4 .canvas .card.artifact-card:hover,
-html.dark .stage-root.uc4 #networkOverviewCard.network-overview-stable-card:hover{background-color:rgba(55.967,55.967,55.967,.7625)}
-.stage-root.uc4 .canvas .card.artifact-card .card-title{font-family:var(--font-family);font-size:16px;line-height:24px;font-weight:500;margin:0}
-.stage-root.uc4 .canvas .card.artifact-card .v7-artifact-title{font-size:16px;line-height:24px;font-weight:500;gap:8px;align-items:center}
-.stage-root.uc4 .canvas .card.artifact-card .v7-artifact-title>.v7-artifact-icon{width:14px;height:14px;object-fit:contain;flex-shrink:0}
-.stage-root.uc4 .canvas #reportCard .v7-report-heading .v7-artifact-icon{width:16px;height:16px;object-fit:contain}
-.stage-root.uc4 #networkOverviewCard .network-overview-heading{position:absolute;left:16px;top:16px;z-index:2}
-.stage-root.uc4 .canvas .artifact-step-locate{display:inline-block;vertical-align:-1px;margin-left:8px;object-fit:contain}
+html.dark .stage-root:is(.uc4,.uc2) .canvas .card.artifact-card,
+html.dark .stage-root:is(.uc4,.uc2) #networkOverviewCard.network-overview-stable-card{background-color:rgba(42,42,42,.75)}
+html.dark .stage-root:is(.uc4,.uc2) .canvas .card.artifact-card:hover,
+html.dark .stage-root:is(.uc4,.uc2) #networkOverviewCard.network-overview-stable-card:hover{background-color:rgba(55.967,55.967,55.967,.7625)}
+.stage-root:is(.uc4,.uc2) .canvas .card.artifact-card .card-title{font-family:var(--font-family);font-size:16px;line-height:24px;font-weight:500;margin:0}
+.stage-root:is(.uc4,.uc2) .canvas .card.artifact-card .v7-artifact-title{font-size:16px;line-height:24px;font-weight:500;gap:8px;align-items:center}
+.stage-root:is(.uc4,.uc2) .canvas .card.artifact-card .v7-artifact-title>.v7-artifact-icon{width:14px;height:14px;object-fit:contain;flex-shrink:0}
+.stage-root:is(.uc4,.uc2) .canvas #reportCard .v7-report-heading .v7-artifact-icon{width:16px;height:16px;object-fit:contain}
+.stage-root:is(.uc4,.uc2) #networkOverviewCard .network-overview-heading{position:absolute;left:16px;top:16px;z-index:2}
+.stage-root:is(.uc4,.uc2) .canvas .artifact-step-locate{display:inline-block;vertical-align:-1px;margin-left:8px;object-fit:contain}
 /* The inspection report has a plain surface, including its hover state. */
-html.dark .stage-root.uc4 .canvas #reportCard.card.artifact-card,
-html.dark .stage-root.uc4 .canvas #reportCard.card.artifact-card:hover{background-image:none}
+html.dark .stage-root:is(.uc4,.uc2) .canvas #reportCard.card.artifact-card,
+html.dark .stage-root:is(.uc4,.uc2) .canvas #reportCard.card.artifact-card:hover{background-image:none}
 /* Pixso 8:376010. Hover is a 5% white layer over the 75% #2A2A2A fill. */
-.stage-root.uc4 .canvas .card.artifact-card,.stage-root.uc4 .canvas #reportCard.card.artifact-card{border-radius:16px}
-.stage-root.uc4 .canvas .card.artifact-card .card-title{color:#fff}
-.stage-root.uc4 .v7-artifact-tag{height:24px;gap:4px;padding:2px 8px;border:0;border-radius:4px;background:rgba(174,174,174,.15);color:#fff;font-size:12px;font-weight:400;line-height:20px;position:relative;isolation:isolate}
-.stage-root.uc4 .v7-artifact-tag:hover{background:linear-gradient(rgba(42,42,42,.3),rgba(42,42,42,.3)),rgba(174,174,174,.15);color:#fff}
-.stage-root.uc4 .v7-artifact-tag .v7-artifact-icon{width:12px;height:12px;object-fit:contain}
-.stage-root.uc4 .v7-artifact-tag.locate-highlight,.stage-root.uc4 .v7-artifact-tag.locate-highlight:hover{background:rgba(243,243,243,.1);color:#fff}
-html.dark .stage-root.uc4 .canvas .card.artifact-card.locate-highlight,
-html.dark .stage-root.uc4 #networkOverviewCard.network-overview-stable-card.locate-highlight{background-color:rgba(42,42,42,.75)}
-.stage-root.uc4 .card.artifact-card.locate-highlight::after,.stage-root.uc4 .v7-artifact-tag.locate-highlight::after{inset:0;border-radius:inherit;background:conic-gradient(from 90deg at 45% 40%,#669fff 17.9%,#9566ff 36.7%,#bc6467 53.2%,#cd5b5a 54.7%,#669fff 78.6%);animation:artifact-locate-border 2.4s ease forwards}
-.stage-root.uc4 .card.artifact-card.locate-highlight::after{padding:2px}
-.stage-root.uc4 .v7-artifact-tag.locate-highlight::after{padding:1px}
+.stage-root:is(.uc4,.uc2) .canvas .card.artifact-card,.stage-root:is(.uc4,.uc2) .canvas #reportCard.card.artifact-card{border-radius:16px}
+.stage-root:is(.uc4,.uc2) .canvas .card.artifact-card .card-title{color:#fff}
+.stage-root:is(.uc4,.uc2) .v7-artifact-tag{height:24px;gap:4px;padding:2px 8px;border:0;border-radius:4px;background:rgba(174,174,174,.15);color:#fff;font-size:12px;font-weight:400;line-height:20px;position:relative;isolation:isolate}
+.stage-root:is(.uc4,.uc2) .v7-artifact-tag:hover{background:linear-gradient(rgba(42,42,42,.3),rgba(42,42,42,.3)),rgba(174,174,174,.15);color:#fff}
+.stage-root:is(.uc4,.uc2) .v7-artifact-tag .v7-artifact-icon{width:12px;height:12px;object-fit:contain}
+.stage-root:is(.uc4,.uc2) .v7-artifact-tag.locate-highlight,.stage-root:is(.uc4,.uc2) .v7-artifact-tag.locate-highlight:hover{background:rgba(243,243,243,.1);color:#fff}
+html.dark .stage-root:is(.uc4,.uc2) .canvas .card.artifact-card.locate-highlight,
+html.dark .stage-root:is(.uc4,.uc2) #networkOverviewCard.network-overview-stable-card.locate-highlight{background-color:rgba(42,42,42,.75)}
+.stage-root:is(.uc4,.uc2) .card.artifact-card.locate-highlight::after,.stage-root:is(.uc4,.uc2) .v7-artifact-tag.locate-highlight::after{inset:0;border-radius:inherit;background:conic-gradient(from 90deg at 45% 40%,#669fff 17.9%,#9566ff 36.7%,#bc6467 53.2%,#cd5b5a 54.7%,#669fff 78.6%);animation:artifact-locate-border 2.4s ease forwards}
+.stage-root:is(.uc4,.uc2) .card.artifact-card.locate-highlight::after{padding:2px}
+.stage-root:is(.uc4,.uc2) .v7-artifact-tag.locate-highlight::after{padding:1px}
 @keyframes artifact-locate-border{0%,100%{opacity:0}10%,75%{opacity:.8}}
 /* A nested control owns hover feedback; restore only the outer artifact fill.
    No image, border, selection or locate-highlight styles are reset here. */
-html.dark .stage-root.uc4 .canvas .card.artifact-card:hover:has(:is(button,a[href],input,select,textarea,summary,label[for],.search,.v7-rule-select,.v7-top-card,.v7-map-node,.v7-map-split,[role="button"],[role="link"],[role="checkbox"],[role="radio"],[role="tab"],[role="switch"],[role="slider"],[role="combobox"],[role="menuitem"],[data-canvas-interactive]):hover),
-html.dark .stage-root.uc4 #networkOverviewCard.network-overview-stable-card:hover:has(:is(button,a[href],input,select,textarea,summary,[role="button"],[role="link"],[data-canvas-interactive]):hover){background-color:rgba(42,42,42,.75)}
+html.dark .stage-root:is(.uc4,.uc2) .canvas .card.artifact-card:hover:has(:is(button,a[href],input,select,textarea,summary,label[for],.search,.v7-rule-select,.v7-top-card,.v7-map-node,.v7-map-split,[role="button"],[role="link"],[role="checkbox"],[role="radio"],[role="tab"],[role="switch"],[role="slider"],[role="combobox"],[role="menuitem"],[data-canvas-interactive]):hover),
+html.dark .stage-root:is(.uc4,.uc2) #networkOverviewCard.network-overview-stable-card:hover:has(:is(button,a[href],input,select,textarea,summary,[role="button"],[role="link"],[data-canvas-interactive]):hover){background-color:rgba(42,42,42,.75)}
+
+/* Candidate reports use the same plain report surface, with no dot grid. */
+html.dark .stage-root.uc2 #uc2StageContent.uc2-report-card,
+html.dark .stage-root.uc2 #uc2StageContent.uc2-report-card:hover{background-image:none}
+.stage-root.uc2 #uc2StageContent .v7-report-heading .v7-artifact-icon{width:16px;height:16px;object-fit:contain}

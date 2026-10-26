@@ -1,0 +1,26 @@
+{
+  "fileKey": "v0ssSa5uEPmc2W4raTIzdA",
+  "pageId": "0:1",
+  "board": "23:350169",
+  "states": {
+    "default": "37:29119",
+    "selected": "37:26740",
+    "clicked": "37:31438"
+  },
+  "assets": {
+    "device-node.svg": "37:29720",
+    "role-node.svg": "37:29772",
+    "engine.png": "37:30378",
+    "title-icon.svg": "37:29591",
+    "engine-reference.png": {
+      "source": "37:29119 full board PNG",
+      "crop": [
+        1168,
+        542,
+        200,
+        200
+      ],
+      "processing": "radial alpha edge; preserves the composited blend colors of the design"
+    }
+  }
+}

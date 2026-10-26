@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 import { Icon } from "../../../assets/shared/icon.jsx";
 import { useApp } from "../../context.jsx";
 import Uc2Topology from "./topology.jsx";
+import Uc2Intent from "./intent.jsx";
+import "./restoration.css";
 import Uc2Mining from "./mining.jsx";
 import { Uc2Report, Uc2RuleDetail } from "./report.jsx";
 
@@ -25,8 +27,9 @@ export default function Uc2Pane() {
   }, [uc2Scroll]);
 
   if (!uc2.active) return null;
+  if (uc2.max === 0 || uc2.view === "intent") return <section id="uc2Pane" aria-label="黄金基线挖掘画布"><Uc2Intent /></section>;
 
-  const headings = { 1: "设备还原 · 西三旗 DC 网络拓扑", 2: "黄金基线挖掘 · 配置共性分析", 3: "生成报告 · 黄金基线候选结果" };
+  const headings = { 1: "设备还原", 2: "黄金基线挖掘", 3: "生成报告 · 黄金基线候选结果" };
   const modules = [];
   for (let i = 1; i <= uc2.max; i++) {
     const content = i === 1 ? <Uc2Topology /> : i === 2 ? <Uc2Mining /> : uc2.view === "rule" ? <Uc2RuleDetail /> : <Uc2Report />;
@@ -36,7 +39,7 @@ export default function Uc2Pane() {
           <Icon name={i === 1 ? "network" : i === 2 ? "sparkles" : "file-text"} className="ic" strokeWidth={1.6} />
           {headings[i]}
         </h2>
-        <div className="card" {...(i === 3 ? { id: "uc2StageContent" } : {})}>{content}</div>
+        <div className={(i === 1 ? "uc2-restoration-host" : "card") + (i === 3 ? " artifact-card uc2-report-card" : "")} {...(i === 3 ? { id: "uc2StageContent" } : {})}>{content}</div>
       </section>
     );
   }

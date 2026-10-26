@@ -1,299 +1,95 @@
-import { useState } from "react";
-import "./mining-reference.css";
-import { Icon } from "../../../assets/shared/icon.jsx";
+import { useEffect, useRef, useState } from "react";
 import { useApp } from "../../context.jsx";
-import { fusionNodes, fusionEdges, fusionRelevant, fusionTopRules, fusionImpact, uc2RuleById, miningImpact, uc2DeviationDevices, uc2Actual } from "../../mock/uc2.js";
-import Ic from "../../components/icon-el/index.jsx";
+import { fusionRelevant, fusionTopRules, fusionImpact, uc2RuleById, miningImpact, uc2DeviationDevices, uc2Actual } from "../../mock/uc2.js";
+import "./mining-reference.css";
 
-// 悬浮提示（原版追加到 body；经 portal 保持与 stage 缩放解耦）
-function RuleTooltip({ rule, rect, onOpen }) {
-  const r = uc2RuleById(rule);
-  if (!r || !rect) return null;
-  const left = Math.max(12, Math.min(rect.left - 260 - 16, window.innerWidth - 280 - 12));
-  const top = Math.max(12, Math.min(rect.top - 35, window.innerHeight - 240));
-  return ReactDOM.createPortal(
-    <div id="fusionRuleTooltip" className="fusion-rule-tooltip" role="tooltip" style={{ left: left + "px", top: top + "px" }}>
-      <div className="fusion-tooltip-label">候选规则 · {r.id}</div>
-      <b>{r.name}</b>
-      <div className="fusion-tooltip-meta">{r.confidence === "高" ? "高置信" : "待验证"} · {fusionImpact[r.id]}影响 · {r.role}</div>
-      <div className="fusion-tooltip-counts">
-        <span>依据 <strong>{r.support}</strong> 台</span><span>适用 {r.scope} 台</span><span>偏离 {r.deviations} 台</span>
-      </div>
-      <code>{r.cmd}</code>
-      <small>点击打开规则详情</small>
-    </div>,
-    document.body
-  );
+const art = "./assets/uploads/pixso-uc2-mining/";
+const nodes = [
+  {id:"core",x:105,y:373,label:"核心角色簇",sub:"20台·CE12800",type:"role"},
+  {id:"leaf",x:105,y:627,label:"Leaf 角色簇",sub:"80台·CE6800",type:"role"},
+  {id:"core1",x:330,y:287,label:"CoreSwitch-01",sub:"核心代表设备",type:"device"},
+  {id:"core2",x:330,y:450,label:"CoreSwitch-02",sub:"核心代表设备",type:"device"},
+  {id:"leafsample",x:330,y:627,label:"Leaf 配置样本",sub:"同角色标准化分析",type:"device"},
+];
+const anchors = [872,900,924,934,944,944,936,923,900,876];
+const links = [
+  ["core","core1","M134 373C211 369 249 287 301 287"],
+  ["core","core2","M134 373C215 381 250 450 301 450"],
+  ["leaf","leafsample","M134 627H301"],
+  ["core1","engine","M359 287C430 287 449 450 508 470"],
+  ["core2","engine","M359 450C424 450 458 480 508 487"],
+  ["leafsample","engine","M359 627C430 627 455 528 508 508"],
+];
+
+function RuleTags({ rule }) {
+  return <div className="golden-tags"><span className="confidence">{rule.confidence === "高" ? "高置信" : "待验证"}</span><span className="impact">{fusionImpact[rule.id]}影响</span><span>{rule.role}</span></div>;
 }
 
-// Reference reveal order: role clusters → representatives → engine → candidates.
-function revealDelay(id) {
-  const steps = { core: 0, leaf: 220, core1: 950, core2: 1170, leafsample: 1390, engine: 2150 };
-  if (steps[id] !== undefined) return steps[id];
-  return 3100 + Math.max(0, fusionNodes.filter((n) => n.rule).findIndex((n) => n.id === id)) * 240;
+function RuleSummary({ rule, position, onOpen, onEnter, onLeave }) {
+  return <aside className="golden-summary" role="dialog" aria-label="候选规则摘要" style={{left:position.left,top:position.top}} onMouseEnter={onEnter} onMouseLeave={onLeave}>
+    <div className="golden-meta">候选规则·{rule.id}</div><h3>{rule.name}</h3><RuleTags rule={rule}/>
+    <div className="golden-summary-line"/>
+    <div className="golden-summary-counts"><span>依据 <b>{rule.support}台</b></span><span>适用 <b>{rule.scope}台</b></span><span>偏离 <b>{rule.deviations}台</b></span></div>
+    <pre>{rule.cmd}</pre><a href="#uc2MiningRule" onClick={e=>{e.preventDefault();onOpen(rule.id);}}>规则详情</a>
+  </aside>;
 }
 
-function FusionGraph({ active, playing, completed }) {
-  const revealStyle = (delay, duration = 500) => ({ "--fusion-delay": `${delay - (completed ? 7000 : 0)}ms`, "--fusion-duration": `${duration}ms`, animationPlayState: playing ? "running" : "paused" });
-  const { uc2, uc2Fusion, uc2FusionPick } = useApp();
-  const [hoverId, setHoverId] = useState(null);
-  const [tooltip, setTooltip] = useState(null); // {rule, rect}
-  const selected = uc2Fusion.selected;
-  const relevant = fusionRelevant(selected);
-  const showRel = hoverId ? fusionRelevant(hoverId) : relevant;
-
-  const edges = fusionEdges.map(([a, b], i) => {
-    const f = fusionNodes.find((n) => n.id === a), t = fusionNodes.find((n) => n.id === b);
-    const start = f.x + (a === "engine" ? 46 : 25);
-    const end = t.x - (b === "engine" ? 46 : b.startsWith("rule:") ? 13 : 25);
-    const d = a === "engine"
-      ? `M${start} ${f.y} H725 C770 ${f.y} 770 ${t.y} ${end} ${t.y}`
-      : `M${start} ${f.y} C${start + (end - start) * 0.53} ${f.y} ${start + (end - start) * 0.47} ${t.y} ${end} ${t.y}`;
-    const hot = showRel.has(a) && showRel.has(b);
-    return (
-      <g key={a + ":" + b} className={"fusion-edge fusion-reveal-edge " + (hot ? "related" : "dim")} style={revealStyle(a === "engine" ? revealDelay(b) - 420 : b === "engine" ? 1700 : 560, 650)} data-fusion-from={a} data-fusion-to={b}>
-        <path d={d} className="fusion-flow-width" strokeWidth={a === "leaf" || a === "leafsample" ? 9 : 4} />
-        <path d={d} className="fusion-flow-line" />
-        {active && hot ? <circle r="2" fill="#a1d3d1"><animateMotion dur={3.5 + i * 0.2 + "s"} begin={-i * 0.3 + "s"} repeatCount="indefinite" path={d} /></circle> : null}
-      </g>
-    );
-  });
-
-  const engineDots = [];
-  for (let i = 0; i < 110; i++) {
-    const a = i * 2.39996, r = Math.sqrt(i / 110) * 38;
-    engineDots.push(<circle key={i} cx={(595 + Math.cos(a) * r).toFixed(1)} cy={(285 + Math.sin(a) * r).toFixed(1)} r={i % 3 === 0 ? 1.5 : 1} fill={i % 12 === 0 ? "#b6a5c9" : "#80c9c5"} opacity={(0.35 + (i % 5) * 0.12).toFixed(2)} />);
-  }
-
-  const nodeHandlers = (n) => ({
-    onClick: () => uc2FusionPick(n.id),
-    onMouseEnter: (e) => {
-      setHoverId(n.id);
-      if (n.rule) setTooltip({ rule: n.rule.id, rect: e.currentTarget.getBoundingClientRect() });
-    },
-    onMouseLeave: () => { setHoverId(null); setTooltip(null); },
-    onFocus: (e) => {
-      setHoverId(n.id);
-      if (n.rule) setTooltip({ rule: n.rule.id, rect: e.currentTarget.getBoundingClientRect() });
-    },
-    onBlur: () => { setHoverId(null); setTooltip(null); },
-    onKeyDown: (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); uc2FusionPick(n.id); } },
-  });
-
-  return (
-    <>
-      <svg className={"fusion-graph fusion-sequential" + (active ? " active" : "")} viewBox="0 0 1180 565" role="img" aria-label="黄金基线挖掘过程：角色聚类、代表配置对比、AI共性提取、候选规则形成">
-        <defs>
-          <radialGradient id="fusionGlow"><stop stopColor="#557c7e" stopOpacity=".16" /><stop offset="1" stopColor="#557c7e" stopOpacity="0" /></radialGradient>
-          <pattern id="fusionDots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r=".5" fill="#95a8b1" opacity=".13" /></pattern>
-        </defs>
-        <rect width="1180" height="565" fill="url(#fusionDots)" />
-        <ellipse cx="595" cy="285" rx="190" ry="180" fill="url(#fusionGlow)" />
-        <g className="fusion-lane-labels">
-          <text className="fusion-reveal" style={revealStyle(0)} x="105" y="40" textAnchor="middle">角色聚类</text>
-          <text className="fusion-reveal" style={revealStyle(900)} x="324" y="40" textAnchor="middle">代表配置对比</text>
-          <text className="fusion-reveal" style={revealStyle(2100)} x="595" y="40" textAnchor="middle">共性提取</text>
-          <text className="fusion-reveal" style={revealStyle(2950)} x="985" y="33" textAnchor="middle">候选规则 · TOP{fusionTopRules().length}</text>
-          <text x="985" y="55" textAnchor="middle" className="fusion-comparison-sub">置信度 → 影响级别 → 支持设备数</text>
-        </g>
-        <path d="M215 58V505M448 58V505M790 58V520" className="fusion-lane-divider" />
-        {edges}
-        {fusionNodes.map((n) => {
-          const isEngine = n.id === "engine";
-          const isRule = !!n.rule;
-          const dim = !showRel.has(n.id);
-          const cls = ["fusion-node", "fusion-reveal", selected === n.id ? "selected" : "", dim ? "dim" : "", hoverId === n.id ? "hovered" : "", isEngine ? "engine" : "", isRule ? "rule" : ""].filter(Boolean).join(" ");
-          return (
-            <g key={n.id} className={cls} style={revealStyle(revealDelay(n.id))} data-fusion-node={n.id} role="button" tabIndex={0} aria-label={"挖掘过程：" + n.label} {...nodeHandlers(n)}>
-              {!isRule ? <title>{n.label} · {n.sub}</title> : null}
-              <rect x={n.x - (isRule ? 18 : 65)} y={n.y - (isRule ? 18 : 40)} width={isRule ? 370 : 140} height={isRule ? 42 : 115} fill="transparent" />
-              {isEngine ? (
-                <>
-                  <circle className="fusion-engine-aura" cx={n.x} cy={n.y} r="66" />
-                  <circle className="fusion-engine-ring" cx={n.x} cy={n.y} r="53" />
-                  <g className="fusion-engine-dots">{engineDots}</g>
-                </>
-              ) : isRule ? (
-                <>
-                  <circle className="fusion-rank-circle" cx={n.x} cy={n.y} r="14" />
-                  <g className="fusion-rule-glyph" transform={`translate(${n.x - 9} ${n.y - 9}) scale(.75)`}>
-                    <Ic icon="clipboard-list" style={{ width: "18px", height: "18px" }} />
-                  </g>
-                </>
-              ) : (
-                <>
-                  <circle className="fusion-node-halo" cx={n.x} cy={n.y} r="29" />
-                  <circle className="fusion-node-center" cx={n.x} cy={n.y} r="21" />
-                  <g transform={`translate(${n.x - 10} ${n.y - 10})`}>
-                    <Icon name={n.icon === "rules" ? "clipboard-list" : n.icon} className="ic" strokeWidth={1.6} style={{ width: "20px", height: "20px" }} />
-                  </g>
-                  <circle className="fusion-ready" cx={n.x + 17} cy={n.y - 16} r="3" />
-                </>
-              )}
-              <text className={"fusion-node-title" + (isRule ? " fusion-top-title" : "")} x={isRule ? n.x + 24 : n.x} y={isRule ? n.y - 3 : n.y + (isEngine ? 91 : 50)} textAnchor={isRule ? "start" : "middle"}>{n.label}</text>
-              <text className={"fusion-node-sub" + (isRule ? " fusion-top-sub" : "")} x={isRule ? n.x + 24 : n.x} y={isRule ? n.y + 15 : n.y + (isEngine ? 113 : 70)} textAnchor={isRule ? "start" : "middle"}>{n.sub}</text>
-            </g>
-          );
-        })}
-        <text x="324" y="345" textAnchor="middle" className="fusion-comparison">同角色配置对比</text>
-        <text x="324" y="366" textAnchor="middle" className="fusion-comparison-sub">SSH · AAA · VRRP</text>
-        <g className="fusion-output-total fusion-reveal" style={revealStyle(5950)}>
-          <text x="985" y="548" textAnchor="middle"><tspan className="fusion-candidate-total">18</tspan> 条候选 · 12 高置信 · 6 待验证</text>
-        </g>
-      </svg>
-      <RuleTooltip rule={tooltip?.rule} rect={tooltip?.rect} onOpen={uc2FusionPick} />
-    </>
-  );
-}
-
-function FusionContext() {
-  const { uc2, uc2Fusion, uc2OpenRule } = useApp();
-  const id = uc2Fusion.selected;
-  const r = uc2Fusion.rule ? uc2RuleById(uc2Fusion.rule) : null;
-  let title, desc, evidence, source;
-  if (r) {
-    title = "候选依据 · " + r.name;
-    desc = r.id === "GB-012"
-      ? "80 台 Leaf 样本中，77 台遵循相同角色 VLAN 模式；3 台存在差异，需结合规划确认。"
-      : "候选模式来自适用样本的配置共性，需结合业务和规划审阅后采用。";
-    evidence = r.cmd;
-    source = `${r.confidence === "高" ? "高置信" : "待验证"} · ${fusionImpact[r.id]}影响（示例分级） · 依据 ${r.support} 台设备`;
-  } else if (id === "core1" || id === "core2") {
-    title = (id === "core1" ? "CoreSwitch-01" : "CoreSwitch-02") + " · 代表配置";
-    desc = "将两台同角色代表设备进行配置对比，识别共同的功能片段；设备地址、主机名、优先级保留为差异。";
-    evidence = "protocol inbound ssh\nauthentication-mode aaa\nvrrp vrid 1 virtual-ip <按规划>";
-    source = "CE12800 · 核心角色 · 配置快照";
-  } else if (id === "core" || id === "leaf" || id === "leafsample") {
-    title = id === "core" ? "核心角色聚类" : "Leaf 角色聚类";
-    desc = id === "core"
-      ? "从 20 台核心交换机中选取 CoreSwitch-01、CoreSwitch-02 作为代表，提取可比较的配置特征。"
-      : "80 台 Leaf 样本独立聚类、标准化并对比；Leaf 规则不从核心设备直接推断。";
-    evidence = "角色 → 型号 / 版本 → 配置特征";
-    source = "本轮 100 台分析样本 · 20 Core / 80 Leaf";
-  } else {
-    title = "共性提取如何形成候选";
-    desc = "标准化设备变量 → 对比跨设备配置片段 → 回看适用样本支持度。将通用模式与角色专属模式分别形成候选规则。";
-    evidence = "保留角色变量，剔除设备唯一值\n输出：通用模式 + 核心角色模式 + Leaf 角色模式";
-    source = "代表配置发现模式 · 适用样本验证";
-  }
-  return (
-    <section className="fusion-context" aria-label="当前挖掘节点依据">
-      <div className="fusion-context-caption">
-        <span>分析上下文</span>
-        <h3>{title}</h3>
-        <p>{desc}</p>
-      </div>
-      <div className="fusion-context-proof">
-        <span>{source}</span>
-        <pre>{evidence}</pre>
-        {r ? (
-          <div className="fusion-rule-context">
-            <span>支持 {r.support} / {r.scope} · {r.deviations} 台差异待核验</span>
-            {uc2.max === 3 ? <button onClick={() => uc2OpenRule(r.id)}>在报告中审阅 →</button> : null}
-          </div>
-        ) : null}
-      </div>
-    </section>
-  );
-}
-
-function FusionDrawer() {
-  const { uc2, uc2Fusion, uc2FusionCloseDrawer, uc2OpenRule, toast } = useApp();
-  const r = uc2RuleById(uc2Fusion.drawer);
-  if (!r) return null;
-  const meta = miningImpact[r.id];
-  const ds = uc2DeviationDevices[r.id] || [];
-  const source = r.role === "Leaf 交换机" ? "Leaf 样本配置" : r.role === "核心交换机" ? "CoreSwitch-01 / CoreSwitch-02" : "核心与 Leaf 样本";
-  const copy = async () => {
-    try { await navigator.clipboard.writeText(r.cmd); toast("候选配置已复制"); }
-    catch { toast("浏览器未允许复制，请选中配置手动复制"); }
-  };
-  return (
-    <aside className="fusion-rule-drawer" role="region" aria-label="单规则详情">
-      <div className="fusion-drawer-header">
-        <span>单规则详情</span>
-        <button aria-label="关闭单规则详情" onClick={uc2FusionCloseDrawer}>×</button>
-      </div>
-      <div className="fusion-drawer-body">
-        <div className="fusion-drawer-id">{r.id} · {r.category}</div>
-        <h3>{r.name}</h3>
-        <div className="fusion-drawer-tags">
-          <span>{r.confidence === "高" ? "高置信" : "待验证"}</span>
-          <span>{fusionImpact[r.id]}影响</span>
-          <span>{r.role}</span>
-        </div>
-        <div className="fusion-drawer-metrics">
-          <div><b>{r.support}<small>/{r.scope}</small></b><label>设备支持度</label></div>
-          <div><b>{r.deviations}</b><label>偏离设备</label></div>
-        </div>
-        <section>
-          <h4>候选判定条件</h4>
-          <pre>{r.cmd}</pre>
-          <p>由适用样本的配置共性形成，影响级别为示例分级。</p>
-        </section>
-        <section>
-          <h4>配置证据</h4>
-          <div className="fusion-drawer-source">{source} · 配置快照示例</div>
-          <label className="fusion-drawer-code-label">共性配置</label>
-          <pre>{r.cmd}</pre>
-          {r.deviations ? (
-            <>
-              <label className="fusion-drawer-code-label">偏离样本</label>
-              <pre className="deviation">{meta?.actual || uc2Actual(r)}</pre>
-            </>
-          ) : <p>当前适用样本未发现偏离。</p>}
-        </section>
-        <section>
-          <h4>影响与核验</h4>
-          <p>{meta?.impact || "当前样本显示该配置模式具有共性，需确认角色范围、规划变量和业务例外。"}</p>
-          <p>{meta?.next || "请结合业务规划和安全规范核验后采用候选规则。"}</p>
-        </section>
-        {ds.length ? (
-          <section>
-            <h4>偏离设备 · {ds.length} 台</h4>
-            <div className="fusion-drawer-devices">{ds.map((d) => <span key={d}>{d}</span>)}</div>
-          </section>
-        ) : null}
-        <div className="fusion-drawer-note">候选尚未发布为正式基线，未执行设备变更。</div>
-        <div className="fusion-drawer-actions">
-          <button className="btn" onClick={copy}>复制候选配置</button>
-          {uc2.max === 3 ? <button className="btn primary" onClick={() => uc2OpenRule(r.id)}>报告中审阅 →</button> : <span>报告生成后可审阅</span>}
-        </div>
-      </div>
-    </aside>
-  );
-}
-
-// 模块 2：黄金基线挖掘（fusion 图）
-export default function Uc2Mining() {
-  const { uc2, uc2Fusion, uc2FusionPick } = useApp();
-  const [replayKey, setReplayKey] = useState(0);
-  const [completedAtMount] = useState(uc2.max === 3);
-  const done = uc2.max === 3;
-  const active = uc2.running && !done;
-  return (
-    <div className="fusion-mining">
-      <div className="unified-heading">
-        <div>
-          <h2>黄金基线挖掘</h2>
-          <p>西三旗 DC · 100 台样本 · 核心 20 / Leaf 80 · 点击节点追踪挖掘依据</p>
-        </div>
-        <button className="fusion-replay-btn" type="button" aria-label="重播黄金基线挖掘动效" onClick={() => { uc2FusionPick("engine"); setReplayKey((k) => k + 1); }}><Ic icon="rotate-ccw" />重播动效</button>
-        <div className={"unified-status" + (active ? " running" : "")}><i />{done ? "候选已形成" : active ? "正在提取配置共性" : "分析已暂停"}</div>
-      </div>
-      <div className={"fusion-scene" + (uc2Fusion.drawer ? " with-rule-drawer" : "")}>
-        <div className="fusion-workspace">
-          <div className="fusion-visual">
-            <FusionGraph key={replayKey} active={active || replayKey > 0} playing={uc2.running || done || replayKey > 0} completed={completedAtMount && replayKey === 0} />
-            <FusionContext />
-          </div>
-          {uc2Fusion.drawer ? <FusionDrawer /> : null}
-        </div>
-      </div>
-      <div className="fusion-process-caption">
-        <span>代表设备发现模式，适用样本回看验证。</span>
-        <small>完整结果与审阅操作见下方报告</small>
-      </div>
+function RulePanel({ rule, onClose }) {
+  const { uc2, uc2Next, uc2OpenRule, toast, setPromptText } = useApp();
+  const meta = miningImpact[rule.id], devices = uc2DeviationDevices[rule.id] || [];
+  const copy = async () => { try { await navigator.clipboard.writeText(rule.cmd); toast("候选配置已复制"); } catch { toast("浏览器未允许复制，请选中配置手动复制"); } };
+  const review = () => { onClose(); if(uc2.stage < 3)uc2Next(); uc2OpenRule(rule.id); };
+  return <aside className="golden-rule-panel" id="uc2MiningRule" aria-label="单规则详情">
+    <header><h3>单规则详情</h3><button type="button" aria-label="关闭单规则详情" onClick={onClose}><svg className="ic" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3 3 10 10M13 3 3 13" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg></button></header>
+    <div className="golden-rule-body">
+      <div className="golden-meta">{rule.id}·{rule.category}</div><h4>{rule.name}</h4><RuleTags rule={rule}/>
+      <div className="golden-rule-counts"><div><span>设备支持度</span><strong>{rule.support}<small>/{rule.scope}</small></strong></div><div><span>偏离设备</span><strong>{rule.deviations}</strong></div></div>
+      <section><h5>候选判断条件</h5><pre>{rule.cmd}</pre></section>
+      <section><h5>配置证据</h5><h6>共性配置</h6><pre>{rule.cmd}</pre>{rule.deviations ? <><h6>偏离样本</h6><pre className="deviation">{meta?.actual || uc2Actual(rule)}</pre></> : <p>当前适用样本未发现偏离。</p>}<h5 className="golden-impact-heading">影响与核验</h5><p>{meta ? meta.impact+meta.next : "当前样本显示该配置模式具有共性，请结合设备角色、业务规划和安全规范核验后采用候选规则。"}</p></section>
+      {devices.length > 0 && <section><h5>偏离设备·{devices.length}台</h5><div className="golden-device-chips">{devices.map(name=><button key={name} type="button" onClick={()=>{setPromptText("检查设备 "+name+" 的候选配置偏离");toast("已将设备问题填入 AI 输入框");}}>{name}</button>)}</div></section>}
     </div>
-  );
+    <footer><button type="button" className="btn" onClick={copy}>复制配置</button><button type="button" className="btn primary" onClick={review}>报告中审阅</button></footer>
+  </aside>;
+}
+
+export default function Uc2Mining() {
+  const { uc2, uc2Fusion, uc2FusionPick, uc2FusionCloseDrawer, uc2Pause, full, setFull } = useApp();
+  const [hover, setHover] = useState(null), [summary, setSummary] = useState(null);
+  const sceneRef = useRef(null), clearRef = useRef(0);
+  const rules = fusionTopRules(), drawerRule = uc2RuleById(uc2Fusion.drawer);
+  const activeId = hover || uc2Fusion.selected || "engine", related = fusionRelevant(activeId);
+  const all = activeId === "engine";
+  useEffect(()=>()=>clearTimeout(clearRef.current),[]);
+  useEffect(()=>{if(drawerRule){setSummary(null);setHover(null);}},[drawerRule?.id]);
+  const open = id => { clearTimeout(clearRef.current);setSummary(null);setHover(null);if(uc2.running&&uc2.stage===2)uc2Pause();uc2FusionPick("rule:"+id); };
+  const leave = () => {clearTimeout(clearRef.current);clearRef.current=setTimeout(()=>{setHover(null);setSummary(null);},160);};
+  const enter = () => clearTimeout(clearRef.current);
+  const inspect = (id, event, rule) => {
+    if(drawerRule)return;enter();setHover(id);
+    if(rule){const node=event.currentTarget.getBoundingClientRect(),host=sceneRef.current.getBoundingClientRect();const width=Math.min(354,host.width-32);setSummary({rule,position:{left:Math.max(16,Math.min(host.width-width-54,node.left-host.left-87)),top:Math.max(16,Math.min(host.height-262,node.top-host.top+114))}});}
+    else setSummary(null);
+  };
+  const handlers = (id, rule) => ({onMouseEnter:e=>inspect(id,e,rule),onMouseLeave:leave,onFocus:e=>inspect(id,e,rule),onBlur:leave,onClick:e=>{e.stopPropagation();if(rule)open(rule.id);else uc2FusionPick(id);},onKeyDown:e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();if(rule)open(rule.id);else uc2FusionPick(id);}}});
+  const drawEdge = (from,to,path,key) => {const hot=related.has(from)&&related.has(to);return <g key={key} className={"golden-edge"+(hot?" is-related":" is-muted")+(all?" is-default":"")} data-edge-from={from} data-edge-to={to}><path className="golden-edge-tube" d={path}/><path className="golden-edge-line" d={path}/>{!all&&hot&&<path className="golden-edge-selected" d={path}/>}</g>;};
+  return <div className={"mining-reference"+(drawerRule?" has-rule-panel":"")} onKeyDown={e=>{if(e.key==="Escape"){uc2FusionCloseDrawer();setSummary(null);setHover(null);}}}>
+    <header className="golden-header"><h2><img src={art+"title-icon.svg"} alt=""/>西三旗DC黄金基线挖掘 <span>检索交换机设备：<strong>1980</strong> 台</span></h2><button type="button" aria-label={full?"还原基线挖掘画布":"放大基线挖掘画布"} onClick={()=>setFull(!full)}><img src="./assets/uploads/pixso-uc2-restoration/expand-icon.svg" alt=""/></button></header>
+    <div className="golden-scene" ref={sceneRef}>
+      <svg className="golden-diagram" viewBox="0 56 1232 842" role="group" aria-label="黄金基线挖掘图谱" onClick={e=>{if(e.target===e.currentTarget){uc2FusionPick("engine");setSummary(null);setHover(null);}}}>
+        <defs><linearGradient id="goldenFlow" x1="0" x2="1"><stop stopColor="#6d9ab5"/><stop offset="1" stopColor="#9582cb"/></linearGradient><radialGradient id="goldenGlow"><stop stopColor="#154dab" stopOpacity=".22"/><stop offset="1" stopColor="#154dab" stopOpacity="0"/></radialGradient></defs>
+        <g className="golden-columns"><text x={drawerRule?30:77} y="104">角色聚类</text><text x={drawerRule?167:289} y="104">代表配置对比</text><text x={drawerRule?374:576} y="104">共性提取</text><text x={drawerRule?585:915} y="104">候选规则 TOP10</text><text className="golden-columns-sub" x={drawerRule?558:889} y="126">置信度·影响级别·支持设备数</text></g>
+        <g className="golden-flow">
+          <ellipse cx="604" cy="486" rx="260" ry="250" fill="url(#goldenGlow)"/>
+          <path className="golden-candidate-arc" d="M850 167Q1044 491 850 815"/>
+          {links.map(([a,b,d],i)=>drawEdge(a,b,d,"in-"+i))}
+          {rules.map((r,i)=>drawEdge("engine","rule:"+r.id,`M${698-Math.abs(i-4.5)*1.5} ${486+(i-4.5)*8}C764 ${486+(i-4.5)*8} ${anchors[i]-76} ${203+i*64} ${anchors[i]} ${203+i*64}`,r.id))}
+          {nodes.map(n=><g key={n.id} className={"golden-node"+(!all&&!related.has(n.id)?" is-muted":"")+(!all&&related.has(n.id)?" is-related":"")} role="button" tabIndex={0} aria-label={"挖掘过程："+n.label} data-fusion-node={n.id} {...handlers(n.id)}><image href={art+(n.type==="role"?"role-node.svg":"device-node.svg")} x={n.x-84.67} y={n.y-84.67} width="169.34" height="169.34"/>{!all&&related.has(n.id)&&<circle className="golden-node-selected" cx={n.x} cy={n.y} r="29"/>}<text className="golden-node-title" x={n.x} y={n.y+59} textAnchor="middle">{n.label}</text><text className="golden-node-sub" x={n.x} y={n.y+83} textAnchor="middle">{n.sub}</text><rect className="golden-hit" x={n.x-58} y={n.y-40} width="116" height="130" fill="transparent"/></g>)}
+          <g className="golden-engine" role="button" tabIndex={0} aria-label="挖掘过程：AI配置共性提取" data-fusion-node="engine" {...handlers("engine")}><image href={art+"engine-reference.png"} x="504" y="388" width="200" height="200"/><text x="604" y="593" textAnchor="middle" className="golden-engine-title">AI配置共性提取</text><text x="604" y="619" textAnchor="middle" className="golden-engine-sub">标准化·对比·样本回看</text></g>
+          {rules.map((rule,i)=>{const id="rule:"+rule.id,x=anchors[i],y=203+i*64,hot=related.has(id);return <g key={rule.id} className={"golden-rule-node"+(!all&&!hot?" is-muted":"")+(!all&&hot?" is-related":"")} role="button" tabIndex={0} aria-label={"候选规则："+rule.name} data-fusion-node={id} {...handlers(id,rule)}><circle className="golden-rule-dot" cx={x} cy={y} r={!all&&hot?6.5:5}/><text className="golden-rule-name" x={x+30} y={y-7}>{rule.name.length>19?rule.name.slice(0,18)+"…":rule.name}</text><text className="golden-rule-sub" x={x+30} y={y+13}>{rule.confidence==="高"?"高置信":"待验证"}·{fusionImpact[rule.id]}影响·依据{rule.support}台</text><rect className="golden-hit" x={x-14} y={y-27} width="270" height="52" fill="transparent"/></g>;})}
+        </g>
+        <g className="golden-candidate-total"><path d={drawerRule?"M558 854H582M711 854H736":"M895 854H919M1048 854H1073"}/><text x={drawerRule?591:923} y="860">18条候选规则</text></g>
+      </svg>
+      {summary&&!drawerRule&&<RuleSummary rule={summary.rule} position={summary.position} onOpen={open} onEnter={enter} onLeave={leave}/>}
+      {drawerRule&&<RulePanel rule={drawerRule} onClose={uc2FusionCloseDrawer}/>}
+    </div>
+  </div>;
 }

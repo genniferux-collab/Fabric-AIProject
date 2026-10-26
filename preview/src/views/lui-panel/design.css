@@ -70,3 +70,10 @@ html:not(.dark) .stage-root #lui.lui-refresh .audit-advice strong{color:#595959}
 .stage-root *{scrollbar-color:#5959594d transparent}
 .stage-root ::-webkit-scrollbar-thumb{background:#5959594d;border-radius:4px}
 .stage-root ::-webkit-scrollbar-thumb:hover{background:#595959}
+
+/* UC2 shares the answer frame and keeps its mining-specific task controls. */
+.stage-root #lui.lui-refresh .uc2-workflow-steps .step.is-paused>.status .lui-glyph{animation-play-state:paused}
+.stage-root #lui.lui-refresh .uc2-run-controls{margin:16px 0 0;gap:8px}
+.stage-root #lui.lui-refresh .uc2-run-controls .btn{height:28px;font-size:12px;color:var(--secondary);border-color:var(--line)}
+.stage-root #lui.lui-refresh .uc2-run-controls .ic{width:12px;height:12px}
+.stage-root #lui.lui-refresh .uc2-followup{margin-top:16px}

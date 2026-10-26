@@ -140,7 +140,7 @@ html:not(.dark) .stage-root .completion strong{color:#191919}
 
 .status.running{border-color:var(--link);background:#5ca2e914}
 
-/* UC4 conversation surfaces. UC2 retains its existing conversation layout. */
+/* Shared UC2 / UC4 conversation surfaces. */
 .lui.lui-refresh{padding:0;background:#2a2a2a;gap:0}
 .lui-refresh .lui-main{min-height:0;padding:16px;overflow-x:hidden;overflow-y:auto}
 .lui-refresh .composer-wrap{padding:0 16px 16px;background:transparent;flex-shrink:0}

@@ -252,10 +252,10 @@ html:not(.dark) .stage-root.uc4 .v7-ssh-command pre,html:not(.dark) .stage-root.
 .stage-root.uc4 .canvas .device-workspace>.rule-detail{padding:0 0 0 16px}
 .stage-root.uc4 .canvas .card.flash{animation:v7-artifact-locate 1s ease}
 @keyframes v7-artifact-locate{0%,100%{outline:1px solid transparent;outline-offset:0}35%{outline:1px solid #a18bfa;outline-offset:0}}/* Compact LUI artifact tags share the canvas's filled artifact glyphs. */
-.stage-root.uc4 .v7-artifact-tag{display:inline-flex;vertical-align:middle;align-items:center;width:auto;max-width:100%;height:24px;gap:4px;padding:0 8px;border:0;border-radius:4px;background:rgba(174,174,174,.15);color:#DFDFDF;font-size:12px;font-weight:400;line-height:20px;text-align:left;white-space:nowrap}
-.stage-root.uc4 .v7-artifact-tag>span{overflow:hidden;text-overflow:ellipsis}
-.stage-root.uc4 .v7-artifact-tag:hover{background:rgba(174,174,174,.22)}
-.stage-root.uc4 .v7-artifact-tag .v7-artifact-icon{width:12px;height:12px;display:block;flex-shrink:0;stroke:none;color:#DFDFDF}
+.stage-root:is(.uc4,.uc2) .v7-artifact-tag{display:inline-flex;vertical-align:middle;align-items:center;width:auto;max-width:100%;height:24px;gap:4px;padding:0 8px;border:0;border-radius:4px;background:rgba(174,174,174,.15);color:#DFDFDF;font-size:12px;font-weight:400;line-height:20px;text-align:left;white-space:nowrap}
+.stage-root:is(.uc4,.uc2) .v7-artifact-tag>span{overflow:hidden;text-overflow:ellipsis}
+.stage-root:is(.uc4,.uc2) .v7-artifact-tag:hover{background:rgba(174,174,174,.22)}
+.stage-root:is(.uc4,.uc2) .v7-artifact-tag .v7-artifact-icon{width:12px;height:12px;display:block;flex-shrink:0;stroke:none;color:#DFDFDF}
 .stage-root.uc4 .v7-step-artifact{margin-top:8px}
 .stage-root.uc4 .v7-running-process{margin:20px 0 0 10px}
 .stage-root.uc4 .v7-running-process .steps{margin:0}
@@ -294,8 +294,8 @@ html:not(.dark) .stage-root.uc4 .v7-ssh-command pre,html:not(.dark) .stage-root.
 .stage-root.uc4 .v7-network-device-focus{display:flex;align-items:center;gap:12px;min-height:28px;color:var(--secondary)}
 .stage-root.uc4 .v7-network-device-focus>.link{font-size:12px;padding:0}
 .stage-root.uc4 .v7-network-device-focus>.link:last-child{margin-left:auto}
-html:not(.dark) .stage-root.uc4 .v7-artifact-tag{color:#393939}
-html:not(.dark) .stage-root.uc4 .v7-artifact-tag .v7-artifact-icon{color:#595959}
+html:not(.dark) .stage-root:is(.uc4,.uc2) .v7-artifact-tag{color:#393939}
+html:not(.dark) .stage-root:is(.uc4,.uc2) .v7-artifact-tag .v7-artifact-icon{color:#595959}
 html:not(.dark) .stage-root.uc4 .v7-network-map{background-color:#f5f5f5}
 html:not(.dark) .stage-root.uc4 .v7-network-cluster>rect{stroke:#00000020;fill:#fff8}
 html:not(.dark) .stage-root.uc4 .v7-network-group-title,html:not(.dark) .stage-root.uc4 .v7-network-vendor{fill:#393939}
@@ -325,15 +325,15 @@ html:not(.dark) .stage-root.uc4 .v7-map-split>.v7-map-device-card{background:#fa
 .stage-root.uc4 .v7-network-device>rect{transition:none}
 .stage-root.uc4 .v7-map-device-card{animation:none}
 .stage-root.uc4 .v7-network-sweep{display:none}}
-.stage-root.uc4 .v7-conclusion-card{display:flex;align-items:center;gap:16px;width:528px;max-width:100%;height:82px;margin-top:16px;padding:16px 20px;border:1px solid #ffffff0a;border-radius:12px;background:linear-gradient(100deg,transparent 38%,#2974cd24 78%,#3689e83d 100%),rgba(42,42,42,.75);text-align:left;color:#DFDFDF;transition:border-color .15s,box-shadow .15s}
-.stage-root.uc4 .v7-conclusion-card:hover{border-color:#5ca2e966;box-shadow:0 0 16px #2874cd12}
-.stage-root.uc4 .v7-conclusion-card>.v7-artifact-icon{width:32px;height:32px;flex-shrink:0}
-.stage-root.uc4 .v7-conclusion-copy{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
-.stage-root.uc4 .v7-conclusion-copy strong{font-size:14px;font-weight:500;line-height:22px;color:#DFDFDF}
-.stage-root.uc4 .v7-conclusion-copy>span{font-size:12px;line-height:18px;color:#939393}
+.stage-root:is(.uc4,.uc2) .v7-conclusion-card{display:flex;align-items:center;gap:16px;width:528px;max-width:100%;height:82px;margin-top:16px;padding:16px 20px;border:1px solid #ffffff0a;border-radius:12px;background:linear-gradient(100deg,transparent 38%,#2974cd24 78%,#3689e83d 100%),rgba(42,42,42,.75);text-align:left;color:#DFDFDF;transition:border-color .15s,box-shadow .15s}
+.stage-root:is(.uc4,.uc2) .v7-conclusion-card:hover{border-color:#5ca2e966;box-shadow:0 0 16px #2874cd12}
+.stage-root:is(.uc4,.uc2) .v7-conclusion-card>.v7-artifact-icon{width:32px;height:32px;flex-shrink:0}
+.stage-root:is(.uc4,.uc2) .v7-conclusion-copy{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
+.stage-root:is(.uc4,.uc2) .v7-conclusion-copy strong{font-size:14px;font-weight:500;line-height:22px;color:#DFDFDF}
+.stage-root:is(.uc4,.uc2) .v7-conclusion-copy>span{font-size:12px;line-height:18px;color:#939393}
 .stage-root.uc4 .v7-conclusion-arrow{font-size:24px;color:#8abef3}
-html:not(.dark) .stage-root.uc4 .v7-conclusion-card{background:linear-gradient(100deg,transparent 38%,#3689e824),#f4f4f4;color:#393939}
-html:not(.dark) .stage-root.uc4 .v7-conclusion-copy strong{color:#393939}
+html:not(.dark) .stage-root:is(.uc4,.uc2) .v7-conclusion-card{background:linear-gradient(100deg,transparent 38%,#3689e824),#f4f4f4;color:#393939}
+html:not(.dark) .stage-root:is(.uc4,.uc2) .v7-conclusion-copy strong{color:#393939}
 .stage-root.uc4 .v7-map-device-card .node-name{display:block;line-height:22px}
 .stage-root.uc4 .v7-map-device-card .node-meta{display:flex;gap:12px;line-height:18px}
 .stage-root.uc4 .v7-map-device-card .node-meta>span+span{padding-left:12px;border-left:1px solid var(--line)}

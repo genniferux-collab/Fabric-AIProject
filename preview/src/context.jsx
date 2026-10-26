@@ -3,6 +3,7 @@ import { devices } from "./mock/devices.js";
 import { checks } from "./mock/checks.js";
 import { sortedFailedRules } from "./mock/audit.js";
 import { recs, DEFAULT_PROMPT } from "./mock/workflow.js";
+import { uc2RestorationDuration } from "./mock/uc2.js";
 
 // Layer 1: 全局状态 — 主题（单轨 .dark）+ 画布/任务流/页签/设备详情状态
 const AppContext = createContext(null);
@@ -158,7 +159,7 @@ export function AppProvider({ children }) {
   };
 
   // ---- UC2 黄金基线挖掘状态机 ----
-  const [uc2, setUc2] = useState({ active: false, stage: 0, max: 0, running: false, view: "stage", rule: null, node: null });
+  const [uc2, setUc2] = useState({ active: false, stage: 0, max: 0, restoration: 0, restorationElapsed: 0, restorationStartedAt: null, running: false, view: "stage", rule: null, node: null });
   const uc2Ref = useRef(uc2);
   uc2Ref.current = uc2;
   const uc2TimerRef = useRef(0);
@@ -173,12 +174,16 @@ export function AppProvider({ children }) {
     clearTimeout(uc2TimerRef.current);
     const s = uc2Ref.current;
     if (!s.active || !s.running) return;
-    const delay = s.stage === 0 ? 4500 : s.stage === 1 ? 6500 : 8000;
+    const elapsed = (s.restorationElapsed || 0) + (s.restorationStartedAt ? Date.now() - s.restorationStartedAt : 0);
+    const delay = s.stage === 0 ? 4500 : s.stage === 1 ? s.restoration === 2 ? 900 : Math.max(0, uc2RestorationDuration - elapsed) : 8000;
     uc2TimerRef.current = setTimeout(() => {
       const cur = uc2Ref.current;
       if (!cur.active || !cur.running) return;
       if (cur.stage < 3) {
-        const next = { ...cur, stage: cur.stage + 1, max: Math.max(cur.max, cur.stage + 1), node: null };
+        const next = cur.stage === 1 && cur.restoration !== 2
+          ? { ...cur, restoration: 2, restorationElapsed: uc2RestorationDuration, restorationStartedAt: null, view: "stage", node: null }
+          : { ...cur, stage: cur.stage + 1, max: Math.max(cur.max, cur.stage + 1), view: "stage", node: null };
+        if (next.stage === 1 && next.restoration !== 2) next.restorationStartedAt = next.running ? Date.now() : null;
         if (next.stage === 3) next.running = false;
         uc2Ref.current = next;
         setUc2(next);
@@ -207,7 +212,7 @@ export function AppProvider({ children }) {
     clearTimeout(uc2TimerRef.current);
     setUc2Fusion({ selected: "engine", rule: null, drawer: null });
     setUc2Extra([]);
-    const next = { active: true, stage: 0, max: 0, running: true, view: "stage", rule: null, node: null };
+    const next = { active: true, stage: 0, max: 0, restoration: 0, restorationElapsed: 0, restorationStartedAt: null, running: true, view: "stage", rule: null, node: null };
     uc2Ref.current = next;
     setUc2(next);
     setActivePane("task");
@@ -225,6 +230,10 @@ export function AppProvider({ children }) {
     const cur = uc2Ref.current;
     if (!cur.active) return;
     const next = { ...cur, running: !cur.running };
+    if (cur.stage === 1 && cur.restoration !== 2) {
+      next.restorationElapsed = Math.min(uc2RestorationDuration, (cur.restorationElapsed || 0) + (cur.restorationStartedAt ? Date.now() - cur.restorationStartedAt : 0));
+      next.restorationStartedAt = next.running ? Date.now() : null;
+    }
     uc2Ref.current = next;
     setUc2(next);
     if (next.running) uc2ScheduleRef.current();
@@ -234,7 +243,10 @@ export function AppProvider({ children }) {
     clearTimeout(uc2TimerRef.current);
     const cur = uc2Ref.current;
     if (!cur.active || cur.stage >= 3) return;
-    const next = { ...cur, stage: cur.stage + 1, max: Math.max(cur.max, cur.stage + 1), node: null };
+    const next = cur.stage === 1 && cur.restoration !== 2
+          ? { ...cur, restoration: 2, restorationElapsed: uc2RestorationDuration, restorationStartedAt: null, view: "stage", node: null }
+          : { ...cur, stage: cur.stage + 1, max: Math.max(cur.max, cur.stage + 1), view: "stage", node: null };
+        if (next.stage === 1 && next.restoration !== 2) next.restorationStartedAt = next.running ? Date.now() : null;
     if (next.stage === 3) next.running = false;
     uc2Ref.current = next;
     setUc2(next);
@@ -243,8 +255,8 @@ export function AppProvider({ children }) {
 
   const uc2Show = useCallback((targetStage) => {
     const cur = uc2Ref.current;
-    if (targetStage > cur.max || targetStage === 0) return;
-    uc2Ref.current = { ...cur, view: "stage", rule: null };
+    if (targetStage > cur.max || targetStage < 0) return;
+    uc2Ref.current = { ...cur, view: targetStage === 0 ? "intent" : "stage", rule: null };
     setUc2(uc2Ref.current);
     setUc2Scroll({ seq: ++uc2ScrollSeqRef.current, module: targetStage });
   }, []);

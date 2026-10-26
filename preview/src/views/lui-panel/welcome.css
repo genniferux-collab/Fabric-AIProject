@@ -1,0 +1,49 @@
+@font-face{font-family:"Pixso Aico Sans";src:url("./assets/uploads/pixso-ai-welcome/HarmonyOS_Sans_Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
+body:has(.stage-root) #lui.lui-welcome,body:has(.stage-root) #lui.lui-welcome *{font-family:"Pixso Aico Sans","PingFang SC","Microsoft YaHei",sans-serif!important;-webkit-font-smoothing:antialiased}
+/* Shared UC1–UC4 entry. Pixso UC2-1 2:1296243 / selected 2:1301011 / templates 2:1301302. */
+.stage-root #lui.lui-welcome{background:#2a2a2a url("./assets/uploads/pixso-ai-welcome/panel-background.png") center top / 100% 100% no-repeat;container:ai-welcome / size}
+.stage-root #lui.lui-welcome .lui-head{height:68px;min-height:68px;border:0;padding:24px 16px;align-items:flex-start}
+.stage-root #lui.lui-welcome .lui-detail-title{display:none}
+.stage-root #lui.lui-welcome .lui-main{padding:0;min-height:0}
+.ai-welcome-screen{width:calc(100% - 120px);max-width:472px;margin:clamp(24px,calc(100cqh - 930px),102px) auto 24px;color:#fff}
+.ai-welcome-brand{position:relative;width:140px;height:60px;margin:0 auto}
+.ai-welcome-brand>img{position:absolute;left:-1.760742px;top:-.591431px;width:141.760742px;height:60.591431px;max-width:none}
+.ai-welcome-description{margin:24px 0 36px;text-align:center;font-size:16px;font-weight:400;line-height:24px;white-space:nowrap}
+.ai-welcome-scenarios-heading{display:flex;align-items:center;justify-content:space-between;height:24px;margin-bottom:8px;color:#c9c9c9;font-size:14px;line-height:22px}
+.ai-welcome-scenarios-heading button{display:flex;align-items:center;gap:4px;padding:0;color:inherit;font:inherit;background:transparent;cursor:pointer}
+.ai-welcome-scenarios-heading img{width:14px;height:14px}
+.ai-welcome-scenarios{display:flex;flex-direction:column;gap:12px}
+.ai-welcome-scenario{display:flex;flex-direction:column;justify-content:center;gap:4px;flex:none;width:100%;min-height:76px;padding:14px 16px;border:0;border-radius:16px;background:#3a3a3a;color:#fff;text-align:left;font:inherit;cursor:pointer}
+.ai-welcome-scenario:first-child{gap:6px}
+.ai-welcome-scenario-title{display:flex;align-items:flex-start;gap:8px;font-size:14px;line-height:22px;font-weight:400}
+.ai-welcome-scenario-title img{width:16px;height:16px;margin-top:3px;flex:none}
+.ai-welcome-scenario-description{padding-left:24px;color:#c9c9c9;font-size:12px;line-height:20px;font-weight:400}
+.ai-welcome-scenario:hover{background:#414141}
+.ai-welcome-screen button:focus-visible,.welcome-composer button:focus-visible{outline:2px solid #5ca2e9;outline-offset:2px}
+.stage-root #lui.lui-welcome .welcome-composer{position:relative;padding:0 16px 16px;flex:none}
+.stage-root #lui.lui-welcome .welcome-composer .composer{box-shadow:0 1px 6px #0008;border:0}
+.stage-root #lui.lui-welcome .welcome-composer .composer textarea{font-size:14px;line-height:20px;color:#fff}
+.stage-root #lui.lui-welcome .welcome-composer .composer.has-feature{height:122px;display:grid;grid-template-rows:46px 20px 32px;gap:0}
+.stage-root #lui.lui-welcome .welcome-composer .composer.has-feature textarea{height:20px;min-height:20px}
+.welcome-feature-bar{height:38px;margin-bottom:8px;padding-bottom:5px;display:flex;align-items:flex-start;justify-content:space-between;border-bottom:1px solid #7775;gap:8px}
+.welcome-selected-feature{height:32px;padding:6px 12px;border-radius:8px;display:flex;align-items:center;gap:4px;background:#4b4b4b;font-size:12px;line-height:20px;color:#fff}
+.welcome-selected-feature>.lui-glyph{width:14px;height:14px}
+.welcome-selected-feature>button{display:grid;place-items:center;width:12px;height:20px;padding:0;margin:0;background:transparent;cursor:pointer}
+.welcome-selected-feature>button img{width:12px;height:12px}
+.welcome-template-trigger{display:flex;align-items:center;justify-content:flex-end;gap:4px;height:32px;padding:5px 0 5px 12px;background:transparent;color:#5ca2e9;font-size:14px;line-height:22px;cursor:pointer}
+.welcome-template-trigger>img{width:14px;height:14px}
+.welcome-template-panel{position:absolute;z-index:10;left:0;right:0;bottom:calc(100% + 4px);padding:16px;border-radius:16px;background:#393939;color:#fff;box-shadow:inset 0 0 0 1px #f3f3f326;font-size:14px;line-height:22px}
+.welcome-template-panel>header{display:flex;align-items:center;justify-content:space-between;height:26px;margin-bottom:12px}
+.welcome-template-panel h2{margin:0;font-size:18px;font-weight:400;line-height:26px}
+.welcome-template-panel>header button{display:grid;place-items:center;width:16px;height:26px;padding:0;background:transparent;cursor:pointer}
+.welcome-template-panel>header img{width:16px;height:16px}
+.welcome-template-tabs{display:flex;align-items:stretch;gap:32px;height:32px;margin-bottom:12px;box-shadow:inset 0 -1px 0 #f3f3f326;overflow-x:auto;scrollbar-width:none}
+.welcome-template-tabs>button{position:relative;padding:0 0 10px;color:#939393;font-size:16px;line-height:22px;white-space:nowrap;background:transparent;cursor:pointer}
+.welcome-template-tabs>button[aria-selected=true]{color:#5ca2e9}
+.welcome-template-tabs>button[aria-selected=true]::after{content:"";position:absolute;bottom:0;left:0;right:0;height:2px;background:#5ca2e9}
+.welcome-template-list{display:flex;flex-direction:column;gap:10px;max-height:240px;overflow:auto}
+.welcome-template-list>button{display:flex;align-items:center;gap:8px;flex:none;width:100%;height:40px;padding:4px 12px;border:0;border-radius:8px;background:#4b4b4b;color:#fff;text-align:left;font:inherit;cursor:pointer}
+.welcome-template-list>button[aria-selected=true]{background:#224b76;outline:0}
+.welcome-template-list>button img{width:14px;height:14px;flex:none}
+.welcome-template-list>button span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:760px){.ai-welcome-screen{width:calc(100% - 32px)}.ai-welcome-description{white-space:normal}.welcome-template-tabs{gap:20px}}

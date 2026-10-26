@@ -1,0 +1,55 @@
+{
+  "source": "https://pixso.net/app/design/v0ssSa5uEPmc2W4raTIzdA",
+  "frame": "13:358939",
+  "map_frame": "13:359088",
+  "metrics_frame": "13:359657",
+  "assets": {
+    "source-map.png": "13:359091",
+    "gis.svg": "13:359094",
+    "zoom-plus.svg": "13:359130",
+    "zoom-minus.svg": "13:359135",
+    "zoom-reset.svg": "13:359098",
+    "distribution.svg": "13:359845",
+    "trend.svg": "13:359940",
+    "metric-info.svg": "13:359678",
+    "map-label.svg": "13:359092"
+  },
+  "native_viewport": [
+    1280,
+    1032
+  ],
+  "map_image": {
+    "size": [
+      1691,
+      1261
+    ],
+    "offset": [
+      -274,
+      -120
+    ],
+    "format": "original composite raster from the design; includes province boundaries, connection lines and data-center icons"
+  },
+  "map_label_override": {
+    "text": "西三旗",
+    "position": [
+      1135,
+      611
+    ],
+    "size": [
+      42,
+      18
+    ]
+  },
+  "metrics": {
+    "position": [
+      24,
+      24
+    ],
+    "size": [
+      1232,
+      130
+    ],
+    "padding": 16
+  },
+  "notes": "No replacement icons are drawn over the reference artwork. SVG UI assets are exported directly from Pixso. Hidden 3D objects in the design are excluded."
+}

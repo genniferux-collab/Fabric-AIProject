@@ -1,4 +1,5 @@
 // UC2 黄金基线挖掘 — 数据与纯逻辑（最终口径：fusion 图 + 候选报告）
+export const uc2RestorationDuration = 6400;
 export const uc2Prompt = "帮我自动挖掘一下西三旗DC的黄金基线，看看现网有哪些不合规？";
 export const uc2Names = ["意图分析", "设备还原", "黄金基线挖掘", "生成报告"];
 

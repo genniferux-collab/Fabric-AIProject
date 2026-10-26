@@ -1,0 +1,55 @@
+/* UC2: intent GIF → continuous scan → topology reveal in one stable canvas. */
+.stage-root.pc-layout.uc2{--agent-width:clamp(360px,30.833333vw,592px)}
+.stage-root.pc-layout.uc2 #canvas{visibility:visible}
+.stage-root.pc-layout.uc2-intent .figma-network-page{visibility:hidden}
+.stage-root.pc-layout.uc2 #uc2Pane{padding:16px 24px 24px;background:#191919}
+.stage-root.pc-layout.uc2 #uc2Pane .uc2-module-name{margin:0 0 8px;min-height:22px;color:#939393;font-size:14px;font-weight:400;line-height:22px;gap:0}
+.stage-root.pc-layout.uc2 #uc2Pane .uc2-module-name>.ic{display:none}
+.uc2-reference-label{font-size:14px;line-height:22px;font-weight:400;color:#939393;margin:0;padding:0 0 8px}
+.uc2-intent-view{padding-top:0;width:100%}
+.uc2-intent-dots{display:block;width:100%;height:auto;max-width:none}
+.stage-root.pc-layout.uc2 .uc2-restoration-card{padding:0;margin:0;overflow:hidden;border:0;border-radius:16px;background:#252525 url('./assets/uploads/pixso-uc2-restoration/card-texture.png') repeat;box-shadow:none;color:#fff}
+.uc2-restoration-header{display:flex;align-items:center;justify-content:space-between;height:56px;margin:0 20px;border-bottom:1px solid #ffffff0d}
+.uc2-restoration-header h3{display:flex;align-items:center;gap:8px;margin:0;font-size:16px;line-height:24px;font-weight:500}
+.uc2-restoration-header h3>img{width:14px;height:14px}
+.uc2-restoration-header>button{display:grid;place-items:center;padding:0;width:24px;height:24px;color:#dfdfdf}
+.uc2-restoration-overview{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;min-height:104px;padding:24px 20px 20px}
+.uc2-restoration-copy{min-width:0}
+.uc2-restoration-copy h4{margin:0 0 4px;font-size:16px;line-height:24px;font-weight:500;color:#fff}
+.uc2-restoration-copy p{margin:0;font-size:14px;line-height:22px;color:#939393}
+.uc2-restoration-metrics{display:grid;grid-template-columns:74px 100px 84px 100px;gap:40px;flex-shrink:0;margin:0;padding:0;font-variant-numeric:tabular-nums}
+.uc2-restoration-metrics>div{display:flex;flex-direction:column;gap:4px}
+.uc2-restoration-metrics dt{display:flex;align-items:center;gap:4px;margin:0;font-size:14px;line-height:22px;color:#939393;white-space:nowrap}
+.uc2-restoration-metrics dd{margin:0;font-size:24px;line-height:28px;font-weight:500;color:#fff;white-space:nowrap}
+.uc2-restoration-metrics small{font-size:14px;line-height:22px;font-weight:400;color:#939393;margin-left:4px}
+.uc2-restoration-scene{position:relative;overflow:hidden}
+.uc2-native-topology{display:block;width:100%;height:auto;overflow:hidden}
+.uc2-restoration-scan{filter:drop-shadow(0 0 8px #549fff)}
+.uc2-topology-hit{cursor:pointer;outline:none}
+.uc2-topology-hit rect{stroke:transparent;stroke-width:1.5;transition:stroke .12s,fill .12s}
+.uc2-topology-hit:hover rect,.uc2-topology-hit:focus-visible rect,.uc2-topology-hit.is-selected rect{stroke:#6ab6ff;fill:#5ca2e90d}
+.uc2-topology-back{position:absolute;left:24px;top:0;display:flex;align-items:center;gap:6px;border:1px solid #666;border-radius:4px;padding:5px 8px;background:#393939;color:#dfdfdf;font-size:12px;z-index:2}
+.uc2-device-popover{position:absolute;left:28%;top:36%;padding:16px;width:250px;border:1px solid #595959;border-radius:8px;background:#393939;box-shadow:0 4px 16px #0006;color:#fff}
+.uc2-device-popover>button{position:absolute;right:8px;top:8px;padding:0;width:20px;height:20px}
+.uc2-device-popover strong,.uc2-device-popover span{display:block;font-size:14px;line-height:22px}
+.uc2-device-popover span,.uc2-device-popover p{font-size:12px;line-height:20px;color:#c9c9c9;margin:4px 0 0}
+.stage-root.uc2 #lui .uc2-task-time{margin:0 0 16px;text-align:center;font-size:12px;line-height:20px;color:#939393}
+.stage-root.uc2 #lui.lui-refresh .user-msg{max-width:100%;margin-bottom:16px}
+.stage-root.uc2 #lui .uc2-analysis-brief{margin:0 0 16px;font-size:12px;line-height:20px;color:#c9c9c9}
+.stage-root.uc2 #lui .uc2-intent-summary{margin:0 0 12px}
+.stage-root.uc2 #lui .uc2-intent-fields{list-style:none;padding:0;margin:0}
+.stage-root.uc2 #lui .uc2-intent-fields li{position:relative;padding-left:12px;line-height:22px}
+.stage-root.uc2 #lui .uc2-intent-fields li::before{content:'·';position:absolute;left:2px}
+.stage-root.uc2 #lui .uc2-step-result{margin:0 0 12px}
+.stage-root.uc2 #lui .uc2-restore-progress{font-size:12px;color:#c9c9c9;margin:8px 0 0}
+.stage-root.uc2 #lui .workflow-steps .step.is-done:not(:last-child)::before{background:#36c18d}
+.stage-root.uc2 #lui .uc2-workflow-steps .step-content strong{font-weight:400}
+@container workspace (max-width:1100px){.uc2-restoration-overview{flex-wrap:wrap}.uc2-restoration-metrics{width:100%;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.uc2-restoration-copy p{font-size:12px}.uc2-device-popover{left:15%;top:25%}}
+@media(prefers-reduced-motion:reduce){.uc2-intent-dots,.uc2-restoration-scan{animation:none}}
+
+/* Match the native design's regular text and antialiasing, scoped to UC2. */
+body:has(.stage-root) .stage-root.uc2 :is(#lui,.uc2-intent-view,.uc2-restoration-card),body:has(.stage-root) .stage-root.uc2 :is(#lui,.uc2-intent-view,.uc2-restoration-card) *{font-family:"Pixso Aico Sans","PingFang SC","Microsoft YaHei",sans-serif!important;-webkit-font-smoothing:antialiased;font-synthesis:none}
+.uc2-restoration-metrics dt>img{display:block;flex:none;width:12px;height:12px}
+.uc2-restoration-metrics>div:first-child dt>img{width:14px;height:14px}
+.uc2-restoration-header>button>img{display:block;width:14px;height:14px}
+.uc2-restoration-header .ic,.uc2-device-popover .ic{width:14px;height:14px}.uc2-topology-back .ic{width:12px;height:12px}

@@ -1,0 +1,30 @@
+{
+  "source": "https://pixso.net/app/design/v0ssSa5uEPmc2W4raTIzdA?page-id=8%3A526982&item-id=23%3A347432",
+  "file_key": "v0ssSa5uEPmc2W4raTIzdA",
+  "background_frame": "23:347432",
+  "size": [
+    592,
+    1032
+  ],
+  "layers": {
+    "base": "23:347433",
+    "halo": "23:347524",
+    "light": "23:347545",
+    "surface": "23:347568"
+  },
+  "method": "Native PNG export preserves the source blend modes, angular gradients, masks and orb. Header text removed using the corresponding native background layer composite so runtime labels remain editable.",
+  "headerPatches": [
+    {
+      "x": 28,
+      "y": 30,
+      "width": 190,
+      "height": 34
+    },
+    {
+      "x": 472,
+      "y": 32,
+      "width": 96,
+      "height": 30
+    }
+  ]
+}

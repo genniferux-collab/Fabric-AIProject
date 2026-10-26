@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fabric AI · PC 预览</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{display:flex;flex-direction:column;background:#f1f2f4;color:#383d44;font:14px/20px -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+.preview-toolbar{display:flex;align-items:center;gap:12px;flex:none;height:48px;padding:8px 20px;border-bottom:1px solid #dfe2e6;background:#fafafa}
+.preview-toolbar label{font-weight:500;white-space:nowrap}
+.preview-toolbar select{height:28px;padding:2px 26px 2px 10px;border:1px solid #d6dbe1;border-radius:6px;background:#fff;color:#383d44;font:inherit;cursor:pointer}
+.preview-toolbar select:focus-visible{outline:2px solid #2684ff;outline-offset:2px}
+.preview-scale{margin-left:auto;color:#767d87;font-size:12px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.preview-workspace{display:grid;place-items:center;flex:1;min-width:0;min-height:0;padding:24px;overflow:hidden}
+.preview-frame{position:relative;flex:none;width:0;height:0;overflow:hidden;border-radius:4px;background:#191919;box-shadow:0 0 0 1px #cbd1d9,0 12px 32px #202b3b12}
+.preview-frame iframe{position:absolute;left:0;top:0;display:block;width:1920px;height:1080px;border:0;transform-origin:0 0;background:#191919}
+@media(max-width:400px){.preview-toolbar{padding:8px 12px;gap:8px}.preview-scale .scale-caption{display:none}.preview-workspace{padding:16px}}
+</style>
+</head>
+<body>
+<header class="preview-toolbar">
+<label for="preview-size">PC 预览</label>
+<select id="preview-size" aria-label="PC 预览尺寸">
+<option value="1920x1080" selected>1920 × 1080</option>
+<option value="1440x900">1440 × 900</option>
+<option value="1366x768">1366 × 768</option>
+</select>
+<span class="preview-scale"><span class="scale-caption">等比显示 · </span><output id="preview-scale">100%</output></span>
+</header>
+<main class="preview-workspace" id="preview-workspace" aria-label="PC 页面预览区域">
+<div class="preview-frame" id="preview-frame">
+<iframe id="app-preview" src="./index.page.html" title="Fabric AI · 1920 × 1080 PC 页面" width="1920" height="1080"></iframe>
+</div>
+</main>
+<script>
+(()=>{
+ const workspace=document.getElementById('preview-workspace'),frame=document.getElementById('preview-frame'),app=document.getElementById('app-preview'),size=document.getElementById('preview-size'),output=document.getElementById('preview-scale');
+ // Keep the app's logical viewport fixed; only the outer preview presentation fits the host panel.
+ const fit=()=>{
+  const [width,height]=size.value.split('x').map(Number),style=getComputedStyle(workspace);
+  const availableWidth=Math.max(1,workspace.clientWidth-parseFloat(style.paddingLeft)-parseFloat(style.paddingRight));
+  const availableHeight=Math.max(1,workspace.clientHeight-parseFloat(style.paddingTop)-parseFloat(style.paddingBottom));
+  const scale=Math.min(1,availableWidth/width,availableHeight/height);
+  frame.style.width=width*scale+'px';frame.style.height=height*scale+'px';
+  app.width=width;app.height=height;app.style.width=width+'px';app.style.height=height+'px';app.style.transform='scale('+scale+')';
+  app.title='Fabric AI · '+width+' × '+height+' PC 页面';output.value=Math.round(scale*100)+'%';
+ };
+ size.value='1920x1080';size.addEventListener('change',fit);new ResizeObserver(fit).observe(workspace);fit();
+})();
+</script>
+</body>
+</html>

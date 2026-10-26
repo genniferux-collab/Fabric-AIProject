@@ -1,31 +1,75 @@
-/* Geometry and reveal timing converted from config-agent-studio's mining board. */
+/* Pixso 23:350169: default, selected and single-rule detail states. */
 .stage-root.pc-layout{--agent-width:clamp(320px,31vw,592px)}
-.pc-layout .canvas-head,.pc-layout .lui-head{height:56px;min-height:56px;padding-left:16px;padding-right:16px}
-.pc-layout .card{border-radius:16px}
-.pc-layout #uc2Module2>.card{height:clamp(520px,calc(100dvh - 164px),898px);min-height:520px;max-height:898px;padding:0;overflow:hidden;position:relative;container:mining-board / inline-size}
-.pc-layout #uc2Module2 .fusion-mining{display:flex;flex-direction:column;height:100%;min-height:0;max-height:none}
-.pc-layout #uc2Module2 .unified-heading{height:56px;min-height:56px;flex:0 0 56px;display:flex;align-items:center;gap:16px;padding:16px;margin:0;border-bottom:1px solid var(--line)}
-.pc-layout #uc2Module2 .unified-heading>div:first-child{min-width:0}
-.pc-layout #uc2Module2 .unified-heading h2{font-size:14px;line-height:24px;margin:0;font-weight:500}
-.pc-layout #uc2Module2 .unified-heading p,.pc-layout #uc2Module2 .fusion-context,.pc-layout #uc2Module2 .fusion-process-caption{display:none}
-.pc-layout #uc2Module2 .fusion-scene,.pc-layout #uc2Module2 .fusion-scene:hover{flex:1;min-height:0;position:relative;overflow:hidden;background:transparent;border:0;box-shadow:none;border-radius:0}
-.pc-layout #uc2Module2 .fusion-workspace,.pc-layout #uc2Module2 .with-rule-drawer .fusion-workspace{height:100%;width:100%;padding:16px;display:block;position:relative}
-.pc-layout #uc2Module2 .fusion-visual{height:100%;width:100%;overflow:auto;min-height:0;scrollbar-width:thin}
-.pc-layout #uc2Module2 .fusion-graph{display:block;width:100%;height:100%;min-width:780px;min-height:400px;background:transparent}
-.pc-layout #uc2Module2 .fusion-rule-drawer{position:absolute;z-index:2;inset:0 0 0 auto;width:330px;height:100%;max-height:none;display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow-popover)}
-.pc-layout #uc2Module2 .fusion-drawer-header{flex:none;position:relative;min-height:56px;padding:16px}
-.pc-layout #uc2Module2 .fusion-drawer-body{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:16px}
-.fusion-replay-btn{display:flex;align-items:center;gap:6px;margin-left:auto;padding:6px 10px;border:1px solid var(--line);border-radius:var(--radius-base);font-size:12px;color:var(--secondary);white-space:nowrap}
-.fusion-replay-btn .ic{width:14px;height:14px}.fusion-replay-btn:hover{color:var(--link);border-color:var(--link)}
-.fusion-sequential .fusion-reveal{animation:fusionReferenceNode var(--fusion-duration,500ms) cubic-bezier(.22,.61,.36,1) var(--fusion-delay,0ms) both}
-.fusion-sequential .fusion-reveal-edge{animation:fusionReferenceEdge var(--fusion-duration,650ms) ease-out var(--fusion-delay,0ms) both}
-.fusion-sequential .fusion-node.dim{--fusion-opacity:.5}.fusion-sequential .fusion-edge.dim{--fusion-opacity:.28}
-@keyframes fusionReferenceNode{0%{opacity:0;transform:translateX(-14px);pointer-events:none}99%{pointer-events:none}100%{opacity:var(--fusion-opacity,1);transform:translateX(0);pointer-events:auto}}
-@keyframes fusionReferenceEdge{0%{opacity:0;clip-path:inset(0 100% 0 0)}100%{opacity:var(--fusion-opacity,1);clip-path:inset(0 0 0 0)}}
-@container mining-board (max-width:650px){.pc-layout #uc2Module2 .unified-status{font-size:10px}.pc-layout #uc2Module2 .unified-heading{gap:8px}.fusion-replay-btn{font-size:11px;padding:4px 6px}}
-@media(prefers-reduced-motion:reduce){.fusion-sequential .fusion-reveal,.fusion-sequential .fusion-reveal-edge{animation:none!important}}
-
-.fusion-sequential{--fusion-duration:500ms;--fusion-delay:0ms;--fusion-opacity:1}
-/* Opening a candidate overlays its details; the conversation and graph stay put. */
+.pc-layout #uc2Module2{scroll-margin-top:20px}
+.pc-layout #uc2Module2>.card{height:clamp(600px,calc(100dvh - 182px),898px);min-height:600px;max-height:898px;padding:0;border:0;border-radius:16px;overflow:hidden;background:#2a2a2a;position:relative;container:mining-board / inline-size}
+body:has(.stage-root) .mining-reference,body:has(.stage-root) .mining-reference *{font-family:"Pixso Aico Sans","PingFang SC","Microsoft YaHei",sans-serif!important;-webkit-font-smoothing:antialiased;font-synthesis:none}
+.mining-reference{height:100%;min-height:0;display:flex;flex-direction:column;color:#fff;font-size:14px;line-height:22px}
+.golden-header{height:56px;min-height:56px;flex:0 0 56px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 20px;border-bottom:1px solid #ffffff0d;background:#262626}
+.golden-header h2{display:flex;align-items:center;gap:8px;min-width:0;margin:0;font-size:16px;font-weight:400;line-height:24px;white-space:nowrap}
+.golden-header h2>img{width:16px;height:16px;flex:none}
+.golden-header h2>span{margin-left:2px}.golden-header strong{color:#00d995;font-weight:600;letter-spacing:1px}
+.golden-header>button{display:grid;place-items:center;flex:none;width:24px;height:24px;border:0;background:transparent;cursor:pointer;border-radius:4px}
+.golden-header>button:hover{background:#ffffff14}.golden-header>button img{width:14px;height:14px}
+.golden-scene{position:relative;flex:1;min-height:0;overflow:hidden;background:radial-gradient(#ffffff10 .8px,transparent .9px) 0 0/16px 16px,linear-gradient(#2a2a2a,#252525)}
+.golden-diagram{display:block;width:100%;height:100%;overflow:visible}
+.golden-columns text{fill:#999;font-size:14px;line-height:22px}.golden-columns .golden-columns-sub{font-size:12px;fill:#999}
+.golden-flow{transform-origin:0 0;transition:transform 220ms ease}
+.has-rule-panel .golden-flow{transform:translate(-22px,147px) scale(.7)}
+.golden-candidate-arc{fill:none;stroke:#69747a;stroke-width:1;opacity:.45}
+.golden-edge{fill:none;transition:opacity 180ms ease;opacity:1}
+.golden-edge-tube{stroke:url(#goldenFlow);stroke-width:13;opacity:.14;stroke-linecap:round}
+.golden-edge-line{stroke:url(#goldenFlow);stroke-width:7;opacity:.32;stroke-linecap:round}
+.golden-edge-selected{stroke:#c8e9fb;stroke-width:2;opacity:.95;filter:drop-shadow(0 0 5px #42a5ff)}
+.golden-edge.is-muted{opacity:.35}.golden-edge.is-default{opacity:1}
+.golden-node,.golden-engine,.golden-rule-node{cursor:pointer;outline:none;transition:opacity 180ms ease}
+.golden-node.is-muted,.golden-rule-node.is-muted{opacity:.4}
+.golden-node-title{fill:#fff;font-size:14px}.golden-node-sub{fill:#999;font-size:12px}
+.golden-node-selected{fill:none;stroke:#c7edff;stroke-width:1.5;filter:drop-shadow(0 0 6px #409eff)}
+.golden-node:focus-visible .golden-node-selected,.golden-engine:focus-visible{filter:drop-shadow(0 0 4px #79b9ff)}
+.golden-engine-title{fill:#fff;font-size:16px}.golden-engine-sub{fill:#999;font-size:14px}
+.golden-rule-dot{fill:#464452;stroke:#a49ac4;stroke-width:1.5}.golden-rule-node.is-related .golden-rule-dot{fill:#d9efff;stroke:#eef9ff;filter:drop-shadow(0 0 5px #83caff)}
+.golden-rule-name{fill:#d8d8d8;font-size:14px}.golden-rule-sub{fill:#999;font-size:12px}
+.golden-rule-node.is-related .golden-rule-name{fill:#fff}.golden-rule-node:focus-visible .golden-rule-dot{stroke:#fff;stroke-width:3}
+.golden-candidate-total{fill:#777;font-size:14px}.golden-candidate-total path{stroke:#777;stroke-width:1;opacity:.5}
+.golden-summary{position:absolute;z-index:3;width:354px;max-width:calc(100% - 32px);min-height:246px;padding:16px;background:#393939;border:1px solid #595959;border-radius:8px;box-shadow:0 4px 24px #0003;color:#fff;font-size:14px;line-height:22px}
+.golden-meta{font-size:12px;line-height:20px;color:#aaa}
+.golden-summary h3{font-size:16px;line-height:24px;font-weight:400;margin:4px 0 8px}
+.golden-tags{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.golden-tags>span{display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:4px;font-size:12px;line-height:20px;color:#c6c6c6;background:#ffffff1a;white-space:nowrap}
+.golden-tags>.confidence{color:#b5aafb;background:#a89ff926}.golden-tags>.impact{color:#f6aa52;background:#f69e3926}
+.golden-summary-line{height:1px;background:#ffffff14;margin:12px 0}
+.golden-summary-counts{display:flex;gap:20px;align-items:center;white-space:nowrap;font-size:12px;color:#aaa;line-height:20px}
+.golden-summary-counts b{font-weight:400;color:#eee;margin-left:4px}
+.mining-reference pre{margin:8px 0;padding:8px 16px;overflow-x:auto;background:#292929;border-radius:4px;color:#eee;white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;line-height:22px}
+.golden-summary pre{font-size:12px;white-space:nowrap;padding:8px 10px;margin-top:12px;margin-bottom:8px}
+.golden-summary>a{display:inline-block;color:#529dff;font-size:14px;line-height:22px;text-decoration:none;cursor:pointer}
+.golden-summary>a:hover{text-decoration:underline}
+.golden-rule-panel{position:absolute;z-index:2;top:26px;right:22px;bottom:24px;width:clamp(280px,33.1169%,408px);display:flex;flex-direction:column;overflow:hidden;background:#393939;border:1px solid #595959;border-radius:8px;color:#fff}
+.golden-rule-panel>header{display:flex;align-items:center;justify-content:space-between;flex:none;height:56px;padding:16px}
+.golden-rule-panel>header h3{font-size:20px;line-height:28px;font-weight:400;margin:0}
+.golden-rule-panel>header button{display:grid;place-items:center;width:24px;height:24px;padding:4px;background:transparent;border:0;color:#ddd;cursor:pointer;border-radius:4px}
+.golden-rule-panel>header button:hover{background:#ffffff14}
+.golden-rule-body{flex:1;min-height:0;padding:0 16px 8px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#646464 transparent}
+.golden-rule-body h4{font-size:16px;font-weight:400;line-height:24px;margin:4px 0 8px}
+.golden-rule-counts{display:flex;gap:32px;margin:16px 0 22px}.golden-rule-counts>div{display:flex;flex-direction:column;gap:4px}
+.golden-rule-counts span{color:#ccc;font-size:14px}.golden-rule-counts strong{font-size:24px;font-weight:400;line-height:32px}.golden-rule-counts small{font-size:14px;color:#aaa}
+.golden-rule-body section{margin:0 0 16px}.golden-rule-body h5{font-size:14px;font-weight:400;line-height:22px;margin:0 0 8px}
+.golden-rule-body h6{font-size:12px;font-weight:400;line-height:20px;color:#aaa;margin:8px 0 0}
+.golden-rule-body pre{margin-top:8px}.golden-rule-body pre.deviation{color:#fcc800}
+.golden-rule-body .golden-impact-heading{margin-top:16px}.golden-rule-body p{font-size:14px;line-height:22px;color:#ddd;margin:8px 0 0}
+.golden-device-chips{display:flex;gap:8px;flex-wrap:wrap}.golden-device-chips button{border:1px solid #3b6c96;background:#25425b;color:#8ac2ff;border-radius:4px;padding:2px 8px;font-size:14px;line-height:20px;cursor:pointer}
+.golden-device-chips button:hover{background:#305676}.golden-rule-body .golden-rule-note{font-size:12px;color:#999;margin:0 0 8px}
+.golden-rule-panel>footer{flex:none;display:flex;justify-content:flex-end;gap:16px;align-items:center;min-height:64px;padding:16px;border-top:1px solid #ffffff12;background:#393939}
+.golden-rule-panel>footer .btn{height:32px;min-height:32px;line-height:22px;padding:4px 16px;border-radius:4px;border:1px solid #777;background:transparent;font-size:14px;color:#eee}
+.golden-rule-panel>footer .btn.primary{background:#1677ff;border-color:#1677ff;color:#fff}
 .stage-root.pc-layout.uc2.uc2-rule-drawer #lui{width:var(--agent-width)}
 .stage-root.pc-layout.uc2.uc2-rule-drawer #canvas:not(.full){left:calc(48px + var(--agent-width))}
+.uc2-mining-stats{list-style:none;padding:0!important;margin:12px 0!important}.uc2-mining-stats li{margin:0;line-height:22px}
+.uc2-mining-scope{color:#aaa;font-size:12px;line-height:20px;margin:8px 0 0}
+@container mining-board (max-width:900px){.golden-header h2{font-size:13px;gap:6px}.golden-header{padding-left:16px;padding-right:16px}.golden-rule-panel{right:16px;top:16px;bottom:16px}.has-rule-panel .golden-flow{transform:translate(-30px,155px) scale(.64)}.golden-rule-counts{gap:32px}.golden-rule-panel>footer{gap:8px;padding:12px}.golden-rule-panel>footer .btn{padding:4px 10px}}
+@media(prefers-reduced-motion:reduce){.golden-flow,.golden-edge,.golden-node,.golden-rule-node{transition:none}}
+
+.golden-edge[data-edge-from="engine"] .golden-edge-tube,.golden-edge[data-edge-from="engine"] .golden-edge-line{stroke:#9582cb}
+.golden-edge:not([data-edge-from="engine"]) .golden-edge-tube,.golden-edge:not([data-edge-from="engine"]) .golden-edge-line{stroke:#6d9ab5}
+.golden-rule-counts{border-bottom:1px solid #ffffff14;padding-bottom:16px;margin-bottom:16px}
+.golden-rule-body section+section{border-top:1px solid #ffffff14;padding-top:16px}
