@@ -39,7 +39,7 @@ export default function Uc2Pane() {
   }, [uc2Scroll]);
 
   if (!uc2.active) return null;
-  if (uc2.max === 0) return <section id="uc2Pane" data-generation-phase={uc2.phase} data-generation-stage={uc2.stage} aria-label="黄金基线挖掘画布">{uc2.max === 0 && uc2.phase === "text" ? <><h2 className="uc2-reference-label">意图分析</h2><CanvasPreparing stage={0}/></> : <Uc2Intent />}</section>;
+  if (uc2.max === 0) return <section id="uc2Pane" data-generation-phase={uc2.phase} data-generation-stage={uc2.stage} aria-label="黄金基线挖掘画布"><Uc2Intent /></section>;
 
   const headings = { 1: "设备还原", 2: "黄金基线挖掘", 3: "生成报告 · 黄金基线候选结果" };
   const modules = [];

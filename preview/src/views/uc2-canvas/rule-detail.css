@@ -55,3 +55,20 @@ html:not(.dark) .uc2-code-panel,html:not(.dark) .uc2-evidence-check,html:not(.da
 html:not(.dark) .uc2-code-panel>header,html:not(.dark) .uc2-code-line{color:#595959}
 html:not(.dark) .uc2-device-item.selected{background:#e4f1ff;border-color:#8abfff}
 @container workspace (max-width:1000px){.uc2-rule-metadata{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:12px}.uc2-rule-body{grid-template-columns:248px minmax(0,1fr);gap:20px;min-height:520px}.uc2-rule-devices{padding-right:20px}.uc2-device-filters{gap:7px}.uc2-code-annotation{display:none}.uc2-scope-explanation{grid-template-columns:1fr}.uc2-rule-review{flex-wrap:wrap}}
+
+/* Full-height rule workspace: fixed header/footer with independent grid scroll areas. */
+.stage-root.uc2 #canvas>.v7-artifact-pane:has(>.uc2-rule-detail-card){display:flex;flex-direction:column;overflow:hidden;padding-bottom:0}
+.stage-root.uc2 #canvas>.v7-artifact-pane.hidden:has(>.uc2-rule-detail-card){display:none}
+.stage-root.uc2 #canvas .uc2-rule-detail-card{height:100%;min-height:0;flex:1 1 0;overflow:hidden}
+.stage-root.uc2 #canvas .uc2-rule-workspace{height:100%;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden}
+.stage-root.uc2 #canvas .uc2-rule-overview{min-width:0}
+.stage-root.uc2 #canvas .uc2-rule-metadata{grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:16px 24px;margin-bottom:24px}
+.stage-root.uc2 #canvas .uc2-rule-body{grid-template-columns:clamp(240px,23%,360px) minmax(0,1fr);gap:24px;min-height:0;overflow:hidden}
+.stage-root.uc2 #canvas .uc2-rule-devices{min-height:0;display:flex;flex-direction:column;overflow:hidden}
+.stage-root.uc2 #canvas .uc2-rule-devices>h3,.stage-root.uc2 #canvas .uc2-device-filters,.stage-root.uc2 #canvas .uc2-rule-devices>.search{flex:none}
+.stage-root.uc2 #canvas .uc2-device-list{flex:1 1 0;min-height:0;max-height:none;overflow:auto;overscroll-behavior:contain}
+.stage-root.uc2 #canvas .uc2-rule-evidence{min-height:0;overflow:auto;overscroll-behavior:contain;padding-right:8px;padding-bottom:24px;scrollbar-width:thin}
+.stage-root.uc2 #canvas .uc2-rule-review{position:relative;z-index:2;flex:none;gap:16px;margin:0;padding:16px 0;background:var(--canvas-surface,#191919)}
+.stage-root.uc2 #canvas .uc2-rule-review>span{min-width:160px}
+.stage-root.uc2 #canvas .uc2-rule-review>div{justify-content:flex-end}
+@container workspace (max-width:760px){.stage-root.uc2 #canvas .uc2-rule-body{grid-template-columns:220px minmax(0,1fr);gap:16px}.stage-root.uc2 #canvas .uc2-rule-devices{padding-right:16px}}

@@ -10,10 +10,17 @@ const events = [
   {id:"management-check",status:"processing",title:"【单次检查】带外管理区核心交换机检查任务",location:"设备检查",detail:"2025-06-03 15:36｜对核心区设备，采用模板2，每周一凌晨2点检查。"},
   {id:"leaf-expansion",status:"processing",title:"【设备扩容】嘉定DC的互联网区域的Leaf1-2设备扩容",detail:"【设备扩容】2025-06-03 15:36｜嘉定DC的互联网区域中的Leaf 1-2 设备需要进行扩容。"},
 ];
+const metricShortcuts = [{id:"fault",glyph:"fault",title:"网络故障治理"},{id:"generation",glyph:"generation",title:"网络配置辅助生成"},{id:"inspection",glyph:"inspection",title:"网络配置检查"}];
+const faultStates = [{id:"resolved",label:"已处置"},{id:"processing",label:"处置中"},{id:"automatic",label:"待自动处置"},{id:"manual",label:"待人工接管"},{id:"failed",label:"处置失败"}];
 const periods = ["最近三小时", "最近一天", "最近一周", "最近半个月"];
 
 export default function DataCenterNetworkAgent({onOpenAgent}) {
   const [activeTab,setActiveTab]=useState(0);
+  const [metricsCollapsed,setMetricsCollapsed]=useState(false);
+  const [focusedMetric,setFocusedMetric]=useState(null);
+  const metricsExpandRef=useRef(null);
+  const collapseMetrics=()=>{setMetricsCollapsed(true);requestAnimationFrame(()=>metricsExpandRef.current?.focus({preventScroll:true}));};
+  const expandMetrics=(id=null)=>{setMetricsCollapsed(false);setFocusedMetric(id);requestAnimationFrame(()=>document.getElementById(id?`fabric-home-metric-${id}`:"fabric-home-collapse-metrics")?.focus({preventScroll:true}));};
   const [period,setPeriod]=useState("最近一周");
   const [periodOpen,setPeriodOpen]=useState(false);
   const periodRef=useRef(null);
@@ -38,10 +45,21 @@ export default function DataCenterNetworkAgent({onOpenAgent}) {
         <p>本周累计生成<b>295</b>个工作流，<b>4</b>个正在处置中，<b>290</b>个已处置</p>
         <img src={`${assetRoot}summary-art.png`} alt="" draggable="false" />
       </section>
-      <div className="fabric-home-stats">
-        <Stat glyph="generation" title="网络配置辅助生成" primary="4" secondary="290" note="处理中 / 处理完成" onClick={onOpenAgent}/>
-        <Stat glyph="inspection" title="网络配置检查" primary="1" secondary="32" note="告警 / 合规" alert onClick={onOpenAgent}/>
-      </div>
+      <section className={`fabric-home-metrics${metricsCollapsed?" is-collapsed":""}`} aria-label="网络运行指标">
+        {metricsCollapsed&&<div className="fabric-home-metric-capsule" aria-label="已收起的指标卡片">
+          <div className="fabric-home-metric-shortcuts">{metricShortcuts.map(metric=><button type="button" key={metric.id} className={`fabric-home-metric-shortcut${focusedMetric===metric.id?" is-selected":""}`} aria-label={`展开并聚焦${metric.title}`} aria-controls="fabric-home-metric-cards" aria-expanded="false" aria-describedby={`fabric-home-tip-${metric.id}`} onClick={()=>expandMetrics(metric.id)}><img src={`${assetRoot}${metric.glyph}.svg`} alt=""/><span className="fabric-home-metric-tooltip" role="tooltip" id={`fabric-home-tip-${metric.id}`}>{metric.title}</span></button>)}</div>
+          <button type="button" className="fabric-home-metrics-expand" ref={metricsExpandRef} aria-label="展开指标卡片" aria-expanded="false" aria-controls="fabric-home-metric-cards" onClick={()=>expandMetrics()}><img src={`${assetRoot}metrics-chevron.svg`} alt=""/></button>
+        </div>}
+        <div className="fabric-home-stats" id="fabric-home-metric-cards" hidden={metricsCollapsed}>
+          <button type="button" id="fabric-home-metric-fault" className={`fabric-home-stat fabric-home-fault${focusedMetric==="fault"?" is-selected":""}`} onClick={onOpenAgent} aria-label="网络故障治理，目标总数3，打开AI对话">
+            <h3><img src={`${assetRoot}fault.svg`} alt=""/>网络故障治理</h3>
+            <div className="fabric-home-fault-detail"><div className="fabric-home-fault-total"><strong>3</strong><span>目标总数</span></div><div className="fabric-home-fault-distribution"><img className="fabric-home-fault-strip" src={`${assetRoot}fault-status-strip.svg`} alt="目标处置状态分布"/><ul aria-label="故障处置状态图例">{faultStates.map(status=><li key={status.id}><i className={status.id}/>{status.label}</li>)}</ul></div></div>
+          </button>
+          <Stat glyph="generation" title="网络配置辅助生成" primary="4" secondary="290" note="处理中 / 处理完成" selected={focusedMetric==="generation"} onClick={onOpenAgent}/>
+          <Stat glyph="inspection" title="网络配置检查" primary="1" secondary="32" note="告警 / 合规" alert selected={focusedMetric==="inspection"} onClick={onOpenAgent}/>
+        </div>
+        {!metricsCollapsed&&<button type="button" className="fabric-home-metrics-collapse" id="fabric-home-collapse-metrics" aria-label="收起指标卡片" title="收起指标卡片" aria-expanded="true" aria-controls="fabric-home-metric-cards" onClick={collapseMetrics}><img src={`${assetRoot}metrics-chevron.svg`} alt=""/></button>}
+      </section>
       <section className="fabric-home-attention" aria-labelledby="fabric-home-attention-heading">
         <div className="fabric-home-section-title"><h2 id="fabric-home-attention-heading">待您关注</h2><a role="button" tabIndex={0} onClick={onOpenAgent} onKeyDown={event=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();onOpenAgent?.();}}}>更多</a></div>
         <div className="fabric-home-tabs" role="tablist" aria-label="关注任务状态">{tabs.map((tab,index)=><button type="button" key={tab.label} role="tab" id={`fabric-home-tab-${index}`} aria-controls="fabric-home-events" aria-selected={activeTab===index} className={activeTab===index?"is-active":""} onClick={()=>setActiveTab(index)}>{tab.label}<b className={tab.filter||""}>{events.filter(event=>!tab.filter||event.status===tab.filter).length}</b></button>)}</div>
@@ -57,9 +75,9 @@ export default function DataCenterNetworkAgent({onOpenAgent}) {
   </div>;
 }
 
-function Stat({glyph,title,primary,secondary,note,alert,onClick}){
+function Stat({glyph,title,primary,secondary,note,alert,selected,onClick}){
   const vertical=`${primary}/${secondary}`.length>8;
-  return <button type="button" className={`fabric-home-stat${vertical?" is-vertical":""}`} onClick={onClick}>
+  return <button type="button" id={`fabric-home-metric-${glyph}`} className={`fabric-home-stat${vertical?" is-vertical":""}${selected?" is-selected":""}`} onClick={onClick}>
     <h3><img src={`${assetRoot}${glyph}.svg`} alt=""/>{title}</h3>
     <div className="fabric-home-stat-detail"><strong><span className={alert?"is-alert":""}>{primary}</span><i>/</i>{secondary}</strong><p>{note}{alert&&<img src={`${assetRoot}info.svg`} alt="告警数量 / 合规数量" title="告警数量 / 合规数量"/>}</p></div>
   </button>;

@@ -209,6 +209,7 @@ export function AppProvider({ children }) {
   const [uc2Reviews, setUc2Reviews] = useState({}); // 规则 id -> pending/accepted/rejected
   const [uc2Fusion, setUc2Fusion] = useState({ selected: "engine", rule: null, drawer: null });
   const uc2RuleDetailsRef = useRef({});
+  const uc2RuleOriginsRef = useRef({});
   const [uc2Extra, setUc2Extra] = useState([]); // 挖掘中追加的对话消息
 
   const uc2ScheduleRef = useRef(() => {});
@@ -266,6 +267,7 @@ export function AppProvider({ children }) {
     setUc2Fusion({ selected: "engine", rule: null, drawer: null });
     setUc2Extra([]);
     uc2RuleDetailsRef.current = {};
+    uc2RuleOriginsRef.current = {};
     setArtifactTabs([]);
     setUc2Scroll(null);
     const next = { runId: Date.now(), active: true, stage: 0, max: 0, phase: "text", phaseElapsed: 0, canvasStarted: false, phaseStartedAt: Date.now(), restoration: 0, restorationElapsed: 0, restorationStartedAt: null, running: true, view: "stage", rule: null, node: null };
@@ -326,13 +328,14 @@ export function AppProvider({ children }) {
     setUc2Scroll({ seq: ++uc2ScrollSeqRef.current, module, target: "conversation" });
   }, []);
 
-  const uc2OpenRule = useCallback((id) => {
+  const uc2OpenRule = useCallback((id,origin="uc2-report") => {
     const rule = uc2RuleById(id);
     if (!rule) return;
     const cur = uc2Ref.current;
     uc2Ref.current = { ...cur, rule: id, view: "stage" };
     setUc2(uc2Ref.current);
     setCanvasHidden(false);
+    uc2RuleOriginsRef.current[id] = origin;
     openArtifact("uc2-rule:" + id, rule.name);
   }, [openArtifact]);
 
@@ -501,7 +504,7 @@ export function AppProvider({ children }) {
     cardRefs, locate, luiFocus, focusLuiArtifact, artifactTabs, activeArtifact, openArtifact, closeArtifact,
     uc2, uc2Start, uc2Pause, uc2Next, uc2CanvasStart, uc2CanvasComplete, uc2Show, uc2FocusStep, uc2OpenRule, uc2SelectNode,
     uc2Review, uc2Reviews, uc2Fusion, uc2FusionPick, uc2FusionCloseDrawer,
-    uc2SetFilter, uc2Scroll, uc2Extra, setUc2Extra, uc2RuleDetailsRef,
+    uc2SetFilter, uc2Scroll, uc2Extra, setUc2Extra, uc2RuleDetailsRef, uc2RuleOriginsRef,
   };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
