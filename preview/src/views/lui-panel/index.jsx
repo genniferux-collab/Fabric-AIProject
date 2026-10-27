@@ -1,12 +1,15 @@
+import Uc3Chat from './uc3-chat.jsx';
+import {completionTimeline} from '../../mock/uc4-completion.js';
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useApp, highlightLocate } from "../../context.jsx";
 import { v7WorkflowSteps, v7WorkflowRunning } from "../../mock/workflow.js";
 import { ArtifactTag } from "../../components/status-marks/index.jsx";
-import { affectedBy, summaryParts } from "../../mock/audit.js";
+import { summaryParts } from "../../mock/audit.js";
 import LuiGlyph from "./glyph.jsx";
 import ResponseTools from "./response-tools.jsx";
 import "./design.css";
 import Uc2Chat from "./uc2-chat.jsx";
+import Uc1Chat from "./uc1-chat.jsx";
 import Ic from "../../components/icon-el/index.jsx";
 import Composer from "./composer.jsx";
 import WelcomeHome from "./welcome.jsx";
@@ -156,22 +159,6 @@ function WorkflowSteps({ active, groupExpanded }) {
 }
 
 // Stream completion content without changing the workflow completion/collapse rules.
-function completionLines(summary) {
-  return [
-    ['h2','已完成 HCS1 区的全量基线检查'],
-    ['p',`已对 ${summary.total}台设备执行全部 24条适用规则检查，${summary.passed}台通过、${summary.failed}台不通过，整网合规度为 ${summary.compliance}%。`],
-    ['p',`发现 ${summary.rules}条规则不通过，包括${summary.top}等。单台设备最多有 4条规则不通过，详情见右侧报告。`],
-    ['h3','处理建议'],
-    ['li',`${affectedBy('timeout').length}台设备存在空闲超时超限，3台设备使用不符合基线的 SSH 算法，建议核验后调整。`,'登录安全：'],
-    ['li','2台管理 IP、2台 NTP 时钟源与规划不一致，建议核对变更审批，再恢复配置或更新台账。','规划一致性：'],
-    ['li','1台设备额外放通未规划 VLAN，建议核验业务依赖后收敛放通范围。','网络访问范围：'],
-    ['div','以上为建议，尚未执行；具体配置与修复命令按设备、规则分别查看。']
-  ];
-}
-function completionTimeline(summary) {
-  let delay=0;
-  return completionLines(summary).map(([as,text,leading])=>{const item={as,text,leading,delay};delay+=streamDuration(text)+80;return item;});
-}
 function Completion({ onLocateReport, timestamp }) {
   const lines=completionTimeline(summaryParts());
   const end=lines.at(-1).delay+streamDuration(lines.at(-1).text)+180;
@@ -223,7 +210,7 @@ export default function LuiPanel() {
   const menuRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [welcomeFeature,setWelcomeFeature]=useState(null);
-  const detailTitle = luiView === "home" ? "网络运维智能体" : luiView === "uc2" ? "挖掘黄金基线" : "检查基线要求";
+  const detailTitle = luiView === "home" ? "网络运维智能体" : luiView === "uc1" ? "查询检查规则" : luiView === "uc3" ? "创建检查规则" : luiView === "uc2" ? "挖掘黄金基线" : "检查基线要求";
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -259,6 +246,10 @@ export default function LuiPanel() {
       <LuiScrollArea scrollRef={mainRef} enhanced={true}>
         {luiView === "home" ? (
           <WelcomeHome onChoose={(prompt,feature)=>{setWelcomeFeature(feature);setPromptText(prompt);requestAnimationFrame(()=>document.getElementById("prompt")?.focus({preventScroll:true}));}}/>
+        ) : luiView === "uc1" ? (
+          <Uc1Chat key={taskPrompt}/>
+        ) : luiView === "uc3" ? (
+          <Uc3Chat key={taskPrompt}/>
         ) : luiView === "running" || luiView === "done" ? (
           <InspectionConversation running={luiView === "running"} active={runningIndex} prompt={taskPrompt} onLocateReport={() => locate("report")} />
         ) : luiView === "uc2" ? (

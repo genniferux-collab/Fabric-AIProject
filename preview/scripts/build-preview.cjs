@@ -16,6 +16,7 @@ function visit(id){
  for(const match of code.matchAll(/\brequire\(["']([^"']+)["']\)/g)){
   const spec=match[1];
   if(spec.startsWith('.')){const dep=path.posix.normalize(path.posix.join(path.posix.dirname(id),spec));modules.get(id).deps[spec]=dep;visit(dep)}
+  else if(spec==='generative-loaders'||spec==='generative-loaders/styles.css'){const dep='assets/library/generative-loaders/'+(spec.endsWith('styles.css')?'styles.css':'index.cjs');modules.get(id).deps[spec]=dep;visit(dep)}
   else if(spec==='border-beam'){const dep='assets/library/border-beam/index.cjs';modules.get(id).deps[spec]=dep;visit(dep)}
   else if(!externals[spec])throw Error('Unsupported external '+spec+' in '+id);
  }

@@ -1,0 +1,4 @@
+const fs=require('node:fs'),path=require('node:path'),esbuild=require('esbuild');
+const root=path.resolve(__dirname,'..'),out=path.join(root,'assets/library/generative-loaders');fs.mkdirSync(out,{recursive:true});
+esbuild.buildSync({stdin:{contents:'export {InlineLoader} from "generative-loaders";',resolveDir:root,sourcefile:'generative-loaders-entry.js'},bundle:true,format:'cjs',platform:'browser',target:'es2020',external:['react','react/jsx-runtime','react-dom'],outfile:path.join(out,'index.cjs'),minify:true,legalComments:'inline'});
+const pkg=path.join(root,'node_modules/generative-loaders');fs.copyFileSync(path.join(pkg,'dist/styles.css'),path.join(out,'styles.css'));fs.copyFileSync(path.join(pkg,'LICENSE'),path.join(out,'LICENSE'));console.log('Vendored generative-loaders InlineLoader.');

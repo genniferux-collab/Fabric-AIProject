@@ -11,7 +11,7 @@ export default function Stage() {
 
   const isUc4=!uc2.active&&(luiView==='running'||luiView==='done');
   const stageCls = [
-    "stage-root", "pc-layout", isUc4 ? "uc4" : "",
+    "stage-root", "pc-layout", isUc4 ? "uc4" : "", luiView === "uc1" ? "uc1" : "", luiView === "uc3" ? "uc3" : "",
     uc2.active ? "uc2" : "",
     uc2.active && uc2.max === 0 ? "uc2-intent" : "",
     uc2.active && uc2.max >= 2 && uc2Fusion.drawer ? "uc2-rule-drawer" : "",

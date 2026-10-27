@@ -1,0 +1,51 @@
+<svg viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14.000000" height="14.000000" fill="none">
+	<mask id="mask_64" width="13.999987" height="14.000006" x="0.000000" y="0.000244" maskUnits="userSpaceOnUse">
+		<g filter="url(#pixso_custom_mask_type_alpha)">
+			<g id="mask431_4469">
+				<path id="减去顶层" d="M14 0.000244141L0 0.000244141L0 14.0002L14 14.0002L14 0.000244141ZM11.0187 3.59965L3.90817 10.7102L3.59883 11.0195L2.98003 10.4009L10.4 2.981L11.0187 3.59965Z" fill="rgb(223,223,223)" fill-rule="evenodd" />
+			</g>
+		</g>
+	</mask>
+	<mask id="mask_63" width="14.000000" height="14.000000" x="0.000000" y="0.000000" maskUnits="userSpaceOnUse">
+		<g filter="url(#pixso_custom_mask_type_outline)">
+			<g id="clip431_4460">
+				<rect id="support" width="14.000000" height="14.000000" x="0.000000" y="0.000000" fill="rgb(255,255,255)" />
+			</g>
+		</g>
+	</mask>
+	<defs>
+		<filter id="pixso_custom_mask_type_outline">
+			<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0 " />
+		</filter>
+		<filter id="pixso_custom_mask_type_alpha">
+			<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0 " />
+		</filter>
+	</defs>
+	<mask id="mask_62" width="14.000000" height="14.000000" x="0.000000" y="0.000000" maskUnits="userSpaceOnUse">
+		<g filter="url(#pixso_custom_mask_type_outline)">
+			<g id="clip431_4459">
+				<rect id="ic_public_prohibit_circle-禁止/base/ic_public_prohibit_circle" width="14.000000" height="14.000000" x="0.000000" y="0.000000" fill="rgb(255,255,255)" />
+			</g>
+		</g>
+	</mask>
+	<rect id="ic_public_prohibit_circle" width="14.000000" height="14.000000" x="0.000000" y="0.000000" />
+	<rect id="ic_public_prohibit_circle-禁止/base/ic_public_prohibit_circle" width="14.000000" height="14.000000" x="0.000000" y="0.000000" fill="rgb(25,25,25)" fill-opacity="0" />
+	<g id="clip path group" mask="url(#mask_62)">
+		<g id="组合 1113677">
+			<g id="clip path group" mask="url(#mask_63)">
+				<g id="组合 1113679">
+					<path id="path1" d="M-0.000656829 6.99409C-0.000656829 5.90034 -0.0035735 4.80659 -0.000656829 3.71284C-0.0035735 3.182 0.0635098 2.65409 0.191843 2.14367C0.477677 1.05867 1.18351 0.411169 2.27143 0.163253C2.81101 0.0465859 3.37101 -0.00883073 3.92518 -8.07295e-05C6.01934 -8.07295e-05 8.11643 -8.07295e-05 10.2193 -8.07295e-05C10.7473 -0.0029974 11.2752 0.0524193 11.7914 0.180753C12.9085 0.452003 13.5793 1.15784 13.8331 2.27492C13.9498 2.79992 14.0023 3.33367 13.9964 3.87617C13.9964 5.99659 13.9964 8.117 13.9964 10.2345C13.9993 10.7595 13.941 11.2816 13.8156 11.792C13.5414 12.912 12.8327 13.577 11.7185 13.8337C11.1731 13.9503 10.6189 14.0058 10.0648 13.997C7.97643 13.997 5.88518 13.997 3.79976 13.997C3.26601 14.0028 2.73226 13.9416 2.21601 13.8191C1.09309 13.5478 0.416426 12.8362 0.162676 11.7133C0.0343432 11.1474 -0.000656829 10.5787 -0.000656829 10.0041C-0.000656829 9.00075 -0.000656829 7.9945 -0.000656829 6.99409Z" fill="rgb(25,25,25)" fill-opacity="0" fill-rule="evenodd" />
+					<circle id="path2" cx="7" cy="7" r="7" fill="rgb(25,25,25)" fill-opacity="0" />
+				</g>
+			</g>
+			<ellipse id="path3" rx="6.416667" ry="6.416464" cx="7.00065088" cy="6.99995995" stroke="rgb(25,25,25)" stroke-opacity="0" stroke-width="0.997500" />
+			<path id="path5" d="M2.46094 11.5354L11.5347 2.46167" stroke="rgb(25,25,25)" stroke-opacity="0" stroke-linecap="square" stroke-linejoin="round" stroke-width="0.997500" />
+			<g id="mask" mask="url(#mask_64)">
+				<g id="组合 1113681">
+					<ellipse id="path4" rx="7.000000" ry="6.999780" cx="7" cy="7.00014591" fill="rgb(223,223,223)" />
+				</g>
+			</g>
+			<path id="path5 (边框)" d="M3.90893 10.7071L11.0168 3.59916L10.3985 2.97791L2.97852 10.3979L3.59685 11.0192L3.90893 10.7071Z" fill="rgb(25,25,25)" fill-opacity="0" fill-rule="evenodd" />
+		</g>
+	</g>
+</svg>

@@ -7086,10 +7086,10 @@ html:not(.dark) .stage-root.uc4 .v7-ssh-command pre,html:not(.dark) .stage-root.
 .stage-root.uc4 .canvas .device-workspace>.rule-detail{padding:0 0 0 16px}
 .stage-root.uc4 .canvas .card.flash{animation:v7-artifact-locate 1s ease}
 @keyframes v7-artifact-locate{0%,100%{outline:1px solid transparent;outline-offset:0}35%{outline:1px solid #a18bfa;outline-offset:0}}/* Compact LUI artifact tags share the canvas's filled artifact glyphs. */
-.stage-root:is(.uc4,.uc2) .v7-artifact-tag{display:inline-flex;vertical-align:middle;align-items:center;width:auto;max-width:100%;height:24px;gap:4px;padding:0 8px;border:0;border-radius:4px;background:rgba(174,174,174,.15);color:#DFDFDF;font-size:12px;font-weight:400;line-height:20px;text-align:left;white-space:nowrap}
-.stage-root:is(.uc4,.uc2) .v7-artifact-tag>span{overflow:hidden;text-overflow:ellipsis}
-.stage-root:is(.uc4,.uc2) .v7-artifact-tag:hover{background:rgba(174,174,174,.22)}
-.stage-root:is(.uc4,.uc2) .v7-artifact-tag .v7-artifact-icon{width:12px;height:12px;display:block;flex-shrink:0;stroke:none;color:#DFDFDF}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) .v7-artifact-tag{display:inline-flex;vertical-align:middle;align-items:center;width:auto;max-width:100%;height:24px;gap:4px;padding:0 8px;border:0;border-radius:4px;background:rgba(174,174,174,.15);color:#DFDFDF;font-size:12px;font-weight:400;line-height:20px;text-align:left;white-space:nowrap}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) .v7-artifact-tag>span{overflow:hidden;text-overflow:ellipsis}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) .v7-artifact-tag:hover{background:rgba(174,174,174,.22)}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) .v7-artifact-tag .v7-artifact-icon{width:12px;height:12px;display:block;flex-shrink:0;stroke:none;color:#DFDFDF}
 .stage-root.uc4 .v7-step-artifact{margin-top:8px}
 .stage-root.uc4 .v7-running-process{margin:20px 0 0 10px}
 .stage-root.uc4 .v7-running-process .steps{margin:0}
@@ -7128,8 +7128,8 @@ html:not(.dark) .stage-root.uc4 .v7-ssh-command pre,html:not(.dark) .stage-root.
 .stage-root.uc4 .v7-network-device-focus{display:flex;align-items:center;gap:12px;min-height:28px;color:var(--secondary)}
 .stage-root.uc4 .v7-network-device-focus>.link{font-size:12px;padding:0}
 .stage-root.uc4 .v7-network-device-focus>.link:last-child{margin-left:auto}
-html:not(.dark) .stage-root:is(.uc4,.uc2) .v7-artifact-tag{color:#393939}
-html:not(.dark) .stage-root:is(.uc4,.uc2) .v7-artifact-tag .v7-artifact-icon{color:#595959}
+html:not(.dark) .stage-root:is(.uc4,.uc2,.uc1,.uc3) .v7-artifact-tag{color:#393939}
+html:not(.dark) .stage-root:is(.uc4,.uc2,.uc1,.uc3) .v7-artifact-tag .v7-artifact-icon{color:#595959}
 html:not(.dark) .stage-root.uc4 .v7-network-map{background-color:#f5f5f5}
 html:not(.dark) .stage-root.uc4 .v7-network-cluster>rect{stroke:#00000020;fill:#fff8}
 html:not(.dark) .stage-root.uc4 .v7-network-group-title,html:not(.dark) .stage-root.uc4 .v7-network-vendor{fill:#393939}
@@ -7159,15 +7159,15 @@ html:not(.dark) .stage-root.uc4 .v7-map-split>.v7-map-device-card{background:#fa
 .stage-root.uc4 .v7-network-device>rect{transition:none}
 .stage-root.uc4 .v7-map-device-card{animation:none}
 .stage-root.uc4 .v7-network-sweep{display:none}}
-.stage-root:is(.uc4,.uc2) .v7-conclusion-card{display:flex;align-items:center;gap:16px;width:528px;max-width:100%;height:82px;margin-top:16px;padding:16px 20px;border:1px solid #ffffff0a;border-radius:12px;background:linear-gradient(100deg,transparent 38%,#2974cd24 78%,#3689e83d 100%),rgba(42,42,42,.75);text-align:left;color:#DFDFDF;transition:border-color .15s,box-shadow .15s}
-.stage-root:is(.uc4,.uc2) .v7-conclusion-card:hover{border-color:#5ca2e966;box-shadow:0 0 16px #2874cd12}
-.stage-root:is(.uc4,.uc2) .v7-conclusion-card>.v7-artifact-icon{width:32px;height:32px;flex-shrink:0}
-.stage-root:is(.uc4,.uc2) .v7-conclusion-copy{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
-.stage-root:is(.uc4,.uc2) .v7-conclusion-copy strong{font-size:14px;font-weight:500;line-height:22px;color:#DFDFDF}
-.stage-root:is(.uc4,.uc2) .v7-conclusion-copy>span{font-size:12px;line-height:18px;color:#939393}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) .v7-conclusion-card{display:flex;align-items:center;gap:16px;width:528px;max-width:100%;height:82px;margin-top:16px;padding:16px 20px;border:1px solid #ffffff0a;border-radius:12px;background:linear-gradient(100deg,transparent 38%,#2974cd24 78%,#3689e83d 100%),rgba(42,42,42,.75);text-align:left;color:#DFDFDF;transition:border-color .15s,box-shadow .15s}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) .v7-conclusion-card:hover{border-color:#5ca2e966;box-shadow:0 0 16px #2874cd12}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) .v7-conclusion-card>.v7-artifact-icon{width:32px;height:32px;flex-shrink:0}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) .v7-conclusion-copy{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) .v7-conclusion-copy strong{font-size:14px;font-weight:500;line-height:22px;color:#DFDFDF}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) .v7-conclusion-copy>span{font-size:12px;line-height:18px;color:#939393}
 .stage-root.uc4 .v7-conclusion-arrow{font-size:24px;color:#8abef3}
-html:not(.dark) .stage-root:is(.uc4,.uc2) .v7-conclusion-card{background:linear-gradient(100deg,transparent 38%,#3689e824),#f4f4f4;color:#393939}
-html:not(.dark) .stage-root:is(.uc4,.uc2) .v7-conclusion-copy strong{color:#393939}
+html:not(.dark) .stage-root:is(.uc4,.uc2,.uc1,.uc3) .v7-conclusion-card{background:linear-gradient(100deg,transparent 38%,#3689e824),#f4f4f4;color:#393939}
+html:not(.dark) .stage-root:is(.uc4,.uc2,.uc1,.uc3) .v7-conclusion-copy strong{color:#393939}
 .stage-root.uc4 .v7-map-device-card .node-name{display:block;line-height:22px}
 .stage-root.uc4 .v7-map-device-card .node-meta{display:flex;gap:12px;line-height:18px}
 .stage-root.uc4 .v7-map-device-card .node-meta>span+span{padding-left:12px;border-left:1px solid var(--line)}
@@ -7929,6 +7929,36 @@ html:not(.dark) .stage-root .shell-mode>.ic{color:var(--text)}
 .map-reference-hotspot:hover,.map-reference-hotspot.is-selected{outline:2px solid #36c18d;outline-offset:3px;box-shadow:0 0 16px #36c18d55}
 .map-reference-hotspot:focus-visible{outline:2px solid #8cccff;outline-offset:4px}
 
+/* src/views/lui-panel/uc3-chat.css */
+.stage-root #lui.lui-refresh .uc3-thought p{color:#939393;font-size:14px;font-weight:400;line-height:22px}
+.stage-root #lui.lui-refresh .uc3-fields{margin:12px 0 0;font-size:14px;line-height:22px}
+.stage-root #lui.lui-refresh .uc3-fields>div{display:flex;align-items:flex-start;gap:4px;margin-top:4px}
+.stage-root #lui.lui-refresh .uc3-fields dt{flex:none;color:#dfdfdf;font-weight:500}
+.stage-root #lui.lui-refresh .uc3-fields dd{margin:0;min-width:0;color:#dfdfdf}
+.stage-root #lui.lui-refresh .uc3-logic{padding-left:20px;margin:12px 0 0;line-height:22px}
+.stage-root #lui.lui-refresh .uc3-table-wrap{margin-top:12px;overflow-x:auto}
+.stage-root #lui.lui-refresh .uc3-rule-table{width:100%;border-collapse:collapse;font-size:14px;line-height:22px;color:#fff;table-layout:auto}
+.stage-root #lui.lui-refresh .uc3-rule-table :is(th,td){padding:5px 12px;min-height:32px;text-align:left;vertical-align:middle;border-bottom:1px solid #ffffff0d;font-weight:400}
+.stage-root #lui.lui-refresh .uc3-rule-table th{background:#f3f3f31a;font-weight:500;white-space:nowrap}
+.stage-root #lui.lui-refresh .uc3-rule-table tbody tr:nth-child(even){background:#9393931a}
+.stage-root #lui.lui-refresh .uc3-rule-table td:nth-child(n+2){white-space:nowrap}
+.stage-root #lui.lui-refresh .uc3-test-pass{display:inline-flex;align-items:center;gap:6px}
+.stage-root #lui.lui-refresh .uc3-test-pass i{width:8px;height:8px;border-radius:50%;background:#36c18d}
+.stage-root #lui.lui-refresh .generated-card .uc3-completion{font-size:14px;line-height:22px;color:#fff;font-weight:400}
+.stage-root #lui.lui-refresh .generated-card .uc3-completion>p{margin:0;font-weight:400}
+.stage-root #lui.lui-refresh .generated-card .uc3-completion h3{margin:16px 0 8px;font-size:14px;line-height:22px;font-weight:500}
+.stage-root #lui.lui-refresh .uc3-completion ul{margin:0;padding-left:22px;line-height:22px}
+.stage-root #lui.lui-refresh .uc3-rule-artifact{margin-top:16px;height:84px;border-radius:12px;text-align:left}
+.stage-root #lui.lui-refresh .uc3-rule-artifact small{padding:0 8px;margin-left:4px;border-radius:4px;background:#aeaeae26;font-size:12px;line-height:20px;color:#aeaeae;font-weight:400}
+.stage-root #lui.lui-refresh .uc3-rule-artifact .v7-conclusion-copy strong{padding:0}
+.stage-root #lui.lui-refresh .generated-card .uc3-completion .uc3-followup{margin:16px 0 0}
+.stage-root #lui.lui-refresh .uc3-completion .response-footer{margin-top:16px}
+html:not(.dark) .stage-root #lui.lui-refresh .uc3-rule-table{color:#393939}
+html:not(.dark) .stage-root #lui.lui-refresh .uc3-fields :is(dt,dd){color:#595959}
+
+.stage-root #lui.lui-refresh .uc3-conversation :is(.uc3-completion,.uc3-logic) li{list-style-type:disc}
+.stage-root #lui.lui-refresh .uc3-conversation li::marker{color:#c9c9c9}
+
 /* src/views/lui-panel/design.css */
 /* Pixso 13:10354. LUI and generated-answer content only. */
 .stage-root #lui.lui-refresh{background:#2a2a2a}
@@ -8013,39 +8043,561 @@ html:not(.dark) .stage-root #lui.lui-refresh .audit-advice strong{color:#595959}
 .stage-root #lui.lui-refresh .generated-card.is-process-collapsed .completion{border-top:0;padding-top:0;margin-top:16px}
 
 /* Shared UC2 / UC4 answer motion: subtle entry, active-title sheen, and incremental text reveal. */
-.stage-root:is(.uc4,.uc2) #lui.lui-refresh .workflow-steps .step.is-running{animation:lui-step-appear .38s cubic-bezier(.22,1,.36,1) both}
-.stage-root:is(.uc4,.uc2) #lui.lui-refresh .lui-motion-title{position:relative;display:inline-block;max-width:100%;animation:lui-title-appear .32s cubic-bezier(.22,1,.36,1) both}
-.stage-root:is(.uc4,.uc2) #lui.lui-refresh .lui-motion-title.is-streaming{color:#aeaeae}
-.stage-root:is(.uc4,.uc2) #lui.lui-refresh .lui-motion-title.is-streaming::after{content:attr(data-text);content:attr(data-text) / "";position:absolute;inset:0;color:transparent;background:linear-gradient(90deg,transparent 38%,#ffffffeb 50%,transparent 62%) 100% 0 / 300% 100% no-repeat;background-clip:text;-webkit-background-clip:text;animation:lui-title-sweep 1.6s linear infinite;pointer-events:none}
-.stage-root:is(.uc4,.uc2) #lui.lui-refresh .lui-stream-unit{animation:lui-word-appear .3s cubic-bezier(.22,1,.36,1) both}
-.stage-root:is(.uc4,.uc2) #lui.lui-refresh .lui-stream-caret{display:inline-block;width:5px;height:5px;vertical-align:.08em;margin-left:4px;border-radius:50%;background:#dfdfdf;animation:lui-stream-pulse 1s ease-in-out infinite}
-.stage-root:is(.uc4,.uc2) #lui.lui-refresh .lui-motion-height{overflow:clip;transition:height .36s cubic-bezier(.22,1,.36,1)}
-.stage-root:is(.uc4,.uc2) #lui.lui-refresh .lui-motion-inner{display:flow-root}
-html:not(.dark) .stage-root:is(.uc4,.uc2) #lui.lui-refresh .lui-motion-title.is-streaming{color:#595959}
-html:not(.dark) .stage-root:is(.uc4,.uc2) #lui.lui-refresh .lui-motion-title.is-streaming::after{background-image:linear-gradient(90deg,transparent 38%,#191919aa 50%,transparent 62%)}
-html:not(.dark) .stage-root:is(.uc4,.uc2) #lui.lui-refresh .lui-stream-caret{background:#595959}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh .workflow-steps .step.is-running{animation:lui-step-appear .38s cubic-bezier(.22,1,.36,1) both}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh .lui-motion-title{position:relative;display:inline-block;max-width:100%;animation:lui-title-appear .32s cubic-bezier(.22,1,.36,1) both}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh .lui-motion-title.is-streaming{color:#aeaeae}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh .lui-motion-title.is-streaming::after{content:attr(data-text);content:attr(data-text) / "";position:absolute;inset:0;color:transparent;background:linear-gradient(90deg,transparent 38%,#ffffffeb 50%,transparent 62%) 100% 0 / 300% 100% no-repeat;background-clip:text;-webkit-background-clip:text;animation:lui-title-sweep 1.6s linear infinite;pointer-events:none}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh .lui-stream-unit{animation:lui-word-appear .3s cubic-bezier(.22,1,.36,1) both}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh .lui-stream-caret{display:inline-block;width:5px;height:5px;vertical-align:.08em;margin-left:4px;border-radius:50%;background:#dfdfdf;animation:lui-stream-pulse 1s ease-in-out infinite}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh .lui-motion-height{overflow:clip;transition:height .36s cubic-bezier(.22,1,.36,1)}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh .lui-motion-inner{display:flow-root}
+html:not(.dark) .stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh .lui-motion-title.is-streaming{color:#595959}
+html:not(.dark) .stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh .lui-motion-title.is-streaming::after{background-image:linear-gradient(90deg,transparent 38%,#191919aa 50%,transparent 62%)}
+html:not(.dark) .stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh .lui-stream-caret{background:#595959}
 @keyframes lui-step-appear{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @keyframes lui-title-appear{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
 @keyframes lui-title-sweep{from{background-position:100% 0}to{background-position:0% 0}}
 @keyframes lui-word-appear{from{opacity:0;filter:blur(2px)}to{opacity:1;filter:blur(0)}}
 @keyframes lui-stream-pulse{50%{opacity:.4;transform:scale(.6)}}
-@media(prefers-reduced-motion:reduce){.stage-root:is(.uc4,.uc2) #lui.lui-refresh :is(.step.is-running,.lui-motion-title,.lui-stream-unit,.lui-stream-caret){animation:none!important}.stage-root:is(.uc4,.uc2) #lui.lui-refresh .lui-motion-title::after{animation:none!important;display:none}.stage-root:is(.uc4,.uc2) #lui.lui-refresh .lui-motion-height{transition:none}}
+@media(prefers-reduced-motion:reduce){.stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh :is(.step.is-running,.lui-motion-title,.lui-stream-unit,.lui-stream-caret){animation:none!important}.stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh .lui-motion-title::after{animation:none!important;display:none}.stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh .lui-motion-height{transition:none}}
 
 /* Keep token spans inside one text cell; advice rows retain their original two-column layout. */
-.stage-root:is(.uc4,.uc2) #lui.lui-refresh .lui-stream-body{min-width:0;overflow-wrap:break-word}
-.stage-root:is(.uc4,.uc2) #lui.lui-refresh .lui-stream-body>.lui-stream-unit{display:inline}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh .lui-stream-body{min-width:0;overflow-wrap:break-word}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh .lui-stream-body>.lui-stream-unit{display:inline}
 
 .stage-root.uc2 #lui.lui-refresh .uc2-chat-paused :is(.lui-glyph,.uc2-typing-cursor),.stage-root.uc2 #lui.lui-refresh .uc2-chat-paused .lui-motion-title::after{animation-play-state:paused!important}
 
+/* assets/library/generative-loaders/styles.css */
+:root {
+  --tl-color: #111111;
+  --tl-ink: #202227;
+  --tl-muted: #dfe1e6;
+  --tl-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.tl-loader,
+.tl-loader * { box-sizing: border-box; }
+
+.tl-loader {
+  display: block;
+  width: 100%;
+  color: var(--tl-color);
+  font-family: var(--tl-font);
+}
+
+.tl-visual {
+  display: block;
+  width: 100%;
+  min-height: 1.4em;
+}
+
+.tl-copy {
+  display: block;
+  width: 100%;
+  color: currentColor;
+  font: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  white-space: pre-wrap;
+}
+
+.tl-word { display:inline-block; white-space:nowrap; }
+.tl-space { white-space:pre-wrap; }
+
+.tl-char { display: inline-block; transform-origin: 50% 65%; }
+
+.tl-decode {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  text-transform: uppercase;
+}
+.tl-decode .tl-char { width: .62em; text-align: center; }
+.tl-decode .tl-char[data-resolved="false"] { color: color-mix(in srgb, currentColor 60%, transparent); }
+.tl-decode-char { display:inline-grid; width:.62em; text-align:center; }
+.tl-decode-char > b,.tl-decode-char > i { grid-area:1/1; font:inherit; font-style:normal; font-weight:inherit; }
+.tl-decode-char > i { color:color-mix(in srgb,currentColor 55%,transparent); }
+
+.tl-typewriter { position: relative; }
+.tl-cursor {
+  display: inline-block;
+  width: .08em;
+  height: 1em;
+  margin-left: .08em;
+  border-radius: 1px;
+  background: currentColor;
+  vertical-align: -.12em;
+}
+
+.tl-skeleton-wrap { position: relative; min-height: 2.9em; }
+.tl-skeleton { display: grid; gap: .46em; width: 100%; padding-top: .28em; }
+.tl-skeleton i {
+  position: relative;
+  overflow: hidden;
+  width: 78%;
+  height: .42em;
+  border-radius: .14em;
+  background: color-mix(in srgb, currentColor 9%, transparent);
+}
+.tl-skeleton i:nth-child(2) { width: 56%; }
+.tl-skeleton i::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 42%;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, currentColor 16%, transparent), transparent);
+  transform: translateX(-100%);
+  animation: tl-shimmer 1.4s cubic-bezier(.4,0,.2,1) infinite;
+}
+.tl-skeleton-result { display: block; }
+@keyframes tl-shimmer { from { transform: translateX(-140%); } to { transform: translateX(240%); } }
+
+.tl-skeleton-stream { position:relative; }
+.tl-skeleton-token { position:relative; display:inline; }
+
+.tl-cascade span,.tl-focus span { display: inline-block; }
+
+.tl-wipe { position: relative; }
+.tl-wipe-ghost { color: color-mix(in srgb, currentColor 12%, transparent); }
+.tl-wipe-fill { position: absolute; inset: 0; color: currentColor; }
+.tl-wipe>i {
+  position: absolute;
+  top: -.1em;
+  bottom: -.1em;
+  width: 1px;
+  background: currentColor;
+  box-shadow: 0 0 8px color-mix(in srgb, currentColor 50%, transparent);
+}
+.tl-wipe-stream > span { display:inline; }
+
+.tl-flip { perspective: 500px; }
+
+.tl-redact-word { position: relative; display: inline-block; }
+.tl-redact-word>i {
+  position: absolute;
+  inset: .12em -.03em .08em;
+  border-radius: .08em;
+  background: currentColor;
+  transform-origin: right;
+}
+
+.tl-line { display: grid; gap: .14em; }
+.tl-line>span { display: block; width: max-content; max-width: 100%; }
+.tl-line-stream > span { display:inline; white-space:pre-wrap; }
+
+.tl-terminal {
+  min-height: 1.45em;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+.tl-terminal>b { margin-right: .45em; font-weight: 500; }
+.tl-terminal>span { white-space: pre-wrap; }
+.tl-terminal-cursor {
+  display: inline-block;
+  width: .58em;
+  height: .9em;
+  margin-left: .12em;
+  background: currentColor;
+  vertical-align: -.08em;
+}
+
+.tl-wave .tl-char { min-width: .16em; }
+
+.tl-dissolve-char {
+  position: relative;
+  display: inline-grid;
+  min-width: .16em;
+}
+.tl-dissolve-char > b {
+  grid-area: 1 / 1;
+  display: inline-block;
+  font: inherit;
+  font-weight: inherit;
+}
+.tl-dissolve-char > i {
+  position: absolute;
+  z-index: 1;
+  left: 58%;
+  top: 50%;
+  width: .09em;
+  height: .09em;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: .18em -.08em 0 -.02em currentColor, .3em .09em 0 -.035em currentColor;
+  filter: blur(.2px);
+  pointer-events: none;
+}
+.tl-dissolve-char > i:nth-of-type(2n) { width:.06em; height:.06em; opacity:.7; }
+.tl-dissolve-char > i:nth-of-type(3n) { width:.12em; height:.12em; }
+
+.tl-slice-char,
+.tl-fragment-char {
+  display: inline-grid;
+  min-width: .14em;
+}
+.tl-slice-char > i,
+.tl-fragment-char > i {
+  grid-area: 1 / 1;
+  font: inherit;
+  font-style: normal;
+}
+.tl-slice-part-1 { clip-path: inset(0 0 66% 0); }
+.tl-slice-part-2 { clip-path: inset(33% 0 33% 0); }
+.tl-slice-part-3 { clip-path: inset(66% 0 0 0); }
+
+.tl-tracking .tl-char { min-width: .14em; transform-origin: left center; }
+
+.tl-coalesce-char {
+  position: relative;
+  display: inline-block;
+  min-width: .14em;
+}
+.tl-coalesce-char > b { display: inline-block; font: inherit; font-weight: inherit; }
+.tl-coalesce-char > i {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: .13em;
+  height: .13em;
+  border-radius: 50%;
+  background: currentColor;
+  pointer-events: none;
+}
+
+.tl-fragment-1 { clip-path: polygon(0 0, 58% 0, 42% 52%, 0 66%); }
+.tl-fragment-2 { clip-path: polygon(58% 0, 100% 0, 100% 58%, 42% 52%); }
+.tl-fragment-3 { clip-path: polygon(0 66%, 42% 52%, 58% 100%, 0 100%); }
+.tl-fragment-4 { clip-path: polygon(42% 52%, 100% 58%, 100% 100%, 58% 100%); }
+
+.tl-loader[data-paused="true"] *,
+.tl-loader[data-paused="true"] *::before,
+.tl-loader[data-paused="true"] *::after { animation-play-state: paused !important; }
+
+.il-loader,
+.il-loader * { box-sizing: border-box; }
+
+.il-loader {
+  --il-color: currentColor;
+  --il-size: 1.15em;
+  --il-duration: 1.2s;
+  width: var(--il-size);
+  height: var(--il-size);
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  color: var(--il-color);
+  line-height: 1;
+  vertical-align: -.16em;
+}
+
+.il-glyph,
+.il-matrix {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.il-glyph { grid-template-columns: repeat(3, 1fr); gap: 8%; padding: 8%; }
+.il-glyph i {
+  width: 76%;
+  aspect-ratio: 1;
+  border: max(1px, calc(var(--il-size) * .055)) solid currentColor;
+  animation: il-glyph var(--il-duration) cubic-bezier(.45,0,.2,1) infinite;
+  animation-delay: var(--il-delay);
+}
+@keyframes il-glyph {
+  0%,100% { border-radius: 50%; transform: scale(.38) rotate(0deg); opacity: .28; background: transparent; }
+  35% { border-radius: 20%; transform: scale(1) rotate(45deg); opacity: 1; background: currentColor; }
+  68% { border-radius: 50% 8% 50% 8%; transform: scale(.72) rotate(90deg); opacity: .62; background: transparent; }
+}
+
+.il-matrix { grid-template-columns: repeat(5, 1fr); padding: 3%; }
+.il-matrix i {
+  width: calc(72% - var(--il-distance) * 7%);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: currentColor;
+  animation: il-matrix var(--il-duration) ease-in-out infinite;
+  animation-delay: var(--il-delay);
+}
+@keyframes il-matrix { 0%,100% { opacity: .22; transform: scale(.48); } 48% { opacity: 1; transform: scale(1); } }
+
+.il-orbit,
+.il-ripple,
+.il-spark { position: relative; width: 100%; height: 100%; display: block; }
+.il-orbit { animation: il-turn var(--il-duration) linear infinite; }
+.il-orbit i { position: absolute; width: 18%; aspect-ratio: 1; border-radius: 50%; background: currentColor; }
+.il-orbit i:nth-child(1) { left: 41%; top: 0; }
+.il-orbit i:nth-child(2) { right: 3%; bottom: 18%; opacity: .58; }
+.il-orbit i:nth-child(3) { left: 3%; bottom: 18%; opacity: .28; }
+.il-orbit b { position: absolute; inset: 30%; border: max(1px, calc(var(--il-size) * .06)) solid currentColor; border-radius: 50%; }
+@keyframes il-turn { to { transform: rotate(360deg); } }
+
+.il-ripple i,
+.il-ripple b { position: absolute; inset: 41%; border-radius: 50%; background: currentColor; }
+.il-ripple i { animation: il-ripple var(--il-duration) ease-out infinite; }
+.il-ripple i:nth-child(2) { animation-delay: calc(var(--il-duration) / -3); }
+.il-ripple i:nth-child(3) { animation-delay: calc(var(--il-duration) / -1.5); }
+@keyframes il-ripple { 0% { opacity: .8; transform: scale(.4); } 100% { opacity: 0; transform: scale(5.2); } }
+
+.il-signal { width: 100%; height: 76%; display: flex; align-items: center; justify-content: space-between; }
+.il-signal i { width: 12%; height: 30%; border-radius: 99px; background: currentColor; animation: il-signal var(--il-duration) ease-in-out infinite; animation-delay: var(--il-delay); }
+@keyframes il-signal { 0%,100% { height: 25%; opacity: .28; } 50% { height: 100%; opacity: 1; } }
+
+.il-spark i {
+  position: absolute;
+  display: block;
+  aspect-ratio: 1;
+  background: currentColor;
+  clip-path: polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);
+  animation: il-spark var(--il-duration) cubic-bezier(.45,0,.2,1) infinite;
+}
+.il-spark i:nth-child(1) { inset: 18%; }
+.il-spark i:nth-child(2) { width: 24%; right: 1%; top: 2%; animation-delay: calc(var(--il-duration) * -.34); }
+.il-spark i:nth-child(3) { width: 17%; left: 4%; bottom: 8%; animation-delay: calc(var(--il-duration) * -.67); }
+@keyframes il-spark {
+  0%,100% { opacity: .2; transform: scale(.38) rotate(-12deg); }
+  42% { opacity: 1; transform: scale(1) rotate(0deg); }
+  68% { opacity: .58; transform: scale(.72) rotate(9deg); }
+}
+
+.il-rotor,
+.il-chomp,
+.il-snake,
+.il-gravity,
+.il-aperture { position:relative; width:100%; height:100%; display:block; }
+
+.il-rotor { animation:il-rotor calc(var(--il-duration) * 1.4) cubic-bezier(.55,.06,.38,.94) infinite; }
+.il-rotor::before { content:""; position:absolute; inset:24%; background:currentColor; opacity:.24; clip-path:polygon(43% 0,57% 0,66% 40%,100% 78%,91% 90%,50% 65%,9% 90%,0 78%,34% 40%); }
+.il-rotor i { position:absolute; width:34%; aspect-ratio:1; border-radius:48% 52% 58% 42%; border:max(1px,calc(var(--il-size) * .055)) solid currentColor; background:color-mix(in srgb,currentColor 12%,transparent); }
+.il-rotor i:nth-child(1) { left:33%; top:0; }
+.il-rotor i:nth-child(2) { right:1%; bottom:3%; transform:rotate(120deg); }
+.il-rotor i:nth-child(3) { left:1%; bottom:3%; transform:rotate(240deg); }
+.il-rotor b { position:absolute; inset:39%; border-radius:50%; background:currentColor; box-shadow:0 0 0 max(1px,calc(var(--il-size) * .04)) color-mix(in srgb,currentColor 22%,transparent); }
+@keyframes il-rotor { 0% { transform:rotate(0deg); } 35% { transform:rotate(145deg); } 70%,100% { transform:rotate(360deg); } }
+
+.il-pixel-drift { width:100%; height:100%; display:grid; grid-template-columns:repeat(4,1fr); gap:7%; padding:5%; transform:rotate(45deg) scale(.78); }
+.il-pixel-drift i { aspect-ratio:1; background:currentColor; animation:il-pixel-drift var(--il-duration) cubic-bezier(.4,0,.2,1) infinite; animation-delay:var(--il-delay); }
+@keyframes il-pixel-drift { 0%,100% { opacity:.16; transform:translate(-28%,-28%) scale(.45); border-radius:50%; } 42% { opacity:1; transform:translate(0,0) scale(1); border-radius:10%; } 72% { opacity:.48; transform:translate(24%,24%) scale(.68); border-radius:35%; } }
+
+.il-chomp { overflow:hidden; }
+.il-chomp b { position:absolute; left:2%; top:27%; width:46%; height:46%; }
+.il-chomp b::before,.il-chomp b::after { content:""; position:absolute; left:0; width:100%; height:50%; background:currentColor; animation:il-chomp calc(var(--il-duration) * .56) ease-in-out infinite; }
+.il-chomp b::before { top:0; border-radius:999px 999px 0 0; transform-origin:50% 100%; }
+.il-chomp b::after { bottom:0; border-radius:0 0 999px 999px; transform-origin:50% 0; animation-name:il-chomp-lower; }
+.il-chomp i { position:absolute; right:-10%; top:44%; width:10%; aspect-ratio:1; border-radius:50%; background:currentColor; animation:il-chomp-dot calc(var(--il-duration) * 1.15) linear infinite; animation-delay:var(--il-delay); }
+@keyframes il-chomp { 0%,100% { transform:rotate(-28deg); } 48% { transform:rotate(0); } }
+@keyframes il-chomp-lower { 0%,100% { transform:rotate(28deg); } 48% { transform:rotate(0); } }
+@keyframes il-chomp-dot { from { transform:translateX(0); opacity:0; } 14% { opacity:1; } 78% { opacity:1; } to { transform:translateX(calc(var(--il-size) * -.62)); opacity:0; } }
+
+.il-snake { --il-snake-duration:calc(var(--il-duration) * 1.8); }
+.il-snake i { position:absolute; z-index:1; left:7%; top:7%; width:15%; aspect-ratio:1; border-radius:50%; background:currentColor; opacity:calc(1 - var(--il-i) * .075); animation:il-snake var(--il-snake-duration) linear infinite; animation-delay:calc(var(--il-snake-duration) * (var(--il-i) * .042 - 1)); }
+.il-snake i:first-child { border-radius:42%; box-shadow:0 0 0 max(1px,calc(var(--il-size) * .025)) color-mix(in srgb,currentColor 18%,transparent); }
+.il-snake b { position:absolute; right:5%; top:45%; width:10%; aspect-ratio:1; border-radius:50%; background:currentColor; animation:il-snake-food var(--il-snake-duration) ease-in-out infinite; }
+@keyframes il-snake {
+  0%,100% { left:7%; top:7%; transform:scale(var(--il-scale)); }
+  20% { left:78%; top:7%; transform:scale(var(--il-scale)); }
+  25% { left:86%; top:15%; transform:scale(var(--il-scale)); }
+  45% { left:86%; top:78%; transform:scale(var(--il-scale)); }
+  50% { left:78%; top:86%; transform:scale(var(--il-scale)); }
+  70% { left:7%; top:86%; transform:scale(var(--il-scale)); }
+  75% { left:0; top:78%; transform:scale(var(--il-scale)); }
+  95% { left:0; top:15%; transform:scale(var(--il-scale)); }
+}
+@keyframes il-snake-food {
+  0%,20%,100% { opacity:.2; transform:scale(.65); }
+  28% { opacity:.9; transform:scale(1); }
+  34%,44% { opacity:0; transform:scale(.2); }
+  52% { opacity:.2; transform:scale(.65); }
+}
+
+.il-fold { width:100%; height:100%; display:grid; grid-template-columns:repeat(2,1fr); gap:5%; padding:8%; perspective:calc(var(--il-size) * 3); transform:rotate(45deg) scale(.82); }
+.il-fold i { background:currentColor; transform-origin:0 50%; animation:il-fold var(--il-duration) cubic-bezier(.65,0,.35,1) infinite; animation-delay:var(--il-delay); }
+.il-fold i:nth-child(2),.il-fold i:nth-child(3) { opacity:.62; transform-origin:100% 50%; }
+@keyframes il-fold { 0%,100% { opacity:.18; transform:rotateY(78deg) scale(.72); } 45% { opacity:1; transform:rotateY(0) scale(1); } 72% { opacity:.48; transform:rotateX(-42deg) scale(.86); } }
+
+.il-gravity { animation:il-gravity-warp calc(var(--il-duration) * 1.8) ease-in-out infinite; }
+.il-gravity::before,.il-gravity::after { content:""; position:absolute; border:max(1px,calc(var(--il-size) * .045)) solid currentColor; border-radius:50%; opacity:.2; }
+.il-gravity::before { inset:12%; transform:rotate(-18deg) scaleY(.56); }
+.il-gravity::after { inset:26%; transform:rotate(22deg) scaleY(.7); opacity:.34; }
+.il-gravity i { position:absolute; left:45%; top:45%; width:10%; aspect-ratio:1; border-radius:50%; background:currentColor; transform-origin:50% 50%; animation:il-gravity var(--il-duration) cubic-bezier(.5,0,.25,1) infinite; animation-delay:var(--il-delay); }
+.il-gravity b { position:absolute; inset:39%; z-index:1; border-radius:50%; background:currentColor; box-shadow:0 0 0 max(1px,calc(var(--il-size) * .05)) color-mix(in srgb,currentColor 18%,transparent); animation:il-gravity-core var(--il-duration) ease-in-out infinite; }
+@keyframes il-gravity { 0% { transform:rotate(var(--il-angle)) translateY(calc(var(--il-size) * -.42)) scale(.52); opacity:.22; } 58% { opacity:1; } 86%,100% { transform:rotate(calc(var(--il-angle) + 150deg)) translateY(0) scale(.12); opacity:0; } }
+@keyframes il-gravity-warp { 0%,100% { transform:rotate(-5deg) scale(.94); } 50% { transform:rotate(7deg) scale(1); } }
+@keyframes il-gravity-core { 0%,100% { transform:scale(.78); } 58% { transform:scale(1.14); } }
+
+.il-domino { width:100%; height:78%; display:flex; align-items:flex-end; justify-content:space-between; padding:0 4%; }
+.il-domino i { width:13%; height:76%; border-radius:18%; background:currentColor; transform-origin:50% 100%; animation:il-domino var(--il-duration) cubic-bezier(.5,0,.25,1) infinite; animation-delay:var(--il-delay); }
+@keyframes il-domino { 0%,22%,100% { transform:rotate(0deg) translateX(0); opacity:.32; } 58%,76% { transform:rotate(32deg) translateX(10%); opacity:1; } }
+
+.il-aperture { animation:il-aperture-turn calc(var(--il-duration) * 2) linear infinite; }
+.il-aperture i { position:absolute; left:43%; top:5%; width:14%; height:46%; background:currentColor; clip-path:polygon(0 0,100% 18%,70% 100%,0 76%); transform-origin:50% 98%; transform:rotate(var(--il-angle)) scaleY(.68); animation:il-aperture var(--il-duration) ease-in-out infinite; animation-delay:var(--il-delay); }
+.il-aperture b { position:absolute; inset:39%; border-radius:50%; background:color-mix(in srgb,currentColor 12%,transparent); box-shadow:0 0 0 max(1px,calc(var(--il-size) * .045)) currentColor; }
+@keyframes il-aperture { 0%,100% { opacity:.28; transform:rotate(var(--il-angle)) scaleY(.54); } 48% { opacity:1; transform:rotate(calc(var(--il-angle) + 18deg)) scaleY(1); } }
+@keyframes il-aperture-turn { to { transform:rotate(360deg); } }
+
+.il-loader[data-paused="true"] *,
+.il-loader[data-paused="true"] *::before,
+.il-loader[data-paused="true"] *::after { animation-play-state: paused !important; }
+
+.iml-loader,
+.iml-loader * { box-sizing:border-box; }
+
+.iml-loader {
+  --iml-color:currentColor;
+  --iml-size:10rem;
+  --iml-radius:10%;
+  --iml-duration:2.35s;
+  display:inline-grid;
+  width:var(--iml-size);
+  height:var(--iml-size);
+  flex:0 0 auto;
+  place-items:center;
+  color:var(--iml-color);
+  line-height:1;
+}
+.iml-visual { position:relative; display:block; width:100%; height:100%; overflow:hidden; border-radius:var(--iml-radius); background:color-mix(in srgb,currentColor 3%,transparent); isolation:isolate; }
+.iml-visual>span { position:absolute; inset:0; display:block; }
+.iml-visual i,.iml-visual b,.iml-visual em { position:absolute; display:block; margin:0; font:inherit; }
+
+.iml-skeleton { inset:7%!important; overflow:hidden; border:1px solid color-mix(in srgb,currentColor 12%,transparent); background:color-mix(in srgb,currentColor 4%,transparent); }
+.iml-skeleton i { inset:0; background:color-mix(in srgb,currentColor 3%,transparent); }
+.iml-skeleton b { inset:0 auto 0 -55%; width:48%; background:linear-gradient(90deg,transparent,color-mix(in srgb,currentColor 13%,transparent),transparent); filter:blur(2px); animation:iml-skeleton var(--iml-duration) cubic-bezier(.45,0,.55,1) infinite; }
+@keyframes iml-skeleton { 0%,12% { transform:translateX(0); opacity:0; } 24% { opacity:1; } 72% { opacity:1; } 86%,100% { transform:translateX(330%); opacity:0; } }
+
+.iml-bands i { left:8%; width:84%; height:25%; background:color-mix(in srgb,currentColor 72%,transparent); animation:iml-band var(--iml-duration) cubic-bezier(.65,0,.35,1) infinite; }
+.iml-bands i:nth-child(1) { top:8%; transform-origin:left; }
+.iml-bands i:nth-child(2) { top:37.5%; transform-origin:right; animation-delay:calc(var(--iml-duration) * -.08); }
+.iml-bands i:nth-child(3) { bottom:8%; transform-origin:left; animation-delay:calc(var(--iml-duration) * -.16); }
+.iml-bands b { inset:8%; border:1px solid currentColor; opacity:.12; }
+@keyframes iml-band { 0%,14%,100% { opacity:.12; transform:scaleX(.72); } 42%,76% { opacity:.82; transform:scaleX(1); } }
+
+.iml-tiles { display:grid!important; grid-template-columns:repeat(4,1fr); gap:3%; padding:7%; }
+.iml-tiles i { position:relative; width:100%; height:100%; border-radius:9%; background:color-mix(in srgb,currentColor 68%,transparent); animation:iml-tile var(--iml-duration) cubic-bezier(.65,0,.35,1) infinite; animation-delay:var(--iml-delay); }
+@keyframes iml-tile { 0%,14%,100% { opacity:.1; transform:scale(.76); } 44%,76% { opacity:.72; transform:scale(1); } }
+
+.iml-scan { inset:7%!important; overflow:hidden; border:1px solid color-mix(in srgb,currentColor 25%,transparent); }
+.iml-scan i { inset:0; background:linear-gradient(135deg,color-mix(in srgb,currentColor 8%,transparent),color-mix(in srgb,currentColor 48%,transparent)); clip-path:inset(100% 0 0); animation:iml-scan-fill var(--iml-duration) cubic-bezier(.65,0,.35,1) infinite; }
+.iml-scan b { left:0; right:0; top:0; height:1px; background:color-mix(in srgb,currentColor 72%,transparent); box-shadow:0 0 6px color-mix(in srgb,currentColor 32%,transparent); animation:iml-scan-line var(--iml-duration) cubic-bezier(.65,0,.35,1) infinite; }
+.iml-scan em { inset:11%; border:1px solid color-mix(in srgb,currentColor 24%,transparent); opacity:.32; animation:iml-scan-frame var(--iml-duration) ease-in-out infinite; }
+@keyframes iml-scan-fill { 0%,14%,100% { clip-path:inset(100% 0 0); opacity:.08; } 54%,78% { clip-path:inset(0 0 0); opacity:.72; } }
+@keyframes iml-scan-line { 0%,14% { top:0; opacity:0; } 22% { opacity:.72; } 54% { top:calc(100% - 1px); opacity:.72; } 72%,100% { top:calc(100% - 1px); opacity:0; } }
+@keyframes iml-scan-frame { 0%,100% { transform:scale(.94); opacity:.1; } 54%,78% { transform:scale(1); opacity:.32; } }
+
+.iml-pixel-grid { display:grid!important; grid-template-columns:repeat(4,1fr); gap:2%; padding:7%; }
+.iml-pixel-grid i { position:relative; width:100%; height:100%; background:color-mix(in srgb,currentColor 66%,transparent); animation:iml-pixel var(--iml-duration) cubic-bezier(.65,0,.35,1) infinite; animation-delay:var(--iml-delay); }
+@keyframes iml-pixel { 0%,14%,100% { opacity:.06; transform:translate(calc((var(--iml-x) - 1.5) * 7%),calc((var(--iml-y) - 1.5) * 7%)) scale(.72); border-radius:12%; } 44%,76% { opacity:calc(.34 + (var(--iml-x) + var(--iml-y)) * .045); transform:translate(0,0) scale(1); border-radius:2%; } }
+
+.iml-resolution { display:grid!important; grid-template-columns:repeat(6,1fr); gap:2%; padding:8%; background:color-mix(in srgb,currentColor 3%,transparent); }
+.iml-resolution i { position:relative; width:100%; height:100%; border-radius:16%; background:color-mix(in srgb,currentColor var(--iml-tone),transparent); opacity:.1; transform:scale(.9); animation:iml-resolution var(--iml-duration) cubic-bezier(.4,0,.2,1) infinite; animation-delay:var(--iml-delay); }
+@keyframes iml-resolution { 0%,18%,100% { opacity:.1; transform:scale(.9); filter:blur(.35px); } 46%,70% { opacity:.82; transform:scale(1); filter:blur(0); } 84% { opacity:.26; transform:scale(.96); filter:blur(0); } }
+
+.iml-focus i { border:1px solid currentColor; animation:iml-focus var(--iml-duration) cubic-bezier(.22,1,.36,1) infinite; }
+.iml-focus i:nth-child(1) { inset:8%; }
+.iml-focus i:nth-child(2) { inset:21%; animation-delay:calc(var(--iml-duration) * -.07); }
+.iml-focus i:nth-child(3) { inset:34%; animation-delay:calc(var(--iml-duration) * -.14); }
+.iml-focus b { inset:42%; background:currentColor; animation:iml-focus-core var(--iml-duration) ease-in-out infinite; }
+@keyframes iml-focus { 0%,14%,100% { opacity:.08; transform:scale(1.08); filter:blur(1px); } 46%,76% { opacity:.58; transform:scale(1); filter:blur(0); } }
+@keyframes iml-focus-core { 0%,14%,100% { opacity:.08; transform:scale(.72); } 48%,76% { opacity:.62; transform:scale(1); } }
+
+.iml-shutter { inset:7%!important; overflow:hidden; border:1px solid color-mix(in srgb,currentColor 18%,transparent); }
+.iml-shutter i { top:0; bottom:0; width:50%; background:color-mix(in srgb,currentColor 64%,transparent); animation:iml-shutter var(--iml-duration) cubic-bezier(.65,0,.35,1) infinite; }
+.iml-shutter i:nth-child(1) { left:0; transform-origin:left; }
+.iml-shutter i:nth-child(2) { right:0; transform-origin:right; }
+.iml-shutter b { left:calc(50% - .5px); top:0; bottom:0; width:1px; background:color-mix(in srgb,currentColor 35%,transparent); }
+.iml-shutter em { inset:13%; border:1px solid color-mix(in srgb,currentColor 42%,transparent); animation:iml-shutter-mark var(--iml-duration) ease-in-out infinite; }
+@keyframes iml-shutter { 0%,14%,100% { opacity:.1; transform:scaleX(.72); } 46%,76% { opacity:.68; transform:scaleX(1); } }
+@keyframes iml-shutter-mark { 0%,14%,100% { opacity:.06; transform:scale(.94); } 48%,76% { opacity:.42; transform:scale(1); } }
+
+.iml-contour i { width:35%; height:35%; border-color:currentColor; border-style:solid; animation:iml-contour var(--iml-duration) cubic-bezier(.22,1,.36,1) infinite; }
+.iml-contour i:nth-child(1) { left:8%; top:8%; border-width:2px 0 0 2px; }
+.iml-contour i:nth-child(2) { right:8%; top:8%; border-width:2px 2px 0 0; }
+.iml-contour i:nth-child(3) { right:8%; bottom:8%; border-width:0 2px 2px 0; }
+.iml-contour i:nth-child(4) { left:8%; bottom:8%; border-width:0 0 2px 2px; }
+.iml-contour b { inset:24%; background:color-mix(in srgb,currentColor 58%,transparent); animation:iml-contour-core var(--iml-duration) cubic-bezier(.65,0,.35,1) infinite; }
+@keyframes iml-contour { 0%,14%,100% { opacity:.08; transform:scale(.86); } 46%,76% { opacity:.64; transform:scale(1); } }
+@keyframes iml-contour-core { 0%,14%,100% { opacity:.04; transform:scale(.72); } 48%,76% { opacity:.54; transform:scale(1); } }
+
+.iml-loader[data-paused="true"] *,
+.iml-loader[data-paused="true"] *::before,
+.iml-loader[data-paused="true"] *::after { animation-play-state:paused!important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-loader *, .tl-loader *::before, .tl-loader *::after,
+  .il-loader *, .il-loader *::before, .il-loader *::after,
+  .iml-loader *, .iml-loader *::before, .iml-loader *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
 /* src/views/lui-panel/thinking.css */
-.stage-root:is(.uc4,.uc2) #lui.lui-refresh .uc4-thinking-content{margin-top:16px;padding-left:22px;color:#939393;font-size:14px;font-weight:400;line-height:20.272px;white-space:pre-wrap;overflow-wrap:break-word}
-.stage-root.uc4 .canvas .uc4-generating-card{position:relative;box-sizing:border-box;height:264px;min-height:264px;padding:0;background:rgba(42,42,42,.75);border:0;border-radius:16px;overflow:hidden;isolation:isolate}
-.stage-root.uc4 .uc4-generating-cloud{position:absolute;inset:0;background-image:url('./assets/uploads/uc4-generating-glow.svg');background-size:100% 100%;background-repeat:no-repeat;pointer-events:none;animation:uc4-generating-drift 5s ease-in-out infinite alternate;will-change:transform,opacity}
-.stage-root.uc4 .uc4-generating-label{position:absolute;z-index:1;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;color:#939393;font-size:14px;font-weight:400;line-height:22px;white-space:nowrap}
-@keyframes uc4-generating-drift{from{transform:translateX(-1%) scale(1.02);opacity:.85}to{transform:translateX(1%) scale(1.06);opacity:1}}
-@media(prefers-reduced-motion:reduce){.stage-root.uc4 .uc4-generating-cloud{animation:none!important;will-change:auto}}
-html:not(.dark) .stage-root.uc4 .canvas .uc4-generating-card{background:rgba(245,245,245,.75)}
-html:not(.dark) .stage-root:is(.uc4,.uc2) #lui.lui-refresh .uc4-thinking-content{color:#595959}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh .uc4-thinking-content{margin-top:16px;padding-left:22px;color:#939393;font-size:14px;font-weight:400;line-height:20.272px;white-space:pre-wrap;overflow-wrap:break-word}
+.stage-root:is(.uc4,.uc1,.uc3) .canvas .uc4-generating-card{position:relative;box-sizing:border-box;height:264px;min-height:264px;padding:0;background:rgba(42,42,42,.75);border:0;border-radius:16px;overflow:hidden;isolation:isolate}
+.stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-cloud{position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:inherit}
+.stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-label{position:absolute;z-index:1;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;color:#939393;font-size:14px;font-weight:400;line-height:22px;white-space:nowrap}
+@media(prefers-reduced-motion:reduce){.stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-cloud{animation:none!important;will-change:auto}}
+html:not(.dark) .stage-root:is(.uc4,.uc1,.uc3) .canvas .uc4-generating-card{background:rgba(245,245,245,.75)}
+html:not(.dark) .stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh .uc4-thinking-content{color:#595959}
+
+/* Three overlapping round fields: preserve softness on a wide canvas. */
+.stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-cloud{container-type:inline-size;filter:blur(18px);inset:-18px;overflow:visible;opacity:.95}
+.stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-orb{position:absolute;display:block;width:clamp(300px,42cqw,540px);height:auto;aspect-ratio:1;border-radius:50%;filter:blur(clamp(56px,6cqw,86px));mix-blend-mode:screen;will-change:transform;animation-timing-function:ease-in-out;animation-iteration-count:infinite;animation-direction:alternate;transform-origin:center;opacity:.32}
+.stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-orb.orb-rose{left:0;top:calc(50% - clamp(150px,21cqw,270px));background:radial-gradient(circle,rgba(244,114,182,.85) 0%,rgba(244,114,182,.48) 23%,rgba(244,114,182,.1) 48%,rgba(244,114,182,0) 69%);animation:uc4-orb-rose 6s ease-in-out infinite alternate}
+.stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-orb.orb-violet{left:29%;top:calc(39% - clamp(150px,21cqw,270px));background:radial-gradient(circle,rgba(167,139,250,.9) 0%,rgba(167,139,250,.5) 23%,rgba(167,139,250,.1) 48%,rgba(167,139,250,0) 69%);animation:uc4-orb-violet 7s ease-in-out infinite alternate;animation-delay:-2s}
+.stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-orb.orb-blue{right:-1%;top:calc(64% - clamp(150px,21cqw,270px));background:radial-gradient(circle,rgba(77,130,255,.95) 0%,rgba(77,130,255,.55) 23%,rgba(77,130,255,.12) 48%,rgba(77,130,255,0) 69%);animation:uc4-orb-blue 5.5s ease-in-out infinite alternate;animation-delay:-3s;opacity:.38}
+@keyframes uc4-orb-rose{0%{transform:translate(-8%,12%) scale(1.05)}50%{transform:translate(17%,-6%) scale(1.19)}100%{transform:translate(6%,5%) scale(.96)}}
+@keyframes uc4-orb-violet{0%{transform:translate(8%,-5%) scale(1.1)}50%{transform:translate(-12%,13%) scale(.96)}100%{transform:translate(-3%,-9%) scale(1.2)}}
+@keyframes uc4-orb-blue{0%{transform:translate(5%,8%) scale(.98)}50%{transform:translate(-17%,-13%) scale(1.16)}100%{transform:translate(-4%,3%) scale(1.07)}}
+@media(prefers-reduced-motion:reduce){.stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-orb{animation:none;will-change:auto}}
+html:not(.dark) .stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-orb{mix-blend-mode:multiply;opacity:.18}
+
+/* Original InlineLoader spark motion with a neutral status color. */
+.stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-label{display:flex;align-items:center;justify-content:center;gap:12px;min-height:32px;font-size:16px;line-height:24px}
+.stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-spark .il-spark i{background:#dfdfdf}
+
+/* src/views/lui-panel/uc1-chat.css */
+.stage-root #lui.lui-refresh .uc1-conversation .uc1-thought p{color:#939393;font-size:14px;font-weight:400;line-height:22px}
+.stage-root #lui.lui-refresh .uc1-query-scope{margin:12px 0 0;line-height:22px;font-size:14px}
+.stage-root #lui.lui-refresh .uc1-query-scope>div{display:flex;align-items:flex-start;gap:4px;margin-top:4px}
+.stage-root #lui.lui-refresh .uc1-query-scope dt{flex:none;color:#dfdfdf;font-weight:500}
+.stage-root #lui.lui-refresh .uc1-query-scope dd{margin:0;color:#c9c9c9;min-width:0}
+.stage-root #lui.lui-refresh .uc1-table-wrap{margin-top:12px;width:100%;overflow-x:auto}
+.stage-root #lui.lui-refresh .uc1-rule-table{width:100%;border-collapse:collapse;table-layout:auto;font-size:14px;font-weight:400;line-height:22px;color:#dfdfdf}
+.stage-root #lui.lui-refresh .uc1-rule-table th{background:#ffffff14;font-weight:500;text-align:left}
+.stage-root #lui.lui-refresh .uc1-rule-table :is(th,td){padding:8px 12px;border-bottom:1px solid #ffffff0d;vertical-align:top;overflow-wrap:break-word}
+.stage-root #lui.lui-refresh .uc1-rule-table tbody tr:nth-child(even){background:#ffffff08}
+.stage-root #lui.lui-refresh .uc1-rule-table td:nth-child(2){white-space:nowrap}
+.stage-root #lui.lui-refresh .uc1-completion{font-size:14px;line-height:22px}
+.stage-root #lui.lui-refresh .uc1-completion h3{font-size:14px;font-weight:500;margin:16px 0 8px}
+.stage-root #lui.lui-refresh .uc1-completion>p{margin:0}
+.stage-root #lui.lui-refresh .uc1-completion ul{padding-left:20px;margin:0 0 12px;line-height:24px}
+.stage-root #lui.lui-refresh .uc1-success{color:#36c18d}
+.stage-root #lui.lui-refresh .uc1-rules-artifact{margin-top:16px;border-radius:12px}
+.stage-root #lui.lui-refresh .uc1-rules-artifact small{font-size:12px;font-weight:400;color:#aeaeae;background:#ffffff14;padding:2px 6px;border-radius:4px;margin-left:4px}
+.stage-root #lui.lui-refresh .uc1-completion .uc1-followup{margin-top:16px}
+html:not(.dark) .stage-root #lui.lui-refresh .uc1-rule-table{color:#393939}
+html:not(.dark) .stage-root #lui.lui-refresh .uc1-rule-table th{background:#0000000d}
+html:not(.dark) .stage-root #lui.lui-refresh .uc1-rule-table tbody tr:nth-child(even){background:#00000005}
+html:not(.dark) .stage-root #lui.lui-refresh .uc1-query-scope :is(dt,dd){color:#595959}
+
+/* Pixso 2:261905: compact 14/22 summary and 32px table rows. */
+.stage-root #lui.lui-refresh .generated-card .uc1-completion{font-size:14px;line-height:22px;font-weight:400;color:#fff}
+.stage-root #lui.lui-refresh .generated-card .uc1-completion>p{margin:0;font-weight:400}
+.stage-root #lui.lui-refresh .generated-card .uc1-completion h3{margin:16px 0 8px;font-size:14px;line-height:22px;font-weight:500}
+.stage-root #lui.lui-refresh .generated-card .uc1-completion ul{margin:0 0 8px;padding-left:22px;line-height:22px;list-style:disc}
+.stage-root #lui.lui-refresh .generated-card .uc1-completion .uc1-table-wrap{margin:0}
+.stage-root #lui.lui-refresh .uc1-completion .uc1-rule-table{table-layout:fixed;color:#fff}
+.stage-root #lui.lui-refresh .uc1-completion .uc1-rule-table :is(th,td){height:32px;box-sizing:border-box;padding:4px 16px;line-height:22px;border-bottom:1px solid #ffffff0d}
+.stage-root #lui.lui-refresh .uc1-completion .uc1-rule-table th{background:#f3f3f31a;font-weight:500;position:relative}
+.stage-root #lui.lui-refresh .uc1-completion .uc1-rule-table th+th::before{content:"";position:absolute;left:0;top:10px;height:13px;width:1px;background:#777}
+.stage-root #lui.lui-refresh .uc1-completion .uc1-rule-table td:first-child{font-weight:500}
+.stage-root #lui.lui-refresh .uc1-completion .uc1-rule-table tbody tr:nth-child(even){background:#9393931a}
+.stage-root #lui.lui-refresh .uc1-completion .uc1-rules-artifact{margin-top:16px;height:93px;padding:16px;gap:16px;border-radius:12px;background:radial-gradient(ellipse at 100% 50%,#1e84e90a,transparent 72%),rgba(119,119,119,.15);text-align:left}
+.stage-root #lui.lui-refresh .uc1-rules-artifact .v7-conclusion-copy strong{padding:0;display:flex;align-items:center;gap:4px;font-size:16px;line-height:24px;font-weight:700}
+.stage-root #lui.lui-refresh .uc1-rules-artifact .v7-conclusion-copy small{height:20px;padding:0 8px;margin:0;background:#aeaeae26;font-size:12px;line-height:20px;color:#aeaeae}
+.stage-root #lui.lui-refresh .uc1-rules-artifact .v7-conclusion-copy>span{font-size:14px;line-height:22px;color:#939393;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stage-root #lui.lui-refresh .generated-card .uc1-completion .uc1-followup{margin:16px 0 0;font-weight:400}
+.stage-root #lui.lui-refresh .uc1-completion .response-footer{margin-top:16px;color:#c9c9c9}
 
 /* src/views/lui-panel/welcome.css */
 @font-face{font-family:"Pixso Aico Sans";src:url("./assets/uploads/pixso-ai-welcome/HarmonyOS_Sans_Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
@@ -8216,6 +8768,20 @@ html.dark .stage-root.uc4 #mappingCard.mapping-design .filters[aria-label="厂�
 .stage-root.uc4 #mappingCard.mapping-design[aria-busy="true"] .v7-map-node.dim,
 .stage-root.uc4 #mappingCard.mapping-design[aria-busy="true"] .v7-map-split.dim{opacity:.27}
 
+/* src/views/report-card/generation.css */
+/* Skeletons reserve report geometry; real data is revealed on the LUI completion timeline. */
+.stage-root.uc4 #reportCard .report-reveal-skeleton{position:relative;overflow:hidden;isolation:isolate;border-color:transparent;pointer-events:none}
+.stage-root.uc4 #reportCard .report-reveal-skeleton>*{visibility:hidden}
+.stage-root.uc4 #reportCard .report-reveal-skeleton::before{content:'';position:absolute;inset:0;z-index:1;border-radius:8px;background:linear-gradient(100deg,#ffffff05 15%,#ffffff0c 45%,#ffffff05 75%);background-size:240% 100%;animation:uc4-report-skeleton 1.8s ease-in-out infinite}
+.stage-root.uc4 #reportCard .v7-report-meta.report-reveal-skeleton{min-height:20px;width:55%}
+.stage-root.uc4 #reportCard .v7-compliance.report-reveal-skeleton{min-height:167px}
+.stage-root.uc4 #reportCard .v7-compliance.report-reveal-skeleton::before{border-radius:50%;width:142px;height:142px;inset:12px auto auto 12px}
+.stage-root.uc4 #reportCard .v11-conclusion.report-reveal-skeleton{background:transparent}
+.stage-root.uc4 #reportCard .report-reveal-content{animation:uc4-report-content .32s ease-out both}
+@keyframes uc4-report-skeleton{0%{background-position:100% 0}100%{background-position:-100% 0}}
+@keyframes uc4-report-content{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.stage-root.uc4 #reportCard :is(.report-reveal-skeleton::before,.report-reveal-content){animation:none}}
+
 /* src/views/report-card/design.css */
 /* Pixso 8:450302: report content only; the shared artifact frame stays intact. */
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-report-meta{display:flex;align-items:center;gap:0;margin-top:16px;font-size:12px;line-height:20px;color:#c9c9c9}
@@ -8321,6 +8887,9 @@ html.dark .stage-root.uc4 #mappingCard.mapping-design .filters[aria-label="厂�
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-guidance h4{display:flex;align-items:center;gap:4px;font-size:12px;line-height:20px;font-weight:400;color:#dfdfdf;margin:0}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-guidance h4 img{display:block;flex-shrink:0}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-guidance p{margin:0 0 0 18px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;min-height:40px;max-height:40px;font-size:12px;line-height:20px;color:#939393}
+
+/* Inspection rows keep text and inline indicators vertically centered. */
+.stage-root.uc4 #reportCard.report-design .v7-table :is(th,td){vertical-align:middle}
 
 /* src/views/uc2-canvas/restoration.css */
 /* UC2: intent GIF → continuous scan → topology reveal in one stable canvas. */
@@ -8720,6 +9289,135 @@ html:not(.dark) .uc2-code-panel,html:not(.dark) .uc2-evidence-check,html:not(.da
 html:not(.dark) .uc2-code-panel>header,html:not(.dark) .uc2-code-line{color:#595959}
 html:not(.dark) .uc2-device-item.selected{background:#e4f1ff;border-color:#8abfff}
 @container workspace (max-width:1000px){.uc2-rule-metadata{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:12px}.uc2-rule-body{grid-template-columns:248px minmax(0,1fr);gap:20px;min-height:520px}.uc2-rule-devices{padding-right:20px}.uc2-device-filters{gap:7px}.uc2-code-annotation{display:none}.uc2-scope-explanation{grid-template-columns:1fr}.uc2-rule-review{flex-wrap:wrap}}
+
+/* src/views/uc3-canvas/index.css */
+.stage-root.uc3 .canvas .card.uc3-rule-canvas{padding:0 20px 20px;border-radius:16px;background-color:#2a2a2abf;background-image:radial-gradient(#ffffff0c .8px,transparent .8px);background-size:16px 16px;border:0;overflow:hidden;box-sizing:border-box;color:#c9c9c9}
+.stage-root.uc3 .uc3-rule-heading{display:flex;align-items:center;gap:8px;height:56px;border-bottom:1px solid #f3f3f326;box-sizing:border-box}
+.stage-root.uc3 .uc3-rule-heading h2{margin:0;color:#fff;font-size:16px;line-height:24px;font-weight:500;min-width:0}
+.stage-root.uc3 .uc3-rule-version{color:#aeaeae;background:#aeaeae26;border-radius:4px;padding:0 8px;font-size:12px;line-height:20px;white-space:nowrap}
+.stage-root.uc3 .uc3-rule-tools{display:flex;align-items:center;gap:16px;margin-left:auto;flex:none}
+.stage-root.uc3 .uc3-rule-tests{color:#36c18d;background:#09aa7126;border-radius:4px;padding:0 8px;font-size:12px;line-height:20px;white-space:nowrap}
+.stage-root.uc3 .uc3-rule-tools .icon-btn{width:16px;height:20px;padding:0;display:grid;place-items:center;color:#dfdfdf;background:none;border:0;cursor:pointer}
+.stage-root.uc3 .uc3-rule-tools .icon-btn:hover{color:#fff}
+.stage-root.uc3 .uc3-rule-tools .icon-btn :is(svg,img){width:16px;height:16px}
+.stage-root.uc3 .uc3-graph-viewport{position:relative;width:100%;margin-top:20px;overflow:hidden}
+.stage-root.uc3 .uc3-graph-layout{position:relative;width:1192px;height:620px;transform-origin:top left}
+.stage-root.uc3 .uc3-graph-edges{position:absolute;inset:0;pointer-events:none}
+.stage-root.uc3 .uc3-graph-node{position:absolute;border:1px solid #ffffff26;background:#282828;border-radius:16px;box-sizing:border-box;overflow:hidden;min-height:144px;animation:uc3-node-reveal .45s ease both;animation-delay:var(--reveal-delay)}
+.stage-root.uc3 .uc3-graph-node header{height:54px;display:flex;align-items:center;gap:8px;padding:0 16px;box-sizing:border-box;background:#393939;color:#dfdfdf}
+.stage-root.uc3 .uc3-graph-node header :is(svg,img){width:14px;height:14px;flex:none}
+.stage-root.uc3 .uc3-graph-node h3{font-size:16px;font-weight:600;line-height:22px;margin:0;color:#f2f2f7}
+.stage-root.uc3 .uc3-graph-node-body{padding:6px 16px;font-size:14px;line-height:26px;height:90px;min-height:90px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center}
+.stage-root.uc3 .uc3-graph-node p{margin:0;color:#c9c9c9;font-size:14px;line-height:26px;white-space:nowrap}
+.stage-root.uc3 .uc3-graph-node.fail{border-color:#a73c46}
+.stage-root.uc3 .uc3-graph-node.fail header{background:#f247511f}.stage-root.uc3 .uc3-graph-node.fail header svg{color:#f24751}
+.stage-root.uc3 .uc3-graph-node.pass{border-color:#308365}
+.stage-root.uc3 .uc3-graph-node.pass header{background:#36c18d26}.stage-root.uc3 .uc3-graph-node.pass header svg{color:#36c18d}
+.stage-root.uc3 .uc3-graph-node[aria-label="整份配置结果"]{min-height:106px}.stage-root.uc3 .uc3-graph-node[aria-label="整份配置结果"] .uc3-graph-node-body{height:52px;min-height:52px}
+.stage-root.uc3 .uc3-edge-label{position:absolute;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:24px;height:24px;padding:1px 5px;font-size:12px;line-height:20px;color:#fff;background:#f3f3f333;border-radius:4px;white-space:nowrap}
+.stage-root.uc3 .uc3-edge-label>span{display:block;flex:none;line-height:20px;height:20px}
+.stage-root.uc3 .uc3-edge-label.pill{width:86px;height:22px;border-radius:12px;padding:1px 8px}
+.stage-root.uc3 .uc3-rule-evidence>h3{margin:0 0 16px;font-size:14px;line-height:22px;color:#fff;font-weight:500}
+.stage-root.uc3 .uc3-evidence-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.stage-root.uc3 .uc3-evidence-card{border:1px solid #ffffff26;border-radius:8px;padding:16px;min-height:144px;box-sizing:border-box}
+.stage-root.uc3 .uc3-evidence-card header{display:flex;align-items:center;gap:16px;margin-bottom:16px;height:24px}
+.stage-root.uc3 .uc3-evidence-card header :is(svg,img){width:24px;height:24px}.stage-root.uc3 .uc3-evidence-card h4{font-size:14px;font-weight:600;line-height:22px;color:#f2f2f7;margin:0}
+.stage-root.uc3 .uc3-evidence-card .blue{color:#2070f3}.stage-root.uc3 .uc3-evidence-card .cyan{color:#2fb3c5}.stage-root.uc3 .uc3-evidence-card .violet{color:#8563ff}
+.stage-root.uc3 .uc3-evidence-card p{margin:0;font-size:14px;line-height:24px;color:#c9c9c9}
+.stage-root.uc3 .is-building .uc3-graph-node :is(h3,p),.stage-root.uc3 .uc3-rule-evidence.is-building :is(h4,p){color:transparent;background:linear-gradient(90deg,#ffffff08,#ffffff14,#ffffff08);background-size:200% 100%;border-radius:4px;animation:uc3-skeleton 1.4s linear infinite}
+html.dark .stage-root.uc3 .canvas .card.uc3-rule-canvas:hover:has(:is(button,input,[role="button"]):hover){background-image:radial-gradient(#ffffff0c .8px,transparent .8px)}
+.stage-root.uc3 .uc3-editor-backdrop{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:#0008}
+.stage-root.uc3 .uc3-editor{width:480px;max-width:calc(100vw - 48px);padding:24px;border-radius:12px;background:#393939;color:#dfdfdf;box-shadow:0 8px 40px #0008}
+.stage-root.uc3 .uc3-editor header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}.stage-root.uc3 .uc3-editor h3{font-size:16px;margin:0}.stage-root.uc3 .uc3-editor label{display:flex;flex-direction:column;gap:8px;font-size:14px}.stage-root.uc3 .uc3-editor input{padding:8px 12px;background:#2a2a2a;color:#fff;border:1px solid #777;border-radius:4px;width:100%;box-sizing:border-box}.stage-root.uc3 .uc3-editor footer{display:flex;gap:12px;justify-content:flex-end;margin-top:24px}.stage-root.uc3 .uc3-editor footer button{padding:6px 16px;border:1px solid #777;border-radius:4px;background:transparent;color:#fff;cursor:pointer}.stage-root.uc3 .uc3-editor footer button:last-child{background:#0067d1;border-color:#0067d1}
+@keyframes uc3-skeleton{to{background-position:-200% 0}}@keyframes uc3-node-reveal{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.stage-root.uc3 .uc3-graph-node{animation:none}.stage-root.uc3 .is-building :is(h3,h4,p){animation:none}}
+
+.stage-root.uc3 .locate-highlight{position:relative;isolation:isolate}
+.stage-root.uc3 .locate-highlight::after{content:"";position:absolute;inset:0;padding:1px;border-radius:inherit;background:linear-gradient(110deg,#5ca2e9,#a18bfa);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:10;animation:smart-locate-border 2.4s ease forwards}
+
+.stage-root.uc3 .uc3-design-icon{display:block;object-fit:contain;flex:none}
+.stage-root.uc3 .uc3-rule-tools .icon-btn :is(svg,img){width:14px;height:14px}
+
+/* src/views/uc1-canvas/index.css */
+.stage-root.uc1 .uc1-rules-canvas{--uc1-surface:rgba(42,42,42,.75);background:var(--uc1-surface);border:0;border-radius:16px;padding:0 20px 20px;min-width:0;height:894px;max-height:calc(100vh - 170px);display:flex;flex-direction:column;gap:0;color:#dfdfdf}
+.stage-root.uc1 .uc1-rules-heading{height:56px;min-height:56px;border-bottom:0;display:flex;align-items:center;gap:8px}
+.stage-root.uc1 .uc1-rules-heading h2{margin:0;font-size:14px;line-height:22px;font-weight:500;color:#fff}
+.stage-root.uc1 .uc1-rule-version{padding:0 8px;height:20px;line-height:20px;border-radius:4px;font-size:12px;background:#ffffff14;color:#aeaeae}
+.stage-root.uc1 .uc1-source-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:24px}
+.stage-root.uc1 .uc1-source-card{height:88px;display:flex;align-items:center;gap:16px;padding:16px 28px;min-width:0;background:rgba(57,57,57,.75);border:1px solid transparent;border-radius:8px;text-align:left;transition:background .18s,border-color .18s}
+.stage-root.uc1 .uc1-source-card:hover{background:#414141}
+.stage-root.uc1 .uc1-source-card.selected{border-color:#2070f3}
+.stage-root.uc1 .uc1-source-card>img{flex-shrink:0;width:36px;height:36px}
+.stage-root.uc1 .uc1-source-card>span{display:flex;flex-direction:column;gap:0;min-width:0}
+.stage-root.uc1 .uc1-source-card strong{font-size:24px;line-height:32px;font-weight:500;color:#fff}
+.stage-root.uc1 .uc1-source-card>span>span{font-size:14px;line-height:22px;color:#939393;white-space:nowrap}
+.stage-root.uc1 .uc1-rules-toolbar{display:flex;align-items:center;gap:8px;min-height:32px;margin-top:24px;margin-bottom:16px}
+.stage-root.uc1 :is(.uc1-rules-search,.uc1-rules-toolbar select,.uc1-rule-pagination select,.uc1-page-jump){border:1px solid #777777;border-radius:4px;background:transparent;height:32px;color:#dfdfdf;font-size:14px}
+.stage-root.uc1 .uc1-rules-search{width:296px;max-width:42%;display:flex;align-items:center;padding:0 12px;gap:4px}
+.stage-root.uc1 .uc1-rules-search .ic{width:14px;height:14px;color:#aeaeae}
+.stage-root.uc1 .uc1-rules-search input{min-width:0;width:100%;padding:0;border:0;background:none;outline:0;color:#dfdfdf;font-size:14px}
+.stage-root.uc1 .uc1-rules-search input::placeholder{color:#939393}
+.stage-root.uc1 .uc1-rules-toolbar select{width:174px;max-width:35%;padding:0 12px}
+.stage-root.uc1 .uc1-select-all{margin-left:auto;display:inline-flex;align-items:center;align-self:center;height:32px;line-height:22px;gap:8px;font-size:14px;color:#c9c9c9;white-space:nowrap;cursor:pointer}
+.stage-root.uc1 .uc1-rules-canvas input[type=checkbox]{appearance:none;display:inline-grid;place-items:center;flex-shrink:0;box-sizing:border-box;width:16px;height:16px;border:1px solid #777;border-radius:2px;background:none;cursor:pointer;margin:0;vertical-align:middle}
+.stage-root.uc1 .uc1-rules-canvas input[type=checkbox]:checked,.stage-root.uc1 .uc1-rules-canvas input[type=checkbox]:indeterminate{background:#0067d1;border-color:#2070f3}
+.stage-root.uc1 .uc1-rules-canvas input[type=checkbox]:checked::after{content:'';width:8px;height:4px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:translateY(-1px) rotate(-45deg)}
+.stage-root.uc1 .uc1-rules-canvas input[type=checkbox]:indeterminate::after{content:'';width:8px;height:1px;background:#fff}
+.stage-root.uc1 .uc1-rule-list{display:flex;flex-direction:column;gap:16px;flex:1;min-height:100px;overflow:auto;scrollbar-width:thin;scrollbar-color:#595959 transparent;overscroll-behavior:contain;padding-right:0}
+.stage-root.uc1 .uc1-rule-row{flex-shrink:0;min-height:104px;padding:12px 16px;border:1px solid #ffffff14;border-radius:8px;background:rgba(42,42,42,.75)}
+.stage-root.uc1 .uc1-rule-row.selected{border-color:#2070f3;background:#2070f30d}
+.stage-root.uc1 .uc1-rule-row-heading{display:flex;align-items:flex-start;gap:12px;min-height:22px}
+.stage-root.uc1 .uc1-rule-row-heading>input{margin-top:2px}
+.stage-root.uc1 .uc1-rule-row h3{margin:0;line-height:22px;font-size:14px;font-weight:500;color:#fff;min-width:0;flex:1}
+.stage-root.uc1 .uc1-rule-badges{display:flex;align-items:center;gap:6px;margin-left:12px;flex-shrink:0}
+.stage-root.uc1 .uc1-rule-badges span{padding:0 8px;height:20px;line-height:20px;color:#36c18d;border-radius:4px;background:#09aa7126;font-size:12px;white-space:nowrap}
+.stage-root.uc1 .uc1-rule-metadata{margin:10px 0 0 28px;display:grid;grid-template-columns:1fr 1fr 1.2fr 2fr;column-gap:28px;line-height:20px;font-size:12px}
+.stage-root.uc1 .uc1-rule-metadata>div{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:4px 8px;align-content:start}
+.stage-root.uc1 .uc1-rule-metadata dt{color:#939393;white-space:nowrap}
+.stage-root.uc1 .uc1-rule-metadata dd{margin:0;color:#c9c9c9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stage-root.uc1 .uc1-rule-metadata i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#f85c67;margin-right:4px}
+.stage-root.uc1 .uc1-rule-pagination{display:flex;align-items:center;gap:24px;min-height:32px;margin-top:16px;font-size:14px;white-space:nowrap}
+.stage-root.uc1 .uc1-rule-pagination b{color:#5ca2e9;font-weight:400;margin-left:8px}
+.stage-root.uc1 .uc1-pagination-controls{display:flex;align-items:center;gap:8px;margin-left:auto}
+.stage-root.uc1 .uc1-pagination-controls select{padding:0 12px;width:154px;margin-right:4px}
+.stage-root.uc1 .uc1-pagination-controls button{height:32px;min-width:32px;border-radius:4px;padding:0 8px;color:#dfdfdf;font-size:14px}
+.stage-root.uc1 .uc1-pagination-controls button[aria-current=page]{background:#0067d166;color:#fff}
+.stage-root.uc1 .uc1-pagination-controls button:hover:not(:disabled){background:#ffffff14}
+.stage-root.uc1 .uc1-pagination-controls .ic{width:14px;height:14px}
+.stage-root.uc1 .uc1-page-item{display:flex;gap:8px;align-items:center}
+.stage-root.uc1 .uc1-page-ellipsis{width:24px;text-align:center;color:#939393}
+.stage-root.uc1 .uc1-page-jump{display:flex;margin-left:8px}
+.stage-root.uc1 .uc1-page-jump input{width:46px;min-width:0;border:0;border-right:1px solid #777;background:none;outline:0;color:#dfdfdf;text-align:center}
+.stage-root.uc1 .uc1-page-jump button{height:30px;border-radius:0;padding:0 12px}
+@container workspace (max-width:1000px){.stage-root.uc1 .uc1-rule-metadata{column-gap:16px;grid-template-columns:1fr 1fr 1.2fr 1.7fr}.stage-root.uc1 .uc1-source-card{padding:16px;gap:12px}.stage-root.uc1 .uc1-rule-pagination{gap:16px;flex-wrap:wrap}.stage-root.uc1 .uc1-pagination-controls{gap:4px}.stage-root.uc1 .uc1-pagination-controls select{width:110px}}
+@container workspace (max-width:760px){.stage-root.uc1 .uc1-rule-metadata{grid-template-columns:1fr 1fr;row-gap:10px}.stage-root.uc1 .uc1-rule-row{min-height:150px}.stage-root.uc1 .uc1-source-cards{gap:8px}.stage-root.uc1 .uc1-source-card{padding:12px;gap:8px}.stage-root.uc1 .uc1-source-card>img{width:28px;height:28px}.stage-root.uc1 .uc1-pagination-controls{flex-wrap:wrap;margin-left:0}.stage-root.uc1 .uc1-rule-badges{gap:4px;margin-left:0}.stage-root.uc1 .uc1-rule-badges span{padding:0 4px}}
+html:not(.dark) .stage-root.uc1 .uc1-rules-canvas{background:#fafafa;color:#393939}
+html:not(.dark) .stage-root.uc1 .uc1-source-card,html:not(.dark) .stage-root.uc1 .uc1-rule-row{background:#f0f0f0}
+html:not(.dark) .stage-root.uc1 :is(.uc1-rules-heading h2,.uc1-source-card strong,.uc1-rule-row h3,.uc1-rule-metadata dd,.uc1-rules-search input,.uc1-pagination-controls button){color:#393939}
+
+/* Use the same artifact action and nested-hover contract as UC4. */
+.stage-root.uc1 .uc1-rules-heading .v7-open-card-tab{position:static;margin-left:auto;display:grid;place-items:center;width:24px;height:24px;padding:5px;border-radius:4px;color:#aeaeae}
+.stage-root.uc1 .uc1-rules-heading .v7-open-card-tab:hover{background:#ffffff0d}
+html.dark .stage-root.uc1 .canvas .card.uc1-rules-canvas:hover:has(:is(button,a[href],input,select,textarea,summary,label,.uc1-rules-search,[role="button"],[data-canvas-interactive]):hover){background-image:none}
+
+.stage-root.uc1 .uc1-select-all>span{display:flex;align-items:center;height:22px;line-height:22px}
+
+/* Skeletons reserve the final geometry while the answer streams. */
+.stage-root.uc1 .uc1-rules-canvas .is-skeleton{position:relative;overflow:hidden;pointer-events:none;border-color:transparent!important;background:rgba(57,57,57,.5)!important}
+.stage-root.uc1 .uc1-rules-canvas .is-skeleton>*{visibility:hidden}
+.stage-root.uc1 .uc1-rules-canvas .is-skeleton::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 20%,#ffffff09 45%,#ffffff15 50%,#ffffff09 55%,transparent 80%);transform:translateX(-100%);animation:uc1-skeleton-shimmer 1.6s ease-in-out infinite}
+.stage-root.uc1 .uc1-rule-row.is-skeleton::before{content:'';position:absolute;inset:16px;border-radius:4px;background:linear-gradient(#ffffff0a,#ffffff0a) 0 0/45% 16px no-repeat,linear-gradient(#ffffff08,#ffffff08) 0 36px/90% 12px no-repeat,linear-gradient(#ffffff08,#ffffff08) 0 60px/75% 12px no-repeat}
+.stage-root.uc1 .uc1-rules-canvas .is-revealed{animation:uc1-content-reveal .3s ease-out both}
+@keyframes uc1-skeleton-shimmer{to{transform:translateX(100%)}}
+@keyframes uc1-content-reveal{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.stage-root.uc1 .uc1-rules-canvas :is(.is-skeleton::after,.is-revealed){animation:none}}
+
+/* Pixso 2:278226: centered illustration, one caption, no empty pagination. */
+.stage-root.uc1 .uc1-rule-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;min-height:220px;gap:0;transform:translateY(-5%);color:#939393;font-size:14px;font-weight:400;line-height:22px}
+.stage-root.uc1 .uc1-rule-empty>img{display:block;flex:none;width:124px;height:100px;object-fit:contain;opacity:.5}
+.stage-root.uc1 .uc1-rule-empty>p{margin:0;min-height:22px;line-height:22px;color:#939393;font-size:14px;font-weight:400;text-align:center}
+.stage-root.uc1 .uc1-select-all.is-disabled{color:#939393;cursor:default}
+.stage-root.uc1 .uc1-rules-canvas input[type=checkbox]:disabled{background:#555;border-color:#666;cursor:default}
 
 </style></head><body><div id="root"></div><script>
 const ReactJsxRuntime={Fragment:React.Fragment,jsx:(type,props,key)=>React.createElement(type,key===undefined?props:{...props,key}),jsxs:(type,props,key)=>React.createElement(type,key===undefined?props:{...props,key})};
@@ -58803,6 +59501,7 @@ function AppProvider({
   const [luiView, setLuiView] = (0, _react.useState)("home");
   const [taskPrompt, setTaskPrompt] = (0, _react.useState)(_workflow.DEFAULT_PROMPT);
   const [stage, setStage] = (0, _react.useState)(4);
+  const [reportRevealStartedAt, setReportRevealStartedAt] = (0, _react.useState)(null);
   const [runningIndex, setRunningIndex] = (0, _react.useState)(0);
   const [scanSeq, setScanSeq] = (0, _react.useState)(0);
   const [promptText, setPromptText] = (0, _react.useState)("");
@@ -58810,6 +59509,9 @@ function AppProvider({
   const timerRef = (0, _react.useRef)(0);
   const taskPromptRef = (0, _react.useRef)(_workflow.DEFAULT_PROMPT);
   const scanCtlRef = (0, _react.useRef)(null);
+  const [uc1Phase, setUc1Phase] = (0, _react.useState)(-2);
+  const [uc3Phase, setUc3Phase] = (0, _react.useState)(-2);
+  const [uc1SummaryStage, setUc1SummaryStage] = (0, _react.useState)(-1);
 
   // 画布页签
   const [openDevices, setOpenDevices] = (0, _react.useState)([]);
@@ -58899,6 +59601,7 @@ function AppProvider({
     taskPromptRef.current = prompt;
     setTaskPrompt(prompt);
     setLuiView("done");
+    setReportRevealStartedAt(Date.now());
     setStage(4);
     setLuiOpen(true);
     setCanvasHidden(false);
@@ -59165,6 +59868,7 @@ function AppProvider({
     if (runningRef.current) advanceRef.current(3);
   }, []);
   const runTask = (0, _react.useCallback)(prompt => {
+    setReportRevealStartedAt(null);
     setLuiFocus(null);
     setActiveArtifact(null);
     setArtifactTabs([]);
@@ -59192,7 +59896,56 @@ function AppProvider({
       setScanSeq(s => s + 1);
     }, _thoughtCopy.THINKING_DURATION);
   }, [stopScan]);
+  const runUc1 = (0, _react.useCallback)((prompt = "当前全网有哪些检查规则？") => {
+    uc2Leave();
+    clearTimeout(timerRef.current);
+    runningRef.current = false;
+    stopScan();
+    setUc1SummaryStage(-1);
+    setUc1Phase(-2);
+    setTaskPrompt(prompt);
+    setPromptText("");
+    setLuiView("uc1");
+    setLuiOpen(true);
+    setCanvasHidden(false);
+    setAgentActive(true);
+    setStage(-1);
+    setRunningIndex(-1);
+    setActivePane("task");
+    setOpenDevices([]);
+    setArtifactTabs([]);
+    setActiveArtifact(null);
+    setLuiFocus(null);
+  }, [stopScan]);
+  const runUc3 = (0, _react.useCallback)((prompt = '帮我创建规则：用户接口空闲超时时间不能超过10分钟') => {
+    uc2Leave();
+    clearTimeout(timerRef.current);
+    runningRef.current = false;
+    stopScan();
+    setLuiFocus(null);
+    setUc3Phase(-2);
+    setTaskPrompt(prompt);
+    setPromptText('');
+    setLuiView('uc3');
+    setLuiOpen(true);
+    setCanvasHidden(false);
+    setAgentActive(true);
+    setStage(-1);
+    setRunningIndex(-1);
+    setActivePane('task');
+    setOpenDevices([]);
+    setArtifactTabs([]);
+    setActiveArtifact(null);
+  }, [stopScan]);
   const chooseUC = (0, _react.useCallback)(i => {
+    if (i === 0) {
+      runUc1();
+      return;
+    }
+    if (i === 2) {
+      runUc3();
+      return;
+    }
     if (i === 3) {
       runTask(_workflow.recs[3][2]);
       setResetMapSignal(s => s + 1);
@@ -59204,10 +59957,18 @@ function AppProvider({
     }
     setPromptText(_workflow.recs[i][2]);
     toast("提示词已填入；本次交互稿重点展示第 4 个用例。");
-  }, [runTask, toast]);
+  }, [runTask, runUc1, runUc3, toast]);
   const submitPrompt = (0, _react.useCallback)(p0 => {
     const p = p0.trim();
     if (!p) return;
+    if (/(当前全网.*(检查规则|规则)|查询当前全量配置检查项)/.test(p)) {
+      runUc1(p === "查询当前全量配置检查项" ? "当前全网有哪些检查规则？" : p);
+      return;
+    }
+    if (/(创建.*规则|建一条.*规则|帮我建.*检查规则)/.test(p)) {
+      runUc3(p === '帮我建一条检查规则' ? '帮我创建规则：用户接口空闲超时时间不能超过10分钟' : p);
+      return;
+    }
     if (/黄金|挖掘/.test(p)) {
       uc2StartRef.current();
       return;
@@ -59227,7 +59988,7 @@ function AppProvider({
       return;
     }
     toast("当前原型支持 HCS1 设备基线检查，请点击第 4 个推荐问题体验。");
-  }, [runTask, toast]);
+  }, [runTask, runUc1, runUc3, toast]);
 
   // 画布页签/设备
   const switchPane = (0, _react.useCallback)(id => {
@@ -59305,9 +60066,16 @@ function AppProvider({
     agentActive,
     full,
     setFull,
+    uc3Phase,
+    setUc3Phase,
+    uc1Phase,
+    setUc1Phase,
+    uc1SummaryStage,
+    setUc1SummaryStage,
     luiView,
     taskPrompt,
     stage,
+    reportRevealStartedAt,
     runningIndex,
     scanSeq,
     promptText,
@@ -60463,7 +61231,7 @@ function Stage() {
     luiView
   } = (0, _context.useApp)();
   const isUc4 = !uc2.active && (luiView === 'running' || luiView === 'done');
-  const stageCls = ["stage-root", "pc-layout", isUc4 ? "uc4" : "", uc2.active ? "uc2" : "", uc2.active && uc2.max === 0 ? "uc2-intent" : "", uc2.active && uc2.max >= 2 && uc2Fusion.drawer ? "uc2-rule-drawer" : ""].filter(Boolean).join(" ");
+  const stageCls = ["stage-root", "pc-layout", isUc4 ? "uc4" : "", luiView === "uc1" ? "uc1" : "", luiView === "uc3" ? "uc3" : "", uc2.active ? "uc2" : "", uc2.active && uc2.max === 0 ? "uc2-intent" : "", uc2.active && uc2.max >= 2 && uc2Fusion.drawer ? "uc2-rule-drawer" : ""].filter(Boolean).join(" ");
   return /*#__PURE__*/React.createElement("div", {
     className: "stage-viewport"
   }, /*#__PURE__*/React.createElement("div", {
@@ -61997,13 +62765,15 @@ function useMapNavigation(mapRef, metricsRef) {
   };
 }
 }};
-modules["src/views/lui-panel/index.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/workflow.js":"src/mock/workflow.js","../../components/status-marks/index.jsx":"src/components/status-marks/index.jsx","../../mock/audit.js":"src/mock/audit.js","./glyph.jsx":"src/views/lui-panel/glyph.jsx","./response-tools.jsx":"src/views/lui-panel/response-tools.jsx","./design.css":"src/views/lui-panel/design.css","./uc2-chat.jsx":"src/views/lui-panel/uc2-chat.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","./composer.jsx":"src/views/lui-panel/composer.jsx","./welcome.jsx":"src/views/lui-panel/welcome.jsx","./thinking.jsx":"src/views/lui-panel/thinking.jsx","./motion.jsx":"src/views/lui-panel/motion.jsx"},run:function(require,module,exports){
+modules["src/views/lui-panel/index.jsx"]={deps:{"./uc3-chat.jsx":"src/views/lui-panel/uc3-chat.jsx","../../mock/uc4-completion.js":"src/mock/uc4-completion.js","../../context.jsx":"src/context.jsx","../../mock/workflow.js":"src/mock/workflow.js","../../components/status-marks/index.jsx":"src/components/status-marks/index.jsx","../../mock/audit.js":"src/mock/audit.js","./glyph.jsx":"src/views/lui-panel/glyph.jsx","./response-tools.jsx":"src/views/lui-panel/response-tools.jsx","./design.css":"src/views/lui-panel/design.css","./uc2-chat.jsx":"src/views/lui-panel/uc2-chat.jsx","./uc1-chat.jsx":"src/views/lui-panel/uc1-chat.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","./composer.jsx":"src/views/lui-panel/composer.jsx","./welcome.jsx":"src/views/lui-panel/welcome.jsx","./thinking.jsx":"src/views/lui-panel/thinking.jsx","./motion.jsx":"src/views/lui-panel/motion.jsx"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = LuiPanel;
+var _uc3Chat = _interopRequireDefault(require("./uc3-chat.jsx"));
+var _uc4Completion = require("../../mock/uc4-completion.js");
 var _react = require("react");
 var _context = require("../../context.jsx");
 var _workflow = require("../../mock/workflow.js");
@@ -62013,6 +62783,7 @@ var _glyph = _interopRequireDefault(require("./glyph.jsx"));
 var _responseTools = _interopRequireDefault(require("./response-tools.jsx"));
 require("./design.css");
 var _uc2Chat = _interopRequireDefault(require("./uc2-chat.jsx"));
+var _uc1Chat = _interopRequireDefault(require("./uc1-chat.jsx"));
 var _index2 = _interopRequireDefault(require("../../components/icon-el/index.jsx"));
 var _composer = _interopRequireDefault(require("./composer.jsx"));
 var _welcome = _interopRequireDefault(require("./welcome.jsx"));
@@ -62293,27 +63064,11 @@ function WorkflowSteps({
 }
 
 // Stream completion content without changing the workflow completion/collapse rules.
-function completionLines(summary) {
-  return [['h2', '已完成 HCS1 区的全量基线检查'], ['p', `已对 ${summary.total}台设备执行全部 24条适用规则检查，${summary.passed}台通过、${summary.failed}台不通过，整网合规度为 ${summary.compliance}%。`], ['p', `发现 ${summary.rules}条规则不通过，包括${summary.top}等。单台设备最多有 4条规则不通过，详情见右侧报告。`], ['h3', '处理建议'], ['li', `${(0, _audit.affectedBy)('timeout').length}台设备存在空闲超时超限，3台设备使用不符合基线的 SSH 算法，建议核验后调整。`, '登录安全：'], ['li', '2台管理 IP、2台 NTP 时钟源与规划不一致，建议核对变更审批，再恢复配置或更新台账。', '规划一致性：'], ['li', '1台设备额外放通未规划 VLAN，建议核验业务依赖后收敛放通范围。', '网络访问范围：'], ['div', '以上为建议，尚未执行；具体配置与修复命令按设备、规则分别查看。']];
-}
-function completionTimeline(summary) {
-  let delay = 0;
-  return completionLines(summary).map(([as, text, leading]) => {
-    const item = {
-      as,
-      text,
-      leading,
-      delay
-    };
-    delay += (0, _motion.streamDuration)(text) + 80;
-    return item;
-  });
-}
 function Completion({
   onLocateReport,
   timestamp
 }) {
-  const lines = completionTimeline((0, _audit.summaryParts)());
+  const lines = (0, _uc4Completion.completionTimeline)((0, _audit.summaryParts)());
   const end = lines.at(-1).delay + (0, _motion.streamDuration)(lines.at(-1).text) + 180;
   return /*#__PURE__*/React.createElement("section", {
     className: "completion audit-completion",
@@ -62412,7 +63167,7 @@ function InspectionConversation({
     onLocateReport: onLocateReport,
     timestamp: timestamp
   }), /*#__PURE__*/React.createElement(_motion.RevealAfter, {
-    delay: completionTimeline(summary).reduce((end, line) => line.delay + (0, _motion.streamDuration)(line.text), 0) + 180
+    delay: (0, _uc4Completion.completionTimeline)(summary).reduce((end, line) => line.delay + (0, _motion.streamDuration)(line.text), 0) + 180
   }, /*#__PURE__*/React.createElement(_responseTools.default, {
     timestamp: timestamp.slice(5),
     duration: finished?.duration || "0.0",
@@ -62441,7 +63196,7 @@ function LuiPanel() {
   const menuRef = (0, _react.useRef)(null);
   const [menuOpen, setMenuOpen] = (0, _react.useState)(false);
   const [welcomeFeature, setWelcomeFeature] = (0, _react.useState)(null);
-  const detailTitle = luiView === "home" ? "网络运维智能体" : luiView === "uc2" ? "挖掘黄金基线" : "检查基线要求";
+  const detailTitle = luiView === "home" ? "网络运维智能体" : luiView === "uc1" ? "查询检查规则" : luiView === "uc3" ? "创建检查规则" : luiView === "uc2" ? "挖掘黄金基线" : "检查基线要求";
   (0, _react.useEffect)(() => {
     if (!menuOpen) return;
     const closeOutside = event => {
@@ -62526,6 +63281,10 @@ function LuiPanel() {
         preventScroll: true
       }));
     }
+  }) : luiView === "uc1" ? /*#__PURE__*/React.createElement(_uc1Chat.default, {
+    key: taskPrompt
+  }) : luiView === "uc3" ? /*#__PURE__*/React.createElement(_uc3Chat.default, {
+    key: taskPrompt
   }) : luiView === "running" || luiView === "done" ? /*#__PURE__*/React.createElement(InspectionConversation, {
     running: luiView === "running",
     active: runningIndex,
@@ -62548,147 +63307,518 @@ function LuiPanel() {
   }));
 }
 }};
-modules["src/components/status-marks/index.jsx"]={deps:{"../../../assets/shared/icon.jsx":"assets/shared/icon.jsx","../../mock/audit.js":"src/mock/audit.js"},run:function(require,module,exports){
+modules["src/views/lui-panel/uc3-chat.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/uc3-rule.js":"src/mock/uc3-rule.js","./motion.jsx":"src/views/lui-panel/motion.jsx","./glyph.jsx":"src/views/lui-panel/glyph.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","./response-tools.jsx":"src/views/lui-panel/response-tools.jsx","./uc3-chat.css":"src/views/lui-panel/uc3-chat.css"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ArtifactIcon = ArtifactIcon;
-exports.ArtifactTag = ArtifactTag;
-exports.PriorityBadge = PriorityBadge;
-exports.PriorityDistribution = PriorityDistribution;
-exports.StatusMark = StatusMark;
+exports.default = Uc3Chat;
 var _react = require("react");
-var _icon = require("../../../assets/shared/icon.jsx");
-var _audit = require("../../mock/audit.js");
-// 检查结果状态标记（最终口径：不通过/通过）
-function StatusMark({
-  failed,
-  label
-}) {
-  return /*#__PURE__*/React.createElement("span", {
-    className: "status-label " + (failed ? "bad" : "good")
-  }, /*#__PURE__*/React.createElement(_icon.Icon, {
-    name: failed ? "x" : "check",
-    className: "ic",
-    strokeWidth: 1.6
-  }), label || (failed ? "不通过" : "通过"));
-}
-
-// 优先级徽章
-function PriorityBadge({
-  priority
-}) {
-  return /*#__PURE__*/React.createElement("span", {
-    className: "v7-priority-badge " + priority,
-    "aria-label": _audit.priorityLabels[priority] + "优先级"
-  }, /*#__PURE__*/React.createElement("i", null), _audit.priorityLabels[priority], "优先级");
-}
-
-// 优先级分布（设备维度）
-function PriorityDistribution({
-  device
-}) {
-  const counts = (0, _audit.priorityCounts)(device);
-  return /*#__PURE__*/React.createElement("div", {
-    className: "v7-priority-distribution",
-    "aria-label": `不通过规则：高${counts.high}条、中${counts.medium}条、低${counts.low}条`
-  }, _audit.priorityLevels.map(p => /*#__PURE__*/React.createElement("span", {
-    key: p,
-    className: "v7-priority-count " + p + (counts[p] ? "" : " zero"),
-    title: `${_audit.priorityLabels[p]}优先级不通过规则${counts[p]}条`
-  }, /*#__PURE__*/React.createElement("i", null), /*#__PURE__*/React.createElement("span", null, _audit.priorityLabels[p]), /*#__PURE__*/React.createElement("strong", null, counts[p]))));
-}
-
-// Exact Pixso artwork for the three UC4 artifact headings and their LUI tags.
-function ArtifactIcon({
-  type = 'process',
-  shape = 'report'
-}) {
-  const id = 'uc4-artifact-' + (0, _react.useId)().replace(/:/g, ''),
-    conclusion = type === 'conclusion';
-  const artwork = {
-    overview: 'artifact-network-title.svg',
-    mapping: 'artifact-mapping-title.svg',
-    report: 'artifact-report-title.svg'
-  };
-  if (artwork[shape]) return /*#__PURE__*/React.createElement("img", {
-    className: 'v7-artifact-icon ' + type,
-    src: './assets/uploads/' + artwork[shape],
-    alt: "",
-    "aria-hidden": "true"
+var _context = require("../../context.jsx");
+var _uc3Rule = require("../../mock/uc3-rule.js");
+var _motion = require("./motion.jsx");
+var _glyph = _interopRequireDefault(require("./glyph.jsx"));
+var _index = _interopRequireDefault(require("../../components/icon-el/index.jsx"));
+var _responseTools = _interopRequireDefault(require("./response-tools.jsx"));
+require("./uc3-chat.css");
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+const charDuration = text => Math.ceil(Array.from(text).length / 48 * 1000);
+function sequence(items, start = 0) {
+  let at = start;
+  return items.map(text => {
+    const delay = at;
+    at += charDuration(text) + 100;
+    return {
+      text,
+      delay
+    };
   });
-  const paths = {
-    overview: 'M3 3h6l6-2 6 2v18l-6-2-6 2-6-2zm7 2v13l4-1.3V3.7zm6-1v13l3 1V5z',
-    mapping: 'M3 2h7v6H3zM14 2h7v6h-7zM3 16h7v6H3zM14 16h7v6h-7zM5 8h3v3h8V8h3v6h-3v2h-3v-2H8v2H5z',
-    report: 'M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 2v5h5zM8 12v2h8v-2zm0 4v2h8v-2z',
-    server: 'M4 3h16a1 1 0 0 1 1 1v6H3V4a1 1 0 0 1 1-1zm2 3v2h2V6zM3 13h18v7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1zm3 3v2h2v-2z',
-    rules: 'M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm1 5 2 2 3-3-1.4-1.4L9 6.2l-.6-.6zm6 0v2h4V7zm-6 7 2 2 3-3-1.4-1.4L9 13.2l-.6-.6zm6 0v2h4v-2z'
-  };
-  return /*#__PURE__*/React.createElement("svg", {
-    className: 'v7-artifact-icon ' + type,
-    viewBox: "0 0 24 24",
-    "aria-hidden": "true",
-    focusable: "false"
-  }, conclusion && /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
-    id: id,
-    x1: "0",
-    y1: "0",
-    x2: "1",
-    y2: "1"
-  }, /*#__PURE__*/React.createElement("stop", {
-    stopColor: "#5CA2E9"
-  }), /*#__PURE__*/React.createElement("stop", {
-    offset: "1",
-    stopColor: "#A18BFA"
-  }))), /*#__PURE__*/React.createElement("path", {
-    fill: conclusion ? 'url(#' + id + ')' : 'currentColor',
-    fillRule: "evenodd",
-    d: paths[shape] || paths.report
-  }));
 }
-
-// 产物标签按钮（LUI 内嵌，点击定位画布卡片）
-function ArtifactTag({
-  title,
-  type,
-  shape,
-  onLocate,
-  timestamp
+function Table({
+  headers,
+  rows,
+  label,
+  animate = false
 }) {
-  const kind = shape === 'overview' ? 'network' : shape === 'mapping' ? 'artifact' : 'report';
-  if (type === 'conclusion') return /*#__PURE__*/React.createElement("button", {
+  const offsets = sequence(rows.map(row => row.map(value => typeof value === 'string' ? value : '通过').join(' ')));
+  return /*#__PURE__*/React.createElement("div", {
+    className: "uc3-table-wrap"
+  }, /*#__PURE__*/React.createElement("table", {
+    className: "uc3-rule-table",
+    "aria-label": label
+  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, headers.map(x => /*#__PURE__*/React.createElement("th", {
+    key: x,
+    scope: "col"
+  }, x)))), /*#__PURE__*/React.createElement("tbody", null, rows.map((row, i) => /*#__PURE__*/React.createElement(_motion.RevealAfter, {
+    key: i,
+    delay: animate ? offsets[i].delay : 0
+  }, /*#__PURE__*/React.createElement("tr", null, row.map((value, j) => /*#__PURE__*/React.createElement("td", {
+    key: j
+  }, value))))))));
+}
+function Extra({
+  index,
+  animate
+}) {
+  const step = _uc3Rule.uc3Steps[index];
+  if (index === 3) {
+    const seq = sequence(_uc3Rule.uc3Logic),
+      end = seq.at(-1).delay + charDuration(seq.at(-1).text) + 100;
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("ul", {
+      className: "uc3-logic"
+    }, seq.map((line, i) => /*#__PURE__*/React.createElement(_motion.StreamText, {
+      key: i,
+      as: "li",
+      text: line.text,
+      delay: animate ? line.delay : 0,
+      animate: animate,
+      granularity: "character"
+    }))), /*#__PURE__*/React.createElement(_motion.RevealAfter, {
+      delay: animate ? end : 0
+    }, /*#__PURE__*/React.createElement(Table, {
+      headers: ['测试配置', '预期结果', '验证'],
+      rows: _uc3Rule.uc3Tests.map(row => [...row, /*#__PURE__*/React.createElement("span", {
+        className: "uc3-test-pass"
+      }, /*#__PURE__*/React.createElement("i", null), "通过")]),
+      label: "规则模拟测试结果",
+      animate: animate
+    })));
+  }
+  const seq = sequence(step.fields.map(([a, v]) => a + '： ' + v));
+  return /*#__PURE__*/React.createElement("dl", {
+    className: "uc3-fields"
+  }, step.fields.map(([label, value], i) => /*#__PURE__*/React.createElement(_motion.RevealAfter, {
+    key: label,
+    delay: animate ? seq[i].delay : 0
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, label, "："), /*#__PURE__*/React.createElement("dd", null, /*#__PURE__*/React.createElement(_motion.StreamText, {
+    text: value,
+    animate: animate,
+    granularity: "character"
+  }))))));
+}
+function extraTime(index) {
+  if (index === 3) return _uc3Rule.uc3Logic.reduce((n, t) => n + charDuration(t) + 100, 0) + _uc3Rule.uc3Tests.reduce((n, row) => n + charDuration(row.join(' ')) + 150, 0);
+  return _uc3Rule.uc3Steps[index].fields.reduce((n, row) => n + charDuration(row.join('： ')) + 100, 0);
+}
+function Summary({
+  onPreview,
+  onReplay,
+  startedAt,
+  completedAt
+}) {
+  const results = sequence(_uc3Rule.uc3Results, charDuration(_uc3Rule.uc3Conclusion) + charDuration('执行结果') + 250);
+  const tableAt = results.at(-1).delay + charDuration(results.at(-1).text) + 150;
+  const logicAt = tableAt + 900;
+  const logic = sequence(_uc3Rule.uc3Logic, logicAt + charDuration('执行逻辑') + 100);
+  const artifactAt = logic.at(-1).delay + charDuration(logic.at(-1).text) + 160,
+    followAt = artifactAt + 250,
+    end = followAt + charDuration(_uc3Rule.uc3Followup) + 150;
+  const timestamp = new Date(completedAt).toLocaleString('zh-CN', {
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  }).replaceAll('/', '-');
+  return /*#__PURE__*/React.createElement("section", {
+    className: "completion uc3-completion",
+    "aria-label": "规则创建结论"
+  }, /*#__PURE__*/React.createElement(_motion.StreamText, {
+    as: "p",
+    text: _uc3Rule.uc3Conclusion,
+    granularity: "character"
+  }), /*#__PURE__*/React.createElement(_motion.StreamText, {
+    as: "h3",
+    text: "执行结果",
+    delay: charDuration(_uc3Rule.uc3Conclusion) + 100,
+    granularity: "character"
+  }), /*#__PURE__*/React.createElement("ul", null, results.map((line, i) => /*#__PURE__*/React.createElement(_motion.StreamText, {
+    as: "li",
+    key: i,
+    ...line,
+    granularity: "character"
+  }))), /*#__PURE__*/React.createElement(_motion.RevealAfter, {
+    delay: tableAt
+  }, /*#__PURE__*/React.createElement(Table, {
+    headers: ['规则类型', '原有规则数', '现有规则数'],
+    rows: [["自定义规则", "2条", "3条"], ["全部检查规则", "92条", "93条"]],
+    label: "规则数量变化",
+    animate: true
+  })), /*#__PURE__*/React.createElement(_motion.StreamText, {
+    as: "h3",
+    text: "执行逻辑",
+    delay: logicAt,
+    granularity: "character"
+  }), /*#__PURE__*/React.createElement("ul", null, logic.map((line, i) => /*#__PURE__*/React.createElement(_motion.StreamText, {
+    as: "li",
+    key: i,
+    ...line,
+    granularity: "character"
+  }))), /*#__PURE__*/React.createElement(_motion.RevealAfter, {
+    delay: artifactAt
+  }, /*#__PURE__*/React.createElement("button", {
     type: "button",
-    className: "v7-conclusion-card",
-    "data-lui-artifact": kind,
-    onClick: onLocate
+    className: "v7-conclusion-card uc3-rule-artifact",
+    onClick: onPreview
   }, /*#__PURE__*/React.createElement("img", {
-    className: "v7-artifact-icon conclusion",
     src: "./assets/uploads/lui-report-file.svg",
     width: "28",
     height: "28",
     alt: ""
   }), /*#__PURE__*/React.createElement("span", {
     className: "v7-conclusion-copy"
-  }, /*#__PURE__*/React.createElement("strong", null, title), /*#__PURE__*/React.createElement("span", null, timestamp || "整网合规度 · 违规设备 · 检查明细")), /*#__PURE__*/React.createElement("span", {
-    className: "v7-conclusion-preview"
-  }, "预览"));
-  return /*#__PURE__*/React.createElement("button", {
+  }, /*#__PURE__*/React.createElement("strong", null, "巡检规则示意图 ", /*#__PURE__*/React.createElement("small", null, "V1.0.1")), /*#__PURE__*/React.createElement("span", null, "用户接口空闲超时检查规则 · 7组测试通过")))), /*#__PURE__*/React.createElement(_motion.StreamText, {
+    as: "p",
+    className: "uc3-followup",
+    text: _uc3Rule.uc3Followup,
+    delay: followAt,
+    granularity: "character"
+  }), /*#__PURE__*/React.createElement(_motion.RevealAfter, {
+    delay: end
+  }, /*#__PURE__*/React.createElement(_responseTools.default, {
+    timestamp: timestamp,
+    duration: ((completedAt - startedAt) / 1000).toFixed(1),
+    text: _uc3Rule.uc3Conclusion + '\n' + _uc3Rule.uc3Results.join('\n'),
+    onRegenerate: onReplay,
+    onLocate: onPreview,
+    subject: "规则创建",
+    locateLabel: "预览巡检规则示意图"
+  })));
+}
+function Uc3Chat() {
+  const {
+    isDark,
+    taskPrompt,
+    locate,
+    setUc3Phase,
+    luiFocus
+  } = (0, _context.useApp)();
+  const root = (0, _react.useRef)(null);
+  const [phase, setPhase] = (0, _react.useState)(-2),
+    [expanded, setExpanded] = (0, _react.useState)(true),
+    [thoughtOpen, setThoughtOpen] = (0, _react.useState)(true),
+    [openSteps, setOpenSteps] = (0, _react.useState)({}),
+    [selected, setSelected] = (0, _react.useState)(null),
+    [replay, setReplay] = (0, _react.useState)(0),
+    [completedAt, setCompletedAt] = (0, _react.useState)(null);
+  const startedAt = (0, _react.useRef)(Date.now());
+  const regenerate = () => {
+    startedAt.current = Date.now();
+    setCompletedAt(null);
+    setPhase(-2);
+    setExpanded(true);
+    setReplay(x => x + 1);
+  };
+  (0, _react.useEffect)(() => {
+    const durations = [Math.max(2600, (0, _motion.streamDuration)(_uc3Rule.uc3Thought) + 500), Math.max(2000, (0, _motion.streamDuration)(_uc3Rule.uc3Intro) + 400), ..._uc3Rule.uc3Steps.map((s, i) => (0, _motion.streamDuration)(s.text) + extraTime(i) + 600)];
+    let elapsed = 0;
+    const timers = durations.map((ms, i) => {
+      elapsed += ms;
+      return setTimeout(() => setPhase(i - 1), elapsed);
+    });
+    return () => timers.forEach(clearTimeout);
+  }, [replay]);
+  (0, _react.useEffect)(() => {
+    setThoughtOpen(phase === -2);
+    setOpenSteps(phase >= 0 && phase < 4 ? {
+      [phase]: true
+    } : {});
+    setSelected(phase >= 0 && phase < 4 ? phase : null);
+    if (phase === 4) {
+      setExpanded(false);
+      setCompletedAt(Date.now());
+    }
+  }, [phase]);
+  const done = phase === 4;
+  const preview = () => locate('uc3Rule');
+  (0, _react.useEffect)(() => setUc3Phase(phase), [phase, setUc3Phase]);
+  (0, _react.useEffect)(() => {
+    if (luiFocus?.kind === 'uc3Rule') {
+      const tag = root.current?.querySelector('.uc3-rule-artifact');
+      if (tag) {
+        (0, _context.highlightLocate)(tag);
+        tag.scrollIntoView({
+          block: 'nearest',
+          behavior: 'smooth'
+        });
+      }
+    }
+  }, [luiFocus]);
+  return /*#__PURE__*/React.createElement("div", {
+    ref: root,
+    className: "uc3-conversation"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "user-msg"
+  }, taskPrompt), /*#__PURE__*/React.createElement("article", {
+    className: 'generated-card' + (!expanded ? ' is-process-collapsed' : ''),
+    "aria-label": "检查规则创建回答"
+  }, /*#__PURE__*/React.createElement(_motion.SoftHeight, null, /*#__PURE__*/React.createElement("div", {
+    className: "response-process"
+  }, /*#__PURE__*/React.createElement("button", {
     type: "button",
-    className: "v7-artifact-tag",
-    "data-lui-artifact": kind,
-    onClick: onLocate
-  }, shape === "overview" ? /*#__PURE__*/React.createElement("img", {
-    className: "v7-artifact-icon process",
-    src: "./assets/uploads/lui-tag-network.svg",
-    width: "12",
-    height: "12",
-    alt: ""
-  }) : /*#__PURE__*/React.createElement(ArtifactIcon, {
-    type: type,
-    shape: shape
-  }), /*#__PURE__*/React.createElement("span", null, title));
+    className: "response-title",
+    "aria-expanded": expanded,
+    "aria-controls": "uc3Workflow",
+    onClick: () => setExpanded(v => !v)
+  }, /*#__PURE__*/React.createElement(_glyph.default, {
+    name: done ? 'completed' : 'processing',
+    size: 14
+  }), /*#__PURE__*/React.createElement(_motion.MotionTitle, {
+    text: done ? '已完成思考' : '正在执行处置步骤',
+    active: !done
+  }), /*#__PURE__*/React.createElement(_index.default, {
+    variant: isDark ? 'filled' : 'lined',
+    icon: expanded ? 'chevron-up' : 'chevron-down'
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "response-steps",
+    id: "uc3Workflow",
+    hidden: !expanded
+  }, /*#__PURE__*/React.createElement("details", {
+    className: "response-thought uc3-thought",
+    open: thoughtOpen,
+    onToggle: e => {
+      if (e.currentTarget.open !== thoughtOpen) setThoughtOpen(e.currentTarget.open);
+    }
+  }, /*#__PURE__*/React.createElement("summary", null, /*#__PURE__*/React.createElement(_glyph.default, {
+    name: "thought",
+    size: 14
+  }), /*#__PURE__*/React.createElement(_motion.MotionTitle, {
+    text: phase === -2 ? '正在思考' : '已思考',
+    active: phase === -2
+  }), /*#__PURE__*/React.createElement(_index.default, {
+    variant: isDark ? 'filled' : 'lined',
+    icon: "chevron-down"
+  })), /*#__PURE__*/React.createElement(_motion.StreamText, {
+    as: "p",
+    text: _uc3Rule.uc3Thought,
+    animate: phase === -2
+  })), phase >= -1 && /*#__PURE__*/React.createElement(_motion.StreamText, {
+    as: "p",
+    className: "response-intent",
+    text: _uc3Rule.uc3Intro,
+    animate: phase === -1
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "steps workflow-steps"
+  }, _uc3Rule.uc3Steps.slice(0, Math.max(0, Math.min(phase + 1, 4))).map((step, index) => {
+    const current = phase === index,
+      finished = phase > index,
+      open = !!openSteps[index];
+    const toggle = () => {
+      setSelected(index);
+      setOpenSteps(v => ({
+        ...v,
+        [index]: !v[index]
+      }));
+    };
+    return /*#__PURE__*/React.createElement("div", {
+      className: 'step ' + (finished ? 'is-done' : 'is-running') + (selected === index ? ' is-selected' : ''),
+      key: step.title,
+      "data-step-index": index
+    }, /*#__PURE__*/React.createElement("span", {
+      className: 'status ' + (finished ? 'done' : 'running'),
+      "aria-label": finished ? '已完成' : '进行中'
+    }, /*#__PURE__*/React.createElement(_glyph.default, {
+      name: finished ? selected === index ? 'step-selected' : 'step-done' : 'step-running',
+      size: 16
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "step-heading"
+    }, /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      className: "step-title",
+      onClick: toggle,
+      "aria-expanded": open
+    }, /*#__PURE__*/React.createElement(_motion.MotionTitle, {
+      text: step.title,
+      active: current
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "step-actions"
+    }, /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      className: "step-action",
+      "aria-label": (open ? '收起' : '展开') + '步骤：' + step.title,
+      onClick: toggle,
+      "aria-expanded": open
+    }, /*#__PURE__*/React.createElement(_index.default, {
+      variant: isDark ? 'filled' : 'lined',
+      icon: open ? 'chevron-up' : 'chevron-down'
+    })))), /*#__PURE__*/React.createElement("div", {
+      className: "step-content",
+      hidden: !open
+    }, /*#__PURE__*/React.createElement(_motion.StreamText, {
+      text: step.text,
+      animate: current
+    }), current ? /*#__PURE__*/React.createElement(_motion.RevealAfter, {
+      delay: (0, _motion.streamDuration)(step.text) + 100
+    }, /*#__PURE__*/React.createElement(Extra, {
+      index: index,
+      animate: true
+    })) : /*#__PURE__*/React.createElement(Extra, {
+      index: index,
+      animate: false
+    })));
+  })))), done && completedAt && /*#__PURE__*/React.createElement(Summary, {
+    onPreview: preview,
+    onReplay: regenerate,
+    startedAt: startedAt.current,
+    completedAt: completedAt
+  }))));
+}
+}};
+modules["src/mock/uc3-rule.js"]={deps:{},run:function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.uc3Thought = exports.uc3Tests = exports.uc3Steps = exports.uc3Results = exports.uc3Prompt = exports.uc3Logic = exports.uc3Intro = exports.uc3Followup = exports.uc3Conclusion = void 0;
+const uc3Prompt = exports.uc3Prompt = '帮我创建规则：用户接口空闲超时时间不能超过10分钟';
+const uc3Thought = exports.uc3Thought = '用户希望创建一条设备登录会话安全检查规则，确保用户接口空闲超时时间不超过10分钟。我需要明确检查范围，检索现网配置与华为命令手册，生成符合设备配置语法的检查规则，并通过正反例测试验证准确性，最终完成规则创建。';
+const uc3Intro = exports.uc3Intro = '已理解您的需求。我将依次完成意图分析、设备配置检索、命令手册查询、规则生成与调试、规则创建，下面开始执行。';
+const uc3Conclusion = exports.uc3Conclusion = '已完成规则生成与验证，检查逻辑符合用户要求，规则已保存至自定义规则库，可用于后续设备合规检查。';
+const uc3Logic = exports.uc3Logic = ['分钟数 > 10（如 idle-timeout 15 0、idle-timeout 11）；', '分钟数 = 10 且秒数 > 0（如 idle-timeout 10 30）。', 'idle-timeout 10 0（恰好10分钟）及未显式配置（走系统缺省值）均判合规。'];
+const uc3Tests = exports.uc3Tests = [['idle-timeout 10 0', '合规'], ['idle-timeout 5 0', '合规'], ['未显式配置（已核验默认值）', '合规'], ['其他视图 idle-timeout 30', '不纳入检查'], ['idle-timeout 15 0', '不合规'], ['idle-timeout 10 30', '不合规'], ['idle-timeout 0 0', '不合规']];
+const uc3Steps = exports.uc3Steps = [{
+  title: '意图分析',
+  text: '已识别本次任务为设备安全配置规则创建，匹配自定义规则生成能力，明确检查对象和合规标准。',
+  fields: [['规则名称', '用户接口空闲超时时间不能超过10分钟'], ['规则分类', '设备管理与访问安全'], ['适用对象', '华为交换机'], ['检查范围', 'VTY、Console、AUX登录用户接口'], ['合规要求', '空闲超时时间大于0且不超过600秒']]
+}, {
+  title: '设备配置检索',
+  text: '检索现网设备配置，查找用户接口空闲超时相关命令，并分析现有配置特征后发现，当前缺少可用的现网配置样本，不影响规则创建，但无法验证现网设备实际合规情况。',
+  fields: [['当前可用配置样本', '0份'], ['目标配置项', 'idle-timeout'], ['处理策略', '转为基于命令手册生成规则，并通过模拟配置验证']]
+}, {
+  title: '命令手册查询',
+  text: '已明确规则的检查对象、合规标准及特殊情况，可以准确识别超时设置不合理的设备，避免将正常配置误判为异常。',
+  fields: [['检查对象', '设备远程登录和本地维护登录的空闲超时设置'], ['正常情况', '用户连续不操作时，设备应在10分钟内自动断开登录会话'], ['异常情况', '超过10分钟仍不退出，或关闭自动退出功能，均视为不合规'], ['特殊情况', '未手动设置时，需核对设备默认超时时间；符合要求则不判为异常'], ['检查边界', '仅检查人员登录会话，不影响设备其他管理服务的超时配置']]
+}, {
+  title: '规则生成与调试',
+  text: '已完成规则生成及7组模拟测试，全部符合预期，规则能够准确识别超时配置异常，并正确处理默认配置和特殊场景。',
+  fields: []
+}];
+const uc3Results = exports.uc3Results = ['✅ 用户接口空闲超时检查规则创建成功！', '规则名称： 用户接口空闲超时时间不能超过10分钟', '规则分类： 设备管理与访问安全', '适用设备： 华为交换机', '检查内容： 登录空闲超时时间不得超过10分钟，且不得关闭自动退出功能', '风险级别： 高', '规则版本： v1.0', '测试结果： 7/7通过', '规则状态： 已创建并归档'];
+const uc3Followup = exports.uc3Followup = '是否需要我使用这条规则，对西三旗DC的交换机执行一次合规检查？';
+}};
+modules["src/views/lui-panel/motion.jsx"]={deps:{},run:function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MotionTitle = MotionTitle;
+exports.RevealAfter = RevealAfter;
+exports.SoftHeight = SoftHeight;
+exports.StreamText = StreamText;
+exports.textUnits = exports.streamDuration = void 0;
+var _react = require("react");
+const SPEED = 48;
+const reducedMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+const textUnits = text => typeof Intl.Segmenter === 'function' ? [...new Intl.Segmenter('zh-CN', {
+  granularity: 'word'
+}).segment(text)].map(x => x.segment) : Array.from(text);
+exports.textUnits = textUnits;
+const streamDuration = (text, speed = SPEED) => Math.ceil(textUnits(text).length / speed * 1000);
+
+// Keep each mounted message's progress independent of expand/collapse state.
+exports.streamDuration = streamDuration;
+function StreamText({
+  text,
+  as: Tag = 'span',
+  delay = 0,
+  animate = true,
+  leading = '',
+  className = '',
+  speed = SPEED,
+  granularity = 'word'
+}) {
+  const units = (0, _react.useMemo)(() => granularity === 'character' ? Array.from(text) : textUnits(text), [text, granularity]);
+  const [shown, setShown] = (0, _react.useState)(() => animate && !reducedMotion() ? -1 : units.length);
+  (0, _react.useEffect)(() => {
+    if (!animate || reducedMotion()) {
+      setShown(units.length);
+      return;
+    }
+    let frame = 0,
+      started = null,
+      last = -1;
+    setShown(-1);
+    const tick = now => {
+      started ??= now;
+      const elapsed = now - started - delay;
+      if (elapsed >= 0) {
+        const count = Math.min(units.length, Math.floor(elapsed / 1000 * speed));
+        if (count !== last) {
+          setShown(count);
+          last = count;
+        }
+        if (count >= units.length) return;
+      }
+      frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [text, delay, animate, units, speed]);
+  if (shown < 0) return null;
+  const typing = shown < units.length;
+  return /*#__PURE__*/React.createElement(Tag, {
+    className: 'lui-stream-text ' + className,
+    "aria-busy": typing
+  }, leading && /*#__PURE__*/React.createElement("strong", null, leading), /*#__PURE__*/React.createElement("span", {
+    className: "lui-stream-body"
+  }, units.slice(0, shown).map((word, index) => /*#__PURE__*/React.createElement("span", {
+    key: index,
+    className: animate ? 'lui-stream-unit' : undefined
+  }, word)), typing && /*#__PURE__*/React.createElement("span", {
+    className: "lui-stream-caret",
+    "aria-hidden": "true"
+  })));
+}
+function RevealAfter({
+  delay,
+  children
+}) {
+  const [ready, setReady] = (0, _react.useState)(() => reducedMotion() || delay <= 0);
+  (0, _react.useEffect)(() => {
+    if (reducedMotion() || delay <= 0) {
+      setReady(true);
+      return;
+    }
+    const timer = setTimeout(() => setReady(true), delay);
+    return () => clearTimeout(timer);
+  }, [delay]);
+  return ready ? children : null;
+}
+function MotionTitle({
+  text,
+  active
+}) {
+  return /*#__PURE__*/React.createElement("span", {
+    key: text,
+    className: 'lui-motion-title' + (active ? ' is-streaming' : ''),
+    "data-text": text
+  }, text);
+}
+function SoftHeight({
+  children
+}) {
+  const outer = (0, _react.useRef)(null),
+    inner = (0, _react.useRef)(null);
+  (0, _react.useLayoutEffect)(() => {
+    const update = () => {
+      if (outer.current && inner.current) outer.current.style.height = inner.current.offsetHeight + 'px';
+    };
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(inner.current);
+    return () => observer.disconnect();
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "lui-motion-height",
+    ref: outer
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "lui-motion-inner",
+    ref: inner
+  }, children));
 }
 }};
 modules["src/views/lui-panel/glyph.jsx"]={deps:{},run:function(require,module,exports){
@@ -62855,6 +63985,175 @@ function ResponseTools({
       if (onLocate) onLocate();else locate("report");
     }
   }, locateLabel)))));
+}
+}};
+modules["src/mock/uc4-completion.js"]={deps:{"./audit.js":"src/mock/audit.js","../views/lui-panel/motion.jsx":"src/views/lui-panel/motion.jsx"},run:function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.completionTimeline = completionTimeline;
+var _audit = require("./audit.js");
+var _motion = require("../views/lui-panel/motion.jsx");
+function completionLines(summary) {
+  return [['h2', '已完成 HCS1 区的全量基线检查'], ['p', `已对 ${summary.total}台设备执行全部 24条适用规则检查，${summary.passed}台通过、${summary.failed}台不通过，整网合规度为 ${summary.compliance}%。`], ['p', `发现 ${summary.rules}条规则不通过，包括${summary.top}等。单台设备最多有 4条规则不通过，详情见右侧报告。`], ['h3', '处理建议'], ['li', `${(0, _audit.affectedBy)('timeout').length}台设备存在空闲超时超限，3台设备使用不符合基线的 SSH 算法，建议核验后调整。`, '登录安全：'], ['li', '2台管理 IP、2台 NTP 时钟源与规划不一致，建议核对变更审批，再恢复配置或更新台账。', '规划一致性：'], ['li', '1台设备额外放通未规划 VLAN，建议核验业务依赖后收敛放通范围。', '网络访问范围：'], ['div', '以上为建议，尚未执行；具体配置与修复命令按设备、规则分别查看。']];
+}
+function completionTimeline(summary) {
+  let delay = 0;
+  return completionLines(summary).map(([as, text, leading]) => {
+    const item = {
+      as,
+      text,
+      leading,
+      delay
+    };
+    delay += (0, _motion.streamDuration)(text) + 80;
+    return item;
+  });
+}
+}};
+modules["src/components/status-marks/index.jsx"]={deps:{"../../../assets/shared/icon.jsx":"assets/shared/icon.jsx","../../mock/audit.js":"src/mock/audit.js"},run:function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ArtifactIcon = ArtifactIcon;
+exports.ArtifactTag = ArtifactTag;
+exports.PriorityBadge = PriorityBadge;
+exports.PriorityDistribution = PriorityDistribution;
+exports.StatusMark = StatusMark;
+var _react = require("react");
+var _icon = require("../../../assets/shared/icon.jsx");
+var _audit = require("../../mock/audit.js");
+// 检查结果状态标记（最终口径：不通过/通过）
+function StatusMark({
+  failed,
+  label
+}) {
+  return /*#__PURE__*/React.createElement("span", {
+    className: "status-label " + (failed ? "bad" : "good")
+  }, /*#__PURE__*/React.createElement(_icon.Icon, {
+    name: failed ? "x" : "check",
+    className: "ic",
+    strokeWidth: 1.6
+  }), label || (failed ? "不通过" : "通过"));
+}
+
+// 优先级徽章
+function PriorityBadge({
+  priority
+}) {
+  return /*#__PURE__*/React.createElement("span", {
+    className: "v7-priority-badge " + priority,
+    "aria-label": _audit.priorityLabels[priority] + "优先级"
+  }, /*#__PURE__*/React.createElement("i", null), _audit.priorityLabels[priority], "优先级");
+}
+
+// 优先级分布（设备维度）
+function PriorityDistribution({
+  device
+}) {
+  const counts = (0, _audit.priorityCounts)(device);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "v7-priority-distribution",
+    "aria-label": `不通过规则：高${counts.high}条、中${counts.medium}条、低${counts.low}条`
+  }, _audit.priorityLevels.map(p => /*#__PURE__*/React.createElement("span", {
+    key: p,
+    className: "v7-priority-count " + p + (counts[p] ? "" : " zero"),
+    title: `${_audit.priorityLabels[p]}优先级不通过规则${counts[p]}条`
+  }, /*#__PURE__*/React.createElement("i", null), /*#__PURE__*/React.createElement("span", null, _audit.priorityLabels[p]), /*#__PURE__*/React.createElement("strong", null, counts[p]))));
+}
+
+// Exact Pixso artwork for the three UC4 artifact headings and their LUI tags.
+function ArtifactIcon({
+  type = 'process',
+  shape = 'report'
+}) {
+  const id = 'uc4-artifact-' + (0, _react.useId)().replace(/:/g, ''),
+    conclusion = type === 'conclusion';
+  const artwork = {
+    overview: 'artifact-network-title.svg',
+    mapping: 'artifact-mapping-title.svg',
+    report: 'artifact-report-title.svg'
+  };
+  if (artwork[shape]) return /*#__PURE__*/React.createElement("img", {
+    className: 'v7-artifact-icon ' + type,
+    src: './assets/uploads/' + artwork[shape],
+    alt: "",
+    "aria-hidden": "true"
+  });
+  const paths = {
+    overview: 'M3 3h6l6-2 6 2v18l-6-2-6 2-6-2zm7 2v13l4-1.3V3.7zm6-1v13l3 1V5z',
+    mapping: 'M3 2h7v6H3zM14 2h7v6h-7zM3 16h7v6H3zM14 16h7v6h-7zM5 8h3v3h8V8h3v6h-3v2h-3v-2H8v2H5z',
+    report: 'M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 2v5h5zM8 12v2h8v-2zm0 4v2h8v-2z',
+    server: 'M4 3h16a1 1 0 0 1 1 1v6H3V4a1 1 0 0 1 1-1zm2 3v2h2V6zM3 13h18v7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1zm3 3v2h2v-2z',
+    rules: 'M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm1 5 2 2 3-3-1.4-1.4L9 6.2l-.6-.6zm6 0v2h4V7zm-6 7 2 2 3-3-1.4-1.4L9 13.2l-.6-.6zm6 0v2h4v-2z'
+  };
+  return /*#__PURE__*/React.createElement("svg", {
+    className: 'v7-artifact-icon ' + type,
+    viewBox: "0 0 24 24",
+    "aria-hidden": "true",
+    focusable: "false"
+  }, conclusion && /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
+    id: id,
+    x1: "0",
+    y1: "0",
+    x2: "1",
+    y2: "1"
+  }, /*#__PURE__*/React.createElement("stop", {
+    stopColor: "#5CA2E9"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "1",
+    stopColor: "#A18BFA"
+  }))), /*#__PURE__*/React.createElement("path", {
+    fill: conclusion ? 'url(#' + id + ')' : 'currentColor',
+    fillRule: "evenodd",
+    d: paths[shape] || paths.report
+  }));
+}
+
+// 产物标签按钮（LUI 内嵌，点击定位画布卡片）
+function ArtifactTag({
+  title,
+  type,
+  shape,
+  onLocate,
+  timestamp
+}) {
+  const kind = shape === 'overview' ? 'network' : shape === 'mapping' ? 'artifact' : 'report';
+  if (type === 'conclusion') return /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "v7-conclusion-card",
+    "data-lui-artifact": kind,
+    onClick: onLocate
+  }, /*#__PURE__*/React.createElement("img", {
+    className: "v7-artifact-icon conclusion",
+    src: "./assets/uploads/lui-report-file.svg",
+    width: "28",
+    height: "28",
+    alt: ""
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "v7-conclusion-copy"
+  }, /*#__PURE__*/React.createElement("strong", null, title), /*#__PURE__*/React.createElement("span", null, timestamp || "整网合规度 · 违规设备 · 检查明细")), /*#__PURE__*/React.createElement("span", {
+    className: "v7-conclusion-preview"
+  }, "预览"));
+  return /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "v7-artifact-tag",
+    "data-lui-artifact": kind,
+    onClick: onLocate
+  }, shape === "overview" ? /*#__PURE__*/React.createElement("img", {
+    className: "v7-artifact-icon process",
+    src: "./assets/uploads/lui-tag-network.svg",
+    width: "12",
+    height: "12",
+    alt: ""
+  }) : /*#__PURE__*/React.createElement(ArtifactIcon, {
+    type: type,
+    shape: shape
+  }), /*#__PURE__*/React.createElement("span", null, title));
 }
 }};
 modules["src/views/lui-panel/uc2-chat.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/uc2.js":"src/mock/uc2.js","../../components/status-marks/index.jsx":"src/components/status-marks/index.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","./glyph.jsx":"src/views/lui-panel/glyph.jsx","./uc2-typed-copy.jsx":"src/views/lui-panel/uc2-typed-copy.jsx","./thinking.jsx":"src/views/lui-panel/thinking.jsx","./motion.jsx":"src/views/lui-panel/motion.jsx","./uc2-completion.jsx":"src/views/lui-panel/uc2-completion.jsx"},run:function(require,module,exports){
@@ -63235,7 +64534,7 @@ function Uc2TypedCopy({
   }));
 }
 }};
-modules["src/views/lui-panel/thinking.jsx"]={deps:{"./motion.jsx":"src/views/lui-panel/motion.jsx","./thought-copy.js":"src/views/lui-panel/thought-copy.js","./glyph.jsx":"src/views/lui-panel/glyph.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","./thinking.css":"src/views/lui-panel/thinking.css"},run:function(require,module,exports){
+modules["src/views/lui-panel/thinking.jsx"]={deps:{"generative-loaders":"assets/library/generative-loaders/index.cjs","generative-loaders/styles.css":"assets/library/generative-loaders/styles.css","./motion.jsx":"src/views/lui-panel/motion.jsx","./thought-copy.js":"src/views/lui-panel/thought-copy.js","./glyph.jsx":"src/views/lui-panel/glyph.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","./thinking.css":"src/views/lui-panel/thinking.css"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -63243,6 +64542,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.GeneratingCanvas = GeneratingCanvas;
 exports.ThinkingDetails = ThinkingDetails;
+var _generativeLoaders = require("generative-loaders");
+require("generative-loaders/styles.css");
 var _react = require("react");
 var _motion = require("./motion.jsx");
 var _thoughtCopy = require("./thought-copy.js");
@@ -63291,131 +64592,252 @@ function GeneratingCanvas() {
   }, /*#__PURE__*/React.createElement("div", {
     className: "uc4-generating-cloud",
     "aria-hidden": "true"
-  }), /*#__PURE__*/React.createElement("p", {
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "uc4-generating-orb orb-rose"
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "uc4-generating-orb orb-violet"
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "uc4-generating-orb orb-blue"
+  })), /*#__PURE__*/React.createElement("p", {
     className: "uc4-generating-label"
-  }, "内容生成中..."));
+  }, /*#__PURE__*/React.createElement(_generativeLoaders.InlineLoader, {
+    variant: "spark",
+    size: 32,
+    color: "#DFDFDF",
+    className: "uc4-generating-spark"
+  }), /*#__PURE__*/React.createElement("span", null, "内容生成中...")));
 }
 }};
-modules["src/views/lui-panel/motion.jsx"]={deps:{},run:function(require,module,exports){
+modules["assets/library/generative-loaders/index.cjs"]={deps:{},run:function(require,module,exports){
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+var m = Object.defineProperty;
+var V = Object.getOwnPropertyDescriptor;
+var b = Object.getOwnPropertyNames;
+var N = Object.prototype.hasOwnProperty;
+var M = (t, o) => {
+    for (var e in o) m(t, e, {
+      get: o[e],
+      enumerable: !0
+    });
+  },
+  A = (t, o, e, a) => {
+    if (o && typeof o == "object" || typeof o == "function") for (let i of b(o)) !N.call(t, i) && i !== e && m(t, i, {
+      get: () => o[i],
+      enumerable: !(a = V(o, i)) || a.enumerable
+    });
+    return t;
+  };
+var T = t => A(m({}, "__esModule", {
+  value: !0
+}), t);
+var C = {};
+M(C, {
+  InlineLoader: () => f
 });
-exports.MotionTitle = MotionTitle;
-exports.RevealAfter = RevealAfter;
-exports.SoftHeight = SoftHeight;
-exports.StreamText = StreamText;
-exports.textUnits = exports.streamDuration = void 0;
-var _react = require("react");
-const SPEED = 48;
-const reducedMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-const textUnits = text => typeof Intl.Segmenter === 'function' ? [...new Intl.Segmenter('zh-CN', {
-  granularity: 'word'
-}).segment(text)].map(x => x.segment) : Array.from(text);
-exports.textUnits = textUnits;
-const streamDuration = (text, speed = SPEED) => Math.ceil(textUnits(text).length / speed * 1000);
-
-// Keep each mounted message's progress independent of expand/collapse state.
-exports.streamDuration = streamDuration;
-function StreamText({
-  text,
-  as: Tag = 'span',
-  delay = 0,
-  animate = true,
-  leading = '',
-  className = '',
-  speed = SPEED
+module.exports = T(C);
+var r = require("react/jsx-runtime");
+var n = {
+    current: null
+  },
+  s = {
+    current: !1
+  };
+var S = typeof window < "u";
+function p() {
+  if (s.current = !0, !!S) if (window.matchMedia) {
+    let t = window.matchMedia("(prefers-reduced-motion)"),
+      o = () => n.current = t.matches;
+    t.addEventListener("change", o), o();
+  } else n.current = !1;
+}
+var x = require("react");
+function c() {
+  !s.current && p();
+  let [t] = (0, x.useState)(n.current);
+  return t;
+}
+var d = require("react");
+function P(...t) {
+  return t.filter(Boolean).join(" ");
+}
+function v(t) {
+  return Number.isFinite(t) && t > 0 ? t : 1;
+}
+var E = Array.from({
+  length: 25
+}, (t, o) => {
+  let e = o % 5,
+    a = Math.floor(o / 5);
+  return {
+    index: o,
+    distance: Math.abs(e - 2) + Math.abs(a - 2)
+  };
+});
+function D({
+  variant: t
 }) {
-  const units = (0, _react.useMemo)(() => textUnits(text), [text]);
-  const [shown, setShown] = (0, _react.useState)(() => animate && !reducedMotion() ? -1 : units.length);
-  (0, _react.useEffect)(() => {
-    if (!animate || reducedMotion()) {
-      setShown(units.length);
-      return;
-    }
-    let frame = 0,
-      started = null,
-      last = -1;
-    setShown(-1);
-    const tick = now => {
-      started ??= now;
-      const elapsed = now - started - delay;
-      if (elapsed >= 0) {
-        const count = Math.min(units.length, Math.floor(elapsed / 1000 * speed));
-        if (count !== last) {
-          setShown(count);
-          last = count;
-        }
-        if (count >= units.length) return;
+  return t === "glyph" ? (0, r.jsx)("span", {
+    className: "il-glyph",
+    children: Array.from({
+      length: 9
+    }, (o, e) => (0, r.jsx)("i", {
+      style: {
+        "--il-i": e,
+        "--il-delay": `${e * -.11}s`
       }
-      frame = requestAnimationFrame(tick);
+    }, e))
+  }) : t === "matrix" ? (0, r.jsx)("span", {
+    className: "il-matrix",
+    children: E.map(({
+      index: o,
+      distance: e
+    }) => (0, r.jsx)("i", {
+      style: {
+        "--il-i": o,
+        "--il-distance": e,
+        "--il-delay": `${e * -.13 - o * .008}s`
+      }
+    }, o))
+  }) : t === "orbit" ? (0, r.jsxs)("span", {
+    className: "il-orbit",
+    children: [(0, r.jsx)("i", {}), (0, r.jsx)("i", {}), (0, r.jsx)("i", {}), (0, r.jsx)("b", {})]
+  }) : t === "ripple" ? (0, r.jsxs)("span", {
+    className: "il-ripple",
+    children: [(0, r.jsx)("i", {}), (0, r.jsx)("i", {}), (0, r.jsx)("i", {}), (0, r.jsx)("b", {})]
+  }) : t === "signal" ? (0, r.jsx)("span", {
+    className: "il-signal",
+    children: Array.from({
+      length: 5
+    }, (o, e) => (0, r.jsx)("i", {
+      style: {
+        "--il-i": e,
+        "--il-delay": `${e * -.12}s`
+      }
+    }, e))
+  }) : t === "spark" ? (0, r.jsxs)("span", {
+    className: "il-spark",
+    children: [(0, r.jsx)("i", {}), (0, r.jsx)("i", {}), (0, r.jsx)("i", {})]
+  }) : t === "rotor" ? (0, r.jsxs)("span", {
+    className: "il-rotor",
+    children: [(0, r.jsx)("i", {}), (0, r.jsx)("i", {}), (0, r.jsx)("i", {}), (0, r.jsx)("b", {})]
+  }) : t === "pixel-drift" ? (0, r.jsx)("span", {
+    className: "il-pixel-drift",
+    children: Array.from({
+      length: 16
+    }, (o, e) => (0, r.jsx)("i", {
+      style: {
+        "--il-i": e,
+        "--il-delay": `${(e % 4 + Math.floor(e / 4)) * -.1}s`
+      }
+    }, e))
+  }) : t === "chomp" ? (0, r.jsxs)("span", {
+    className: "il-chomp",
+    children: [(0, r.jsx)("b", {}), Array.from({
+      length: 4
+    }, (o, e) => (0, r.jsx)("i", {
+      style: {
+        "--il-delay": `${e * -.24}s`
+      }
+    }, e))]
+  }) : t === "snake" ? (0, r.jsxs)("span", {
+    className: "il-snake",
+    children: [Array.from({
+      length: 7
+    }, (o, e) => (0, r.jsx)("i", {
+      style: {
+        "--il-i": e,
+        "--il-scale": 1 - e * .075
+      }
+    }, e)), (0, r.jsx)("b", {})]
+  }) : t === "fold" ? (0, r.jsx)("span", {
+    className: "il-fold",
+    children: Array.from({
+      length: 4
+    }, (o, e) => (0, r.jsx)("i", {
+      style: {
+        "--il-delay": `${e * -.18}s`
+      }
+    }, e))
+  }) : t === "gravity" ? (0, r.jsxs)("span", {
+    className: "il-gravity",
+    children: [Array.from({
+      length: 5
+    }, (o, e) => (0, r.jsx)("i", {
+      style: {
+        "--il-angle": `${e * 72}deg`,
+        "--il-delay": `${e * -.19}s`
+      }
+    }, e)), (0, r.jsx)("b", {})]
+  }) : t === "domino" ? (0, r.jsx)("span", {
+    className: "il-domino",
+    children: Array.from({
+      length: 5
+    }, (o, e) => (0, r.jsx)("i", {
+      style: {
+        "--il-delay": `${e * -.12}s`
+      }
+    }, e))
+  }) : (0, r.jsxs)("span", {
+    className: "il-aperture",
+    children: [Array.from({
+      length: 6
+    }, (o, e) => (0, r.jsx)("i", {
+      style: {
+        "--il-angle": `${e * 60}deg`,
+        "--il-delay": `${e * -.08}s`
+      }
+    }, e)), (0, r.jsx)("b", {})]
+  });
+}
+function f({
+  variant: t,
+  size: o = "1.15em",
+  speed: e = 1,
+  color: a = "currentColor",
+  paused: i = !1,
+  className: y,
+  label: l
+}) {
+  let h = !!c(),
+    g = !i && !h,
+    u = v(e);
+  return (0, r.jsx)("span", {
+    className: P("il-loader", y),
+    "data-variant": t,
+    "data-speed": u,
+    "data-paused": g ? "false" : "true",
+    role: l ? "status" : void 0,
+    "aria-label": l,
+    "aria-hidden": l ? void 0 : "true",
+    style: {
+      "--il-color": a,
+      "--il-size": typeof o == "number" ? `${o}px` : o,
+      "--il-duration": `${1.2 / u}s`
+    },
+    children: (0, r.jsx)(D, {
+      variant: t
+    })
+  });
+}
+var X = Array.from({
+    length: 16
+  }, (t, o) => ({
+    index: o,
+    x: o % 4,
+    y: Math.floor(o / 4)
+  })),
+  q = Array.from({
+    length: 36
+  }, (t, o) => {
+    let e = o % 6,
+      a = Math.floor(o / 6);
+    return {
+      index: o,
+      distance: Math.abs(e - 2.5) + Math.abs(a - 2.5),
+      tone: 28 + (e * 13 + a * 9) % 34
     };
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [text, delay, animate, units, speed]);
-  if (shown < 0) return null;
-  const typing = shown < units.length;
-  return /*#__PURE__*/React.createElement(Tag, {
-    className: 'lui-stream-text ' + className,
-    "aria-busy": typing
-  }, leading && /*#__PURE__*/React.createElement("strong", null, leading), /*#__PURE__*/React.createElement("span", {
-    className: "lui-stream-body"
-  }, units.slice(0, shown).map((word, index) => /*#__PURE__*/React.createElement("span", {
-    key: index,
-    className: animate ? 'lui-stream-unit' : undefined
-  }, word)), typing && /*#__PURE__*/React.createElement("span", {
-    className: "lui-stream-caret",
-    "aria-hidden": "true"
-  })));
-}
-function RevealAfter({
-  delay,
-  children
-}) {
-  const [ready, setReady] = (0, _react.useState)(() => reducedMotion() || delay <= 0);
-  (0, _react.useEffect)(() => {
-    if (reducedMotion() || delay <= 0) {
-      setReady(true);
-      return;
-    }
-    const timer = setTimeout(() => setReady(true), delay);
-    return () => clearTimeout(timer);
-  }, [delay]);
-  return ready ? children : null;
-}
-function MotionTitle({
-  text,
-  active
-}) {
-  return /*#__PURE__*/React.createElement("span", {
-    key: text,
-    className: 'lui-motion-title' + (active ? ' is-streaming' : ''),
-    "data-text": text
-  }, text);
-}
-function SoftHeight({
-  children
-}) {
-  const outer = (0, _react.useRef)(null),
-    inner = (0, _react.useRef)(null);
-  (0, _react.useLayoutEffect)(() => {
-    const update = () => {
-      if (outer.current && inner.current) outer.current.style.height = inner.current.offsetHeight + 'px';
-    };
-    update();
-    const observer = new ResizeObserver(update);
-    observer.observe(inner.current);
-    return () => observer.disconnect();
-  }, []);
-  return /*#__PURE__*/React.createElement("div", {
-    className: "lui-motion-height",
-    ref: outer
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "lui-motion-inner",
-    ref: inner
-  }, children));
-}
+  });
 }};
 modules["src/views/lui-panel/uc2-completion.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../components/status-marks/index.jsx":"src/components/status-marks/index.jsx","./motion.jsx":"src/views/lui-panel/motion.jsx","./response-tools.jsx":"src/views/lui-panel/response-tools.jsx"},run:function(require,module,exports){
 "use strict";
@@ -63511,6 +64933,386 @@ function Uc2Completion({
     locateLabel: "定位候选报告"
   })));
 }
+}};
+modules["src/views/lui-panel/uc1-chat.jsx"]={deps:{"../../context.jsx":"src/context.jsx","./glyph.jsx":"src/views/lui-panel/glyph.jsx","./response-tools.jsx":"src/views/lui-panel/response-tools.jsx","../../mock/uc1-summary.js":"src/mock/uc1-summary.js","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","./motion.jsx":"src/views/lui-panel/motion.jsx","./uc1-chat.css":"src/views/lui-panel/uc1-chat.css"},run:function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Uc1Chat;
+var _react = require("react");
+var _context = require("../../context.jsx");
+var _glyph = _interopRequireDefault(require("./glyph.jsx"));
+var _responseTools = _interopRequireDefault(require("./response-tools.jsx"));
+var _uc1Summary = require("../../mock/uc1-summary.js");
+var _index = _interopRequireDefault(require("../../components/icon-el/index.jsx"));
+var _motion = require("./motion.jsx");
+require("./uc1-chat.css");
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+const thought = '用户希望了解当前全网已有的检查规则。我需要从出厂预置、AI挖掘和用户自定义三个来源查询规则库，梳理规则分类、适用设备及管理状态，汇总现有规则体系，并识别可进一步完善的方向。';
+const intro = '已理解您的需求。我将从出厂预置、AI挖掘和用户自定义三个维度查询检查规则，汇总规则分布、适用范围及完善建议，下面开始执行。';
+const conclusion = '已完成规则查询任务，当前规则体系以出厂预置规则为主，尚缺少基于现网实际配置的AI挖掘规则。建议开展黄金基线自动挖掘，进一步完善规则覆盖。';
+const steps = [{
+  title: '意图分析',
+  text: '已识别本次任务为全网检查规则查询，正在匹配规则管理能力，确定规则查询范围及统计维度。'
+}, {
+  title: '出厂预置规则查询',
+  text: '基于华为长期网络运维经验沉淀的预置检查规则，查询到共90条预置规则。'
+}, {
+  title: 'AI挖掘规则查询',
+  text: '查询历史AI黄金基线挖掘记录及规则采纳情况，识别基于现网设备配置共性自动生成的检查规则，查询到共0条AI挖掘规则。'
+}, {
+  title: '用户自定义规则查询',
+  text: '检索客户自主创建的检查规则，分析规则适用范围、检查条件及管理要求，识别客户特有的配置规范，查询到共2条自定义规则。'
+}];
+const factory = [['设备基础配置', '26条', 'Sysname命名规范、NTP配置'], ['安全管理网络与服务配置', '32条', 'SSH安全登录、Telnet禁用、账号权限'], ['管理网络与服务配置', '12条', '管理VRF、SNMP及日志服务配置'], ['网络冗余与故障切换', '20条', 'M-LAG双归、Monitor Link链路联动']];
+const custom = [['西三旗DC NTP主备服务器配置检查', '西三旗DC交换机'], ['业务区日志服务器地址配置检查', '业务区交换机']];
+function RuleTable({
+  headers,
+  rows,
+  label
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "uc1-table-wrap"
+  }, /*#__PURE__*/React.createElement("table", {
+    className: "uc1-rule-table",
+    "aria-label": label
+  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, headers.map(x => /*#__PURE__*/React.createElement("th", {
+    scope: "col",
+    key: x
+  }, x)))), /*#__PURE__*/React.createElement("tbody", null, rows.map((row, i) => /*#__PURE__*/React.createElement("tr", {
+    key: i
+  }, row.map((x, j) => /*#__PURE__*/React.createElement("td", {
+    key: j
+  }, x)))))));
+}
+function StepExtra({
+  index
+}) {
+  if (index === 0) return /*#__PURE__*/React.createElement("dl", {
+    className: "uc1-query-scope"
+  }, [['查询范围', '全网检查规则库'], ['规则来源', '出厂预置、AI挖掘、用户自定义'], ['查询维度', '规则分类、数量、适用设备及管理状态'], ['输出目标', '规则清单、分类统计及完善建议']].map(([a, b]) => /*#__PURE__*/React.createElement("div", {
+    key: a
+  }, /*#__PURE__*/React.createElement("dt", null, a, "："), /*#__PURE__*/React.createElement("dd", null, b))));
+  if (index === 1) return /*#__PURE__*/React.createElement(RuleTable, {
+    headers: ['规则分类', '数量', '典型检查内容'],
+    rows: factory,
+    label: "出厂预置规则分类"
+  });
+  if (index === 3) return /*#__PURE__*/React.createElement(RuleTable, {
+    headers: ['规则名', '适用范围'],
+    rows: custom,
+    label: "用户自定义规则"
+  });
+  return null;
+}
+function Uc1Chat() {
+  const {
+    isDark,
+    taskPrompt,
+    locate,
+    setUc1Phase,
+    setUc1SummaryStage,
+    luiFocus
+  } = (0, _context.useApp)();
+  // -2 thinking, -1 transition copy, 0..3 sequential steps, 4 conclusion.
+  const [phase, setPhase] = (0, _react.useState)(-2),
+    [expanded, setExpanded] = (0, _react.useState)(true),
+    [thoughtOpen, setThoughtOpen] = (0, _react.useState)(true),
+    [openSteps, setOpenSteps] = (0, _react.useState)({}),
+    [selected, setSelected] = (0, _react.useState)(null);
+  const root = (0, _react.useRef)(null),
+    startedAt = (0, _react.useRef)(Date.now());
+  const [replay, setReplay] = (0, _react.useState)(0),
+    [completedAt, setCompletedAt] = (0, _react.useState)(null);
+  const regenerate = () => {
+    startedAt.current = Date.now();
+    setCompletedAt(null);
+    setPhase(-2);
+    setExpanded(true);
+    setReplay(n => n + 1);
+  };
+  (0, _react.useEffect)(() => {
+    const deadlines = [Math.max(2600, (0, _motion.streamDuration)(thought) + 500), Math.max(2200, (0, _motion.streamDuration)(intro) + 500), 3500, 4400, 3200, 4200];
+    let elapsed = 0;
+    const timers = deadlines.map((ms, index) => {
+      elapsed += ms;
+      return setTimeout(() => setPhase(index - 1), elapsed);
+    });
+    return () => timers.forEach(clearTimeout);
+  }, [replay]);
+  (0, _react.useEffect)(() => {
+    setThoughtOpen(phase === -2);
+    setOpenSteps(phase >= 0 && phase < 4 ? {
+      [phase]: true
+    } : {});
+    setSelected(phase >= 0 && phase < 4 ? phase : null);
+    if (phase === 4) {
+      setExpanded(false);
+      setCompletedAt(Date.now());
+    }
+  }, [phase]);
+  (0, _react.useEffect)(() => setUc1Phase(phase), [phase, setUc1Phase]);
+  (0, _react.useEffect)(() => {
+    if (luiFocus?.kind === 'uc1Rules') {
+      const tag = root.current?.querySelector('.uc1-rules-artifact');
+      if (tag) {
+        (0, _context.highlightLocate)(tag);
+        tag.scrollIntoView({
+          block: 'nearest',
+          behavior: 'smooth'
+        });
+      }
+    }
+  }, [luiFocus]);
+  const done = phase === 4;
+  (0, _react.useEffect)(() => {
+    if (!done) {
+      setUc1SummaryStage(-1);
+      return;
+    }
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) {
+      setUc1SummaryStage(11);
+      return;
+    }
+    setUc1SummaryStage(0);
+    const timers = _uc1Summary.uc1SummaryCues.slice(1).map(c => setTimeout(() => setUc1SummaryStage(c.index), c.delay));
+    timers.push(setTimeout(() => setUc1SummaryStage(11), _uc1Summary.uc1SummaryEnd));
+    return () => timers.forEach(clearTimeout);
+  }, [done, setUc1SummaryStage]);
+  const cue = key => _uc1Summary.uc1SummaryCues.find(c => c.key === key);
+  const stream = (key, as = 'span') => /*#__PURE__*/React.createElement(_motion.StreamText, {
+    as: as,
+    text: cue(key).text,
+    delay: cue(key).delay,
+    granularity: "character"
+  });
+  return /*#__PURE__*/React.createElement("div", {
+    ref: root,
+    className: "uc1-conversation"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "user-msg"
+  }, taskPrompt), /*#__PURE__*/React.createElement("article", {
+    className: 'generated-card' + (!expanded ? ' is-process-collapsed' : ''),
+    "aria-label": "全网检查规则查询回答"
+  }, /*#__PURE__*/React.createElement(_motion.SoftHeight, null, /*#__PURE__*/React.createElement("div", {
+    className: "response-process"
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "response-title",
+    "aria-expanded": expanded,
+    "aria-controls": "uc1Workflow",
+    onClick: () => setExpanded(x => !x)
+  }, /*#__PURE__*/React.createElement(_glyph.default, {
+    name: done ? 'completed' : 'processing',
+    size: 14
+  }), /*#__PURE__*/React.createElement(_motion.MotionTitle, {
+    text: done ? '已完成思考' : '正在执行处置步骤',
+    active: !done
+  }), /*#__PURE__*/React.createElement(_index.default, {
+    variant: isDark ? 'filled' : 'lined',
+    icon: expanded ? 'chevron-up' : 'chevron-down'
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "response-steps",
+    id: "uc1Workflow",
+    hidden: !expanded
+  }, /*#__PURE__*/React.createElement("details", {
+    className: "response-thought uc1-thought",
+    open: thoughtOpen,
+    onToggle: e => {
+      if (e.currentTarget.open !== thoughtOpen) setThoughtOpen(e.currentTarget.open);
+    }
+  }, /*#__PURE__*/React.createElement("summary", null, /*#__PURE__*/React.createElement(_glyph.default, {
+    name: "thought",
+    size: 14
+  }), /*#__PURE__*/React.createElement(_motion.MotionTitle, {
+    text: phase === -2 ? '正在思考' : '已思考',
+    active: phase === -2
+  }), /*#__PURE__*/React.createElement(_index.default, {
+    variant: isDark ? 'filled' : 'lined',
+    icon: "chevron-down"
+  })), /*#__PURE__*/React.createElement(_motion.StreamText, {
+    as: "p",
+    text: thought,
+    animate: phase === -2
+  })), phase >= -1 && /*#__PURE__*/React.createElement(_motion.StreamText, {
+    as: "p",
+    className: "response-intent",
+    text: intro,
+    animate: phase === -1
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "steps workflow-steps uc1-workflow-steps"
+  }, steps.slice(0, Math.max(0, Math.min(phase + 1, 4))).map((step, index) => {
+    const current = phase === index,
+      finished = phase > index,
+      open = !!openSteps[index];
+    const toggle = () => {
+      setSelected(index);
+      setOpenSteps(x => ({
+        ...x,
+        [index]: !x[index]
+      }));
+    };
+    return /*#__PURE__*/React.createElement("div", {
+      className: 'step ' + (finished ? 'is-done' : 'is-running') + (selected === index ? ' is-selected' : ''),
+      key: step.title,
+      "data-step-index": index
+    }, /*#__PURE__*/React.createElement("span", {
+      className: 'status ' + (finished ? 'done' : 'running'),
+      "aria-label": finished ? '已完成' : '进行中'
+    }, /*#__PURE__*/React.createElement(_glyph.default, {
+      name: finished ? selected === index ? 'step-selected' : 'step-done' : 'step-running',
+      size: 16
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "step-heading"
+    }, /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      className: "step-title",
+      "aria-expanded": open,
+      onClick: toggle
+    }, /*#__PURE__*/React.createElement(_motion.MotionTitle, {
+      text: step.title,
+      active: current
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "step-actions"
+    }, /*#__PURE__*/React.createElement("button", {
+      type: "button",
+      className: "step-action",
+      "aria-label": (open ? '收起' : '展开') + '步骤：' + step.title,
+      "aria-expanded": open,
+      onClick: toggle
+    }, /*#__PURE__*/React.createElement(_index.default, {
+      variant: isDark ? 'filled' : 'lined',
+      icon: open ? 'chevron-up' : 'chevron-down'
+    })))), /*#__PURE__*/React.createElement("div", {
+      className: "step-content",
+      hidden: !open
+    }, /*#__PURE__*/React.createElement(_motion.StreamText, {
+      text: step.text,
+      animate: current
+    }), current ? /*#__PURE__*/React.createElement(_motion.RevealAfter, {
+      delay: (0, _motion.streamDuration)(step.text) + 150
+    }, /*#__PURE__*/React.createElement(StepExtra, {
+      index: index
+    })) : /*#__PURE__*/React.createElement(StepExtra, {
+      index: index
+    })));
+  })))), done && /*#__PURE__*/React.createElement("section", {
+    className: "completion uc1-completion",
+    "aria-label": "规则查询结论"
+  }, stream('conclusion', 'p'), stream('heading', 'h3'), /*#__PURE__*/React.createElement("ul", {
+    className: "uc1-stream-results"
+  }, ['success', 'count', 'coverage'].map(key => /*#__PURE__*/React.createElement(_motion.StreamText, {
+    key: key,
+    as: "li",
+    text: cue(key).text,
+    delay: cue(key).delay,
+    granularity: "character"
+  }))), /*#__PURE__*/React.createElement(_motion.RevealAfter, {
+    delay: cue('tableHeading').delay
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "uc1-table-wrap"
+  }, /*#__PURE__*/React.createElement("table", {
+    className: "uc1-rule-table",
+    "aria-label": "规则来源统计"
+  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", {
+    scope: "col"
+  }, /*#__PURE__*/React.createElement(_motion.StreamText, {
+    text: "规则来源",
+    granularity: "character"
+  })), /*#__PURE__*/React.createElement("th", {
+    scope: "col"
+  }, /*#__PURE__*/React.createElement(_motion.StreamText, {
+    text: "规则数",
+    delay: 100,
+    granularity: "character"
+  })))), /*#__PURE__*/React.createElement("tbody", null, [['factory', '出厂预置规则', '90条'], ['ai', 'AI挖掘规则', '0条'], ['custom', '用户自定义规则', '2条']].map(([key, name, count]) => /*#__PURE__*/React.createElement(_motion.RevealAfter, {
+    key: key,
+    delay: cue(key).delay - cue('tableHeading').delay
+  }, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement(_motion.StreamText, {
+    text: name,
+    granularity: "character"
+  })), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement(_motion.StreamText, {
+    text: count,
+    delay: Math.ceil(name.length / 48 * 1000),
+    granularity: "character"
+  }))))))))), /*#__PURE__*/React.createElement(_motion.RevealAfter, {
+    delay: cue('artifact').delay
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "v7-conclusion-card uc1-rules-artifact",
+    onClick: () => locate('uc1Rules')
+  }, /*#__PURE__*/React.createElement("img", {
+    className: "v7-artifact-icon conclusion",
+    src: "./assets/uploads/lui-report-file.svg",
+    width: "28",
+    height: "28",
+    alt: ""
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "v7-conclusion-copy"
+  }, /*#__PURE__*/React.createElement("strong", null, "检查规则详情 ", /*#__PURE__*/React.createElement("small", null, "V1.0.1")), /*#__PURE__*/React.createElement("span", null, "92条检查规则 · 分类统计与适用范围")))), /*#__PURE__*/React.createElement(_motion.StreamText, {
+    as: "p",
+    className: "uc1-followup",
+    text: cue('followup').text,
+    delay: cue('followup').delay,
+    granularity: "character"
+  }), /*#__PURE__*/React.createElement(_motion.RevealAfter, {
+    delay: _uc1Summary.uc1SummaryEnd
+  }, /*#__PURE__*/React.createElement(_responseTools.default, {
+    timestamp: completedAt ? new Date(completedAt).toLocaleString('zh-CN', {
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    }).replace(/\//g, '-') : '',
+    duration: completedAt ? ((completedAt - startedAt.current) / 1000).toFixed(1) : '0',
+    text: conclusion + '\n规则统计：共匹配92条检查规则。出厂预置90条，AI挖掘0条，用户自定义2条。',
+    onRegenerate: regenerate,
+    onLocate: () => locate('uc1Rules'),
+    subject: "规则查询",
+    locateLabel: "定位检查规则详情"
+  }))))));
+}
+}};
+modules["src/mock/uc1-summary.js"]={deps:{},run:function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.uc1SummaryText = exports.uc1SummaryEnd = exports.uc1SummaryCues = void 0;
+// One timeline drives both the streamed answer and the canvas reveal.
+const uc1SummaryText = exports.uc1SummaryText = {
+  conclusion: '已完成规则查询任务，当前规则体系以出厂预置规则为主，尚缺少基于现网实际配置的AI挖掘规则。建议开展黄金基线自动挖掘，进一步完善规则覆盖。',
+  heading: '执行结果',
+  success: '✅ 全网检查规则查询成功',
+  count: '规则统计： 共匹配92条检查规则。',
+  coverage: '规则覆盖： 涵盖设备基础配置、设备管理与访问安全、管理网络与服务配置、网络冗余与故障切换四大类。',
+  tableHeading: '规则来源 规则数',
+  factory: '出厂预置规则 90条',
+  ai: 'AI挖掘规则 0条',
+  custom: '用户自定义规则 2条',
+  artifact: '检查规则详情 V1.0.1',
+  followup: '是否需要我为您创建新的检查规则，或者通过AI自动挖掘现网黄金基线？'
+};
+let cursor = 0;
+const uc1SummaryCues = exports.uc1SummaryCues = Object.entries(uc1SummaryText).map(([key, text], index) => {
+  const duration = Math.ceil(Array.from(text).length / 48 * 1000);
+  const cue = {
+    key,
+    text,
+    index,
+    delay: cursor,
+    duration
+  };
+  cursor += duration + 120;
+  return cue;
+});
+const uc1SummaryEnd = exports.uc1SummaryEnd = cursor;
 }};
 modules["src/views/lui-panel/composer.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","./glyph.jsx":"src/views/lui-panel/glyph.jsx","./welcome-templates.jsx":"src/views/lui-panel/welcome-templates.jsx"},run:function(require,module,exports){
 "use strict";
@@ -63949,7 +65751,7 @@ const scenarios = [{
   icon: "scenario-query",
   title: "查询当前全量配置检查项",
   description: "搜索当前全网有多少巡检项",
-  prompt: "查询当前全量配置检查项"
+  prompt: "当前全网有哪些检查规则？"
 }, {
   icon: "scenario-mining",
   title: "帮我自动挖掘一下西三旗DC的黄金基线",
@@ -63959,7 +65761,7 @@ const scenarios = [{
   icon: "scenario-rule",
   title: "帮我建一条检查规则",
   description: "帮我创建规则：用户接口空闲超时时间不能超过10分钟",
-  prompt: "帮我建一条规则：用户接口空闲超时时间不能超过10分钟"
+  prompt: "帮我创建规则：用户接口空闲超时时间不能超过10分钟"
 }, {
   icon: "scenario-check",
   title: "检查设备是否负责基线要求，出修复建议",
@@ -64009,7 +65811,7 @@ function WelcomeHome({
   }, scenario.description)))));
 }
 }};
-modules["src/views/canvas-area/index.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/devices.js":"src/mock/devices.js","../network-overview/index.jsx":"src/views/network-overview/index.jsx","../mapping-card/index.jsx":"src/views/mapping-card/index.jsx","../lui-panel/thinking.jsx":"src/views/lui-panel/thinking.jsx","../report-card/index.jsx":"src/views/report-card/index.jsx","../device-pane/index.jsx":"src/views/device-pane/index.jsx","../uc2-canvas/index.jsx":"src/views/uc2-canvas/index.jsx","../uc2-canvas/report.jsx":"src/views/uc2-canvas/report.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx"},run:function(require,module,exports){
+modules["src/views/canvas-area/index.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/devices.js":"src/mock/devices.js","../network-overview/index.jsx":"src/views/network-overview/index.jsx","../mapping-card/index.jsx":"src/views/mapping-card/index.jsx","../lui-panel/thinking.jsx":"src/views/lui-panel/thinking.jsx","../report-card/index.jsx":"src/views/report-card/index.jsx","../device-pane/index.jsx":"src/views/device-pane/index.jsx","../uc2-canvas/index.jsx":"src/views/uc2-canvas/index.jsx","../uc2-canvas/report.jsx":"src/views/uc2-canvas/report.jsx","../uc3-canvas/index.jsx":"src/views/uc3-canvas/index.jsx","../uc1-canvas/index.jsx":"src/views/uc1-canvas/index.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -64026,7 +65828,9 @@ var _index3 = _interopRequireDefault(require("../report-card/index.jsx"));
 var _index4 = _interopRequireDefault(require("../device-pane/index.jsx"));
 var _index5 = _interopRequireDefault(require("../uc2-canvas/index.jsx"));
 var _report = require("../uc2-canvas/report.jsx");
-var _index6 = _interopRequireDefault(require("../../components/icon-el/index.jsx"));
+var _index6 = _interopRequireDefault(require("../uc3-canvas/index.jsx"));
+var _index7 = _interopRequireDefault(require("../uc1-canvas/index.jsx"));
+var _index8 = _interopRequireDefault(require("../../components/icon-el/index.jsx"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function CanvasTabs() {
   const {
@@ -64053,7 +65857,7 @@ function CanvasTabs() {
     role: "tab",
     "aria-selected": activePane === "task" && !activeArtifact,
     onClick: () => switchPane("task")
-  }, /*#__PURE__*/React.createElement(_index6.default, {
+  }, /*#__PURE__*/React.createElement(_index8.default, {
     variant: isDark ? "filled" : "lined",
     icon: "layout-panel-top"
   }), "全景画布")), (artifactTabs.some(t => uc2.active ? t.kind.startsWith("uc2-") : !t.kind.startsWith("uc2-")) || !uc2.active && openDevices.length > 0) && /*#__PURE__*/React.createElement("span", {
@@ -64066,14 +65870,14 @@ function CanvasTabs() {
     role: "tab",
     "aria-selected": activeArtifact === t.kind,
     onClick: () => openArtifact(t.kind, t.title)
-  }, /*#__PURE__*/React.createElement(_index6.default, {
+  }, /*#__PURE__*/React.createElement(_index8.default, {
     variant: isDark ? "filled" : "lined",
     icon: t.kind === 'network' ? 'map' : t.kind === 'artifact' ? 'network' : 'file-text'
   }), t.title), /*#__PURE__*/React.createElement("button", {
     className: "close-tab",
     "aria-label": '关闭' + t.title + '页签',
     onClick: () => closeArtifact(t.kind)
-  }, /*#__PURE__*/React.createElement(_index6.default, {
+  }, /*#__PURE__*/React.createElement(_index8.default, {
     variant: isDark ? "filled" : "lined",
     icon: "x"
   })))), (uc2.active ? [] : openDevices).map(id => {
@@ -64085,14 +65889,14 @@ function CanvasTabs() {
       role: "tab",
       "aria-selected": activePane === id,
       onClick: () => switchPane(id)
-    }, /*#__PURE__*/React.createElement(_index6.default, {
+    }, /*#__PURE__*/React.createElement(_index8.default, {
       variant: isDark ? "filled" : "lined",
       icon: "server"
     }), d.name), /*#__PURE__*/React.createElement("button", {
       className: "close-tab",
       "aria-label": "关闭" + d.name + "页签",
       onClick: () => closeDevice(id)
-    }, /*#__PURE__*/React.createElement(_index6.default, {
+    }, /*#__PURE__*/React.createElement(_index8.default, {
       variant: isDark ? "filled" : "lined",
       icon: "x"
     })));
@@ -64109,6 +65913,8 @@ function CanvasArea() {
     reportScrollRef,
     activeArtifact,
     luiView,
+    uc1Phase,
+    uc3Phase,
     focusLuiArtifact,
     uc2,
     openArtifact
@@ -64129,7 +65935,7 @@ function CanvasArea() {
     if (followedStepRef.current === key) return;
     let cancelScroll;
     const frame = requestAnimationFrame(() => {
-      const step = stage < 0 ? -1 : stage < 2 ? 0 : stage === 2 ? 2 : 3;
+      const step = stage < 0 ? -1 : stage < 2 ? 0 : stage <= 3 ? 2 : 3;
       const target = innerRef.current?.querySelector(`[data-canvas-step="${step}"]`);
       if (target && !target.classList.contains("hidden")) {
         cancelScroll = (0, _context.scrollCanvasTo)(target, "linear");
@@ -64292,7 +66098,11 @@ function CanvasArea() {
   }, /*#__PURE__*/React.createElement("div", {
     ref: innerRef,
     className: "workflow-canvas-flow"
-  }, luiView === "running" && stage < 0 && /*#__PURE__*/React.createElement("section", {
+  }, luiView === "uc3" && (uc3Phase < 3 ? /*#__PURE__*/React.createElement(_thinking.GeneratingCanvas, null) : /*#__PURE__*/React.createElement(_index6.default, {
+    cardRef: register("uc3Rule")
+  })), luiView === "uc1" && (uc1Phase < 4 ? /*#__PURE__*/React.createElement(_thinking.GeneratingCanvas, null) : /*#__PURE__*/React.createElement(_index7.default, {
+    cardRef: register("uc1Rules")
+  })), luiView === "running" && stage < 0 && /*#__PURE__*/React.createElement("section", {
     className: "workflow-canvas-step",
     "data-canvas-step": "-1",
     "aria-label": "思考阶段：正在生成画布"
@@ -64321,21 +66131,14 @@ function CanvasArea() {
   })), /*#__PURE__*/React.createElement(_index2.default, {
     cardRef: register("artifact")
   })), /*#__PURE__*/React.createElement("section", {
-    className: "workflow-canvas-step" + (stage < 3 ? " hidden" : ""),
+    className: "workflow-canvas-step" + (stage < 4 ? " hidden" : ""),
     "data-canvas-step": "3",
     "aria-label": "步骤4：设备基线检查"
   }, /*#__PURE__*/React.createElement("div", {
     className: "v7-artifact-step-title"
-  }, "对HCS1区内的380台设备进行基线检查"), stage === 3 && /*#__PURE__*/React.createElement("div", {
-    className: "card workflow-checking",
-    role: "status"
-  }, /*#__PURE__*/React.createElement("i", {
-    className: "v7-step-spinner"
-  }), "正在对 HCS1 区的 380 台设备执行基线检查…"), /*#__PURE__*/React.createElement("div", {
-    className: stage < 4 ? " hidden" : ""
-  }, /*#__PURE__*/React.createElement(_index3.default, {
+  }, "对HCS1区内的380台设备进行基线检查"), stage >= 4 && /*#__PURE__*/React.createElement(_index3.default, {
     cardRef: register("report")
-  }))))), /*#__PURE__*/React.createElement("section", {
+  })))), /*#__PURE__*/React.createElement("section", {
     className: "device-pane" + (activePane === "task" || activeArtifact ? " hidden" : ""),
     id: "devicePane",
     "aria-label": "设备检查详情"
@@ -70124,7 +71927,7 @@ function OptionGroup({
   }));
 }
 }};
-modules["src/views/report-card/index.jsx"]={deps:{"../../components/artifact-open/index.jsx":"src/components/artifact-open/index.jsx","../../context.jsx":"src/context.jsx","../../mock/devices.js":"src/mock/devices.js","../../mock/checks.js":"src/mock/checks.js","../../mock/audit.js":"src/mock/audit.js","../../components/status-marks/index.jsx":"src/components/status-marks/index.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","../../components/search-input/index.jsx":"src/components/search-input/index.jsx","../../components/option-group/index.jsx":"src/components/option-group/index.jsx","../../components/empty-state/index.jsx":"src/components/empty-state/index.jsx","./design.css":"src/views/report-card/design.css"},run:function(require,module,exports){
+modules["src/views/report-card/index.jsx"]={deps:{"../../mock/uc4-completion.js":"src/mock/uc4-completion.js","../lui-panel/motion.jsx":"src/views/lui-panel/motion.jsx","./generation.css":"src/views/report-card/generation.css","../../components/artifact-open/index.jsx":"src/components/artifact-open/index.jsx","../../context.jsx":"src/context.jsx","../../mock/devices.js":"src/mock/devices.js","../../mock/checks.js":"src/mock/checks.js","../../mock/audit.js":"src/mock/audit.js","../../components/status-marks/index.jsx":"src/components/status-marks/index.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","../../components/search-input/index.jsx":"src/components/search-input/index.jsx","../../components/option-group/index.jsx":"src/components/option-group/index.jsx","../../components/empty-state/index.jsx":"src/components/empty-state/index.jsx","./design.css":"src/views/report-card/design.css"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -70132,6 +71935,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.SummaryCopy = SummaryCopy;
 exports.default = ReportCard;
+var _uc4Completion = require("../../mock/uc4-completion.js");
+var _motion = require("../lui-panel/motion.jsx");
+require("./generation.css");
 var _index = _interopRequireDefault(require("../../components/artifact-open/index.jsx"));
 var _react = require("react");
 var _context = require("../../context.jsx");
@@ -70219,13 +72025,14 @@ function RuleCard({
 }
 function DeviceCard({
   d,
-  index
+  index,
+  revealed = true
 }) {
   const {
     openDevice
   } = (0, _context.useApp)();
   return /*#__PURE__*/React.createElement("article", {
-    className: "v7-top-card report-device-card"
+    className: "v7-top-card report-device-card" + (!revealed ? " report-reveal-skeleton" : "")
   }, /*#__PURE__*/React.createElement("div", {
     className: "report-device-main"
   }, /*#__PURE__*/React.createElement("div", {
@@ -70256,8 +72063,45 @@ function ReportCard({
   cardRef
 }) {
   const {
-    openDevice
+    openDevice,
+    reportRevealStartedAt
   } = (0, _context.useApp)();
+  const [reveal, setReveal] = (0, _react.useState)({
+    stamp: null,
+    elapsed: Infinity
+  });
+  const elapsed = !reportRevealStartedAt ? Infinity : reveal.stamp === reportRevealStartedAt ? reveal.elapsed : 0;
+  const lines = (0, _uc4Completion.completionTimeline)((0, _audit.summaryParts)());
+  const end = lines.at(-1).delay + (0, _motion.streamDuration)(lines.at(-1).text) + 180;
+  const summaryAt = lines[2].delay,
+    conclusionAt = lines[3].delay;
+  const topAt = i => lines[3].delay + (lines[7].delay - lines[3].delay) * i / 5;
+  const detailsAt = lines[7].delay;
+  const ready = elapsed >= end;
+  (0, _react.useEffect)(() => {
+    if (!reportRevealStartedAt) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) {
+      setReveal({
+        stamp: reportRevealStartedAt,
+        elapsed: Infinity
+      });
+      return;
+    }
+    const points = [0, summaryAt, conclusionAt, ...Array.from({
+      length: 5
+    }, (_, i) => topAt(i)), detailsAt, ...Array.from({
+      length: 10
+    }, (_, i) => detailsAt + 120 + i * 80), end].sort((a, b) => a - b);
+    const update = () => setReveal({
+      stamp: reportRevealStartedAt,
+      elapsed: Date.now() - reportRevealStartedAt
+    });
+    update();
+    const timers = points.map(t => setTimeout(update, Math.max(0, reportRevealStartedAt + t - Date.now()) + 20));
+    return () => timers.forEach(clearTimeout);
+  }, [reportRevealStartedAt]);
+  const loadingClass = at => elapsed < at ? ' report-reveal-skeleton' : ' report-reveal-content';
   const [lens, setLens] = (0, _react.useState)("devices");
   const [status, setStatus] = (0, _react.useState)("failed");
   const [ruleFilter, setRuleFilter] = (0, _react.useState)(null);
@@ -70306,7 +72150,9 @@ function ReportCard({
   return /*#__PURE__*/React.createElement("section", {
     className: "card report-card v7-report artifact-card conclusion-artifact v7-card-tabbed report-design",
     id: "reportCard",
-    ref: cardRef
+    ref: cardRef,
+    "aria-busy": !ready,
+    inert: !ready ? "" : undefined
   }, /*#__PURE__*/React.createElement(_index.default, {
     kind: "report",
     title: "HCS1 区基线检查报告"
@@ -70320,13 +72166,13 @@ function ReportCard({
   }), /*#__PURE__*/React.createElement("h2", {
     className: "card-title"
   }, "HCS1 区基线检查报告"))), /*#__PURE__*/React.createElement("div", {
-    className: "v7-report-meta"
+    className: "v7-report-meta" + loadingClass(lines[1].delay)
   }, /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(_index3.default, {
     icon: "map-pin"
   }), "西三旗 DC / HCS1"), /*#__PURE__*/React.createElement("span", null, "已检查", _audit.audit.total, "台设备"), /*#__PURE__*/React.createElement("span", null, _checks.checks.length, "条适用规则")), /*#__PURE__*/React.createElement("div", {
     className: "v7-summary v11-summary"
   }, /*#__PURE__*/React.createElement("section", {
-    className: "v7-compliance"
+    className: "v7-compliance" + loadingClass(summaryAt)
   }, /*#__PURE__*/React.createElement("div", {
     className: "v7-ring",
     role: "img",
@@ -70384,7 +72230,7 @@ function ReportCard({
   }, /*#__PURE__*/React.createElement("i", {
     className: "bad-dot"
   }), "不通过 ", /*#__PURE__*/React.createElement("strong", null, (0, _audit.failedDevices)().length)))), /*#__PURE__*/React.createElement("section", {
-    className: "v7-conclusion v11-conclusion"
+    className: "v7-conclusion v11-conclusion" + loadingClass(conclusionAt)
   }, /*#__PURE__*/React.createElement("div", {
     className: "v7-conclusion-label"
   }, /*#__PURE__*/React.createElement("img", {
@@ -70403,7 +72249,7 @@ function ReportCard({
     className: "v7-overview-section",
     ref: overviewRef
   }, /*#__PURE__*/React.createElement("div", {
-    className: "v7-result-toolbar"
+    className: "v7-result-toolbar" + loadingClass(topAt(0))
   }, /*#__PURE__*/React.createElement("h3", {
     className: "v7-section-title"
   }, "TOP概览"), /*#__PURE__*/React.createElement(_index5.default, {
@@ -70424,10 +72270,11 @@ function ReportCard({
   })) : ranked.map((d, i) => /*#__PURE__*/React.createElement(DeviceCard, {
     key: d.id,
     d: d,
-    index: i
+    index: i,
+    revealed: elapsed >= topAt(i)
   }))))), /*#__PURE__*/React.createElement("section", {
     id: "v7CheckDetails",
-    className: "v7-check-details",
+    className: "v7-check-details" + loadingClass(detailsAt),
     ref: detailsRef
   }, /*#__PURE__*/React.createElement("h3", {
     className: "v7-section-title"
@@ -70487,8 +72334,9 @@ function ReportCard({
     className: "v7-table-scroll"
   }, /*#__PURE__*/React.createElement("table", {
     className: "rule-table v7-table"
-  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, sortHeader("设备名称", "name"), sortHeader("设备IP", "ip"), sortHeader("设备类型", "type"), sortHeader("厂商", "vendor"), /*#__PURE__*/React.createElement("th", null, "不通过规则数量"), sortHeader("优先级分布", "priority"), sortHeader("检查结果", "result"))), /*#__PURE__*/React.createElement("tbody", null, rows.slice((current - 1) * detailPageSize, current * detailPageSize).map(d => /*#__PURE__*/React.createElement("tr", {
-    key: d.id
+  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, sortHeader("设备名称", "name"), sortHeader("设备IP", "ip"), sortHeader("设备类型", "type"), sortHeader("厂商", "vendor"), /*#__PURE__*/React.createElement("th", null, "不通过规则数量"), sortHeader("优先级分布", "priority"), sortHeader("检查结果", "result"))), /*#__PURE__*/React.createElement("tbody", null, rows.slice((current - 1) * detailPageSize, current * detailPageSize).map((d, i) => /*#__PURE__*/React.createElement("tr", {
+    key: d.id,
+    className: loadingClass(detailsAt + 120 + i * 80)
   }, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("a", {
     href: "#",
     className: "link",
@@ -73040,6 +74888,644 @@ function Uc2RuleDetail({
     onClick: () => uc2Review(rule.id, "accepted")
   }, "采用此候选"))));
 }
+}};
+modules["src/views/uc3-canvas/index.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","./index.css":"src/views/uc3-canvas/index.css"},run:function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Uc3RuleCanvas;
+var _react = require("react");
+var _context = require("../../context.jsx");
+var _index = _interopRequireDefault(require("../../components/icon-el/index.jsx"));
+require("./index.css");
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function RuleGlyph({
+  icon,
+  className = ''
+}) {
+  const assets = {
+    'file-text': 'scope',
+    'circle-slash': 'exclude',
+    filter: 'limit',
+    'alarm-clock': 'decision',
+    'circle-x': 'fail',
+    'circle-check': 'pass',
+    'clipboard-check': 'result',
+    'book-open': 'command',
+    settings: 'defaults',
+    'sliders-horizontal': 'threshold'
+  };
+  return /*#__PURE__*/React.createElement("img", {
+    className: 'uc3-design-icon ' + className,
+    src: './assets/uploads/uc3-rule/' + assets[icon] + '.svg',
+    alt: "",
+    "aria-hidden": "true"
+  });
+}
+const nodes = [{
+  key: 'scope',
+  title: '检查范围',
+  icon: 'file-text',
+  x: 38,
+  y: 240,
+  w: 160,
+  lines: ['全部配置', '遍历全部视图块']
+}, {
+  key: 'exclude',
+  title: '排除检查',
+  icon: 'circle-slash',
+  x: 258,
+  y: 24,
+  w: 240,
+  lines: ['NETCONF / RESTCONF / gRPC', '同名 idle-timeout 不检查']
+}, {
+  key: 'limit',
+  title: '限定检查范围',
+  icon: 'filter',
+  x: 258,
+  y: 240,
+  w: 240,
+  lines: ['user-interface', 'VTY / CONSOLE / AUX', '直接子命令 idle-timeout']
+}, {
+  key: 'decision',
+  title: '超过 10 分钟？',
+  icon: 'alarm-clock',
+  x: 558,
+  y: 240,
+  w: 240,
+  lines: ['仅判断显式配置', '分钟与秒数共同判定']
+}, {
+  key: 'fail',
+  title: '不合规条件',
+  icon: 'circle-x',
+  x: 898,
+  y: 24,
+  w: 240,
+  tone: 'fail',
+  lines: ['分钟 ≥ 11', '或分钟 = 10 且秒 ≠ 0', '示例 15 0 / 100 / 10 30']
+}, {
+  key: 'pass',
+  title: '合规条件',
+  icon: 'circle-check',
+  x: 898,
+  y: 240,
+  w: 240,
+  tone: 'pass',
+  lines: ['仅判断显式配置', '分钟与秒数共同判定']
+}, {
+  key: 'result',
+  title: '整份配置结果',
+  icon: 'clipboard-check',
+  x: 898,
+  y: 464,
+  w: 240,
+  lines: ['任一 FAIL → FAIL，否则 PASS']
+}];
+const evidence = [{
+  title: '命令依据',
+  icon: 'book-open',
+  tone: 'blue',
+  lines: ['华为命令手册 · 用户接口视图', 'idle-timeout minutes [seconds]', '省略秒数按 0 处理']
+}, {
+  title: '默认值依据',
+  icon: 'settings',
+  tone: 'cyan',
+  lines: ['VTY 10 分钟 · CONSOLE 5 分钟', 'AUX 默认值依据待补充', '未配置按当前规则判 PASS']
+}, {
+  title: '阈值口径',
+  icon: 'sliders-horizontal',
+  tone: 'violet',
+  lines: ['10 分 30 秒 > 10 分钟 → FAIL', '按实际时长判断，包含秒数', '依据所提供规则整理']
+}];
+function Graph({
+  ready
+}) {
+  const ref = (0, _react.useRef)(null);
+  const [scale, setScale] = (0, _react.useState)(1);
+  (0, _react.useLayoutEffect)(() => {
+    const el = ref.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setScale(el.clientWidth / 1192));
+    ro.observe(el);
+    setScale(el.clientWidth / 1192);
+    return () => ro.disconnect();
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    ref: ref,
+    className: 'uc3-graph-viewport' + (!ready ? ' is-building' : ''),
+    style: {
+      height: 620 * scale
+    },
+    "aria-label": "空闲超时检查规则流程图",
+    "aria-busy": !ready
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "uc3-graph-layout",
+    style: {
+      transform: `scale(${scale})`
+    }
+  }, /*#__PURE__*/React.createElement("svg", {
+    className: "uc3-graph-edges",
+    width: "1192",
+    height: "620",
+    viewBox: "0 0 1192 620",
+    fill: "none",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("defs", null, ['neutral', 'fail', 'pass'].map((tone, i) => /*#__PURE__*/React.createElement("marker", {
+    key: tone,
+    id: 'uc3-arrow-' + tone,
+    markerWidth: "6",
+    markerHeight: "6",
+    refX: "5",
+    refY: "3",
+    orient: "auto"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M0 0 6 3 0 6Z",
+    fill: ['#777', '#a73c46', '#308365'][i]
+  })))), /*#__PURE__*/React.createElement("g", {
+    stroke: "#777",
+    strokeWidth: "1",
+    markerEnd: "url(#uc3-arrow-neutral)"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M198 312H258"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M498 312H558"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M378 168V240",
+    strokeDasharray: "2 3"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M378 384V440Q378 460 398 460H828Q848 460 848 440V356Q848 336 868 336H898"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M1138 92H1164Q1184 92 1184 112V498Q1184 518 1164 518H1138"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M1018 384V464"
+  })), /*#__PURE__*/React.createElement("path", {
+    d: "M798 288H828Q848 288 848 268V150Q848 130 868 130H898",
+    stroke: "#a73c46",
+    markerEnd: "url(#uc3-arrow-fail)"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M798 312H898",
+    stroke: "#308365",
+    markerEnd: "url(#uc3-arrow-pass)"
+  })), nodes.map((node, i) => /*#__PURE__*/React.createElement("section", {
+    key: node.key,
+    className: 'uc3-graph-node ' + (node.tone || 'neutral'),
+    style: {
+      left: node.x,
+      top: node.y,
+      width: node.w,
+      '--reveal-delay': `${i * 110}ms`
+    },
+    "aria-label": node.title
+  }, /*#__PURE__*/React.createElement("header", null, /*#__PURE__*/React.createElement(RuleGlyph, {
+    icon: node.icon
+  }), /*#__PURE__*/React.createElement("h3", null, node.title)), /*#__PURE__*/React.createElement("div", {
+    className: "uc3-graph-node-body"
+  }, node.lines.map(line => /*#__PURE__*/React.createElement("p", {
+    key: line
+  }, line))))), /*#__PURE__*/React.createElement("span", {
+    className: "uc3-edge-label",
+    style: {
+      left: 835,
+      top: 201
+    }
+  }, /*#__PURE__*/React.createElement("span", null, "是")), /*#__PURE__*/React.createElement("span", {
+    className: "uc3-edge-label",
+    style: {
+      left: 835,
+      top: 300
+    }
+  }, /*#__PURE__*/React.createElement("span", null, "否")), /*#__PURE__*/React.createElement("span", {
+    className: "uc3-edge-label pill",
+    style: {
+      left: 573,
+      top: 450
+    }
+  }, /*#__PURE__*/React.createElement("span", null, "未显式配置"))));
+}
+function Uc3RuleCanvas({
+  cardRef
+}) {
+  const {
+    uc3Phase,
+    toast,
+    openArtifact
+  } = (0, _context.useApp)();
+  const [ready, setReady] = (0, _react.useState)(false),
+    [editing, setEditing] = (0, _react.useState)(false),
+    [name, setName] = (0, _react.useState)('用户接口空闲超时时间检查规则图谱'),
+    [draft, setDraft] = (0, _react.useState)(name);
+  (0, _react.useEffect)(() => {
+    if (uc3Phase < 3) {
+      setReady(false);
+      return;
+    }
+    const timer = setTimeout(() => setReady(true), 800);
+    return () => clearTimeout(timer);
+  }, [uc3Phase >= 3]);
+  return /*#__PURE__*/React.createElement("section", {
+    className: "workflow-canvas-step uc3-rule-step",
+    "aria-label": "规则图谱"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "v7-artifact-step-title"
+  }, "规则图谱"), /*#__PURE__*/React.createElement("section", {
+    ref: cardRef,
+    className: "card uc3-rule-canvas",
+    "data-artifact-kind": "uc3Rule",
+    tabIndex: 0,
+    "aria-label": name
+  }, /*#__PURE__*/React.createElement("header", {
+    className: "uc3-rule-heading"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "./assets/uploads/uc3-rule/title.svg",
+    width: "16",
+    height: "16",
+    alt: ""
+  }), /*#__PURE__*/React.createElement("h2", null, name), /*#__PURE__*/React.createElement("span", {
+    className: "uc3-rule-version"
+  }, "V1.0.1"), /*#__PURE__*/React.createElement("div", {
+    className: "uc3-rule-tools"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "uc3-rule-tests"
+  }, uc3Phase >= 4 ? '正反测试：7/7' : '正反测试中…'), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "icon-btn",
+    "aria-label": "编辑规则图谱标题",
+    onClick: () => {
+      setDraft(name);
+      setEditing(true);
+    }
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "./assets/uploads/uc3-rule/edit.svg",
+    width: "14",
+    height: "14",
+    alt: ""
+  })), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "icon-btn v7-open-card-tab",
+    "aria-label": "新开页签：巡检规则示意图",
+    title: "新开页签",
+    onClick: () => openArtifact("uc3Rule", "巡检规则示意图")
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "./assets/uploads/uc3-rule/open.svg",
+    width: "14",
+    height: "14",
+    alt: ""
+  })))), /*#__PURE__*/React.createElement(Graph, {
+    ready: ready
+  }), /*#__PURE__*/React.createElement("section", {
+    className: 'uc3-rule-evidence' + (!ready ? ' is-building' : ''),
+    "aria-labelledby": "uc3EvidenceTitle"
+  }, /*#__PURE__*/React.createElement("h3", {
+    id: "uc3EvidenceTitle"
+  }, "依据与假设"), /*#__PURE__*/React.createElement("div", {
+    className: "uc3-evidence-grid"
+  }, evidence.map(item => /*#__PURE__*/React.createElement("section", {
+    className: "uc3-evidence-card",
+    key: item.title
+  }, /*#__PURE__*/React.createElement("header", null, /*#__PURE__*/React.createElement(RuleGlyph, {
+    icon: item.icon,
+    className: item.tone
+  }), /*#__PURE__*/React.createElement("h4", null, item.title)), item.lines.map(line => /*#__PURE__*/React.createElement("p", {
+    key: line
+  }, line)))))), editing && /*#__PURE__*/React.createElement("div", {
+    className: "uc3-editor-backdrop",
+    onClick: () => setEditing(false)
+  }, /*#__PURE__*/React.createElement("section", {
+    className: "uc3-editor",
+    role: "dialog",
+    "aria-modal": "true",
+    "aria-labelledby": "uc3EditorTitle",
+    onClick: e => e.stopPropagation()
+  }, /*#__PURE__*/React.createElement("header", null, /*#__PURE__*/React.createElement("h3", {
+    id: "uc3EditorTitle"
+  }, "编辑规则图谱标题"), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "icon-btn",
+    "aria-label": "关闭编辑",
+    onClick: () => setEditing(false)
+  }, /*#__PURE__*/React.createElement(_index.default, {
+    icon: "x"
+  }))), /*#__PURE__*/React.createElement("label", null, "图谱名称", /*#__PURE__*/React.createElement("input", {
+    autoFocus: true,
+    value: draft,
+    onChange: e => setDraft(e.target.value),
+    maxLength: 60
+  })), /*#__PURE__*/React.createElement("footer", null, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    onClick: () => setEditing(false)
+  }, "取消"), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    disabled: !draft.trim(),
+    onClick: () => {
+      setName(draft.trim());
+      setEditing(false);
+      toast('图谱标题已更新');
+    }
+  }, "保存"))))));
+}
+}};
+modules["src/views/uc1-canvas/index.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","../../components/artifact-open/index.jsx":"src/components/artifact-open/index.jsx","../../mock/uc1-rules.js":"src/mock/uc1-rules.js","./index.css":"src/views/uc1-canvas/index.css"},run:function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Uc1RulesCanvas;
+var _react = require("react");
+var _context = require("../../context.jsx");
+var _index = _interopRequireDefault(require("../../components/icon-el/index.jsx"));
+var _index2 = _interopRequireDefault(require("../../components/artifact-open/index.jsx"));
+var _uc1Rules = require("../../mock/uc1-rules.js");
+require("./index.css");
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+const sourceLabel = {
+  factory: '出厂预置',
+  ai: 'AI挖掘',
+  custom: '用户自定义'
+};
+function RuleCheckbox({
+  label,
+  checked,
+  mixed,
+  onChange,
+  disabled = false
+}) {
+  const ref = (0, _react.useRef)(null);
+  (0, _react.useEffect)(() => {
+    if (ref.current) ref.current.indeterminate = !!mixed;
+  }, [mixed]);
+  return /*#__PURE__*/React.createElement("input", {
+    ref: ref,
+    type: "checkbox",
+    "aria-label": label,
+    checked: checked,
+    onChange: onChange,
+    disabled: disabled
+  });
+}
+function Uc1RulesCanvas({
+  cardRef
+}) {
+  const {
+    uc1SummaryStage
+  } = (0, _context.useApp)();
+  const ready = uc1SummaryStage >= 11;
+  const [revealedRows, setRevealedRows] = (0, _react.useState)(0);
+  (0, _react.useEffect)(() => {
+    if (uc1SummaryStage < 8) {
+      setRevealedRows(0);
+      return;
+    }
+    const timers = Array.from({
+      length: 10
+    }, (_, i) => setTimeout(() => setRevealedRows(i + 1), i * 140));
+    return () => timers.forEach(clearTimeout);
+  }, [uc1SummaryStage >= 8]);
+  const [source, setSource] = (0, _react.useState)('all'),
+    [search, setSearch] = (0, _react.useState)(''),
+    [category, setCategory] = (0, _react.useState)('all'),
+    [selected, setSelected] = (0, _react.useState)(() => new Set()),
+    [page, setPage] = (0, _react.useState)(1),
+    [pageSize, setPageSize] = (0, _react.useState)(10),
+    [jump, setJump] = (0, _react.useState)('');
+  const filtered = (0, _react.useMemo)(() => _uc1Rules.uc1Rules.filter(r => (source === 'all' || r.source === source) && (category === 'all' || r.category === category) && (!search.trim() || [r.name, r.category, r.vendor, r.model, r.description].join(' ').toLowerCase().includes(search.trim().toLowerCase()))), [source, category, search]);
+  const pages = Math.max(1, Math.ceil(filtered.length / pageSize));
+  const visible = filtered.slice((page - 1) * pageSize, page * pageSize);
+  (0, _react.useEffect)(() => setPage(1), [source, category, search, pageSize]);
+  (0, _react.useEffect)(() => {
+    if (page > pages) setPage(pages);
+  }, [page, pages]);
+  const count = filtered.filter(r => selected.has(r.id)).length,
+    all = filtered.length > 0 && count === filtered.length;
+  const selectAll = () => setSelected(prev => {
+    const next = new Set(prev);
+    for (const r of filtered) all ? next.delete(r.id) : next.add(r.id);
+    return next;
+  });
+  const toggle = id => setSelected(prev => {
+    const next = new Set(prev);
+    next.has(id) ? next.delete(id) : next.add(id);
+    return next;
+  });
+  const navigate = n => {
+    setPage(Math.max(1, Math.min(pages, n)));
+  };
+  const jumpPage = () => {
+    if (/^\d+$/.test(jump)) navigate(Number(jump));
+    setJump('');
+  };
+  const pageNumbers = [...new Set([1, ...Array.from({
+    length: 5
+  }, (_, i) => Math.max(1, Math.min(pages - 4, page - 2)) + i).filter(x => x <= pages), pages])].sort((a, b) => a - b);
+  return /*#__PURE__*/React.createElement("section", {
+    className: "workflow-canvas-step uc1-rules-step",
+    "aria-label": "检查规则详情"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "v7-artifact-step-title"
+  }, "规则检查完成"), /*#__PURE__*/React.createElement("section", {
+    className: "card uc1-rules-canvas" + (!ready ? " is-loading" : ""),
+    "aria-busy": !ready,
+    ref: cardRef,
+    "data-artifact-kind": "uc1Rules",
+    tabIndex: 0,
+    "aria-label": "检查规则详情 V1.0.1"
+  }, /*#__PURE__*/React.createElement("header", {
+    className: "uc1-rules-heading"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "./assets/uploads/lui-report-file.svg",
+    width: "16",
+    height: "16",
+    alt: ""
+  }), /*#__PURE__*/React.createElement("h2", null, "检查规则详情"), /*#__PURE__*/React.createElement("span", {
+    className: "uc1-rule-version"
+  }, "V1.0.1"), /*#__PURE__*/React.createElement(_index2.default, {
+    kind: "uc1Rules",
+    title: "检查规则详情"
+  })), /*#__PURE__*/React.createElement("div", {
+    inert: !ready ? "" : undefined,
+    className: "uc1-source-cards",
+    "aria-label": "按规则来源筛选"
+  }, _uc1Rules.uc1Sources.map((item, i) => /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: 'uc1-source-card' + (source === item.key ? ' selected' : '') + (uc1SummaryStage < [3, 6, 7, 8][i] ? ' is-skeleton' : ' is-revealed'),
+    "aria-pressed": source === item.key,
+    key: item.key,
+    onClick: () => setSource(item.key)
+  }, /*#__PURE__*/React.createElement("img", {
+    src: './assets/uploads/uc1-rules/' + item.key + '.svg',
+    width: "36",
+    height: "36",
+    alt: ""
+  }), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("strong", null, item.count), /*#__PURE__*/React.createElement("span", null, item.label))))), /*#__PURE__*/React.createElement("div", {
+    inert: !ready ? "" : undefined,
+    className: "uc1-rules-toolbar" + (uc1SummaryStage < 5 ? " is-skeleton" : " is-revealed")
+  }, /*#__PURE__*/React.createElement("label", {
+    className: "uc1-rules-search"
+  }, /*#__PURE__*/React.createElement(_index.default, {
+    icon: "search"
+  }), /*#__PURE__*/React.createElement("input", {
+    type: "search",
+    "aria-label": "搜索检查规则",
+    placeholder: "请输入搜索内容",
+    value: search,
+    onChange: e => setSearch(e.target.value)
+  })), /*#__PURE__*/React.createElement("select", {
+    "aria-label": "规则类别",
+    value: category,
+    onChange: e => setCategory(e.target.value)
+  }, /*#__PURE__*/React.createElement("option", {
+    value: "all"
+  }, "全部类别"), _uc1Rules.uc1Categories.map(c => /*#__PURE__*/React.createElement("option", {
+    key: c
+  }, c))), /*#__PURE__*/React.createElement("label", {
+    className: "uc1-select-all" + (!filtered.length ? " is-disabled" : "")
+  }, /*#__PURE__*/React.createElement(RuleCheckbox, {
+    label: "全部选择检查规则",
+    checked: all,
+    mixed: count > 0 && !all,
+    onChange: selectAll,
+    disabled: !filtered.length
+  }), /*#__PURE__*/React.createElement("span", null, "全部选择"))), /*#__PURE__*/React.createElement("div", {
+    inert: !ready ? "" : undefined,
+    className: "uc1-rule-list",
+    "aria-live": "polite"
+  }, visible.length ? visible.map((rule, index) => /*#__PURE__*/React.createElement("article", {
+    className: 'uc1-rule-row' + (selected.has(rule.id) ? ' selected' : '') + (!ready && index >= revealedRows ? ' is-skeleton' : ' is-revealed'),
+    key: rule.id,
+    "aria-label": rule.name
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "uc1-rule-row-heading"
+  }, /*#__PURE__*/React.createElement(RuleCheckbox, {
+    label: '选择规则：' + rule.name,
+    checked: selected.has(rule.id),
+    onChange: () => toggle(rule.id)
+  }), /*#__PURE__*/React.createElement("h3", null, rule.name), /*#__PURE__*/React.createElement("div", {
+    className: "uc1-rule-badges"
+  }, /*#__PURE__*/React.createElement("span", null, "已引用"), /*#__PURE__*/React.createElement("span", null, "已审核"))), /*#__PURE__*/React.createElement("dl", {
+    className: "uc1-rule-metadata"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, "类型："), /*#__PURE__*/React.createElement("dd", null, sourceLabel[rule.source]), /*#__PURE__*/React.createElement("dt", null, "版本："), /*#__PURE__*/React.createElement("dd", null, rule.version)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, "描述："), /*#__PURE__*/React.createElement("dd", {
+    title: rule.description
+  }, rule.description), /*#__PURE__*/React.createElement("dt", null, "创建人："), /*#__PURE__*/React.createElement("dd", null, rule.creator)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, "设备厂商："), /*#__PURE__*/React.createElement("dd", null, rule.vendor), /*#__PURE__*/React.createElement("dt", null, "设备型号："), /*#__PURE__*/React.createElement("dd", null, rule.model)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", null, "违反规则等级："), /*#__PURE__*/React.createElement("dd", null, /*#__PURE__*/React.createElement("i", null), rule.priority), /*#__PURE__*/React.createElement("dt", null, "创建时间："), /*#__PURE__*/React.createElement("dd", null, rule.createdAt))))) : /*#__PURE__*/React.createElement("div", {
+    className: "uc1-rule-empty",
+    role: "status"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "./assets/uploads/uc1-rules/no-data.svg",
+    width: "124",
+    height: "100",
+    alt: ""
+  }), /*#__PURE__*/React.createElement("p", null, "暂无数据"))), filtered.length > 0 && /*#__PURE__*/React.createElement("footer", {
+    inert: !ready ? "" : undefined,
+    className: "uc1-rule-pagination" + (!ready ? " is-skeleton" : " is-revealed")
+  }, /*#__PURE__*/React.createElement("span", null, "总计：", filtered.length), /*#__PURE__*/React.createElement("span", null, "已选：", /*#__PURE__*/React.createElement("b", null, selected.size)), /*#__PURE__*/React.createElement("div", {
+    className: "uc1-pagination-controls"
+  }, /*#__PURE__*/React.createElement("select", {
+    "aria-label": "每页规则数",
+    value: pageSize,
+    onChange: e => setPageSize(Number(e.target.value))
+  }, [10, 20, 50].map(n => /*#__PURE__*/React.createElement("option", {
+    key: n,
+    value: n
+  }, n, " 项/页"))), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    "aria-label": "上一页规则",
+    disabled: page === 1,
+    onClick: () => navigate(page - 1)
+  }, /*#__PURE__*/React.createElement(_index.default, {
+    icon: "chevron-left"
+  })), pageNumbers.map((n, i) => /*#__PURE__*/React.createElement("span", {
+    className: "uc1-page-item",
+    key: n
+  }, i > 0 && n - pageNumbers[i - 1] > 1 && /*#__PURE__*/React.createElement("span", {
+    className: "uc1-page-ellipsis"
+  }, "···"), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    "aria-label": '规则第' + n + '页',
+    "aria-current": page === n ? 'page' : undefined,
+    onClick: () => navigate(n)
+  }, n))), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    "aria-label": "下一页规则",
+    disabled: page === pages,
+    onClick: () => navigate(page + 1)
+  }, /*#__PURE__*/React.createElement(_index.default, {
+    icon: "chevron-right"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "uc1-page-jump"
+  }, /*#__PURE__*/React.createElement("input", {
+    "aria-label": "跳转到规则页",
+    inputMode: "numeric",
+    value: jump,
+    onChange: e => setJump(e.target.value),
+    onKeyDown: e => {
+      if (e.key === 'Enter') jumpPage();
+    },
+    placeholder: String(page)
+  }), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    onClick: jumpPage
+  }, "跳转"))))));
+}
+}};
+modules["src/mock/uc1-rules.js"]={deps:{},run:function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.uc1Sources = exports.uc1Rules = exports.uc1Categories = void 0;
+// Prototype rule catalog: counts follow UC1; the first four names follow the Pixso reference.
+const base = [['设备基础配置', ['IP地址与规划地址匹配检查(FW/Switch)', '设备主控板内存使用率检查(Switch)', '统计故障端口光模块信息(Switch)', 'Sysname命名规范检查', 'NTP主服务器配置检查', 'NTP备服务器配置检查', 'NTP时区配置检查', 'NTP认证配置检查', '设备管理IP唯一性检查', '设备系统版本检查', '设备补丁版本检查', '设备启动配置检查', '设备配置保存检查', '设备时间同步检查', '设备温度检查', '设备风扇状态检查', '设备电源状态检查', '设备CPU使用率检查', '设备存储空间检查', '设备主备板状态检查', '接口描述规范检查', '接口地址掩码检查', 'Loopback地址配置检查', '管理地址可达性检查', '设备域名配置检查', '设备配置备份检查']], ['安全管理网络与服务配置', ['SSH安全登录配置检查', 'SSH加密算法检查', 'SSH认证方式检查', 'SSH访问控制检查', 'SSH会话超时检查', 'Telnet服务禁用检查', 'Console认证方式检查', 'Console权限级别检查', 'VTY认证方式检查', 'VTY权限级别检查', 'VTY访问协议检查', 'VTY最大会话数检查', '用户接口空闲超时检查', '本地账号权限检查', '本地账号密码复杂度检查', '本地账号密码有效期检查', '本地账号锁定策略检查', '默认账号检查', '闲置账号检查', 'AAA认证域配置检查', 'AAA授权方式检查', 'AAA计费配置检查', 'RADIUS服务器配置检查', 'HWTACACS服务器配置检查', '登录失败告警检查', '管理ACL配置检查', 'HTTP服务禁用检查', 'HTTPS服务配置检查', 'FTP服务禁用检查', 'SFTP服务配置检查', '密码存储方式检查', '安全审计日志配置检查']], ['管理网络与服务配置', ['管理VRF配置检查', 'SNMP版本配置检查', 'SNMP团体名安全检查', 'SNMP用户访问控制检查', 'SNMP认证算法检查', 'SNMP加密算法检查', 'SNMP Trap目的地址检查', 'SNMP源接口配置检查', '日志服务器地址检查', '日志源接口配置检查', '日志级别配置检查', '网管服务可达性检查']], ['网络冗余与故障切换', ['上行端口环网隐患检查', 'M-LAG双归配置检查', 'M-LAG主备角色检查', 'M-LAG Peer-link配置检查', 'M-LAG双活检测检查', 'Monitor Link链路联动检查', 'Eth-Trunk成员接口检查', 'Eth-Trunk协商模式检查', '链路聚合负载分担检查', 'VRRP主备角色检查', 'VRRP抢占延迟检查', 'BFD会话配置检查', 'STP模式配置检查', 'STP根桥优先级检查', 'STP边缘端口检查', 'STP BPDU保护检查', '环路检测配置检查', '路由冗余配置检查', 'ECMP路径配置检查', '故障切换联动检查']]];
+const presets = base.flatMap(([category, names]) => names.map(name => ({
+  name,
+  category,
+  source: 'factory'
+})));
+const first = ['IP地址与规划地址匹配检查(FW/Switch)', '上行端口环网隐患检查', '设备主控板内存使用率检查(Switch)', '统计故障端口光模块信息(Switch)'];
+const ordered = [...first.map(name => presets.find(x => x.name === name)), ...presets.filter(x => !first.includes(x.name))];
+const custom = [{
+  name: '西三旗DC NTP主备服务器配置检查',
+  scope: '西三旗DC交换机',
+  category: '设备基础配置',
+  source: 'custom'
+}, {
+  name: '业务区日志服务器地址配置检查',
+  scope: '业务区交换机',
+  category: '管理网络与服务配置',
+  source: 'custom'
+}];
+const uc1Rules = exports.uc1Rules = [...ordered.slice(0, 4), custom[0], ...ordered.slice(4), custom[1]].map((r, i) => ({
+  ...r,
+  id: 'uc1-rule-' + i,
+  version: 'V1.0',
+  description: r.scope || '--',
+  creator: 'admin',
+  vendor: 'HUAWEI',
+  model: 'GE100v800',
+  priority: '严重',
+  createdAt: '2026/10/12 10:00:00',
+  referenced: true,
+  reviewed: true
+}));
+const uc1Categories = exports.uc1Categories = base.map(x => x[0]);
+const uc1Sources = exports.uc1Sources = [{
+  key: 'all',
+  label: '全部规则',
+  count: 92
+}, {
+  key: 'factory',
+  label: '出厂预置',
+  count: 90
+}, {
+  key: 'ai',
+  label: 'AI挖掘',
+  count: 0
+}, {
+  key: 'custom',
+  label: '用户自定义',
+  count: 2
+}];
 }};
 function load(id){if(Object.hasOwn(external,id))return external[id];if(id.endsWith('.css'))return {};if(cache[id])return cache[id].exports;const record=modules[id];if(!record)throw Error('Missing module '+id);const module={exports:{}};cache[id]=module;record.run(spec=>load(record.deps[spec]||spec),module,module.exports);return module.exports;}
 const App=load('app.jsx').default;ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
