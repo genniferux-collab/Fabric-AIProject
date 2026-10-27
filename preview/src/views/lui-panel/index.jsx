@@ -263,7 +263,7 @@ export default function LuiPanel() {
           <InspectionConversation running={luiView === "running"} active={runningIndex} prompt={taskPrompt} onLocateReport={() => locate("report")} />
         ) : luiView === "uc2" ? (
           <>
-            <Uc2Chat />
+            <Uc2Chat key={app.uc2.runId} />
             {uc2Extra.map((m, i) => (
               <div key={i} className={m.user !== undefined ? "user-msg uc2-followup" : "generated-card uc2-followup"}>
                 {m.user !== undefined ? m.user : m.reply}

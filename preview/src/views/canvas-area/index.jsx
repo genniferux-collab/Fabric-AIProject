@@ -7,21 +7,11 @@ import { GeneratingCanvas } from "../lui-panel/thinking.jsx";
 import ReportCard from "../report-card/index.jsx";
 import DevicePane from "../device-pane/index.jsx";
 import Uc2Pane from "../uc2-canvas/index.jsx";
+import { Uc2RuleDetail } from "../uc2-canvas/report.jsx";
 import Ic from "../../components/icon-el/index.jsx";
 
 function CanvasTabs() {
   const { activePane, openDevices, switchPane, closeDevice, uc2, uc2Show, artifactTabs, activeArtifact, openArtifact, closeArtifact, isDark } = useApp();
-  if (uc2.active) {
-    return (
-      <div className="canvas-tabs" id="canvasTabs" role="tablist" aria-label="画布页签">
-        <div className="canvas-tab panorama-tab active">
-          <button role="tab" aria-selected="true" onClick={() => uc2Show(uc2.max)}>
-            <Ic variant={isDark ? "filled" : "lined"} icon="layout-panel-top" />全景画布
-          </button>
-        </div>
-      </div>
-    );
-  }
   return (
     <div className="canvas-tabs" id="canvasTabs" role="tablist" aria-label="画布页签">
       <div className={"canvas-tab panorama-tab" + (activePane === "task" && !activeArtifact ? " active" : "")}>
@@ -29,9 +19,9 @@ function CanvasTabs() {
           <Ic variant={isDark ? "filled" : "lined"} icon="layout-panel-top" />全景画布
         </button>
       </div>
-      {(artifactTabs.length > 0 || openDevices.length > 0) && <span className="canvas-tab-divider" aria-hidden="true" />}
-      {artifactTabs.map(t=><div key={'artifact:'+t.kind} className={'canvas-tab'+(activeArtifact===t.kind?' active':'')}><button role="tab" aria-selected={activeArtifact===t.kind} onClick={()=>openArtifact(t.kind,t.title)}><Ic variant={isDark ? "filled" : "lined"} icon={t.kind==='network'?'map':t.kind==='artifact'?'network':'file-text'}/>{t.title}</button><button className="close-tab" aria-label={'关闭'+t.title+'页签'} onClick={()=>closeArtifact(t.kind)}><Ic variant={isDark ? "filled" : "lined"} icon="x"/></button></div>)}
-      {openDevices.map((id) => {
+      {(artifactTabs.some(t=>uc2.active?t.kind.startsWith("uc2-"):!t.kind.startsWith("uc2-")) || (!uc2.active && openDevices.length > 0)) && <span className="canvas-tab-divider" aria-hidden="true" />}
+      {artifactTabs.filter(t=>uc2.active?t.kind.startsWith("uc2-"):!t.kind.startsWith("uc2-")).map(t=><div key={'artifact:'+t.kind} className={'canvas-tab'+(activeArtifact===t.kind?' active':'')}><button role="tab" aria-selected={activeArtifact===t.kind} onClick={()=>openArtifact(t.kind,t.title)}><Ic variant={isDark ? "filled" : "lined"} icon={t.kind==='network'?'map':t.kind==='artifact'?'network':'file-text'}/>{t.title}</button><button className="close-tab" aria-label={'关闭'+t.title+'页签'} onClick={()=>closeArtifact(t.kind)}><Ic variant={isDark ? "filled" : "lined"} icon="x"/></button></div>)}
+      {(uc2.active ? [] : openDevices).map((id) => {
         const d = deviceById(id);
         return (
           <div key={id} className={"canvas-tab" + (activePane === id ? " active" : "")}>
@@ -47,10 +37,11 @@ function CanvasTabs() {
 }
 
 export default function CanvasArea() {
-  const { canvasHidden, full, setFull, activePane, stage, cardRefs, reportScrollRef, activeArtifact, luiView, focusLuiArtifact } = useApp();
+  const { canvasHidden, full, setFull, activePane, stage, cardRefs, reportScrollRef, activeArtifact, luiView, focusLuiArtifact, uc2, openArtifact } = useApp();
   const contentRef = useRef(null);
   const innerRef = useRef(null);
   const artifactRef=useRef(null);
+  const artifactScrollsRef=useRef({});
   const trackRef = useRef(null);
   const thumbRef = useRef(null);
   const scrollbarDragRef = useRef(null);
@@ -74,8 +65,9 @@ export default function CanvasArea() {
     if(!activeArtifact)return;
     const card=cardRefs.current[activeArtifact],host=artifactRef.current;
     if(!card||!host)return;
-    const anchor=document.createComment('UC4 artifact source');card.before(anchor);host.appendChild(card);
-    return ()=>{if(anchor.parentNode)anchor.replaceWith(card)};
+    const anchor=document.createComment('Artifact source');card.before(anchor);host.appendChild(card);
+    host.scrollTop=artifactScrollsRef.current[activeArtifact] || 0;
+    return ()=>{artifactScrollsRef.current[activeArtifact]=host.scrollTop;if(anchor.parentNode)anchor.replaceWith(card)};
   },[activeArtifact,activePane,cardRefs]);
 
   // 自定义滚动条同步
@@ -176,7 +168,9 @@ export default function CanvasArea() {
       <section className={"device-pane" + (activePane === "task" || activeArtifact ? " hidden" : "")} id="devicePane" aria-label="设备检查详情">
         {activePane !== "task" ? <DevicePane deviceId={activePane} /> : null}
       </section>
-      <section ref={artifactRef} className={"v7-artifact-pane"+(activeArtifact?"":" hidden")} aria-label="独立卡片页签"/>
+      <section ref={artifactRef} className={"v7-artifact-pane"+(activeArtifact?"":" hidden")} aria-label="独立卡片页签">
+        {uc2.active && activeArtifact?.startsWith("uc2-rule:") && <section className="card uc2-rule-detail-card"><Uc2RuleDetail ruleId={activeArtifact.slice(9)} onBack={()=>openArtifact("uc2-report","黄金基线候选报告")}/></section>}
+      </section>
       <Uc2Pane />
     </main>
   );

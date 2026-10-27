@@ -1,8 +1,8 @@
-.stage-root.uc4 #lui.lui-refresh .uc4-thinking-content{margin-top:16px;padding-left:22px;color:#939393;font-size:14px;font-weight:400;line-height:20.272px;white-space:pre-wrap;overflow-wrap:break-word}
+.stage-root:is(.uc4,.uc2) #lui.lui-refresh .uc4-thinking-content{margin-top:16px;padding-left:22px;color:#939393;font-size:14px;font-weight:400;line-height:20.272px;white-space:pre-wrap;overflow-wrap:break-word}
 .stage-root.uc4 .canvas .uc4-generating-card{position:relative;box-sizing:border-box;height:264px;min-height:264px;padding:0;background:rgba(42,42,42,.75);border:0;border-radius:16px;overflow:hidden;isolation:isolate}
 .stage-root.uc4 .uc4-generating-cloud{position:absolute;inset:0;background-image:url('./assets/uploads/uc4-generating-glow.svg');background-size:100% 100%;background-repeat:no-repeat;pointer-events:none;animation:uc4-generating-drift 5s ease-in-out infinite alternate;will-change:transform,opacity}
 .stage-root.uc4 .uc4-generating-label{position:absolute;z-index:1;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;color:#939393;font-size:14px;font-weight:400;line-height:22px;white-space:nowrap}
 @keyframes uc4-generating-drift{from{transform:translateX(-1%) scale(1.02);opacity:.85}to{transform:translateX(1%) scale(1.06);opacity:1}}
 @media(prefers-reduced-motion:reduce){.stage-root.uc4 .uc4-generating-cloud{animation:none!important;will-change:auto}}
 html:not(.dark) .stage-root.uc4 .canvas .uc4-generating-card{background:rgba(245,245,245,.75)}
-html:not(.dark) .stage-root.uc4 #lui.lui-refresh .uc4-thinking-content{color:#595959}
+html:not(.dark) .stage-root:is(.uc4,.uc2) #lui.lui-refresh .uc4-thinking-content{color:#595959}

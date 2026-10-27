@@ -1,11 +1,11 @@
 // UC2 黄金基线挖掘 — 数据与纯逻辑（最终口径：fusion 图 + 候选报告）
-export const uc2RestorationDuration = 6400;
-export const uc2Timing = { text: [240, 240, 240, 240], canvas: [2500, uc2RestorationDuration, 4800, 1600], settle: 600 };
+export const uc2RestorationDuration = 8000;
+export const uc2Timing = { text: [3600, 3200, 3200, 2400], canvas: [6500, uc2RestorationDuration, 8160, 3600], settle: 2200 };
 export const uc2Prompt = "帮我自动挖掘一下西三旗DC的黄金基线，看看现网有哪些不合规？";
 export const uc2Names = ["意图分析", "设备还原", "黄金基线挖掘", "生成报告"];
 
 export const uc2Rules = [
-  ["管理登录仅允许 SSH", "通用", "账户与访问安全", "protocol inbound ssh", 100, 100, 0],
+  ["SNMP 协议版本 v3", "通用", "账户与访问安全", "snmp-agent sys-info version v3", 100, 98, 2],
   ["VTY 空闲超时不超过 10 分钟", "通用", "账户与访问安全", "idle-timeout 10 0", 100, 97, 3],
   ["SSH 使用安全加密算法", "通用", "账户与访问安全", "ssh server cipher aes256_ctr", 100, 98, 2],
   ["NTP 主时钟源保持一致", "通用", "运维可观测性", "ntp-service unicast-server 10.10.0.10", 100, 99, 1],
@@ -31,6 +31,7 @@ export const uc2Rules = [
 }));
 
 export const uc2DeviationDevices = {
+  "GB-001": ["CoreSwitch-03", "LeafSwitch-06"],
   "GB-002": ["LeafSwitch-03", "LeafSwitch-04", "LeafSwitch-05"],
   "GB-003": ["CoreSwitch-03", "LeafSwitch-06"],
   "GB-004": ["LeafSwitch-07"],
@@ -41,6 +42,7 @@ export const uc2DeviationDevices = {
 };
 
 export const miningImpact = {
+  "GB-001": { actual: "snmp-agent sys-info version v2c", path: "系统视图", reason: "当前配置使用 SNMP v2c，与候选要求的 SNMP v3 不一致。", impact: "管理协议版本偏离候选安全模式，需确认网管兼容性及认证、隐私参数。", next: "确认网管支持 SNMP v3，并结合认证与隐私参数规划核验后，再采用候选配置。" },
   "GB-002": { actual: "idle-timeout 15 0", path: "user-interface vty 0 4", reason: "会话闲置 15 分钟，超出候选上限 10 分钟。", impact: "可能延长无人值守管理会话的暴露时间；需结合运维会话策略确认。", next: "核验是否存在已批准的长时运维例外，再决定收敛至候选值。" },
   "GB-003": { actual: "ssh server cipher aes128_cbc", path: "系统视图", reason: "实际使用 aes128_cbc，与样本共性算法 aes256_ctr 不一致。", impact: "管理访问加密方式偏离候选安全模式；调整前需确认客户端算法兼容性。", next: "核对安全基线与运维客户端兼容性，确认是否采用该候选。" },
   "GB-006": { actual: "未配置 BFD 联动", path: "核心路由冗余", reason: "未匹配到核心角色常见的 BFD 联动配置。", impact: "故障检测与路由收敛策略可能不同；是否影响业务需结合路由协议和定时器核验。", next: "核验路由邻居、设备能力和业务收敛目标，再确认是否要求 BFD。" },
@@ -113,13 +115,15 @@ export function uc2Actual(r) {
 export function uc2ExportCsv(reviews) {
   const rows = [
     ["编号", "规则名称", "适用角色", "功能", "支持样本", "适用样本", "偏离设备", "置信度", "审阅状态"],
-    ...uc2Rules.map((r) => [r.id, r.name, r.role, r.category, r.support, r.scope, r.deviations, r.confidence, reviews[r.id] || "pending"]),
+    ...uc2Rules.map((r) => [r.id, r.name, r.role, r.category, r.support, r.scope, r.deviations, r.confidence, ({pending:"待审阅",accepted:"已采用",rejected:"暂不采用"})[reviews[r.id] || "pending"]]),
   ];
   const csv = "\uFEFF" + rows.map((row) => row.map((v) => '"' + String(v).replaceAll('"', '""') + '"').join(",")).join("\n");
   const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
   const a = document.createElement("a");
   a.href = url;
   a.download = "西三旗DC-黄金基线候选规则.csv";
+  document.body.appendChild(a);
   a.click();
-  URL.revokeObjectURL(url);
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }

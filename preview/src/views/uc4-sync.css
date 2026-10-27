@@ -639,8 +639,8 @@ html:not(.dark) .stage-root #canvas .canvas-tab.active .ic,html:not(.dark) .stag
 .stage-root.uc4 #reportCard{border-radius:12px}
 .stage-root.uc4 .workflow-canvas-step .card{scroll-margin-top:16px}
 .stage-root.uc4 .workflow-canvas-step{border-radius:12px}
-.stage-root.uc4 .locate-highlight{position:relative;isolation:isolate}
-.stage-root.uc4 .locate-highlight::after{content:"";position:absolute;inset:0;box-sizing:border-box;padding:1px;border-radius:inherit;background:linear-gradient(110deg,#5ca2e9,#a18bfa);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;pointer-events:none;z-index:10;animation:smart-locate-border 2.4s ease forwards}
+.stage-root:is(.uc4,.uc2) .locate-highlight{position:relative;isolation:isolate}
+.stage-root:is(.uc4,.uc2) .locate-highlight::after{content:"";position:absolute;inset:0;box-sizing:border-box;padding:1px;border-radius:inherit;background:linear-gradient(110deg,#5ca2e9,#a18bfa);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;pointer-events:none;z-index:10;animation:smart-locate-border 2.4s ease forwards}
 @keyframes smart-locate-border{0%,100%{opacity:0}10%,75%{opacity:1}}
 .stage-root.uc4 .card[data-artifact-kind]:focus-visible{outline:1px solid #a18bfa;outline-offset:2px}
 

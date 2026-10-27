@@ -4,7 +4,7 @@ import { devices } from "./mock/devices.js";
 import { checks } from "./mock/checks.js";
 import { sortedFailedRules } from "./mock/audit.js";
 import { recs, DEFAULT_PROMPT } from "./mock/workflow.js";
-import { uc2RestorationDuration, uc2Timing } from "./mock/uc2.js";
+import { uc2RestorationDuration, uc2Timing, uc2RuleById } from "./mock/uc2.js";
 
 function uc2StageState(cur, stage, phase = "text") {
   return { ...cur, stage, max: Math.max(cur.max, stage), phase, phaseElapsed: 0, canvasStarted: phase === "complete" || (phase === "canvas" && stage < 2),
@@ -24,7 +24,7 @@ const AppContext = createContext(null);
 
 const canvasScrollAnimations = new WeakMap();
 export function scrollCanvasTo(element, behavior = 'smooth') {
-  const container = element?.closest('#canvasContent');
+  const container = element?.closest('#canvasContent, #uc2Pane, .v7-artifact-pane');
   if (!container) return;
   const rect = container.getBoundingClientRect();
   const scale = container.offsetHeight ? rect.height / container.offsetHeight : 1;
@@ -208,6 +208,7 @@ export function AppProvider({ children }) {
   const [uc2Scroll, setUc2Scroll] = useState(null); // {seq, module}
   const [uc2Reviews, setUc2Reviews] = useState({}); // 规则 id -> pending/accepted/rejected
   const [uc2Fusion, setUc2Fusion] = useState({ selected: "engine", rule: null, drawer: null });
+  const uc2RuleDetailsRef = useRef({});
   const [uc2Extra, setUc2Extra] = useState([]); // 挖掘中追加的对话消息
 
   const uc2ScheduleRef = useRef(() => {});
@@ -264,7 +265,10 @@ export function AppProvider({ children }) {
     clearTimeout(uc2TimerRef.current);
     setUc2Fusion({ selected: "engine", rule: null, drawer: null });
     setUc2Extra([]);
-    const next = { active: true, stage: 0, max: 0, phase: "text", phaseElapsed: 0, canvasStarted: false, phaseStartedAt: Date.now(), restoration: 0, restorationElapsed: 0, restorationStartedAt: null, running: true, view: "stage", rule: null, node: null };
+    uc2RuleDetailsRef.current = {};
+    setArtifactTabs([]);
+    setUc2Scroll(null);
+    const next = { runId: Date.now(), active: true, stage: 0, max: 0, phase: "text", phaseElapsed: 0, canvasStarted: false, phaseStartedAt: Date.now(), restoration: 0, restorationElapsed: 0, restorationStartedAt: null, running: true, view: "stage", rule: null, node: null };
     uc2Ref.current = next;
     setUc2(next);
     setActivePane("task");
@@ -309,17 +313,28 @@ export function AppProvider({ children }) {
   const uc2Show = useCallback((targetStage) => {
     const cur = uc2Ref.current;
     if (targetStage > cur.max || targetStage < 0) return;
+    setActiveArtifact(null);
+    setCanvasHidden(false);
     uc2Ref.current = { ...cur, view: targetStage === 0 ? "intent" : "stage", rule: null };
     setUc2(uc2Ref.current);
     setUc2Scroll({ seq: ++uc2ScrollSeqRef.current, module: targetStage });
   }, []);
 
-  const uc2OpenRule = useCallback((id) => {
-    const cur = uc2Ref.current;
-    uc2Ref.current = { ...cur, rule: id, view: "rule" };
-    setUc2(uc2Ref.current);
-    setUc2Scroll({ seq: ++uc2ScrollSeqRef.current, module: 3 });
+  const uc2FocusStep = useCallback((module) => {
+    if (module < 0 || module > uc2Ref.current.max) return;
+    setLuiOpen(true); setAgentActive(true); setFull(false);
+    setUc2Scroll({ seq: ++uc2ScrollSeqRef.current, module, target: "conversation" });
   }, []);
+
+  const uc2OpenRule = useCallback((id) => {
+    const rule = uc2RuleById(id);
+    if (!rule) return;
+    const cur = uc2Ref.current;
+    uc2Ref.current = { ...cur, rule: id, view: "stage" };
+    setUc2(uc2Ref.current);
+    setCanvasHidden(false);
+    openArtifact("uc2-rule:" + id, rule.name);
+  }, [openArtifact]);
 
   const uc2SelectNode = useCallback((nodeId) => {
     const cur = uc2Ref.current;
@@ -484,9 +499,9 @@ export function AppProvider({ children }) {
     toast, toastText,
     resetMapSignal, clearSelSignal,
     cardRefs, locate, luiFocus, focusLuiArtifact, artifactTabs, activeArtifact, openArtifact, closeArtifact,
-    uc2, uc2Start, uc2Pause, uc2Next, uc2CanvasStart, uc2CanvasComplete, uc2Show, uc2OpenRule, uc2SelectNode,
+    uc2, uc2Start, uc2Pause, uc2Next, uc2CanvasStart, uc2CanvasComplete, uc2Show, uc2FocusStep, uc2OpenRule, uc2SelectNode,
     uc2Review, uc2Reviews, uc2Fusion, uc2FusionPick, uc2FusionCloseDrawer,
-    uc2SetFilter, uc2Scroll, uc2Extra, setUc2Extra,
+    uc2SetFilter, uc2Scroll, uc2Extra, setUc2Extra, uc2RuleDetailsRef,
   };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
