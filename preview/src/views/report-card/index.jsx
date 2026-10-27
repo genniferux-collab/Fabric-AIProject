@@ -1,5 +1,8 @@
+import {completionTimeline} from '../../mock/uc4-completion.js';
+import {streamDuration} from '../lui-panel/motion.jsx';
+import './generation.css';
 import ArtifactOpen from "../../components/artifact-open/index.jsx";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useApp, scrollCanvasTo } from "../../context.jsx";
 import { devices } from "../../mock/devices.js";
 import { checks, checkById, deviceRuleTotal, applicableChecks } from "../../mock/checks.js";
@@ -35,10 +38,25 @@ function RuleCard({r,index,onShowList}){
     </div>
   </article>;
 }
-function DeviceCard({d,index}){const {openDevice}=useApp();return <article className="v7-top-card report-device-card"><div className="report-device-main"><div className="report-device-heading"><h3><button onClick={()=>openDevice(d.id)}>{d.name}</button></h3><span className="report-device-rank">{index+1}</span></div><div className="report-device-ip"><img src="./assets/uploads/report-ip-address.svg" width="14" height="14" alt=""/><span>{d.ip}</span></div><div className="v7-card-number"><strong>{d.fails.length}</strong><span>条规则不通过</span></div><RatioBar failed={d.fails.length} total={deviceRuleTotal(d)}/></div><div className="report-device-priority"><span>规则优先级分布</span><PriorityDistribution device={d}/></div></article>}
+function DeviceCard({d,index,revealed=true}){const {openDevice}=useApp();return <article className={"v7-top-card report-device-card"+(!revealed?" report-reveal-skeleton":"")}><div className="report-device-main"><div className="report-device-heading"><h3><button onClick={()=>openDevice(d.id)}>{d.name}</button></h3><span className="report-device-rank">{index+1}</span></div><div className="report-device-ip"><img src="./assets/uploads/report-ip-address.svg" width="14" height="14" alt=""/><span>{d.ip}</span></div><div className="v7-card-number"><strong>{d.fails.length}</strong><span>条规则不通过</span></div><RatioBar failed={d.fails.length} total={deviceRuleTotal(d)}/></div><div className="report-device-priority"><span>规则优先级分布</span><PriorityDistribution device={d}/></div></article>}
 
 export default function ReportCard({ cardRef }) {
-  const { openDevice } = useApp();
+  const { openDevice, reportRevealStartedAt } = useApp();
+  const [reveal,setReveal]=useState({stamp:null,elapsed:Infinity});
+  const elapsed=!reportRevealStartedAt?Infinity:reveal.stamp===reportRevealStartedAt?reveal.elapsed:0;
+  const lines=completionTimeline(summaryParts());
+  const end=lines.at(-1).delay+streamDuration(lines.at(-1).text)+180;
+  const summaryAt=lines[2].delay, conclusionAt=lines[3].delay;
+  const topAt=i=>lines[3].delay+(lines[7].delay-lines[3].delay)*i/5;
+  const detailsAt=lines[7].delay;
+  const ready=elapsed>=end;
+  useEffect(()=>{if(!reportRevealStartedAt)return;const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduced){setReveal({stamp:reportRevealStartedAt,elapsed:Infinity});return;}
+    const points=[0,summaryAt,conclusionAt,...Array.from({length:5},(_,i)=>topAt(i)),detailsAt,...Array.from({length:10},(_,i)=>detailsAt+120+i*80),end].sort((a,b)=>a-b);
+    const update=()=>setReveal({stamp:reportRevealStartedAt,elapsed:Date.now()-reportRevealStartedAt});update();
+    const timers=points.map(t=>setTimeout(update,Math.max(0,reportRevealStartedAt+t-Date.now())+20));return()=>timers.forEach(clearTimeout);
+  },[reportRevealStartedAt]);
+  const loadingClass=(at)=>elapsed<at?' report-reveal-skeleton':' report-reveal-content';
   const [lens, setLens] = useState("devices");
   const [status, setStatus] = useState("failed");
   const [ruleFilter, setRuleFilter] = useState(null);
@@ -86,7 +104,7 @@ export default function ReportCard({ cardRef }) {
   };
 
   return (
-    <section className="card report-card v7-report artifact-card conclusion-artifact v7-card-tabbed report-design" id="reportCard" ref={cardRef}>
+    <section className="card report-card v7-report artifact-card conclusion-artifact v7-card-tabbed report-design" id="reportCard" ref={cardRef} aria-busy={!ready} inert={!ready?"":undefined}>
       <ArtifactOpen kind="report" title="HCS1 区基线检查报告"/>
       <div className="v7-report-heading">
         <div className="row">
@@ -94,9 +112,9 @@ export default function ReportCard({ cardRef }) {
           <h2 className="card-title">HCS1 区基线检查报告</h2>
         </div>
       </div>
-      <div className="v7-report-meta"><span><Ic icon="map-pin"/>西三旗 DC / HCS1</span><span>已检查{audit.total}台设备</span><span>{checks.length}条适用规则</span></div>
+      <div className={"v7-report-meta"+loadingClass(lines[1].delay)}><span><Ic icon="map-pin"/>西三旗 DC / HCS1</span><span>已检查{audit.total}台设备</span><span>{checks.length}条适用规则</span></div>
       <div className="v7-summary v11-summary">
-        <section className="v7-compliance">
+        <section className={"v7-compliance"+loadingClass(summaryAt)}>
           <div className="v7-ring" role="img" aria-label={`整网合规度${compliance()}%，${audit.passed}台通过，${failedDevices().length}台不通过`}>
             <svg viewBox="0 0 104 104" aria-hidden="true">
               <defs><linearGradient id="report-compliance-green"><stop stopColor="#25bc91"/><stop offset=".72" stopColor="#36c9a0"/><stop offset="1" stopColor="#d7fff2"/></linearGradient><filter id="report-ring-glow"><feGaussianBlur stdDeviation="2"/></filter></defs><circle cx="52" cy="52" r="44" fill="none" stroke="#ffffff04" strokeWidth="22"/><circle cx="52" cy="52" r="44" pathLength="100" fill="none" stroke="#ef454f" strokeWidth="6.5" />
@@ -114,10 +132,10 @@ export default function ReportCard({ cardRef }) {
             </button>
           </div>
         </section>
-        <section className="v7-conclusion v11-conclusion"><div className="v7-conclusion-label"><img src="./assets/uploads/report-conclusion-sparkle.svg" width="20" height="20" alt=""/>检查结论</div><p className="v12-summary-copy">已检查 HCS1 区 <strong>{audit.total}</strong> 台设备，其中 <strong>{failedDevices().length}</strong> 台未通过、<strong>{audit.passed}</strong> 台通过，整网合规度 <strong>{compliance()}%</strong>。发现共计 <strong>{rules.length}</strong> 条规则不通过，包括{summaryParts().top}等。建议<span className="report-advice-primary">优先核验高优先级项</span>，<span className="report-advice-confirm">结合变更记录确认后修复。</span></p></section>
+        <section className={"v7-conclusion v11-conclusion"+loadingClass(conclusionAt)}><div className="v7-conclusion-label"><img src="./assets/uploads/report-conclusion-sparkle.svg" width="20" height="20" alt=""/>检查结论</div><p className="v12-summary-copy">已检查 HCS1 区 <strong>{audit.total}</strong> 台设备，其中 <strong>{failedDevices().length}</strong> 台未通过、<strong>{audit.passed}</strong> 台通过，整网合规度 <strong>{compliance()}%</strong>。发现共计 <strong>{rules.length}</strong> 条规则不通过，包括{summaryParts().top}等。建议<span className="report-advice-primary">优先核验高优先级项</span>，<span className="report-advice-confirm">结合变更记录确认后修复。</span></p></section>
       </div>
       <section id="v7TopOverview" className="v7-overview-section" ref={overviewRef}>
-        <div className="v7-result-toolbar">
+        <div className={"v7-result-toolbar"+loadingClass(topAt(0))}>
           <h3 className="v7-section-title">TOP概览</h3>
           <OptionGroup cls="v7-lens" ariaLabel="TOP5观察维度"
             options={[["devices", "按设备"], ["rules", "按规则"]]}
@@ -127,11 +145,11 @@ export default function ReportCard({ cardRef }) {
           <div className="v7-top-grid">
             {lens === "rules"
               ? rules.slice(0, 5).map((r, i) => <RuleCard key={r.id} r={r} index={i} onShowList={showDeviceList} />)
-              : ranked.map((d, i) => <DeviceCard key={d.id} d={d} index={i} />)}
+              : ranked.map((d, i) => <DeviceCard key={d.id} d={d} index={i} revealed={elapsed>=topAt(i)} />)}
           </div>
         </div>
       </section>
-      <section id="v7CheckDetails" className="v7-check-details" ref={detailsRef}>
+      <section id="v7CheckDetails" className={"v7-check-details"+loadingClass(detailsAt)} ref={detailsRef}>
         <h3 className="v7-section-title">检查明细</h3>
         <div className="v7-device-details">
           <div className="v7-status-row">
@@ -166,8 +184,8 @@ export default function ReportCard({ cardRef }) {
                 </tr>
               </thead>
               <tbody>
-                {rows.slice((current - 1) * detailPageSize, current * detailPageSize).map((d) => (
-                  <tr key={d.id}>
+                {rows.slice((current - 1) * detailPageSize, current * detailPageSize).map((d,i) => (
+                  <tr key={d.id} className={loadingClass(detailsAt+120+i*80)}>
                     <td><a href="#" className="link" onClick={(e) => { e.preventDefault(); openDevice(d.id, ruleFilter || undefined); }}>{d.name}</a></td>
                     <td>{d.ip}</td>
                     <td>{deviceTypeLabel(d)}</td>

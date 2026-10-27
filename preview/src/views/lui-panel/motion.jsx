@@ -6,8 +6,8 @@ export const textUnits = text => typeof Intl.Segmenter === 'function' ? [...new 
 export const streamDuration = (text, speed = SPEED) => Math.ceil(textUnits(text).length / speed * 1000);
 
 // Keep each mounted message's progress independent of expand/collapse state.
-export function StreamText({text, as:Tag='span', delay=0, animate=true, leading='', className='', speed=SPEED}) {
-  const units=useMemo(()=>textUnits(text),[text]);
+export function StreamText({text, as:Tag='span', delay=0, animate=true, leading='', className='', speed=SPEED, granularity='word'}) {
+  const units=useMemo(()=>granularity==='character'?Array.from(text):textUnits(text),[text,granularity]);
   const [shown,setShown]=useState(()=>animate && !reducedMotion() ? -1 : units.length);
   useEffect(()=>{
     if(!animate || reducedMotion()){setShown(units.length);return;}

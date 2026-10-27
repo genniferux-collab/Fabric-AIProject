@@ -92,6 +92,7 @@ export function AppProvider({ children }) {
   const [luiView, setLuiView] = useState("home");
   const [taskPrompt, setTaskPrompt] = useState(DEFAULT_PROMPT);
   const [stage, setStage] = useState(4);
+  const [reportRevealStartedAt,setReportRevealStartedAt]=useState(null);
   const [runningIndex, setRunningIndex] = useState(0);
   const [scanSeq, setScanSeq] = useState(0);
   const [promptText, setPromptText] = useState("");
@@ -99,6 +100,10 @@ export function AppProvider({ children }) {
   const timerRef = useRef(0);
   const taskPromptRef = useRef(DEFAULT_PROMPT);
   const scanCtlRef = useRef(null);
+
+  const [uc1Phase,setUc1Phase] = useState(-2);
+  const [uc3Phase,setUc3Phase] = useState(-2);
+  const [uc1SummaryStage,setUc1SummaryStage]=useState(-1);
 
   // 画布页签
   const [openDevices, setOpenDevices] = useState([]);
@@ -180,6 +185,7 @@ export function AppProvider({ children }) {
     taskPromptRef.current = prompt;
     setTaskPrompt(prompt);
     setLuiView("done");
+    setReportRevealStartedAt(Date.now());
     setStage(4);
     setLuiOpen(true);
     setCanvasHidden(false);
@@ -374,6 +380,7 @@ export function AppProvider({ children }) {
   }, []);
 
   const runTask = useCallback((prompt) => {
+    setReportRevealStartedAt(null);
     setLuiFocus(null);
     setActiveArtifact(null);setArtifactTabs([]);
     uc2Leave();
@@ -401,7 +408,20 @@ export function AppProvider({ children }) {
     }, THINKING_DURATION);
   }, [stopScan]);
 
+  const runUc1 = useCallback((prompt = "当前全网有哪些检查规则？") => {
+    uc2Leave();clearTimeout(timerRef.current);runningRef.current=false;stopScan();
+    setUc1SummaryStage(-1);setUc1Phase(-2);setTaskPrompt(prompt);setPromptText("");setLuiView("uc1");setLuiOpen(true);setCanvasHidden(false);setAgentActive(true);
+    setStage(-1);setRunningIndex(-1);setActivePane("task");setOpenDevices([]);setArtifactTabs([]);setActiveArtifact(null);setLuiFocus(null);
+  }, [stopScan]);
+
+  const runUc3=useCallback((prompt='帮我创建规则：用户接口空闲超时时间不能超过10分钟')=>{
+    uc2Leave();clearTimeout(timerRef.current);runningRef.current=false;stopScan();setLuiFocus(null);setUc3Phase(-2);
+    setTaskPrompt(prompt);setPromptText('');setLuiView('uc3');setLuiOpen(true);setCanvasHidden(false);setAgentActive(true);
+    setStage(-1);setRunningIndex(-1);setActivePane('task');setOpenDevices([]);setArtifactTabs([]);setActiveArtifact(null);
+  },[stopScan]);
   const chooseUC = useCallback((i) => {
+    if (i === 0) { runUc1(); return; }
+    if(i===2){runUc3();return;}
     if (i === 3) {
       runTask(recs[3][2]);
       setResetMapSignal((s) => s + 1);
@@ -413,11 +433,13 @@ export function AppProvider({ children }) {
     }
     setPromptText(recs[i][2]);
     toast("提示词已填入；本次交互稿重点展示第 4 个用例。");
-  }, [runTask, toast]);
+  }, [runTask, runUc1, runUc3, toast]);
 
   const submitPrompt = useCallback((p0) => {
     const p = p0.trim();
     if (!p) return;
+    if (/(当前全网.*(检查规则|规则)|查询当前全量配置检查项)/.test(p)) { runUc1(p === "查询当前全量配置检查项" ? "当前全网有哪些检查规则？" : p); return; }
+    if(/(创建.*规则|建一条.*规则|帮我建.*检查规则)/.test(p)){runUc3(p==='帮我建一条检查规则'?'帮我创建规则：用户接口空闲超时时间不能超过10分钟':p);return;}
     if (/黄金|挖掘/.test(p)) { uc2StartRef.current(); return; }
     if (uc2Ref.current.active) {
       setUc2Extra((xs) => [...xs, { user: p }, { reply: "你可以在画布中查看候选规则的共性证据、偏离设备与适用角色，审阅后将规则标记为可用或暂不采用。当前为交互演示。" }]);
@@ -426,7 +448,7 @@ export function AppProvider({ children }) {
     }
     if (/HCS1|基线|修复/i.test(p)) { runTask(p); setResetMapSignal((s) => s + 1); return; }
     toast("当前原型支持 HCS1 设备基线检查，请点击第 4 个推荐问题体验。");
-  }, [runTask, toast]);
+  }, [runTask, runUc1, runUc3, toast]);
 
   // 画布页签/设备
   const switchPane = useCallback((id) => { setActiveArtifact(null);setActivePane(id); }, []);
@@ -494,7 +516,7 @@ export function AppProvider({ children }) {
   const value = {
     isDark, toggleDark: () => setIsDark((d) => !d),
     luiOpen, canvasHidden, agentActive, full, setFull,
-    luiView, taskPrompt, stage, runningIndex, scanSeq, promptText, setPromptText,
+    uc3Phase, setUc3Phase, uc1Phase, setUc1Phase, uc1SummaryStage, setUc1SummaryStage, luiView, taskPrompt, stage, reportRevealStartedAt, runningIndex, scanSeq, promptText, setPromptText,
     scanCtlRef, notifyScanComplete, notifyMappingComplete,
     openAgentHome, goCockpit, toggleAgent, runTask, chooseUC, submitPrompt,
     openDevices, activePane, switchPane, openDevice, closeDevice,

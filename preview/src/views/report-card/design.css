@@ -102,3 +102,6 @@
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-guidance h4{display:flex;align-items:center;gap:4px;font-size:12px;line-height:20px;font-weight:400;color:#dfdfdf;margin:0}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-guidance h4 img{display:block;flex-shrink:0}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-guidance p{margin:0 0 0 18px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;min-height:40px;max-height:40px;font-size:12px;line-height:20px;color:#939393}
+
+/* Inspection rows keep text and inline indicators vertically centered. */
+.stage-root.uc4 #reportCard.report-design .v7-table :is(th,td){vertical-align:middle}

@@ -1,8 +1,23 @@
-.stage-root:is(.uc4,.uc2) #lui.lui-refresh .uc4-thinking-content{margin-top:16px;padding-left:22px;color:#939393;font-size:14px;font-weight:400;line-height:20.272px;white-space:pre-wrap;overflow-wrap:break-word}
-.stage-root.uc4 .canvas .uc4-generating-card{position:relative;box-sizing:border-box;height:264px;min-height:264px;padding:0;background:rgba(42,42,42,.75);border:0;border-radius:16px;overflow:hidden;isolation:isolate}
-.stage-root.uc4 .uc4-generating-cloud{position:absolute;inset:0;background-image:url('./assets/uploads/uc4-generating-glow.svg');background-size:100% 100%;background-repeat:no-repeat;pointer-events:none;animation:uc4-generating-drift 5s ease-in-out infinite alternate;will-change:transform,opacity}
-.stage-root.uc4 .uc4-generating-label{position:absolute;z-index:1;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;color:#939393;font-size:14px;font-weight:400;line-height:22px;white-space:nowrap}
-@keyframes uc4-generating-drift{from{transform:translateX(-1%) scale(1.02);opacity:.85}to{transform:translateX(1%) scale(1.06);opacity:1}}
-@media(prefers-reduced-motion:reduce){.stage-root.uc4 .uc4-generating-cloud{animation:none!important;will-change:auto}}
-html:not(.dark) .stage-root.uc4 .canvas .uc4-generating-card{background:rgba(245,245,245,.75)}
-html:not(.dark) .stage-root:is(.uc4,.uc2) #lui.lui-refresh .uc4-thinking-content{color:#595959}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh .uc4-thinking-content{margin-top:16px;padding-left:22px;color:#939393;font-size:14px;font-weight:400;line-height:20.272px;white-space:pre-wrap;overflow-wrap:break-word}
+.stage-root:is(.uc4,.uc1,.uc3) .canvas .uc4-generating-card{position:relative;box-sizing:border-box;height:264px;min-height:264px;padding:0;background:rgba(42,42,42,.75);border:0;border-radius:16px;overflow:hidden;isolation:isolate}
+.stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-cloud{position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:inherit}
+.stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-label{position:absolute;z-index:1;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;color:#939393;font-size:14px;font-weight:400;line-height:22px;white-space:nowrap}
+@media(prefers-reduced-motion:reduce){.stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-cloud{animation:none!important;will-change:auto}}
+html:not(.dark) .stage-root:is(.uc4,.uc1,.uc3) .canvas .uc4-generating-card{background:rgba(245,245,245,.75)}
+html:not(.dark) .stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh .uc4-thinking-content{color:#595959}
+
+/* Three overlapping round fields: preserve softness on a wide canvas. */
+.stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-cloud{container-type:inline-size;filter:blur(18px);inset:-18px;overflow:visible;opacity:.95}
+.stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-orb{position:absolute;display:block;width:clamp(300px,42cqw,540px);height:auto;aspect-ratio:1;border-radius:50%;filter:blur(clamp(56px,6cqw,86px));mix-blend-mode:screen;will-change:transform;animation-timing-function:ease-in-out;animation-iteration-count:infinite;animation-direction:alternate;transform-origin:center;opacity:.32}
+.stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-orb.orb-rose{left:0;top:calc(50% - clamp(150px,21cqw,270px));background:radial-gradient(circle,rgba(244,114,182,.85) 0%,rgba(244,114,182,.48) 23%,rgba(244,114,182,.1) 48%,rgba(244,114,182,0) 69%);animation:uc4-orb-rose 6s ease-in-out infinite alternate}
+.stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-orb.orb-violet{left:29%;top:calc(39% - clamp(150px,21cqw,270px));background:radial-gradient(circle,rgba(167,139,250,.9) 0%,rgba(167,139,250,.5) 23%,rgba(167,139,250,.1) 48%,rgba(167,139,250,0) 69%);animation:uc4-orb-violet 7s ease-in-out infinite alternate;animation-delay:-2s}
+.stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-orb.orb-blue{right:-1%;top:calc(64% - clamp(150px,21cqw,270px));background:radial-gradient(circle,rgba(77,130,255,.95) 0%,rgba(77,130,255,.55) 23%,rgba(77,130,255,.12) 48%,rgba(77,130,255,0) 69%);animation:uc4-orb-blue 5.5s ease-in-out infinite alternate;animation-delay:-3s;opacity:.38}
+@keyframes uc4-orb-rose{0%{transform:translate(-8%,12%) scale(1.05)}50%{transform:translate(17%,-6%) scale(1.19)}100%{transform:translate(6%,5%) scale(.96)}}
+@keyframes uc4-orb-violet{0%{transform:translate(8%,-5%) scale(1.1)}50%{transform:translate(-12%,13%) scale(.96)}100%{transform:translate(-3%,-9%) scale(1.2)}}
+@keyframes uc4-orb-blue{0%{transform:translate(5%,8%) scale(.98)}50%{transform:translate(-17%,-13%) scale(1.16)}100%{transform:translate(-4%,3%) scale(1.07)}}
+@media(prefers-reduced-motion:reduce){.stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-orb{animation:none;will-change:auto}}
+html:not(.dark) .stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-orb{mix-blend-mode:multiply;opacity:.18}
+
+/* Original InlineLoader spark motion with a neutral status color. */
+.stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-label{display:flex;align-items:center;justify-content:center;gap:12px;min-height:32px;font-size:16px;line-height:24px}
+.stage-root:is(.uc4,.uc1,.uc3) .uc4-generating-spark .il-spark i{background:#dfdfdf}

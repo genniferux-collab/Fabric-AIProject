@@ -1,0 +1,12 @@
+/* Skeletons reserve report geometry; real data is revealed on the LUI completion timeline. */
+.stage-root.uc4 #reportCard .report-reveal-skeleton{position:relative;overflow:hidden;isolation:isolate;border-color:transparent;pointer-events:none}
+.stage-root.uc4 #reportCard .report-reveal-skeleton>*{visibility:hidden}
+.stage-root.uc4 #reportCard .report-reveal-skeleton::before{content:'';position:absolute;inset:0;z-index:1;border-radius:8px;background:linear-gradient(100deg,#ffffff05 15%,#ffffff0c 45%,#ffffff05 75%);background-size:240% 100%;animation:uc4-report-skeleton 1.8s ease-in-out infinite}
+.stage-root.uc4 #reportCard .v7-report-meta.report-reveal-skeleton{min-height:20px;width:55%}
+.stage-root.uc4 #reportCard .v7-compliance.report-reveal-skeleton{min-height:167px}
+.stage-root.uc4 #reportCard .v7-compliance.report-reveal-skeleton::before{border-radius:50%;width:142px;height:142px;inset:12px auto auto 12px}
+.stage-root.uc4 #reportCard .v11-conclusion.report-reveal-skeleton{background:transparent}
+.stage-root.uc4 #reportCard .report-reveal-content{animation:uc4-report-content .32s ease-out both}
+@keyframes uc4-report-skeleton{0%{background-position:100% 0}100%{background-position:-100% 0}}
+@keyframes uc4-report-content{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.stage-root.uc4 #reportCard :is(.report-reveal-skeleton::before,.report-reveal-content){animation:none}}

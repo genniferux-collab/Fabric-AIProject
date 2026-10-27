@@ -1,0 +1,48 @@
+<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16.000000" height="16.000000" fill="none">
+	<mask id="mask_59" width="13.333334" height="16.000000" x="1.332031" y="0.000000" maskUnits="userSpaceOnUse">
+		<g filter="url(#pixso_custom_mask_type_luminance)">
+			<g id="mask-3">
+				<path id="path-2" d="M14.6654 4.60943L14.6654 14C14.6654 15.1046 13.7699 16 12.6654 16L3.33203 16C2.22746 16 1.33203 15.1046 1.33203 14L1.33203 2C1.33203 0.89543 2.22746 2.02906e-16 3.33203 0L10.0559 0C10.2327 7.25687e-16 10.4023 0.0702368 10.5273 0.195259L14.4701 4.13802C14.5951 4.26305 14.6654 4.43262 14.6654 4.60943Z" fill="rgb(255,255,255)" fill-rule="evenodd" />
+			</g>
+		</g>
+	</mask>
+	<defs>
+		<linearGradient id="paint_linear_8" x1="3.36906815" x2="12.7007904" y1="4.76837158e-07" y2="12.0468369" gradientUnits="userSpaceOnUse">
+			<stop stop-color="rgb(92,163,233)" offset="0.000913393276" stop-opacity="1" />
+			<stop stop-color="rgb(0,103,209)" offset="1" stop-opacity="1" />
+		</linearGradient>
+		<filter id="pixso_custom_mask_type_luminance">
+			<feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 " />
+		</filter>
+		<radialGradient id="paint_radial_2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-3.2451,3.5025,-3.46168,-3.20728,10.6654,11.8935)">
+			<stop stop-color="rgb(0,103,209)" offset="0" stop-opacity="1" />
+			<stop stop-color="rgb(0,103,209)" offset="1" stop-opacity="0" />
+		</radialGradient>
+		<radialGradient id="paint_radial_3" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-4.19701,0,0,-4.2143,11.334,11.9938)">
+			<stop stop-color="rgb(46,134,222)" offset="0" stop-opacity="1" />
+			<stop stop-color="rgb(138,190,243)" offset="1" stop-opacity="1" />
+		</radialGradient>
+		<linearGradient id="paint_linear_9" x1="11.3339844" x2="11.3339844" y1="8" y2="16" gradientUnits="userSpaceOnUse">
+			<stop stop-color="rgb(255,255,255)" offset="0" stop-opacity="1" />
+			<stop stop-color="rgb(255,255,255)" offset="1" stop-opacity="0" />
+		</linearGradient>
+		<linearGradient id="paint_linear_10" x1="10.1660156" x2="14.1660147" y1="1.50616395" y2="5.69770241" gradientUnits="userSpaceOnUse">
+			<stop stop-color="rgb(255,255,255)" offset="0" stop-opacity="1" />
+			<stop stop-color="rgb(255,255,255)" offset="1" stop-opacity="0.0533632711" />
+			<stop stop-color="rgb(255,255,255)" offset="1" stop-opacity="0" />
+		</linearGradient>
+	</defs>
+	<rect id="ic_industry_script_task1_textured" width="16.000000" height="16.000000" x="0.000000" y="0.000000" />
+	<g id="ic_industry_script_task-脚本任务_质感图标">
+		<rect id="矩形" width="16.000000" height="16.000000" x="0.000000" y="0.000000" />
+		<path id="path-2" d="M14.6654 4.60943L14.6654 14C14.6654 15.1046 13.7699 16 12.6654 16L3.33203 16C2.22746 16 1.33203 15.1046 1.33203 14L1.33203 2C1.33203 0.89543 2.22746 2.02906e-16 3.33203 0L10.0559 0C10.2327 7.25687e-16 10.4023 0.0702368 10.5273 0.195259L14.4701 4.13802C14.5951 4.26305 14.6654 4.43262 14.6654 4.60943Z" fill="url(#paint_linear_8)" fill-rule="nonzero" />
+		<g id="mask" mask="url(#mask_59)">
+			<path id="形状结合" d="M10.6654 6.66675C13.6109 6.66675 15.9987 9.05456 15.9987 12.0001C15.9987 13.5932 15.3002 15.0231 14.1928 16.0004L7.13796 16.0004C6.03052 15.0231 5.33203 13.5932 5.33203 12.0001C5.33203 9.05456 7.71985 6.66675 10.6654 6.66675Z" fill="url(#paint_radial_2)" fill-rule="nonzero" />
+		</g>
+		<path id="path" d="M11.334 8C9.12485 8 7.33398 9.79086 7.33398 12C7.33398 14.2091 9.12485 16 11.334 16C13.5431 16 15.334 14.2091 15.334 12C15.334 9.79086 13.5431 8 11.334 8Z" fill="url(#paint_radial_3)" fill-rule="nonzero" />
+		<path id="path" d="M7.33398 12C7.33398 14.2091 9.12485 16 11.334 16C13.5431 16 15.334 14.2091 15.334 12C15.334 9.79086 13.5431 8 11.334 8C9.12485 8 7.33398 9.79086 7.33398 12Z" fill-rule="nonzero" stroke="url(#paint_linear_9)" stroke-width="0.400000" />
+		<path id="path6" d="M10.166 0.5L14.166 4.5L11.4993 4.5C10.763 4.5 10.166 3.90305 10.166 3.16667L10.166 0.5Z" opacity="0.600000024" fill="url(#paint_linear_10)" fill-rule="evenodd" />
+		<path id="path" d="M4 4.83337L9.33333 4.83337M4 8.16671L7.33333 8.16671" opacity="0.600000024" stroke="rgb(255,255,255)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.666667" />
+		<path id="形状" d="M10.0212 13.0826L8.83398 11.9508L10.0212 10.819M12.6584 10.819L13.8456 11.9508L12.6584 13.0826M11.6584 10.8157L11.0212 13.0826" fill-rule="evenodd" stroke="rgb(255,255,255)" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.666667" />
+	</g>
+</svg>

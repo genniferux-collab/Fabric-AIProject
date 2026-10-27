@@ -9,6 +9,8 @@ import DevicePane from "../device-pane/index.jsx";
 import Uc2Pane from "../uc2-canvas/index.jsx";
 import Uc2CandidateList from "../uc2-canvas/candidate-list.jsx";
 import { Uc2RuleDetail } from "../uc2-canvas/report.jsx";
+import Uc3RuleCanvas from '../uc3-canvas/index.jsx';
+import Uc1RulesCanvas from "../uc1-canvas/index.jsx";
 import Ic from "../../components/icon-el/index.jsx";
 
 function CanvasTabs() {
@@ -38,7 +40,7 @@ function CanvasTabs() {
 }
 
 export default function CanvasArea() {
-  const { canvasHidden, full, setFull, activePane, stage, cardRefs, reportScrollRef, activeArtifact, luiView, focusLuiArtifact, uc2, openArtifact, uc2RuleOriginsRef } = useApp();
+  const { canvasHidden, full, setFull, activePane, stage, cardRefs, reportScrollRef, activeArtifact, luiView, uc1Phase, uc3Phase, focusLuiArtifact, uc2, openArtifact, uc2RuleOriginsRef } = useApp();
   const contentRef = useRef(null);
   const innerRef = useRef(null);
   const artifactRef=useRef(null);
@@ -55,7 +57,7 @@ export default function CanvasArea() {
     if (followedStepRef.current === key) return;
     let cancelScroll;
     const frame = requestAnimationFrame(() => {
-      const step = stage < 0 ? -1 : stage < 2 ? 0 : stage === 2 ? 2 : 3;
+      const step = stage < 0 ? -1 : stage < 2 ? 0 : stage <= 3 ? 2 : 3;
       const target = innerRef.current?.querySelector(`[data-canvas-step="${step}"]`);
       if (target && !target.classList.contains("hidden")) { cancelScroll = scrollCanvasTo(target, "linear"); followedStepRef.current = key; }
     });
@@ -151,6 +153,8 @@ export default function CanvasArea() {
       ) : null}
       <div className={"canvas-content" + (activePane === "task" && !activeArtifact ? "" : " hidden")} id="canvasContent" ref={contentRef} onScroll={onScroll}>
         <div ref={innerRef} className="workflow-canvas-flow">
+          {luiView === "uc3" && (uc3Phase < 3 ? <GeneratingCanvas/> : <Uc3RuleCanvas cardRef={register("uc3Rule")}/>)}
+          {luiView === "uc1" && (uc1Phase < 4 ? <GeneratingCanvas/> : <Uc1RulesCanvas cardRef={register("uc1Rules")}/>)}
           {luiView === "running" && stage < 0 && <section className="workflow-canvas-step" data-canvas-step="-1" aria-label="思考阶段：正在生成画布"><GeneratingCanvas/></section>}
           <section className={"workflow-canvas-step" + (stage < 0 ? " hidden" : "")} data-canvas-step="0" aria-label="步骤1：全网设备概览">
             <div id="networkOverviewStep" className="v7-artifact-step-title">{luiView === "running" && stage === 0 ? "正在扫描拓扑并识别全网设备" : "全网设备概览已获取"}</div>
@@ -160,10 +164,9 @@ export default function CanvasArea() {
             <div className="v7-artifact-step-title">规则选择与自动推荐<img className="artifact-step-locate" src="./assets/uploads/artifact-locate-panel.svg" width="12" height="12" alt="" aria-hidden="true" /></div>
             <MappingCard cardRef={register("artifact")} />
           </section>
-          <section className={"workflow-canvas-step" + (stage < 3 ? " hidden" : "")} data-canvas-step="3" aria-label="步骤4：设备基线检查">
+          <section className={"workflow-canvas-step" + (stage < 4 ? " hidden" : "")} data-canvas-step="3" aria-label="步骤4：设备基线检查">
             <div className="v7-artifact-step-title">对HCS1区内的380台设备进行基线检查</div>
-            {stage === 3 && <div className="card workflow-checking" role="status"><i className="v7-step-spinner" />正在对 HCS1 区的 380 台设备执行基线检查…</div>}
-            <div className={stage < 4 ? " hidden" : ""}><ReportCard cardRef={register("report")} /></div>
+            {stage >= 4 && <ReportCard cardRef={register("report")} />}
           </section>
         </div>
       </div>
