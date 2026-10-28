@@ -2,15 +2,14 @@ import { BorderBeam } from "border-beam";
 import { matchingBeamPaletteCss } from "./beam-palette.js";
 import ArtifactOpen from "../../components/artifact-open/index.jsx";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
-import { Icon } from "../../../assets/shared/icon.jsx";
 import { useApp } from "../../context.jsx";
 import { devices } from "../../mock/devices.js";
 import { mapGroups, mapSets, mapRelations, mapRelated } from "../../mock/graph.js";
-import { ArtifactIcon } from "../../components/status-marks/index.jsx";
 import Ic from "../../components/icon-el/index.jsx";
 import SearchInput from "../../components/search-input/index.jsx";
 import OptionGroup from "../../components/option-group/index.jsx";
 import "./design.css";
+import "./revision-364640.css";
 
 const BEAM_CYCLE_SECONDS = 2;
 const BEAM_CROSSFADE_MS = 300;
@@ -172,7 +171,7 @@ export default function MappingCard({ cardRef }) {
     matching: activeNodes.has(id),
   });
 
-  const x1 = width * 405 / 1216, x2 = width * 811 / 1216;
+  const x1 = width * .3375, x2 = width * .6625;
   const edges = [];
   for (const [gid, sid] of mappingRelations) {
     const g = layout.groups.find((r) => r.node.id === gid);
@@ -251,7 +250,7 @@ export default function MappingCard({ cardRef }) {
               onFocus={() => { setHovered(g.id); setHoverDevice(d.id); }}
               onBlur={() => { setHovered(null); setHoverDevice(null); }}
             >
-              <span className="node-icon"><Icon name={d.deviceType === "防火墙" ? "shield" : "server"} className="ic" strokeWidth={1.6} /></span>
+              <span className="node-icon"><img src={"./assets/uploads/uc4-mapping/"+(d.deviceType === "防火墙" ? "firewall" : "access")+".svg"} alt="" /></span>
               <span className="v7-map-node-copy">
                 <span className="node-name">{d.name}</span>
                 <span className="node-meta"><span>{d.ip}</span><span>{d.model}</span></span>
@@ -297,7 +296,7 @@ export default function MappingCard({ cardRef }) {
           onFocus={() => setHovered(n.id)}
           onBlur={() => setHovered(null)}
         >
-          <span className="node-icon"><img src={"./assets/uploads/mapping-" + (isGroup ? (n.type.startsWith("FW") ? "firewall" : n.name.includes("核心") ? "core" : "access") : "rules") + ".svg"} alt="" /></span>
+          <span className="node-icon"><img src={"./assets/uploads/uc4-mapping/" + (isGroup ? (n.type.startsWith("FW") ? "firewall" : n.name.includes("核心") ? "core" : "access") : "rules") + ".svg"} alt="" /></span>
           <span className="v7-map-node-copy">
             <span className="node-name">{n.name}</span>
             <span className="node-meta">{meta}</span>
@@ -311,11 +310,11 @@ export default function MappingCard({ cardRef }) {
 
   return (
     <section className="card artifact-card process-artifact v7-card-tabbed mapping-design" id="mappingCard" ref={cardRef} aria-busy={matching} data-match-phase={elapsed === 0 ? "waiting" : elapsed >= MATCH_DURATION ? "complete" : "matching"}>
-      <ArtifactOpen kind="artifact" title="HCS1合规检查规则&设备匹配"/>
+      <ArtifactOpen kind="artifact" title="HCS1合规检查规则&设备匹配" iconSrc="./assets/uploads/uc4-mapping/open.svg"/>
       <div className="between">
         <div className="v7-artifact-title">
-          <ArtifactIcon type="process" shape="mapping" />
-          <h2 className="card-title">合规检查规则&amp;设备匹配图</h2>
+          <img className="mapping-title-icon" src="./assets/uploads/uc4-mapping/title.svg" width="16" height="16" alt="" />
+          <h2 className="card-title">合规检查规则&amp;设备匹配</h2>
         </div>
       </div>
       <div className="mapping-design-toolbar">
@@ -335,9 +334,9 @@ export default function MappingCard({ cardRef }) {
         <div className="column-title">规则检查集（<span id="setCount">{visibleSetCount}</span>）</div>
       </div>
       <div className="graph" id="graph" ref={graphRef} style={{ height: layout.height + "px" }} onClick={onBlankClick}>
-        <svg className="connections" id="connections" aria-hidden="true" viewBox={`0 0 ${width} ${layout.height}`}>
+        <svg className="connections" id="connections" aria-hidden="true" viewBox={`0 0 ${width} ${layout.height}`} style={{"--mapping-edge-gradient":`url(#${effectId}-intelligence)`}}>
           <defs>
-            <linearGradient id={`${effectId}-intelligence`} x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stopColor="#329d7c" /><stop offset="46%" stopColor="#7bdfb5" /><stop offset="78%" stopColor="#64c6c2" /><stop offset="100%" stopColor="#329d7c" /></linearGradient>
+            <linearGradient id={`${effectId}-intelligence`} gradientUnits="userSpaceOnUse" x1={x1} y1="0" x2={x2} y2="0"><stop offset="0%" stopColor="#2e86de" /><stop offset="100%" stopColor="#a89ff9" /></linearGradient>
           </defs>
           {edges.filter((e) => e.progress > 0).map((e, i) => {
             const d = `M ${x1} ${e.from} C ${x1 + (x2 - x1) * 0.46} ${e.from},${x2 - (x2 - x1) * 0.46} ${e.to},${x2} ${e.to}`;

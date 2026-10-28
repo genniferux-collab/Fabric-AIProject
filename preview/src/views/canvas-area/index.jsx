@@ -9,6 +9,7 @@ import DevicePane from "../device-pane/index.jsx";
 import Uc2Pane from "../uc2-canvas/index.jsx";
 import Uc2CandidateList from "../uc2-canvas/candidate-list.jsx";
 import { Uc2RuleDetail } from "../uc2-canvas/report.jsx";
+import Uc3RuleEditor from '../uc3-canvas/editor.jsx';
 import Uc3RuleCanvas from '../uc3-canvas/index.jsx';
 import Uc1RulesCanvas from "../uc1-canvas/index.jsx";
 import Ic from "../../components/icon-el/index.jsx";
@@ -19,11 +20,11 @@ function CanvasTabs() {
     <div className="canvas-tabs" id="canvasTabs" role="tablist" aria-label="画布页签">
       <div className={"canvas-tab panorama-tab" + (activePane === "task" && !activeArtifact ? " active" : "")}>
         <button role="tab" aria-selected={activePane === "task" && !activeArtifact} onClick={() => switchPane("task")}>
-          <Ic variant={isDark ? "filled" : "lined"} icon="layout-panel-top" />全景画布
+          <img className="panorama-design-icon" src="./assets/uploads/ic_ict_deployment.svg" width="14" height="14" alt="" aria-hidden="true" />全景画布
         </button>
       </div>
       {(artifactTabs.some(t=>uc2.active?t.kind.startsWith("uc2-"):!t.kind.startsWith("uc2-")) || (!uc2.active && openDevices.length > 0)) && <span className="canvas-tab-divider" aria-hidden="true" />}
-      {artifactTabs.filter(t=>uc2.active?t.kind.startsWith("uc2-"):!t.kind.startsWith("uc2-")).map(t=><div key={'artifact:'+t.kind} className={'canvas-tab'+(activeArtifact===t.kind?' active':'')}><button role="tab" aria-selected={activeArtifact===t.kind} onClick={()=>openArtifact(t.kind,t.title)}><Ic variant={isDark ? "filled" : "lined"} icon={t.kind==='network'?'map':t.kind==='artifact'?'network':'file-text'}/>{t.title}</button><button className="close-tab" aria-label={'关闭'+t.title+'页签'} onClick={()=>closeArtifact(t.kind)}><Ic variant={isDark ? "filled" : "lined"} icon="x"/></button></div>)}
+      {artifactTabs.filter(t=>uc2.active?t.kind.startsWith("uc2-"):!t.kind.startsWith("uc2-")).map(t=><div key={'artifact:'+t.kind} className={'canvas-tab'+(activeArtifact===t.kind?' active':'')}><button role="tab" aria-selected={activeArtifact===t.kind} onClick={()=>openArtifact(t.kind,t.title)}>{t.kind==="uc3-editor"?<img src="./assets/uploads/uc3-rule/editor-tab.svg" width="14" height="14" alt=""/>:(<Ic variant={isDark ? "filled" : "lined"} icon={t.kind==='network'?'map':t.kind==='artifact'?'network':'file-text'}/>)}{t.title}</button><button className="close-tab" aria-label={'关闭'+t.title+'页签'} onClick={()=>closeArtifact(t.kind)}><Ic variant={isDark ? "filled" : "lined"} icon="x"/></button></div>)}
       {(uc2.active ? [] : openDevices).map((id) => {
         const d = deviceById(id);
         return (
@@ -173,7 +174,8 @@ export default function CanvasArea() {
       <section className={"device-pane" + (activePane === "task" || activeArtifact ? " hidden" : "")} id="devicePane" aria-label="设备检查详情">
         {activePane !== "task" ? <DevicePane deviceId={activePane} /> : null}
       </section>
-      <section ref={artifactRef} className={"v7-artifact-pane"+(activeArtifact?"":" hidden")} aria-label="独立卡片页签">
+      <section ref={artifactRef} className={"v7-artifact-pane"+(activeArtifact?"":" hidden")+(activeArtifact==="uc3-editor"?" uc3-edit-pane":"")} aria-label="独立卡片页签">
+        {luiView === "uc3" && activeArtifact === "uc3-editor" && <Uc3RuleEditor/>}
         {uc2.active && activeArtifact?.startsWith("uc2-rule:") && <section className="card uc2-rule-detail-card"><Uc2RuleDetail ruleId={activeArtifact.slice(9)} returnLabel={ruleOrigin==="uc2-rules"?"返回全部规则":"返回报告"} onBack={()=>ruleOrigin==="uc2-rules"?openArtifact("uc2-rules","全部候选规则"):uc2Show(3)}/></section>}
         {uc2.active && <section key={uc2.runId} className="card uc2-rules-card" hidden={activeArtifact!=="uc2-rules"}><Uc2CandidateList/></section>}
       </section>
