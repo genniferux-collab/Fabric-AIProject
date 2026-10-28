@@ -1,0 +1,20 @@
+/* Pixso 76:350723: 1280×1032 rule-creation surface. Reuse the 32px form kit. */
+.stage-root.uc2 .v7-artifact-pane:has(>.uc2-rule-editor-shell){padding:0;overflow:hidden}
+.stage-root.uc2 .uc2-rule-editor-shell{height:100%;min-height:0;display:grid;grid-template-rows:minmax(0,1fr) auto;color:var(--text);background:#2a2a2a}
+.stage-root.uc2 .uc3-rule-editor.uc2-rule-editor{min-height:0;overflow:auto;overscroll-behavior:contain;padding:24px 32px;scrollbar-width:thin;scrollbar-color:#595959 transparent}
+.stage-root.uc2 .uc2-rule-editor .uc3-edit-section:first-child{padding-bottom:32px;border-bottom:0}
+.stage-root.uc2 .uc2-rule-editor .uc3-edit-section+.uc3-edit-section{margin-top:0}
+.stage-root.uc2 .uc2-rule-editor .uc3-edit-control>input[readonly]{color:#c9c9c9}
+.stage-root.uc2 .uc2-editor-conditions{width:100%;min-width:0}
+.stage-root.uc2 .uc2-editor-condition-actions{display:flex;gap:12px;align-items:center}
+.stage-root.uc2 .uc2-editor-field-error{margin:6px 0 0;color:#f1848b;font-size:12px;line-height:20px}
+.stage-root.uc2 .uc2-rule-editor [aria-invalid=true]{border-color:#f1848b!important}
+.stage-root.uc2 .uc2-editor-test-feedback{margin-left:72px;color:#f1848b;font-size:12px;line-height:20px}.stage-root.uc2 .uc2-editor-test-feedback p{margin:0}
+.stage-root.uc2 .uc2-rule-editor-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 32px;border-top:1px solid #ffffff1a;background:#2a2a2a;color:#c9c9c9;font-size:12px;line-height:20px}
+.stage-root.uc2 .uc2-rule-editor-footer small{display:block;color:#939393;font-size:12px}.stage-root.uc2 .uc2-rule-editor-footer>div{display:flex;gap:12px}.stage-root.uc2 .uc2-rule-editor-footer .btn{height:32px;padding:4px 16px;white-space:nowrap}
+.stage-root.uc2 .uc2-rule-editor .uc3-edit-row{grid-template-columns:56px minmax(0,652px);width:100%;max-width:724px}
+.stage-root.uc2 .uc2-rule-editor .uc3-edit-condition-grid{grid-template-columns:repeat(3,minmax(0,1fr)) minmax(92px,.8fr)}
+@container workspace (max-width:800px){.stage-root.uc2 .uc3-rule-editor.uc2-rule-editor{padding:24px}.stage-root.uc2 .uc2-rule-editor-footer{padding:16px 24px}.stage-root.uc2 .uc2-rule-editor .uc3-edit-condition-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@container workspace (max-width:560px){.stage-root.uc2 .uc2-rule-editor-footer>span{max-width:50%}.stage-root.uc2 .uc2-rule-editor .uc3-edit-row{grid-template-columns:minmax(0,1fr);gap:6px}.stage-root.uc2 .uc2-rule-editor .uc3-edit-label{padding:0}}
+
+.stage-root.uc2 .uc2-rule-editor .uc3-edit-test-status.is-pending i{background:#939393}

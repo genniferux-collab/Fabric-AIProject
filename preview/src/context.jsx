@@ -132,7 +132,7 @@ export function AppProvider({ children }) {
   // UC4 card tabs retain the same mounted card and its filters/scroll position.
   const [artifactTabs,setArtifactTabs]=useState([]);
   const [activeArtifact,setActiveArtifact]=useState(null);
-  const openArtifact=useCallback((kind,title)=>{setArtifactTabs(xs=>xs.some(x=>x.kind===kind)?xs:[...xs,{kind,title}]);setActivePane('task');setActiveArtifact(kind)},[]);
+  const openArtifact=useCallback((kind,title)=>{setArtifactTabs(xs=>xs.some(x=>x.kind===kind)?xs.map(x=>x.kind===kind?{...x,title}:x):[...xs,{kind,title}]);setActivePane('task');setActiveArtifact(kind)},[]);
   const closeArtifact=useCallback(kind=>{setArtifactTabs(xs=>xs.filter(x=>x.kind!==kind));setActiveArtifact(x=>x===kind?null:x)},[]);
 
   // 设备详情状态（跨页签保留）
@@ -240,6 +240,18 @@ export function AppProvider({ children }) {
   const [uc2Reviews, setUc2Reviews] = useState(()=>{try{return {...uc2InitialReviews,...JSON.parse(localStorage.getItem("fabric.uc2.reviews.v2")||"{}")};}catch{return {...uc2InitialReviews};}});
   useEffect(()=>{try{localStorage.setItem("fabric.uc2.reviews.v2",JSON.stringify(uc2Reviews));}catch{}},[uc2Reviews]);
   useEffect(()=>{const sync=event=>{if(event.key==="fabric.uc2.reviews.v2"&&event.newValue){try{setUc2Reviews({...uc2InitialReviews,...JSON.parse(event.newValue)});}catch{}}};window.addEventListener("storage",sync);return()=>window.removeEventListener("storage",sync);},[]);
+  const [uc2RuleConfigs,setUc2RuleConfigs]=useState(()=>{try{return JSON.parse(localStorage.getItem("fabric.uc2.rule-configs.v1")||"{}");}catch{return {};}});
+  const uc2RuleEditorDraftsRef=useRef({});
+  useEffect(()=>{try{localStorage.setItem("fabric.uc2.rule-configs.v1",JSON.stringify(uc2RuleConfigs));}catch{}},[uc2RuleConfigs]);
+  const uc2EditRule=useCallback(id=>{const rule=uc2RuleById(id);if(rule)openArtifact("uc2-edit:"+id,"编辑规则 · "+(uc2RuleConfigs[id]?.name||rule.name));},[openArtifact,uc2RuleConfigs]);
+  const uc2SaveRule=useCallback((id,configuration)=>{
+    setUc2RuleConfigs(previous=>({...previous,[id]:{...configuration,sourceId:id,savedAt:new Date().toISOString()}}));
+    setUc2Reviews(previous=>({...previous,[id]:"accepted"}));
+    delete uc2RuleEditorDraftsRef.current[id];
+    closeArtifact("uc2-edit:"+id);
+    openArtifact("uc2-rule:"+id,configuration.name);
+    toast("规则已保存并采纳，可返回报告查看审阅状态");
+  },[closeArtifact,openArtifact,toast]);
   const [uc2Fusion, setUc2Fusion] = useState({ selected: "engine", rule: null, drawer: null });
   const uc2RuleDetailsRef = useRef({});
   const uc2RuleOriginsRef = useRef({});
@@ -371,8 +383,8 @@ export function AppProvider({ children }) {
     setUc2(uc2Ref.current);
     setCanvasHidden(false);
     uc2RuleOriginsRef.current[id] = origin;
-    openArtifact("uc2-rule:" + id, rule.name);
-  }, [openArtifact]);
+    openArtifact("uc2-rule:" + id, uc2RuleConfigs[id]?.name||rule.name);
+  }, [openArtifact,uc2RuleConfigs]);
 
   const uc2SelectNode = useCallback((nodeId) => {
     const cur = uc2Ref.current;
@@ -636,6 +648,7 @@ export function AppProvider({ children }) {
     resetMapSignal, clearSelSignal,
     cardRefs, locate, luiFocus, focusLuiArtifact, artifactTabs, activeArtifact, openArtifact, closeArtifact,
     uc2, uc2Start, uc2Pause, uc2Next, uc2CanvasStart, uc2CanvasComplete, uc2Show, uc2FocusStep, uc2OpenRule, uc2SelectNode,
+    uc2EditRule,uc2SaveRule,uc2RuleConfigs,uc2RuleEditorDraftsRef,
     uc2Review, uc2Reviews, uc2Fusion, uc2FusionPick, uc2FusionCloseDrawer,
     uc2SetFilter, uc2Scroll, uc2Extra, setUc2Extra, uc2RuleDetailsRef, uc2RuleOriginsRef,
   };

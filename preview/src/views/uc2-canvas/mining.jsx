@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useApp } from "../../context.jsx";
-import { uc2Timing, fusionRelevant, fusionTopRules, fusionImpact, uc2RuleById, miningImpact, uc2DeviationDevices, uc2Actual } from "../../mock/uc2.js";
+import { uc2Rules,uc2Timing, fusionRelevant, fusionTopRules, fusionImpact, uc2RuleById, miningImpact, uc2DeviationDevices, uc2Actual } from "../../mock/uc2.js";
 import "./mining-reference.css";
 import FlowLight from "./flow-light.jsx";
 
@@ -38,7 +38,7 @@ const links = [
 ];
 
 function RuleTags({ rule }) {
-  return <div className="golden-tags"><span className="confidence">{rule.confidence === "高" ? "高置信" : "待验证"}</span><span className="impact">{fusionImpact[rule.id]}影响</span><span>{rule.role}</span></div>;
+  return <div className="golden-tags"><span className="confidence">{rule.confidence === "高" ? "高置信" : "中置信度"}</span><span className="impact">{fusionImpact[rule.id]}影响</span><span>{rule.role}</span></div>;
 }
 
 function RuleSummary({ rule, position, onOpen, onEnter, onLeave }) {
@@ -131,7 +131,7 @@ export default function Uc2Mining() {
             return <g key={rule.id} className={"golden-rule-node"+(!all&&!hot?" is-muted":"")+(!all&&hot?" is-related":"")+(selected?" is-selected":"")} role="button" tabIndex={revealing?-1:0} aria-label={"候选规则："+rule.name} aria-pressed={selected} data-fusion-node={id} {...handlers(id,rule)}>
               <g className="golden-reveal" data-motion-stage="rule" style={reveal(3150+i*115)}>
                 {selected?<RuleSelection x={x} y={y}/>:<circle className="golden-rule-dot" cx={x} cy={y} r="5"/>}
-                <g className="golden-rule-copy" clipPath="url(#goldenRuleOuterClip)"><text className="golden-rule-name" x={x+33} y={y-6}>{rule.name.length>19?rule.name.slice(0,18)+"…":rule.name}</text><text className="golden-rule-sub" x={x+33} y={y+14}>{rule.confidence==="高"?"高置信":"待验证"}·{fusionImpact[rule.id]}影响·依据{rule.support}台</text></g>
+                <g className="golden-rule-copy" clipPath="url(#goldenRuleOuterClip)"><text className="golden-rule-name" x={x+33} y={y-6}>{rule.name.length>19?rule.name.slice(0,18)+"…":rule.name}</text><text className="golden-rule-sub" x={x+33} y={y+14}>{rule.confidence==="高"?"高置信":"中置信度"}·{fusionImpact[rule.id]}影响·依据{rule.support}台</text></g>
                 <rect className="golden-hit" x={x-14} y={y-30} width="270" height="56" fill="transparent" clipPath="url(#goldenRuleOuterClip)"/>
               </g>
             </g>;
@@ -139,7 +139,7 @@ export default function Uc2Mining() {
           <image className="golden-rule-outer-arc golden-reveal" style={reveal(2750)} href={vectors+"selected-rule-outer-arc.svg"} x="0" y="56" width="1232" height="842" aria-hidden="true"/>
 
         </g>
-        <g className="golden-candidate-total golden-reveal" data-motion-last="true" style={reveal(4400)}><path d={drawerRule?"M558 854H582M711 854H736":"M895 854H919M1048 854H1073"}/><text x={drawerRule?591:923} y="860">18条候选规则</text></g>
+        <g className="golden-candidate-total golden-reveal" data-motion-last="true" style={reveal(4400)}><path d={drawerRule?"M558 854H582M711 854H736":"M895 854H919M1048 854H1073"}/><text x={drawerRule?591:923} y="860">{uc2Rules.length}条候选规则</text></g>
       </svg>
       {summary&&!drawerRule&&<RuleSummary rule={summary.rule} position={summary.position} onOpen={open} onEnter={enter} onLeave={leave}/>}
       {drawerRule&&<RulePanel rule={drawerRule} onClose={uc2FusionCloseDrawer}/>}

@@ -27,8 +27,11 @@ export const uc2Rules = [
   id: "GB-" + String(i + 1).padStart(3, "0"),
   name: r[0], role: r[1], category: r[2], cmd: r[3],
   scope: r[4], support: r[5], deviations: r[6],
-  confidence: i < 12 ? "高" : "待验证",
-}));
+  confidence: r[5]/r[4] >= .95 ? "高" : "中",
+  consistency: r[5]/r[4]*100,
+})).filter(rule=>rule.support<rule.scope);
+
+export const uc2CandidateStats={total:uc2Rules.length,high:uc2Rules.filter(rule=>rule.confidence==="高").length,medium:uc2Rules.filter(rule=>rule.confidence==="中").length};
 
 export const uc2DeviationDevices = {
   "GB-001": ["CoreSwitch-03", "LeafSwitch-06"],
@@ -56,7 +59,7 @@ export const miningImpact = {
 export const fusionImpact = { "GB-001": "高", "GB-002": "中", "GB-003": "高", "GB-004": "中", "GB-005": "高", "GB-006": "高", "GB-007": "中", "GB-008": "高", "GB-009": "中", "GB-010": "低", "GB-011": "中", "GB-012": "高", "GB-013": "高", "GB-014": "中", "GB-015": "高", "GB-016": "高", "GB-017": "低", "GB-018": "低" };
 
 export function fusionTopRules() {
-  const conf = { "高": 2, "待验证": 1 }, impact = { "高": 3, "中": 2, "低": 1 };
+  const conf = { "高": 2, "中": 1 }, impact = { "高": 3, "中": 2, "低": 1 };
   return [...uc2Rules].sort((a, b) =>
     conf[b.confidence] - conf[a.confidence] ||
     impact[fusionImpact[b.id]] - impact[fusionImpact[a.id]] ||
@@ -74,7 +77,7 @@ export const fusionNodes = [
   { id: "engine", x: 595, y: 285, label: "AI 配置共性提取", sub: "标准化 · 对比 · 样本回看", icon: "sparkles" },
   ...fusionTopRules().map((r, i) => ({
     id: "rule:" + r.id, x: 825, y: 92 + i * 44, label: r.name,
-    sub: `${r.confidence === "高" ? "高置信" : "待验证"} · ${fusionImpact[r.id]}影响 · 依据 ${r.support} 台`,
+    sub: `${r.confidence === "高" ? "高置信" : "中置信度"} · ${fusionImpact[r.id]}影响 · 依据 ${r.support} 台`,
     icon: "rules", rank: i + 1, rule: r,
   })),
 ];

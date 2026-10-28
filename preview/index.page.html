@@ -8142,7 +8142,10 @@ html:not(.dark) .stage-root .shell-mode>.ic{color:var(--text)}
 .map-site-tracker[data-popup-kind="detail"],.map-site-tracker[data-popup-kind="events"]{z-index:5}
 .map-site-tracker.is-focused{z-index:4}
 .map-site-tracker.is-muted{opacity:.3}
-.map-site-tracker.is-focused .site-task-tip{background:#354553;box-shadow:inset 0 0 0 1px #77b7f6,0 0 16px #5ca2e92b}
+/* A neutral plate with a soft orange/purple halo keeps task focus separate from status color. */
+.map-site-tracker.is-focused .site-task-tip{background:#414141;color:#fff;box-shadow:inset 0 0 0 1px #ffffff30,-5px 0 18px #a77aff66,5px 0 18px #ffb16b61,0 6px 18px #0005}
+.map-site-tracker.is-focused .site-task-tip:hover{background:#474747;box-shadow:inset 0 0 0 1px #ffffff38,-5px 0 20px #a77aff75,5px 0 20px #ffb16b70,0 6px 18px #0005}
+.map-site-tracker .site-task-tip:focus-visible{outline:2px solid #d8c5e7;outline-offset:3px}
 .map-popup-body .map-dc-card,.map-popup-body .map-dc-events-popup{max-width:100%;max-height:var(--map-popup-max-height);overflow:auto}
 @media(prefers-reduced-motion:reduce){.map-site-tracker,.map-popup-offset{transition:none;will-change:auto}}
 
@@ -9561,183 +9564,197 @@ body:has(.stage-root) .mining-reference,body:has(.stage-root) .mining-reference 
 @container workspace (max-width:1050px){.baseline-donut>.baseline-donut-total{inset:22px;gap:2px}.baseline-donut.has-role-caption .baseline-donut-total>strong{font-size:22px}.baseline-donut-total>strong>small{font-size:10px}}
 @media(prefers-reduced-motion:reduce){.baseline-role-softband,.baseline-role-outline{transition:none}}
 
-/* Evidence strip: each segment owns its label and narrow bars, with no duplicate total. */
+/* Confidence labels share one grid; the proportional strip has an independent baseline. */
 .baseline-evidence-overview{grid-template-columns:minmax(300px,.94fr) minmax(360px,1.18fr)}
-.baseline-evidence-summary{display:flex;align-items:center;container:evidence / inline-size;min-width:0;min-height:148px;padding-left:24px;border-left-color:#ffffff1f}
-.baseline-evidence-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:0;align-items:center;min-width:0;width:100%}
-.baseline-evidence-chart{min-width:0;padding-bottom:4px}
-.baseline-evidence-chart>.baseline-evidence-bar{display:flex;align-items:flex-end;width:100%;height:50px;margin:0;padding:0;gap:3px;filter:none}
-.baseline-evidence-chart .baseline-evidence-bar>button{position:relative;display:flex;flex-direction:column;justify-content:flex-end;min-width:0;height:50px;padding:0 0 0 5px;border:0;outline:0;background:transparent;box-shadow:none;filter:none;text-align:left;color:#c9c9c9;border-radius:0;flex:1 1 0}
-.baseline-evidence-chart .baseline-evidence-bar>button::before{content:"";position:absolute;left:0;bottom:0;width:2px;height:46px;border-radius:1px;background:var(--evidence-color);opacity:.9}
-.baseline-evidence-segment-caption{display:flex;align-items:center;gap:4px;min-width:0;margin-bottom:8px;font-size:11px;line-height:18px;white-space:nowrap}
-.baseline-evidence-segment-caption>i{width:6px;height:6px;flex:none;border-radius:50%;background:var(--evidence-color)}
-.baseline-evidence-segment-caption>span{color:#c9c9c9}
-.baseline-evidence-segment-caption>b{font-size:14px;line-height:18px;font-weight:500;color:#fff}
-.baseline-evidence-segment-caption small{font-size:11px;line-height:18px;font-weight:400;margin-left:2px;color:#c9c9c9}
-.baseline-evidence-bars{display:flex;align-items:stretch;gap:2px;width:100%;height:20px;min-width:0}
-.baseline-evidence-chart .baseline-evidence-bars>i{display:block;flex:1 1 0;min-width:1px;height:20px;border:0;box-shadow:none;border-radius:1px;background:var(--evidence-color);opacity:1;transition:opacity 160ms ease}
-.baseline-evidence-chart .baseline-evidence-bar>button:hover,.baseline-evidence-chart .baseline-evidence-bar>[aria-pressed=true]{outline:0;background:transparent;filter:none;box-shadow:none}
-.baseline-evidence-chart .baseline-evidence-bar>button:hover .baseline-evidence-bars>i,.baseline-evidence-chart .baseline-evidence-bar>[aria-pressed=true] .baseline-evidence-bars>i{opacity:1}
-.baseline-evidence-chart .baseline-evidence-bar>[aria-pressed=true] .baseline-evidence-segment-caption{color:#fff;text-decoration:underline;text-decoration-color:var(--evidence-color);text-underline-offset:4px}
-.baseline-evidence-chart .baseline-evidence-bar>button:focus-visible{outline:1px solid var(--evidence-color);outline-offset:4px;border-radius:3px}
-@container workspace (max-width:1050px){.baseline-evidence-overview{grid-template-columns:minmax(240px,1fr) minmax(210px,1fr)}.baseline-evidence-summary{padding-left:16px}}
-@media(prefers-reduced-motion:reduce){.baseline-evidence-bars>i{transition:none}}
-
-
+.baseline-evidence-summary{display:flex;align-items:center;justify-content:center;container:evidence / inline-size;min-width:0;min-height:148px;padding-left:24px;border-left-color:#ffffff1f}
+.baseline-evidence-layout{display:grid;grid-template-columns:minmax(0,1fr);width:100%;min-width:0}
+.baseline-confidence-chart{width:100%;min-width:0}
+.baseline-confidence-labels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.baseline-report .baseline-confidence-label{position:relative;display:grid;grid-template-columns:7px minmax(0,1fr) auto;align-items:center;gap:8px;min-width:0;min-height:68px;padding:10px 12px;border:1px solid transparent;border-radius:6px;color:#fff;text-align:left;transition:color 180ms ease,opacity 180ms ease}
+.baseline-confidence-label>i{width:7px;height:7px;border-radius:50%;background:var(--confidence-color);transform:translateY(-10px)}
+.baseline-confidence-copy{display:flex;flex-direction:column;gap:2px;min-width:0;font-size:14px;line-height:22px;white-space:nowrap}
+.baseline-confidence-copy>small{color:#a8a8a8;font-size:12px;line-height:18px}
+.baseline-confidence-label>b{font-size:24px;font-weight:500;line-height:32px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.baseline-confidence-label>b>small{margin-left:3px;color:#c9c9c9;font-size:12px;font-weight:400;line-height:20px}
+.baseline-report .baseline-confidence-label:hover{background:transparent;border-color:transparent;color:#fff}
+.baseline-confidence-label::after{content:"";position:absolute;left:12px;right:12px;bottom:0;height:2px;border-radius:2px;background:var(--confidence-color);opacity:0;transition:opacity 180ms ease}
+.baseline-confidence-label[aria-pressed=true]::after{opacity:1}
+.baseline-report .baseline-confidence-label[aria-pressed=true]{background:transparent;border-color:transparent;box-shadow:none}
+.baseline-confidence-label[aria-pressed=true]>i{box-shadow:0 0 0 3px #303030,0 0 0 4px var(--confidence-color)}
+.baseline-confidence-label[aria-pressed=true] .baseline-confidence-copy>small{color:#dfdfdf}
+.baseline-confidence-track{display:flex;gap:4px;height:36px;padding:0 1px;align-items:stretch}
+.baseline-report .baseline-confidence-track>button{position:relative;display:block;flex-basis:0;min-width:0;height:36px;padding:0;border:0;border-radius:3px;outline:0;background:transparent;transition:opacity 180ms ease,filter 180ms ease}
+.baseline-confidence-track>button>span{display:block;width:100%;height:100%;border-radius:2px;background:repeating-linear-gradient(90deg,var(--confidence-color) 0 5px,transparent 5px 7px)}
+.baseline-confidence-track>button:hover{filter:brightness(1.16)}
+.baseline-report .baseline-confidence-track>[aria-pressed=true]{box-shadow:none;filter:brightness(1.18) saturate(1.06)}
+.baseline-confidence-chart.has-selection .baseline-confidence-label:not([aria-pressed=true]){opacity:.65}
+.baseline-confidence-chart.has-selection .baseline-confidence-track>button:not([aria-pressed=true]){opacity:.42}
+.baseline-report .baseline-confidence-label:focus-visible,.baseline-report .baseline-confidence-track>button:focus-visible{outline:1px solid #c9c9c9;outline-offset:4px}
 .baseline-rule-scope{display:flex;align-items:baseline;gap:8px;flex:none;margin:0 0 16px;font-size:12px;line-height:20px;font-weight:400;color:#939393}
 .baseline-rule-scope b{font-weight:400;color:#c9c9c9;font-variant-numeric:tabular-nums}
 .baseline-rule-table .baseline-rule-type{font-size:12px;line-height:20px;color:#c9c9c9;white-space:nowrap}
-@container workspace (max-width:1050px){.baseline-evidence-summary{min-height:120px}}
-
-/* Center the evidence chart within the panel; raise chart and label sizes for PC legibility. */
-.baseline-evidence-summary{justify-content:center}
-.baseline-evidence-chart>.baseline-evidence-bar,.baseline-evidence-chart .baseline-evidence-bar>button{height:88px}
-.baseline-evidence-chart .baseline-evidence-bar>button::before{height:80px;width:2px}
-.baseline-evidence-segment-caption{font-size:14px;line-height:22px;gap:6px;margin-bottom:12px;align-items:center}
-.baseline-evidence-segment-caption>i{width:7px;height:7px}
-.baseline-evidence-segment-caption>b{font-size:24px;line-height:28px;font-weight:500}
-.baseline-evidence-segment-caption small{font-size:14px;line-height:22px;margin-left:3px}
-.baseline-evidence-bars,.baseline-evidence-chart .baseline-evidence-bars>i{height:36px}
-@container evidence (max-width:300px){.baseline-evidence-segment-caption{font-size:12px;gap:4px}.baseline-evidence-segment-caption>i{width:6px;height:6px}.baseline-evidence-segment-caption>b{font-size:20px}.baseline-evidence-segment-caption small{font-size:12px;margin-left:2px}}
-@container evidence (max-width:240px){.baseline-evidence-chart>.baseline-evidence-bar,.baseline-evidence-chart .baseline-evidence-bar>button{height:108px}.baseline-evidence-chart .baseline-evidence-bar>button::before{height:100px}.baseline-evidence-segment-caption{display:grid;grid-template-columns:6px minmax(0,1fr);gap:0 4px;font-size:12px;line-height:20px;margin-bottom:8px}.baseline-evidence-segment-caption>i{grid-column:1;grid-row:1;width:5px;height:5px}.baseline-evidence-segment-caption>span{grid-column:2;grid-row:1}.baseline-evidence-segment-caption>b{grid-column:2;grid-row:2;font-size:20px;line-height:24px}.baseline-evidence-segment-caption small{font-size:12px;margin-left:2px}}
+@container workspace (max-width:1050px){.baseline-evidence-overview{grid-template-columns:minmax(240px,1fr) minmax(210px,1fr)}.baseline-evidence-summary{padding-left:16px;min-height:120px}}
+@container evidence (max-width:320px){.baseline-confidence-labels{gap:8px}.baseline-report .baseline-confidence-label{padding:8px 6px;gap:6px;grid-template-columns:6px minmax(0,1fr) auto}.baseline-confidence-copy{font-size:12px;line-height:20px}.baseline-confidence-copy>small{font-size:11px}.baseline-confidence-label>b{font-size:20px;line-height:28px}.baseline-confidence-label>b>small{font-size:11px;margin-left:2px}}
+@media(prefers-reduced-motion:reduce){.baseline-confidence-label,.baseline-confidence-track>button{transition:none}}
 
 /* src/views/uc2-canvas/rule-detail.css */
-/* Pixso 2:469426: rule metadata, device navigation and configuration evidence. */
-.stage-root.uc2 #canvas .uc2-rule-detail-card{padding:0;border:0;background:transparent;box-shadow:none}
-.uc2-rule-workspace{color:var(--text);font-size:14px;line-height:22px;min-width:0}
-.uc2-rule-workspace button{cursor:pointer}
-.uc2-rule-heading{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:18px}
-.uc2-rule-heading h2{font-size:18px;line-height:26px;font-weight:500;margin:0}
-.uc2-rule-kind,.uc2-rule-state{display:inline-flex;align-items:center;padding:1px 8px;border-radius:3px;font-size:12px;line-height:20px;white-space:nowrap}
-.uc2-rule-kind{color:#b5aafb;background:#a89ff926}
-.uc2-rule-state.failed{color:#ef6b72;background:#e7434a20}.uc2-rule-state.passed{color:#56cba4;background:#25bc911a}
-.uc2-rule-return{display:inline-flex;align-items:center;gap:6px;margin-left:auto;padding:3px 0 3px 8px;border:0;background:transparent;color:var(--secondary);font-size:12px;line-height:20px}
-.uc2-rule-return:hover{color:var(--interactive-link)}.uc2-rule-return .ic{width:14px;height:14px}
-.uc2-rule-metadata{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:20px;margin:0 0 28px}
-.uc2-rule-metadata div{min-width:0}.uc2-rule-metadata dt{font-size:12px;line-height:20px;color:var(--muted);margin-bottom:4px}.uc2-rule-metadata dd{margin:0;color:var(--text);font-size:14px;line-height:22px;overflow-wrap:anywhere}
-.uc2-rule-body{display:grid;grid-template-columns:minmax(240px,26%) minmax(0,1fr);gap:24px;min-height:620px}
-.uc2-rule-devices{padding-right:24px;border-right:1px solid var(--line);min-width:0}
-.uc2-rule-devices h3{margin:0 0 16px;font-size:16px;line-height:24px;font-weight:500}
-.uc2-device-filters{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
-.uc2-device-filters button{display:flex;align-items:center;gap:5px;border:0;padding:0;background:transparent;color:var(--secondary);font-size:12px;line-height:20px;white-space:nowrap}
-.uc2-device-filters i{width:6px;height:6px;border-radius:50%}.uc2-device-filters .all{display:none}.uc2-device-filters .failed{background:#ef454f}.uc2-device-filters .passed{background:#40bf93}
-.uc2-device-filters strong{font-size:14px;font-weight:400;line-height:18px;padding:0 4px;border:1px solid transparent;border-radius:10px;font-variant-numeric:tabular-nums}
-.uc2-device-filters button[aria-pressed="true"] strong{border-color:#5ca2e9;background:#0067d160;color:#f3f3f3}
-.uc2-rule-devices .search{width:100%;height:32px;margin:0 0 16px;background:transparent;border:1px solid #646464;border-radius:3px;box-sizing:border-box}
-.uc2-rule-devices .search input{min-width:0;background:transparent;border:0;font-size:12px}
-.uc2-device-list{max-height:calc(100dvh - 390px);min-height:200px;overflow:auto;scrollbar-width:thin}
-.uc2-device-item{display:flex;align-items:flex-start;gap:8px;width:100%;padding:12px 10px;border:1px solid transparent;border-left-width:2px;border-radius:3px;background:transparent;text-align:left;color:var(--text)}
-.uc2-device-item:hover{background:#ffffff08}.uc2-device-item.selected{background:#173d59;border-color:#3d6382;border-left-color:#5ca2e9}
-.uc2-device-item>i{width:6px;height:6px;border-radius:50%;flex:none;margin-top:7px;background:#40bf93}.uc2-device-item.failed>i{background:#ef454f}
-.uc2-device-item>span{min-width:0}.uc2-device-item strong{display:block;font-size:14px;line-height:22px;font-weight:500;overflow-wrap:anywhere}.uc2-device-item small{display:block;font-size:12px;line-height:20px;color:var(--secondary);margin-top:2px}
-.uc2-rule-evidence{min-width:0;padding-bottom:16px}
-.uc2-evidence-heading{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px}.uc2-evidence-heading h3{font-size:18px;line-height:26px;font-weight:500;margin:0 auto 0 0}
-.uc2-impact{display:flex;align-items:center;gap:5px;color:var(--secondary);font-size:12px;line-height:20px}.uc2-impact i{width:6px;height:6px;border-radius:50%;background:#f16c72}
-.uc2-check-result{font-size:12px;line-height:20px;padding:0 6px;border-radius:3px}.uc2-check-result.failed{color:#ef6b72;background:#e7434a20}.uc2-check-result.passed{color:#56cba4;background:#25bc911a}
-.uc2-candidate-requirement{display:flex;align-items:center;flex-wrap:wrap;gap:8px;color:var(--muted);font-size:12px;line-height:20px;margin-bottom:20px}
-.uc2-candidate-requirement code{font-size:12px;line-height:20px;padding:1px 6px;border-radius:3px;background:#ffffff0b;color:var(--secondary);overflow-wrap:anywhere}
-.uc2-evidence-checks{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
-.uc2-evidence-check{position:relative;flex:1 1 190px;max-width:280px;min-width:0;min-height:70px;padding:12px 14px;border:1px solid transparent;border-radius:5px;background:#2a2a2a;text-align:left;color:var(--secondary)}
-.uc2-evidence-check.selected{border-color:#5b8bb3;box-shadow:0 0 0 2px #2e62951a}.uc2-evidence-check.selected::after{content:"";position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);border-top:6px solid #5b8bb3;border-right:5px solid transparent;border-left:5px solid transparent}
-.uc2-evidence-check>span{display:flex;align-items:center;gap:6px;font-size:14px;line-height:22px}.uc2-evidence-check i{width:5px;height:5px;border-radius:50%;background:#40bf93}.uc2-evidence-check.failed i{background:#ef454f}
-.uc2-evidence-check code,.uc2-evidence-check small{display:block;font-size:12px;line-height:20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin:4px 0 0 11px}.uc2-evidence-check.failed code{color:#cf777b}
-.uc2-evidence-section{margin:0 0 24px}.uc2-evidence-section h4{font-size:14px;line-height:22px;font-weight:500;margin:0 0 10px}
-.uc2-evidence-alert{display:flex;align-items:flex-start;gap:8px;padding:9px 12px;border-radius:4px;background:#2a2a2a;font-size:12px;line-height:20px;color:var(--secondary);margin-bottom:12px}
-.uc2-evidence-alert .ic{width:14px;height:14px;flex:none;margin-top:3px}.uc2-evidence-alert.warning .ic{color:#ef6b72}.uc2-evidence-alert.info .ic{color:#5ca2e9}.uc2-evidence-alert.success .ic{color:#40bf93}
-.uc2-code-panel{border:1px solid #ffffff0d;background:#232323;border-radius:5px;overflow:hidden}.uc2-code-panel>header{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:36px;padding:6px 12px;border-bottom:1px solid #ffffff0a;box-sizing:border-box;color:#aaa;font-size:12px;line-height:20px}
-.uc2-code-panel>header>span{display:flex;align-items:center;gap:6px}.uc2-code-panel .ic{width:13px;height:13px;flex:none}
-.uc2-code-tools{display:flex;gap:8px;align-items:center}.uc2-code-tools button{display:flex;align-items:center;justify-content:center;gap:5px;min-width:24px;height:24px;padding:0 4px;background:transparent;border:0;color:#999;font-size:11px}.uc2-code-tools button:hover{color:#ddd;background:#ffffff0a;border-radius:3px}
-.uc2-code-lines{padding:8px 0;overflow:auto;max-height:280px;scrollbar-width:thin}
-.uc2-code-line{display:flex;align-items:flex-start;gap:12px;min-height:24px;padding:1px 12px;border-left:2px solid transparent;box-sizing:border-box;color:#c9c9c9;font-size:12px;line-height:22px;white-space:pre}
-.uc2-code-number{flex:none;width:16px;color:#737373;text-align:right;user-select:none}.uc2-code-line code{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-size:12px;line-height:22px;flex:1;min-width:0}
-.uc2-code-line.bad{color:#df7179;background:#e7434a0d;border-left-color:#df535f}.uc2-code-line.good{color:#58b99a;background:#25bc9108}.uc2-code-annotation{font-size:10px;line-height:22px;color:#b95e65;margin-left:12px;flex:none}
-.uc2-rule-disclaimer{font-size:12px;line-height:20px;color:var(--muted);margin-top:12px}
-.uc2-scope-explanation{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;padding:20px;border:1px solid var(--line);border-radius:5px;color:var(--muted);font-size:12px;line-height:20px}.uc2-scope-explanation strong{display:block;color:var(--text);font-size:14px;font-weight:400;line-height:22px;margin-top:6px}
-.uc2-rule-review{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 0 0;margin-top:20px;border-top:1px solid var(--line);font-size:12px;color:var(--secondary)}
-.uc2-rule-review>span>strong{font-weight:500;color:var(--text);margin-left:4px}.uc2-rule-review small{display:block;color:var(--muted);line-height:20px;margin-top:3px}.uc2-rule-review>div{display:flex;gap:8px;flex-wrap:wrap}.uc2-rule-review .btn{height:32px;padding:4px 12px;font-size:12px;line-height:22px}
-html:not(.dark) .uc2-code-panel,html:not(.dark) .uc2-evidence-check,html:not(.dark) .uc2-evidence-alert{background:var(--sub);color:var(--text)}
-html:not(.dark) .uc2-code-panel>header,html:not(.dark) .uc2-code-line{color:#595959}
-html:not(.dark) .uc2-device-item.selected{background:#e4f1ff;border-color:#8abfff}
-@container workspace (max-width:1000px){.uc2-rule-metadata{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:12px}.uc2-rule-body{grid-template-columns:248px minmax(0,1fr);gap:20px;min-height:520px}.uc2-rule-devices{padding-right:20px}.uc2-device-filters{gap:7px}.uc2-code-annotation{display:none}.uc2-scope-explanation{grid-template-columns:1fr}.uc2-rule-review{flex-wrap:wrap}}
-
-/* Full-height rule workspace: fixed header/footer with independent grid scroll areas. */
-.stage-root.uc2 #canvas>.v7-artifact-pane:has(>.uc2-rule-detail-card){display:flex;flex-direction:column;overflow:hidden;padding-bottom:0}
+/* Pixso v0ssSa5uEPmc2W4raTIzdA / 2:469426, read at 100% scale.
+   The 1280px detail canvas uses a 344px device column and a 24px content grid. */
+.stage-root.uc2 #canvas>.v7-artifact-pane:has(>.uc2-rule-detail-card){display:flex;flex-direction:column;padding:0;overflow:hidden;background:#202020}
 .stage-root.uc2 #canvas>.v7-artifact-pane.hidden:has(>.uc2-rule-detail-card){display:none}
-.stage-root.uc2 #canvas .uc2-rule-detail-card{height:100%;min-height:0;flex:1 1 0;overflow:hidden}
-.stage-root.uc2 #canvas .uc2-rule-workspace{height:100%;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden}
-.stage-root.uc2 #canvas .uc2-rule-overview{min-width:0}
-.stage-root.uc2 #canvas .uc2-rule-metadata{grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:16px 24px;margin-bottom:24px}
-.stage-root.uc2 #canvas .uc2-rule-body{grid-template-columns:clamp(240px,23%,360px) minmax(0,1fr);gap:24px;min-height:0;overflow:hidden}
-.stage-root.uc2 #canvas .uc2-rule-devices{min-height:0;display:flex;flex-direction:column;overflow:hidden}
-.stage-root.uc2 #canvas .uc2-rule-devices>h3,.stage-root.uc2 #canvas .uc2-device-filters,.stage-root.uc2 #canvas .uc2-rule-devices>.search{flex:none}
-.stage-root.uc2 #canvas .uc2-device-list{flex:1 1 0;min-height:0;max-height:none;overflow:auto;overscroll-behavior:contain}
-.stage-root.uc2 #canvas .uc2-rule-evidence{min-height:0;overflow:auto;overscroll-behavior:contain;padding-right:8px;padding-bottom:24px;scrollbar-width:thin}
-.stage-root.uc2 #canvas .uc2-rule-review{position:relative;z-index:2;flex:none;gap:16px;margin:0;padding:16px 0;background:var(--canvas-surface,#191919)}
-.stage-root.uc2 #canvas .uc2-rule-review>span{min-width:160px}
-.stage-root.uc2 #canvas .uc2-rule-review>div{justify-content:flex-end}
-@container workspace (max-width:760px){.stage-root.uc2 #canvas .uc2-rule-body{grid-template-columns:220px minmax(0,1fr);gap:16px}.stage-root.uc2 #canvas .uc2-rule-devices{padding-right:16px}}
+.stage-root.uc2 #canvas .uc2-rule-detail-card{height:100%;min-height:0;flex:1 1 0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;overflow:hidden}
+.uc2-rule-workspace{height:100%;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden;background:#202020;color:#f5f5f5;font-family:"Pixso Aico Sans","PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;line-height:22px}
+.uc2-rule-workspace *{box-sizing:border-box}
+.uc2-rule-workspace button{cursor:pointer;font:inherit}
+.uc2-rule-overview{min-width:0;padding:16px 24px;border-bottom:1px solid #393939}
+.uc2-rule-heading{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;min-height:24px}
+.uc2-rule-heading h2{font-size:16px;line-height:24px;font-weight:500;margin:0;overflow-wrap:anywhere}
+.uc2-rule-kind,.uc2-rule-state{display:inline-flex;align-items:center;min-height:24px;padding:2px 8px;border-radius:4px;font-size:12px;line-height:20px;white-space:nowrap}
+.uc2-rule-kind{color:#b5aafb;background:#a89ff926}.uc2-rule-state.failed{color:#d56870;background:#e7434a20}.uc2-rule-state.passed{color:#56cba4;background:#25bc911a}
+.uc2-rule-return{display:inline-flex;align-items:center;gap:6px;margin-left:auto;padding:2px 0 2px 12px;border:0;background:transparent;color:#c9c9c9;font-size:12px!important;line-height:20px;white-space:nowrap}
+.uc2-rule-return:hover{color:#5ca2e9}.uc2-rule-return .ic{width:14px;height:14px}
+.uc2-rule-metadata{display:grid;grid-template-columns:1fr 1.3fr .84fr .9fr 1fr 1fr .75fr;gap:16px 24px;margin:0}
+.uc2-rule-metadata>div{min-width:0}.uc2-rule-metadata dt{font-size:12px;line-height:20px;color:#939393;margin-bottom:2px}.uc2-rule-metadata dd{margin:0;color:#dfdfdf;font-size:14px;line-height:22px;overflow-wrap:anywhere}
+.uc2-rule-body{display:grid;grid-template-columns:clamp(228px,26.875%,344px) minmax(0,1fr);min-height:0;overflow:hidden}
+.uc2-rule-devices{display:flex;flex-direction:column;min-height:0;min-width:0;padding:16px 24px 0;border-right:1px solid #393939;overflow:hidden}
+.uc2-rule-devices h3{flex:none;margin:0 0 16px;font-size:16px;font-weight:500;line-height:24px}
+.uc2-device-filters{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;flex:none;min-height:24px;margin-bottom:16px}
+.uc2-device-filters button{display:inline-flex;align-items:center;gap:6px;border:0;padding:0;background:transparent;color:#c9c9c9;font-size:12px;line-height:22px;white-space:nowrap}
+.uc2-device-filters button+button{border-left:1px solid #595959;padding-left:12px}
+.uc2-device-filters i{width:6px;height:6px;border-radius:50%;flex:none}.uc2-device-filters .all{display:none}.uc2-device-filters .failed{background:#e7434a}.uc2-device-filters .passed{background:#36c18d}
+.uc2-device-filters strong{min-width:22px;padding:0 6px;border:1px solid transparent;border-radius:12px;font-size:16px;font-weight:400;line-height:20px;text-align:center;font-variant-numeric:tabular-nums;color:#dfdfdf}
+.uc2-device-filters button[aria-pressed=true] strong{border-color:#5ca2e9;background:#0067d160;color:#fff}
+.uc2-rule-devices .search{flex:none;width:100%;height:32px;margin:0 0 16px;border:1px solid #777;border-radius:4px;background:transparent}
+.uc2-rule-devices .search input{min-width:0;border:0;background:transparent;color:#dfdfdf;font-size:14px;line-height:22px}.uc2-rule-devices .search input::placeholder{color:#939393}
+.uc2-device-list{flex:1 1 0;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#595959 transparent;padding-bottom:16px}
+.uc2-device-item{display:flex;align-items:flex-start;gap:6px;min-height:60px;width:100%;padding:8px 12px;border:0;border-radius:4px;background:transparent;color:#fff;text-align:left;transition:background-color 160ms ease}
+.uc2-device-item:hover{background:#ffffff08}.uc2-device-item.selected{background:#1b334c}
+.uc2-device-item>i{flex:none;width:5px;height:5px;margin-top:8px;border-radius:50%;background:#36c18d}.uc2-device-item.failed>i{background:#e7434a}
+.uc2-device-item>span{min-width:0}.uc2-device-item strong{display:block;font-size:14px;line-height:22px;font-weight:400;overflow-wrap:anywhere}.uc2-device-item small{display:block;margin-top:2px;color:#c9c9c9;font-size:12px;line-height:20px}
+.uc2-rule-evidence{min-width:0;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#595959 transparent;padding:16px 24px 24px}
+.uc2-evidence-heading{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-height:26px;margin-bottom:4px}
+.uc2-evidence-heading h3{margin:0 auto 0 0;font-size:18px;font-weight:500;line-height:26px;overflow-wrap:anywhere}
+.uc2-impact{display:inline-flex;align-items:center;gap:5px;font-size:12px;line-height:20px;color:#c9c9c9;white-space:nowrap}.uc2-impact i{width:6px;height:6px;border-radius:50%;background:#e7434a}.uc2-impact.is-medium i{background:#f59313}.uc2-impact.is-low i{background:#939393}
+.uc2-check-result{flex:none;font-size:12px;line-height:20px;padding:0 8px;border-radius:3px;white-space:nowrap}.uc2-check-result.failed{color:#d56870;background:#e7434a20}.uc2-check-result.passed{color:#56cba4;background:#25bc911a}
+.uc2-candidate-requirement{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:0 0 24px;color:#939393;font-size:12px;line-height:20px}
+.uc2-candidate-requirement code{padding:0 8px;border-radius:3px;background:#ffffff0b;color:#c9c9c9;font-family:inherit;font-size:12px;line-height:20px;overflow-wrap:anywhere}
+.uc2-evidence-checks{display:flex;align-items:stretch;flex-wrap:wrap;gap:16px;margin-bottom:32px}
+.uc2-evidence-check{position:relative;flex:0 1 250px;min-width:0;min-height:64px;padding:8px 12px;border:1px solid transparent;border-radius:8px;background:#2a2a2a;color:#c9c9c9;text-align:left}
+.uc2-evidence-check.selected{border-color:#5ca2e9;box-shadow:none}.uc2-evidence-check.selected::after{content:"";position:absolute;left:50%;bottom:-14px;transform:translateX(-50%);border-top:8px solid #5ca2e9;border-left:8px solid transparent;border-right:8px solid transparent}
+.uc2-evidence-check>span{display:flex;align-items:center;gap:6px;color:#fff;font-size:14px;line-height:22px}.uc2-evidence-check i{flex:none;width:5px;height:5px;border-radius:50%;background:#36c18d}.uc2-evidence-check.failed i{background:#e7434a}
+.uc2-evidence-check code,.uc2-evidence-check small{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;min-width:0;margin:4px 0 0 11px;font-family:inherit;font-size:14px;line-height:20px}.uc2-evidence-check.failed code{color:#ca747b}.uc2-evidence-check small{font-size:12px}
+.uc2-evidence-section{margin:0 0 24px}.uc2-evidence-section h4{margin:0 0 12px;font-size:14px;font-weight:500;line-height:22px}
+.uc2-evidence-alert{display:flex;align-items:flex-start;gap:6px;min-height:38px;margin-bottom:12px;padding:9px 12px;border-radius:4px;background:#2a2a2a;color:#c9c9c9;font-size:12px;line-height:20px}
+.uc2-evidence-alert>img,.uc2-evidence-alert>.ic{display:block;flex:none;width:14px;height:14px;margin-top:3px}.uc2-evidence-alert.info>.ic{color:#5ca2e9}.uc2-evidence-alert>span{min-width:0;overflow-wrap:anywhere}
+.uc2-code-panel{border:0;border-radius:4px;overflow:hidden;background:#282828;color:#dfdfdf}
+.uc2-code-panel>header{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;padding:10px 16px;border-bottom:1px solid #454545;color:#c9c9c9;font-size:14px;line-height:22px}
+.uc2-code-panel>header>span{display:flex;align-items:center;gap:6px}.uc2-code-panel>header>span>img{width:14px;height:14px;flex:none}
+.uc2-code-tools{display:flex;align-items:center;gap:8px;color:#939393;font-size:12px;line-height:20px}
+.uc2-code-tools button{display:grid;place-items:center;flex:none;width:16px;height:22px;padding:0;border:0;border-radius:3px;background:none;color:#c9c9c9}.uc2-code-tools button:hover{background:#ffffff0d}.uc2-code-tools img{width:12px;height:12px}
+.uc2-code-lines{max-height:300px;padding:8px 0;overflow:auto;scrollbar-width:thin;scrollbar-color:#595959 transparent}
+.uc2-code-line{display:flex;align-items:flex-start;gap:8px;min-height:22px;padding:0 16px 0 12px;border-left:2px solid transparent;font-size:12px;line-height:22px;color:#dfdfdf;white-space:pre}
+.uc2-code-number{flex:none;width:8px;color:#737373;text-align:right;user-select:none}.uc2-code-line code{flex:1;min-width:0;font:12px/22px "SFMono-Regular",Consolas,"Liberation Mono",monospace}
+.uc2-code-line.bad{border-left-color:#d45e68;background:#e7434a10}.uc2-code-line mark{padding:0;background:transparent;color:#d86e78}.uc2-code-line.good{color:#58a58b}
+.uc2-code-annotation{flex:none;margin-left:12px;color:#b95e65;font-size:12px;line-height:22px}
+.uc2-code-legend{padding:4px 12px 8px;color:#777;font-size:11px;line-height:20px}
+.uc2-code-panel.is-repair .uc2-code-line{border-left:0;padding-left:24px}.uc2-code-panel.is-repair .uc2-code-line.bad{background:none;color:#b95e65}
+.uc2-rule-disclaimer{margin:8px 0 0;color:#777;font-size:12px;line-height:20px}
+.uc2-scope-explanation{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:16px;padding:16px;border-radius:4px;background:#2a2a2a;color:#939393;font-size:12px;line-height:20px}.uc2-scope-explanation strong{display:block;margin-top:6px;color:#dfdfdf;font-size:14px;font-weight:400;line-height:22px}
+.uc2-rule-review{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0;padding:16px 24px;border-top:1px solid #393939;background:#202020;color:#c9c9c9;font-size:12px;line-height:20px}
+.uc2-rule-review>span>strong{margin-left:4px;color:#f5f5f5;font-weight:500}.uc2-rule-review small{display:block;color:#939393;font-size:12px;line-height:20px;margin-top:2px}.uc2-rule-review>div{display:flex;gap:8px;justify-content:flex-end}.uc2-rule-review .btn{height:32px;padding:4px 12px;font-size:12px;line-height:22px;white-space:nowrap}
+.uc2-rule-workspace button:focus-visible{outline:1px solid #5ca2e9;outline-offset:2px}
+@container workspace (max-width:1000px){.uc2-rule-metadata{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px 20px}.uc2-rule-devices{padding:16px}.uc2-rule-evidence{padding:16px}.uc2-code-annotation{display:none}.uc2-device-filters{gap:8px}.uc2-device-filters button+button{padding-left:8px}.uc2-evidence-check{flex:1 1 170px}.uc2-code-range{display:none}}
+@container workspace (max-width:760px){.uc2-rule-body{grid-template-columns:210px minmax(0,1fr)}.uc2-device-filters button+button{border:0;padding-left:0}.uc2-device-filters strong{font-size:14px;padding:0 3px}.uc2-rule-metadata{grid-template-columns:repeat(3,minmax(0,1fr))}.uc2-scope-explanation{grid-template-columns:1fr}.uc2-rule-review{padding:12px 16px;flex-wrap:wrap}.uc2-rule-review>div{margin-left:auto}.uc2-evidence-heading h3{width:100%}}
+html:not(.dark) .uc2-rule-workspace,html:not(.dark) .uc2-rule-review{background:var(--panel);color:var(--text)}
+html:not(.dark) .uc2-rule-metadata dd,html:not(.dark) .uc2-device-item,html:not(.dark) .uc2-evidence-check>span{color:var(--text)}
+html:not(.dark) .uc2-code-panel,html:not(.dark) .uc2-evidence-alert,html:not(.dark) .uc2-evidence-check{background:var(--sub);color:var(--text)}
+html:not(.dark) .uc2-code-line,html:not(.dark) .uc2-code-panel>header{color:#595959}
+html:not(.dark) .uc2-device-item.selected{background:#e4f1ff}
+@media(prefers-reduced-motion:reduce){.uc2-device-item{transition:none}}
 
 /* src/views/uc3-canvas/editor.css */
 .stage-root.uc3 .v7-artifact-pane{min-height:0;flex:1;overflow:auto;padding:16px;scrollbar-width:thin;scrollbar-color:#595959 transparent}
 .stage-root.uc3 .v7-artifact-pane.uc3-edit-pane{padding:0}
-.stage-root.uc3 .uc3-rule-editor{box-sizing:border-box;min-height:100%;padding:16px 24px;background:transparent;border-radius:0;color:#fff;font-size:14px;line-height:22px;font-weight:400}
-.stage-root.uc3 .uc3-rule-editor *{box-sizing:border-box}
-.stage-root.uc3 .uc3-edit-section-title{display:flex;align-items:center;gap:8px;padding:0;margin:0 0 16px;border:0;background:none;color:#fff;cursor:pointer;height:24px}
-.stage-root.uc3 .uc3-edit-section-title h2{font-size:16px;font-weight:700;line-height:24px;margin:0}
-.stage-root.uc3 .uc3-edit-section-title img{display:block;transition:transform .15s}.stage-root.uc3 .uc3-edit-section-title img.is-collapsed{transform:rotate(180deg)}
-.stage-root.uc3 .uc3-edit-section:first-child{padding-bottom:16px;border-bottom:1px solid #777}
-.stage-root.uc3 .uc3-edit-section+.uc3-edit-section{margin-top:16px}
-.stage-root.uc3 .uc3-edit-rows{display:flex;flex-direction:column;gap:16px}
-.stage-root.uc3 .uc3-edit-row{display:grid;grid-template-columns:56px minmax(0,652px);gap:16px;align-items:start;max-width:724px}
-.stage-root.uc3 .uc3-edit-label{line-height:22px;padding-top:5px;color:#c9c9c9;white-space:nowrap}
-.stage-root.uc3 .uc3-edit-control{min-width:0;display:flex;align-items:center;gap:16px;min-height:32px}
-.stage-root.uc3 .uc3-rule-editor :is(input:not([type=radio]),textarea,select){width:100%;border:1px solid #777;border-radius:4px;background:transparent;color:#fff;font:inherit;line-height:22px;padding:4px 11px;margin:0;box-shadow:none;outline:none;height:32px}
-.stage-root.uc3 .uc3-rule-editor :is(input,textarea,select):focus-visible{border-color:#5ca2e9;outline:1px solid #5ca2e9;outline-offset:0}
-.stage-root.uc3 .uc3-edit-select{position:relative;display:block;flex:1;min-width:0;width:100%;height:32px}
-.stage-root.uc3 .uc3-edit-select select{appearance:none;padding-right:32px;cursor:pointer}.stage-root.uc3 .uc3-edit-select option{background:#393939;color:#fff}
-.stage-root.uc3 .uc3-edit-select .select-chevron{position:absolute;right:9px;top:9px;transform:rotate(180deg);pointer-events:none;width:14px;height:14px}
-.stage-root.uc3 .uc3-edit-select.has-priority select{padding-left:24px}.stage-root.uc3 .uc3-edit-select .priority-dot{position:absolute;left:12px;top:12px;width:8px;height:8px;background:#f24751;border-radius:50%;pointer-events:none}
-.stage-root.uc3 .uc3-edit-test-row .uc3-edit-control{min-height:38px}
-.stage-root.uc3 .uc3-edit-test-status{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}.stage-root.uc3 .uc3-edit-test-status i{display:block;flex:none;width:8px;height:8px;background:#36c18d;border-radius:50%}.stage-root.uc3 .uc3-edit-test-status.has-fail i{background:#f24751}
-.stage-root.uc3 .uc3-edit-retest{display:flex;align-items:center;gap:8px;padding:0;color:#5ca2e9;border:0;background:none;font:inherit;line-height:22px;cursor:pointer;white-space:nowrap}.stage-root.uc3 .uc3-edit-retest:disabled{opacity:.65;cursor:default}
-.stage-root.uc3 .uc3-edit-conditions-row .uc3-edit-control{display:block}
-.stage-root.uc3 .uc3-edit-trigger{display:flex;gap:16px;align-items:center;height:32px;color:#c9c9c9}.stage-root.uc3 .uc3-edit-trigger>span:first-child{flex:none;width:56px}
-.stage-root.uc3 .uc3-edit-condition{border:1px solid #777;border-radius:8px;padding:15px;margin-top:16px}
-.stage-root.uc3 .uc3-edit-condition>header{display:flex;justify-content:space-between;align-items:center;height:39px;padding-bottom:16px;border-bottom:1px solid #777;margin-bottom:16px}
-.stage-root.uc3 .uc3-edit-condition h3{font-size:14px;font-weight:700;line-height:22px;margin:0}.stage-root.uc3 .uc3-edit-condition header button{border:0;background:none;padding:0;width:14px;height:14px;display:grid;place-items:center;cursor:pointer;color:#dfdfdf}.stage-root.uc3 .uc3-edit-condition header img{display:block}
-.stage-root.uc3 .uc3-edit-condition-grid{display:grid;grid-template-columns:minmax(0,160px) minmax(0,160px) minmax(0,160px) minmax(92px,1fr);gap:16px;align-items:start}
-.stage-root.uc3 .uc3-edit-condition-grid>label,.stage-root.uc3 .uc3-edit-expression{display:flex;flex-direction:column;gap:8px;min-width:0;line-height:19px;color:#fff}
-.stage-root.uc3 .uc3-edit-condition-grid fieldset{border:0;min-width:0;margin:0;padding:0}.stage-root.uc3 .uc3-edit-condition-grid legend{font-size:14px;line-height:19px;padding:0;margin-bottom:8px;white-space:nowrap}.stage-root.uc3 .uc3-edit-condition-grid fieldset>div{display:flex;gap:16px;align-items:center;height:32px}.stage-root.uc3 .uc3-edit-condition-grid fieldset label{display:flex;gap:8px;align-items:center;line-height:22px;white-space:nowrap}
-.stage-root.uc3 .uc3-edit-condition-grid input[type=radio]{appearance:none;display:block;flex:none;width:16px;height:16px;border:1px solid #777;border-radius:50%;background:transparent;margin:0}.stage-root.uc3 .uc3-edit-condition-grid input[type=radio]:checked{background:#fff;border:5px solid #0067d1}
-.stage-root.uc3 .uc3-edit-expression{margin-top:24px}.stage-root.uc3 .uc3-rule-editor .uc3-edit-expression textarea{height:64px;resize:vertical;padding:5px 11px;line-height:22px}
-.stage-root.uc3 .uc3-edit-retest .is-spinning{animation:uc3-edit-spin 1s linear infinite}@keyframes uc3-edit-spin{to{transform:rotate(360deg)}}
-@media(max-width:1100px){.stage-root.uc3 .uc3-edit-condition-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.stage-root.uc3 .uc3-edit-condition-grid fieldset{grid-column:1/-1}}
-@media(prefers-reduced-motion:reduce){.stage-root.uc3 .uc3-edit-retest .is-spinning{animation:none}}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-rule-editor{box-sizing:border-box;min-height:100%;padding:16px 24px;background:transparent;border-radius:0;color:#fff;font-size:14px;line-height:22px;font-weight:400}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-rule-editor *{box-sizing:border-box}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-section-title{display:flex;align-items:center;gap:8px;padding:0;margin:0 0 16px;border:0;background:none;color:#fff;cursor:pointer;height:24px}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-section-title h2{font-size:16px;font-weight:700;line-height:24px;margin:0}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-section-title img{display:block;transition:transform .15s}:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-section-title img.is-collapsed{transform:rotate(180deg)}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-section:first-child{padding-bottom:16px;border-bottom:1px solid #777}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-section+.uc3-edit-section{margin-top:16px}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-rows{display:flex;flex-direction:column;gap:16px}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-row{display:grid;grid-template-columns:56px minmax(0,652px);gap:16px;align-items:start;max-width:724px}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-label{line-height:22px;padding-top:5px;color:#c9c9c9;white-space:nowrap}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-control{min-width:0;display:flex;align-items:center;gap:16px;min-height:32px}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-rule-editor :is(input:not([type=radio]),textarea,select){width:100%;border:1px solid #777;border-radius:4px;background:transparent;color:#fff;font:inherit;line-height:22px;padding:4px 11px;margin:0;box-shadow:none;outline:none;height:32px}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-rule-editor :is(input,textarea,select):focus-visible{border-color:#5ca2e9;outline:1px solid #5ca2e9;outline-offset:0}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-select{position:relative;display:block;flex:1;min-width:0;width:100%;height:32px}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-select select{appearance:none;padding-right:32px;cursor:pointer}:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-select option{background:#393939;color:#fff}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-select .select-chevron{position:absolute;right:9px;top:9px;transform:rotate(180deg);pointer-events:none;width:14px;height:14px}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-select.has-priority select{padding-left:24px}:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-select .priority-dot{position:absolute;left:12px;top:12px;width:8px;height:8px;background:#f24751;border-radius:50%;pointer-events:none}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-test-row .uc3-edit-control{min-height:38px}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-test-status{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-test-status i{display:block;flex:none;width:8px;height:8px;background:#36c18d;border-radius:50%}:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-test-status.has-fail i{background:#f24751}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-retest{display:flex;align-items:center;gap:8px;padding:0;color:#5ca2e9;border:0;background:none;font:inherit;line-height:22px;cursor:pointer;white-space:nowrap}:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-retest:disabled{opacity:.65;cursor:default}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-conditions-row .uc3-edit-control{display:block}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-trigger{display:flex;gap:16px;align-items:center;height:32px;color:#c9c9c9}:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-trigger>span:first-child{flex:none;width:56px}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-condition{border:1px solid #777;border-radius:8px;padding:15px;margin-top:16px}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-condition>header{display:flex;justify-content:space-between;align-items:center;height:39px;padding-bottom:16px;border-bottom:1px solid #777;margin-bottom:16px}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-condition h3{font-size:14px;font-weight:700;line-height:22px;margin:0}:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-condition header button{border:0;background:none;padding:0;width:14px;height:14px;display:grid;place-items:center;cursor:pointer;color:#dfdfdf}:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-condition header img{display:block}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-condition-grid{display:grid;grid-template-columns:minmax(0,160px) minmax(0,160px) minmax(0,160px) minmax(92px,1fr);gap:16px;align-items:start}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-condition-grid>label,:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-expression{display:flex;flex-direction:column;gap:8px;min-width:0;line-height:19px;color:#fff}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-condition-grid fieldset{border:0;min-width:0;margin:0;padding:0}:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-condition-grid legend{font-size:14px;line-height:19px;padding:0;margin-bottom:8px;white-space:nowrap}:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-condition-grid fieldset>div{display:flex;gap:16px;align-items:center;height:32px}:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-condition-grid fieldset label{display:flex;gap:8px;align-items:center;line-height:22px;white-space:nowrap}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-condition-grid input[type=radio]{appearance:none;display:block;flex:none;width:16px;height:16px;border:1px solid #777;border-radius:50%;background:transparent;margin:0}:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-condition-grid input[type=radio]:checked{background:#fff;border:5px solid #0067d1}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-expression{margin-top:24px}:is(.stage-root.uc3,.stage-root.uc2) .uc3-rule-editor .uc3-edit-expression textarea{height:64px;resize:vertical;padding:5px 11px;line-height:22px}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-retest .is-spinning{animation:uc3-edit-spin 1s linear infinite}@keyframes uc3-edit-spin{to{transform:rotate(360deg)}}
+@media(max-width:1100px){:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-condition-grid{grid-template-columns:repeat(3,minmax(0,1fr))}:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-condition-grid fieldset{grid-column:1/-1}}
+@media(prefers-reduced-motion:reduce){:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-retest .is-spinning{animation:none}}
 
 /* src/views/uc3-canvas/form-kit.css */
 /* Pixso component kit 3:98236: 32px controls, 14/22 text, and the supplied selector panel. */
-.stage-root.uc3 .uc3-rule-editor :is(input:not([type=radio]),textarea){border-color:#777;border-radius:4px;font-size:14px;font-weight:400;line-height:22px;background:transparent;color:#fff;padding:4px 11px}
-.stage-root.uc3 .uc3-rule-editor :is(input:not([type=radio]),textarea)::placeholder{color:#939393;opacity:1}
-.stage-root.uc3 .uc3-rule-editor :is(input:not([type=radio]),textarea):hover{border-color:#aeaeae}
-.stage-root.uc3 .uc3-rule-editor :is(input:not([type=radio]),textarea):focus{border-color:#2e86de;outline:none;box-shadow:0 0 0 1px #002e6a}
-.stage-root.uc3 .uc3-kit-select{position:relative;display:block;flex:1;min-width:0;width:100%;height:32px}
-.stage-root.uc3 .uc3-kit-trigger{display:flex;align-items:center;gap:4px;position:relative;width:100%;height:32px;padding:4px 33px 4px 11px;border:1px solid #777;border-radius:4px;background:transparent;color:#fff;font:inherit;font-size:14px;font-weight:400;line-height:22px;text-align:left;cursor:pointer;outline:none;box-shadow:none}
-.stage-root.uc3 .uc3-kit-trigger>span:first-of-type{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
-.stage-root.uc3 .uc3-kit-trigger:hover{border-color:#aeaeae}
-.stage-root.uc3 .uc3-kit-select.is-open>.uc3-kit-trigger,.stage-root.uc3 .uc3-kit-trigger:focus-visible{border-color:#2e86de;box-shadow:0 0 0 1px #002e6a}
-.stage-root.uc3 .uc3-kit-chevron{position:absolute;right:11px;top:10px;display:block;width:10px;height:10px;background:none;color:#aeaeae;pointer-events:none}
-.stage-root.uc3 .uc3-kit-select.is-open .uc3-kit-chevron{transform:rotate(180deg);color:#dfdfdf}
-.stage-root.uc3 .uc3-kit-options{position:absolute;z-index:30;top:calc(100% + 4px);left:0;display:flex;flex-direction:column;gap:4px;width:100%;max-height:248px;overflow:auto;padding:4px;border:0;border-radius:6px;background:#393939;box-shadow:0 4px 12px #00000080;scrollbar-width:thin;scrollbar-color:#595959 transparent}
-.stage-root.uc3 .uc3-kit-select.opens-up .uc3-kit-options{top:auto;bottom:calc(100% + 4px)}
-.stage-root.uc3 .uc3-kit-option{display:flex;align-items:center;gap:4px;width:100%;height:32px;min-height:32px;padding:5px 8px;border:0;border-radius:4px;background:transparent;color:#fff;text-align:left;cursor:pointer;font:inherit;font-size:14px;font-weight:400;line-height:22px;outline:none}
-.stage-root.uc3 .uc3-kit-option.is-active{background:#f3f3f30f}.stage-root.uc3 .uc3-kit-option[aria-selected=true]{color:#5ca2e9;background:#0067d126}
-.stage-root.uc3 .uc3-kit-priority-dot{display:block;flex:none;width:8px;height:8px;border-radius:50%}
-.stage-root.uc3 .uc3-edit-condition-grid>label,.stage-root.uc3 .uc3-edit-expression,.stage-root.uc3 .uc3-edit-condition-grid legend{line-height:22px;font-weight:400}
-.stage-root.uc3 .uc3-edit-condition-grid input[type=radio]{position:relative;border:1px solid #777;border-radius:50%;background:transparent;cursor:pointer}
-.stage-root.uc3 .uc3-edit-condition-grid input[type=radio]:hover{border-color:#aeaeae}
-.stage-root.uc3 .uc3-edit-condition-grid input[type=radio]:checked{border:0;background:#0067d1}
-.stage-root.uc3 .uc3-edit-condition-grid input[type=radio]:checked::after{content:'';position:absolute;top:50%;left:50%;width:7px;height:7px;transform:translate(-50%,-50%);border-radius:50%;background:#fff;box-shadow:0 0 4px #0006}
-.stage-root.uc3 .uc3-edit-condition-grid input[type=radio]:focus-visible{outline:1px solid #2e86de;outline-offset:2px;box-shadow:none}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-rule-editor :is(input:not([type=radio]),textarea){border-color:#777;border-radius:4px;font-size:14px;font-weight:400;line-height:22px;background:transparent;color:#fff;padding:4px 11px}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-rule-editor :is(input:not([type=radio]),textarea)::placeholder{color:#939393;opacity:1}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-rule-editor :is(input:not([type=radio]),textarea):hover{border-color:#aeaeae}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-rule-editor :is(input:not([type=radio]),textarea):focus{border-color:#2e86de;outline:none;box-shadow:0 0 0 1px #002e6a}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-kit-select{position:relative;display:block;flex:1;min-width:0;width:100%;height:32px}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-kit-trigger{display:flex;align-items:center;gap:4px;position:relative;width:100%;height:32px;padding:4px 33px 4px 11px;border:1px solid #777;border-radius:4px;background:transparent;color:#fff;font:inherit;font-size:14px;font-weight:400;line-height:22px;text-align:left;cursor:pointer;outline:none;box-shadow:none}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-kit-trigger>span:first-of-type{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-kit-trigger:hover{border-color:#aeaeae}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-kit-select.is-open>.uc3-kit-trigger,:is(.stage-root.uc3,.stage-root.uc2) .uc3-kit-trigger:focus-visible{border-color:#2e86de;box-shadow:0 0 0 1px #002e6a}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-kit-chevron{position:absolute;right:11px;top:10px;display:block;width:10px;height:10px;background:none;color:#aeaeae;pointer-events:none}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-kit-select.is-open .uc3-kit-chevron{transform:rotate(180deg);color:#dfdfdf}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-kit-options{position:absolute;z-index:30;top:calc(100% + 4px);left:0;display:flex;flex-direction:column;gap:4px;width:100%;max-height:248px;overflow:auto;padding:4px;border:0;border-radius:6px;background:#393939;box-shadow:0 4px 12px #00000080;scrollbar-width:thin;scrollbar-color:#595959 transparent}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-kit-select.opens-up .uc3-kit-options{top:auto;bottom:calc(100% + 4px)}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-kit-option{display:flex;align-items:center;gap:4px;width:100%;height:32px;min-height:32px;padding:5px 8px;border:0;border-radius:4px;background:transparent;color:#fff;text-align:left;cursor:pointer;font:inherit;font-size:14px;font-weight:400;line-height:22px;outline:none}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-kit-option.is-active{background:#f3f3f30f}:is(.stage-root.uc3,.stage-root.uc2) .uc3-kit-option[aria-selected=true]{color:#5ca2e9;background:#0067d126}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-kit-priority-dot{display:block;flex:none;width:8px;height:8px;border-radius:50%}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-condition-grid>label,:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-expression,:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-condition-grid legend{line-height:22px;font-weight:400}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-condition-grid input[type=radio]{position:relative;border:1px solid #777;border-radius:50%;background:transparent;cursor:pointer}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-condition-grid input[type=radio]:hover{border-color:#aeaeae}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-condition-grid input[type=radio]:checked{border:0;background:#0067d1}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-condition-grid input[type=radio]:checked::after{content:'';position:absolute;top:50%;left:50%;width:7px;height:7px;transform:translate(-50%,-50%);border-radius:50%;background:#fff;box-shadow:0 0 4px #0006}
+:is(.stage-root.uc3,.stage-root.uc2) .uc3-edit-condition-grid input[type=radio]:focus-visible{outline:1px solid #2e86de;outline-offset:2px;box-shadow:none}
+
+/* src/views/uc2-canvas/rule-editor.css */
+/* Pixso 76:350723: 1280×1032 rule-creation surface. Reuse the 32px form kit. */
+.stage-root.uc2 .v7-artifact-pane:has(>.uc2-rule-editor-shell){padding:0;overflow:hidden}
+.stage-root.uc2 .uc2-rule-editor-shell{height:100%;min-height:0;display:grid;grid-template-rows:minmax(0,1fr) auto;color:var(--text);background:#2a2a2a}
+.stage-root.uc2 .uc3-rule-editor.uc2-rule-editor{min-height:0;overflow:auto;overscroll-behavior:contain;padding:24px 32px;scrollbar-width:thin;scrollbar-color:#595959 transparent}
+.stage-root.uc2 .uc2-rule-editor .uc3-edit-section:first-child{padding-bottom:32px;border-bottom:0}
+.stage-root.uc2 .uc2-rule-editor .uc3-edit-section+.uc3-edit-section{margin-top:0}
+.stage-root.uc2 .uc2-rule-editor .uc3-edit-control>input[readonly]{color:#c9c9c9}
+.stage-root.uc2 .uc2-editor-conditions{width:100%;min-width:0}
+.stage-root.uc2 .uc2-editor-condition-actions{display:flex;gap:12px;align-items:center}
+.stage-root.uc2 .uc2-editor-field-error{margin:6px 0 0;color:#f1848b;font-size:12px;line-height:20px}
+.stage-root.uc2 .uc2-rule-editor [aria-invalid=true]{border-color:#f1848b!important}
+.stage-root.uc2 .uc2-editor-test-feedback{margin-left:72px;color:#f1848b;font-size:12px;line-height:20px}.stage-root.uc2 .uc2-editor-test-feedback p{margin:0}
+.stage-root.uc2 .uc2-rule-editor-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 32px;border-top:1px solid #ffffff1a;background:#2a2a2a;color:#c9c9c9;font-size:12px;line-height:20px}
+.stage-root.uc2 .uc2-rule-editor-footer small{display:block;color:#939393;font-size:12px}.stage-root.uc2 .uc2-rule-editor-footer>div{display:flex;gap:12px}.stage-root.uc2 .uc2-rule-editor-footer .btn{height:32px;padding:4px 16px;white-space:nowrap}
+.stage-root.uc2 .uc2-rule-editor .uc3-edit-row{grid-template-columns:56px minmax(0,652px);width:100%;max-width:724px}
+.stage-root.uc2 .uc2-rule-editor .uc3-edit-condition-grid{grid-template-columns:repeat(3,minmax(0,1fr)) minmax(92px,.8fr)}
+@container workspace (max-width:800px){.stage-root.uc2 .uc3-rule-editor.uc2-rule-editor{padding:24px}.stage-root.uc2 .uc2-rule-editor-footer{padding:16px 24px}.stage-root.uc2 .uc2-rule-editor .uc3-edit-condition-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@container workspace (max-width:560px){.stage-root.uc2 .uc2-rule-editor-footer>span{max-width:50%}.stage-root.uc2 .uc2-rule-editor .uc3-edit-row{grid-template-columns:minmax(0,1fr);gap:6px}.stage-root.uc2 .uc2-rule-editor .uc3-edit-label{padding:0}}
+
+.stage-root.uc2 .uc2-rule-editor .uc3-edit-test-status.is-pending i{background:#939393}
 
 /* src/views/uc3-canvas/index.css */
 .stage-root.uc3 .canvas .card.uc3-rule-canvas{padding:0 20px 20px;border-radius:16px;background-color:#2a2a2abf;background-image:radial-gradient(#ffffff0c .8px,transparent .8px);background-size:16px 16px;border:0;overflow:hidden;box-sizing:border-box;color:#c9c9c9}
@@ -60029,7 +60046,10 @@ function AppProvider({
   const [artifactTabs, setArtifactTabs] = (0, _react.useState)([]);
   const [activeArtifact, setActiveArtifact] = (0, _react.useState)(null);
   const openArtifact = (0, _react.useCallback)((kind, title) => {
-    setArtifactTabs(xs => xs.some(x => x.kind === kind) ? xs : [...xs, {
+    setArtifactTabs(xs => xs.some(x => x.kind === kind) ? xs.map(x => x.kind === kind ? {
+      ...x,
+      title
+    } : x) : [...xs, {
       kind,
       title
     }]);
@@ -60192,6 +60212,41 @@ function AppProvider({
     window.addEventListener("storage", sync);
     return () => window.removeEventListener("storage", sync);
   }, []);
+  const [uc2RuleConfigs, setUc2RuleConfigs] = (0, _react.useState)(() => {
+    try {
+      return JSON.parse(localStorage.getItem("fabric.uc2.rule-configs.v1") || "{}");
+    } catch {
+      return {};
+    }
+  });
+  const uc2RuleEditorDraftsRef = (0, _react.useRef)({});
+  (0, _react.useEffect)(() => {
+    try {
+      localStorage.setItem("fabric.uc2.rule-configs.v1", JSON.stringify(uc2RuleConfigs));
+    } catch {}
+  }, [uc2RuleConfigs]);
+  const uc2EditRule = (0, _react.useCallback)(id => {
+    const rule = (0, _uc.uc2RuleById)(id);
+    if (rule) openArtifact("uc2-edit:" + id, "编辑规则 · " + (uc2RuleConfigs[id]?.name || rule.name));
+  }, [openArtifact, uc2RuleConfigs]);
+  const uc2SaveRule = (0, _react.useCallback)((id, configuration) => {
+    setUc2RuleConfigs(previous => ({
+      ...previous,
+      [id]: {
+        ...configuration,
+        sourceId: id,
+        savedAt: new Date().toISOString()
+      }
+    }));
+    setUc2Reviews(previous => ({
+      ...previous,
+      [id]: "accepted"
+    }));
+    delete uc2RuleEditorDraftsRef.current[id];
+    closeArtifact("uc2-edit:" + id);
+    openArtifact("uc2-rule:" + id, configuration.name);
+    toast("规则已保存并采纳，可返回报告查看审阅状态");
+  }, [closeArtifact, openArtifact, toast]);
   const [uc2Fusion, setUc2Fusion] = (0, _react.useState)({
     selected: "engine",
     rule: null,
@@ -60373,8 +60428,8 @@ function AppProvider({
     setUc2(uc2Ref.current);
     setCanvasHidden(false);
     uc2RuleOriginsRef.current[id] = origin;
-    openArtifact("uc2-rule:" + id, rule.name);
-  }, [openArtifact]);
+    openArtifact("uc2-rule:" + id, uc2RuleConfigs[id]?.name || rule.name);
+  }, [openArtifact, uc2RuleConfigs]);
   const uc2SelectNode = (0, _react.useCallback)(nodeId => {
     const cur = uc2Ref.current;
     uc2Ref.current = {
@@ -60867,6 +60922,10 @@ function AppProvider({
     uc2FocusStep,
     uc2OpenRule,
     uc2SelectNode,
+    uc2EditRule,
+    uc2SaveRule,
+    uc2RuleConfigs,
+    uc2RuleEditorDraftsRef,
     uc2Review,
     uc2Reviews,
     uc2Fusion,
@@ -61734,7 +61793,7 @@ exports.fusionRelevant = fusionRelevant;
 exports.fusionTopRules = fusionTopRules;
 exports.miningImpact = void 0;
 exports.uc2Actual = uc2Actual;
-exports.uc2DeviationDevices = void 0;
+exports.uc2DeviationDevices = exports.uc2CandidateStats = void 0;
 exports.uc2ExportCsv = uc2ExportCsv;
 exports.uc2Timing = exports.uc2Rules = exports.uc2RuleById = exports.uc2RestorationDuration = exports.uc2ReportEvidence = exports.uc2Prompt = exports.uc2Names = exports.uc2InitialReviews = void 0;
 // UC2 黄金基线挖掘 — 数据与纯逻辑（最终口径：fusion 图 + 候选报告）
@@ -61755,8 +61814,14 @@ const uc2Rules = exports.uc2Rules = [["SNMP访问控制", "通用", "账户与�
   scope: r[4],
   support: r[5],
   deviations: r[6],
-  confidence: i < 12 ? "高" : "待验证"
-}));
+  confidence: r[5] / r[4] >= .95 ? "高" : "中",
+  consistency: r[5] / r[4] * 100
+})).filter(rule => rule.support < rule.scope);
+const uc2CandidateStats = exports.uc2CandidateStats = {
+  total: uc2Rules.length,
+  high: uc2Rules.filter(rule => rule.confidence === "高").length,
+  medium: uc2Rules.filter(rule => rule.confidence === "中").length
+};
 const uc2DeviationDevices = exports.uc2DeviationDevices = {
   "GB-001": ["CoreSwitch-03", "LeafSwitch-06"],
   "GB-002": ["LeafSwitch-03", "LeafSwitch-04", "LeafSwitch-05", "LeafSwitch-06"],
@@ -61849,7 +61914,7 @@ const fusionImpact = exports.fusionImpact = {
 function fusionTopRules() {
   const conf = {
       "高": 2,
-      "待验证": 1
+      "中": 1
     },
     impact = {
       "高": 3,
@@ -61905,7 +61970,7 @@ const fusionNodes = exports.fusionNodes = [{
   x: 825,
   y: 92 + i * 44,
   label: r.name,
-  sub: `${r.confidence === "高" ? "高置信" : "待验证"} · ${fusionImpact[r.id]}影响 · 依据 ${r.support} 台`,
+  sub: `${r.confidence === "高" ? "高置信" : "中置信度"} · ${fusionImpact[r.id]}影响 · 依据 ${r.support} 台`,
   icon: "rules",
   rank: i + 1,
   rule: r
@@ -62104,7 +62169,7 @@ function useNetworkTasks() {
   };
 }
 }};
-modules["src/mock/task-registry.js"]={deps:{"./devices.js":"src/mock/devices.js"},run:function(require,module,exports){
+modules["src/mock/task-registry.js"]={deps:{"./uc2.js":"src/mock/uc2.js","./devices.js":"src/mock/devices.js"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -62123,6 +62188,7 @@ exports.networkDemoIntervals = exports.networkCenterInventory = void 0;
 exports.patchNetworkTask = patchNetworkTask;
 exports.selectNetworkTasks = selectNetworkTasks;
 exports.ucTaskDefinitions = void 0;
+var _uc = require("./uc2.js");
 var _devices = require("./devices.js");
 // Shared prototype task ledger. Counts represent task records, never rule/device counts.
 const centerNames = exports.centerNames = {
@@ -62180,7 +62246,7 @@ const ucTaskDefinitions = exports.ucTaskDefinitions = {
     steps: ["意图分析", "设备还原", "黄金基线挖掘", "生成报告"],
     result: {
       deviceCount: 100,
-      ruleCount: 18
+      ruleCount: _uc.uc2CandidateStats.total
     }
   },
   uc3: {
@@ -71678,10 +71744,10 @@ function Uc2Chat() {
       className: "uc2-step-result"
     }, "分析设备配置，按设备角色提取共性配置项，计算各规则的一致性，形成候选黄金基线，并识别偏离主流配置的设备。"), /*#__PURE__*/React.createElement("ul", {
       className: "uc2-mining-stats"
-    }, /*#__PURE__*/React.createElement("li", null, "分析设备：1980 台"), /*#__PURE__*/React.createElement("li", null, "共性配置项：47 条"), /*#__PURE__*/React.createElement("li", null, "一致性 100%：44 条"), /*#__PURE__*/React.createElement("li", null, "一致性 99%：2 条"), /*#__PURE__*/React.createElement("li", null, "一致性 97%：1 条")), /*#__PURE__*/React.createElement("p", {
+    }, /*#__PURE__*/React.createElement("li", null, "分析设备：1980 台"), /*#__PURE__*/React.createElement("li", null, "共性配置项：47 条"), /*#__PURE__*/React.createElement("li", null, "高置信候选：", _uc.uc2CandidateStats.high, " 条（95%–99%）"), /*#__PURE__*/React.createElement("li", null, "中置信度候选：", _uc.uc2CandidateStats.medium, " 条（90%–94%）"), /*#__PURE__*/React.createElement("li", null, "完全重合配置不纳入候选规则")), /*#__PURE__*/React.createElement("p", {
       className: "uc2-mining-scope"
-    }, "1980 台配置初筛后，本轮以 20 台核心交换机、80 台 Leaf 交换机作为角色样本，形成 18 条候选规则。")),
-    3: /*#__PURE__*/React.createElement(React.Fragment, null, "已生成 ", /*#__PURE__*/React.createElement("strong", null, "18 条候选规则"), "，其中 12 条高置信、6 条待验证；100 台分析样本中有 ", /*#__PURE__*/React.createElement("strong", null, "9 台"), "存在候选规则偏离，仍需审阅确认。")
+    }, "1980 台配置初筛后，本轮以 20 台核心交换机、80 台 Leaf 交换机作为角色样本，形成 ", _uc.uc2CandidateStats.total, " 条候选规则。")),
+    3: /*#__PURE__*/React.createElement(React.Fragment, null, "已生成 ", /*#__PURE__*/React.createElement("strong", null, _uc.uc2CandidateStats.total, " 条候选规则"), "，其中 ", _uc.uc2CandidateStats.high, " 条高置信、", _uc.uc2CandidateStats.medium, " 条中置信度；100 台分析样本中有 ", /*#__PURE__*/React.createElement("strong", null, "9 台"), "存在候选规则偏离，仍需审阅确认。")
   };
   const artifacts = {
     1: "网络拓扑图",
@@ -72230,13 +72296,14 @@ var X = Array.from({
     };
   });
 }};
-modules["src/views/lui-panel/uc2-completion.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../components/status-marks/index.jsx":"src/components/status-marks/index.jsx","./motion.jsx":"src/views/lui-panel/motion.jsx","./response-tools.jsx":"src/views/lui-panel/response-tools.jsx"},run:function(require,module,exports){
+modules["src/views/lui-panel/uc2-completion.jsx"]={deps:{"../../mock/uc2.js":"src/mock/uc2.js","../../context.jsx":"src/context.jsx","../../components/status-marks/index.jsx":"src/components/status-marks/index.jsx","./motion.jsx":"src/views/lui-panel/motion.jsx","./response-tools.jsx":"src/views/lui-panel/response-tools.jsx"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = Uc2Completion;
+var _uc = require("../../mock/uc2.js");
 var _context = require("../../context.jsx");
 var _index = require("../../components/status-marks/index.jsx");
 var _motion = require("./motion.jsx");
@@ -72247,7 +72314,7 @@ const lines = [{
   text: "黄金基线候选报告已生成"
 }, {
   as: "p",
-  text: "本轮分析 100 台样本设备，发现 18 条候选规则，其中 12 条高置信、6 条待验证；9 台设备存在候选偏离，详情见右侧报告。"
+  text: `本轮分析 100 台样本设备，发现 ${_uc.uc2CandidateStats.total} 条候选规则，其中 ${_uc.uc2CandidateStats.high} 条高置信、${_uc.uc2CandidateStats.medium} 条中置信度；9 台设备存在候选偏离，详情见右侧报告。`
 }, {
   as: "h3",
   text: "审阅建议"
@@ -72326,7 +72393,7 @@ function Uc2Completion({
     timestamp: timestamp.slice(5),
     duration: duration,
     subject: "挖掘",
-    text: "本轮分析100台样本设备，发现18条候选规则，其中12条高置信、6条待验证，9台设备存在候选偏离。候选规则尚未发布。",
+    text: `本轮分析100台样本设备，发现${_uc.uc2CandidateStats.total}条候选规则，其中${_uc.uc2CandidateStats.high}条高置信、${_uc.uc2CandidateStats.medium}条中置信度，9台设备存在候选偏离。候选规则尚未发布。`,
     onRegenerate: uc2Start,
     onLocate: () => uc2Show(3),
     locateLabel: "定位候选报告"
@@ -73210,7 +73277,7 @@ function WelcomeHome({
   }, scenario.description)))));
 }
 }};
-modules["src/views/canvas-area/index.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/devices.js":"src/mock/devices.js","../network-overview/index.jsx":"src/views/network-overview/index.jsx","../mapping-card/index.jsx":"src/views/mapping-card/index.jsx","../lui-panel/thinking.jsx":"src/views/lui-panel/thinking.jsx","../report-card/index.jsx":"src/views/report-card/index.jsx","../device-pane/index.jsx":"src/views/device-pane/index.jsx","../uc2-canvas/index.jsx":"src/views/uc2-canvas/index.jsx","../uc2-canvas/candidate-list.jsx":"src/views/uc2-canvas/candidate-list.jsx","../uc2-canvas/report.jsx":"src/views/uc2-canvas/report.jsx","../uc3-canvas/editor.jsx":"src/views/uc3-canvas/editor.jsx","../uc3-canvas/index.jsx":"src/views/uc3-canvas/index.jsx","../uc1-canvas/index.jsx":"src/views/uc1-canvas/index.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx"},run:function(require,module,exports){
+modules["src/views/canvas-area/index.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/devices.js":"src/mock/devices.js","../network-overview/index.jsx":"src/views/network-overview/index.jsx","../mapping-card/index.jsx":"src/views/mapping-card/index.jsx","../lui-panel/thinking.jsx":"src/views/lui-panel/thinking.jsx","../report-card/index.jsx":"src/views/report-card/index.jsx","../device-pane/index.jsx":"src/views/device-pane/index.jsx","../uc2-canvas/index.jsx":"src/views/uc2-canvas/index.jsx","../uc2-canvas/candidate-list.jsx":"src/views/uc2-canvas/candidate-list.jsx","../uc2-canvas/report.jsx":"src/views/uc2-canvas/report.jsx","../uc3-canvas/editor.jsx":"src/views/uc3-canvas/editor.jsx","../uc2-canvas/rule-editor.jsx":"src/views/uc2-canvas/rule-editor.jsx","../uc3-canvas/index.jsx":"src/views/uc3-canvas/index.jsx","../uc1-canvas/index.jsx":"src/views/uc1-canvas/index.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -73229,6 +73296,7 @@ var _index5 = _interopRequireDefault(require("../uc2-canvas/index.jsx"));
 var _candidateList = _interopRequireDefault(require("../uc2-canvas/candidate-list.jsx"));
 var _report = require("../uc2-canvas/report.jsx");
 var _editor = _interopRequireDefault(require("../uc3-canvas/editor.jsx"));
+var _ruleEditor = _interopRequireDefault(require("../uc2-canvas/rule-editor.jsx"));
 var _index6 = _interopRequireDefault(require("../uc3-canvas/index.jsx"));
 var _index7 = _interopRequireDefault(require("../uc1-canvas/index.jsx"));
 var _index8 = _interopRequireDefault(require("../../components/icon-el/index.jsx"));
@@ -73562,7 +73630,10 @@ function CanvasArea() {
     ref: artifactRef,
     className: "v7-artifact-pane" + (activeArtifact ? "" : " hidden") + (activeArtifact === "uc3-editor" ? " uc3-edit-pane" : ""),
     "aria-label": "独立卡片页签"
-  }, luiView === "uc3" && activeArtifact === "uc3-editor" && /*#__PURE__*/React.createElement(_editor.default, null), uc2.active && activeArtifact?.startsWith("uc2-rule:") && /*#__PURE__*/React.createElement("section", {
+  }, luiView === "uc3" && activeArtifact === "uc3-editor" && /*#__PURE__*/React.createElement(_editor.default, null), uc2.active && activeArtifact?.startsWith("uc2-edit:") && /*#__PURE__*/React.createElement(_ruleEditor.default, {
+    key: activeArtifact,
+    ruleId: activeArtifact.slice(9)
+  }), uc2.active && activeArtifact?.startsWith("uc2-rule:") && /*#__PURE__*/React.createElement("section", {
     className: "card uc2-rule-detail-card"
   }, /*#__PURE__*/React.createElement(_report.Uc2RuleDetail, {
     ruleId: activeArtifact.slice(9),
@@ -76540,7 +76611,7 @@ function RuleTags({
     className: "golden-tags"
   }, /*#__PURE__*/React.createElement("span", {
     className: "confidence"
-  }, rule.confidence === "高" ? "高置信" : "待验证"), /*#__PURE__*/React.createElement("span", {
+  }, rule.confidence === "高" ? "高置信" : "中置信度"), /*#__PURE__*/React.createElement("span", {
     className: "impact"
   }, _uc.fusionImpact[rule.id], "影响"), /*#__PURE__*/React.createElement("span", null, rule.role));
 }
@@ -77099,7 +77170,7 @@ function Uc2Mining() {
       className: "golden-rule-sub",
       x: x + 33,
       y: y + 14
-    }, rule.confidence === "高" ? "高置信" : "待验证", "·", _uc.fusionImpact[rule.id], "影响·依据", rule.support, "台")), /*#__PURE__*/React.createElement("rect", {
+    }, rule.confidence === "高" ? "高置信" : "中置信度", "·", _uc.fusionImpact[rule.id], "影响·依据", rule.support, "台")), /*#__PURE__*/React.createElement("rect", {
       className: "golden-hit",
       x: x - 14,
       y: y - 30,
@@ -77126,7 +77197,7 @@ function Uc2Mining() {
   }), /*#__PURE__*/React.createElement("text", {
     x: drawerRule ? 591 : 923,
     y: "860"
-  }, "18条候选规则"))), summary && !drawerRule && /*#__PURE__*/React.createElement(RuleSummary, {
+  }, _uc.uc2Rules.length, "条候选规则"))), summary && !drawerRule && /*#__PURE__*/React.createElement(RuleSummary, {
     rule: summary.rule,
     position: summary.position,
     onOpen: open,
@@ -77476,6 +77547,22 @@ function Uc2Report() {
   const high = _uc.uc2Rules.filter(rule => rule.confidence === "高").length,
     total = _uc.uc2Rules.length;
   const devices = new Set(Object.values(_uc.uc2DeviationDevices).flat()).size;
+  const confidenceGroups = [{
+    value: "高",
+    count: high,
+    label: "高置信",
+    range: "95%–99%",
+    color: "var(--baseline-support-blue)",
+    tint: "#4872ba26"
+  }, {
+    value: "中",
+    count: total - high,
+    label: "中置信度",
+    range: "94%–90%",
+    color: "#f1848b",
+    tint: "#f1848b21"
+  }];
+  const confidenceSelected = confidenceGroups.some(group => group.value === uc2.confidence);
   return /*#__PURE__*/React.createElement("article", {
     className: "baseline-report",
     id: "uc2Report",
@@ -77521,37 +77608,46 @@ function Uc2Report() {
   }, /*#__PURE__*/React.createElement("div", {
     className: "baseline-evidence-layout"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "baseline-evidence-chart"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "baseline-evidence-bar",
+    className: "baseline-confidence-chart" + (confidenceSelected ? " has-selection" : ""),
     role: "group",
-    "aria-label": "候选证据分布，可点击筛选"
-  }, [["高", high, "证据较充分", "var(--baseline-support-blue)"], ["待验证", total - high, "待验证", "#f1848b"]].map(([value, count, label, color]) => /*#__PURE__*/React.createElement("button", {
+    "aria-label": "候选规则置信度分布，可点击筛选"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "baseline-confidence-labels"
+  }, confidenceGroups.map(group => /*#__PURE__*/React.createElement("button", {
     type: "button",
-    key: value,
+    key: group.value,
+    className: "baseline-confidence-label",
     style: {
-      flexGrow: count,
-      "--evidence-color": color
+      "--confidence-color": group.color,
+      "--confidence-tint": group.tint
     },
-    "aria-label": `按证据筛选：${label}${count}条`,
-    "aria-pressed": uc2.confidence === value,
-    title: `${label} ${count}条，点击筛选`,
-    onClick: () => toggleEvidence(value)
+    "aria-label": `按置信度筛选：${group.label}（${group.range}）${group.count}条`,
+    "aria-pressed": uc2.confidence === group.value,
+    title: uc2.confidence === group.value ? "再次点击取消筛选" : "点击筛选对应候选规则",
+    onClick: () => toggleEvidence(group.value)
+  }, /*#__PURE__*/React.createElement("i", null), /*#__PURE__*/React.createElement("span", {
+    className: "baseline-confidence-copy"
+  }, /*#__PURE__*/React.createElement("span", null, group.label), /*#__PURE__*/React.createElement("small", null, group.range)), /*#__PURE__*/React.createElement("b", null, group.count, /*#__PURE__*/React.createElement("small", null, "条"))))), /*#__PURE__*/React.createElement("div", {
+    className: "baseline-confidence-track"
+  }, confidenceGroups.map(group => /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    key: group.value,
+    style: {
+      flexGrow: group.count,
+      "--confidence-color": group.color
+    },
+    "aria-label": `按条形筛选：${group.label}${group.count}条`,
+    "aria-pressed": uc2.confidence === group.value,
+    title: `${group.label} ${group.count}条，占比${Math.round(group.count / total * 100)}%`,
+    onClick: () => toggleEvidence(group.value)
   }, /*#__PURE__*/React.createElement("span", {
-    className: "baseline-evidence-segment-caption"
-  }, /*#__PURE__*/React.createElement("i", null), /*#__PURE__*/React.createElement("span", null, label), /*#__PURE__*/React.createElement("b", null, count, /*#__PURE__*/React.createElement("small", null, "条"))), /*#__PURE__*/React.createElement("span", {
-    className: "baseline-evidence-bars",
     "aria-hidden": "true"
-  }, Array.from({
-    length: count * 3
-  }, (_, index) => /*#__PURE__*/React.createElement("i", {
-    key: index
-  })))))))))), /*#__PURE__*/React.createElement("aside", {
+  })))))))), /*#__PURE__*/React.createElement("aside", {
     className: "baseline-insight" + classAt(.54)
   }, /*#__PURE__*/React.createElement("h3", null, /*#__PURE__*/React.createElement("img", {
     src: "./assets/uploads/report-conclusion-sparkle.svg",
     alt: ""
-  }), "黄金基线挖掘洞察"), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("b", null, high), " 条规则具备高置信度，", /*#__PURE__*/React.createElement("b", null, total - high), " 条仍待验证；", /*#__PURE__*/React.createElement("b", null, devices), " 台设备存在候选偏离，建议", /*#__PURE__*/React.createElement("span", null, "优先核验登录安全与核心冗余配置"), "。"))), /*#__PURE__*/React.createElement(_candidateList.default, {
+  }), "黄金基线挖掘洞察"), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("b", null, high), " 条规则具备高置信度，", /*#__PURE__*/React.createElement("b", null, total - high), " 条为中置信度候选；", /*#__PURE__*/React.createElement("b", null, devices), " 台设备存在候选偏离，建议", /*#__PURE__*/React.createElement("span", null, "优先核验登录安全与核心冗余配置"), "。"))), /*#__PURE__*/React.createElement(_candidateList.default, {
     embedded: true
   }));
 }
@@ -77588,7 +77684,8 @@ function Uc2CandidateList({
     uc2OpenRule,
     uc2Reviews,
     uc2Show,
-    toast
+    toast,
+    uc2RuleConfigs
   } = (0, _context.useApp)();
   const [page, setPage] = (0, _react.useState)(1),
     [pageSize, setPageSize] = (0, _react.useState)(10),
@@ -77598,7 +77695,10 @@ function Uc2CandidateList({
     confidence = uc2.confidence || "全部置信度",
     role = uc2.role || "全部角色";
   const review = rule => uc2Reviews[rule.id] || "pending";
-  const filtered = _uc.uc2Rules.filter(rule => (status === "all" || review(rule) === status) && (confidence === "全部置信度" || rule.confidence === confidence) && (role === "全部角色" || rule.role === role) && (rule.name + " " + rule.id + " " + rule.category).toLowerCase().includes(query.trim().toLowerCase()));
+  const filtered = _uc.uc2Rules.map(rule => ({
+    ...rule,
+    name: uc2RuleConfigs[rule.id]?.name || rule.name
+  })).filter(rule => (status === "all" || review(rule) === status) && (confidence === "全部置信度" || rule.confidence === confidence) && (role === "全部角色" || rule.role === role) && (rule.name + " " + rule.id + " " + rule.category).toLowerCase().includes(query.trim().toLowerCase()));
   const rows = [...filtered].sort((a, b) => sort ? (a.support / a.scope - b.support / b.scope) * (sort === "asc" ? 1 : -1) : (order.includes(a.id) ? order.indexOf(a.id) : 99) - (order.includes(b.id) ? order.indexOf(b.id) : 99) || a.id.localeCompare(b.id));
   const pages = Math.max(1, Math.ceil(rows.length / pageSize)),
     current = Math.min(page, pages),
@@ -77671,7 +77771,7 @@ function Uc2CandidateList({
   }))), /*#__PURE__*/React.createElement("label", {
     className: "baseline-rule-select"
   }, /*#__PURE__*/React.createElement("select", {
-    "aria-label": "候选规则证据筛选",
+    "aria-label": "候选规则置信度筛选",
     value: confidence,
     onChange: e => patch({
       confidence: e.target.value
@@ -77680,9 +77780,9 @@ function Uc2CandidateList({
     value: "全部置信度"
   }, "全部规则"), /*#__PURE__*/React.createElement("option", {
     value: "高"
-  }, "证据较充分"), /*#__PURE__*/React.createElement("option", {
-    value: "待验证"
-  }, "待验证")), /*#__PURE__*/React.createElement(_index.default, {
+  }, "高置信（95%–99%）"), /*#__PURE__*/React.createElement("option", {
+    value: "中"
+  }, "中置信度（94%–90%）")), /*#__PURE__*/React.createElement(_index.default, {
     icon: "chevron-down"
   })), role !== "全部角色" && /*#__PURE__*/React.createElement("button", {
     type: "button",
@@ -77865,43 +77965,67 @@ function evidenceFor(rule, device) {
     next: meta?.next || "请结合设备角色、业务规划和变更记录确认后，再决定是否采用该候选要求。"
   };
 }
+function ConfigLine({
+  line
+}) {
+  if (!line.highlight) return /*#__PURE__*/React.createElement("code", null, line.text || " ");
+  const index = line.text.indexOf(line.highlight);
+  if (index < 0) return /*#__PURE__*/React.createElement("code", null, line.text);
+  return /*#__PURE__*/React.createElement("code", null, line.text.slice(0, index), /*#__PURE__*/React.createElement("mark", null, line.highlight), line.text.slice(index + line.highlight.length));
+}
 function CodePanel({
-  title,
   lines,
   onCopy,
   mode,
-  onModeChange
+  onModeChange,
+  repair = false
 }) {
   return /*#__PURE__*/React.createElement("div", {
-    className: "uc2-code-panel"
-  }, /*#__PURE__*/React.createElement("header", null, /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(_index3.default, {
-    icon: "terminal"
-  }), title), /*#__PURE__*/React.createElement("div", {
+    className: "uc2-code-panel" + (repair ? " is-repair" : "")
+  }, /*#__PURE__*/React.createElement("header", null, /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("img", {
+    src: "./assets/uploads/detail-terminal.svg",
+    alt: ""
+  }), "命令行"), /*#__PURE__*/React.createElement("div", {
     className: "uc2-code-tools"
-  }, onModeChange && /*#__PURE__*/React.createElement("button", {
+  }, !repair && /*#__PURE__*/React.createElement("span", {
+    className: "uc2-code-range"
+  }, "L1–L", lines.length, " · ", mode === "full" ? "完整配置" : "相关配置"), /*#__PURE__*/React.createElement("button", {
     type: "button",
-    "aria-label": mode === "full" ? "仅看相关配置" : "查看完整配置",
-    onClick: onModeChange
-  }, mode === "full" ? "完整配置" : "相关片段", /*#__PURE__*/React.createElement(_index3.default, {
-    icon: "chevrons-up-down"
-  })), /*#__PURE__*/React.createElement("button", {
-    type: "button",
-    "aria-label": title === "修复建议命令" ? "复制建议命令" : "复制当前配置片段",
+    "aria-label": repair ? "复制建议命令" : "复制当前配置片段",
     title: "复制命令",
     onClick: onCopy
-  }, /*#__PURE__*/React.createElement(_index3.default, {
-    icon: "copy"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "./assets/uploads/detail-copy.svg",
+    alt: ""
+  })), onModeChange && /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    "aria-label": mode === "full" ? "仅看相关配置" : "查看完整配置",
+    title: mode === "full" ? "仅看相关配置" : "查看完整配置",
+    onClick: onModeChange
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "./assets/uploads/detail-expand.svg",
+    alt: ""
   })))), /*#__PURE__*/React.createElement("div", {
     className: "uc2-code-lines"
   }, lines.map((line, index) => /*#__PURE__*/React.createElement("div", {
     className: "uc2-code-line " + (line.kind || ""),
     key: index,
     "data-evidence": line.kind === "bad" ? "selected" : undefined
-  }, /*#__PURE__*/React.createElement("span", {
+  }, !repair && /*#__PURE__*/React.createElement("span", {
     className: "uc2-code-number"
-  }, index + 1), /*#__PURE__*/React.createElement("code", null, line.text || " "), line.kind === "bad" && /*#__PURE__*/React.createElement("span", {
+  }, index + 1), /*#__PURE__*/React.createElement(ConfigLine, {
+    line: line
+  }), line.annotation && /*#__PURE__*/React.createElement("span", {
     className: "uc2-code-annotation"
-  }, "候选配置存在偏离")))));
+  }, line.annotation)))), !repair && /*#__PURE__*/React.createElement("div", {
+    className: "uc2-code-legend"
+  }, lines.some(line => line.kind === "bad") ? "红色行：配置存在偏离 ｜ 高亮：与候选要求不一致的配置" : "绿色行：与候选配置一致"));
+}
+function differentTokens(expected, actual) {
+  const left = expected.split(/\s+/),
+    right = actual.split(/\s+/);
+  const first = right.findIndex((token, index) => token !== left[index]);
+  return first < 0 ? "" : right.slice(first).join(" ");
 }
 
 // Pixso UC2-识别完成-规则详情: rule metadata + device list + configuration evidence.
@@ -77916,9 +78040,16 @@ function Uc2RuleDetail({
     uc2Review,
     uc2Reviews,
     uc2RuleDetailsRef,
+    uc2EditRule,
+    uc2RuleConfigs,
     toast
   } = (0, _context.useApp)();
-  const rule = _uc.uc2Rules.find(item => item.id === (ruleId || uc2.rule));
+  const sourceRule = _uc.uc2Rules.find(item => item.id === (ruleId || uc2.rule));
+  const saved = sourceRule ? uc2RuleConfigs[sourceRule.id] : null;
+  const rule = sourceRule ? {
+    ...sourceRule,
+    name: saved?.name || sourceRule.name
+  } : null;
   const [, setVersion] = (0, _react.useState)(0),
     navRef = (0, _react.useRef)(null);
   const devices = rule ? samplesFor(rule) : [];
@@ -77959,13 +78090,18 @@ function Uc2RuleDetail({
       toast("复制暂不可用，请选择代码文字复制。");
     }
   };
+  const highlight = device?.bad ? differentTokens(evidence.expected, evidence.command) : "";
+  const annotation = rule.id === "GB-003" ? "命中候选基线未允许的 CBC 算法" : "当前配置与候选要求存在差异";
+  const contextLine = rule.id === "GB-003" ? "ssh authentication-type default password" : evidence?.path === "系统视图" ? "# 系统配置" : evidence?.path;
   const relatedLines = device ? [{
     text: "sysname " + device.name
   }, {
-    text: evidence.path === "系统视图" ? "#" : evidence.path
+    text: contextLine
   }, {
     text: evidence.command,
-    kind: device.bad ? "bad" : "good"
+    kind: device.bad ? "bad" : "good",
+    highlight,
+    annotation: device.bad ? annotation : null
   }] : [];
   const fullLines = device ? [{
     text: "sysname " + device.name
@@ -77978,10 +78114,12 @@ function Uc2RuleDetail({
   }, {
     text: "#"
   }, {
-    text: evidence.path === "系统视图" ? "# 候选规则对应的系统配置" : evidence.path
+    text: contextLine
   }, {
     text: evidence.command,
-    kind: device.bad ? "bad" : "good"
+    kind: device.bad ? "bad" : "good",
+    highlight,
+    annotation: device.bad ? annotation : null
   }, {
     text: "#"
   }, {
@@ -77989,17 +78127,19 @@ function Uc2RuleDetail({
   }, {
     text: "#"
   }] : [];
+  const priority = saved?.priority || (impact === "高" ? "高优先级" : impact === "中" ? "中优先级" : "低优先级");
   const lines = state.mode === "full" ? fullLines : relatedLines;
   return /*#__PURE__*/React.createElement("div", {
     className: "uc2-rule-workspace",
-    "data-rule-detail": rule.id
+    "data-rule-detail": rule.id,
+    "data-design-node": "2:469426"
   }, /*#__PURE__*/React.createElement("header", {
     className: "uc2-rule-overview"
   }, /*#__PURE__*/React.createElement("div", {
     className: "uc2-rule-heading"
   }, /*#__PURE__*/React.createElement("h2", null, rule.name), /*#__PURE__*/React.createElement("span", {
     className: "uc2-rule-kind"
-  }, "候选规则"), /*#__PURE__*/React.createElement("span", {
+  }, review === "accepted" && saved ? "已采纳规则" : "候选规则"), /*#__PURE__*/React.createElement("span", {
     className: "uc2-rule-state " + (rule.deviations ? "failed" : "passed")
   }, rule.deviations ? "存在配置差异" : "样本配置一致"), /*#__PURE__*/React.createElement("button", {
     type: "button",
@@ -78014,7 +78154,7 @@ function Uc2RuleDetail({
     icon: "arrow-left"
   }), returnLabel)), /*#__PURE__*/React.createElement("dl", {
     className: "uc2-rule-metadata"
-  }, [["范围", "西三旗 DC"], ["功能", rule.category], ["影响设备", rule.deviations + " 台"], ["规则编号", rule.id], ["适用范围", rule.role === "通用" ? "共性规则" : rule.role], ["配置一致性", rule.support + "/" + rule.scope + " 台"], ["覆盖率", (rule.support / rule.scope * 100).toFixed(1).replace(/\.0$/, "") + "%"]].map(([label, value]) => /*#__PURE__*/React.createElement("div", {
+  }, [["范围", "西三旗 DC"], ["分类", rule.category], ["差异设备", rule.deviations + "台"], ["规则编号", saved?.ruleId || rule.id], ["适用规则", rule.role === "通用" ? "共性规则" : rule.role], ["配置一致", rule.support + "/" + rule.scope + "台"], ["覆盖率", (rule.support / rule.scope * 100).toFixed(1).replace(/\.0$/, "") + "%"]].map(([label, value]) => /*#__PURE__*/React.createElement("div", {
     key: label
   }, /*#__PURE__*/React.createElement("dt", null, label), /*#__PURE__*/React.createElement("dd", null, value))))), /*#__PURE__*/React.createElement("div", {
     className: "uc2-rule-body"
@@ -78039,7 +78179,7 @@ function Uc2RuleDetail({
       selected: null,
       navScroll: 0
     }),
-    placeholder: "请输入设备内容",
+    placeholder: "请输入搜索内容",
     ariaLabel: "搜索核验设备",
     clearable: true
   }), /*#__PURE__*/React.createElement("div", {
@@ -78058,7 +78198,7 @@ function Uc2RuleDetail({
       selected: item.id,
       check: "configuration"
     })
-  }, /*#__PURE__*/React.createElement("i", null), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("strong", null, "西三旗 · ", item.name), /*#__PURE__*/React.createElement("small", null, item.bad ? "配置存在差异" : "与候选配置一致", " · ", item.role)))), !visible.length && /*#__PURE__*/React.createElement(_index2.default, {
+  }, /*#__PURE__*/React.createElement("i", null), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("strong", null, "西三旗 · ", item.name), /*#__PURE__*/React.createElement("small", null, item.bad ? "差异待核验" : "与候选配置一致", " · 配置快照示例")))), !visible.length && /*#__PURE__*/React.createElement(_index2.default, {
     text: "没有匹配的设备"
   }))), /*#__PURE__*/React.createElement("article", {
     className: "uc2-rule-evidence",
@@ -78066,8 +78206,8 @@ function Uc2RuleDetail({
   }, device ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "uc2-evidence-heading"
   }, /*#__PURE__*/React.createElement("h3", null, "西三旗 · ", device.name), /*#__PURE__*/React.createElement("span", {
-    className: "uc2-impact"
-  }, /*#__PURE__*/React.createElement("i", null), impact, "影响"), /*#__PURE__*/React.createElement("span", {
+    className: "uc2-impact " + (priority.includes("高") ? "is-high" : priority.includes("中") ? "is-medium" : "is-low")
+  }, /*#__PURE__*/React.createElement("i", null), priority), /*#__PURE__*/React.createElement("span", {
     className: "uc2-check-result " + (device.bad ? "failed" : "passed")
   }, device.bad ? "不通过" : "通过")), /*#__PURE__*/React.createElement("div", {
     className: "uc2-candidate-requirement"
@@ -78080,7 +78220,7 @@ function Uc2RuleDetail({
     onClick: () => patch({
       check: "configuration"
     })
-  }, /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("i", null), "配置一致性检查"), /*#__PURE__*/React.createElement("code", {
+  }, /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("i", null), device.bad ? "配置差异信息1" : "配置一致性信息1"), /*#__PURE__*/React.createElement("code", {
     title: evidence.actual
   }, evidence.actual)), /*#__PURE__*/React.createElement("button", {
     type: "button",
@@ -78101,10 +78241,10 @@ function Uc2RuleDetail({
     className: "uc2-evidence-section"
   }, /*#__PURE__*/React.createElement("h4", null, "当前配置命中片段"), /*#__PURE__*/React.createElement("div", {
     className: "uc2-evidence-alert " + (device.bad ? "warning" : "success")
-  }, /*#__PURE__*/React.createElement(_index3.default, {
-    icon: device.bad ? "triangle-alert" : "circle-check"
-  }), device.bad ? evidence.reason : "当前样本的配置与候选模式一致，未发现该项配置偏离。"), /*#__PURE__*/React.createElement(CodePanel, {
-    title: "命令行",
+  }, /*#__PURE__*/React.createElement("img", {
+    src: device.bad ? "./assets/uploads/detail-warning.svg" : "./assets/uploads/uc3-rule/pass.svg",
+    alt: ""
+  }), /*#__PURE__*/React.createElement("span", null, device.bad ? "影响说明：" + (_uc.miningImpact[rule.id]?.impact || evidence.reason) : "核验说明：当前样本配置与候选模式一致，未发现该项配置偏离。")), /*#__PURE__*/React.createElement(CodePanel, {
     lines: lines,
     mode: state.mode,
     onModeChange: () => patch({
@@ -78117,8 +78257,8 @@ function Uc2RuleDetail({
     className: "uc2-evidence-alert info"
   }, /*#__PURE__*/React.createElement(_index3.default, {
     icon: "info"
-  }), device.bad ? evidence.next : "该设备无需生成配置修复建议；请继续核对其他设备及候选规则的业务适用性。"), device.bad && /*#__PURE__*/React.createElement(CodePanel, {
-    title: "修复建议命令",
+  }), /*#__PURE__*/React.createElement("span", null, "修复建议：", device.bad ? evidence.next : "该设备无需生成配置修复建议；请继续核对其他设备及候选规则的业务适用性。")), device.bad && /*#__PURE__*/React.createElement(CodePanel, {
+    repair: true,
     lines: [{
       text: "- " + evidence.command,
       kind: "bad"
@@ -78133,7 +78273,7 @@ function Uc2RuleDetail({
     text: "没有匹配的设备，请调整左侧筛选条件。"
   }))), /*#__PURE__*/React.createElement("footer", {
     className: "uc2-rule-review"
-  }, /*#__PURE__*/React.createElement("span", null, "候选审阅状态：", /*#__PURE__*/React.createElement("strong", null, reviewLabels[review]), /*#__PURE__*/React.createElement("small", null, "仅保存审阅结果，不发布正式基线")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+  }, /*#__PURE__*/React.createElement("span", null, "候选审阅状态：", /*#__PURE__*/React.createElement("strong", null, reviewLabels[review]), /*#__PURE__*/React.createElement("small", null, review === "accepted" && saved ? "规则配置已保存到本地规则库" : "编辑确认后采纳，不下发设备配置")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: "btn",
     onClick: () => uc2Review(rule.id, "pending")
@@ -78144,8 +78284,8 @@ function Uc2RuleDetail({
   }, "暂不采用"), /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: "btn primary",
-    onClick: () => uc2Review(rule.id, "accepted")
-  }, "采纳此候选"))));
+    onClick: () => uc2EditRule(rule.id)
+  }, review === "accepted" ? "编辑已采纳规则" : "采纳此候选"))));
 }
 }};
 modules["src/views/uc3-canvas/editor.jsx"]={deps:{"../../context.jsx":"src/context.jsx","./editor.css":"src/views/uc3-canvas/editor.css","./form-kit.css":"src/views/uc3-canvas/form-kit.css","./form-select.jsx":"src/views/uc3-canvas/form-select.jsx"},run:function(require,module,exports){
@@ -78554,6 +78694,419 @@ function Select({
       background: priorityColor(item.value)
     }
   }), /*#__PURE__*/React.createElement("span", null, item.label)))));
+}
+}};
+modules["src/views/uc2-canvas/rule-editor.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/uc2.js":"src/mock/uc2.js","../uc3-canvas/form-select.jsx":"src/views/uc3-canvas/form-select.jsx","../uc3-canvas/editor.css":"src/views/uc3-canvas/editor.css","../uc3-canvas/form-kit.css":"src/views/uc3-canvas/form-kit.css","./rule-editor.css":"src/views/uc2-canvas/rule-editor.css","./rule-editor-model.js":"src/views/uc2-canvas/rule-editor-model.js"},run:function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Uc2RuleEditor;
+var _react = require("react");
+var _context = require("../../context.jsx");
+var _uc = require("../../mock/uc2.js");
+var _formSelect = _interopRequireDefault(require("../uc3-canvas/form-select.jsx"));
+require("../uc3-canvas/editor.css");
+require("../uc3-canvas/form-kit.css");
+require("./rule-editor.css");
+var _ruleEditorModel = require("./rule-editor-model.js");
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function Svg({
+  name,
+  size = 14,
+  className = ''
+}) {
+  return /*#__PURE__*/React.createElement("img", {
+    src: './assets/uploads/uc3-rule/editor-' + name + '.svg',
+    width: size,
+    height: size,
+    className: className,
+    alt: ""
+  });
+}
+function Row({
+  label,
+  children,
+  error
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "uc3-edit-row"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "uc3-edit-label"
+  }, label), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "uc3-edit-control"
+  }, children), error && /*#__PURE__*/React.createElement("p", {
+    className: "uc2-editor-field-error",
+    role: "alert"
+  }, error)));
+}
+function Section({
+  title,
+  children
+}) {
+  const [open, setOpen] = (0, _react.useState)(true);
+  return /*#__PURE__*/React.createElement("section", {
+    className: "uc3-edit-section"
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "uc3-edit-section-title",
+    "aria-expanded": open,
+    onClick: () => setOpen(value => !value)
+  }, /*#__PURE__*/React.createElement(Svg, {
+    name: "collapse",
+    className: open ? '' : 'is-collapsed'
+  }), /*#__PURE__*/React.createElement("h2", null, title)), /*#__PURE__*/React.createElement("div", {
+    hidden: !open
+  }, children));
+}
+function Uc2RuleEditor({
+  ruleId
+}) {
+  const {
+    uc2RuleConfigs,
+    uc2RuleEditorDraftsRef,
+    uc2SaveRule,
+    openArtifact,
+    closeArtifact
+  } = (0, _context.useApp)();
+  const rule = (0, _uc.uc2RuleById)(ruleId),
+    timer = (0, _react.useRef)(null),
+    form = (0, _react.useRef)(null);
+  const [draft, setDraft] = (0, _react.useState)(() => uc2RuleEditorDraftsRef.current[ruleId] || uc2RuleConfigs[ruleId] || (0, _ruleEditorModel.createRuleDraft)(rule));
+  const [errors, setErrors] = (0, _react.useState)({}),
+    [testing, setTesting] = (0, _react.useState)(false),
+    [testResult, setTestResult] = (0, _react.useState)(null);
+  (0, _react.useEffect)(() => {
+    uc2RuleEditorDraftsRef.current[ruleId] = draft;
+  }, [draft, ruleId]);
+  (0, _react.useEffect)(() => () => clearTimeout(timer.current), []);
+  const update = (field, value) => {
+    clearTimeout(timer.current);
+    setTesting(false);
+    setTestResult(null);
+    setErrors({});
+    setDraft(current => ({
+      ...current,
+      [field]: value,
+      ...(field === 'trigger' ? {
+        conditions: current.conditions.map(condition => ({
+          ...condition,
+          relation: value === '全部满足' ? '且' : '或'
+        }))
+      } : {})
+    }));
+  };
+  const changeCondition = (id, key, value) => key === 'relation' ? update('trigger', value === '且' ? '全部满足' : '任一满足') : update('conditions', draft.conditions.map(condition => condition.id !== id ? condition : {
+    ...condition,
+    [key]: value,
+    ...(key === 'field' ? {
+      expression: condition.expression.split('{{' + condition.field + '}}').join('{{' + value + '}}')
+    } : {})
+  }));
+  const validate = () => {
+    const next = (0, _ruleEditorModel.validateRuleDraft)(draft, uc2RuleConfigs, ruleId);
+    setErrors(next);
+    if (Object.keys(next).length) {
+      requestAnimationFrame(() => form.current?.querySelector('[aria-invalid="true"]')?.focus());
+      return false;
+    }
+    return true;
+  };
+  const runTest = () => {
+    if (!validate()) return;
+    setTesting(true);
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
+      setTestResult((0, _ruleEditorModel.testRuleDraft)(draft, rule));
+      setTesting(false);
+    }, 750);
+  };
+  const cancel = () => {
+    delete uc2RuleEditorDraftsRef.current[ruleId];
+    closeArtifact('uc2-edit:' + ruleId);
+    openArtifact('uc2-rule:' + ruleId, uc2RuleConfigs[ruleId]?.name || rule.name);
+  };
+  const save = event => {
+    event.preventDefault();
+    if (!validate()) return;
+    uc2SaveRule(ruleId, {
+      ...draft,
+      name: draft.name.trim(),
+      ruleId: draft.ruleId.trim()
+    });
+  };
+  return /*#__PURE__*/React.createElement("form", {
+    ref: form,
+    className: "uc2-rule-editor-shell",
+    "aria-label": "采纳候选规则编辑",
+    onSubmit: save,
+    noValidate: true,
+    "data-design-node": "76:350723"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "uc3-rule-editor uc2-rule-editor"
+  }, /*#__PURE__*/React.createElement(Section, {
+    title: "基本信息"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "uc3-edit-rows"
+  }, /*#__PURE__*/React.createElement(Row, {
+    label: "规则名称",
+    error: errors.name
+  }, /*#__PURE__*/React.createElement("input", {
+    "aria-label": "规则名称",
+    "aria-required": "true",
+    "aria-invalid": Boolean(errors.name),
+    maxLength: 100,
+    value: draft.name,
+    onChange: e => update('name', e.target.value)
+  })), /*#__PURE__*/React.createElement(Row, {
+    label: "影响级别"
+  }, /*#__PURE__*/React.createElement(_formSelect.default, {
+    label: "影响级别",
+    priority: true,
+    value: draft.priority,
+    onChange: value => update('priority', value),
+    options: ['最高优先级', '高优先级', '中优先级', '低优先级']
+  })), /*#__PURE__*/React.createElement(Row, {
+    label: "规则ID",
+    error: errors.ruleId
+  }, /*#__PURE__*/React.createElement("input", {
+    "aria-label": "规则ID",
+    "aria-required": "true",
+    "aria-invalid": Boolean(errors.ruleId),
+    maxLength: 80,
+    value: draft.ruleId,
+    onChange: e => update('ruleId', e.target.value)
+  })), /*#__PURE__*/React.createElement(Row, {
+    label: "类型"
+  }, /*#__PURE__*/React.createElement("input", {
+    "aria-label": "类型",
+    value: draft.type,
+    readOnly: true
+  })), /*#__PURE__*/React.createElement(Row, {
+    label: "测试"
+  }, /*#__PURE__*/React.createElement("span", {
+    role: "status",
+    className: 'uc3-edit-test-status' + (!testResult ? ' is-pending' : '') + (testResult && testResult.passed < testResult.total ? ' has-fail' : '')
+  }, /*#__PURE__*/React.createElement("i", null), testing ? '正在测试…' : testResult ? `${testResult.passed === testResult.total ? '测试通过' : '测试未通过'}（${testResult.passed}/${testResult.total}）` : '待测试'), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "uc3-edit-retest",
+    disabled: testing,
+    onClick: runTest
+  }, /*#__PURE__*/React.createElement(Svg, {
+    name: "rerun",
+    size: 16,
+    className: testing ? 'is-spinning' : ''
+  }), testing ? '正在执行' : testResult ? '再次执行' : '执行测试')), testResult && testResult.passed < testResult.total && /*#__PURE__*/React.createElement("div", {
+    className: "uc2-editor-test-feedback",
+    role: "status"
+  }, testResult.results.filter(item => !item.passed).map(item => /*#__PURE__*/React.createElement("p", {
+    key: item.name
+  }, item.name, "与当前条件不一致，请检查判断条件或表达式。"))))), /*#__PURE__*/React.createElement(Section, {
+    title: "执行细则"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "uc3-edit-rows"
+  }, /*#__PURE__*/React.createElement(Row, {
+    label: "使用模式"
+  }, /*#__PURE__*/React.createElement(_formSelect.default, {
+    label: "使用模式",
+    value: draft.mode,
+    onChange: value => update('mode', value),
+    options: ['始终执行', '满足条件时执行']
+  })), /*#__PURE__*/React.createElement(Row, {
+    label: "检查方式"
+  }, /*#__PURE__*/React.createElement(_formSelect.default, {
+    label: "检查方式",
+    value: draft.method,
+    onChange: value => update('method', value),
+    options: ['全局', '指定视图']
+  })), draft.method === '指定视图' && /*#__PURE__*/React.createElement(Row, {
+    label: "视图路径",
+    error: errors.viewPath
+  }, /*#__PURE__*/React.createElement("input", {
+    "aria-label": "视图路径",
+    "aria-invalid": Boolean(errors.viewPath),
+    value: draft.viewPath || '',
+    onChange: e => update('viewPath', e.target.value),
+    placeholder: "例如 user-interface vty 0 4"
+  })), draft.mode === '满足条件时执行' && /*#__PURE__*/React.createElement(Row, {
+    label: "执行前提",
+    error: errors.precondition
+  }, /*#__PURE__*/React.createElement("input", {
+    "aria-label": "执行前提",
+    "aria-invalid": Boolean(errors.precondition),
+    value: draft.precondition || '',
+    onChange: e => update('precondition', e.target.value),
+    placeholder: "例如 设备角色为 Leaf 交换机"
+  })), /*#__PURE__*/React.createElement(Row, {
+    label: "判断条件",
+    error: errors.conditions
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "uc2-editor-conditions"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "uc3-edit-trigger"
+  }, /*#__PURE__*/React.createElement("span", null, "触发方式"), /*#__PURE__*/React.createElement(_formSelect.default, {
+    label: "触发方式",
+    value: draft.trigger,
+    onChange: value => update('trigger', value),
+    options: ['全部满足', '任一满足']
+  })), draft.conditions.map((condition, index) => /*#__PURE__*/React.createElement("section", {
+    className: "uc3-edit-condition",
+    key: condition.id,
+    "aria-label": '条件' + (index + 1)
+  }, /*#__PURE__*/React.createElement("header", null, /*#__PURE__*/React.createElement("h3", null, "条件", index + 1), /*#__PURE__*/React.createElement("div", {
+    className: "uc2-editor-condition-actions"
+  }, draft.conditions.length > 1 && /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    "aria-label": '移除条件' + (index + 1),
+    onClick: () => update('conditions', draft.conditions.filter(item => item.id !== condition.id))
+  }, "×"), index === 0 && /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    "aria-label": "添加条件",
+    onClick: () => update('conditions', [...draft.conditions, {
+      id: Date.now(),
+      field: 'value',
+      operator: '包含',
+      value: '',
+      relation: '且',
+      expression: '{{value}}'
+    }])
+  }, /*#__PURE__*/React.createElement(Svg, {
+    name: "add"
+  })))), /*#__PURE__*/React.createElement("div", {
+    className: "uc3-edit-condition-grid"
+  }, /*#__PURE__*/React.createElement("label", null, "字段", /*#__PURE__*/React.createElement("input", {
+    "aria-label": '条件' + (index + 1) + '字段',
+    value: condition.field,
+    onChange: e => changeCondition(condition.id, 'field', e.target.value)
+  })), /*#__PURE__*/React.createElement("label", null, "运算符号", /*#__PURE__*/React.createElement(_formSelect.default, {
+    label: '条件' + (index + 1) + '运算符号',
+    value: condition.operator,
+    onChange: value => changeCondition(condition.id, 'operator', value),
+    options: ['包含', '不包含', '等于', '正则匹配']
+  })), /*#__PURE__*/React.createElement("label", null, "值", /*#__PURE__*/React.createElement("input", {
+    "aria-label": '条件' + (index + 1) + '值',
+    value: condition.value,
+    onChange: e => changeCondition(condition.id, 'value', e.target.value)
+  })), /*#__PURE__*/React.createElement("fieldset", null, /*#__PURE__*/React.createElement("legend", null, "条件关系"), /*#__PURE__*/React.createElement("div", null, ['或', '且'].map(value => /*#__PURE__*/React.createElement("label", {
+    key: value
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "radio",
+    name: 'uc2-rule-relation-' + condition.id,
+    checked: condition.relation === value,
+    onChange: () => changeCondition(condition.id, 'relation', value)
+  }), value))))), /*#__PURE__*/React.createElement("label", {
+    className: "uc3-edit-expression"
+  }, "表达式预览", /*#__PURE__*/React.createElement("textarea", {
+    "aria-label": '条件' + (index + 1) + '表达式预览',
+    "aria-invalid": Boolean(errors['condition-' + condition.id]),
+    value: condition.expression,
+    onChange: e => changeCondition(condition.id, 'expression', e.target.value)
+  })), errors['condition-' + condition.id] && /*#__PURE__*/React.createElement("p", {
+    className: "uc2-editor-field-error",
+    role: "alert"
+  }, errors['condition-' + condition.id])))))))), /*#__PURE__*/React.createElement("footer", {
+    className: "uc2-rule-editor-footer"
+  }, /*#__PURE__*/React.createElement("span", null, "来源：", rule.id, " · ", rule.role === '通用' ? '共性' : rule.role, /*#__PURE__*/React.createElement("small", null, "保存到本地规则库并更新候选审阅状态")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "btn",
+    onClick: cancel
+  }, "取消"), /*#__PURE__*/React.createElement("button", {
+    type: "submit",
+    className: "btn primary",
+    disabled: testing
+  }, "保存并采纳"))));
+}
+}};
+modules["src/views/uc2-canvas/rule-editor-model.js"]={deps:{"../../mock/uc2.js":"src/mock/uc2.js"},run:function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createRuleDraft = createRuleDraft;
+exports.expandCondition = expandCondition;
+exports.matchesDraft = matchesDraft;
+exports.testRuleDraft = testRuleDraft;
+exports.validateRuleDraft = validateRuleDraft;
+var _uc = require("../../mock/uc2.js");
+function createRuleDraft(rule) {
+  const words = rule.cmd.split(' '),
+    value = words.pop(),
+    prefix = words.join(' ');
+  return {
+    name: rule.name,
+    priority: _uc.fusionImpact[rule.id] === '高' ? '高优先级' : _uc.fusionImpact[rule.id] === '中' ? '中优先级' : '低优先级',
+    ruleId: 'golden_' + rule.id.toLowerCase().replace('-', '_'),
+    type: '单条 Rule（非 Policy）',
+    mode: '始终执行',
+    method: '全局',
+    trigger: '全部满足',
+    conditions: [{
+      id: 1,
+      field: 'value',
+      operator: '包含',
+      value,
+      relation: '且',
+      expression: (prefix ? prefix + ' ' : '') + '{{value}}'
+    }]
+  };
+}
+function expandCondition(condition) {
+  return condition.expression.replace(/\{\{\s*([\w]+)\s*\}\}/g, (whole, name) => name === condition.field ? condition.value : whole);
+}
+function validateRuleDraft(draft, others = {}, sourceId) {
+  const errors = {};
+  if (!draft.name.trim()) errors.name = '请输入规则名称';
+  if (!/^[A-Za-z][A-Za-z0-9_-]*$/.test(draft.ruleId.trim())) errors.ruleId = '以字母开头，仅支持字母、数字、下划线和短横线';else if (Object.entries(others).some(([id, item]) => id !== sourceId && item.ruleId === draft.ruleId.trim())) errors.ruleId = '规则ID已被其他规则使用';
+  if (draft.method === '指定视图' && !draft.viewPath?.trim()) errors.viewPath = '请输入指定视图路径';
+  if (draft.mode === '满足条件时执行' && !draft.precondition?.trim()) errors.precondition = '请输入执行前提';
+  if (!draft.conditions?.length) errors.conditions = '至少保留一个判断条件';
+  draft.conditions?.forEach((condition, index) => {
+    const key = 'condition-' + condition.id,
+      expanded = expandCondition(condition);
+    if (!/^[A-Za-z_][\w]*$/.test(condition.field)) errors[key] = '字段使用字母、数字或下划线，并以字母或下划线开头';else if (!condition.value.trim() || !condition.expression.trim()) errors[key] = '请补充值和表达式';else if (/\{\{|\}\}/.test(expanded)) errors[key] = '表达式中的变量名称需与字段一致';else if (/<[^>]+>/.test(expanded)) errors[key] = '请将规划参数替换为实际值';else if (condition.operator === '正则匹配') {
+      try {
+        new RegExp(expanded);
+      } catch {
+        errors[key] = '正则表达式格式不正确';
+      }
+    }
+  });
+  return errors;
+}
+const normalize = text => text.trim().replace(/\s+/g, ' ');
+function matchesDraft(draft, configuration) {
+  const outcomes = draft.conditions.map(condition => {
+    const expression = expandCondition(condition),
+      content = normalize(configuration),
+      expected = normalize(expression);
+    if (condition.operator === '正则匹配') return new RegExp(expression, 'm').test(configuration);
+    if (condition.operator === '不包含') return !content.includes(expected);
+    if (condition.operator === '等于') return configuration.split('\n').some(line => normalize(line) === expected);
+    return content.includes(expected);
+  });
+  return draft.trigger === '全部满足' ? outcomes.every(Boolean) : outcomes.some(Boolean);
+}
+function testRuleDraft(draft, rule) {
+  const samples = [{
+    name: '支持样本配置',
+    configuration: rule.cmd,
+    expected: true
+  }, {
+    name: '偏离样本配置',
+    configuration: (0, _uc.uc2Actual)(rule),
+    expected: false
+  }];
+  const results = samples.map(sample => ({
+    ...sample,
+    passed: matchesDraft(draft, sample.configuration) === sample.expected
+  }));
+  return {
+    passed: results.filter(item => item.passed).length,
+    total: results.length,
+    results
+  };
 }
 }};
 modules["src/views/uc3-canvas/index.jsx"]={deps:{"border-beam":"assets/library/border-beam/index.cjs","../mapping-card/beam-palette.js":"src/views/mapping-card/beam-palette.js","../../context.jsx":"src/context.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","./index.css":"src/views/uc3-canvas/index.css"},run:function(require,module,exports){

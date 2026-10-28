@@ -1,3 +1,4 @@
+import {uc2CandidateStats} from "./uc2.js";
 import {sourceGroups} from "./devices.js";
 
 // Shared prototype task ledger. Counts represent task records, never rule/device counts.
@@ -16,7 +17,7 @@ export function centerNetworkDeviceCount(centerId){
 }
 export const ucTaskDefinitions={
   uc1:{kind:"rule-query",category:"inspection",centerId:null,scope:"全网检查规则库",title:"全网检查规则查询",prompt:"当前全网有哪些检查规则？",steps:["意图分析","出厂预置规则查询","AI挖掘规则查询","用户自定义规则查询"],result:{ruleCount:92}},
-  uc2:{kind:"baseline-mining",category:"inspection",centerId:"xisanqi",scope:"西三旗DC",title:"黄金基线挖掘",prompt:"帮我自动挖掘一下西三旗DC的黄金基线，看看现网有哪些不合规？",steps:["意图分析","设备还原","黄金基线挖掘","生成报告"],result:{deviceCount:100,ruleCount:18}},
+  uc2:{kind:"baseline-mining",category:"inspection",centerId:"xisanqi",scope:"西三旗DC",title:"黄金基线挖掘",prompt:"帮我自动挖掘一下西三旗DC的黄金基线，看看现网有哪些不合规？",steps:["意图分析","设备还原","黄金基线挖掘","生成报告"],result:{deviceCount:100,ruleCount:uc2CandidateStats.total}},
   uc3:{kind:"rule-creation",category:"generation",centerId:"xisanqi",scope:"西三旗DC检查规则",title:"生成检查规则",prompt:"帮我创建规则：用户接口空闲超时时间不能超过10分钟",steps:["意图分析","明确检查目标","生成检查逻辑","模拟测试"],result:{ruleCount:1,testCount:7}},
   // Explicit design-source mapping: the station tip names 西三旗数据中心 HCS.
   // This does not change UC4's HCS1 report, inventory or compliance calculations.

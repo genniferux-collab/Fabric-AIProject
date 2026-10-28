@@ -10,6 +10,7 @@ import Uc2Pane from "../uc2-canvas/index.jsx";
 import Uc2CandidateList from "../uc2-canvas/candidate-list.jsx";
 import { Uc2RuleDetail } from "../uc2-canvas/report.jsx";
 import Uc3RuleEditor from '../uc3-canvas/editor.jsx';
+import Uc2RuleEditor from '../uc2-canvas/rule-editor.jsx';
 import Uc3RuleCanvas from '../uc3-canvas/index.jsx';
 import Uc1RulesCanvas from "../uc1-canvas/index.jsx";
 import Ic from "../../components/icon-el/index.jsx";
@@ -176,6 +177,7 @@ export default function CanvasArea() {
       </section>
       <section ref={artifactRef} className={"v7-artifact-pane"+(activeArtifact?"":" hidden")+(activeArtifact==="uc3-editor"?" uc3-edit-pane":"")} aria-label="独立卡片页签">
         {luiView === "uc3" && activeArtifact === "uc3-editor" && <Uc3RuleEditor/>}
+        {uc2.active && activeArtifact?.startsWith("uc2-edit:") && <Uc2RuleEditor key={activeArtifact} ruleId={activeArtifact.slice(9)}/>}
         {uc2.active && activeArtifact?.startsWith("uc2-rule:") && <section className="card uc2-rule-detail-card"><Uc2RuleDetail ruleId={activeArtifact.slice(9)} returnLabel={ruleOrigin==="uc2-rules"?"返回全部规则":"返回报告"} onBack={()=>ruleOrigin==="uc2-rules"?openArtifact("uc2-rules","全部候选规则"):uc2Show(3)}/></section>}
         {uc2.active && <section key={uc2.runId} className="card uc2-rules-card" hidden={activeArtifact!=="uc2-rules"}><Uc2CandidateList/></section>}
       </section>
