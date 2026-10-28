@@ -72,3 +72,8 @@ html.dark .stage-root .canvas .card:hover {
 .canvas .card{padding:16px;border-radius:16px;box-shadow:none;scroll-margin-top:38px}
 
 .v7-artifact-title{display:flex;align-items:center;gap:8px}
+
+/* Original Pixso export supplied by the designer; shared across UC1–UC4. */
+.stage-root #canvas .panorama-design-icon{display:block;flex:none;width:14px;height:14px;object-fit:contain;filter:brightness(0) invert(.682353)}
+.stage-root #canvas .canvas-tab.active .panorama-design-icon{filter:brightness(0) invert(1)}
+html:not(.dark) .stage-root #canvas .canvas-tab.active .panorama-design-icon{filter:brightness(0) invert(.223529)}

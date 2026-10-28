@@ -6,7 +6,7 @@ import { checkById, instancesFor, snapshotFor, rawSegments, sshCommands, SSH_TAR
 import { PriorityBadge, StatusMark } from "../../components/status-marks/index.jsx";
 
 function CommandHeader({ onCopy, expanded, onExpand, label = "配置" }) {
-  return <div className="detail-command-header"><span><img src="./assets/uploads/detail-terminal.svg" width="14" height="14" alt=""/>命令行</span><div><button type="button" aria-label={"复制"+label} title={"复制"+label} onClick={onCopy}><img src="./assets/uploads/detail-copy.svg" width="12" height="12" alt=""/></button><button type="button" aria-label={(expanded?"收起":"展开")+label} aria-expanded={expanded} title={expanded?"收起":"展开"} onClick={onExpand}><img src="./assets/uploads/detail-expand.svg" width="12" height="12" alt=""/></button></div></div>;
+  return <div className="detail-command-header"><span>命令行</span><div>{label==='配置'&&<button className="detail-config-switch" type="button" aria-label={(expanded?'收起':'展开')+label} aria-expanded={expanded} onClick={onExpand}><img src="./assets/uploads/detail-expand.svg" width="14" height="14" alt=""/>{expanded?'切换片段':'切换全部'}</button>}<button type="button" aria-label={"复制"+label} title={"复制"+label} onClick={onCopy}><img src="./assets/uploads/detail-copy.svg" width="12" height="12" alt=""/></button></div></div>;
 }
 function RepairCommands({ onCopy, children }) {
   const [expanded,setExpanded]=useState(false);
@@ -157,12 +157,12 @@ export default function RuleDetail({d,s,patch}) {
   const status=isSsh?(records.filter(i=>i.bad).length?records.filter(i=>i.bad).length+'处不通过 · '+records.length+'个配置位置':'通过 · '+records.length+'个配置位置'):isTime?(bad?'2处不通过 · 1处通过 · 共3个配置位置':'3处通过 · 共3个配置位置'):(bad?'1处不通过':'1处通过')+' · 共1个检查位置';
   return <>
     <div className="rule-detail-heading"><h3>{r.name}</h3><PriorityBadge priority={r.priority}/><StatusMark failed={bad}/></div>
-    <div className={'criterion '+(isSsh?'v7-ssh-criterion':'v7-unified-criterion')}><span>检查要求</span><div>{v7RuleRequirements[r.id]||r.expected}</div></div>
+    <div className={'criterion '+(isSsh?'v7-ssh-criterion':'v7-unified-criterion')}><span>规则：</span><div>{v7RuleRequirements[r.id]||r.expected}</div></div>
     {!isSsh&&<details className="scope-details"><summary>检查范围与判定说明</summary><p>{isTime?'检查范围：所有 user-interface 视图块（VTY / CONSOLE / AUX）下的直接子命令 idle-timeout。排除 NETCONF、RESTCONF、gRPC 视图。分钟×60＋秒≤600秒为通过，省略秒数按0计算。':'检查范围：'+r.view+'。基于当前配置快照解析参数后，与本规则条件比较。'}</p></details>}
     <div className="instance-heading"><span className="v14-section-label">检查项</span><span>{status}</span>{isTime&&<button onClick={toggleExcluded}>{s.excluded?'收起':'查看'}已排除项（1）</button>}</div>
     <InstanceCards d={d} r={r} s={s} records={records} onChoose={choose}/>
     <div className="evidence-heading"><h4>{isSsh?'当前配置命中片段':<>配置证据 <span className="small muted" style={{fontWeight:400,marginLeft:8}}>{chosen.name}</span></>}</h4></div>
-    {isSsh&&chosen.bad&&<section className="v7-ssh-impact"><img src="./assets/uploads/detail-warning.svg" width="14" height="14" alt=""/><p><strong>影响说明：</strong>当前启用了基线禁止的 {chosen.id==='single'?'CBC':'MD5'} 算法，增加 SSH 会话的密码安全与完整性保护风险。建议按组织密码安全基线整改。</p></section>}
+    {isSsh&&chosen.bad&&<section className="v7-ssh-impact"><img src="./assets/uploads/detail-warning.svg" width="14" height="14" alt=""/><p><strong>影响说明</strong>当前启用了基线禁止的 {chosen.id==='single'?'CBC':'MD5'} 算法，增加 SSH 会话的密码安全与完整性保护风险。建议按组织密码安全基线整改。</p></section>}
     {!isSsh&&<SemanticComparison d={d} r={r} i={chosen}/>}
     <ConfigView d={d} r={r} i={chosen} s={s} records={records} onSetMode={setMode} onCopy={()=>copy(snapshotFor(d).map((text,index)=>({text,line:index+1})).filter(row=>s.mode==='full'||(row.line>=Math.max(1,chosen.line-2)&&row.line<=chosen.line+1)).map(row=>row.text).join("\n"),"配置片段")}/>
     {chosen.excluded?<div className="excluded-note">已排除：不属于本规则检查范围，未参与通过/不通过统计。</div>:chosen.bad?(isSsh?<SshRepair d={d} i={chosen} onCopy={repair} onCopyRollback={()=>copy(sshCommands(d,true,chosen.id),'回退命令')}/>:<FixSection d={d} r={r} i={chosen} onCopy={repair}/>):<div className="passed-note">✓ 当前检查位置通过检查，无需修复。</div>}

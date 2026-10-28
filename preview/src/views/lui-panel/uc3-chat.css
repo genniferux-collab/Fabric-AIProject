@@ -26,3 +26,15 @@ html:not(.dark) .stage-root #lui.lui-refresh .uc3-fields :is(dt,dd){color:#59595
 
 .stage-root #lui.lui-refresh .uc3-conversation :is(.uc3-completion,.uc3-logic) li{list-style-type:disc}
 .stage-root #lui.lui-refresh .uc3-conversation li::marker{color:#c9c9c9}
+
+/* Keep summary rhythm independent of shared completion defaults. */
+.stage-root #lui.lui-refresh .generated-card .completion.uc3-completion>p{margin:0;font-size:14px;font-weight:400;line-height:22px}
+.stage-root #lui.lui-refresh .generated-card .completion.uc3-completion h3{margin:16px 0 8px;font-size:14px;font-weight:500;line-height:22px}
+.stage-root #lui.lui-refresh .generated-card .completion.uc3-completion ul{margin:0;padding-left:22px;font-size:14px;font-weight:400;line-height:22px}
+.stage-root #lui.lui-refresh .generated-card .completion.uc3-completion .uc3-table-wrap{margin-top:16px}
+.stage-root #lui.lui-refresh .generated-card .completion.uc3-completion .uc3-rule-artifact{margin-top:16px;height:84px;padding:16px;border-radius:12px}
+.stage-root #lui.lui-refresh .generated-card .completion.uc3-completion .uc3-rule-artifact .v7-conclusion-copy{display:flex;flex-direction:column;gap:4px}
+.stage-root #lui.lui-refresh .generated-card .completion.uc3-completion .uc3-rule-artifact strong{display:flex;align-items:center;gap:4px;padding:0;font-size:16px;line-height:24px}
+.stage-root #lui.lui-refresh .generated-card .completion.uc3-completion .uc3-rule-artifact small{display:inline-flex;align-items:center;height:20px;margin:0;padding:0 8px;flex:none}
+.stage-root #lui.lui-refresh .generated-card .completion.uc3-completion .uc3-followup{margin:16px 0 0}
+.stage-root #lui.lui-refresh .generated-card .completion.uc3-completion .response-footer{margin-top:16px}

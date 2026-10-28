@@ -31,11 +31,8 @@
 .stage-root.uc3 .uc3-evidence-card header :is(svg,img){width:24px;height:24px}.stage-root.uc3 .uc3-evidence-card h4{font-size:14px;font-weight:600;line-height:22px;color:#f2f2f7;margin:0}
 .stage-root.uc3 .uc3-evidence-card .blue{color:#2070f3}.stage-root.uc3 .uc3-evidence-card .cyan{color:#2fb3c5}.stage-root.uc3 .uc3-evidence-card .violet{color:#8563ff}
 .stage-root.uc3 .uc3-evidence-card p{margin:0;font-size:14px;line-height:24px;color:#c9c9c9}
-.stage-root.uc3 .is-building .uc3-graph-node :is(h3,p),.stage-root.uc3 .uc3-rule-evidence.is-building :is(h4,p){color:transparent;background:linear-gradient(90deg,#ffffff08,#ffffff14,#ffffff08);background-size:200% 100%;border-radius:4px;animation:uc3-skeleton 1.4s linear infinite}
+
 html.dark .stage-root.uc3 .canvas .card.uc3-rule-canvas:hover:has(:is(button,input,[role="button"]):hover){background-image:radial-gradient(#ffffff0c .8px,transparent .8px)}
-.stage-root.uc3 .uc3-editor-backdrop{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:#0008}
-.stage-root.uc3 .uc3-editor{width:480px;max-width:calc(100vw - 48px);padding:24px;border-radius:12px;background:#393939;color:#dfdfdf;box-shadow:0 8px 40px #0008}
-.stage-root.uc3 .uc3-editor header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}.stage-root.uc3 .uc3-editor h3{font-size:16px;margin:0}.stage-root.uc3 .uc3-editor label{display:flex;flex-direction:column;gap:8px;font-size:14px}.stage-root.uc3 .uc3-editor input{padding:8px 12px;background:#2a2a2a;color:#fff;border:1px solid #777;border-radius:4px;width:100%;box-sizing:border-box}.stage-root.uc3 .uc3-editor footer{display:flex;gap:12px;justify-content:flex-end;margin-top:24px}.stage-root.uc3 .uc3-editor footer button{padding:6px 16px;border:1px solid #777;border-radius:4px;background:transparent;color:#fff;cursor:pointer}.stage-root.uc3 .uc3-editor footer button:last-child{background:#0067d1;border-color:#0067d1}
 @keyframes uc3-skeleton{to{background-position:-200% 0}}@keyframes uc3-node-reveal{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.stage-root.uc3 .uc3-graph-node{animation:none}.stage-root.uc3 .is-building :is(h3,h4,p){animation:none}}
 
@@ -44,3 +41,15 @@ html.dark .stage-root.uc3 .canvas .card.uc3-rule-canvas:hover:has(:is(button,inp
 
 .stage-root.uc3 .uc3-design-icon{display:block;object-fit:contain;flex:none}
 .stage-root.uc3 .uc3-rule-tools .icon-btn :is(svg,img){width:14px;height:14px}
+
+/* Progressive graph construction: real content from the first node, no skeleton. */
+.stage-root.uc3 .uc3-graph-node{animation:uc3-node-materialize 480ms cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--reveal-delay);isolation:isolate}
+.stage-root.uc3 .uc3-growing-edge{stroke-width:1.6;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;opacity:0;animation:uc3-edge-grow 700ms cubic-bezier(.4,0,.2,1) both;animation-delay:var(--edge-delay)}
+.stage-root.uc3 .uc3-edge-label{animation:uc3-node-materialize 240ms ease both;animation-delay:var(--label-delay)}
+.stage-root.uc3 .uc3-node-intelligence{position:absolute;inset:0;z-index:2;pointer-events:none;border-radius:inherit;animation:uc3-node-glow 1700ms ease both;animation-delay:var(--reveal-delay)}
+.stage-root.uc3 .uc3-node-intelligence>div{border-radius:inherit}
+.stage-root.uc3 .uc3-rule-evidence{animation:uc3-node-materialize 400ms ease both;animation-delay:5600ms}
+@keyframes uc3-node-materialize{from{opacity:0;transform:translateY(8px) scale(.98);filter:blur(3px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+@keyframes uc3-edge-grow{0%{opacity:0;stroke-dashoffset:1}10%{opacity:1}100%{opacity:1;stroke-dashoffset:0}}
+@keyframes uc3-node-glow{0%{opacity:0}15%,70%{opacity:1}100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.stage-root.uc3 .uc3-graph-node,.stage-root.uc3 .uc3-edge-label,.stage-root.uc3 .uc3-rule-evidence{animation:none}.stage-root.uc3 .uc3-growing-edge{animation:none;opacity:1;stroke-dashoffset:0}.stage-root.uc3 .uc3-node-intelligence{display:none}}

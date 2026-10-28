@@ -41,6 +41,17 @@ function LuiScrollArea({ children, scrollRef, enhanced }) {
     return () => { observer.disconnect(); cancelAnimationFrame(frame); };
   }, [enhanced, sync, scrollRef]);
 
+  useEffect(() => {
+    const main=scrollRef.current, flow=flowRef.current;
+    if(!main||!flow)return;
+    let frame=0, previousHeight=flow.getBoundingClientRect().height;
+    const follow=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{main.scrollTop=main.scrollHeight;sync();});};
+    const resize=new ResizeObserver(()=>{const height=flow.getBoundingClientRect().height;if(height>previousHeight+.1)follow();previousHeight=height;});
+    const mutations=new MutationObserver(records=>{if(records.some(record=>record.type==='characterData'||record.addedNodes.length))follow();});
+    resize.observe(flow);mutations.observe(flow,{subtree:true,childList:true,characterData:true});
+    return()=>{resize.disconnect();mutations.disconnect();cancelAnimationFrame(frame);};
+  },[scrollRef,sync]);
+
   const onPointerDown = event => {
     const main = scrollRef.current, track = trackRef.current, thumb = thumbRef.current;
     if (!main || !track || !thumb) return;

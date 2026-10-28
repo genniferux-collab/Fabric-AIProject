@@ -76,6 +76,8 @@ export function stateFor(map, id) {
   return map[id] || (map[id] = { rule: "timeout", instance: "vty", filter: "failed", search: "", excluded: false, mode: "related", scroll: 0 });
 }
 
+const createUc3EditorDraft=()=>({name:'用户接口空闲超时时间不能超过 10 分钟',priority:'最高优先级',ruleId:'user_interface_idle_timeout_10min',type:'单条 Rule（非 Policy）',mode:'始终执行',method:'全局',trigger:'全部满足',changed:false,testResult:null,conditions:[{id:1,field:'time',operator:'大于',value:'全部满足',relation:'或',expression:'idle-timeout  {{time}} 30'}]});
+
 export function AppProvider({ children }) {
   const [isDark, setIsDark] = useState(true);
   useEffect(() => { document.documentElement.classList.toggle("dark", isDark); }, [isDark]);
@@ -103,6 +105,7 @@ export function AppProvider({ children }) {
 
   const [uc1Phase,setUc1Phase] = useState(-2);
   const [uc3Phase,setUc3Phase] = useState(-2);
+  const [uc3EditorDraft,setUc3EditorDraft]=useState(createUc3EditorDraft);
   const [uc1SummaryStage,setUc1SummaryStage]=useState(-1);
 
   // 画布页签
@@ -412,7 +415,7 @@ export function AppProvider({ children }) {
   }, [stopScan]);
 
   const runUc3=useCallback((prompt='帮我创建规则：用户接口空闲超时时间不能超过10分钟')=>{
-    uc2Leave();clearTimeout(timerRef.current);runningRef.current=false;stopScan();setLuiFocus(null);setUc3Phase(-2);
+    uc2Leave();clearTimeout(timerRef.current);runningRef.current=false;stopScan();setLuiFocus(null);setUc3Phase(-2);setUc3EditorDraft(createUc3EditorDraft());
     setTaskPrompt(prompt);setPromptText('');setLuiView('uc3');setLuiOpen(true);setCanvasHidden(false);setAgentActive(true);
     setStage(-1);setRunningIndex(-1);setActivePane('task');setOpenDevices([]);setArtifactTabs([]);setActiveArtifact(null);
   },[stopScan]);
@@ -513,7 +516,7 @@ export function AppProvider({ children }) {
   const value = {
     isDark, toggleDark: () => setIsDark((d) => !d),
     luiOpen, canvasHidden, agentActive, full, setFull,
-    uc3Phase, setUc3Phase, uc1Phase, setUc1Phase, uc1SummaryStage, setUc1SummaryStage, luiView, taskPrompt, stage, reportRevealStartedAt, runningIndex, scanSeq, promptText, setPromptText,
+    uc3EditorDraft,setUc3EditorDraft,uc3Phase, setUc3Phase, uc1Phase, setUc1Phase, uc1SummaryStage, setUc1SummaryStage, luiView, taskPrompt, stage, reportRevealStartedAt, runningIndex, scanSeq, promptText, setPromptText,
     scanCtlRef, notifyScanComplete, notifyMappingComplete,
     openAgentHome, goCockpit, toggleAgent, runTask, chooseUC, submitPrompt,
     openDevices, activePane, switchPane, openDevice, closeDevice,

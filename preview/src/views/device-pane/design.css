@@ -90,3 +90,49 @@ html:not(.dark) .stage-root.uc4 #devicePane .device-overview,html:not(.dark) .st
 .stage-root.uc4 #devicePane .rule-detail-heading .v7-priority-badge>i{display:none}
 .stage-root.uc4 #devicePane .rule-detail-heading .status-label.good{background:#09aa7126;color:#36c18d}
 .stage-root.uc4 #devicePane .rule-nav-search .ic{order:-1;flex-shrink:0}
+
+/* UC4 rule detail — Pixso 19:142405. */
+.stage-root.uc4 #devicePane{padding:0;gap:0;background:#191919}
+.stage-root.uc4 #devicePane .device-overview,.stage-root.uc4 #devicePane .device-workspace{--detail-panel:#191919;--detail-raised:#262626;--detail-copy:#c9c9c9;background:#191919;border-radius:0}
+.stage-root.uc4 #devicePane .device-overview{display:grid;grid-template-columns:48px minmax(0,1fr);column-gap:24px;row-gap:8px;padding:16px 24px;border-bottom:1px solid #ffffff26;flex-shrink:0;background:linear-gradient(#191919,#222)}
+.stage-root.uc4 #devicePane .device-icon-disc{grid-row:1 / 3;display:grid;place-items:center;align-self:center;width:48px;height:48px;border-radius:50%;background:#393939}
+.stage-root.uc4 #devicePane .device-icon-disc img{width:24px;height:24px}
+.stage-root.uc4 #devicePane .v14-device-meta{display:flex;gap:40px;margin:0;grid-column:2;flex-wrap:wrap}
+.stage-root.uc4 #devicePane .v14-device-meta>div{display:flex;flex-direction:column;gap:0}
+.stage-root.uc4 #devicePane .v14-device-meta>div+div{border:0;padding:0}
+.stage-root.uc4 #devicePane .v14-device-meta span{font-size:12px;line-height:20px;color:#939393}
+.stage-root.uc4 #devicePane .v14-device-meta strong{line-height:22px}
+.stage-root.uc4 #devicePane .device-workspace{grid-template-columns:356px minmax(0,1fr);padding:0;gap:0;flex:1}
+.stage-root.uc4 #devicePane .device-workspace>.rule-navigation,.stage-root.uc4 #devicePane .device-workspace>.rule-detail{padding:24px;background:transparent}
+.stage-root.uc4 #devicePane .v13-rule-filters{gap:24px;flex-wrap:nowrap}
+.stage-root.uc4 #devicePane .v13-rule-filters button{gap:4px;white-space:nowrap}
+.stage-root.uc4 #devicePane .v13-rule-filters button:first-child{padding-right:24px;border-right:1px solid #ffffff26}
+.stage-root.uc4 #devicePane .v13-rule-filters button.active span{min-width:24px;height:22px;line-height:20px}
+.stage-root.uc4 #devicePane .rule-list-item{padding:16px 12px;margin:0;gap:8px;border:0;border-bottom:1px solid #ffffff26;border-radius:0;min-height:80px}
+.stage-root.uc4 #devicePane .rule-list-item.active{background:#0067d126;border-color:transparent}
+.stage-root.uc4 #devicePane .rule-list-item .rule-sub{margin-top:8px}
+.stage-root.uc4 #devicePane .rule-detail-heading{margin-bottom:4px}
+.stage-root.uc4 #devicePane .rule-detail-heading .v7-priority-badge,.stage-root.uc4 #devicePane .rule-detail-heading .status-label{display:none}
+.stage-root.uc4 #devicePane .criterion{display:flex;align-items:baseline;gap:4px}
+.stage-root.uc4 #devicePane .criterion>span,.stage-root.uc4 #devicePane .criterion>div{font-size:14px;line-height:22px;color:#c9c9c9}
+.stage-root.uc4 #devicePane .instance-heading,.stage-root.uc4 #devicePane .evidence-heading{display:none}
+.stage-root.uc4 #devicePane .v13-instance-cards{margin:16px 0 24px;gap:8px}
+.stage-root.uc4 #devicePane .v13-instance-card{width:292px;min-width:0;flex:0 1 292px;padding:10px 12px;gap:8px;background:#262626}
+.stage-root.uc4 #devicePane .v13-instance-top>span{display:none}
+.stage-root.uc4 #devicePane .v13-instance-card code{padding-left:12px;font-family:inherit;color:#c9c9c9}
+.stage-root.uc4 #devicePane .v13-instance-card .fail-param{color:inherit}
+.stage-root.uc4 #devicePane .v7-ssh-impact{padding:0;margin:0 0 16px;background:none;border-radius:0}
+.stage-root.uc4 #devicePane .v7-ssh-impact img{display:none}
+.stage-root.uc4 #devicePane .v7-ssh-impact p{font-size:14px;line-height:22px;color:#c9c9c9}
+.stage-root.uc4 #devicePane .v7-ssh-impact strong{display:block;font-size:14px;font-weight:500;line-height:22px;margin-bottom:4px;color:#fff}
+.stage-root.uc4 #devicePane .v13-evidence,.stage-root.uc4 #devicePane .detail-repair-panel,.stage-root.uc4 #devicePane .detail-command-header,.stage-root.uc4 #devicePane .code-scroll,.stage-root.uc4 #devicePane .fix-diff{background:#262626}
+.stage-root.uc4 #devicePane .detail-command-header{height:46px}
+.stage-root.uc4 #devicePane .detail-command-header button.detail-config-switch{display:flex;align-items:center;gap:4px;width:auto;color:#c9c9c9;font-size:12px}
+.stage-root.uc4 #devicePane .v13-evidence-context,.stage-root.uc4 #devicePane .config-footer{display:none}
+.stage-root.uc4 #devicePane .code-scroll{padding:8px 0 12px;max-height:144px}
+.stage-root.uc4 #devicePane .code-line{font-family:inherit;font-size:12px;line-height:24px;min-height:24px}
+.stage-root.uc4 #devicePane .code-line.bad-line{border:0;background:#e7434a15}
+.stage-root.uc4 #devicePane .fix-text{padding:0;margin:4px 0 12px;background:none;border-radius:0;color:#c9c9c9;font-size:14px;line-height:22px}
+.stage-root.uc4 #devicePane .v7-ssh-change,.stage-root.uc4 #devicePane .fix-section>.between>.muted{display:none}
+.stage-root.uc4 #devicePane .v7-ssh-rollback{margin-top:12px}
+@container device-detail (max-width:1050px){.stage-root.uc4 #devicePane .device-workspace{grid-template-columns:300px minmax(0,1fr)}.stage-root.uc4 #devicePane .v13-rule-filters{gap:12px}.stage-root.uc4 #devicePane .v13-rule-filters button:first-child{padding-right:12px}.stage-root.uc4 #devicePane .v13-instance-card{flex:1 1 160px}.stage-root.uc4 #devicePane .v14-device-meta{gap:24px}}

@@ -73,10 +73,11 @@ export default function DevicePane({ deviceId }) {
   return (
     <>
       <section className="card device-overview artifact-card conclusion-artifact">
+        <div className="device-icon-disc"><img className="device-design-icon" src="./assets/uploads/detail-device.svg" width="24" height="24" alt=""/></div>
         <div className="between">
           <div className="row">
-            <img className="device-design-icon" src="./assets/uploads/detail-device.svg" width="20" height="20" alt=""/><h2 className="device-title">{d.name}</h2>
-            <span className={d.fails.length ? "bad-tag" : "good-tag"}>{d.fails.length ? "检查不通过" : "检查通过"}</span>
+            <h2 className="device-title">{d.name}</h2>
+            <span className={d.fails.length ? "bad-tag" : "good-tag"}>{d.fails.length ? "不通过" : "通过"}</span>
           </div>
         </div>
         <div className="device-meta v14-device-meta">{[['设备IP',d.ip],['厂商',d.vendor==='H3C'?'H3C':'华为'],['型号',d.model],['区域','西三旗 DC / HCS1'],['检查时间','14:20:00']].map(([label,value])=><div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div>

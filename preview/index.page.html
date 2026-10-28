@@ -4568,6 +4568,11 @@ html.dark .stage-root .canvas .card:hover {
 
 .v7-artifact-title{display:flex;align-items:center;gap:8px}
 
+/* Original Pixso export supplied by the designer; shared across UC1–UC4. */
+.stage-root #canvas .panorama-design-icon{display:block;flex:none;width:14px;height:14px;object-fit:contain;filter:brightness(0) invert(.682353)}
+.stage-root #canvas .canvas-tab.active .panorama-design-icon{filter:brightness(0) invert(1)}
+html:not(.dark) .stage-root #canvas .canvas-tab.active .panorama-design-icon{filter:brightness(0) invert(.223529)}
+
 /* src/views/network-overview/index.css */
 /* migrated from config-agent-merged.html — network-overview */
 
@@ -7787,6 +7792,52 @@ html:not(.dark) .stage-root.uc4 #devicePane .device-overview,html:not(.dark) .st
 .stage-root.uc4 #devicePane .rule-detail-heading .status-label.good{background:#09aa7126;color:#36c18d}
 .stage-root.uc4 #devicePane .rule-nav-search .ic{order:-1;flex-shrink:0}
 
+/* UC4 rule detail — Pixso 19:142405. */
+.stage-root.uc4 #devicePane{padding:0;gap:0;background:#191919}
+.stage-root.uc4 #devicePane .device-overview,.stage-root.uc4 #devicePane .device-workspace{--detail-panel:#191919;--detail-raised:#262626;--detail-copy:#c9c9c9;background:#191919;border-radius:0}
+.stage-root.uc4 #devicePane .device-overview{display:grid;grid-template-columns:48px minmax(0,1fr);column-gap:24px;row-gap:8px;padding:16px 24px;border-bottom:1px solid #ffffff26;flex-shrink:0;background:linear-gradient(#191919,#222)}
+.stage-root.uc4 #devicePane .device-icon-disc{grid-row:1 / 3;display:grid;place-items:center;align-self:center;width:48px;height:48px;border-radius:50%;background:#393939}
+.stage-root.uc4 #devicePane .device-icon-disc img{width:24px;height:24px}
+.stage-root.uc4 #devicePane .v14-device-meta{display:flex;gap:40px;margin:0;grid-column:2;flex-wrap:wrap}
+.stage-root.uc4 #devicePane .v14-device-meta>div{display:flex;flex-direction:column;gap:0}
+.stage-root.uc4 #devicePane .v14-device-meta>div+div{border:0;padding:0}
+.stage-root.uc4 #devicePane .v14-device-meta span{font-size:12px;line-height:20px;color:#939393}
+.stage-root.uc4 #devicePane .v14-device-meta strong{line-height:22px}
+.stage-root.uc4 #devicePane .device-workspace{grid-template-columns:356px minmax(0,1fr);padding:0;gap:0;flex:1}
+.stage-root.uc4 #devicePane .device-workspace>.rule-navigation,.stage-root.uc4 #devicePane .device-workspace>.rule-detail{padding:24px;background:transparent}
+.stage-root.uc4 #devicePane .v13-rule-filters{gap:24px;flex-wrap:nowrap}
+.stage-root.uc4 #devicePane .v13-rule-filters button{gap:4px;white-space:nowrap}
+.stage-root.uc4 #devicePane .v13-rule-filters button:first-child{padding-right:24px;border-right:1px solid #ffffff26}
+.stage-root.uc4 #devicePane .v13-rule-filters button.active span{min-width:24px;height:22px;line-height:20px}
+.stage-root.uc4 #devicePane .rule-list-item{padding:16px 12px;margin:0;gap:8px;border:0;border-bottom:1px solid #ffffff26;border-radius:0;min-height:80px}
+.stage-root.uc4 #devicePane .rule-list-item.active{background:#0067d126;border-color:transparent}
+.stage-root.uc4 #devicePane .rule-list-item .rule-sub{margin-top:8px}
+.stage-root.uc4 #devicePane .rule-detail-heading{margin-bottom:4px}
+.stage-root.uc4 #devicePane .rule-detail-heading .v7-priority-badge,.stage-root.uc4 #devicePane .rule-detail-heading .status-label{display:none}
+.stage-root.uc4 #devicePane .criterion{display:flex;align-items:baseline;gap:4px}
+.stage-root.uc4 #devicePane .criterion>span,.stage-root.uc4 #devicePane .criterion>div{font-size:14px;line-height:22px;color:#c9c9c9}
+.stage-root.uc4 #devicePane .instance-heading,.stage-root.uc4 #devicePane .evidence-heading{display:none}
+.stage-root.uc4 #devicePane .v13-instance-cards{margin:16px 0 24px;gap:8px}
+.stage-root.uc4 #devicePane .v13-instance-card{width:292px;min-width:0;flex:0 1 292px;padding:10px 12px;gap:8px;background:#262626}
+.stage-root.uc4 #devicePane .v13-instance-top>span{display:none}
+.stage-root.uc4 #devicePane .v13-instance-card code{padding-left:12px;font-family:inherit;color:#c9c9c9}
+.stage-root.uc4 #devicePane .v13-instance-card .fail-param{color:inherit}
+.stage-root.uc4 #devicePane .v7-ssh-impact{padding:0;margin:0 0 16px;background:none;border-radius:0}
+.stage-root.uc4 #devicePane .v7-ssh-impact img{display:none}
+.stage-root.uc4 #devicePane .v7-ssh-impact p{font-size:14px;line-height:22px;color:#c9c9c9}
+.stage-root.uc4 #devicePane .v7-ssh-impact strong{display:block;font-size:14px;font-weight:500;line-height:22px;margin-bottom:4px;color:#fff}
+.stage-root.uc4 #devicePane .v13-evidence,.stage-root.uc4 #devicePane .detail-repair-panel,.stage-root.uc4 #devicePane .detail-command-header,.stage-root.uc4 #devicePane .code-scroll,.stage-root.uc4 #devicePane .fix-diff{background:#262626}
+.stage-root.uc4 #devicePane .detail-command-header{height:46px}
+.stage-root.uc4 #devicePane .detail-command-header button.detail-config-switch{display:flex;align-items:center;gap:4px;width:auto;color:#c9c9c9;font-size:12px}
+.stage-root.uc4 #devicePane .v13-evidence-context,.stage-root.uc4 #devicePane .config-footer{display:none}
+.stage-root.uc4 #devicePane .code-scroll{padding:8px 0 12px;max-height:144px}
+.stage-root.uc4 #devicePane .code-line{font-family:inherit;font-size:12px;line-height:24px;min-height:24px}
+.stage-root.uc4 #devicePane .code-line.bad-line{border:0;background:#e7434a15}
+.stage-root.uc4 #devicePane .fix-text{padding:0;margin:4px 0 12px;background:none;border-radius:0;color:#c9c9c9;font-size:14px;line-height:22px}
+.stage-root.uc4 #devicePane .v7-ssh-change,.stage-root.uc4 #devicePane .fix-section>.between>.muted{display:none}
+.stage-root.uc4 #devicePane .v7-ssh-rollback{margin-top:12px}
+@container device-detail (max-width:1050px){.stage-root.uc4 #devicePane .device-workspace{grid-template-columns:300px minmax(0,1fr)}.stage-root.uc4 #devicePane .v13-rule-filters{gap:12px}.stage-root.uc4 #devicePane .v13-rule-filters button:first-child{padding-right:12px}.stage-root.uc4 #devicePane .v13-instance-card{flex:1 1 160px}.stage-root.uc4 #devicePane .v14-device-meta{gap:24px}}
+
 /* src/views/top-bar/shell.css */
 /* Pixso 13:7517: fixed 48px navigation shell; workspace offsets are unchanged. */
 .stage-root.pc-layout .top.shell-top{height:48px;padding:0 32px;gap:24px;background:#191919;border-bottom:1px solid rgba(243,243,243,.15);z-index:12}
@@ -7958,6 +8009,18 @@ html:not(.dark) .stage-root #lui.lui-refresh .uc3-fields :is(dt,dd){color:#59595
 
 .stage-root #lui.lui-refresh .uc3-conversation :is(.uc3-completion,.uc3-logic) li{list-style-type:disc}
 .stage-root #lui.lui-refresh .uc3-conversation li::marker{color:#c9c9c9}
+
+/* Keep summary rhythm independent of shared completion defaults. */
+.stage-root #lui.lui-refresh .generated-card .completion.uc3-completion>p{margin:0;font-size:14px;font-weight:400;line-height:22px}
+.stage-root #lui.lui-refresh .generated-card .completion.uc3-completion h3{margin:16px 0 8px;font-size:14px;font-weight:500;line-height:22px}
+.stage-root #lui.lui-refresh .generated-card .completion.uc3-completion ul{margin:0;padding-left:22px;font-size:14px;font-weight:400;line-height:22px}
+.stage-root #lui.lui-refresh .generated-card .completion.uc3-completion .uc3-table-wrap{margin-top:16px}
+.stage-root #lui.lui-refresh .generated-card .completion.uc3-completion .uc3-rule-artifact{margin-top:16px;height:84px;padding:16px;border-radius:12px}
+.stage-root #lui.lui-refresh .generated-card .completion.uc3-completion .uc3-rule-artifact .v7-conclusion-copy{display:flex;flex-direction:column;gap:4px}
+.stage-root #lui.lui-refresh .generated-card .completion.uc3-completion .uc3-rule-artifact strong{display:flex;align-items:center;gap:4px;padding:0;font-size:16px;line-height:24px}
+.stage-root #lui.lui-refresh .generated-card .completion.uc3-completion .uc3-rule-artifact small{display:inline-flex;align-items:center;height:20px;margin:0;padding:0 8px;flex:none}
+.stage-root #lui.lui-refresh .generated-card .completion.uc3-completion .uc3-followup{margin:16px 0 0}
+.stage-root #lui.lui-refresh .generated-card .completion.uc3-completion .response-footer{margin-top:16px}
 
 /* src/views/lui-panel/design.css */
 /* Pixso 13:10354. LUI and generated-answer content only. */
@@ -8673,6 +8736,20 @@ body:has(.stage-root) #lui.lui-welcome,body:has(.stage-root) #lui.lui-welcome *{
 /* Keep the moving array cheap to paint; restore its static shadow after settling. */
 #networkOverviewCard[data-scan-phase="clustering"] .v7-network-device>rect{filter:none}
 
+/* src/views/network-overview/revision-69463.css */
+
+/* UC4 inventory card, measured from Pixso 3:69463. */
+.stage-root.uc4 #networkOverviewCard.network-overview-stable-card{aspect-ratio:1248 / 860;border-radius:16px}
+.stage-root.uc4 #networkOverviewCard .network-array-art .v7-network-device.identified>rect{fill:#2e86de}
+.stage-root.uc4 #networkOverviewCard .network-array-art .v7-network-device>rect{filter:drop-shadow(0 5px 7px #0004)}
+.stage-root.uc4 #networkOverviewCard .array-panel{fill:#f3f3f30d;stroke:#ffffff0d}
+.stage-root.uc4 #networkOverviewCard .array-summary-divider{stroke:#f3f3f326;stroke-width:1}
+.stage-root.uc4 #networkOverviewCard .array-group-title{font-size:16px;fill:#c9c9c9;font-weight:400}
+.stage-root.uc4 #networkOverviewCard .array-model{font-size:11px;fill:#939393}
+.stage-root.uc4 #networkOverviewCard .network-overview-heading .card-title{font-size:16px;line-height:24px;font-weight:500}
+
+.stage-root.uc4 #networkOverviewCard[data-scan-phase="regions"] .network-array-header,.stage-root.uc4 #networkOverviewCard[data-scan-phase="focus"] .network-array-header{transform:translateY(24px)}
+
 /* src/views/network-region-scan/index.css */
 /* Every stage fills the same normal-flow canvas card, independently of its asset size. */
 .stage-root.uc4 #canvasContent{scrollbar-gutter:stable}
@@ -8767,6 +8844,30 @@ html.dark .stage-root.uc4 #mappingCard.mapping-design .filters[aria-label="厂�
 .stage-root.uc4 #mappingCard.mapping-design[aria-busy="true"] .v7-map-split{transition:opacity .2s ease}
 .stage-root.uc4 #mappingCard.mapping-design[aria-busy="true"] .v7-map-node.dim,
 .stage-root.uc4 #mappingCard.mapping-design[aria-busy="true"] .v7-map-split.dim{opacity:.27}
+
+/* src/views/mapping-card/revision-364640.css */
+/* Pixso 3:64640. Original SVG glyphs; all changes stay inside UC4's mapping card. */
+.stage-root.uc4 #mappingCard.mapping-design{--mapping-column:33.75%;background-color:rgba(42,42,42,.75);border-radius:8px;min-height:882px}
+.stage-root.uc4 #mappingCard.mapping-design .mapping-title-icon{display:block;flex:none}
+.stage-root.uc4 #mappingCard.mapping-design .card-title{font-size:16px;line-height:24px;font-weight:500}
+.stage-root.uc4 #mappingCard.mapping-design .node-name{color:#fff}
+.stage-root.uc4 #mappingCard.mapping-design .node-icon{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:#2e86de66;color:#fff}
+.stage-root.uc4 #mappingCard.mapping-design .node-icon img{width:16px;height:16px;object-fit:contain;flex:none}
+.stage-root.uc4 #mappingCard.mapping-design .ruleset .node-icon{background:#a89ff966;color:#fff}
+.stage-root.uc4 #mappingCard.mapping-design .node.group::after{background:#2e86de}
+.stage-root.uc4 #mappingCard.mapping-design .node.ruleset::before{background:#a89ff9}
+.stage-root.uc4 #mappingCard.mapping-design .v7-match-route .v7-match-base{stroke:var(--mapping-edge-gradient);stroke-width:1;opacity:.4}
+.stage-root.uc4 #mappingCard.mapping-design .v7-match-route.is-growing .v7-match-base{stroke:var(--mapping-edge-gradient);opacity:.6}
+.stage-root.uc4 #mappingCard.mapping-design .v7-match-route.hot .v7-match-base{stroke:var(--mapping-edge-gradient);opacity:.9;stroke-width:1.6}
+.stage-root.uc4 #mappingCard.mapping-design .v7-match-route .mapping-flow-halo{stroke:#688cef}
+.stage-root.uc4 #mappingCard.mapping-design .v7-match-route .mapping-flow-tail{stroke:#426ab7}
+.stage-root.uc4 #mappingCard.mapping-design .v7-match-route .mapping-flow-body{stroke:#8197e4}
+.stage-root.uc4 #mappingCard.mapping-design .v7-match-route .mapping-flow-core{stroke:#b9b4ff}
+.stage-root.uc4 #mappingCard.mapping-design .v7-match-route .mapping-flow-head{stroke:#efedff;filter:drop-shadow(0 0 1px #a89ff966)}
+.stage-root.uc4 #mappingCard.mapping-design .v7-matching-status{position:absolute;width:1px;height:1px;min-height:0;padding:0;margin:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+html:not(.dark) .stage-root.uc4 #mappingCard.mapping-design{background-color:#fafafa}
+html:not(.dark) .stage-root.uc4 #mappingCard.mapping-design .node-name{color:#191919}
+.stage-root.uc4 #mappingCard.mapping-design{background-image:radial-gradient(circle,#93939320 .8px,transparent .9px);background-size:16px 16px}
 
 /* src/views/report-card/generation.css */
 /* Skeletons reserve report geometry; real data is revealed on the LUI completion timeline. */
@@ -9290,6 +9391,68 @@ html:not(.dark) .uc2-code-panel>header,html:not(.dark) .uc2-code-line{color:#595
 html:not(.dark) .uc2-device-item.selected{background:#e4f1ff;border-color:#8abfff}
 @container workspace (max-width:1000px){.uc2-rule-metadata{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:12px}.uc2-rule-body{grid-template-columns:248px minmax(0,1fr);gap:20px;min-height:520px}.uc2-rule-devices{padding-right:20px}.uc2-device-filters{gap:7px}.uc2-code-annotation{display:none}.uc2-scope-explanation{grid-template-columns:1fr}.uc2-rule-review{flex-wrap:wrap}}
 
+/* src/views/uc3-canvas/editor.css */
+.stage-root.uc3 .v7-artifact-pane{min-height:0;flex:1;overflow:auto;padding:16px;scrollbar-width:thin;scrollbar-color:#595959 transparent}
+.stage-root.uc3 .v7-artifact-pane.uc3-edit-pane{padding:0}
+.stage-root.uc3 .uc3-rule-editor{box-sizing:border-box;min-height:100%;padding:16px 24px;background:transparent;border-radius:0;color:#fff;font-size:14px;line-height:22px;font-weight:400}
+.stage-root.uc3 .uc3-rule-editor *{box-sizing:border-box}
+.stage-root.uc3 .uc3-edit-section-title{display:flex;align-items:center;gap:8px;padding:0;margin:0 0 16px;border:0;background:none;color:#fff;cursor:pointer;height:24px}
+.stage-root.uc3 .uc3-edit-section-title h2{font-size:16px;font-weight:700;line-height:24px;margin:0}
+.stage-root.uc3 .uc3-edit-section-title img{display:block;transition:transform .15s}.stage-root.uc3 .uc3-edit-section-title img.is-collapsed{transform:rotate(180deg)}
+.stage-root.uc3 .uc3-edit-section:first-child{padding-bottom:16px;border-bottom:1px solid #777}
+.stage-root.uc3 .uc3-edit-section+.uc3-edit-section{margin-top:16px}
+.stage-root.uc3 .uc3-edit-rows{display:flex;flex-direction:column;gap:16px}
+.stage-root.uc3 .uc3-edit-row{display:grid;grid-template-columns:56px minmax(0,652px);gap:16px;align-items:start;max-width:724px}
+.stage-root.uc3 .uc3-edit-label{line-height:22px;padding-top:5px;color:#c9c9c9;white-space:nowrap}
+.stage-root.uc3 .uc3-edit-control{min-width:0;display:flex;align-items:center;gap:16px;min-height:32px}
+.stage-root.uc3 .uc3-rule-editor :is(input:not([type=radio]),textarea,select){width:100%;border:1px solid #777;border-radius:4px;background:transparent;color:#fff;font:inherit;line-height:22px;padding:4px 11px;margin:0;box-shadow:none;outline:none;height:32px}
+.stage-root.uc3 .uc3-rule-editor :is(input,textarea,select):focus-visible{border-color:#5ca2e9;outline:1px solid #5ca2e9;outline-offset:0}
+.stage-root.uc3 .uc3-edit-select{position:relative;display:block;flex:1;min-width:0;width:100%;height:32px}
+.stage-root.uc3 .uc3-edit-select select{appearance:none;padding-right:32px;cursor:pointer}.stage-root.uc3 .uc3-edit-select option{background:#393939;color:#fff}
+.stage-root.uc3 .uc3-edit-select .select-chevron{position:absolute;right:9px;top:9px;transform:rotate(180deg);pointer-events:none;width:14px;height:14px}
+.stage-root.uc3 .uc3-edit-select.has-priority select{padding-left:24px}.stage-root.uc3 .uc3-edit-select .priority-dot{position:absolute;left:12px;top:12px;width:8px;height:8px;background:#f24751;border-radius:50%;pointer-events:none}
+.stage-root.uc3 .uc3-edit-test-row .uc3-edit-control{min-height:38px}
+.stage-root.uc3 .uc3-edit-test-status{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}.stage-root.uc3 .uc3-edit-test-status i{display:block;flex:none;width:8px;height:8px;background:#36c18d;border-radius:50%}.stage-root.uc3 .uc3-edit-test-status.has-fail i{background:#f24751}
+.stage-root.uc3 .uc3-edit-retest{display:flex;align-items:center;gap:8px;padding:0;color:#5ca2e9;border:0;background:none;font:inherit;line-height:22px;cursor:pointer;white-space:nowrap}.stage-root.uc3 .uc3-edit-retest:disabled{opacity:.65;cursor:default}
+.stage-root.uc3 .uc3-edit-conditions-row .uc3-edit-control{display:block}
+.stage-root.uc3 .uc3-edit-trigger{display:flex;gap:16px;align-items:center;height:32px;color:#c9c9c9}.stage-root.uc3 .uc3-edit-trigger>span:first-child{flex:none;width:56px}
+.stage-root.uc3 .uc3-edit-condition{border:1px solid #777;border-radius:8px;padding:15px;margin-top:16px}
+.stage-root.uc3 .uc3-edit-condition>header{display:flex;justify-content:space-between;align-items:center;height:39px;padding-bottom:16px;border-bottom:1px solid #777;margin-bottom:16px}
+.stage-root.uc3 .uc3-edit-condition h3{font-size:14px;font-weight:700;line-height:22px;margin:0}.stage-root.uc3 .uc3-edit-condition header button{border:0;background:none;padding:0;width:14px;height:14px;display:grid;place-items:center;cursor:pointer;color:#dfdfdf}.stage-root.uc3 .uc3-edit-condition header img{display:block}
+.stage-root.uc3 .uc3-edit-condition-grid{display:grid;grid-template-columns:minmax(0,160px) minmax(0,160px) minmax(0,160px) minmax(92px,1fr);gap:16px;align-items:start}
+.stage-root.uc3 .uc3-edit-condition-grid>label,.stage-root.uc3 .uc3-edit-expression{display:flex;flex-direction:column;gap:8px;min-width:0;line-height:19px;color:#fff}
+.stage-root.uc3 .uc3-edit-condition-grid fieldset{border:0;min-width:0;margin:0;padding:0}.stage-root.uc3 .uc3-edit-condition-grid legend{font-size:14px;line-height:19px;padding:0;margin-bottom:8px;white-space:nowrap}.stage-root.uc3 .uc3-edit-condition-grid fieldset>div{display:flex;gap:16px;align-items:center;height:32px}.stage-root.uc3 .uc3-edit-condition-grid fieldset label{display:flex;gap:8px;align-items:center;line-height:22px;white-space:nowrap}
+.stage-root.uc3 .uc3-edit-condition-grid input[type=radio]{appearance:none;display:block;flex:none;width:16px;height:16px;border:1px solid #777;border-radius:50%;background:transparent;margin:0}.stage-root.uc3 .uc3-edit-condition-grid input[type=radio]:checked{background:#fff;border:5px solid #0067d1}
+.stage-root.uc3 .uc3-edit-expression{margin-top:24px}.stage-root.uc3 .uc3-rule-editor .uc3-edit-expression textarea{height:64px;resize:vertical;padding:5px 11px;line-height:22px}
+.stage-root.uc3 .uc3-edit-retest .is-spinning{animation:uc3-edit-spin 1s linear infinite}@keyframes uc3-edit-spin{to{transform:rotate(360deg)}}
+@media(max-width:1100px){.stage-root.uc3 .uc3-edit-condition-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.stage-root.uc3 .uc3-edit-condition-grid fieldset{grid-column:1/-1}}
+@media(prefers-reduced-motion:reduce){.stage-root.uc3 .uc3-edit-retest .is-spinning{animation:none}}
+
+/* src/views/uc3-canvas/form-kit.css */
+/* Pixso component kit 3:98236: 32px controls, 14/22 text, and the supplied selector panel. */
+.stage-root.uc3 .uc3-rule-editor :is(input:not([type=radio]),textarea){border-color:#777;border-radius:4px;font-size:14px;font-weight:400;line-height:22px;background:transparent;color:#fff;padding:4px 11px}
+.stage-root.uc3 .uc3-rule-editor :is(input:not([type=radio]),textarea)::placeholder{color:#939393;opacity:1}
+.stage-root.uc3 .uc3-rule-editor :is(input:not([type=radio]),textarea):hover{border-color:#aeaeae}
+.stage-root.uc3 .uc3-rule-editor :is(input:not([type=radio]),textarea):focus{border-color:#2e86de;outline:none;box-shadow:0 0 0 1px #002e6a}
+.stage-root.uc3 .uc3-kit-select{position:relative;display:block;flex:1;min-width:0;width:100%;height:32px}
+.stage-root.uc3 .uc3-kit-trigger{display:flex;align-items:center;gap:4px;position:relative;width:100%;height:32px;padding:4px 33px 4px 11px;border:1px solid #777;border-radius:4px;background:transparent;color:#fff;font:inherit;font-size:14px;font-weight:400;line-height:22px;text-align:left;cursor:pointer;outline:none;box-shadow:none}
+.stage-root.uc3 .uc3-kit-trigger>span:first-of-type{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.stage-root.uc3 .uc3-kit-trigger:hover{border-color:#aeaeae}
+.stage-root.uc3 .uc3-kit-select.is-open>.uc3-kit-trigger,.stage-root.uc3 .uc3-kit-trigger:focus-visible{border-color:#2e86de;box-shadow:0 0 0 1px #002e6a}
+.stage-root.uc3 .uc3-kit-chevron{position:absolute;right:11px;top:10px;display:block;width:10px;height:10px;background:none;color:#aeaeae;pointer-events:none}
+.stage-root.uc3 .uc3-kit-select.is-open .uc3-kit-chevron{transform:rotate(180deg);color:#dfdfdf}
+.stage-root.uc3 .uc3-kit-options{position:absolute;z-index:30;top:calc(100% + 4px);left:0;display:flex;flex-direction:column;gap:4px;width:100%;max-height:248px;overflow:auto;padding:4px;border:0;border-radius:6px;background:#393939;box-shadow:0 4px 12px #00000080;scrollbar-width:thin;scrollbar-color:#595959 transparent}
+.stage-root.uc3 .uc3-kit-select.opens-up .uc3-kit-options{top:auto;bottom:calc(100% + 4px)}
+.stage-root.uc3 .uc3-kit-option{display:flex;align-items:center;gap:4px;width:100%;height:32px;min-height:32px;padding:5px 8px;border:0;border-radius:4px;background:transparent;color:#fff;text-align:left;cursor:pointer;font:inherit;font-size:14px;font-weight:400;line-height:22px;outline:none}
+.stage-root.uc3 .uc3-kit-option.is-active{background:#f3f3f30f}.stage-root.uc3 .uc3-kit-option[aria-selected=true]{color:#5ca2e9;background:#0067d126}
+.stage-root.uc3 .uc3-kit-priority-dot{display:block;flex:none;width:8px;height:8px;border-radius:50%}
+.stage-root.uc3 .uc3-edit-condition-grid>label,.stage-root.uc3 .uc3-edit-expression,.stage-root.uc3 .uc3-edit-condition-grid legend{line-height:22px;font-weight:400}
+.stage-root.uc3 .uc3-edit-condition-grid input[type=radio]{position:relative;border:1px solid #777;border-radius:50%;background:transparent;cursor:pointer}
+.stage-root.uc3 .uc3-edit-condition-grid input[type=radio]:hover{border-color:#aeaeae}
+.stage-root.uc3 .uc3-edit-condition-grid input[type=radio]:checked{border:0;background:#0067d1}
+.stage-root.uc3 .uc3-edit-condition-grid input[type=radio]:checked::after{content:'';position:absolute;top:50%;left:50%;width:7px;height:7px;transform:translate(-50%,-50%);border-radius:50%;background:#fff;box-shadow:0 0 4px #0006}
+.stage-root.uc3 .uc3-edit-condition-grid input[type=radio]:focus-visible{outline:1px solid #2e86de;outline-offset:2px;box-shadow:none}
+
 /* src/views/uc3-canvas/index.css */
 .stage-root.uc3 .canvas .card.uc3-rule-canvas{padding:0 20px 20px;border-radius:16px;background-color:#2a2a2abf;background-image:radial-gradient(#ffffff0c .8px,transparent .8px);background-size:16px 16px;border:0;overflow:hidden;box-sizing:border-box;color:#c9c9c9}
 .stage-root.uc3 .uc3-rule-heading{display:flex;align-items:center;gap:8px;height:56px;border-bottom:1px solid #f3f3f326;box-sizing:border-box}
@@ -9324,11 +9487,8 @@ html:not(.dark) .uc2-device-item.selected{background:#e4f1ff;border-color:#8abff
 .stage-root.uc3 .uc3-evidence-card header :is(svg,img){width:24px;height:24px}.stage-root.uc3 .uc3-evidence-card h4{font-size:14px;font-weight:600;line-height:22px;color:#f2f2f7;margin:0}
 .stage-root.uc3 .uc3-evidence-card .blue{color:#2070f3}.stage-root.uc3 .uc3-evidence-card .cyan{color:#2fb3c5}.stage-root.uc3 .uc3-evidence-card .violet{color:#8563ff}
 .stage-root.uc3 .uc3-evidence-card p{margin:0;font-size:14px;line-height:24px;color:#c9c9c9}
-.stage-root.uc3 .is-building .uc3-graph-node :is(h3,p),.stage-root.uc3 .uc3-rule-evidence.is-building :is(h4,p){color:transparent;background:linear-gradient(90deg,#ffffff08,#ffffff14,#ffffff08);background-size:200% 100%;border-radius:4px;animation:uc3-skeleton 1.4s linear infinite}
+
 html.dark .stage-root.uc3 .canvas .card.uc3-rule-canvas:hover:has(:is(button,input,[role="button"]):hover){background-image:radial-gradient(#ffffff0c .8px,transparent .8px)}
-.stage-root.uc3 .uc3-editor-backdrop{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:#0008}
-.stage-root.uc3 .uc3-editor{width:480px;max-width:calc(100vw - 48px);padding:24px;border-radius:12px;background:#393939;color:#dfdfdf;box-shadow:0 8px 40px #0008}
-.stage-root.uc3 .uc3-editor header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}.stage-root.uc3 .uc3-editor h3{font-size:16px;margin:0}.stage-root.uc3 .uc3-editor label{display:flex;flex-direction:column;gap:8px;font-size:14px}.stage-root.uc3 .uc3-editor input{padding:8px 12px;background:#2a2a2a;color:#fff;border:1px solid #777;border-radius:4px;width:100%;box-sizing:border-box}.stage-root.uc3 .uc3-editor footer{display:flex;gap:12px;justify-content:flex-end;margin-top:24px}.stage-root.uc3 .uc3-editor footer button{padding:6px 16px;border:1px solid #777;border-radius:4px;background:transparent;color:#fff;cursor:pointer}.stage-root.uc3 .uc3-editor footer button:last-child{background:#0067d1;border-color:#0067d1}
 @keyframes uc3-skeleton{to{background-position:-200% 0}}@keyframes uc3-node-reveal{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.stage-root.uc3 .uc3-graph-node{animation:none}.stage-root.uc3 .is-building :is(h3,h4,p){animation:none}}
 
@@ -9337,6 +9497,18 @@ html.dark .stage-root.uc3 .canvas .card.uc3-rule-canvas:hover:has(:is(button,inp
 
 .stage-root.uc3 .uc3-design-icon{display:block;object-fit:contain;flex:none}
 .stage-root.uc3 .uc3-rule-tools .icon-btn :is(svg,img){width:14px;height:14px}
+
+/* Progressive graph construction: real content from the first node, no skeleton. */
+.stage-root.uc3 .uc3-graph-node{animation:uc3-node-materialize 480ms cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--reveal-delay);isolation:isolate}
+.stage-root.uc3 .uc3-growing-edge{stroke-width:1.6;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;opacity:0;animation:uc3-edge-grow 700ms cubic-bezier(.4,0,.2,1) both;animation-delay:var(--edge-delay)}
+.stage-root.uc3 .uc3-edge-label{animation:uc3-node-materialize 240ms ease both;animation-delay:var(--label-delay)}
+.stage-root.uc3 .uc3-node-intelligence{position:absolute;inset:0;z-index:2;pointer-events:none;border-radius:inherit;animation:uc3-node-glow 1700ms ease both;animation-delay:var(--reveal-delay)}
+.stage-root.uc3 .uc3-node-intelligence>div{border-radius:inherit}
+.stage-root.uc3 .uc3-rule-evidence{animation:uc3-node-materialize 400ms ease both;animation-delay:5600ms}
+@keyframes uc3-node-materialize{from{opacity:0;transform:translateY(8px) scale(.98);filter:blur(3px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+@keyframes uc3-edge-grow{0%{opacity:0;stroke-dashoffset:1}10%{opacity:1}100%{opacity:1;stroke-dashoffset:0}}
+@keyframes uc3-node-glow{0%{opacity:0}15%,70%{opacity:1}100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.stage-root.uc3 .uc3-graph-node,.stage-root.uc3 .uc3-edge-label,.stage-root.uc3 .uc3-rule-evidence{animation:none}.stage-root.uc3 .uc3-growing-edge{animation:none;opacity:1;stroke-dashoffset:0}.stage-root.uc3 .uc3-node-intelligence{display:none}}
 
 /* src/views/uc1-canvas/index.css */
 .stage-root.uc1 .uc1-rules-canvas{--uc1-surface:rgba(42,42,42,.75);background:var(--uc1-surface);border:0;border-radius:16px;padding:0 20px 20px;min-width:0;height:894px;max-height:calc(100vh - 170px);display:flex;flex-direction:column;gap:0;color:#dfdfdf}
@@ -59481,6 +59653,25 @@ function stateFor(map, id) {
     scroll: 0
   });
 }
+const createUc3EditorDraft = () => ({
+  name: '用户接口空闲超时时间不能超过 10 分钟',
+  priority: '最高优先级',
+  ruleId: 'user_interface_idle_timeout_10min',
+  type: '单条 Rule（非 Policy）',
+  mode: '始终执行',
+  method: '全局',
+  trigger: '全部满足',
+  changed: false,
+  testResult: null,
+  conditions: [{
+    id: 1,
+    field: 'time',
+    operator: '大于',
+    value: '全部满足',
+    relation: '或',
+    expression: 'idle-timeout  {{time}} 30'
+  }]
+});
 function AppProvider({
   children
 }) {
@@ -59511,6 +59702,7 @@ function AppProvider({
   const scanCtlRef = (0, _react.useRef)(null);
   const [uc1Phase, setUc1Phase] = (0, _react.useState)(-2);
   const [uc3Phase, setUc3Phase] = (0, _react.useState)(-2);
+  const [uc3EditorDraft, setUc3EditorDraft] = (0, _react.useState)(createUc3EditorDraft);
   const [uc1SummaryStage, setUc1SummaryStage] = (0, _react.useState)(-1);
 
   // 画布页签
@@ -59924,6 +60116,7 @@ function AppProvider({
     stopScan();
     setLuiFocus(null);
     setUc3Phase(-2);
+    setUc3EditorDraft(createUc3EditorDraft());
     setTaskPrompt(prompt);
     setPromptText('');
     setLuiView('uc3');
@@ -60066,6 +60259,8 @@ function AppProvider({
     agentActive,
     full,
     setFull,
+    uc3EditorDraft,
+    setUc3EditorDraft,
     uc3Phase,
     setUc3Phase,
     uc1Phase,
@@ -62822,6 +63017,39 @@ function LuiScrollArea({
       cancelAnimationFrame(frame);
     };
   }, [enhanced, sync, scrollRef]);
+  (0, _react.useEffect)(() => {
+    const main = scrollRef.current,
+      flow = flowRef.current;
+    if (!main || !flow) return;
+    let frame = 0,
+      previousHeight = flow.getBoundingClientRect().height;
+    const follow = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        main.scrollTop = main.scrollHeight;
+        sync();
+      });
+    };
+    const resize = new ResizeObserver(() => {
+      const height = flow.getBoundingClientRect().height;
+      if (height > previousHeight + .1) follow();
+      previousHeight = height;
+    });
+    const mutations = new MutationObserver(records => {
+      if (records.some(record => record.type === 'characterData' || record.addedNodes.length)) follow();
+    });
+    resize.observe(flow);
+    mutations.observe(flow, {
+      subtree: true,
+      childList: true,
+      characterData: true
+    });
+    return () => {
+      resize.disconnect();
+      mutations.disconnect();
+      cancelAnimationFrame(frame);
+    };
+  }, [scrollRef, sync]);
   const onPointerDown = event => {
     const main = scrollRef.current,
       track = trackRef.current,
@@ -65811,7 +66039,7 @@ function WelcomeHome({
   }, scenario.description)))));
 }
 }};
-modules["src/views/canvas-area/index.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/devices.js":"src/mock/devices.js","../network-overview/index.jsx":"src/views/network-overview/index.jsx","../mapping-card/index.jsx":"src/views/mapping-card/index.jsx","../lui-panel/thinking.jsx":"src/views/lui-panel/thinking.jsx","../report-card/index.jsx":"src/views/report-card/index.jsx","../device-pane/index.jsx":"src/views/device-pane/index.jsx","../uc2-canvas/index.jsx":"src/views/uc2-canvas/index.jsx","../uc2-canvas/report.jsx":"src/views/uc2-canvas/report.jsx","../uc3-canvas/index.jsx":"src/views/uc3-canvas/index.jsx","../uc1-canvas/index.jsx":"src/views/uc1-canvas/index.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx"},run:function(require,module,exports){
+modules["src/views/canvas-area/index.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/devices.js":"src/mock/devices.js","../network-overview/index.jsx":"src/views/network-overview/index.jsx","../mapping-card/index.jsx":"src/views/mapping-card/index.jsx","../lui-panel/thinking.jsx":"src/views/lui-panel/thinking.jsx","../report-card/index.jsx":"src/views/report-card/index.jsx","../device-pane/index.jsx":"src/views/device-pane/index.jsx","../uc2-canvas/index.jsx":"src/views/uc2-canvas/index.jsx","../uc2-canvas/report.jsx":"src/views/uc2-canvas/report.jsx","../uc3-canvas/editor.jsx":"src/views/uc3-canvas/editor.jsx","../uc3-canvas/index.jsx":"src/views/uc3-canvas/index.jsx","../uc1-canvas/index.jsx":"src/views/uc1-canvas/index.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -65828,6 +66056,7 @@ var _index3 = _interopRequireDefault(require("../report-card/index.jsx"));
 var _index4 = _interopRequireDefault(require("../device-pane/index.jsx"));
 var _index5 = _interopRequireDefault(require("../uc2-canvas/index.jsx"));
 var _report = require("../uc2-canvas/report.jsx");
+var _editor = _interopRequireDefault(require("../uc3-canvas/editor.jsx"));
 var _index6 = _interopRequireDefault(require("../uc3-canvas/index.jsx"));
 var _index7 = _interopRequireDefault(require("../uc1-canvas/index.jsx"));
 var _index8 = _interopRequireDefault(require("../../components/icon-el/index.jsx"));
@@ -65857,9 +66086,13 @@ function CanvasTabs() {
     role: "tab",
     "aria-selected": activePane === "task" && !activeArtifact,
     onClick: () => switchPane("task")
-  }, /*#__PURE__*/React.createElement(_index8.default, {
-    variant: isDark ? "filled" : "lined",
-    icon: "layout-panel-top"
+  }, /*#__PURE__*/React.createElement("img", {
+    className: "panorama-design-icon",
+    src: "./assets/uploads/ic_ict_deployment.svg",
+    width: "14",
+    height: "14",
+    alt: "",
+    "aria-hidden": "true"
   }), "全景画布")), (artifactTabs.some(t => uc2.active ? t.kind.startsWith("uc2-") : !t.kind.startsWith("uc2-")) || !uc2.active && openDevices.length > 0) && /*#__PURE__*/React.createElement("span", {
     className: "canvas-tab-divider",
     "aria-hidden": "true"
@@ -65870,7 +66103,12 @@ function CanvasTabs() {
     role: "tab",
     "aria-selected": activeArtifact === t.kind,
     onClick: () => openArtifact(t.kind, t.title)
-  }, /*#__PURE__*/React.createElement(_index8.default, {
+  }, t.kind === "uc3-editor" ? /*#__PURE__*/React.createElement("img", {
+    src: "./assets/uploads/uc3-rule/editor-tab.svg",
+    width: "14",
+    height: "14",
+    alt: ""
+  }) : /*#__PURE__*/React.createElement(_index8.default, {
     variant: isDark ? "filled" : "lined",
     icon: t.kind === 'network' ? 'map' : t.kind === 'artifact' ? 'network' : 'file-text'
   }), t.title), /*#__PURE__*/React.createElement("button", {
@@ -66146,9 +66384,9 @@ function CanvasArea() {
     deviceId: activePane
   }) : null), /*#__PURE__*/React.createElement("section", {
     ref: artifactRef,
-    className: "v7-artifact-pane" + (activeArtifact ? "" : " hidden"),
+    className: "v7-artifact-pane" + (activeArtifact ? "" : " hidden") + (activeArtifact === "uc3-editor" ? " uc3-edit-pane" : ""),
     "aria-label": "独立卡片页签"
-  }, uc2.active && activeArtifact?.startsWith("uc2-rule:") && /*#__PURE__*/React.createElement("section", {
+  }, luiView === "uc3" && activeArtifact === "uc3-editor" && /*#__PURE__*/React.createElement(_editor.default, null), uc2.active && activeArtifact?.startsWith("uc2-rule:") && /*#__PURE__*/React.createElement("section", {
     className: "card uc2-rule-detail-card"
   }, /*#__PURE__*/React.createElement(_report.Uc2RuleDetail, {
     ruleId: activeArtifact.slice(9),
@@ -66156,7 +66394,7 @@ function CanvasArea() {
   }))), /*#__PURE__*/React.createElement(_index5.default, null));
 }
 }};
-modules["src/views/network-overview/index.jsx"]={deps:{"./array.jsx":"src/views/network-overview/array.jsx","../../components/artifact-open/index.jsx":"src/components/artifact-open/index.jsx","../../components/status-marks/index.jsx":"src/components/status-marks/index.jsx","./array.css":"src/views/network-overview/array.css","../../context.jsx":"src/context.jsx","../network-region-scan/index.jsx":"src/views/network-region-scan/index.jsx"},run:function(require,module,exports){
+modules["src/views/network-overview/index.jsx"]={deps:{"./array.jsx":"src/views/network-overview/array.jsx","../../components/artifact-open/index.jsx":"src/components/artifact-open/index.jsx","../../components/status-marks/index.jsx":"src/components/status-marks/index.jsx","./array.css":"src/views/network-overview/array.css","./revision-69463.css":"src/views/network-overview/revision-69463.css","../../context.jsx":"src/context.jsx","../network-region-scan/index.jsx":"src/views/network-region-scan/index.jsx"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -66167,6 +66405,7 @@ var _array = _interopRequireWildcard(require("./array.jsx"));
 var _index = _interopRequireDefault(require("../../components/artifact-open/index.jsx"));
 var _index2 = require("../../components/status-marks/index.jsx");
 require("./array.css");
+require("./revision-69463.css");
 var _react = require("react");
 var _context = require("../../context.jsx");
 var _index3 = _interopRequireDefault(require("../network-region-scan/index.jsx"));
@@ -66271,7 +66510,7 @@ function NetworkOverview({
     topologyProgress: ease(clamp((elapsed - REGION_DURATION - FOCUS_DURATION) / 650))
   })), /*#__PURE__*/React.createElement("svg", {
     className: "network-array-art",
-    viewBox: "0 0 1248 885",
+    viewBox: "0 0 1248 860",
     role: "group",
     "aria-label": "HCS1全量设备概览"
   }, /*#__PURE__*/React.createElement(_array.OverviewHeader, {
@@ -66284,14 +66523,17 @@ function NetworkOverview({
     countProgress: countProgress
   }))), /*#__PURE__*/React.createElement("div", {
     className: "v7-artifact-title network-overview-heading"
-  }, /*#__PURE__*/React.createElement(_index2.ArtifactIcon, {
-    type: "process",
-    shape: "overview"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "./assets/uploads/uc4-overview/title.svg",
+    width: "14",
+    height: "14",
+    alt: ""
   }), /*#__PURE__*/React.createElement("h2", {
     className: "card-title"
   }, "HCS1全量设备概览")), /*#__PURE__*/React.createElement(_index.default, {
     kind: "network",
-    title: "全网设备概览"
+    title: "全网设备概览",
+    iconSrc: "./assets/uploads/uc4-overview/open.svg"
   }), /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: "network-array-rescan",
@@ -66315,18 +66557,18 @@ exports.arrayGroups = void 0;
 exports.default = NetworkArray;
 var _devices = require("../../mock/devices.js");
 var _graph = require("../../mock/graph.js");
-// Layout follows Pixso 8:516394; counts come from the shared UC4 inventory.
+// Layout follows Pixso 3:69463; counts come from the shared UC4 inventory.
 const columns = [{
-  x: 141,
-  width: 204.4,
+  x: 165,
+  width: 188,
   columns: 8
 }, {
-  x: 377.4,
-  width: 366.4,
+  x: 385,
+  width: 350,
   columns: 17
 }, {
-  x: 775.8,
-  width: 330.4,
+  x: 767,
+  width: 314,
   columns: 15
 }];
 const roles = ["防火墙组", "核心交换机组", "接入交换机组"];
@@ -66347,7 +66589,7 @@ function DeviceGlyph({
     y: y,
     width: "16",
     height: "16",
-    href: "./assets/uploads/overview-" + (type === 0 ? "firewall" : type === 1 ? "core" : "access") + ".svg"
+    href: "./assets/uploads/uc4-overview/" + (type === 0 ? "firewall" : type === 1 ? "core" : "access") + ".svg"
   });
 }
 function OverviewHeader({
@@ -66368,10 +66610,15 @@ function OverviewHeader({
     x: "158",
     y: "77",
     className: "array-muted"
-  }, "/", countProgress === 1 ? _devices.devices.length : "--", "台"), /*#__PURE__*/React.createElement(DeviceGlyph, {
-    x: 240,
-    y: 62,
-    type: 1
+  }, "/", countProgress === 1 ? _devices.devices.length : "--", "台"), /*#__PURE__*/React.createElement("path", {
+    d: "M225 59V81",
+    className: "array-summary-divider"
+  }), /*#__PURE__*/React.createElement("image", {
+    x: "241",
+    y: "64",
+    width: "12",
+    height: "12",
+    href: "./assets/uploads/uc4-overview/switchTotal.svg"
   }), /*#__PURE__*/React.createElement("text", {
     x: "258",
     y: "76"
@@ -66379,9 +66626,12 @@ function OverviewHeader({
     x: "314",
     y: "77",
     className: "array-total"
-  }, count("交换机")), /*#__PURE__*/React.createElement(DeviceGlyph, {
-    x: 380,
-    y: 62
+  }, count("交换机")), /*#__PURE__*/React.createElement("image", {
+    x: "380",
+    y: "64",
+    width: "12",
+    height: "12",
+    href: "./assets/uploads/uc4-overview/firewallTotal.svg"
   }), /*#__PURE__*/React.createElement("text", {
     x: "398",
     y: "76"
@@ -66395,7 +66645,7 @@ function OverviewHeader({
     cx: "1116",
     cy: "72",
     r: "4",
-    fill: "#00B886"
+    fill: "#2e86de"
   }), /*#__PURE__*/React.createElement("text", {
     x: "1124",
     y: "76"
@@ -66467,11 +66717,11 @@ function NetworkArray({
       x: group.x,
       y: group.y,
       width: group.width,
-      height: "209.6",
+      height: "209.2",
       rx: "16",
       className: "array-panel"
     }), /*#__PURE__*/React.createElement("text", {
-      x: group.x + 32,
+      x: group.x + 24,
       y: group.y + 189,
       className: "array-model"
     }, group.type)), group.members.map((device, i) => {
@@ -66482,8 +66732,15 @@ function NetworkArray({
         inBlock = i - block * group.columns * 2;
       const row = Math.floor(inBlock / pairColumns),
         col = inBlock % pairColumns;
-      const targetX = group.x + 32 + col * 18,
-        targetY = group.y + 28 + block * 54 + row * 18;
+      // Spread the final partial rack into the same visual lane as full racks.
+      const usable = group.width - 48;
+      const chunk = index % 3 === 1 ? 6 : index % 3 === 2 ? 2 : 1;
+      const breaks = Math.floor((pairColumns - 1) / chunk);
+      const partial = pairColumns < group.columns;
+      const gap = partial && index % 3 !== 0 ? 12 : 0;
+      const step = partial && pairColumns > 1 ? (usable - 14.4 - breaks * gap) / (pairColumns - 1) : 18;
+      const targetX = group.x + 24 + col * step + (partial ? Math.floor(col / chunk) * gap : 0),
+        targetY = group.y + 24 + block * 56 + row * 18;
       // Keep blocks within their own group lane instead of crossing neighboring panels.
       const fromX = targetX + (col - (pairColumns - 1) / 2) * 2;
       const fromY = targetY - 28 - row * 6;
@@ -66580,7 +66837,8 @@ exports.default = ArtifactOpen;
 var _context = require("../../context.jsx");
 function ArtifactOpen({
   kind,
-  title
+  title,
+  iconSrc = "./assets/uploads/artifact-open-tab.svg"
 }) {
   const {
     openArtifact
@@ -66591,7 +66849,7 @@ function ArtifactOpen({
     "aria-label": '新开页签：' + title,
     onClick: () => openArtifact(kind, title)
   }, /*#__PURE__*/React.createElement("img", {
-    src: "./assets/uploads/artifact-open-tab.svg",
+    src: iconSrc,
     width: "14",
     height: "14",
     alt: ""
@@ -66606,7 +66864,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = NetworkRegionScan;
 require("./index.css");
-// Pixso stages share one fixed 1248 × 885 card viewport; only artwork changes.
+// Region and topology exports retain their own coordinates inside one stable card.
 function NetworkRegionScan({
   progress = 0,
   lockProgress = 0,
@@ -66626,46 +66884,80 @@ function NetworkRegionScan({
     "data-topology-progress": topologyBlend.toFixed(3)
   }, /*#__PURE__*/React.createElement("svg", {
     className: "network-region-scan-art",
-    viewBox: "0 30 1248 885",
+    viewBox: "0 0 1232 909",
+    preserveAspectRatio: "none",
     role: "img",
     "aria-label": description
-  }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("clipPath", {
+  }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
+    id: "region-scan-sweep",
+    x1: "0",
+    y1: "0",
+    x2: "0",
+    y2: "1"
+  }, /*#__PURE__*/React.createElement("stop", {
+    stopColor: "#5ca2e9",
+    stopOpacity: "0"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: ".9",
+    stopColor: "#5ca2e9",
+    stopOpacity: ".13"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "1",
+    stopColor: "#b9dfff",
+    stopOpacity: ".3"
+  })), /*#__PURE__*/React.createElement("clipPath", {
     id: "region-floor-clip"
   }, /*#__PURE__*/React.createElement("rect", {
-    x: "110",
-    y: "160",
-    width: "1028",
-    height: "664"
+    x: "73",
+    y: "154",
+    width: "1083",
+    height: "698"
   }))), /*#__PURE__*/React.createElement("g", {
     clipPath: "url(#region-floor-clip)"
   }, /*#__PURE__*/React.createElement("g", {
     opacity: 1 - blend
   }, /*#__PURE__*/React.createElement("image", {
-    href: "./assets/uploads/network-regions.svg",
-    width: "1248",
-    height: "890"
-  }), /*#__PURE__*/React.createElement("image", {
-    href: "./assets/uploads/network-regions-scan.svg",
-    y: offset,
-    width: "1248",
-    height: "890"
+    href: "./assets/uploads/network-regions-v2.svg",
+    width: "1232",
+    height: "909"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "73",
+    y: 154 + offset,
+    width: "1083",
+    height: "82",
+    fill: "url(#region-scan-sweep)"
   })), /*#__PURE__*/React.createElement("image", {
-    href: "./assets/uploads/network-regions-locked.png",
-    width: "1248",
-    height: "915",
+    href: "./assets/uploads/network-regions-locked-v2.svg",
+    width: "1232",
+    height: "909",
     opacity: blend * (1 - topologyBlend)
-  }), /*#__PURE__*/React.createElement("image", {
-    href: "./assets/uploads/network-hcs1-topology.png",
-    width: "1248",
-    height: "915",
+  })), /*#__PURE__*/React.createElement("svg", {
+    x: "0",
+    y: "0",
+    width: "1232",
+    height: "909",
+    viewBox: "0 0 1248 860",
+    preserveAspectRatio: "none",
     opacity: topologyBlend
+  }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("clipPath", {
+    id: "hcs1-topology-body-clip"
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: "0",
+    y: "115",
+    width: "1248",
+    height: "745"
+  }))), /*#__PURE__*/React.createElement("image", {
+    href: "./assets/uploads/network-hcs1-topology-v2.svg",
+    width: "1248",
+    height: "860",
+    clipPath: "url(#hcs1-topology-body-clip)"
   }))), /*#__PURE__*/React.createElement("figcaption", {
     className: "network-region-scan-caption",
     role: "status"
   }, description));
 }
 }};
-modules["src/views/mapping-card/index.jsx"]={deps:{"border-beam":"assets/library/border-beam/index.cjs","./beam-palette.js":"src/views/mapping-card/beam-palette.js","../../components/artifact-open/index.jsx":"src/components/artifact-open/index.jsx","../../../assets/shared/icon.jsx":"assets/shared/icon.jsx","../../context.jsx":"src/context.jsx","../../mock/devices.js":"src/mock/devices.js","../../mock/graph.js":"src/mock/graph.js","../../components/status-marks/index.jsx":"src/components/status-marks/index.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","../../components/search-input/index.jsx":"src/components/search-input/index.jsx","../../components/option-group/index.jsx":"src/components/option-group/index.jsx","./design.css":"src/views/mapping-card/design.css"},run:function(require,module,exports){
+modules["src/views/mapping-card/index.jsx"]={deps:{"border-beam":"assets/library/border-beam/index.cjs","./beam-palette.js":"src/views/mapping-card/beam-palette.js","../../components/artifact-open/index.jsx":"src/components/artifact-open/index.jsx","../../context.jsx":"src/context.jsx","../../mock/devices.js":"src/mock/devices.js","../../mock/graph.js":"src/mock/graph.js","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","../../components/search-input/index.jsx":"src/components/search-input/index.jsx","../../components/option-group/index.jsx":"src/components/option-group/index.jsx","./design.css":"src/views/mapping-card/design.css","./revision-364640.css":"src/views/mapping-card/revision-364640.css"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -66676,15 +66968,14 @@ var _borderBeam = require("border-beam");
 var _beamPalette = require("./beam-palette.js");
 var _index = _interopRequireDefault(require("../../components/artifact-open/index.jsx"));
 var _react = require("react");
-var _icon = require("../../../assets/shared/icon.jsx");
 var _context = require("../../context.jsx");
 var _devices = require("../../mock/devices.js");
 var _graph = require("../../mock/graph.js");
-var _index2 = require("../../components/status-marks/index.jsx");
-var _index3 = _interopRequireDefault(require("../../components/icon-el/index.jsx"));
-var _index4 = _interopRequireDefault(require("../../components/search-input/index.jsx"));
-var _index5 = _interopRequireDefault(require("../../components/option-group/index.jsx"));
+var _index2 = _interopRequireDefault(require("../../components/icon-el/index.jsx"));
+var _index3 = _interopRequireDefault(require("../../components/search-input/index.jsx"));
+var _index4 = _interopRequireDefault(require("../../components/option-group/index.jsx"));
 require("./design.css");
+require("./revision-364640.css");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 const BEAM_CYCLE_SECONDS = 2;
 const BEAM_CROSSFADE_MS = 300;
@@ -66934,8 +67225,8 @@ function MappingCard({
     related: !!connected && connected.has(id) && id !== focus,
     matching: activeNodes.has(id)
   });
-  const x1 = width * 405 / 1216,
-    x2 = width * 811 / 1216;
+  const x1 = width * .3375,
+    x2 = width * .6625;
   const edges = [];
   for (const [gid, sid] of mappingRelations) {
     const g = layout.groups.find(r => r.node.id === gid);
@@ -67065,10 +67356,9 @@ function MappingCard({
         }
       }, /*#__PURE__*/React.createElement("span", {
         className: "node-icon"
-      }, /*#__PURE__*/React.createElement(_icon.Icon, {
-        name: d.deviceType === "防火墙" ? "shield" : "server",
-        className: "ic",
-        strokeWidth: 1.6
+      }, /*#__PURE__*/React.createElement("img", {
+        src: "./assets/uploads/uc4-mapping/" + (d.deviceType === "防火墙" ? "firewall" : "access") + ".svg",
+        alt: ""
       })), /*#__PURE__*/React.createElement("span", {
         className: "v7-map-node-copy"
       }, /*#__PURE__*/React.createElement("span", {
@@ -67130,7 +67420,7 @@ function MappingCard({
     }, /*#__PURE__*/React.createElement("span", {
       className: "node-icon"
     }, /*#__PURE__*/React.createElement("img", {
-      src: "./assets/uploads/mapping-" + (isGroup ? n.type.startsWith("FW") ? "firewall" : n.name.includes("核心") ? "core" : "access" : "rules") + ".svg",
+      src: "./assets/uploads/uc4-mapping/" + (isGroup ? n.type.startsWith("FW") ? "firewall" : n.name.includes("核心") ? "core" : "access" : "rules") + ".svg",
       alt: ""
     })), /*#__PURE__*/React.createElement("span", {
       className: "v7-map-node-copy"
@@ -67150,17 +67440,21 @@ function MappingCard({
     "data-match-phase": elapsed === 0 ? "waiting" : elapsed >= MATCH_DURATION ? "complete" : "matching"
   }, /*#__PURE__*/React.createElement(_index.default, {
     kind: "artifact",
-    title: "HCS1合规检查规则&设备匹配"
+    title: "HCS1合规检查规则&设备匹配",
+    iconSrc: "./assets/uploads/uc4-mapping/open.svg"
   }), /*#__PURE__*/React.createElement("div", {
     className: "between"
   }, /*#__PURE__*/React.createElement("div", {
     className: "v7-artifact-title"
-  }, /*#__PURE__*/React.createElement(_index2.ArtifactIcon, {
-    type: "process",
-    shape: "mapping"
+  }, /*#__PURE__*/React.createElement("img", {
+    className: "mapping-title-icon",
+    src: "./assets/uploads/uc4-mapping/title.svg",
+    width: "16",
+    height: "16",
+    alt: ""
   }), /*#__PURE__*/React.createElement("h2", {
     className: "card-title"
-  }, "合规检查规则&设备匹配图"))), /*#__PURE__*/React.createElement("div", {
+  }, "合规检查规则&设备匹配"))), /*#__PURE__*/React.createElement("div", {
     className: "mapping-design-toolbar"
   }, /*#__PURE__*/React.createElement("div", {
     className: "summary-strip"
@@ -67170,7 +67464,7 @@ function MappingCard({
     className: "summary-item"
   }, /*#__PURE__*/React.createElement("strong", null, "120"), /*#__PURE__*/React.createElement("span", null, "个配置文件")), /*#__PURE__*/React.createElement("div", {
     className: "summary-item"
-  }, /*#__PURE__*/React.createElement("strong", null, _graph.mapSets.reduce((n, s) => n + s.rules, 0)), /*#__PURE__*/React.createElement("span", null, "条规则"))), /*#__PURE__*/React.createElement(_index5.default, {
+  }, /*#__PURE__*/React.createElement("strong", null, _graph.mapSets.reduce((n, s) => n + s.rules, 0)), /*#__PURE__*/React.createElement("span", null, "条规则"))), /*#__PURE__*/React.createElement(_index4.default, {
     cls: "filters",
     buttonCls: "filter",
     ariaLabel: "厂商筛选",
@@ -67179,7 +67473,7 @@ function MappingCard({
     onChange: chooseVendor
   })), /*#__PURE__*/React.createElement("div", {
     className: "mapping-design-search"
-  }, /*#__PURE__*/React.createElement(_index4.default, {
+  }, /*#__PURE__*/React.createElement(_index3.default, {
     id: "graphSearch",
     value: searchText,
     onChange: onSearch,
@@ -67211,25 +67505,23 @@ function MappingCard({
     className: "connections",
     id: "connections",
     "aria-hidden": "true",
-    viewBox: `0 0 ${width} ${layout.height}`
+    viewBox: `0 0 ${width} ${layout.height}`,
+    style: {
+      "--mapping-edge-gradient": `url(#${effectId}-intelligence)`
+    }
   }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
     id: `${effectId}-intelligence`,
-    x1: "0%",
-    y1: "0%",
-    x2: "100%",
-    y2: "0%"
+    gradientUnits: "userSpaceOnUse",
+    x1: x1,
+    y1: "0",
+    x2: x2,
+    y2: "0"
   }, /*#__PURE__*/React.createElement("stop", {
     offset: "0%",
-    stopColor: "#329d7c"
-  }), /*#__PURE__*/React.createElement("stop", {
-    offset: "46%",
-    stopColor: "#7bdfb5"
-  }), /*#__PURE__*/React.createElement("stop", {
-    offset: "78%",
-    stopColor: "#64c6c2"
+    stopColor: "#2e86de"
   }), /*#__PURE__*/React.createElement("stop", {
     offset: "100%",
-    stopColor: "#329d7c"
+    stopColor: "#a89ff9"
   }))), edges.filter(e => e.progress > 0).map((e, i) => {
     const d = `M ${x1} ${e.from} C ${x1 + (x2 - x1) * 0.46} ${e.from},${x2 - (x2 - x1) * 0.46} ${e.to},${x2} ${e.to}`;
     const maskId = `${effectId}-${e.gid}-${e.sid}-${e.device || "group"}`;
@@ -72502,20 +72794,22 @@ function DevicePane({
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("section", {
     className: "card device-overview artifact-card conclusion-artifact"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "between"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "row"
+    className: "device-icon-disc"
   }, /*#__PURE__*/React.createElement("img", {
     className: "device-design-icon",
     src: "./assets/uploads/detail-device.svg",
-    width: "20",
-    height: "20",
+    width: "24",
+    height: "24",
     alt: ""
-  }), /*#__PURE__*/React.createElement("h2", {
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "between"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "row"
+  }, /*#__PURE__*/React.createElement("h2", {
     className: "device-title"
   }, d.name), /*#__PURE__*/React.createElement("span", {
     className: d.fails.length ? "bad-tag" : "good-tag"
-  }, d.fails.length ? "检查不通过" : "检查通过"))), /*#__PURE__*/React.createElement("div", {
+  }, d.fails.length ? "不通过" : "通过"))), /*#__PURE__*/React.createElement("div", {
     className: "device-meta v14-device-meta"
   }, [['设备IP', d.ip], ['厂商', d.vendor === 'H3C' ? 'H3C' : '华为'], ['型号', d.model], ['区域', '西三旗 DC / HCS1'], ['检查时间', '14:20:00']].map(([label, value]) => /*#__PURE__*/React.createElement("div", {
     key: label
@@ -72593,29 +72887,24 @@ function CommandHeader({
 }) {
   return /*#__PURE__*/React.createElement("div", {
     className: "detail-command-header"
-  }, /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("img", {
-    src: "./assets/uploads/detail-terminal.svg",
+  }, /*#__PURE__*/React.createElement("span", null, "命令行"), /*#__PURE__*/React.createElement("div", null, label === '配置' && /*#__PURE__*/React.createElement("button", {
+    className: "detail-config-switch",
+    type: "button",
+    "aria-label": (expanded ? '收起' : '展开') + label,
+    "aria-expanded": expanded,
+    onClick: onExpand
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "./assets/uploads/detail-expand.svg",
     width: "14",
     height: "14",
     alt: ""
-  }), "命令行"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+  }), expanded ? '切换片段' : '切换全部'), /*#__PURE__*/React.createElement("button", {
     type: "button",
     "aria-label": "复制" + label,
     title: "复制" + label,
     onClick: onCopy
   }, /*#__PURE__*/React.createElement("img", {
     src: "./assets/uploads/detail-copy.svg",
-    width: "12",
-    height: "12",
-    alt: ""
-  })), /*#__PURE__*/React.createElement("button", {
-    type: "button",
-    "aria-label": (expanded ? "收起" : "展开") + label,
-    "aria-expanded": expanded,
-    title: expanded ? "收起" : "展开",
-    onClick: onExpand
-  }, /*#__PURE__*/React.createElement("img", {
-    src: "./assets/uploads/detail-expand.svg",
     width: "12",
     height: "12",
     alt: ""
@@ -72948,7 +73237,7 @@ function RuleDetail({
     failed: bad
   })), /*#__PURE__*/React.createElement("div", {
     className: 'criterion ' + (isSsh ? 'v7-ssh-criterion' : 'v7-unified-criterion')
-  }, /*#__PURE__*/React.createElement("span", null, "检查要求"), /*#__PURE__*/React.createElement("div", null, _audit.v7RuleRequirements[r.id] || r.expected)), !isSsh && /*#__PURE__*/React.createElement("details", {
+  }, /*#__PURE__*/React.createElement("span", null, "规则："), /*#__PURE__*/React.createElement("div", null, _audit.v7RuleRequirements[r.id] || r.expected)), !isSsh && /*#__PURE__*/React.createElement("details", {
     className: "scope-details"
   }, /*#__PURE__*/React.createElement("summary", null, "检查范围与判定说明"), /*#__PURE__*/React.createElement("p", null, isTime ? '检查范围：所有 user-interface 视图块（VTY / CONSOLE / AUX）下的直接子命令 idle-timeout。排除 NETCONF、RESTCONF、gRPC 视图。分钟×60＋秒≤600秒为通过，省略秒数按0计算。' : '检查范围：' + r.view + '。基于当前配置快照解析参数后，与本规则条件比较。')), /*#__PURE__*/React.createElement("div", {
     className: "instance-heading"
@@ -72977,7 +73266,7 @@ function RuleDetail({
     width: "14",
     height: "14",
     alt: ""
-  }), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("strong", null, "影响说明："), "当前启用了基线禁止的 ", chosen.id === 'single' ? 'CBC' : 'MD5', " 算法，增加 SSH 会话的密码安全与完整性保护风险。建议按组织密码安全基线整改。")), !isSsh && /*#__PURE__*/React.createElement(SemanticComparison, {
+  }), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("strong", null, "影响说明"), "当前启用了基线禁止的 ", chosen.id === 'single' ? 'CBC' : 'MD5', " 算法，增加 SSH 会话的密码安全与完整性保护风险。建议按组织密码安全基线整改。")), !isSsh && /*#__PURE__*/React.createElement(SemanticComparison, {
     d: d,
     r: r,
     i: chosen
@@ -74889,13 +75178,423 @@ function Uc2RuleDetail({
   }, "采用此候选"))));
 }
 }};
-modules["src/views/uc3-canvas/index.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","./index.css":"src/views/uc3-canvas/index.css"},run:function(require,module,exports){
+modules["src/views/uc3-canvas/editor.jsx"]={deps:{"../../context.jsx":"src/context.jsx","./editor.css":"src/views/uc3-canvas/editor.css","./form-kit.css":"src/views/uc3-canvas/form-kit.css","./form-select.jsx":"src/views/uc3-canvas/form-select.jsx"},run:function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Uc3RuleEditor;
+var _react = require("react");
+var _context = require("../../context.jsx");
+require("./editor.css");
+require("./form-kit.css");
+var _formSelect = _interopRequireDefault(require("./form-select.jsx"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function Svg({
+  name,
+  size = 14,
+  className = ''
+}) {
+  return /*#__PURE__*/React.createElement("img", {
+    src: './assets/uploads/uc3-rule/editor-' + name + '.svg',
+    width: size,
+    height: size,
+    className: className,
+    alt: "",
+    "aria-hidden": "true"
+  });
+}
+function Row({
+  label,
+  children,
+  className = ''
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: 'uc3-edit-row ' + className
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "uc3-edit-label"
+  }, label), /*#__PURE__*/React.createElement("div", {
+    className: "uc3-edit-control"
+  }, children));
+}
+function Section({
+  title,
+  children
+}) {
+  const [open, setOpen] = (0, _react.useState)(true);
+  return /*#__PURE__*/React.createElement("section", {
+    className: "uc3-edit-section"
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "uc3-edit-section-title",
+    "aria-expanded": open,
+    onClick: () => setOpen(v => !v)
+  }, /*#__PURE__*/React.createElement(Svg, {
+    name: "collapse",
+    className: open ? '' : 'is-collapsed'
+  }), /*#__PURE__*/React.createElement("h2", null, title)), /*#__PURE__*/React.createElement("div", {
+    hidden: !open
+  }, children));
+}
+function Uc3RuleEditor() {
+  const {
+    uc3EditorDraft: draft,
+    setUc3EditorDraft: setDraft,
+    uc3Phase
+  } = (0, _context.useApp)();
+  const timer = (0, _react.useRef)(null);
+  const [testing, setTesting] = (0, _react.useState)(false);
+  (0, _react.useEffect)(() => () => clearTimeout(timer.current), []);
+  const update = (field, value) => {
+    clearTimeout(timer.current);
+    setTesting(false);
+    setDraft(d => ({
+      ...d,
+      [field]: value,
+      changed: true,
+      testResult: null
+    }));
+  };
+  const updateCondition = (id, key, value) => update('conditions', draft.conditions.map(c => c.id === id ? {
+    ...c,
+    [key]: value
+  } : c));
+  const addCondition = () => update('conditions', [...draft.conditions, {
+    id: Date.now(),
+    field: 'time',
+    operator: '大于',
+    value: '全部满足',
+    relation: '或',
+    expression: 'idle-timeout  {{time}} 30'
+  }]);
+  const runTests = () => {
+    clearTimeout(timer.current);
+    setTesting(true);
+    timer.current = setTimeout(() => {
+      const examples = [{
+        minutes: 10,
+        seconds: 0,
+        expected: false
+      }, {
+        minutes: 5,
+        seconds: 0,
+        expected: false
+      }, {
+        missing: true,
+        expected: false
+      }, {
+        outside: true,
+        minutes: 30,
+        seconds: 0,
+        expected: false
+      }, {
+        minutes: 15,
+        seconds: 0,
+        expected: true
+      }, {
+        minutes: 10,
+        seconds: 30,
+        expected: true
+      }, {
+        minutes: 0,
+        seconds: 0,
+        expected: true
+      }];
+      const failed = sample => {
+        if (sample.missing || sample.outside) return false;
+        if (sample.minutes === 0 && sample.seconds === 0) return true;
+        const values = draft.conditions.map(c => {
+          const threshold = c.value === '全部满足' ? 600 : Number(c.value) * 60;
+          const seconds = sample.minutes * 60 + sample.seconds;
+          return c.operator === '大于' ? seconds > threshold : c.operator === '大于等于' ? seconds >= threshold : c.operator === '小于' ? seconds < threshold : c.operator === '小于等于' ? seconds <= threshold : seconds === threshold;
+        });
+        return draft.trigger === '全部满足' ? values.every(Boolean) : values.some(Boolean);
+      };
+      const passed = examples.filter(s => failed(s) === s.expected).length;
+      setDraft(d => ({
+        ...d,
+        testResult: passed
+      }));
+      setTesting(false);
+    }, 1100);
+  };
+  const result = draft.testResult ?? (uc3Phase >= 4 && !draft.changed ? 7 : null);
+  const change = (field, value) => {
+    setDraft(d => ({
+      ...d,
+      changed: true
+    }));
+    update(field, value);
+  };
+  return /*#__PURE__*/React.createElement("article", {
+    className: "uc3-rule-editor",
+    "aria-label": "规则配置编辑"
+  }, /*#__PURE__*/React.createElement(Section, {
+    title: "基本信息"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "uc3-edit-rows"
+  }, /*#__PURE__*/React.createElement(Row, {
+    label: "规则名称"
+  }, /*#__PURE__*/React.createElement("input", {
+    "aria-label": "规则名称",
+    value: draft.name,
+    onChange: e => change('name', e.target.value)
+  })), /*#__PURE__*/React.createElement(Row, {
+    label: "影响级别"
+  }, /*#__PURE__*/React.createElement(_formSelect.default, {
+    label: "影响级别",
+    priority: true,
+    value: draft.priority,
+    onChange: v => change('priority', v),
+    options: ['最高优先级', '高优先级', '中优先级', '低优先级']
+  })), /*#__PURE__*/React.createElement(Row, {
+    label: "规则ID"
+  }, /*#__PURE__*/React.createElement("input", {
+    "aria-label": "规则ID",
+    value: draft.ruleId,
+    onChange: e => change('ruleId', e.target.value)
+  })), /*#__PURE__*/React.createElement(Row, {
+    label: "类型"
+  }, /*#__PURE__*/React.createElement("input", {
+    "aria-label": "类型",
+    value: draft.type,
+    onChange: e => change('type', e.target.value)
+  })), /*#__PURE__*/React.createElement(Row, {
+    label: "测试",
+    className: "uc3-edit-test-row"
+  }, /*#__PURE__*/React.createElement("span", {
+    role: "status",
+    className: 'uc3-edit-test-status' + (result !== null && result < 7 ? ' has-fail' : '')
+  }, /*#__PURE__*/React.createElement("i", null), testing ? '正在测试…' : result === null ? '待测试' : result === 7 ? '测试通过（7/7）' : `测试未通过（${result}/7）`), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "uc3-edit-retest",
+    onClick: runTests,
+    disabled: testing
+  }, /*#__PURE__*/React.createElement(Svg, {
+    name: "rerun",
+    size: 16,
+    className: testing ? 'is-spinning' : ''
+  }), testing ? '正在执行' : '再次执行')))), /*#__PURE__*/React.createElement(Section, {
+    title: "执行细则"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "uc3-edit-rows"
+  }, /*#__PURE__*/React.createElement(Row, {
+    label: "使用模式"
+  }, /*#__PURE__*/React.createElement(_formSelect.default, {
+    label: "使用模式",
+    value: draft.mode,
+    onChange: v => change('mode', v),
+    options: ['始终执行', '满足条件时执行']
+  })), /*#__PURE__*/React.createElement(Row, {
+    label: "检查方式"
+  }, /*#__PURE__*/React.createElement(_formSelect.default, {
+    label: "检查方式",
+    value: draft.method,
+    onChange: v => change('method', v),
+    options: ['全局', '指定视图']
+  })), /*#__PURE__*/React.createElement(Row, {
+    label: "判断条件",
+    className: "uc3-edit-conditions-row"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "uc3-edit-trigger"
+  }, /*#__PURE__*/React.createElement("span", null, "触发方式"), /*#__PURE__*/React.createElement(_formSelect.default, {
+    label: "触发方式",
+    value: draft.trigger,
+    onChange: v => change('trigger', v),
+    options: ['全部满足', '任一满足']
+  })), draft.conditions.map((condition, index) => /*#__PURE__*/React.createElement("section", {
+    className: "uc3-edit-condition",
+    key: condition.id,
+    "aria-label": '条件' + (index + 1)
+  }, /*#__PURE__*/React.createElement("header", null, /*#__PURE__*/React.createElement("h3", null, "条件", index + 1), index === 0 ? /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    "aria-label": "添加条件",
+    onClick: addCondition
+  }, /*#__PURE__*/React.createElement(Svg, {
+    name: "add"
+  })) : /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "uc3-remove-condition",
+    "aria-label": '移除条件' + (index + 1),
+    onClick: () => update('conditions', draft.conditions.filter(c => c.id !== condition.id))
+  }, "×")), /*#__PURE__*/React.createElement("div", {
+    className: "uc3-edit-condition-grid"
+  }, /*#__PURE__*/React.createElement("label", null, "字段", /*#__PURE__*/React.createElement("input", {
+    "aria-label": '条件' + (index + 1) + '字段',
+    value: condition.field,
+    onChange: e => updateCondition(condition.id, 'field', e.target.value)
+  })), /*#__PURE__*/React.createElement("label", null, "运算符号", /*#__PURE__*/React.createElement(_formSelect.default, {
+    label: '条件' + (index + 1) + '运算符号',
+    value: condition.operator,
+    onChange: v => updateCondition(condition.id, 'operator', v),
+    options: ['大于', '大于等于', '等于', '小于', '小于等于']
+  })), /*#__PURE__*/React.createElement("label", null, "值", /*#__PURE__*/React.createElement(_formSelect.default, {
+    label: '条件' + (index + 1) + '值',
+    value: condition.value,
+    onChange: v => updateCondition(condition.id, 'value', v),
+    options: ['全部满足', '5', '10', '15', '30']
+  })), /*#__PURE__*/React.createElement("fieldset", null, /*#__PURE__*/React.createElement("legend", null, "条件关系"), /*#__PURE__*/React.createElement("div", null, ['或', '且'].map(relation => /*#__PURE__*/React.createElement("label", {
+    key: relation
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "radio",
+    name: 'uc3-condition-' + condition.id,
+    value: relation,
+    checked: condition.relation === relation,
+    onChange: () => updateCondition(condition.id, 'relation', relation)
+  }), relation))))), /*#__PURE__*/React.createElement("label", {
+    className: "uc3-edit-expression"
+  }, "表达式预览", /*#__PURE__*/React.createElement("textarea", {
+    "aria-label": '条件' + (index + 1) + '表达式预览',
+    value: condition.expression,
+    onChange: e => updateCondition(condition.id, 'expression', e.target.value)
+  }))))))));
+}
+}};
+modules["src/views/uc3-canvas/form-select.jsx"]={deps:{},run:function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Select;
+var _react = require("react");
+const priorityColor = value => value.includes('最高') || value === '高优先级' ? '#f24751' : value === '中优先级' ? '#f59313' : '#939393';
+function Select({
+  label,
+  value,
+  onChange,
+  options,
+  priority = false
+}) {
+  const root = (0, _react.useRef)(null),
+    trigger = (0, _react.useRef)(null),
+    list = (0, _react.useRef)(null);
+  const id = (0, _react.useId)();
+  const [open, setOpen] = (0, _react.useState)(false),
+    [active, setActive] = (0, _react.useState)(0),
+    [up, setUp] = (0, _react.useState)(false);
+  const items = options.map(item => typeof item === 'string' ? {
+    value: item,
+    label: item
+  } : item);
+  const selected = items.findIndex(item => item.value === value);
+  (0, _react.useEffect)(() => {
+    if (!open) return;
+    const outside = e => {
+      if (!root.current?.contains(e.target)) setOpen(false);
+    };
+    document.addEventListener('pointerdown', outside);
+    return () => document.removeEventListener('pointerdown', outside);
+  }, [open]);
+  (0, _react.useEffect)(() => {
+    if (open) list.current?.children[active]?.scrollIntoView({
+      block: 'nearest'
+    });
+  }, [open, active]);
+  const show = () => {
+    const rect = trigger.current.getBoundingClientRect(),
+      host = root.current.closest('.v7-artifact-pane')?.getBoundingClientRect();
+    const space = (host?.bottom || window.innerHeight) - rect.bottom;
+    setUp(space < Math.min(items.length * 36 + 8, 248) && rect.top > (host?.top || 0) + 150);
+    setActive(Math.max(selected, 0));
+    setOpen(true);
+  };
+  const choose = index => {
+    onChange(items[index].value);
+    setOpen(false);
+    trigger.current?.focus({
+      preventScroll: true
+    });
+  };
+  const keyboard = e => {
+    if (e.key === 'Escape') {
+      setOpen(false);
+      e.stopPropagation();
+      return;
+    }
+    if (e.key === 'Tab') {
+      setOpen(false);
+      return;
+    }
+    if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) {
+      e.preventDefault();
+      if (!open) {
+        show();
+        if (e.key === 'End') setActive(items.length - 1);
+        return;
+      }
+      setActive(i => e.key === 'Home' ? 0 : e.key === 'End' ? items.length - 1 : (i + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length);
+      return;
+    }
+    if ((e.key === 'Enter' || e.key === ' ') && open) {
+      e.preventDefault();
+      choose(active);
+    }
+  };
+  return /*#__PURE__*/React.createElement("span", {
+    ref: root,
+    className: 'uc3-kit-select' + (open ? ' is-open' : '') + (up ? ' opens-up' : '')
+  }, /*#__PURE__*/React.createElement("button", {
+    ref: trigger,
+    type: "button",
+    className: "uc3-kit-trigger",
+    role: "combobox",
+    "aria-label": label,
+    "aria-expanded": open,
+    "aria-haspopup": "listbox",
+    "aria-controls": open ? id : undefined,
+    "aria-activedescendant": open ? id + '-' + active : undefined,
+    onKeyDown: keyboard,
+    onClick: () => open ? setOpen(false) : show()
+  }, priority && /*#__PURE__*/React.createElement("i", {
+    className: "uc3-kit-priority-dot",
+    style: {
+      background: priorityColor(value)
+    }
+  }), /*#__PURE__*/React.createElement("span", null, items[selected]?.label || value || '请选择'), /*#__PURE__*/React.createElement("svg", {
+    className: "uc3-kit-chevron",
+    viewBox: "0 0 10.0042 10",
+    "aria-hidden": "true",
+    focusable: "false"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M9.86304 2.98398L5.36304 7.67963C5.24271 7.79495 5.10859 7.8664 4.99076 7.86389C4.87294 7.86139 4.75637 7.79997 4.64105 7.67963L0.141049 2.98398C-0.0526843 2.78183 -0.0460661 2.47077 0.156091 2.27704C0.358247 2.0833 0.669304 2.08992 0.863037 2.29208L5.00204 6.61104L9.14105 2.29208C9.33478 2.08992 9.64584 2.0833 9.848 2.27704C10.0502 2.47077 10.0568 2.78183 9.86304 2.98398Z",
+    fill: "currentColor",
+    fillRule: "evenodd"
+  }))), open && /*#__PURE__*/React.createElement("span", {
+    ref: list,
+    id: id,
+    className: "uc3-kit-options",
+    role: "listbox",
+    "aria-label": label + '选项'
+  }, items.map((item, index) => /*#__PURE__*/React.createElement("button", {
+    key: item.value,
+    type: "button",
+    id: id + '-' + index,
+    role: "option",
+    "aria-selected": item.value === value,
+    tabIndex: -1,
+    className: 'uc3-kit-option' + (active === index ? ' is-active' : ''),
+    onPointerEnter: () => setActive(index),
+    onMouseDown: e => e.preventDefault(),
+    onClick: () => choose(index)
+  }, priority && /*#__PURE__*/React.createElement("i", {
+    className: "uc3-kit-priority-dot",
+    style: {
+      background: priorityColor(item.value)
+    }
+  }), /*#__PURE__*/React.createElement("span", null, item.label)))));
+}
+}};
+modules["src/views/uc3-canvas/index.jsx"]={deps:{"border-beam":"assets/library/border-beam/index.cjs","../mapping-card/beam-palette.js":"src/views/mapping-card/beam-palette.js","../../context.jsx":"src/context.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","./index.css":"src/views/uc3-canvas/index.css"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = Uc3RuleCanvas;
+var _borderBeam = require("border-beam");
+var _beamPalette = require("../mapping-card/beam-palette.js");
 var _react = require("react");
 var _context = require("../../context.jsx");
 var _index = _interopRequireDefault(require("../../components/icon-el/index.jsx"));
@@ -74999,9 +75698,21 @@ const evidence = [{
   tone: 'violet',
   lines: ['10 分 30 秒 > 10 分钟 → FAIL', '按实际时长判断，包含秒数', '依据所提供规则整理']
 }];
+const nodeDelays = {
+  scope: 0,
+  limit: 850,
+  exclude: 1550,
+  decision: 2350,
+  fail: 3200,
+  pass: 3950,
+  result: 4800
+};
 function Graph({
   ready
 }) {
+  const {
+    isDark
+  } = (0, _context.useApp)();
   const ref = (0, _react.useRef)(null);
   const [scale, setScale] = (0, _react.useState)(1);
   (0, _react.useLayoutEffect)(() => {
@@ -75048,23 +75759,63 @@ function Graph({
     strokeWidth: "1",
     markerEnd: "url(#uc3-arrow-neutral)"
   }, /*#__PURE__*/React.createElement("path", {
+    className: "uc3-growing-edge",
+    pathLength: "1",
+    style: {
+      "--edge-delay": "350ms"
+    },
     d: "M198 312H258"
   }), /*#__PURE__*/React.createElement("path", {
+    className: "uc3-growing-edge",
+    pathLength: "1",
+    style: {
+      "--edge-delay": "1850ms"
+    },
     d: "M498 312H558"
   }), /*#__PURE__*/React.createElement("path", {
+    className: "uc3-growing-edge",
+    pathLength: "1",
+    style: {
+      "--edge-delay": "1900ms"
+    },
     d: "M378 168V240",
     strokeDasharray: "2 3"
   }), /*#__PURE__*/React.createElement("path", {
+    className: "uc3-growing-edge",
+    pathLength: "1",
+    style: {
+      "--edge-delay": "3300ms"
+    },
     d: "M378 384V440Q378 460 398 460H828Q848 460 848 440V356Q848 336 868 336H898"
   }), /*#__PURE__*/React.createElement("path", {
+    className: "uc3-growing-edge",
+    pathLength: "1",
+    style: {
+      "--edge-delay": "4250ms"
+    },
     d: "M1138 92H1164Q1184 92 1184 112V498Q1184 518 1164 518H1138"
   }), /*#__PURE__*/React.createElement("path", {
+    className: "uc3-growing-edge",
+    pathLength: "1",
+    style: {
+      "--edge-delay": "4250ms"
+    },
     d: "M1018 384V464"
   })), /*#__PURE__*/React.createElement("path", {
+    className: "uc3-growing-edge",
+    pathLength: "1",
+    style: {
+      "--edge-delay": "2700ms"
+    },
     d: "M798 288H828Q848 288 848 268V150Q848 130 868 130H898",
     stroke: "#a73c46",
     markerEnd: "url(#uc3-arrow-fail)"
   }), /*#__PURE__*/React.createElement("path", {
+    className: "uc3-growing-edge",
+    pathLength: "1",
+    style: {
+      "--edge-delay": "3450ms"
+    },
     d: "M798 312H898",
     stroke: "#308365",
     markerEnd: "url(#uc3-arrow-pass)"
@@ -75075,10 +75826,29 @@ function Graph({
       left: node.x,
       top: node.y,
       width: node.w,
-      '--reveal-delay': `${i * 110}ms`
+      '--reveal-delay': `${nodeDelays[node.key]}ms`
     },
     "aria-label": node.title
-  }, /*#__PURE__*/React.createElement("header", null, /*#__PURE__*/React.createElement(RuleGlyph, {
+  }, !ready && /*#__PURE__*/React.createElement("div", {
+    className: "uc3-node-intelligence",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement(_borderBeam.BorderBeam, {
+    size: "md",
+    colorVariant: "colorful",
+    strength: 0.7,
+    duration: 1.6,
+    borderRadius: 16,
+    active: true,
+    theme: isDark ? "dark" : "light",
+    css: (0, _beamPalette.matchingBeamPaletteCss)(isDark),
+    style: {
+      position: "absolute",
+      inset: 0,
+      width: "100%",
+      height: "100%",
+      pointerEvents: "none"
+    }
+  }, /*#__PURE__*/React.createElement("span", null))), /*#__PURE__*/React.createElement("header", null, /*#__PURE__*/React.createElement(RuleGlyph, {
     icon: node.icon
   }), /*#__PURE__*/React.createElement("h3", null, node.title)), /*#__PURE__*/React.createElement("div", {
     className: "uc3-graph-node-body"
@@ -75088,19 +75858,22 @@ function Graph({
     className: "uc3-edge-label",
     style: {
       left: 835,
-      top: 201
+      top: 201,
+      '--label-delay': '3100ms'
     }
   }, /*#__PURE__*/React.createElement("span", null, "是")), /*#__PURE__*/React.createElement("span", {
     className: "uc3-edge-label",
     style: {
       left: 835,
-      top: 300
+      top: 300,
+      '--label-delay': '3800ms'
     }
   }, /*#__PURE__*/React.createElement("span", null, "否")), /*#__PURE__*/React.createElement("span", {
     className: "uc3-edge-label pill",
     style: {
       left: 573,
-      top: 450
+      top: 450,
+      '--label-delay': '3750ms'
     }
   }, /*#__PURE__*/React.createElement("span", null, "未显式配置"))));
 }
@@ -75109,19 +75882,16 @@ function Uc3RuleCanvas({
 }) {
   const {
     uc3Phase,
-    toast,
     openArtifact
   } = (0, _context.useApp)();
-  const [ready, setReady] = (0, _react.useState)(false),
-    [editing, setEditing] = (0, _react.useState)(false),
-    [name, setName] = (0, _react.useState)('用户接口空闲超时时间检查规则图谱'),
-    [draft, setDraft] = (0, _react.useState)(name);
+  const [ready, setReady] = (0, _react.useState)(false);
+  const name = '用户接口空闲超时时间检查规则图谱';
   (0, _react.useEffect)(() => {
     if (uc3Phase < 3) {
       setReady(false);
       return;
     }
-    const timer = setTimeout(() => setReady(true), 800);
+    const timer = setTimeout(() => setReady(true), 6600);
     return () => clearTimeout(timer);
   }, [uc3Phase >= 3]);
   return /*#__PURE__*/React.createElement("section", {
@@ -75151,11 +75921,9 @@ function Uc3RuleCanvas({
   }, uc3Phase >= 4 ? '正反测试：7/7' : '正反测试中…'), /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: "icon-btn",
-    "aria-label": "编辑规则图谱标题",
-    onClick: () => {
-      setDraft(name);
-      setEditing(true);
-    }
+    "aria-label": "编辑规则配置",
+    title: "编辑规则配置",
+    onClick: () => openArtifact("uc3-editor", "规则配置编辑")
   }, /*#__PURE__*/React.createElement("img", {
     src: "./assets/uploads/uc3-rule/edit.svg",
     width: "14",
@@ -75189,41 +75957,7 @@ function Uc3RuleCanvas({
     className: item.tone
   }), /*#__PURE__*/React.createElement("h4", null, item.title)), item.lines.map(line => /*#__PURE__*/React.createElement("p", {
     key: line
-  }, line)))))), editing && /*#__PURE__*/React.createElement("div", {
-    className: "uc3-editor-backdrop",
-    onClick: () => setEditing(false)
-  }, /*#__PURE__*/React.createElement("section", {
-    className: "uc3-editor",
-    role: "dialog",
-    "aria-modal": "true",
-    "aria-labelledby": "uc3EditorTitle",
-    onClick: e => e.stopPropagation()
-  }, /*#__PURE__*/React.createElement("header", null, /*#__PURE__*/React.createElement("h3", {
-    id: "uc3EditorTitle"
-  }, "编辑规则图谱标题"), /*#__PURE__*/React.createElement("button", {
-    type: "button",
-    className: "icon-btn",
-    "aria-label": "关闭编辑",
-    onClick: () => setEditing(false)
-  }, /*#__PURE__*/React.createElement(_index.default, {
-    icon: "x"
-  }))), /*#__PURE__*/React.createElement("label", null, "图谱名称", /*#__PURE__*/React.createElement("input", {
-    autoFocus: true,
-    value: draft,
-    onChange: e => setDraft(e.target.value),
-    maxLength: 60
-  })), /*#__PURE__*/React.createElement("footer", null, /*#__PURE__*/React.createElement("button", {
-    type: "button",
-    onClick: () => setEditing(false)
-  }, "取消"), /*#__PURE__*/React.createElement("button", {
-    type: "button",
-    disabled: !draft.trim(),
-    onClick: () => {
-      setName(draft.trim());
-      setEditing(false);
-      toast('图谱标题已更新');
-    }
-  }, "保存"))))));
+  }, line))))))));
 }
 }};
 modules["src/views/uc1-canvas/index.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","../../components/artifact-open/index.jsx":"src/components/artifact-open/index.jsx","../../mock/uc1-rules.js":"src/mock/uc1-rules.js","./index.css":"src/views/uc1-canvas/index.css"},run:function(require,module,exports){
