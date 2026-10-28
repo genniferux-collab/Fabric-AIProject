@@ -3,7 +3,7 @@
 // options: [id, label, ...rest]；renderOption(opt) 可自定义按钮内容（如状态筛选的图标与计数）
 export default function OptionGroup({ cls, buttonCls = "", options, value, onChange, ariaLabel, renderOption }) {
   return (
-    <div className={cls} role="group" aria-label={ariaLabel}>
+    <div className={cls + (["filters", "v7-lens"].includes(cls) ? " ui-kit-segmented" : "")} role="group" aria-label={ariaLabel}>
       {options.map((opt) => {
         const id = opt[0];
         const selected = value === id;

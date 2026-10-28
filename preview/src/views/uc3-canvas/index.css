@@ -21,7 +21,7 @@
 .stage-root.uc3 .uc3-graph-node.pass{border-color:#308365}
 .stage-root.uc3 .uc3-graph-node.pass header{background:#36c18d26}.stage-root.uc3 .uc3-graph-node.pass header svg{color:#36c18d}
 .stage-root.uc3 .uc3-graph-node[aria-label="整份配置结果"]{min-height:106px}.stage-root.uc3 .uc3-graph-node[aria-label="整份配置结果"] .uc3-graph-node-body{height:52px;min-height:52px}
-.stage-root.uc3 .uc3-edge-label{position:absolute;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:24px;height:24px;padding:1px 5px;font-size:12px;line-height:20px;color:#fff;background:#f3f3f333;border-radius:4px;white-space:nowrap}
+.stage-root.uc3 .uc3-edge-label{position:absolute;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:24px;height:24px;padding:1px 5px;font-size:12px;line-height:20px;color:#fff;background:#f3f3f333;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-radius:4px;white-space:nowrap}
 .stage-root.uc3 .uc3-edge-label>span{display:block;flex:none;line-height:20px;height:20px}
 .stage-root.uc3 .uc3-edge-label.pill{width:86px;height:22px;border-radius:12px;padding:1px 8px}
 .stage-root.uc3 .uc3-rule-evidence>h3{margin:0 0 16px;font-size:14px;line-height:22px;color:#fff;font-weight:500}

@@ -64,10 +64,10 @@ html.dark .stage-root.uc1 .canvas .card.uc1-rules-canvas:hover:has(:is(button,a[
 /* Skeletons reserve the final geometry while the answer streams. */
 .stage-root.uc1 .uc1-rules-canvas .is-skeleton{position:relative;overflow:hidden;pointer-events:none;border-color:transparent!important;background:rgba(57,57,57,.5)!important}
 .stage-root.uc1 .uc1-rules-canvas .is-skeleton>*{visibility:hidden}
-.stage-root.uc1 .uc1-rules-canvas .is-skeleton::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 20%,#ffffff09 45%,#ffffff15 50%,#ffffff09 55%,transparent 80%);transform:translateX(-100%);animation:uc1-skeleton-shimmer 1.6s ease-in-out infinite}
+.stage-root.uc1 .uc1-rules-canvas .is-skeleton::after{content:'';position:absolute;inset:0;background:#ffffff03;animation:uc1-skeleton-breathe 3.2s ease-in-out infinite}
 .stage-root.uc1 .uc1-rule-row.is-skeleton::before{content:'';position:absolute;inset:16px;border-radius:4px;background:linear-gradient(#ffffff0a,#ffffff0a) 0 0/45% 16px no-repeat,linear-gradient(#ffffff08,#ffffff08) 0 36px/90% 12px no-repeat,linear-gradient(#ffffff08,#ffffff08) 0 60px/75% 12px no-repeat}
 .stage-root.uc1 .uc1-rules-canvas .is-revealed{animation:uc1-content-reveal .3s ease-out both}
-@keyframes uc1-skeleton-shimmer{to{transform:translateX(100%)}}
+@keyframes uc1-skeleton-breathe{0%,100%{opacity:.2}50%{opacity:.65}}
 @keyframes uc1-content-reveal{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.stage-root.uc1 .uc1-rules-canvas :is(.is-skeleton::after,.is-revealed){animation:none}}
 

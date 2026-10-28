@@ -1,3 +1,4 @@
+import {NativeSelect} from '../../components/form-controls/select.jsx';
 import {completionTimeline} from '../../mock/uc4-completion.js';
 import {streamDuration} from '../lui-panel/motion.jsx';
 import './generation.css';
@@ -161,12 +162,12 @@ export default function ReportCard({ cardRef }) {
           <div className="v7-table-tools">
             <SearchInput id="v7DeviceSearch" value={query} onChange={(v) => { setQuery(v); setPage(1); }} placeholder="请输入设备名称/管理IP/型号" ariaLabel="搜索设备明细" />
             <label className="v7-rule-select">
-              <select id="v7RuleFilter" aria-label="规则筛选" value={ruleFilter || ""} onChange={(e) => { setRuleFilter(e.target.value || null); setPage(1); }}>
+              <NativeSelect id="v7RuleFilter" aria-label="规则筛选" value={ruleFilter || ""} onChange={(e) => { setRuleFilter(e.target.value || null); setPage(1); }}>
                 <option value="">全部规则</option>
                 {rules.map((r) => (
                   <option key={r.id} value={r.id}>{priorityLabels[priorityOf(r.id)]}优先级 · {ruleShort[r.id]}</option>
                 ))}
-              </select>
+              </NativeSelect>
             </label>
           </div>
           {ruleFilter ? (
@@ -202,7 +203,7 @@ export default function ReportCard({ cardRef }) {
           <div className="v7-pagination">
             <span>总计：{rows.length}</span>
             <div className="row">
-              <select className="report-page-size" aria-label="每页条数" value={detailPageSize} onChange={e => {setDetailPageSize(Number(e.target.value));setPage(1);}}>{[10,20,50].map(size=><option key={size} value={size}>{size} 条/页</option>)}</select>
+              <NativeSelect className="report-page-size" aria-label="每页条数" value={detailPageSize} onChange={e => {setDetailPageSize(Number(e.target.value));setPage(1);}}>{[10,20,50].map(size=><option key={size} value={size}>{size} 条/页</option>)}</NativeSelect>
               <button className="btn report-page-arrow" aria-label="上一页" disabled={current === 1} onClick={() => setPage(current - 1)}><Ic icon="chevron-left"/></button>
               {near.map((n, i) => (
                 <span key={n} style={{ display: "contents" }}>

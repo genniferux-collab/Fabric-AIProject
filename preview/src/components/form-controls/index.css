@@ -1,0 +1,91 @@
+/* Pixso mWi6uLzz3CHYi05K6LePlw · 3:98236. Shared form primitives; layout widths stay with each view. */
+html{--control-border:#c9c9c9;--control-hover:#191919;--control-focus:#0067d1;--control-ring:#b8d9f9;--control-copy:#191919;--control-placeholder:#aeaeae;--control-icon:#595959;--control-menu:#fff;--control-disabled:#1919190d;--control-disabled-copy:#c9c9c9;--control-error:#e02128;--control-brand:#0067d1;--control-option-hover:#1919190f;--control-option-selected:#0067d10f}
+html.dark{--control-border:#777;--control-hover:#aeaeae;--control-focus:#2e86de;--control-ring:#002e6a;--control-copy:#fff;--control-placeholder:#939393;--control-icon:#aeaeae;--control-menu:#393939;--control-disabled:#f3f3f30d;--control-disabled-copy:#777;--control-error:#f24751;--control-option-hover:#f3f3f30f;--control-option-selected:#0067d126}
+.stage-root.pc-layout .ui-kit-select{position:relative;display:inline-flex;vertical-align:middle;flex:0 1 auto;width:100%;min-width:0;height:32px;box-sizing:border-box;color:var(--control-copy)}
+.stage-root.pc-layout .ui-kit-select>.ui-kit-trigger{position:relative;display:flex;align-items:center;gap:4px;width:100%;min-width:0;height:32px;box-sizing:border-box;padding:4px 33px 4px 11px;margin:0;border:1px solid var(--control-border);border-radius:4px;background:transparent;color:var(--control-copy);font-family:'HarmonyOS Sans SC',sans-serif;font-size:14px;font-weight:400;line-height:22px;text-align:left;cursor:pointer;outline:none;box-shadow:none;transition:border-color .15s,box-shadow .15s}
+.stage-root.pc-layout .ui-kit-trigger>span{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stage-root.pc-layout .ui-kit-trigger .is-placeholder{color:var(--control-placeholder)}
+.stage-root.pc-layout .ui-kit-select>.ui-kit-trigger:hover:where(:not(:disabled)){border-color:var(--control-hover)}
+.stage-root.pc-layout .ui-kit-select.is-open>.ui-kit-trigger,.stage-root.pc-layout .ui-kit-select>.ui-kit-trigger:focus-visible{border-color:var(--control-focus);box-shadow:0 0 0 1px var(--control-ring)}
+.stage-root.pc-layout .ui-kit-select>.ui-kit-trigger:disabled{border-color:var(--control-border);background:var(--control-disabled);color:var(--control-disabled-copy);cursor:not-allowed;box-shadow:none}
+.stage-root.pc-layout .ui-kit-select>.ui-kit-trigger[aria-invalid=true]{border-color:var(--control-error)}
+.stage-root.pc-layout .ui-kit-select .ui-kit-chevron{position:absolute;display:block;right:11px;top:10px;width:10px;height:10px;color:var(--control-icon);pointer-events:none;transition:transform .15s}
+.stage-root.pc-layout .ui-kit-select.is-open .ui-kit-chevron{transform:rotate(180deg)}
+.ui-kit-options{z-index:10000;display:flex;flex-direction:column;gap:4px;box-sizing:border-box;margin:0;padding:4px;border:0;border-radius:6px;overflow:auto;overscroll-behavior:contain;background:var(--control-menu);box-shadow:0 4px 12px #00000080;scrollbar-width:thin;scrollbar-color:#59595980 transparent}
+html:not(.dark) .ui-kit-options{box-shadow:0 4px 12px #00000029}
+.ui-kit-options>.ui-kit-option{display:flex;align-items:center;gap:4px;box-sizing:border-box;flex:none;width:100%;height:32px;min-height:32px;margin:0;padding:5px 8px;border:0;border-radius:4px;background:transparent;color:var(--control-copy);font-family:'HarmonyOS Sans SC',sans-serif;font-size:14px;font-weight:400;line-height:22px;text-align:left;cursor:pointer;outline:none}
+.ui-kit-option>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.ui-kit-options>.ui-kit-option.is-active{background:var(--control-option-hover)}
+.ui-kit-options>.ui-kit-option[aria-selected=true]{color:#5ca2e9;background:var(--control-option-selected)}
+html:not(.dark) .ui-kit-options>.ui-kit-option[aria-selected=true]{color:#0067d1}
+.ui-kit-options>.ui-kit-option:disabled{color:var(--control-disabled-copy);background:transparent;cursor:not-allowed}
+.uc3-kit-priority-dot{width:8px;height:8px;border-radius:50%;display:block;flex:none}
+/* Existing layout owners retain their width; the replacement selector only supplies the control skin. */
+.stage-root.pc-layout .uc3-edit-control .ui-kit-select{flex:1}
+.stage-root.pc-layout .uc1-rules-toolbar>.ui-kit-select{width:174px;max-width:35%;flex:none}
+.stage-root.pc-layout .uc1-pagination-controls>.ui-kit-select{width:154px;margin-right:4px;flex:none}
+.stage-root.pc-layout .baseline-rule-select{border:0;background:transparent}
+.stage-root.pc-layout .baseline-rule-select>.ui-kit-select{width:100%}
+.stage-root.pc-layout :is(.baseline-rule-select,.shell-mode)>.ic{display:none}
+.stage-root.pc-layout .baseline-pagination .ui-kit-select{width:110px;flex:none}
+.stage-root.pc-layout .v7-rule-select>.ui-kit-select{width:264px;max-width:100%}
+.stage-root.pc-layout .ui-kit-select.report-page-size{width:155px;padding:0;border:0;border-radius:4px;background:transparent}
+.stage-root.pc-layout .uc2-table-pagination .ui-kit-select.report-page-size{width:104px}
+.stage-root.pc-layout .shell-mode{padding:0;border:0;background:transparent;width:112px;height:32px}
+.stage-root.pc-layout .shell-mode>.ui-kit-select{width:100%}
+/* Shared search frames: 14px icon first, 4px gap, transparent surface. */
+html .stage-root.pc-layout :is(.search,.uc1-rules-search,.baseline-rule-search){display:flex;align-items:center;gap:4px;box-sizing:border-box;height:32px;padding:4px 11px;border:1px solid var(--control-border);border-radius:4px;background:transparent;box-shadow:none;transition:border-color .15s,box-shadow .15s}
+html .stage-root.pc-layout :is(#mappingCard,#reportCard,#devicePane,#uc2Report,#uc2ReportRuleList,#uc2RuleList) :is(.search.search,.baseline-rule-search){height:32px;padding:4px 11px;gap:4px;border:1px solid var(--control-border);border-radius:4px;background:transparent}
+html .stage-root.pc-layout :is(.search,.uc1-rules-search,.baseline-rule-search):hover{border-color:var(--control-hover)}
+html .stage-root.pc-layout :is(#mappingCard,#reportCard,#devicePane,#uc2Report,#uc2ReportRuleList,#uc2RuleList) :is(.search.search,.baseline-rule-search):hover{border-color:var(--control-hover)}
+html .stage-root.pc-layout :is(.search,.uc1-rules-search,.baseline-rule-search):focus-within{border-color:var(--control-focus);box-shadow:0 0 0 1px var(--control-ring)}
+html .stage-root.pc-layout :is(#mappingCard,#reportCard,#devicePane,#uc2Report,#uc2ReportRuleList,#uc2RuleList) :is(.search.search,.baseline-rule-search):focus-within{border-color:var(--control-focus);box-shadow:0 0 0 1px var(--control-ring)}
+html .stage-root.pc-layout :is(.search,.uc1-rules-search,.baseline-rule-search)>input,html .stage-root.pc-layout :is(#mappingCard,#reportCard,#devicePane,#uc2Report,#uc2ReportRuleList,#uc2RuleList) .search.search>input{flex:1;min-width:0;width:100%;height:22px;padding:0;border:0;border-radius:0;background:transparent;outline:none;box-shadow:none;color:var(--control-copy);font:400 14px/22px 'HarmonyOS Sans SC',sans-serif}
+html .stage-root.pc-layout :is(.search,.uc1-rules-search,.baseline-rule-search) input::placeholder{color:var(--control-placeholder);opacity:1}
+html .stage-root.pc-layout :is(.search,.uc1-rules-search,.baseline-rule-search)>.ic{width:14px;height:14px;flex:none;color:var(--control-icon)}
+/* Form fields, multi-line expression editors, navigation search and numeric page jump. */
+html .stage-root.pc-layout :is(.uc3-rule-editor input:not([type=radio]),.uc3-rule-editor textarea,.shell-search-panel>input,.uc1-page-jump>input){box-sizing:border-box;height:32px;padding:4px 11px;border:1px solid var(--control-border);border-radius:4px;background:transparent;color:var(--control-copy);font:400 14px/22px 'HarmonyOS Sans SC',sans-serif;outline:none;box-shadow:none}
+html .stage-root.pc-layout :is(.uc3-rule-editor input:not([type=radio]),.uc3-rule-editor textarea,.shell-search-panel>input,.uc1-page-jump>input)::placeholder{color:var(--control-placeholder);opacity:1}
+html .stage-root.pc-layout :is(.uc3-rule-editor input:not([type=radio]),.uc3-rule-editor textarea,.shell-search-panel>input,.uc1-page-jump>input):hover:where(:not(:disabled):not([readonly])){border-color:var(--control-hover)}
+html .stage-root.pc-layout :is(.uc3-rule-editor input:not([type=radio]),.uc3-rule-editor textarea,.shell-search-panel>input,.uc1-page-jump>input):focus{border-color:var(--control-focus);box-shadow:0 0 0 1px var(--control-ring);outline:none}
+html .stage-root.pc-layout .uc3-rule-editor .uc3-edit-expression textarea{height:64px;min-height:64px;resize:vertical;padding:5px 11px}
+html .stage-root.pc-layout :is(.uc3-rule-editor input,.uc3-rule-editor textarea)[aria-invalid=true]{border-color:var(--control-error)}
+html .stage-root.pc-layout :is(.uc3-rule-editor input,.uc3-rule-editor textarea):disabled{background:var(--control-disabled);color:var(--control-disabled-copy);cursor:not-allowed;border-color:var(--control-border);box-shadow:none}
+html .stage-root.pc-layout .uc3-rule-editor input[readonly]{background:var(--control-disabled);cursor:default}
+html .stage-root.pc-layout .uc1-page-jump{padding:0;border:0;background:transparent;gap:8px}
+html .stage-root.pc-layout .uc1-page-jump>input{width:48px;text-align:center}
+/* Native radio/checkbox semantics are retained, including the mixed state. */
+html .stage-root.pc-layout :is(.uc1-rules-canvas input[type=checkbox],.uc3-edit-condition-grid input[type=radio]){appearance:none;position:relative;display:inline-grid;place-items:center;box-sizing:border-box;flex:none;width:16px;height:16px;margin:0;padding:0;border:1px solid var(--control-border);background:transparent;outline:none;box-shadow:none;cursor:pointer}
+html .stage-root.pc-layout .uc1-rules-canvas input[type=checkbox]{border-radius:2px}
+html .stage-root.pc-layout .uc3-edit-condition-grid input[type=radio]{border-radius:50%}
+html .stage-root.pc-layout :is(.uc1-rules-canvas input[type=checkbox],.uc3-edit-condition-grid input[type=radio]):hover:where(:not(:disabled)){border-color:var(--control-hover)}
+html .stage-root.pc-layout :is(.uc1-rules-canvas input[type=checkbox],.uc3-edit-condition-grid input[type=radio]):is(:checked,:indeterminate){border-color:var(--control-brand);background:var(--control-brand)}
+html .stage-root.pc-layout .uc1-rules-canvas input[type=checkbox]:checked::after{content:'';width:8px;height:4px;border:0;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;background:transparent;transform:translateY(-1px) rotate(-45deg)}
+html .stage-root.pc-layout .uc1-rules-canvas input[type=checkbox]:indeterminate::after{content:'';width:8px;height:1px;border:0;background:#fff;transform:none}
+html .stage-root.pc-layout .uc3-edit-condition-grid input[type=radio]:checked::after{content:'';position:static;width:7px;height:7px;border-radius:50%;background:#fff;transform:none;box-shadow:0 0 4px #0006}
+html .stage-root.pc-layout :is(.uc1-rules-canvas input[type=checkbox],.uc3-edit-condition-grid input[type=radio]):focus-visible{outline:1px solid var(--control-focus);outline-offset:2px}
+html .stage-root.pc-layout .uc1-rules-canvas input[type=checkbox]:disabled{background:#595959;border-color:#777;cursor:not-allowed;opacity:.6}
+/* The LUI command composer has its own established geometry; share text/state colors only. */
+html .stage-root.pc-layout .composer textarea{font-size:14px;line-height:22px;color:var(--control-copy)}
+html .stage-root.pc-layout .composer textarea::placeholder{color:var(--control-placeholder);opacity:1}
+@container workspace (max-width:1000px){.stage-root.pc-layout .uc1-pagination-controls>.ui-kit-select{width:110px}}
+@media(prefers-reduced-motion:reduce){.stage-root.pc-layout .ui-kit-trigger,.stage-root.pc-layout .ui-kit-chevron{transition:none}}
+/* Compact segmented selectors in mapping and report TOP controls. */
+.stage-root.pc-layout .ui-kit-segmented,
+.stage-root.pc-layout #mappingCard.mapping-design .filters.ui-kit-segmented,
+.stage-root.pc-layout #reportCard.report-design .v7-lens.ui-kit-segmented{display:inline-flex;align-items:center;box-sizing:border-box;gap:4px;height:32px;padding:2px;border:0;border-radius:6px;background:#f3f3f333}
+.stage-root.pc-layout .ui-kit-segmented>button,
+.stage-root.pc-layout #mappingCard.mapping-design .filters.ui-kit-segmented>button,
+.stage-root.pc-layout #reportCard.report-design .v7-lens.ui-kit-segmented>button{display:flex;align-items:center;justify-content:center;box-sizing:border-box;gap:4px;height:28px;padding:3px 16px;border:0;border-radius:4px;color:#c9c9c9;background:transparent;font:400 14px/22px 'HarmonyOS Sans SC',sans-serif;white-space:nowrap}
+.stage-root.pc-layout .ui-kit-segmented>button:hover:not([aria-pressed=true]){background:var(--control-option-hover)}
+.stage-root.pc-layout .ui-kit-segmented>button[aria-pressed=true],
+.stage-root.pc-layout #mappingCard.mapping-design .filters.ui-kit-segmented>button[aria-pressed=true],
+.stage-root.pc-layout #reportCard.report-design .v7-lens.ui-kit-segmented>button[aria-pressed=true]{background:#0067d1;color:#fff;box-shadow:0 1px 6px #00000080}
+.stage-root.pc-layout .ui-kit-segmented>button:focus-visible{outline:1px solid var(--control-focus);outline-offset:1px}
+html:not(.dark) .stage-root.pc-layout .ui-kit-segmented{background:#1919190d}
+html:not(.dark) .stage-root.pc-layout .ui-kit-segmented>button:not([aria-pressed=true]){color:#595959}
+html .stage-root.pc-layout :is(.search,.uc1-rules-search,.baseline-rule-search):has(input:disabled){background:var(--control-disabled);border-color:var(--control-border);box-shadow:none;cursor:not-allowed}
+html .stage-root.pc-layout :is(.search,.uc1-rules-search,.baseline-rule-search) input:disabled{color:var(--control-disabled-copy);cursor:not-allowed}
+html .stage-root.pc-layout :is(.search,.uc1-rules-search,.baseline-rule-search):has(input[aria-invalid=true]){border-color:var(--control-error)}/* Old report selectors target the page-size class itself; remove that outer border after replacing native selects. */
+html .stage-root.pc-layout :is(#reportCard,#uc2Report,#uc2ReportRuleList,#uc2RuleList).report-design .ui-kit-select.report-page-size{height:32px;padding:0;border:0;border-radius:4px;background:transparent;box-shadow:none}
+html .stage-root.pc-layout :is(#reportCard,#uc2Report,#uc2ReportRuleList,#uc2RuleList) .ui-kit-select>.ui-kit-trigger:focus-visible{outline:none}

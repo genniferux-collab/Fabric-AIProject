@@ -11,3 +11,5 @@
 .network-region-scan-open{position:absolute;top:1.5%;right:.8%;width:3.2%;height:4.4%;padding:0;border:0;background:transparent;cursor:pointer;border-radius:var(--radius-base)}
 .network-region-scan-open:focus-visible{outline:var(--outline-width-focus) solid var(--focus-ring);outline-offset:var(--outline-offset-gap)}
 .network-region-scan-caption{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+@media(prefers-reduced-motion:reduce){.network-region-intelligence-pulses{display:none}}

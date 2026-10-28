@@ -9,6 +9,7 @@ import NetworkRegionScan from "../network-region-scan/index.jsx";
 
 const clamp = (n) => Math.max(0, Math.min(1, n));
 const ease = (n) => n * n * (3 - 2 * n);
+// Keep the original straight-sweep timing before focus and topology transitions.
 const REGION_DURATION = 2400, FOCUS_DURATION = 1600, TOPOLOGY_DURATION = 4000;
 const SCAN_DURATION = REGION_DURATION + FOCUS_DURATION + TOPOLOGY_DURATION;
 export default function NetworkOverview({ cardRef }) {

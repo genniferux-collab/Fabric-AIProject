@@ -26,6 +26,8 @@ import "./src/views/artifact-surfaces/index.css";
 import "./src/views/stage/typography.css";
 import "./src/views/device-pane/design.css";
 
+import "./src/components/form-controls/index.css";
+
 import { ConfigProvider } from "antd";
 import zhCN from "./assets/shared/antd-zh.js";
 import { AppProvider } from "./src/context.jsx";

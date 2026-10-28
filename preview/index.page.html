@@ -7839,6 +7839,99 @@ html:not(.dark) .stage-root.uc4 #devicePane .device-overview,html:not(.dark) .st
 .stage-root.uc4 #devicePane .v7-ssh-rollback{margin-top:12px}
 @container device-detail (max-width:1050px){.stage-root.uc4 #devicePane .device-workspace{grid-template-columns:300px minmax(0,1fr)}.stage-root.uc4 #devicePane .v13-rule-filters{gap:12px}.stage-root.uc4 #devicePane .v13-rule-filters button:first-child{padding-right:12px}.stage-root.uc4 #devicePane .v13-instance-card{flex:1 1 160px}.stage-root.uc4 #devicePane .v14-device-meta{gap:24px}}
 
+/* src/components/form-controls/index.css */
+/* Pixso mWi6uLzz3CHYi05K6LePlw · 3:98236. Shared form primitives; layout widths stay with each view. */
+html{--control-border:#c9c9c9;--control-hover:#191919;--control-focus:#0067d1;--control-ring:#b8d9f9;--control-copy:#191919;--control-placeholder:#aeaeae;--control-icon:#595959;--control-menu:#fff;--control-disabled:#1919190d;--control-disabled-copy:#c9c9c9;--control-error:#e02128;--control-brand:#0067d1;--control-option-hover:#1919190f;--control-option-selected:#0067d10f}
+html.dark{--control-border:#777;--control-hover:#aeaeae;--control-focus:#2e86de;--control-ring:#002e6a;--control-copy:#fff;--control-placeholder:#939393;--control-icon:#aeaeae;--control-menu:#393939;--control-disabled:#f3f3f30d;--control-disabled-copy:#777;--control-error:#f24751;--control-option-hover:#f3f3f30f;--control-option-selected:#0067d126}
+.stage-root.pc-layout .ui-kit-select{position:relative;display:inline-flex;vertical-align:middle;flex:0 1 auto;width:100%;min-width:0;height:32px;box-sizing:border-box;color:var(--control-copy)}
+.stage-root.pc-layout .ui-kit-select>.ui-kit-trigger{position:relative;display:flex;align-items:center;gap:4px;width:100%;min-width:0;height:32px;box-sizing:border-box;padding:4px 33px 4px 11px;margin:0;border:1px solid var(--control-border);border-radius:4px;background:transparent;color:var(--control-copy);font-family:'HarmonyOS Sans SC',sans-serif;font-size:14px;font-weight:400;line-height:22px;text-align:left;cursor:pointer;outline:none;box-shadow:none;transition:border-color .15s,box-shadow .15s}
+.stage-root.pc-layout .ui-kit-trigger>span{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stage-root.pc-layout .ui-kit-trigger .is-placeholder{color:var(--control-placeholder)}
+.stage-root.pc-layout .ui-kit-select>.ui-kit-trigger:hover:where(:not(:disabled)){border-color:var(--control-hover)}
+.stage-root.pc-layout .ui-kit-select.is-open>.ui-kit-trigger,.stage-root.pc-layout .ui-kit-select>.ui-kit-trigger:focus-visible{border-color:var(--control-focus);box-shadow:0 0 0 1px var(--control-ring)}
+.stage-root.pc-layout .ui-kit-select>.ui-kit-trigger:disabled{border-color:var(--control-border);background:var(--control-disabled);color:var(--control-disabled-copy);cursor:not-allowed;box-shadow:none}
+.stage-root.pc-layout .ui-kit-select>.ui-kit-trigger[aria-invalid=true]{border-color:var(--control-error)}
+.stage-root.pc-layout .ui-kit-select .ui-kit-chevron{position:absolute;display:block;right:11px;top:10px;width:10px;height:10px;color:var(--control-icon);pointer-events:none;transition:transform .15s}
+.stage-root.pc-layout .ui-kit-select.is-open .ui-kit-chevron{transform:rotate(180deg)}
+.ui-kit-options{z-index:10000;display:flex;flex-direction:column;gap:4px;box-sizing:border-box;margin:0;padding:4px;border:0;border-radius:6px;overflow:auto;overscroll-behavior:contain;background:var(--control-menu);box-shadow:0 4px 12px #00000080;scrollbar-width:thin;scrollbar-color:#59595980 transparent}
+html:not(.dark) .ui-kit-options{box-shadow:0 4px 12px #00000029}
+.ui-kit-options>.ui-kit-option{display:flex;align-items:center;gap:4px;box-sizing:border-box;flex:none;width:100%;height:32px;min-height:32px;margin:0;padding:5px 8px;border:0;border-radius:4px;background:transparent;color:var(--control-copy);font-family:'HarmonyOS Sans SC',sans-serif;font-size:14px;font-weight:400;line-height:22px;text-align:left;cursor:pointer;outline:none}
+.ui-kit-option>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.ui-kit-options>.ui-kit-option.is-active{background:var(--control-option-hover)}
+.ui-kit-options>.ui-kit-option[aria-selected=true]{color:#5ca2e9;background:var(--control-option-selected)}
+html:not(.dark) .ui-kit-options>.ui-kit-option[aria-selected=true]{color:#0067d1}
+.ui-kit-options>.ui-kit-option:disabled{color:var(--control-disabled-copy);background:transparent;cursor:not-allowed}
+.uc3-kit-priority-dot{width:8px;height:8px;border-radius:50%;display:block;flex:none}
+/* Existing layout owners retain their width; the replacement selector only supplies the control skin. */
+.stage-root.pc-layout .uc3-edit-control .ui-kit-select{flex:1}
+.stage-root.pc-layout .uc1-rules-toolbar>.ui-kit-select{width:174px;max-width:35%;flex:none}
+.stage-root.pc-layout .uc1-pagination-controls>.ui-kit-select{width:154px;margin-right:4px;flex:none}
+.stage-root.pc-layout .baseline-rule-select{border:0;background:transparent}
+.stage-root.pc-layout .baseline-rule-select>.ui-kit-select{width:100%}
+.stage-root.pc-layout :is(.baseline-rule-select,.shell-mode)>.ic{display:none}
+.stage-root.pc-layout .baseline-pagination .ui-kit-select{width:110px;flex:none}
+.stage-root.pc-layout .v7-rule-select>.ui-kit-select{width:264px;max-width:100%}
+.stage-root.pc-layout .ui-kit-select.report-page-size{width:155px;padding:0;border:0;border-radius:4px;background:transparent}
+.stage-root.pc-layout .uc2-table-pagination .ui-kit-select.report-page-size{width:104px}
+.stage-root.pc-layout .shell-mode{padding:0;border:0;background:transparent;width:112px;height:32px}
+.stage-root.pc-layout .shell-mode>.ui-kit-select{width:100%}
+/* Shared search frames: 14px icon first, 4px gap, transparent surface. */
+html .stage-root.pc-layout :is(.search,.uc1-rules-search,.baseline-rule-search){display:flex;align-items:center;gap:4px;box-sizing:border-box;height:32px;padding:4px 11px;border:1px solid var(--control-border);border-radius:4px;background:transparent;box-shadow:none;transition:border-color .15s,box-shadow .15s}
+html .stage-root.pc-layout :is(#mappingCard,#reportCard,#devicePane,#uc2Report,#uc2ReportRuleList,#uc2RuleList) :is(.search.search,.baseline-rule-search){height:32px;padding:4px 11px;gap:4px;border:1px solid var(--control-border);border-radius:4px;background:transparent}
+html .stage-root.pc-layout :is(.search,.uc1-rules-search,.baseline-rule-search):hover{border-color:var(--control-hover)}
+html .stage-root.pc-layout :is(#mappingCard,#reportCard,#devicePane,#uc2Report,#uc2ReportRuleList,#uc2RuleList) :is(.search.search,.baseline-rule-search):hover{border-color:var(--control-hover)}
+html .stage-root.pc-layout :is(.search,.uc1-rules-search,.baseline-rule-search):focus-within{border-color:var(--control-focus);box-shadow:0 0 0 1px var(--control-ring)}
+html .stage-root.pc-layout :is(#mappingCard,#reportCard,#devicePane,#uc2Report,#uc2ReportRuleList,#uc2RuleList) :is(.search.search,.baseline-rule-search):focus-within{border-color:var(--control-focus);box-shadow:0 0 0 1px var(--control-ring)}
+html .stage-root.pc-layout :is(.search,.uc1-rules-search,.baseline-rule-search)>input,html .stage-root.pc-layout :is(#mappingCard,#reportCard,#devicePane,#uc2Report,#uc2ReportRuleList,#uc2RuleList) .search.search>input{flex:1;min-width:0;width:100%;height:22px;padding:0;border:0;border-radius:0;background:transparent;outline:none;box-shadow:none;color:var(--control-copy);font:400 14px/22px 'HarmonyOS Sans SC',sans-serif}
+html .stage-root.pc-layout :is(.search,.uc1-rules-search,.baseline-rule-search) input::placeholder{color:var(--control-placeholder);opacity:1}
+html .stage-root.pc-layout :is(.search,.uc1-rules-search,.baseline-rule-search)>.ic{width:14px;height:14px;flex:none;color:var(--control-icon)}
+/* Form fields, multi-line expression editors, navigation search and numeric page jump. */
+html .stage-root.pc-layout :is(.uc3-rule-editor input:not([type=radio]),.uc3-rule-editor textarea,.shell-search-panel>input,.uc1-page-jump>input){box-sizing:border-box;height:32px;padding:4px 11px;border:1px solid var(--control-border);border-radius:4px;background:transparent;color:var(--control-copy);font:400 14px/22px 'HarmonyOS Sans SC',sans-serif;outline:none;box-shadow:none}
+html .stage-root.pc-layout :is(.uc3-rule-editor input:not([type=radio]),.uc3-rule-editor textarea,.shell-search-panel>input,.uc1-page-jump>input)::placeholder{color:var(--control-placeholder);opacity:1}
+html .stage-root.pc-layout :is(.uc3-rule-editor input:not([type=radio]),.uc3-rule-editor textarea,.shell-search-panel>input,.uc1-page-jump>input):hover:where(:not(:disabled):not([readonly])){border-color:var(--control-hover)}
+html .stage-root.pc-layout :is(.uc3-rule-editor input:not([type=radio]),.uc3-rule-editor textarea,.shell-search-panel>input,.uc1-page-jump>input):focus{border-color:var(--control-focus);box-shadow:0 0 0 1px var(--control-ring);outline:none}
+html .stage-root.pc-layout .uc3-rule-editor .uc3-edit-expression textarea{height:64px;min-height:64px;resize:vertical;padding:5px 11px}
+html .stage-root.pc-layout :is(.uc3-rule-editor input,.uc3-rule-editor textarea)[aria-invalid=true]{border-color:var(--control-error)}
+html .stage-root.pc-layout :is(.uc3-rule-editor input,.uc3-rule-editor textarea):disabled{background:var(--control-disabled);color:var(--control-disabled-copy);cursor:not-allowed;border-color:var(--control-border);box-shadow:none}
+html .stage-root.pc-layout .uc3-rule-editor input[readonly]{background:var(--control-disabled);cursor:default}
+html .stage-root.pc-layout .uc1-page-jump{padding:0;border:0;background:transparent;gap:8px}
+html .stage-root.pc-layout .uc1-page-jump>input{width:48px;text-align:center}
+/* Native radio/checkbox semantics are retained, including the mixed state. */
+html .stage-root.pc-layout :is(.uc1-rules-canvas input[type=checkbox],.uc3-edit-condition-grid input[type=radio]){appearance:none;position:relative;display:inline-grid;place-items:center;box-sizing:border-box;flex:none;width:16px;height:16px;margin:0;padding:0;border:1px solid var(--control-border);background:transparent;outline:none;box-shadow:none;cursor:pointer}
+html .stage-root.pc-layout .uc1-rules-canvas input[type=checkbox]{border-radius:2px}
+html .stage-root.pc-layout .uc3-edit-condition-grid input[type=radio]{border-radius:50%}
+html .stage-root.pc-layout :is(.uc1-rules-canvas input[type=checkbox],.uc3-edit-condition-grid input[type=radio]):hover:where(:not(:disabled)){border-color:var(--control-hover)}
+html .stage-root.pc-layout :is(.uc1-rules-canvas input[type=checkbox],.uc3-edit-condition-grid input[type=radio]):is(:checked,:indeterminate){border-color:var(--control-brand);background:var(--control-brand)}
+html .stage-root.pc-layout .uc1-rules-canvas input[type=checkbox]:checked::after{content:'';width:8px;height:4px;border:0;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;background:transparent;transform:translateY(-1px) rotate(-45deg)}
+html .stage-root.pc-layout .uc1-rules-canvas input[type=checkbox]:indeterminate::after{content:'';width:8px;height:1px;border:0;background:#fff;transform:none}
+html .stage-root.pc-layout .uc3-edit-condition-grid input[type=radio]:checked::after{content:'';position:static;width:7px;height:7px;border-radius:50%;background:#fff;transform:none;box-shadow:0 0 4px #0006}
+html .stage-root.pc-layout :is(.uc1-rules-canvas input[type=checkbox],.uc3-edit-condition-grid input[type=radio]):focus-visible{outline:1px solid var(--control-focus);outline-offset:2px}
+html .stage-root.pc-layout .uc1-rules-canvas input[type=checkbox]:disabled{background:#595959;border-color:#777;cursor:not-allowed;opacity:.6}
+/* The LUI command composer has its own established geometry; share text/state colors only. */
+html .stage-root.pc-layout .composer textarea{font-size:14px;line-height:22px;color:var(--control-copy)}
+html .stage-root.pc-layout .composer textarea::placeholder{color:var(--control-placeholder);opacity:1}
+@container workspace (max-width:1000px){.stage-root.pc-layout .uc1-pagination-controls>.ui-kit-select{width:110px}}
+@media(prefers-reduced-motion:reduce){.stage-root.pc-layout .ui-kit-trigger,.stage-root.pc-layout .ui-kit-chevron{transition:none}}
+/* Compact segmented selectors in mapping and report TOP controls. */
+.stage-root.pc-layout .ui-kit-segmented,
+.stage-root.pc-layout #mappingCard.mapping-design .filters.ui-kit-segmented,
+.stage-root.pc-layout #reportCard.report-design .v7-lens.ui-kit-segmented{display:inline-flex;align-items:center;box-sizing:border-box;gap:4px;height:32px;padding:2px;border:0;border-radius:6px;background:#f3f3f333}
+.stage-root.pc-layout .ui-kit-segmented>button,
+.stage-root.pc-layout #mappingCard.mapping-design .filters.ui-kit-segmented>button,
+.stage-root.pc-layout #reportCard.report-design .v7-lens.ui-kit-segmented>button{display:flex;align-items:center;justify-content:center;box-sizing:border-box;gap:4px;height:28px;padding:3px 16px;border:0;border-radius:4px;color:#c9c9c9;background:transparent;font:400 14px/22px 'HarmonyOS Sans SC',sans-serif;white-space:nowrap}
+.stage-root.pc-layout .ui-kit-segmented>button:hover:not([aria-pressed=true]){background:var(--control-option-hover)}
+.stage-root.pc-layout .ui-kit-segmented>button[aria-pressed=true],
+.stage-root.pc-layout #mappingCard.mapping-design .filters.ui-kit-segmented>button[aria-pressed=true],
+.stage-root.pc-layout #reportCard.report-design .v7-lens.ui-kit-segmented>button[aria-pressed=true]{background:#0067d1;color:#fff;box-shadow:0 1px 6px #00000080}
+.stage-root.pc-layout .ui-kit-segmented>button:focus-visible{outline:1px solid var(--control-focus);outline-offset:1px}
+html:not(.dark) .stage-root.pc-layout .ui-kit-segmented{background:#1919190d}
+html:not(.dark) .stage-root.pc-layout .ui-kit-segmented>button:not([aria-pressed=true]){color:#595959}
+html .stage-root.pc-layout :is(.search,.uc1-rules-search,.baseline-rule-search):has(input:disabled){background:var(--control-disabled);border-color:var(--control-border);box-shadow:none;cursor:not-allowed}
+html .stage-root.pc-layout :is(.search,.uc1-rules-search,.baseline-rule-search) input:disabled{color:var(--control-disabled-copy);cursor:not-allowed}
+html .stage-root.pc-layout :is(.search,.uc1-rules-search,.baseline-rule-search):has(input[aria-invalid=true]){border-color:var(--control-error)}/* Old report selectors target the page-size class itself; remove that outer border after replacing native selects. */
+html .stage-root.pc-layout :is(#reportCard,#uc2Report,#uc2ReportRuleList,#uc2RuleList).report-design .ui-kit-select.report-page-size{height:32px;padding:0;border:0;border-radius:4px;background:transparent;box-shadow:none}
+html .stage-root.pc-layout :is(#reportCard,#uc2Report,#uc2ReportRuleList,#uc2RuleList) .ui-kit-select>.ui-kit-trigger:focus-visible{outline:none}
+
 /* src/views/top-bar/shell.css */
 /* Pixso 13:7517: fixed 48px navigation shell; workspace offsets are unchanged. */
 .stage-root.pc-layout .top.shell-top{height:48px;padding:0 32px;gap:24px;background:#191919;border-bottom:1px solid rgba(243,243,243,.15);z-index:12}
@@ -8936,6 +9029,8 @@ body:has(.stage-root) #lui.lui-welcome,body:has(.stage-root) #lui.lui-welcome *{
 .network-region-scan-open:focus-visible{outline:var(--outline-width-focus) solid var(--focus-ring);outline-offset:var(--outline-offset-gap)}
 .network-region-scan-caption{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 
+@media(prefers-reduced-motion:reduce){.network-region-intelligence-pulses{display:none}}
+
 /* src/views/mapping-card/design.css */
 /* Pixso 8:522844. Scoped to mapping content; canvas frame rules stay shared. */
 .stage-root.uc4 #mappingCard.mapping-design{--mapping-column:33.305921%;--mapping-green:#329d7c}
@@ -9780,7 +9875,7 @@ html:not(.dark) .uc2-device-item.selected{background:#e4f1ff}
 .stage-root.uc3 .uc3-graph-node.pass{border-color:#308365}
 .stage-root.uc3 .uc3-graph-node.pass header{background:#36c18d26}.stage-root.uc3 .uc3-graph-node.pass header svg{color:#36c18d}
 .stage-root.uc3 .uc3-graph-node[aria-label="整份配置结果"]{min-height:106px}.stage-root.uc3 .uc3-graph-node[aria-label="整份配置结果"] .uc3-graph-node-body{height:52px;min-height:52px}
-.stage-root.uc3 .uc3-edge-label{position:absolute;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:24px;height:24px;padding:1px 5px;font-size:12px;line-height:20px;color:#fff;background:#f3f3f333;border-radius:4px;white-space:nowrap}
+.stage-root.uc3 .uc3-edge-label{position:absolute;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:24px;height:24px;padding:1px 5px;font-size:12px;line-height:20px;color:#fff;background:#f3f3f333;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-radius:4px;white-space:nowrap}
 .stage-root.uc3 .uc3-edge-label>span{display:block;flex:none;line-height:20px;height:20px}
 .stage-root.uc3 .uc3-edge-label.pill{width:86px;height:22px;border-radius:12px;padding:1px 8px}
 .stage-root.uc3 .uc3-rule-evidence>h3{margin:0 0 16px;font-size:14px;line-height:22px;color:#fff;font-weight:500}
@@ -9880,10 +9975,10 @@ html.dark .stage-root.uc1 .canvas .card.uc1-rules-canvas:hover:has(:is(button,a[
 /* Skeletons reserve the final geometry while the answer streams. */
 .stage-root.uc1 .uc1-rules-canvas .is-skeleton{position:relative;overflow:hidden;pointer-events:none;border-color:transparent!important;background:rgba(57,57,57,.5)!important}
 .stage-root.uc1 .uc1-rules-canvas .is-skeleton>*{visibility:hidden}
-.stage-root.uc1 .uc1-rules-canvas .is-skeleton::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 20%,#ffffff09 45%,#ffffff15 50%,#ffffff09 55%,transparent 80%);transform:translateX(-100%);animation:uc1-skeleton-shimmer 1.6s ease-in-out infinite}
+.stage-root.uc1 .uc1-rules-canvas .is-skeleton::after{content:'';position:absolute;inset:0;background:#ffffff03;animation:uc1-skeleton-breathe 3.2s ease-in-out infinite}
 .stage-root.uc1 .uc1-rule-row.is-skeleton::before{content:'';position:absolute;inset:16px;border-radius:4px;background:linear-gradient(#ffffff0a,#ffffff0a) 0 0/45% 16px no-repeat,linear-gradient(#ffffff08,#ffffff08) 0 36px/90% 12px no-repeat,linear-gradient(#ffffff08,#ffffff08) 0 60px/75% 12px no-repeat}
 .stage-root.uc1 .uc1-rules-canvas .is-revealed{animation:uc1-content-reveal .3s ease-out both}
-@keyframes uc1-skeleton-shimmer{to{transform:translateX(100%)}}
+@keyframes uc1-skeleton-breathe{0%,100%{opacity:.2}50%{opacity:.65}}
 @keyframes uc1-content-reveal{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.stage-root.uc1 .uc1-rules-canvas :is(.is-skeleton::after,.is-revealed){animation:none}}
 
@@ -59468,7 +59563,7 @@ const LUCIDE={
 (function(){
 const modules={},cache={};
 const external={"react":React,"react-dom":ReactDOM,"react-dom/client":ReactDOM,"antd":antd,"react-intl":ReactIntl,"dayjs":dayjs,"react/jsx-runtime":ReactJsxRuntime};
-modules["app.jsx"]={deps:{"./src/views/stage/index.css":"src/views/stage/index.css","./src/views/top-bar/index.css":"src/views/top-bar/index.css","./src/views/cockpit/index.css":"src/views/cockpit/index.css","./src/views/lui-panel/index.css":"src/views/lui-panel/index.css","./src/views/canvas-area/index.css":"src/views/canvas-area/index.css","./src/views/network-overview/index.css":"src/views/network-overview/index.css","./src/views/mapping-card/index.css":"src/views/mapping-card/index.css","./src/views/report-card/index.css":"src/views/report-card/index.css","./src/views/device-pane/index.css":"src/views/device-pane/index.css","./src/views/uc2-canvas/uc2.css":"src/views/uc2-canvas/uc2.css","./src/views/uc4-sync.css":"src/views/uc4-sync.css","./src/views/process-animation.css":"src/views/process-animation.css","./src/views/stage/desktop.css":"src/views/stage/desktop.css","./src/views/cockpit/responsive.css":"src/views/cockpit/responsive.css","./src/views/artifact-surfaces/index.css":"src/views/artifact-surfaces/index.css","./src/views/stage/typography.css":"src/views/stage/typography.css","./src/views/device-pane/design.css":"src/views/device-pane/design.css","./assets/shared/antd-zh.js":"assets/shared/antd-zh.js","./src/context.jsx":"src/context.jsx","./src/views/stage/index.jsx":"src/views/stage/index.jsx"},run:function(require,module,exports){
+modules["app.jsx"]={deps:{"./src/views/stage/index.css":"src/views/stage/index.css","./src/views/top-bar/index.css":"src/views/top-bar/index.css","./src/views/cockpit/index.css":"src/views/cockpit/index.css","./src/views/lui-panel/index.css":"src/views/lui-panel/index.css","./src/views/canvas-area/index.css":"src/views/canvas-area/index.css","./src/views/network-overview/index.css":"src/views/network-overview/index.css","./src/views/mapping-card/index.css":"src/views/mapping-card/index.css","./src/views/report-card/index.css":"src/views/report-card/index.css","./src/views/device-pane/index.css":"src/views/device-pane/index.css","./src/views/uc2-canvas/uc2.css":"src/views/uc2-canvas/uc2.css","./src/views/uc4-sync.css":"src/views/uc4-sync.css","./src/views/process-animation.css":"src/views/process-animation.css","./src/views/stage/desktop.css":"src/views/stage/desktop.css","./src/views/cockpit/responsive.css":"src/views/cockpit/responsive.css","./src/views/artifact-surfaces/index.css":"src/views/artifact-surfaces/index.css","./src/views/stage/typography.css":"src/views/stage/typography.css","./src/views/device-pane/design.css":"src/views/device-pane/design.css","./src/components/form-controls/index.css":"src/components/form-controls/index.css","./assets/shared/antd-zh.js":"assets/shared/antd-zh.js","./src/context.jsx":"src/context.jsx","./src/views/stage/index.jsx":"src/views/stage/index.jsx"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -59492,10 +59587,11 @@ require("./src/views/cockpit/responsive.css");
 require("./src/views/artifact-surfaces/index.css");
 require("./src/views/stage/typography.css");
 require("./src/views/device-pane/design.css");
+require("./src/components/form-controls/index.css");
 var _antd = require("antd");
 var _antdZh = _interopRequireDefault(require("./assets/shared/antd-zh.js"));
 var _context = require("./src/context.jsx");
-var _index1 = _interopRequireDefault(require("./src/views/stage/index.jsx"));
+var _index10 = _interopRequireDefault(require("./src/views/stage/index.jsx"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 // App entry — HCS1 基线合规检查 · 智能画布（由 config-agent-merged.html 迁移）
 // Layering convention:
@@ -59514,7 +59610,7 @@ function App() {
     wave: {
       disabled: true
     }
-  }, /*#__PURE__*/React.createElement(_index1.default, null)));
+  }, /*#__PURE__*/React.createElement(_index10.default, null)));
 }
 }};
 modules["assets/shared/antd-zh.js"]={deps:{},run:function(require,module,exports){
@@ -62769,13 +62865,14 @@ function Stage() {
   }, toastText)));
 }
 }};
-modules["src/views/top-bar/index.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","./shell.css":"src/views/top-bar/shell.css"},run:function(require,module,exports){
+modules["src/views/top-bar/index.jsx"]={deps:{"../../components/form-controls/select.jsx":"src/components/form-controls/select.jsx","../../context.jsx":"src/context.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","./shell.css":"src/views/top-bar/shell.css"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = TopBar;
+var _select = require("../../components/form-controls/select.jsx");
 var _react = require("react");
 var _context = require("../../context.jsx");
 var _index = _interopRequireDefault(require("../../components/icon-el/index.jsx"));
@@ -62862,7 +62959,7 @@ function TopBar() {
     className: "right"
   }, /*#__PURE__*/React.createElement("label", {
     className: "shell-mode"
-  }, /*#__PURE__*/React.createElement("select", {
+  }, /*#__PURE__*/React.createElement(_select.NativeSelect, {
     "aria-label": "驾驶模式",
     defaultValue: "auto"
   }, /*#__PURE__*/React.createElement("option", {
@@ -62930,6 +63027,244 @@ function TopBar() {
     height: "20",
     alt: ""
   }), /*#__PURE__*/React.createElement("span", null, "Admin"))));
+}
+}};
+modules["src/components/form-controls/select.jsx"]={deps:{},run:function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.NativeSelect = NativeSelect;
+exports.default = Select;
+var _react = require("react");
+var _reactDom = require("react-dom");
+const text = value => Array.isArray(value) ? value.map(text).join('') : value?.props ? text(value.props.children) : String(value ?? '');
+const priorityColor = value => String(value).includes('最高') || value === '高优先级' ? '#f24751' : value === '中优先级' ? '#f59313' : '#939393';
+
+// Shared Pixso selector. The panel is portaled so card/table overflow cannot clip it.
+function Select({
+  label,
+  value,
+  onChange,
+  options,
+  priority = false,
+  disabled = false,
+  id: providedId,
+  className = '',
+  style,
+  placeholder = '请选择',
+  invalid = false
+}) {
+  const root = (0, _react.useRef)(null),
+    trigger = (0, _react.useRef)(null),
+    list = (0, _react.useRef)(null),
+    search = (0, _react.useRef)({
+      value: '',
+      at: 0
+    });
+  const uid = (0, _react.useId)(),
+    id = providedId || uid;
+  const [open, setOpen] = (0, _react.useState)(false),
+    [active, setActive] = (0, _react.useState)(0),
+    [position, setPosition] = (0, _react.useState)({});
+  const items = options.map(item => typeof item === 'string' ? {
+      value: item,
+      label: item
+    } : item),
+    selected = items.findIndex(item => String(item.value) === String(value));
+  const enabled = items.map((item, index) => !item.disabled ? index : -1).filter(index => index >= 0);
+  (0, _react.useEffect)(() => {
+    if (!open) return;
+    const outside = e => {
+      if (!root.current?.contains(e.target) && !list.current?.contains(e.target)) setOpen(false);
+    };
+    const scroll = e => {
+      if (!list.current?.contains(e.target)) setOpen(false);
+    };
+    document.addEventListener('pointerdown', outside);
+    document.addEventListener('scroll', scroll, true);
+    window.addEventListener('resize', scroll);
+    return () => {
+      document.removeEventListener('pointerdown', outside);
+      document.removeEventListener('scroll', scroll, true);
+      window.removeEventListener('resize', scroll);
+    };
+  }, [open]);
+  (0, _react.useEffect)(() => {
+    if (open) list.current?.children[active]?.scrollIntoView({
+      block: 'nearest'
+    });
+  }, [open, active]);
+  (0, _react.useEffect)(() => {
+    if (disabled) setOpen(false);
+  }, [disabled]);
+  const show = () => {
+    if (disabled || !enabled.length) return;
+    const rect = trigger.current.getBoundingClientRect(),
+      height = Math.min(items.length * 36 + 8, 248),
+      up = window.innerHeight - rect.bottom < height + 8 && rect.top > height + 8;
+    setPosition({
+      position: 'fixed',
+      left: Math.min(rect.left, window.innerWidth - rect.width - 8),
+      width: rect.width,
+      maxHeight: Math.min(248, Math.max(80, (up ? rect.top : window.innerHeight - rect.bottom) - 12)),
+      ...(up ? {
+        bottom: window.innerHeight - rect.top + 4
+      } : {
+        top: rect.bottom + 4
+      })
+    });
+    setActive(selected >= 0 && !items[selected].disabled ? selected : enabled[0]);
+    setOpen(true);
+  };
+  const choose = index => {
+    if (!items[index] || items[index].disabled) return;
+    onChange(items[index].value);
+    setOpen(false);
+    trigger.current?.focus({
+      preventScroll: true
+    });
+  };
+  const keyboard = e => {
+    if (e.key === 'Escape') {
+      setOpen(false);
+      e.stopPropagation();
+      return;
+    }
+    if (e.key === 'Tab') {
+      setOpen(false);
+      return;
+    }
+    if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) {
+      e.preventDefault();
+      if (!open) {
+        show();
+        if (e.key === 'End') setActive(enabled.at(-1));
+        return;
+      }
+      setActive(i => e.key === 'Home' ? enabled[0] : e.key === 'End' ? enabled.at(-1) : enabled[(enabled.indexOf(i) + (e.key === 'ArrowDown' ? 1 : -1) + enabled.length) % enabled.length]);
+      return;
+    }
+    if ((e.key === 'Enter' || e.key === ' ') && open) {
+      e.preventDefault();
+      choose(active);
+      return;
+    }
+    if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey && e.key !== ' ') {
+      const now = Date.now();
+      search.current = {
+        value: (now - search.current.at < 700 ? search.current.value : '') + e.key.toLowerCase(),
+        at: now
+      };
+      const found = items.findIndex(item => !item.disabled && text(item.label).toLowerCase().startsWith(search.current.value));
+      if (found >= 0) {
+        if (open) setActive(found);else choose(found);
+      }
+    }
+  };
+  return /*#__PURE__*/React.createElement("span", {
+    ref: root,
+    className: 'ui-kit-select uc3-kit-select ' + className + (open ? ' is-open' : '') + (disabled ? ' is-disabled' : ''),
+    style: style
+  }, /*#__PURE__*/React.createElement("button", {
+    ref: trigger,
+    id: id,
+    type: "button",
+    className: "ui-kit-trigger uc3-kit-trigger",
+    role: "combobox",
+    "aria-label": label,
+    "aria-expanded": open,
+    "aria-haspopup": "listbox",
+    "aria-controls": open ? id + '-options' : undefined,
+    "aria-activedescendant": open ? id + '-' + active : undefined,
+    "aria-invalid": invalid || undefined,
+    disabled: disabled,
+    onKeyDown: keyboard,
+    onBlur: e => {
+      if (!root.current?.contains(e.relatedTarget) && !list.current?.contains(e.relatedTarget)) setOpen(false);
+    },
+    onClick: () => open ? setOpen(false) : show()
+  }, priority && /*#__PURE__*/React.createElement("i", {
+    className: "uc3-kit-priority-dot",
+    style: {
+      background: priorityColor(value)
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    className: selected < 0 ? 'is-placeholder' : undefined,
+    title: text(items[selected]?.label || value || placeholder)
+  }, items[selected]?.label ?? (value || placeholder)), /*#__PURE__*/React.createElement("svg", {
+    className: "ui-kit-chevron uc3-kit-chevron",
+    width: "10",
+    height: "10",
+    viewBox: "0 0 10.0042 10",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M9.86304 2.98398L5.36304 7.67963C5.24271 7.79495 5.10859 7.8664 4.99076 7.86389C4.87294 7.86139 4.75637 7.79997 4.64105 7.67963L0.141049 2.98398C-0.0526843 2.78183 -0.0460661 2.47077 0.156091 2.27704C0.358247 2.0833 0.669304 2.08992 0.863037 2.29208L5.00204 6.61104L9.14105 2.29208C9.33478 2.08992 9.64584 2.0833 9.848 2.27704C10.0502 2.47077 10.0568 2.78183 9.86304 2.98398Z",
+    fill: "currentColor"
+  }))), open && /*#__PURE__*/(0, _reactDom.createPortal)(/*#__PURE__*/React.createElement("span", {
+    ref: list,
+    id: id + '-options',
+    className: "ui-kit-options",
+    style: position,
+    role: "listbox",
+    "aria-label": label + '选项'
+  }, items.map((item, index) => /*#__PURE__*/React.createElement("button", {
+    key: item.value,
+    type: "button",
+    id: id + '-' + index,
+    role: "option",
+    "aria-selected": String(item.value) === String(value),
+    disabled: item.disabled,
+    tabIndex: -1,
+    className: 'ui-kit-option' + (active === index ? ' is-active' : ''),
+    onPointerEnter: () => !item.disabled && setActive(index),
+    onMouseDown: e => e.preventDefault(),
+    onClick: () => choose(index)
+  }, priority && /*#__PURE__*/React.createElement("i", {
+    className: "uc3-kit-priority-dot",
+    style: {
+      background: priorityColor(item.value)
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    title: text(item.label)
+  }, item.label)))), document.body));
+}
+
+// Keep the existing native-select event contract and option data when migrating views.
+function NativeSelect({
+  children,
+  onChange,
+  value,
+  defaultValue,
+  'aria-label': label,
+  ...props
+}) {
+  const [internal, setInternal] = (0, _react.useState)(defaultValue);
+  const options = _react.Children.toArray(children).filter(child => child?.type === 'option').map(child => ({
+    value: child.props.value ?? text(child.props.children),
+    label: child.props.children,
+    disabled: child.props.disabled
+  }));
+  return /*#__PURE__*/React.createElement(Select, {
+    ...props,
+    label: label,
+    value: value ?? internal ?? options[0]?.value,
+    options: options,
+    onChange: next => {
+      setInternal(next);
+      onChange?.({
+        target: {
+          value: String(next),
+          name: props.name
+        },
+        currentTarget: {
+          value: String(next),
+          name: props.name
+        }
+      });
+    }
+  });
 }
 }};
 modules["src/components/icon-el/index.jsx"]={deps:{"../../../assets/shared/icon.jsx":"assets/shared/icon.jsx"},run:function(require,module,exports){
@@ -73665,6 +74000,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 const clamp = n => Math.max(0, Math.min(1, n));
 const ease = n => n * n * (3 - 2 * n);
+// Keep the original straight-sweep timing before focus and topology transitions.
 const REGION_DURATION = 2400,
   FOCUS_DURATION = 1600,
   TOPOLOGY_DURATION = 4000;
@@ -74115,6 +74451,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = NetworkRegionScan;
+var _react = require("react");
 require("./index.css");
 // Region and topology exports retain their own coordinates inside one stable card.
 function NetworkRegionScan({
@@ -74122,7 +74459,9 @@ function NetworkRegionScan({
   lockProgress = 0,
   topologyProgress = 0
 }) {
-  const offset = -80 + Math.max(0, Math.min(1, progress)) * 638;
+  const pulseId = 'region-pulse-' + (0, _react.useId)().replace(/:/g, '');
+  const scanProgress = Math.max(0, Math.min(1, progress));
+  const offset = -80 + scanProgress * 638;
   const blend = Math.max(0, Math.min(1, lockProgress));
   const topologyBlend = Math.max(0, Math.min(1, topologyProgress));
   const locked = blend > 0;
@@ -74141,22 +74480,84 @@ function NetworkRegionScan({
     role: "img",
     "aria-label": description
   }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
-    id: "region-scan-sweep",
+    id: pulseId + '-palette',
+    x1: "0",
+    y1: "0",
+    x2: "1",
+    y2: "0"
+  }, /*#__PURE__*/React.createElement("stop", {
+    stopColor: "#288cff"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: ".3",
+    stopColor: "#9169f5"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: ".6",
+    stopColor: "#b428f0"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: ".86",
+    stopColor: "#ee4b73"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "1",
+    stopColor: "#f4a05b"
+  })), /*#__PURE__*/React.createElement("linearGradient", {
+    id: pulseId + '-fade',
     x1: "0",
     y1: "0",
     x2: "0",
     y2: "1"
   }, /*#__PURE__*/React.createElement("stop", {
-    stopColor: "#5ca2e9",
+    stopColor: "white",
     stopOpacity: "0"
   }), /*#__PURE__*/React.createElement("stop", {
+    offset: ".45",
+    stopColor: "white",
+    stopOpacity: ".18"
+  }), /*#__PURE__*/React.createElement("stop", {
     offset: ".9",
-    stopColor: "#5ca2e9",
-    stopOpacity: ".13"
+    stopColor: "white",
+    stopOpacity: ".7"
   }), /*#__PURE__*/React.createElement("stop", {
     offset: "1",
-    stopColor: "#b9dfff",
-    stopOpacity: ".3"
+    stopColor: "white",
+    stopOpacity: "1"
+  })), /*#__PURE__*/React.createElement("pattern", {
+    id: pulseId + '-grid',
+    patternUnits: "userSpaceOnUse",
+    width: "10",
+    height: "10"
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: "4",
+    y: "4",
+    width: "2",
+    height: "2",
+    rx: ".3",
+    fill: "white"
+  })), /*#__PURE__*/React.createElement("mask", {
+    id: pulseId + '-tail',
+    maskUnits: "userSpaceOnUse",
+    x: "73",
+    y: "0",
+    width: "1083",
+    height: "82"
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: "73",
+    y: "0",
+    width: "1083",
+    height: "82",
+    fill: 'url(#' + pulseId + '-fade)'
+  })), /*#__PURE__*/React.createElement("mask", {
+    id: pulseId + '-dots',
+    maskUnits: "userSpaceOnUse",
+    x: "73",
+    y: "0",
+    width: "1083",
+    height: "82"
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: "73",
+    y: "0",
+    width: "1083",
+    height: "82",
+    fill: 'url(#' + pulseId + '-grid)'
   })), /*#__PURE__*/React.createElement("clipPath", {
     id: "region-floor-clip"
   }, /*#__PURE__*/React.createElement("rect", {
@@ -74172,13 +74573,36 @@ function NetworkRegionScan({
     href: "./assets/uploads/network-regions-v2.svg",
     width: "1232",
     height: "909"
-  }), /*#__PURE__*/React.createElement("rect", {
+  }), /*#__PURE__*/React.createElement("g", {
+    className: "network-region-intelligence-pulses network-region-smart-sweep",
+    "aria-hidden": "true",
+    transform: 'translate(0 ' + (154 + offset) + ')'
+  }, /*#__PURE__*/React.createElement("g", {
+    mask: 'url(#' + pulseId + '-tail)'
+  }, /*#__PURE__*/React.createElement("rect", {
     x: "73",
-    y: 154 + offset,
+    y: "0",
     width: "1083",
     height: "82",
-    fill: "url(#region-scan-sweep)"
-  })), /*#__PURE__*/React.createElement("image", {
+    fill: 'url(#' + pulseId + '-palette)',
+    opacity: ".18"
+  }), /*#__PURE__*/React.createElement("g", {
+    mask: 'url(#' + pulseId + '-dots)'
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: "73",
+    y: "0",
+    width: "1083",
+    height: "80",
+    fill: 'url(#' + pulseId + '-palette)',
+    opacity: ".62"
+  }))), /*#__PURE__*/React.createElement("rect", {
+    x: "73",
+    y: "80.8",
+    width: "1083",
+    height: "1.2",
+    fill: 'url(#' + pulseId + '-palette)',
+    opacity: ".42"
+  }))), /*#__PURE__*/React.createElement("image", {
     href: "./assets/uploads/network-regions-locked-v2.svg",
     width: "1232",
     height: "909",
@@ -74867,7 +75291,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = SearchInput;
 var _index = _interopRequireDefault(require("../icon-el/index.jsx"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-// 搜索输入原子组件（.search 结构：input + 搜索图标，可选清空钮）
+// 搜索输入原子组件（.search 结构：搜索图标 + input，可选清空钮）
 // 受控组件：value + onChange(value)
 function SearchInput({
   id,
@@ -74880,7 +75304,9 @@ function SearchInput({
 }) {
   return /*#__PURE__*/React.createElement("label", {
     className: "search" + (className ? " " + className : "")
-  }, /*#__PURE__*/React.createElement("input", {
+  }, /*#__PURE__*/React.createElement(_index.default, {
+    icon: "search"
+  }), /*#__PURE__*/React.createElement("input", {
     id: id,
     placeholder: placeholder,
     "aria-label": ariaLabel,
@@ -74898,9 +75324,7 @@ function SearchInput({
     onClick: () => onChange("")
   }, /*#__PURE__*/React.createElement(_index.default, {
     icon: "x"
-  })) : null, /*#__PURE__*/React.createElement(_index.default, {
-    icon: "search"
-  }));
+  })) : null);
 }
 }};
 modules["src/components/option-group/index.jsx"]={deps:{},run:function(require,module,exports){
@@ -74923,7 +75347,7 @@ function OptionGroup({
   renderOption
 }) {
   return /*#__PURE__*/React.createElement("div", {
-    className: cls,
+    className: cls + (["filters", "v7-lens"].includes(cls) ? " ui-kit-segmented" : ""),
     role: "group",
     "aria-label": ariaLabel
   }, options.map(opt => {
@@ -74939,7 +75363,7 @@ function OptionGroup({
   }));
 }
 }};
-modules["src/views/report-card/index.jsx"]={deps:{"../../mock/uc4-completion.js":"src/mock/uc4-completion.js","../lui-panel/motion.jsx":"src/views/lui-panel/motion.jsx","./generation.css":"src/views/report-card/generation.css","../../components/artifact-open/index.jsx":"src/components/artifact-open/index.jsx","../../context.jsx":"src/context.jsx","../../mock/devices.js":"src/mock/devices.js","../../mock/checks.js":"src/mock/checks.js","../../mock/audit.js":"src/mock/audit.js","../../components/status-marks/index.jsx":"src/components/status-marks/index.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","../../components/search-input/index.jsx":"src/components/search-input/index.jsx","../../components/option-group/index.jsx":"src/components/option-group/index.jsx","../../components/empty-state/index.jsx":"src/components/empty-state/index.jsx","./design.css":"src/views/report-card/design.css"},run:function(require,module,exports){
+modules["src/views/report-card/index.jsx"]={deps:{"../../components/form-controls/select.jsx":"src/components/form-controls/select.jsx","../../mock/uc4-completion.js":"src/mock/uc4-completion.js","../lui-panel/motion.jsx":"src/views/lui-panel/motion.jsx","./generation.css":"src/views/report-card/generation.css","../../components/artifact-open/index.jsx":"src/components/artifact-open/index.jsx","../../context.jsx":"src/context.jsx","../../mock/devices.js":"src/mock/devices.js","../../mock/checks.js":"src/mock/checks.js","../../mock/audit.js":"src/mock/audit.js","../../components/status-marks/index.jsx":"src/components/status-marks/index.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","../../components/search-input/index.jsx":"src/components/search-input/index.jsx","../../components/option-group/index.jsx":"src/components/option-group/index.jsx","../../components/empty-state/index.jsx":"src/components/empty-state/index.jsx","./design.css":"src/views/report-card/design.css"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -74947,6 +75371,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.SummaryCopy = SummaryCopy;
 exports.default = ReportCard;
+var _select = require("../../components/form-controls/select.jsx");
 var _uc4Completion = require("../../mock/uc4-completion.js");
 var _motion = require("../lui-panel/motion.jsx");
 require("./generation.css");
@@ -75319,7 +75744,7 @@ function ReportCard({
     ariaLabel: "搜索设备明细"
   }), /*#__PURE__*/React.createElement("label", {
     className: "v7-rule-select"
-  }, /*#__PURE__*/React.createElement("select", {
+  }, /*#__PURE__*/React.createElement(_select.NativeSelect, {
     id: "v7RuleFilter",
     "aria-label": "规则筛选",
     value: ruleFilter || "",
@@ -75370,7 +75795,7 @@ function ReportCard({
     className: "v7-pagination"
   }, /*#__PURE__*/React.createElement("span", null, "总计：", rows.length), /*#__PURE__*/React.createElement("div", {
     className: "row"
-  }, /*#__PURE__*/React.createElement("select", {
+  }, /*#__PURE__*/React.createElement(_select.NativeSelect, {
     className: "report-page-size",
     "aria-label": "每页条数",
     value: detailPageSize,
@@ -77652,13 +78077,14 @@ function Uc2Report() {
   }));
 }
 }};
-modules["src/views/uc2-canvas/candidate-list.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/uc2.js":"src/mock/uc2.js","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","./report-visual.css":"src/views/uc2-canvas/report-visual.css","./report-generation.jsx":"src/views/uc2-canvas/report-generation.jsx"},run:function(require,module,exports){
+modules["src/views/uc2-canvas/candidate-list.jsx"]={deps:{"../../components/form-controls/select.jsx":"src/components/form-controls/select.jsx","../../context.jsx":"src/context.jsx","../../mock/uc2.js":"src/mock/uc2.js","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","./report-visual.css":"src/views/uc2-canvas/report-visual.css","./report-generation.jsx":"src/views/uc2-canvas/report-generation.jsx"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = Uc2CandidateList;
+var _select = require("../../components/form-controls/select.jsx");
 var _react = require("react");
 var _context = require("../../context.jsx");
 var _uc = require("../../mock/uc2.js");
@@ -77770,7 +78196,7 @@ function Uc2CandidateList({
     icon: "x"
   }))), /*#__PURE__*/React.createElement("label", {
     className: "baseline-rule-select"
-  }, /*#__PURE__*/React.createElement("select", {
+  }, /*#__PURE__*/React.createElement(_select.NativeSelect, {
     "aria-label": "候选规则置信度筛选",
     value: confidence,
     onChange: e => patch({
@@ -77880,7 +78306,7 @@ function Uc2CandidateList({
     })
   }, "清除筛选，查看全部"))))))), /*#__PURE__*/React.createElement("footer", {
     className: "baseline-pagination"
-  }, /*#__PURE__*/React.createElement("span", null, "总计：", rows.length), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("select", {
+  }, /*#__PURE__*/React.createElement("span", null, "总计：", rows.length), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(_select.NativeSelect, {
     "aria-label": embedded ? "报告规则每页条数" : "全部规则每页条数",
     value: pageSize,
     onChange: e => {
@@ -78561,140 +78987,20 @@ function Uc3RuleEditor() {
   }))))))));
 }
 }};
-modules["src/views/uc3-canvas/form-select.jsx"]={deps:{},run:function(require,module,exports){
+modules["src/views/uc3-canvas/form-select.jsx"]={deps:{"../../components/form-controls/select.jsx":"src/components/form-controls/select.jsx"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = Select;
-var _react = require("react");
-const priorityColor = value => value.includes('最高') || value === '高优先级' ? '#f24751' : value === '中优先级' ? '#f59313' : '#939393';
-function Select({
-  label,
-  value,
-  onChange,
-  options,
-  priority = false
-}) {
-  const root = (0, _react.useRef)(null),
-    trigger = (0, _react.useRef)(null),
-    list = (0, _react.useRef)(null);
-  const id = (0, _react.useId)();
-  const [open, setOpen] = (0, _react.useState)(false),
-    [active, setActive] = (0, _react.useState)(0),
-    [up, setUp] = (0, _react.useState)(false);
-  const items = options.map(item => typeof item === 'string' ? {
-    value: item,
-    label: item
-  } : item);
-  const selected = items.findIndex(item => item.value === value);
-  (0, _react.useEffect)(() => {
-    if (!open) return;
-    const outside = e => {
-      if (!root.current?.contains(e.target)) setOpen(false);
-    };
-    document.addEventListener('pointerdown', outside);
-    return () => document.removeEventListener('pointerdown', outside);
-  }, [open]);
-  (0, _react.useEffect)(() => {
-    if (open) list.current?.children[active]?.scrollIntoView({
-      block: 'nearest'
-    });
-  }, [open, active]);
-  const show = () => {
-    const rect = trigger.current.getBoundingClientRect(),
-      host = root.current.closest('.v7-artifact-pane')?.getBoundingClientRect();
-    const space = (host?.bottom || window.innerHeight) - rect.bottom;
-    setUp(space < Math.min(items.length * 36 + 8, 248) && rect.top > (host?.top || 0) + 150);
-    setActive(Math.max(selected, 0));
-    setOpen(true);
-  };
-  const choose = index => {
-    onChange(items[index].value);
-    setOpen(false);
-    trigger.current?.focus({
-      preventScroll: true
-    });
-  };
-  const keyboard = e => {
-    if (e.key === 'Escape') {
-      setOpen(false);
-      e.stopPropagation();
-      return;
-    }
-    if (e.key === 'Tab') {
-      setOpen(false);
-      return;
-    }
-    if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) {
-      e.preventDefault();
-      if (!open) {
-        show();
-        if (e.key === 'End') setActive(items.length - 1);
-        return;
-      }
-      setActive(i => e.key === 'Home' ? 0 : e.key === 'End' ? items.length - 1 : (i + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length);
-      return;
-    }
-    if ((e.key === 'Enter' || e.key === ' ') && open) {
-      e.preventDefault();
-      choose(active);
-    }
-  };
-  return /*#__PURE__*/React.createElement("span", {
-    ref: root,
-    className: 'uc3-kit-select' + (open ? ' is-open' : '') + (up ? ' opens-up' : '')
-  }, /*#__PURE__*/React.createElement("button", {
-    ref: trigger,
-    type: "button",
-    className: "uc3-kit-trigger",
-    role: "combobox",
-    "aria-label": label,
-    "aria-expanded": open,
-    "aria-haspopup": "listbox",
-    "aria-controls": open ? id : undefined,
-    "aria-activedescendant": open ? id + '-' + active : undefined,
-    onKeyDown: keyboard,
-    onClick: () => open ? setOpen(false) : show()
-  }, priority && /*#__PURE__*/React.createElement("i", {
-    className: "uc3-kit-priority-dot",
-    style: {
-      background: priorityColor(value)
-    }
-  }), /*#__PURE__*/React.createElement("span", null, items[selected]?.label || value || '请选择'), /*#__PURE__*/React.createElement("svg", {
-    className: "uc3-kit-chevron",
-    viewBox: "0 0 10.0042 10",
-    "aria-hidden": "true",
-    focusable: "false"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M9.86304 2.98398L5.36304 7.67963C5.24271 7.79495 5.10859 7.8664 4.99076 7.86389C4.87294 7.86139 4.75637 7.79997 4.64105 7.67963L0.141049 2.98398C-0.0526843 2.78183 -0.0460661 2.47077 0.156091 2.27704C0.358247 2.0833 0.669304 2.08992 0.863037 2.29208L5.00204 6.61104L9.14105 2.29208C9.33478 2.08992 9.64584 2.0833 9.848 2.27704C10.0502 2.47077 10.0568 2.78183 9.86304 2.98398Z",
-    fill: "currentColor",
-    fillRule: "evenodd"
-  }))), open && /*#__PURE__*/React.createElement("span", {
-    ref: list,
-    id: id,
-    className: "uc3-kit-options",
-    role: "listbox",
-    "aria-label": label + '选项'
-  }, items.map((item, index) => /*#__PURE__*/React.createElement("button", {
-    key: item.value,
-    type: "button",
-    id: id + '-' + index,
-    role: "option",
-    "aria-selected": item.value === value,
-    tabIndex: -1,
-    className: 'uc3-kit-option' + (active === index ? ' is-active' : ''),
-    onPointerEnter: () => setActive(index),
-    onMouseDown: e => e.preventDefault(),
-    onClick: () => choose(index)
-  }, priority && /*#__PURE__*/React.createElement("i", {
-    className: "uc3-kit-priority-dot",
-    style: {
-      background: priorityColor(item.value)
-    }
-  }), /*#__PURE__*/React.createElement("span", null, item.label)))));
-}
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function () {
+    return _select.default;
+  }
+});
+var _select = _interopRequireDefault(require("../../components/form-controls/select.jsx"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 }};
 modules["src/views/uc2-canvas/rule-editor.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/uc2.js":"src/mock/uc2.js","../uc3-canvas/form-select.jsx":"src/views/uc3-canvas/form-select.jsx","../uc3-canvas/editor.css":"src/views/uc3-canvas/editor.css","../uc3-canvas/form-kit.css":"src/views/uc3-canvas/form-kit.css","./rule-editor.css":"src/views/uc2-canvas/rule-editor.css","./rule-editor-model.js":"src/views/uc2-canvas/rule-editor-model.js"},run:function(require,module,exports){
 "use strict";
@@ -79483,13 +79789,14 @@ function Uc3RuleCanvas({
   }, line))))))));
 }
 }};
-modules["src/views/uc1-canvas/index.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","../../components/artifact-open/index.jsx":"src/components/artifact-open/index.jsx","../../mock/uc1-rules.js":"src/mock/uc1-rules.js","./index.css":"src/views/uc1-canvas/index.css"},run:function(require,module,exports){
+modules["src/views/uc1-canvas/index.jsx"]={deps:{"../../components/form-controls/select.jsx":"src/components/form-controls/select.jsx","../../context.jsx":"src/context.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","../../components/artifact-open/index.jsx":"src/components/artifact-open/index.jsx","../../mock/uc1-rules.js":"src/mock/uc1-rules.js","./index.css":"src/views/uc1-canvas/index.css"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = Uc1RulesCanvas;
+var _select = require("../../components/form-controls/select.jsx");
 var _react = require("react");
 var _context = require("../../context.jsx");
 var _index = _interopRequireDefault(require("../../components/icon-el/index.jsx"));
@@ -79628,7 +79935,7 @@ function Uc1RulesCanvas({
     placeholder: "请输入搜索内容",
     value: search,
     onChange: e => setSearch(e.target.value)
-  })), /*#__PURE__*/React.createElement("select", {
+  })), /*#__PURE__*/React.createElement(_select.NativeSelect, {
     "aria-label": "规则类别",
     value: category,
     onChange: e => setCategory(e.target.value)
@@ -79677,7 +79984,7 @@ function Uc1RulesCanvas({
     className: "uc1-rule-pagination" + (!ready ? " is-skeleton" : " is-revealed")
   }, /*#__PURE__*/React.createElement("span", null, "总计：", filtered.length), /*#__PURE__*/React.createElement("span", null, "已选：", /*#__PURE__*/React.createElement("b", null, selected.size)), /*#__PURE__*/React.createElement("div", {
     className: "uc1-pagination-controls"
-  }, /*#__PURE__*/React.createElement("select", {
+  }, /*#__PURE__*/React.createElement(_select.NativeSelect, {
     "aria-label": "每页规则数",
     value: pageSize,
     onChange: e => setPageSize(Number(e.target.value))
