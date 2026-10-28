@@ -160,23 +160,25 @@ function WorkflowSteps({ active, groupExpanded }) {
 
 // Stream completion content without changing the workflow completion/collapse rules.
 function Completion({ onLocateReport, timestamp }) {
+  const {resultTask}=useApp();
+  const reviewing=resultTask?.uc==="uc4";
   const lines=completionTimeline(summaryParts());
   const end=lines.at(-1).delay+streamDuration(lines.at(-1).text)+180;
   return <section className="completion audit-completion" aria-label="基线检查结论">
-    {lines.slice(0,4).map((line,index)=><StreamText key={index} {...line}/>)}
-    <ul className="audit-advice">{lines.slice(4,7).map((line,index)=><StreamText key={index} {...line}/>)}</ul>
-    <StreamText {...lines[7]} className="small muted"/>
-    <RevealAfter delay={end}><div className="v7-step-artifact"><ArtifactTag title="HCS1 区基线检查报告" type="conclusion" shape="report" timestamp={timestamp} onLocate={onLocateReport}/></div></RevealAfter>
+    {lines.slice(0,4).map((line,index)=><StreamText key={index} {...line} animate={!reviewing} delay={reviewing?0:line.delay}/>)}
+    <ul className="audit-advice">{lines.slice(4,7).map((line,index)=><StreamText key={index} {...line} animate={!reviewing} delay={reviewing?0:line.delay}/>)}</ul>
+    <StreamText {...lines[7]} className="small muted" animate={!reviewing} delay={reviewing?0:lines[7].delay}/>
+    <RevealAfter delay={reviewing?0:end}><div className="v7-step-artifact"><ArtifactTag title="HCS1 区基线检查报告" type="conclusion" shape="report" timestamp={timestamp} onLocate={onLocateReport}/></div></RevealAfter>
   </section>;
 }
 
 // Keep the same response card mounted while execution progresses and completes.
 function InspectionConversation({ running, active, prompt, onLocateReport }) {
-  const { isDark, luiFocus } = useApp();
+  const { isDark, luiFocus, resultTask } = useApp();
   const [expanded, setExpanded] = useState(true);
   const started = useRef(Date.now());
   const [finished, setFinished] = useState(null);
-  useEffect(() => { setExpanded(running); if(running){started.current=Date.now();setFinished(null);} else {setFinished({at:new Date(),duration:((Date.now()-started.current)/1000).toFixed(1)});} }, [running]);
+  useEffect(() => { setExpanded(running); if(running){started.current=Date.now();setFinished(null);} else {setFinished({at:new Date(resultTask?.uc==="uc4"?resultTask.completedAt:Date.now()),duration:((Date.now()-started.current)/1000).toFixed(1)});} }, [running,resultTask]);
   useEffect(() => { if (luiFocus) setExpanded(true); }, [luiFocus]);
   const title = running ? "正在执行处置步骤" : "已完成思考";
   const timestamp = finished ? `${finished.at.getFullYear()}-${String(finished.at.getMonth()+1).padStart(2,"0")}-${String(finished.at.getDate()).padStart(2,"0")} ${finished.at.toTimeString().slice(0,8)}` : "";
@@ -196,7 +198,7 @@ function InspectionConversation({ running, active, prompt, onLocateReport }) {
             {active >= 0 && <WorkflowSteps active={running ? active : 4} groupExpanded={expanded} />}
           </div>
         </div>
-        {!running && <><Completion onLocateReport={onLocateReport} timestamp={timestamp}/><RevealAfter delay={completionTimeline(summary).reduce((end,line)=>line.delay+streamDuration(line.text),0)+180}><ResponseTools timestamp={timestamp.slice(5)} duration={finished?.duration || "0.0"} text={`已检查 HCS1 区 ${summary.total} 台设备，${summary.passed} 台通过、${summary.failed} 台不通过，整网合规度 ${summary.compliance}%。发现 ${summary.rules} 条规则不通过。`}/></RevealAfter></>}
+        {!running && <><Completion onLocateReport={onLocateReport} timestamp={timestamp}/><RevealAfter delay={resultTask?.uc==="uc4"?0:completionTimeline(summary).reduce((end,line)=>line.delay+streamDuration(line.text),0)+180}><ResponseTools timestamp={timestamp.slice(5)} duration={finished?.duration || "0.0"} text={`已检查 HCS1 区 ${summary.total} 台设备，${summary.passed} 台通过、${summary.failed} 台不通过，整网合规度 ${summary.compliance}%。发现 ${summary.rules} 条规则不通过。`}/></RevealAfter></>}
         </SoftHeight>
       </article>
     </>

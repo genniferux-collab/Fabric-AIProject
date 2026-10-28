@@ -1,66 +1,43 @@
-import { useState } from "react";
-import ArtifactOpen from "../../components/artifact-open/index.jsx";
-import "./report.css";
-import Uc2CandidateList from "./candidate-list.jsx";
+import {useState} from "react";
 import { useApp } from "../../context.jsx";
 import { uc2Rules, uc2DeviationDevices, uc2ExportCsv } from "../../mock/uc2.js";
+import Uc2CandidateList from "./candidate-list.jsx";
 import { Uc2RuleDetail } from "./rule-detail.jsx";
 import Ic from "../../components/icon-el/index.jsx";
-import { ArtifactIcon } from "../../components/status-marks/index.jsx";
-import "../report-card/design.css";
+import "./report-visual.css";
+import {useUc2ReportReveal} from "./report-generation.jsx";
 
-const roles = ["通用", "核心交换机", "Leaf 交换机"];
-const roleColors = ["#9b85ef", "#347fe8", "#79a7fb"];
-const deviationCount = new Set(Object.values(uc2DeviationDevices).flat()).size;
-
-export function Uc2Report() {
-  const { uc2, uc2SetFilter, uc2OpenRule, uc2Reviews, toast, openArtifact } = useApp();
-  const [statsOpen,setStatsOpen] = useState(false);
-  const roleCounts = roles.map(role => uc2Rules.filter(r => r.role === role).length);
-  const highConfidence = uc2Rules.filter(r => r.confidence === "高").length;
-  const roleStops = roleCounts.map((count,i)=>`${roleColors[i]} ${roleCounts.slice(0,i).reduce((a,b)=>a+b,0)/uc2Rules.length*100}% ${roleCounts.slice(0,i+1).reduce((a,b)=>a+b,0)/uc2Rules.length*100}%`).join(",");
-  const ranked = [...uc2Rules].sort((a,b)=>b.deviations-a.deviations || b.support/b.scope-a.support/a.scope).slice(0,5);
-  const showRules=(role="全部角色")=>{uc2SetFilter({role,query:"",category:"全部功能",status:"all",confidence:"全部置信度"});openArtifact("uc2-rules","全部候选规则");};
-  const exportReport = () => { uc2ExportCsv(uc2Reviews); toast("黄金基线候选规则已导出为 CSV"); };
-
-  return <div className="uc2-report v7-report report-design" id="uc2Report">
-    <div className="v7-report-heading">
-      <div className="row"><ArtifactIcon type="conclusion" shape="report"/><h2 className="card-title">西三旗 DC · 黄金基线候选报告</h2></div>
-      <div className="uc2-report-actions"><button type="button" className="icon-btn" aria-label="导出黄金基线候选规则 CSV" title="导出候选规则（CSV）" onClick={exportReport}><Ic icon="download"/></button><ArtifactOpen kind="uc2-report" title="黄金基线候选报告"/></div>
-    </div>
-    <div className="v7-report-meta"><span><Ic icon="map-pin"/>西三旗 DC</span></div>
-    <div className="uc2-report-body">
-    <section className="v7-summary uc2-candidate-summary" aria-label="候选规则总览">
-      <div className="v7-compliance" role="group" aria-label="候选规则与设备统计">
-        <div className="uc2-role-ring" role="img" aria-label={`候选规则共${uc2Rules.length}条，共性规则${roleCounts[0]}条，核心交换机${roleCounts[1]}条，Leaf交换机${roleCounts[2]}条`} style={{"--uc2-role-segments":roleStops}}><div><strong>{uc2Rules.length}<small>条</small></strong><span>候选规则总数</span></div></div>
-        <div className="v7-summary-counts uc2-summary-roles">{roles.map((role,i)=><button key={role} type="button" aria-pressed={uc2.role===role} title={`筛选${role}候选规则`} onClick={()=>showRules(role)}><i style={{background:roleColors[i]}}/>{role==="通用"?"共性规则":role}<strong>{roleCounts[i]}</strong></button>)}</div>
-        <details className="uc2-device-statistics" open={statsOpen} onToggle={e=>{if(e.currentTarget.open!==statsOpen)setStatsOpen(e.currentTarget.open);}}>
-          <summary aria-label="设备总数1980台，展开或收起设备统计"><span className="uc2-device-total-label">设备总数</span><span className="uc2-device-total-value"><strong>1,980</strong><small>台</small><Ic icon={statsOpen?"chevron-up":"chevron-down"}/></span></summary>
-          <div className="uc2-device-stat-grid"><div><span>本轮分析样本</span><strong>100<small>台</small></strong></div><div><span>核心交换机样本</span><strong>20<small>台</small></strong></div><div><span>Leaf 交换机样本</span><strong>80<small>台</small></strong></div></div>
-        </details>
-      </div>
-      <div className="uc2-summary-right">
-        <div className="v11-conclusion"><h3 className="v7-conclusion-label"><img src="./assets/uploads/report-conclusion-sparkle.svg" width="18" height="18" alt=""/>黄金基线挖掘洞察</h3><p className="v12-summary-copy"><strong>{highConfidence} 条规则具备高置信度</strong>，{uc2Rules.length-highConfidence} 条仍待验证；{deviationCount} 台设备存在候选偏离，建议优先核验登录安全与核心冗余配置。</p></div>
-
-      </div>
-    </section>
-    <section className="v7-overview-section">
-      <div className="v7-result-toolbar"><h3 className="v7-section-title">TOP 候选规则 <span className="uc2-top-count">TOP 5</span></h3><div className="uc2-top-actions"><span className="uc2-section-hint">按偏离样本数排序</span><a href="#" className="uc2-all-rules-link" aria-label="新页签查看全部候选规则" onClick={event=>{event.preventDefault();showRules();}}>全部规则<Ic icon="arrow-up-right"/></a></div></div>
-      <div className="v7-top-grid">{ranked.map((rule,index)=><article className="v7-top-card uc2-candidate-card" key={rule.id} data-rule-id={rule.id}>
-        <button type="button" className="uc2-candidate-open" aria-label={`去审阅：${rule.name}`} onClick={()=>uc2OpenRule(rule.id)}>
-          <span className="uc2-candidate-eyebrow"><span className="uc2-candidate-rank">TOP {String(index+1).padStart(2,"0")}</span><span className={"uc2-candidate-confidence "+(rule.confidence==="高"?"high":"pending")}><i/>{rule.confidence==="高"?"高置信":"待验证"}</span></span>
-          <span className="uc2-candidate-title" title={rule.name}>{rule.name}</span>
-          <span className="uc2-candidate-role">{rule.role}</span>
-          <span className="uc2-candidate-metric"><strong>{rule.deviations}</strong><span>台样本偏离</span></span>
-          <span className="uc2-candidate-support"><span>配置支持</span><strong>{rule.support}<span> / {rule.scope} 台</span></strong></span>
-          <span className="uc2-candidate-track" role="img" aria-label={`配置支持 ${rule.support} / ${rule.scope} 台`}><i style={{width:rule.support/rule.scope*100+"%"}}/></span>
-          <span className="uc2-candidate-review">去审阅<Ic icon="arrow-up-right"/></span>
-        </button>
-      </article>)}</div>
-    </section>
-    <Uc2CandidateList embedded/>
-    </div>
-  </div>;
+const roles=["通用","核心交换机","Leaf 交换机"], colors=["#438fff","#8472ff","#15d2a1"];
+const allCandidateFilters={role:"全部角色",confidence:"全部置信度",status:"all",query:""};
+const roleLabel=role=>role==="通用"?"共性":role;
+function RoleDonut(){
+  const {classAt}=useUc2ReportReveal();
+  const {uc2,uc2SetFilter}=useApp();
+  const [hovered,setHovered]=useState(null);
+  const counts=roles.map(role=>uc2Rules.filter(rule=>rule.role===role).length),active=uc2.role||"全部角色";
+  const shown=hovered||(roles.includes(active)?active:null),shownIndex=roles.indexOf(shown);
+  const toggle=role=>uc2SetFilter({role:active===role?"全部角色":role});
+  let offset=0;
+  return <div className={"baseline-role-summary"+classAt(.24)}><div className={"baseline-donut"+(shown?" has-role-caption":"")} data-filtered={active!=="全部角色"}>
+    <svg viewBox="0 0 160 160" role="group" aria-label="候选规则角色分布，可点击筛选">
+    {[0,2,1].map(index=>{const count=counts[index],start=offset,share=count/uc2Rules.length*100;offset+=share;const geometry={cx:80,cy:80,pathLength:100,fill:"none",strokeLinecap:"round",transform:"rotate(-125 80 80)"};return <g key={roles[index]} className="baseline-donut-segment" role="button" tabIndex="0" aria-label={`按角色筛选：${roleLabel(roles[index])}${count}条`} aria-pressed={active===roles[index]} data-highlighted={shown===roles[index]} onMouseEnter={()=>setHovered(roles[index])} onMouseLeave={()=>setHovered(null)} onFocus={()=>setHovered(roles[index])} onBlur={()=>setHovered(null)} onClick={()=>toggle(roles[index])} onKeyDown={event=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();toggle(roles[index]);}}}><title>{roleLabel(roles[index])} {count}条，占比{(share).toFixed(1)}%，点击筛选</title><circle {...geometry} className="baseline-role-softband" r="60" stroke={colors[index]} strokeWidth="14.5" strokeDasharray={`${share-5.5} 100`} strokeDashoffset={-(start+2.75)}/><circle {...geometry} className="baseline-role-outline" r="69" stroke={colors[index]} strokeWidth="3.2" strokeDasharray={`${share-2} 100`} strokeDashoffset={-(start+1)}/><circle {...geometry} r="65" stroke="transparent" strokeWidth="24" strokeDasharray={`${share-2} 100`} strokeDashoffset={-(start+1)} className="baseline-donut-hit"/></g>;})}
+    </svg><button type="button" className="baseline-donut-total" aria-label="恢复全部候选规则" title="点击清除筛选，查看全部候选规则" onClick={()=>{setHovered(null);uc2SetFilter(allCandidateFilters);}}><span>{shown?roleLabel(shown):"候选规则"}</span><strong>{shown?counts[shownIndex]:uc2Rules.length}<small>{shown?`[${Math.round(counts[shownIndex]/uc2Rules.length*100)}%]`:"条"}</small></strong></button></div>
+    <div className="baseline-role-legend">{roles.map((role,index)=><button type="button" key={role} aria-pressed={active===role} onMouseEnter={()=>setHovered(role)} onMouseLeave={()=>setHovered(null)} onClick={()=>toggle(role)}><i style={{background:colors[index]}}/><span>{roleLabel(role)}</span><b>{counts[index]}</b></button>)}</div></div>;
 }
-
+export function Uc2Report(){
+  const {classAt,loading}=useUc2ReportReveal();
+  const {uc2,uc2Reviews,uc2SetFilter,toast,openArtifact}=useApp();
+  const toggleEvidence=value=>uc2SetFilter({confidence:uc2.confidence===value?"全部置信度":value});
+  const showAllRules=()=>{uc2SetFilter({role:"全部角色",status:"all",query:"",confidence:"全部置信度"});openArtifact("uc2-rules","全部候选规则");};
+  const high=uc2Rules.filter(rule=>rule.confidence==="高").length,total=uc2Rules.length;
+  const devices=new Set(Object.values(uc2DeviationDevices).flat()).size;
+  return <article className="baseline-report" id="uc2Report" aria-busy={loading} data-design-file="EK7Fip1D5gCfj8ZkWp3wzQ" data-design-node="5:162385">
+    <header className="baseline-report-heading"><div><img src="./assets/uploads/artifact-report-title.svg" alt=""/><h2>西三旗 DC · 黄金基线候选报告</h2><span className="baseline-phase">候选阶段</span></div><div className="baseline-report-actions"><button type="button" aria-label="导出黄金基线候选规则 CSV" title="导出候选规则" onClick={()=>{uc2ExportCsv(uc2Reviews);toast("黄金基线候选规则已导出为 CSV");}}><Ic icon="download"/></button><button type="button" onClick={showAllRules} title="新页签查看全部候选规则" aria-label="新页签查看全部候选规则"><img src="./assets/uploads/artifact-open-tab.svg" alt=""/></button></div></header>
+    <div className={"baseline-report-meta"+classAt(.1)}><span>配置快照 S-1027</span><span>挖掘完成</span><span>待审阅</span></div>
+    <section className="baseline-report-overview" aria-label="黄金基线候选规则总览"><div className="baseline-evidence-overview"><RoleDonut/><div className={"baseline-evidence-summary"+classAt(.38)}><div className="baseline-evidence-layout"><div className="baseline-evidence-chart"><div className="baseline-evidence-bar" role="group" aria-label="候选证据分布，可点击筛选">{[["高",high,"证据较充分","var(--baseline-support-blue)"],["待验证",total-high,"待验证","#f1848b"]].map(([value,count,label,color])=><button type="button" key={value} style={{flexGrow:count,"--evidence-color":color}} aria-label={`按证据筛选：${label}${count}条`} aria-pressed={uc2.confidence===value} title={`${label} ${count}条，点击筛选`} onClick={()=>toggleEvidence(value)}><span className="baseline-evidence-segment-caption"><i/><span>{label}</span><b>{count}<small>条</small></b></span><span className="baseline-evidence-bars" aria-hidden="true">{Array.from({length:count*3},(_,index)=><i key={index}/>)}</span></button>)}</div></div>
+      </div>
+</div></div><aside className={"baseline-insight"+classAt(.54)}><h3><img src="./assets/uploads/report-conclusion-sparkle.svg" alt=""/>黄金基线挖掘洞察</h3><p><b>{high}</b> 条规则具备高置信度，<b>{total-high}</b> 条仍待验证；<b>{devices}</b> 台设备存在候选偏离，建议<span>优先核验登录安全与核心冗余配置</span>。</p></aside></section>
+    <Uc2CandidateList embedded/>
+  </article>;
+}
 export { Uc2RuleDetail };

@@ -1,0 +1,13 @@
+{
+  "file_key": "EK7Fip1D5gCfj8ZkWp3wzQ",
+  "default_board": "2:334371",
+  "selected_board": "2:339144",
+  "native_export_scale": 2,
+  "canvas-material.svg": "Original 16px material tile, source gradients and four column fades; graph layers excluded.",
+  "engine-reference@2x.png": "Lossless crop of the native board 01 export, including the original composited sphere.",
+  "role-active@2x.png": "Lossless crop of the active role node and halo in board 02.",
+  "device-active@2x.png": "Lossless crop of the active sample-device node and halo in board 02.",
+  "selected-rule-node.svg": "Native board 02 node, halo and shadow paths; its white angular rim is converted to pure SVG gradient arcs for portable image embedding.",
+  "selected-rule-outer-arc.svg": "Native board 02 1px outer outline at 25% opacity. Source angular colors sampled along the unchanged curve; same outline clips every selected rule background.",
+  "rule-selection-geometry.json": "Native board 02 band, node, typography and outer-arc measurements, retained for source traceability."
+}

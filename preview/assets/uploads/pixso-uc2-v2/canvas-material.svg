@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="24 162 1232 842" width="1232" height="842" fill="none"><defs>
+		<clipPath id="clipPath_100">
+			<rect width="1232.000000" height="898.000000" x="24.000000" y="106.000000" rx="16.000000" fill="rgb(255,255,255)" />
+		</clipPath>
+		<image id="image_0" width="16.000000" height="16.000000" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAC9JREFUOI1jYBgFgxw8f/5clJAaJgKauQkZgtMARkbGb8g0WeDFixfcZGseBXQEAEmhDSOHlr3kAAAAAElFTkSuQmCC" />
+		<pattern id="pattern_0" width="0.012987" height="0.019002" image-fill-type="tile" patternContentUnits="objectBoundingBox">
+			<use transform="matrix(0.000811688,0,0,0.00118765,0,0)" xlink:href="#image_0" />
+		</pattern>
+		<radialGradient id="paint_radial_1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(80.8984,192.213,-240.956,101.413,289.998,220.439)">
+			<stop stop-color="rgb(40,40,97)" offset="0" stop-opacity="0.319999993" />
+			<stop stop-color="rgb(25,53,148)" offset="1" stop-opacity="0" />
+		</radialGradient>
+		<linearGradient id="paint_linear_171" x1="128" x2="128" y1="162" y2="415" gradientUnits="userSpaceOnUse">
+			<stop stop-color="rgb(255,255,255)" offset="0" stop-opacity="0.180000007" />
+			<stop stop-color="rgb(255,255,255)" offset="0.090536952" stop-opacity="0.389999986" />
+			<stop stop-color="rgb(255,255,255)" offset="0.2467186" stop-opacity="0.338626802" />
+			<stop stop-color="rgb(255,255,255)" offset="1" stop-opacity="0" />
+		</linearGradient>
+		<linearGradient id="paint_linear_172" x1="128" x2="128" y1="750.999756" y2="1003.99976" gradientUnits="userSpaceOnUse">
+			<stop stop-color="rgb(255,255,255)" offset="0" stop-opacity="0" />
+			<stop stop-color="rgb(255,255,255)" offset="0.753281415" stop-opacity="0.338626802" />
+			<stop stop-color="rgb(255,255,255)" offset="0.909463048" stop-opacity="0.389999986" />
+			<stop stop-color="rgb(255,255,255)" offset="1" stop-opacity="0.180000007" />
+		</linearGradient>
+		<linearGradient id="paint_linear_173" x1="628" x2="628" y1="162" y2="415" gradientUnits="userSpaceOnUse">
+			<stop stop-color="rgb(255,255,255)" offset="0" stop-opacity="0.180000007" />
+			<stop stop-color="rgb(255,255,255)" offset="0.090536952" stop-opacity="0.389999986" />
+			<stop stop-color="rgb(255,255,255)" offset="0.2467186" stop-opacity="0.338626802" />
+			<stop stop-color="rgb(255,255,255)" offset="1" stop-opacity="0" />
+		</linearGradient>
+		<linearGradient id="paint_linear_174" x1="628" x2="628" y1="750.999756" y2="1003.99976" gradientUnits="userSpaceOnUse">
+			<stop stop-color="rgb(255,255,255)" offset="0" stop-opacity="0" />
+			<stop stop-color="rgb(255,255,255)" offset="0.753281415" stop-opacity="0.338626802" />
+			<stop stop-color="rgb(255,255,255)" offset="0.909463048" stop-opacity="0.389999986" />
+			<stop stop-color="rgb(255,255,255)" offset="1" stop-opacity="0.180000007" />
+		</linearGradient>
+		<radialGradient id="paint_radial_145" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0,-207.5,289.5,0,289.5,207.5)">
+			<stop stop-color="rgb(196,196,196)" offset="0" stop-opacity="0.150000006" />
+			<stop stop-color="rgb(196,196,196)" offset="1" stop-opacity="0" />
+		</radialGradient>
+		</defs>
+	<g id="容器 1113136" clip-path="url(#clipPath_100)" customFrame="url(#clipPath_100)">
+			<rect id="容器 1113136" width="1232.000000" height="898.000000" x="24.000000" y="106.000000" rx="16.000000" fill="rgb(42,42,42)" fill-opacity="0.75" />
+			<g id="path-2-link" opacity="0.75">
+				<rect id="path-2" width="1232.000000" height="842.000000" x="26.000000" y="162.000000" rx="8.000000" fill="url(#pattern_0)" />
+			</g>
+			<rect id="矩形 553759" width="579.000000" height="474.000000" x="0.000000" y="0.000000" fill="url(#paint_radial_1)" fill-opacity="0.75" transform="matrix(0,-1,1,0,381,873)" />
+			<rect id="矩形 553878" width="206.000000" height="253.000000" x="25.000000" y="162.000000" opacity="0.049999997" fill="url(#paint_linear_171)" />
+			<rect id="矩形 553880" width="206.000000" height="253.000000" x="25.000000" y="750.999756" opacity="0.0500000007" fill="url(#paint_linear_172)" />
+			<rect id="矩形 553879" width="272.000000" height="253.000000" x="492.000000" y="162.000000" opacity="0.049999997" fill="url(#paint_linear_173)" />
+			<rect id="矩形 553881" width="272.000000" height="253.000000" x="492.000000" y="750.999756" opacity="0.0500000007" fill="url(#paint_linear_174)" />
+			<rect id="矩形 553760" width="579.000000" height="415.000000" x="0.000000" y="0.000000" fill="url(#paint_radial_145)" fill-opacity="0.75" transform="matrix(0,-1,1,0,1073,872.998)" />
+	</g>
+	</svg>

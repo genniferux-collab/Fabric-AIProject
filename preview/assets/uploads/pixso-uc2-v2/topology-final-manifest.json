@@ -1,0 +1,21 @@
+{
+  "file_key": "EK7Fip1D5gCfj8ZkWp3wzQ",
+  "node": "52:142773",
+  "name": "最终的网络拓扑图",
+  "format": "native Pixso PNG export at 2x",
+  "export_pixels": [
+    2560,
+    2066
+  ],
+  "crop_pixels": [
+    48,
+    520,
+    2464,
+    1498
+  ],
+  "logical_scene": [
+    1232,
+    749
+  ],
+  "notes": "Native raster includes plate and inset shadows; existing SVG interaction hit targets retained."
+}

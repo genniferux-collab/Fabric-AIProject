@@ -1,0 +1,206 @@
+{
+  "name": "fabric-site-task-tips",
+  "version": 1,
+  "source": {
+    "fileKey": "EK7Fip1D5gCfj8ZkWp3wzQ",
+    "pageId": "0:1",
+    "extendedStatesNode": "59:146613",
+    "siteStatesNode": "68:146700",
+    "url": "https://pixso.net/app/design/EK7Fip1D5gCfj8ZkWp3wzQ?page-id=0%3A1&item-id=59%3A146613",
+    "exportMethod": "Pixso MCP get_export_image, original SVG, unchanged"
+  },
+  "naming": "tips/{icon-family}/{business-state}/{theme}/{interaction}",
+  "geometry": {
+    "width": 212,
+    "exampleHeight": 56,
+    "minHeight": 40,
+    "minHeightAuthority": "current user requirement",
+    "padding": {
+      "top": 8,
+      "right": 12,
+      "bottom": 8,
+      "left": 12
+    },
+    "iconSize": 16,
+    "iconTextGap": 12,
+    "textWidth": 160,
+    "textFontSize": 12,
+    "textLineHeight": 20,
+    "cornerRadius": 12,
+    "progressRingSize": 26
+  },
+  "themes": {
+    "dark": {
+      "background": "#393939",
+      "foreground": "#FFFFFF",
+      "border": "1px solid rgba(255,255,255,0.10)",
+      "shadow": "0 8px 24px rgba(0,0,0,0.30)",
+      "hoverOverlay": "rgba(255,255,255,0.05)"
+    },
+    "light": {
+      "background": "#FFFFFF",
+      "foreground": "#191919",
+      "border": "1px solid rgba(255,255,255,0.10)",
+      "shadow": "0 8px 24px rgba(0,0,0,0.08)",
+      "hoverOverlay": "rgba(25,25,25,0.05)"
+    }
+  },
+  "motion": {
+    "running": {
+      "source": "two progress-ring keyframes on node 68:146700",
+      "ringSize": 26,
+      "iconSize": 16,
+      "behavior": "rotate ring around stationary AI icon",
+      "implementationDurationMs": 1600
+    },
+    "completed": {
+      "source": "ringed check to plain check keyframes on node 68:146700",
+      "behavior": "show green check, then soften outer ring",
+      "implementationDurationMs": 600
+    },
+    "durationAuthority": "implementation recommendation; no explicit duration read from Pixso",
+    "reducedMotion": "keep icon and textual state, disable continuous rotation"
+  },
+  "icons": [
+    {
+      "name": "manual-decision-orange",
+      "file": "icons/manual-decision-orange.svg",
+      "family": "manual-decision",
+      "state": "awaiting-decision",
+      "color": "#F4840C",
+      "sourceInstance": "I59:146616;59:147050",
+      "sourceComponent": "59:146715",
+      "size": [
+        16,
+        16
+      ],
+      "usage": "需要人工决策或接管"
+    },
+    {
+      "name": "repair-attention-red",
+      "file": "icons/repair-attention-red.svg",
+      "family": "repair",
+      "state": "attention",
+      "color": "#E7434A",
+      "sourceInstance": "I59:146620;59:147062",
+      "sourceComponent": "59:146749",
+      "size": [
+        16,
+        16
+      ],
+      "usage": "修复相关待处置项；仅在任务实际失败时才能标记执行失败"
+    },
+    {
+      "name": "repair-running-blue",
+      "file": "icons/repair-running-blue.svg",
+      "family": "repair",
+      "state": "running",
+      "color": "#2070F3",
+      "sourceInstance": "I59:146624;59:147074",
+      "sourceComponent": "59:146774",
+      "size": [
+        16,
+        16
+      ],
+      "usage": "修复任务执行中"
+    },
+    {
+      "name": "repair-completed-green",
+      "file": "icons/repair-completed-green.svg",
+      "family": "repair",
+      "state": "completed",
+      "color": "#36C18D",
+      "sourceInstance": "I59:146628;59:147086",
+      "sourceComponent": "59:146799",
+      "size": [
+        16,
+        16
+      ],
+      "usage": "修复动作完成；不代替后续验证结论"
+    },
+    {
+      "name": "ai-attention-red",
+      "file": "icons/ai-attention-red.svg",
+      "family": "ai",
+      "state": "attention",
+      "color": "#E7434A",
+      "sourceInstance": "I59:146632;59:147098",
+      "sourceComponent": "59:146824",
+      "size": [
+        16,
+        16
+      ],
+      "usage": "AI任务需要关注；不据颜色推断运行失败"
+    },
+    {
+      "name": "ai-running",
+      "file": "icons/ai-running.svg",
+      "family": "ai",
+      "state": "running",
+      "color": "#2070F3",
+      "sourceInstance": "59:146661",
+      "sourceReferenceInstance": "I59:146636;59:147110",
+      "size": [
+        16,
+        16
+      ],
+      "usage": "检查、挖掘、生成任务进行中，与外部进度环组合"
+    },
+    {
+      "name": "ai-completed-green",
+      "file": "icons/ai-completed-green.svg",
+      "family": "ai",
+      "state": "completed",
+      "color": "#36C18D",
+      "sourceInstance": "I59:146640;59:147122",
+      "sourceComponent": "59:146899",
+      "size": [
+        16,
+        16
+      ],
+      "usage": "AI任务已完成"
+    },
+    {
+      "name": "timer-running-cyan",
+      "file": "icons/timer-running-cyan.svg",
+      "family": "timer",
+      "state": "scheduled-or-timed",
+      "color": "#009DFF",
+      "sourceInstance": "I59:146644;59:147134",
+      "sourceComponent": "59:146936",
+      "size": [
+        16,
+        16
+      ],
+      "usage": "周期、计时、历史相关提示"
+    },
+    {
+      "name": "completed",
+      "file": "icons/completed.svg",
+      "family": "check",
+      "state": "completed-or-awaiting-review",
+      "color": "#36C18D",
+      "sourceInstance": "68:146679",
+      "sourceReferenceInstance": "I59:146648;59:147146",
+      "size": [
+        16,
+        16
+      ],
+      "usage": "任务已完成，待审阅时必须保留待审阅文本"
+    }
+  ],
+  "references": [
+    "tips-extended-states.png",
+    "site-hover-multi-state.png"
+  ],
+  "semanticRules": [
+    "任务执行状态、合规检查结论、规则审阅状态是不同维度。",
+    "检查发现不合规不等于检查任务执行失败。",
+    "黄金基线候选挖掘完成后可进入待审阅，不能自动等同规则已采用。",
+    "规则条数、设备台数、任务条数分别存储和统计。",
+    "状态不能只依赖颜色，必须有对应文本。"
+  ],
+  "runtimeAliases": {
+    "icons/timer.svg": "icons/timer-running-cyan.svg"
+  }
+}

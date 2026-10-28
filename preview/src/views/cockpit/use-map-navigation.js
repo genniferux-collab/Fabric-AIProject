@@ -1,8 +1,8 @@
 import {useEffect,useRef,useState} from "react";
 
 const MIN_ZOOM=.7,MAX_ZOOM=3,DEFAULT_MAP_MAGNIFICATION=1.15;
-// Visible China outline in the original 1691×1261 artwork.
-const CHINA={left:62,top:84,right:1630,bottom:1234,cx:846,cy:659};
+// Visible China outline in Pixso node 2:165206 (1354.487×1000.278 SVG).
+const CHINA={left:0,top:16,right:1354.487,bottom:992,cx:677.244,cy:504};
 const clamp=(value,min,max)=>Math.min(max,Math.max(min,value));
 const initialView={scale:1,x:0,y:0};
 
@@ -52,7 +52,7 @@ export default function useMapNavigation(mapRef,metricsRef){
     };
     const observer=new ResizeObserver(fit);observer.observe(map);observer.observe(metricsRef.current);fit();
     const wheel=event=>{
-      if(event.target.closest("button,[role=menu]"))return;
+      if(event.target.closest("button,[role=menu],.map-dc-card,.map-dc-events-popup,.site-task-tip"))return;
       event.preventDefault();
       const rect=map.getBoundingClientRect(),delta=event.deltaY*(event.deltaMode===1?16:event.deltaMode===2?rect.height:1);
       zoom(state.current.view.scale*Math.exp(-clamp(delta,-160,160)*.002),{x:event.clientX-rect.left,y:event.clientY-rect.top});
@@ -71,7 +71,7 @@ export default function useMapNavigation(mapRef,metricsRef){
   const release=event=>{pointers.current.delete(event.pointerId);rebase();};
   const handlers={
     onPointerDown:event=>{
-      if(event.target.closest("button,[role=menu]")||event.button>0)return;
+      if(event.target.closest("button,[role=menu],.map-dc-card,.map-dc-events-popup,.site-task-tip")||event.button>0)return;
       pointers.current.set(event.pointerId,point(event));event.currentTarget.setPointerCapture(event.pointerId);rebase();
     },
     onPointerMove:event=>{
@@ -84,11 +84,11 @@ export default function useMapNavigation(mapRef,metricsRef){
       apply({scale,x:center.x-(start.center.x-start.view.x)*ratio,y:center.y-(start.center.y-start.view.y)*ratio});
     },
     onPointerUp:release,onPointerCancel:release,onLostPointerCapture:release,
-    onDoubleClick:event=>{if(!event.target.closest("button,[role=menu]"))zoom(state.current.view.scale*1.4,point(event));}
+    onDoubleClick:event=>{if(!event.target.closest("button,[role=menu],.map-dc-card,.map-dc-events-popup,.site-task-tip"))zoom(state.current.view.scale*1.4,point(event));}
   };
   return {view,scene,isPanning,handlers,minZoom:MIN_ZOOM,maxZoom:MAX_ZOOM,
     changeScale:amount=>zoom(state.current.view.scale+amount),
     reset:()=>{state.current.view=initialView;setView(initialView);},
-    focusCenters:()=>{const s=state.current.scene;apply({scale:1.35,x:s.width/2-(s.left+1235*s.scale)*1.35,y:(s.bottom+s.height)/2-(s.top+735*s.scale)*1.35});}
+    focusCenters:()=>{const s=state.current.scene;apply({scale:1.35,x:s.width/2-(s.left+980*s.scale)*1.35,y:(s.bottom+s.height)/2-(s.top+590*s.scale)*1.35});}
   };
 }

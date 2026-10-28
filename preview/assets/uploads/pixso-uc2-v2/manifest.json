@@ -1,0 +1,54 @@
+{
+  "file_key": "EK7Fip1D5gCfj8ZkWp3wzQ",
+  "page_id": "2:245374",
+  "uc2_frame_id": "2:444846",
+  "source_url": "https://pixso.net/app/design/EK7Fip1D5gCfj8ZkWp3wzQ?page-id=2%3A245374&item-id=2%3A444846",
+  "export_method": "Pixso browser SVG export; cropped and unused definitions removed without rasterizing",
+  "states": [
+    {
+      "name": "全区域扫描",
+      "frame": "2:326800",
+      "panel": "2:327294",
+      "asset": "topology-scan.svg"
+    },
+    {
+      "name": "关联区域定位",
+      "frame": "2:329100",
+      "panel": "2:329594",
+      "asset": "topology-area.svg"
+    },
+    {
+      "name": "设备定位",
+      "frame": "2:332038",
+      "panel": "2:332532",
+      "asset": "topology-devices.svg"
+    },
+    {
+      "name": "黄金基线图谱",
+      "frame": "2:334225",
+      "panel": "2:334371",
+      "assets": [
+        "role-node.svg",
+        "device-node.svg",
+        "engine-reference@2x.png"
+      ]
+    },
+    {
+      "name": "候选规则悬浮摘要",
+      "frame": "2:338998",
+      "panel": "2:339144",
+      "implementation": "native HTML overlay on interactive SVG"
+    },
+    {
+      "name": "单规则详情抽屉",
+      "frame": "2:336544",
+      "panel": "2:336690",
+      "implementation": "native HTML drawer with SVG graph scaling and relationship highlights"
+    }
+  ],
+  "notes": [
+    "Titles, metrics, candidate text and interactions remain native application content.",
+    "The reference shows 40 regions while its copy and the application use 32; this visual update preserves the application's 32-region data.",
+    "Sphere and selected-node halos now use native Pixso 2x PNG crops. Source background tile and gradients are preserved in canvas-material.svg; see material-manifest.json."
+  ]
+}

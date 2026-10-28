@@ -61,3 +61,11 @@ body:has(.stage-root) .stage-root.uc2 :is(#lui,.uc2-intent-view,.uc2-restoration
 .uc2-restoration-metrics>div:first-child dt>img{width:14px;height:14px}
 .uc2-restoration-header>button>img{display:block;width:14px;height:14px}
 .uc2-restoration-header .ic,.uc2-device-popover .ic{width:14px;height:14px}.uc2-topology-back .ic{width:12px;height:12px}
+
+/* EK7Fip1D5gCfj8ZkWp3wzQ · UC2 2:326800 / 2:329100 / 2:332038. */
+.stage-root.pc-layout.uc2 .uc2-restoration-card.uc2-pixso-v2{background-color:#282828;background-image:none;border:1px solid #ffffff0d;border-radius:16px}
+.uc2-pixso-v2 .uc2-restoration-header{margin:0 20px;border-bottom-color:#ffffff0a}
+.uc2-pixso-v2 .uc2-restoration-overview{padding-top:24px;padding-bottom:20px}
+.uc2-pixso-v2 .uc2-restoration-scene{background:#282828}
+.uc2-pixso-v2 .uc2-restoration-scan{filter:drop-shadow(0 0 12px #76adff88)}
+.uc2-pixso-v2 .uc2-device-popover{border-color:#ffffff26;background:#393939;box-shadow:0 6px 24px #0005}

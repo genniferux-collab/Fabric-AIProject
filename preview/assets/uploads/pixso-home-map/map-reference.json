@@ -1,0 +1,14 @@
+{
+  "fileKey": "EK7Fip1D5gCfj8ZkWp3wzQ",
+  "pageId": "0:1",
+  "frameId": "2:164721",
+  "groupId": "2:165205",
+  "viewBox": "0 0 1354.49 1000.28",
+  "layers": [
+    {"asset": "map-geography.svg", "nodeId": "2:165206", "name": "地图"},
+    {"asset": "map-branches.svg", "nodeId": "2:165207", "name": "地区小绿圆点"},
+    {"asset": "map-connections.svg", "nodeId": "2:165218", "name": "站点&线"}
+  ],
+  "exportMethod": "Pixso SVG original parent group; split three child groups using shared defs and the original viewBox. Source geometry, icons and outlined text preserved.",
+  "geographyCleanup": "Removed three rendering filters including Beijing inner glow, five blue or cyan guide paths, and neutralized four accent paths to the regular gray province style, as requested. Connections and node layers remain exact source vectors."
+}

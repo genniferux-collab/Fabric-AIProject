@@ -40,7 +40,7 @@ function CanvasTabs() {
 }
 
 export default function CanvasArea() {
-  const { canvasHidden, full, setFull, activePane, stage, cardRefs, reportScrollRef, activeArtifact, luiView, uc1Phase, uc3Phase, focusLuiArtifact, uc2, openArtifact, uc2RuleOriginsRef } = useApp();
+  const { canvasHidden, full, setFull, activePane, stage, cardRefs, reportScrollRef, activeArtifact, luiView, uc1Phase, uc3Phase, focusLuiArtifact, uc2, openArtifact, uc2RuleOriginsRef, uc2Show, resultTask } = useApp();
   const contentRef = useRef(null);
   const innerRef = useRef(null);
   const artifactRef=useRef(null);
@@ -53,16 +53,16 @@ export default function CanvasArea() {
   // Follow the active workflow inside the canvas, accounting for the scaled UC4 shell.
   useLayoutEffect(() => {
     if (canvasHidden || activePane !== "task" || activeArtifact || !["running", "done"].includes(luiView)) return;
-    const key = `${stage}:${luiView}`;
+    const key = `${stage}:${luiView}:${resultTask?.openedAt||""}`;
     if (followedStepRef.current === key) return;
     let cancelScroll;
     const frame = requestAnimationFrame(() => {
       const step = stage < 0 ? -1 : stage < 2 ? 0 : stage <= 3 ? 2 : 3;
       const target = innerRef.current?.querySelector(`[data-canvas-step="${step}"]`);
-      if (target && !target.classList.contains("hidden")) { cancelScroll = scrollCanvasTo(target, "linear"); followedStepRef.current = key; }
+      if (target && !target.classList.contains("hidden")) { cancelScroll = scrollCanvasTo(target, resultTask?.uc==="uc4"?"instant":"linear"); followedStepRef.current = key; }
     });
     return () => { cancelAnimationFrame(frame); cancelScroll?.(); };
-  }, [stage, luiView, canvasHidden, activePane, activeArtifact]);
+  }, [stage, luiView, canvasHidden, activePane, activeArtifact,resultTask]);
 
   useLayoutEffect(()=>{
     if(!activeArtifact)return;
@@ -174,7 +174,7 @@ export default function CanvasArea() {
         {activePane !== "task" ? <DevicePane deviceId={activePane} /> : null}
       </section>
       <section ref={artifactRef} className={"v7-artifact-pane"+(activeArtifact?"":" hidden")} aria-label="独立卡片页签">
-        {uc2.active && activeArtifact?.startsWith("uc2-rule:") && <section className="card uc2-rule-detail-card"><Uc2RuleDetail ruleId={activeArtifact.slice(9)} returnLabel={ruleOrigin==="uc2-rules"?"返回全部规则":"返回报告"} onBack={()=>openArtifact(ruleOrigin,ruleOrigin==="uc2-rules"?"全部候选规则":"黄金基线候选报告")}/></section>}
+        {uc2.active && activeArtifact?.startsWith("uc2-rule:") && <section className="card uc2-rule-detail-card"><Uc2RuleDetail ruleId={activeArtifact.slice(9)} returnLabel={ruleOrigin==="uc2-rules"?"返回全部规则":"返回报告"} onBack={()=>ruleOrigin==="uc2-rules"?openArtifact("uc2-rules","全部候选规则"):uc2Show(3)}/></section>}
         {uc2.active && <section key={uc2.runId} className="card uc2-rules-card" hidden={activeArtifact!=="uc2-rules"}><Uc2CandidateList/></section>}
       </section>
       <Uc2Pane />

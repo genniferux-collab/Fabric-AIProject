@@ -5,22 +5,22 @@ export const uc2Prompt = "帮我自动挖掘一下西三旗DC的黄金基线，�
 export const uc2Names = ["意图分析", "设备还原", "黄金基线挖掘", "生成报告"];
 
 export const uc2Rules = [
-  ["SNMP 协议版本 v3", "通用", "账户与访问安全", "snmp-agent sys-info version v3", 100, 98, 2],
-  ["VTY 空闲超时不超过 10 分钟", "通用", "账户与访问安全", "idle-timeout 10 0", 100, 97, 3],
+  ["SNMP访问控制", "通用", "账户与访问安全", "snmp-agent acl 2000", 100, 98, 2],
+  ["VTY仅允许 SSH", "通用", "账户与访问安全", "protocol inbound ssh", 100, 96, 4],
   ["SSH 使用安全加密算法", "通用", "账户与访问安全", "ssh server cipher aes256_ctr", 100, 98, 2],
-  ["NTP 主时钟源保持一致", "通用", "运维可观测性", "ntp-service unicast-server 10.10.0.10", 100, 99, 1],
-  ["核心交换机配置 VRRP 冗余", "核心交换机", "路由与冗余", "vrrp vrid 1 virtual-ip <按规划>", 20, 20, 0],
+  ["NTP服务配置", "通用", "运维可观测性", "ntp-service unicast-server 10.10.0.10", 100, 100, 0],
+  ["核心冗余组一致性", "核心交换机", "路由与冗余", "vrrp vrid 1 virtual-ip <按规划>", 20, 18, 2],
   ["核心交换机开启 BFD 联动", "核心交换机", "路由与冗余", "bfd <session> bind peer-ip <peer>", 20, 19, 1],
   ["核心交换机配置路由策略", "核心交换机", "路由与冗余", "route-policy EXPORT-DC permit node 10", 20, 20, 0],
   ["核心交换机配置 AAA 认证", "核心交换机", "账户与访问安全", "authentication-mode aaa", 20, 20, 0],
-  ["核心交换机发送系统日志", "核心交换机", "运维可观测性", "info-center loghost 10.10.0.20", 20, 20, 0],
-  ["核心交换机启用端口错误告警", "核心交换机", "接口可靠性", "snmp-agent trap enable", 20, 20, 0],
+  ["管理日志上报", "通用", "运维可观测性", "info-center loghost 10.10.0.20", 100, 98, 2],
+  ["端口错误告警", "通用", "接口可靠性", "snmp-agent trap enable", 100, 100, 0],
   ["Leaf 上联端口使用 Trunk", "Leaf 交换机", "VLAN 与二层网络", "port link-type trunk", 80, 80, 0],
-  ["Leaf Trunk VLAN 范围按角色一致", "Leaf 交换机", "VLAN 与二层网络", "port trunk allow-pass vlan <角色集合>", 80, 77, 3],
+  ["Leaf下联VLAN范围", "Leaf 交换机", "VLAN 与二层网络", "port trunk allow-pass vlan <角色集合>", 80, 77, 3],
   ["Leaf 开启 STP 环路保护", "Leaf 交换机", "VLAN 与二层网络", "stp enable", 80, 80, 0],
   ["Leaf 接入口启用边缘端口", "Leaf 交换机", "VLAN 与二层网络", "stp edged-port enable", 80, 79, 1],
-  ["Leaf 配置登录认证策略", "Leaf 交换机", "账户与访问安全", "authentication-mode aaa", 80, 80, 0],
-  ["Leaf 配置本地用户分级权限", "Leaf 交换机", "账户与访问安全", "local-user netops privilege level 3", 80, 80, 0],
+  ["设备登录认证策略", "通用", "账户与访问安全", "authentication-mode aaa", 100, 100, 0],
+  ["本地用户分级权限", "通用", "账户与访问安全", "local-user netops privilege level 3", 100, 100, 0],
   ["Leaf 接口描述遵循角色模板", "Leaf 交换机", "接口可靠性", "description <连接对象-端口>", 80, 76, 4],
   ["Leaf 配置统一 LLDP 发现", "Leaf 交换机", "运维可观测性", "lldp enable", 80, 80, 0],
 ].map((r, i) => ({
@@ -32,9 +32,10 @@ export const uc2Rules = [
 
 export const uc2DeviationDevices = {
   "GB-001": ["CoreSwitch-03", "LeafSwitch-06"],
-  "GB-002": ["LeafSwitch-03", "LeafSwitch-04", "LeafSwitch-05"],
+  "GB-002": ["LeafSwitch-03", "LeafSwitch-04", "LeafSwitch-05", "LeafSwitch-06"],
   "GB-003": ["CoreSwitch-03", "LeafSwitch-06"],
-  "GB-004": ["LeafSwitch-07"],
+  "GB-005": ["CoreSwitch-03", "CoreSwitch-04"],
+  "GB-009": ["LeafSwitch-06", "LeafSwitch-07"],
   "GB-006": ["CoreSwitch-04"],
   "GB-012": ["LeafSwitch-03", "LeafSwitch-04", "LeafSwitch-08"],
   "GB-014": ["LeafSwitch-05"],
@@ -42,8 +43,10 @@ export const uc2DeviationDevices = {
 };
 
 export const miningImpact = {
-  "GB-001": { actual: "snmp-agent sys-info version v2c", path: "系统视图", reason: "当前配置使用 SNMP v2c，与候选要求的 SNMP v3 不一致。", impact: "管理协议版本偏离候选安全模式，需确认网管兼容性及认证、隐私参数。", next: "确认网管支持 SNMP v3，并结合认证与隐私参数规划核验后，再采用候选配置。" },
-  "GB-002": { actual: "idle-timeout 15 0", path: "user-interface vty 0 4", reason: "会话闲置 15 分钟，超出候选上限 10 分钟。", impact: "可能延长无人值守管理会话的暴露时间；需结合运维会话策略确认。", next: "核验是否存在已批准的长时运维例外，再决定收敛至候选值。" },
+  "GB-005": {actual:"未匹配到统一的VRRP冗余组配置",path:"核心路由冗余",reason:"2台设备存在差异，需核验角色与组网。",impact:"核心冗余组配置可能与规划不一致，需确认主备角色与业务依赖。",next:"对照冗余规划、设备角色及组网拓扑核验，再采用候选配置。"},
+  "GB-009": {actual:"info-center loghost 10.10.0.21",path:"系统视图",reason:"2台设备存在差异，需确认日志用途。",impact:"管理日志上报目的地址不同，可能属于独立审计域。",next:"核对日志采集与审计规划，再确认是否统一上报地址。"},
+  "GB-001": { actual: "snmp-agent acl 2001", path: "系统视图", reason: "2台设备的管理访问控制列表与候选ACL 2000不同。", impact: "管理访问来源范围可能与候选规划不一致。", next: "核验ACL条目与网管访问规划，再决定是否采用候选配置。" },
+  "GB-002": { actual: "protocol inbound all", path: "user-interface vty 0 4", reason: "4台设备仍允许其他管理协议，需核验遗留管理访问需求。", impact: "管理入口未统一收敛为SSH，可能扩大访问暴露面。", next: "确认遗留网管与终端均支持SSH后，再收敛VTY允许的协议。" },
   "GB-003": { actual: "ssh server cipher aes128_cbc", path: "系统视图", reason: "实际使用 aes128_cbc，与样本共性算法 aes256_ctr 不一致。", impact: "管理访问加密方式偏离候选安全模式；调整前需确认客户端算法兼容性。", next: "核对安全基线与运维客户端兼容性，确认是否采用该候选。" },
   "GB-006": { actual: "未配置 BFD 联动", path: "核心路由冗余", reason: "未匹配到核心角色常见的 BFD 联动配置。", impact: "故障检测与路由收敛策略可能不同；是否影响业务需结合路由协议和定时器核验。", next: "核验路由邻居、设备能力和业务收敛目标，再确认是否要求 BFD。" },
   "GB-012": { actual: "port trunk allow-pass vlan 100 200 300", path: "interface 10GE1/0/1", reason: "实际放通 VLAN 300，超出同角色候选集合 VLAN 100、200。", impact: "二层业务放通范围可能扩大，也可能属于合法的角色变量或已批准业务。", next: "对照 VLAN 规划和业务依赖确认额外放通是否必要。" },
@@ -105,7 +108,7 @@ export function fusionRelevant(id) {
 export const uc2RuleById = (id) => uc2Rules.find((r) => r.id === id);
 
 export function uc2Actual(r) {
-  if (r.id === "GB-002") return "idle-timeout 15 0";
+  if (r.id === "GB-002") return "protocol inbound all";
   if (r.id === "GB-003") return "ssh server cipher aes128_cbc";
   if (r.id === "GB-004") return "ntp-service unicast-server 10.10.0.99";
   if (r.id === "GB-012") return "port trunk allow-pass vlan 100 200 300";
@@ -115,7 +118,7 @@ export function uc2Actual(r) {
 export function uc2ExportCsv(reviews) {
   const rows = [
     ["编号", "规则名称", "适用角色", "功能", "支持样本", "适用样本", "偏离设备", "置信度", "审阅状态"],
-    ...uc2Rules.map((r) => [r.id, r.name, r.role, r.category, r.support, r.scope, r.deviations, r.confidence, ({pending:"待审阅",accepted:"已采用",rejected:"暂不采用"})[reviews[r.id] || "pending"]]),
+    ...uc2Rules.map((r) => [r.id, r.name, r.role, r.category, r.support, r.scope, r.deviations, r.confidence, ({pending:"待审阅",accepted:"已采纳",rejected:"暂不采用"})[reviews[r.id] || "pending"]]),
   ];
   const csv = "\uFEFF" + rows.map((row) => row.map((v) => '"' + String(v).replaceAll('"', '""') + '"').join(",")).join("\n");
   const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
@@ -127,3 +130,14 @@ export function uc2ExportCsv(reviews) {
   a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
+
+// Pixso 5:162385: the report, full list and individual review share one data source.
+export const uc2InitialReviews = Object.fromEntries(["GB-004","GB-007","GB-008","GB-009","GB-011","GB-013"].map(id=>[id,"accepted"]));
+export const uc2ReportEvidence = {
+ "GB-002":{category:"登录安全",note:"4台存在差异，需核验遗留管理访问"},
+ "GB-005":{category:"核心冗余",note:"2台存在差异，需核验角色与组网"},
+ "GB-012":{category:"业务分区",note:"3台可能属于其他业务分区"},
+ "GB-001":{category:"管理访问",note:"2台访问控制列表不同"},
+ "GB-004":{category:"时间同步",note:"—"},
+ "GB-009":{category:"审计记录",note:"2台存在差异，需确认用途"}
+};

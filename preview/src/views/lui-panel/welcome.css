@@ -47,3 +47,18 @@ body:has(.stage-root) #lui.lui-welcome,body:has(.stage-root) #lui.lui-welcome *{
 .welcome-template-list>button img{width:14px;height:14px;flex:none}
 .welcome-template-list>button span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @media(max-width:760px){.ai-welcome-screen{width:calc(100% - 32px)}.ai-welcome-description{white-space:normal}.welcome-template-tabs{gap:20px}}
+
+/* Shared home-card BorderBeam: keep a restrained perimeter cue without a competing halo. */
+.ai-welcome-scenario{position:relative;isolation:isolate;overflow:visible;transition:background-color .24s ease,box-shadow .3s ease}
+.ai-welcome-scenario-title,.ai-welcome-scenario-description{position:relative;z-index:3;pointer-events:none}
+.ai-welcome-scenario>.ai-welcome-card-beam{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;z-index:2;border-radius:16px;overflow:visible;pointer-events:none;opacity:0;transition:opacity .32s cubic-bezier(.22,.61,.36,1);--beam-stroke-opacity:2.6;--beam-inner-opacity:.75;--beam-bloom-opacity:2.2}
+.ai-welcome-card-beam[data-beam] [data-beam-bloom]{clip-path:none;filter:blur(9px) brightness(1.02) saturate(1)}
+.ai-welcome-card-beam .orange-purple-beam-surface{display:block;width:100%;height:100%;border-radius:inherit}
+.ai-welcome-scenario:hover,.ai-welcome-scenario:focus-visible{box-shadow:-3px 0 14px #ff9c4c14,3px 0 16px #b26aff1a}
+.ai-welcome-screen .ai-welcome-scenario:focus-visible{outline:1px solid #c09bde;outline-offset:3px}
+.ai-welcome-scenario:hover>.ai-welcome-card-beam,.ai-welcome-scenario:focus-visible>.ai-welcome-card-beam{opacity:1}
+@media(prefers-reduced-motion:reduce){
+  .ai-welcome-scenario,.ai-welcome-card-beam{transition:none}
+  .ai-welcome-card-beam{display:none}
+  .ai-welcome-scenario:hover,.ai-welcome-scenario:focus-visible{box-shadow:inset 0 0 0 1px #bf8dd4,0 0 12px #ba7cda18}
+}

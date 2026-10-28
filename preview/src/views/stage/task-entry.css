@@ -1,0 +1,17 @@
+/* Preserve place: focus the chosen DC before the workbench replaces the map. */
+.figma-map-drilldown{position:absolute;inset:0;transform:scale(1)}
+.stage-root:is(.is-task-focusing,.is-task-entering) .figma-map-drilldown{transform:scale(1.13);transition:transform 440ms cubic-bezier(.22,.61,.36,1);will-change:transform}
+.stage-root:is(.is-task-focusing,.is-task-entering) .figma-network-page{pointer-events:none}
+.stage-root.is-task-focusing :is(.figma-dashboard,.effectiveness-metrics){opacity:0;transition:opacity 240ms ease-out 120ms}
+.stage-root.is-task-entering :is(.figma-dashboard,.effectiveness-metrics){opacity:0!important}
+.stage-root:is(.is-task-focusing,.is-task-entering) .map-site-popup{opacity:0!important;pointer-events:none}
+.stage-root.is-task-entering .figma-network-page{z-index:4;visibility:visible!important;animation:task-map-depart 520ms cubic-bezier(.22,.61,.36,1) both}
+.stage-root.is-task-entering #canvas:not(.hidden){animation:task-canvas-arrive 520ms cubic-bezier(.22,.61,.36,1) both}
+.stage-root.is-task-entering #lui:not(.closed){animation:task-panel-arrive 420ms ease-out both}
+@keyframes task-map-depart{0%{opacity:1}100%{opacity:0;visibility:hidden}}
+@keyframes task-canvas-arrive{0%{opacity:0;transform:translateY(6px)}100%{opacity:1;transform:none}}
+@keyframes task-panel-arrive{0%{opacity:0}100%{opacity:1}}
+@media(prefers-reduced-motion:reduce){
+ .stage-root:is(.is-task-focusing,.is-task-entering) .figma-map-drilldown{transform:none;transition:none;will-change:auto}
+ .stage-root.is-task-entering :is(.figma-network-page,#canvas,#lui){animation:none!important}
+}

@@ -11,11 +11,8 @@
 .uc2-preparing-orb{width:12px;height:12px;display:block;border-radius:50%;background:radial-gradient(circle at 35% 30%,#c5ebff,#398de5 50%,#1e4583);box-shadow:0 0 22px #3886df55;animation:uc2PreparingPulse 1600ms ease-in-out infinite}
 .uc2-report-generation{position:relative;--uc2-report-play-state:running}
 .uc2-report-generation-anchor{position:absolute;left:0;top:0;width:1px;height:56px;pointer-events:none}
-.uc2-report-generation.is-waiting{opacity:0}
-.uc2-report-generation.is-generating{animation:uc2ReportGenerate var(--uc2-report-duration,3600ms) cubic-bezier(.22,.61,.36,1) both;animation-play-state:var(--uc2-report-play-state)}
 @keyframes uc2TextCaret{50%{opacity:0}}
 @keyframes uc2PreparingPulse{0%,100%{opacity:.45;transform:scale(.85)}50%{opacity:1;transform:scale(1.1)}}
-@keyframes uc2ReportGenerate{from{opacity:0;clip-path:inset(0 0 100% 0);transform:translateY(6px)}25%{opacity:1}to{opacity:1;clip-path:inset(0);transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.uc2-typing-cursor,.uc2-preparing-orb,.uc2-report-generation.is-generating{animation:none}.uc2-report-generation.is-waiting{opacity:1}}
 
 .uc2-locate-conversation{display:inline-flex;align-items:center;justify-content:center;width:24px;height:22px;margin-left:8px;padding:0;border:0;border-radius:4px;color:inherit;background:transparent;cursor:pointer;opacity:.65}
@@ -25,3 +22,7 @@
 .stage-root.uc2 #lui .uc2-copy-label{display:block;margin-bottom:6px;color:var(--secondary);font-size:12px;line-height:20px}
 .stage-root.uc2 #lui .uc2-step-settle{margin:12px 0 0;color:var(--muted);font-size:12px;line-height:20px}
 .stage-root.uc2 #lui .step-content>.response-thought{margin-bottom:8px}
+
+.uc2-canvas-preparing>.uc4-generating-card{flex:1;width:100%;margin:0;border-radius:0}
+.stage-root.uc2 .uc2-report-generation{--report-skeleton-play-state:running}
+.stage-root.uc2 .uc2-report-generation .report-reveal-skeleton::before,.stage-root.uc2 .uc2-report-generation .report-reveal-content{animation-play-state:var(--report-skeleton-play-state)}

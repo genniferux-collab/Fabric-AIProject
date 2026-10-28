@@ -1,0 +1,19 @@
+/* Pixso 68:146700 / 59:146613 — original icon geometry, 212×56, minimum 40px. */
+.site-task-tip{--site-tip-accent:#2070f3;position:relative;display:flex;align-items:center;gap:12px;width:212px;min-height:40px;padding:8px 12px;border:0;border-radius:12px;background:#fff;box-shadow:inset 0 0 0 1px #ffffff1a,0 8px 24px #00000014;color:#191919;font:12px/20px "HarmonyOS Sans","Microsoft YaHei","PingFang SC",sans-serif;text-align:left;cursor:pointer;transition:background-color .18s ease,box-shadow .18s ease;box-sizing:border-box}
+.dark .site-task-tip{background:#393939;box-shadow:inset 0 0 0 1px #ffffff1a,0 8px 24px #0000004d;color:#fff}
+.site-task-tip:hover{background:#f4f4f4}.dark .site-task-tip:hover{background:#434343}
+.site-task-tip:focus-visible{outline:2px solid #8fbaff;outline-offset:3px}
+.site-task-tip:disabled{cursor:default;opacity:1}
+.site-task-tip.is-wide{width:100%}
+.site-task-tip.site-task-cluster{justify-content:center;gap:8px;width:68px;height:40px;min-height:40px;border-radius:22px;padding:8px 12px}
+.site-task-cluster>strong{min-width:12px;color:inherit;font-size:16px;font-weight:500;line-height:24px;text-align:center;font-variant-numeric:tabular-nums}
+.site-task-tip-symbol{position:relative;display:grid;place-items:center;flex:none;width:16px;height:16px}
+.site-task-tip-symbol img{position:relative;z-index:1;display:block;width:16px;height:16px}
+.site-task-tip-orbit{position:absolute;top:-5px;left:-5px;width:26px;height:26px;border:3px solid transparent;border-radius:50%;box-sizing:border-box;pointer-events:none}
+.site-task-tip.is-running .site-task-tip-orbit{border-color:#2070f338;border-top-color:#2070f3;border-right-color:#2070f3a6;animation:site-tip-running 1.65s linear infinite}
+.site-task-tip.is-completed,.site-task-tip.is-review{--site-tip-accent:#36c18d}
+.site-task-tip.is-completed .site-task-tip-orbit,.site-task-tip.is-review .site-task-tip-orbit{border-color:#36c18d;animation:site-tip-complete 1s cubic-bezier(.22,1,.36,1) both}
+.site-task-tip-copy{display:-webkit-box;min-width:0;flex:1;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;overflow-wrap:anywhere;line-height:20px}
+@keyframes site-tip-running{to{transform:rotate(360deg)}}
+@keyframes site-tip-complete{0%{opacity:1;transform:scale(1)}55%{opacity:.65;transform:scale(1.04)}100%{opacity:0;transform:scale(1.09)}}
+@media(prefers-reduced-motion:reduce){.site-task-tip{transition:none}.site-task-tip .site-task-tip-orbit{animation:none!important}.site-task-tip.is-completed .site-task-tip-orbit,.site-task-tip.is-review .site-task-tip-orbit{opacity:0}}

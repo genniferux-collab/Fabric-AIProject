@@ -6,7 +6,7 @@ import EmptyState from "../../components/empty-state/index.jsx";
 import Ic from "../../components/icon-el/index.jsx";
 import "./rule-detail.css";
 
-const reviewLabels = {pending:"待审阅",accepted:"已采用",rejected:"暂不采用"};
+const reviewLabels = {pending:"待审阅",accepted:"已采纳",rejected:"暂不采用"};
 function samplesFor(rule) {
   const names = rule.role === "核心交换机" ? Array.from({length:20},(_,i)=>"CoreSwitch-"+String(i+1).padStart(2,"0")) : rule.role === "Leaf 交换机" ? Array.from({length:80},(_,i)=>"LeafSwitch-"+String(i+1).padStart(2,"0")) : [...Array.from({length:20},(_,i)=>"CoreSwitch-"+String(i+1).padStart(2,"0")),...Array.from({length:80},(_,i)=>"LeafSwitch-"+String(i+1).padStart(2,"0"))];
   const bad = new Set(uc2DeviationDevices[rule.id] || []);
@@ -60,6 +60,6 @@ export function Uc2RuleDetail({ruleId,onBack,returnLabel="返回报告"}) {
         <div className="uc2-rule-disclaimer">{rule.cmd.includes("<")?"命令中的规划参数已填入示例值，使用前须结合设备与网络规划确认。":"当前为交互原型示例配置，核验后再决定是否调整。"}此处仅展示建议，未下发设备变更。</div>
       </>:<EmptyState text="没有匹配的设备，请调整左侧筛选条件。"/>}</article>
     </div>
-    <footer className="uc2-rule-review"><span>候选审阅状态：<strong>{reviewLabels[review]}</strong><small>仅保存审阅结果，不发布正式基线</small></span><div><button type="button" className="btn" onClick={()=>uc2Review(rule.id,"pending")}>恢复待审阅</button><button type="button" className="btn" onClick={()=>uc2Review(rule.id,"rejected")}>暂不采用</button><button type="button" className="btn primary" onClick={()=>uc2Review(rule.id,"accepted")}>采用此候选</button></div></footer>
+    <footer className="uc2-rule-review"><span>候选审阅状态：<strong>{reviewLabels[review]}</strong><small>仅保存审阅结果，不发布正式基线</small></span><div><button type="button" className="btn" onClick={()=>uc2Review(rule.id,"pending")}>恢复待审阅</button><button type="button" className="btn" onClick={()=>uc2Review(rule.id,"rejected")}>暂不采用</button><button type="button" className="btn primary" onClick={()=>uc2Review(rule.id,"accepted")}>采纳此候选</button></div></footer>
   </div>;
 }

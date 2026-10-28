@@ -1,4 +1,5 @@
 import {useState} from "react";
+import OrangePurpleBeam from "../../components/orange-purple-beam/index.jsx";
 import "./welcome.css";
 
 const assetRoot="./assets/uploads/pixso-ai-welcome/";
@@ -12,12 +13,14 @@ const scenarios=[
 // One welcome entry is shared by UC1–UC4; scenario selection prepares a draft.
 export default function WelcomeHome({onChoose}){
   const [batch,setBatch]=useState(0);
+  const [hovered,setHovered]=useState(null),[focused,setFocused]=useState(null);
   const ordered=scenarios.map((_,index)=>scenarios[(index+batch)%scenarios.length]);
   return <section className="ai-welcome-screen" aria-label="AI 智能运维欢迎页">
     <div className="ai-welcome-brand"><img src={`${assetRoot}brand.svg`} alt="Aico" draggable="false"/></div>
     <p className="ai-welcome-description">我是Aico，可以帮你解决以下问题</p>
-    <div className="ai-welcome-scenarios-heading"><span>智能运维场景</span><button type="button" onClick={()=>setBatch(value=>(value+1)%scenarios.length)}><img src={`${assetRoot}refresh.svg`} alt=""/>换一批</button></div>
-    <div className="ai-welcome-scenarios">{ordered.map(scenario=><button type="button" className="ai-welcome-scenario" key={scenario.icon} onClick={()=>onChoose(scenario.prompt,"check")}>
+    <div className="ai-welcome-scenarios-heading"><span>配置检查场景</span><button type="button" onClick={()=>setBatch(value=>(value+1)%scenarios.length)}><img src={`${assetRoot}refresh.svg`} alt=""/>换一批</button></div>
+    <div className="ai-welcome-scenarios">{ordered.map(scenario=><button type="button" className="ai-welcome-scenario" key={scenario.icon} onMouseEnter={()=>setHovered(scenario.icon)} onMouseLeave={()=>setHovered(null)} onFocus={()=>setFocused(scenario.icon)} onBlur={()=>setFocused(null)} onClick={()=>onChoose(scenario.prompt,"check")}>
+      <OrangePurpleBeam className="ai-welcome-card-beam" duration={8.4} borderRadius={16} strength={.9} active={hovered===scenario.icon||focused===scenario.icon}/>
       <span className="ai-welcome-scenario-title"><img src={`${assetRoot}${scenario.icon}.svg`} alt=""/>{scenario.title}</span>
       <span className="ai-welcome-scenario-description">{scenario.description}</span>
     </button>)}</div>

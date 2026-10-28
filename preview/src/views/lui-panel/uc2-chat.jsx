@@ -17,7 +17,7 @@ const thoughts = [
 ];
 
 export default function Uc2Chat() {
-  const { uc2, uc2Pause, uc2Next, uc2Show, uc2Scroll, isDark } = useApp();
+  const { uc2, uc2Pause, uc2Next, uc2Show, uc2Scroll, isDark, resultTask } = useApp();
   const done = uc2.max === 3 && uc2.phase === "complete";
   const [expanded, setExpanded] = useState(true);
   const [openSteps, setOpenSteps] = useState({ 0: true });
@@ -31,8 +31,8 @@ export default function Uc2Chat() {
     setOpenSteps(done ? {} : { [uc2.max]: true });
     setSelectedStep(done ? null : uc2.max);
     setExpanded(!done);
-    if (done) setFinished({ at: new Date(), duration: ((Date.now() - started.current) / 1000).toFixed(1) });
-  }, [uc2.max, done]);
+    if (done) setFinished({ at: new Date(resultTask?.uc==="uc2"?resultTask.completedAt:Date.now()), duration: ((Date.now() - started.current) / 1000).toFixed(1) });
+  }, [uc2.max, done,resultTask]);
   useLayoutEffect(() => {
     const main = document.getElementById("luiMain"), flow = main?.firstElementChild;
     if (!main || !flow) return;

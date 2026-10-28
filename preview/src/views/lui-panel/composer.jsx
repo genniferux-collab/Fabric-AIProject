@@ -3,6 +3,8 @@ import { useApp } from "../../context.jsx";
 import Ic from "../../components/icon-el/index.jsx";
 import LuiGlyph from "./glyph.jsx";
 import WelcomeTemplates from "./welcome-templates.jsx";
+import OrangePurpleBeam from "../../components/orange-purple-beam/index.jsx";
+import "./composer-beam.css";
 
 const commands = [
   { kind: "change", label: "配置变更", prompt: "请根据变更目标生成配置变更方案，并给出风险与回退建议。", colors: ["#6fd6ff", "#9d7aff"] },
@@ -13,7 +15,7 @@ const commands = [
 function CommandIcon({ command, native=false }) { if(native&&command.kind==="check")return <img className="lui-glyph command-icon" src="./assets/uploads/pixso-ai-welcome/mode-check.svg" width="14" height="14" alt=""/>;return <LuiGlyph name={"command-" + command.kind} size={14} className="command-icon"/>; }
 
 export default function Composer({welcome=false,feature=null,onFeatureChange}) {
-  const { promptText, setPromptText, submitPrompt, toast } = useApp();
+  const { promptText, setPromptText, submitPrompt, toast, luiOpen } = useApp();
   const promptRef = useRef(null), fileRef = useRef(null), speechRef = useRef(null);
   const [attachments, setAttachments] = useState([]);
   const [recording, setRecording] = useState(false);
@@ -82,7 +84,8 @@ export default function Composer({welcome=false,feature=null,onFeatureChange}) {
     <div className="composer-box">
       {welcome&&templateOpen&&<WelcomeTemplates onClose={closeTemplates} onChoose={prompt=>{setPromptText(prompt);setSlashDismissed(true);closeTemplates();}}/>}
       {slashOpen && !templateOpen && <div className="composer-prompts" role="listbox" aria-label="提示词">{matches.length ? matches.map((command, index) => <button key={command.kind} type="button" role="option" aria-selected={index === selected % matches.length} onMouseDown={event => event.preventDefault()} onClick={() => choose(command)}><CommandIcon command={command} />{command.label}</button>) : <span>暂无匹配提示词</span>}</div>}
-      <form className={"composer"+(welcome&&selectedFeature?" has-feature":"")} id="promptForm" onSubmit={event => { event.preventDefault(); send(); }}>
+      <form className={"composer aico-composer"+(welcome&&selectedFeature?" has-feature":"")} id="promptForm" onSubmit={event => { event.preventDefault(); send(); }}>
+        {luiOpen&&<OrangePurpleBeam className="aico-composer-beam" duration={12} borderRadius={16} strength={.78}/>}
         {welcome&&selectedFeature&&<div className="welcome-feature-bar">
           <div className="welcome-selected-feature"><CommandIcon command={selectedFeature} native/><span>{selectedFeature.label}</span><button type="button" aria-label={`移除特性：${selectedFeature.label}`} onClick={()=>{onFeatureChange?.(null);closeTemplates();}}><img src="./assets/uploads/pixso-ai-welcome/mode-close.svg" alt=""/></button></div>
           <button type="button" className="welcome-template-trigger" aria-label="打开模板列表" aria-expanded={templateOpen} aria-controls="welcomeTemplates" onClick={()=>setTemplateOpen(value=>!value)}><img src="./assets/uploads/pixso-ai-welcome/template-action.svg" alt=""/>模板</button>
