@@ -6,7 +6,7 @@ import EmptyState from "../../components/empty-state/index.jsx";
 import Ic from "../../components/icon-el/index.jsx";
 import "./rule-detail.css";
 
-const reviewLabels = {pending:"待审阅",accepted:"已采用",rejected:"暂不采用"};
+const reviewLabels = {pending:"待审阅",accepted:"已采纳",rejected:"暂不采用"};
 function samplesFor(rule) {
   const names = rule.role === "核心交换机" ? Array.from({length:20},(_,i)=>"CoreSwitch-"+String(i+1).padStart(2,"0")) : rule.role === "Leaf 交换机" ? Array.from({length:80},(_,i)=>"LeafSwitch-"+String(i+1).padStart(2,"0")) : [...Array.from({length:20},(_,i)=>"CoreSwitch-"+String(i+1).padStart(2,"0")),...Array.from({length:80},(_,i)=>"LeafSwitch-"+String(i+1).padStart(2,"0"))];
   const bad = new Set(uc2DeviationDevices[rule.id] || []);
@@ -27,7 +27,7 @@ function CodePanel({title,lines,onCopy,mode,onModeChange}) {
 }
 
 // Pixso UC2-识别完成-规则详情: rule metadata + device list + configuration evidence.
-export function Uc2RuleDetail({ruleId,onBack}) {
+export function Uc2RuleDetail({ruleId,onBack,returnLabel="返回报告"}) {
   const {uc2,uc2SetFilter,uc2Review,uc2Reviews,uc2RuleDetailsRef,toast} = useApp();
   const rule = uc2Rules.find(item=>item.id === (ruleId || uc2.rule));
   const [,setVersion] = useState(0),navRef=useRef(null);
@@ -47,7 +47,7 @@ export function Uc2RuleDetail({ruleId,onBack}) {
   const fullLines=device?[{text:"sysname "+device.name},{text:"#"},{text:"info-center loghost 10.10.0.20"},{text:"ntp-service unicast-server 10.10.0.10"},{text:"#"},{text:evidence.path==="系统视图"?"# 候选规则对应的系统配置":evidence.path},{text:evidence.command,kind:device.bad?"bad":"good"},{text:"#"},{text:"lldp enable"},{text:"#"}]:[];
   const lines=state.mode==="full"?fullLines:relatedLines;
   return <div className="uc2-rule-workspace" data-rule-detail={rule.id}>
-    <header className="uc2-rule-overview"><div className="uc2-rule-heading"><h2>{rule.name}</h2><span className="uc2-rule-kind">候选规则</span><span className={"uc2-rule-state "+(rule.deviations?"failed":"passed")}>{rule.deviations?"存在配置差异":"样本配置一致"}</span><button type="button" className="uc2-rule-return" aria-label="返回候选报告" title="返回候选报告" onClick={onBack || (()=>uc2SetFilter({view:"stage",rule:null}))}><Ic icon="arrow-left"/>返回报告</button></div>
+    <header className="uc2-rule-overview"><div className="uc2-rule-heading"><h2>{rule.name}</h2><span className="uc2-rule-kind">候选规则</span><span className={"uc2-rule-state "+(rule.deviations?"failed":"passed")}>{rule.deviations?"存在配置差异":"样本配置一致"}</span><button type="button" className="uc2-rule-return" aria-label={returnLabel} title={returnLabel} onClick={onBack || (()=>uc2SetFilter({view:"stage",rule:null}))}><Ic icon="arrow-left"/>{returnLabel}</button></div>
       <dl className="uc2-rule-metadata">{[["范围","西三旗 DC"],["功能",rule.category],["影响设备",rule.deviations+" 台"],["规则编号",rule.id],["适用范围",rule.role==="通用"?"共性规则":rule.role],["配置一致性",rule.support+"/"+rule.scope+" 台"],["覆盖率",(rule.support/rule.scope*100).toFixed(1).replace(/\.0$/,"")+"%"]].map(([label,value])=><div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
     </header>
     <div className="uc2-rule-body"><aside className="uc2-rule-devices" aria-label="设备配置核验"><h3>设备配置核验</h3><div className="uc2-device-filters" role="group" aria-label="样本设备配置核验状态">{[["all","全部",rule.scope],["failed","不通过",rule.deviations],["passed","通过",rule.support]].map(([id,label,count])=><button type="button" key={id} aria-pressed={state.status===id} onClick={()=>selectStatus(id)}><i className={id}/>{label}<strong>{count}</strong></button>)}</div><SearchInput value={state.query} onChange={query=>patch({query,selected:null,navScroll:0})} placeholder="请输入设备内容" ariaLabel="搜索核验设备" clearable/><div className="uc2-device-list" ref={navRef} onScroll={e=>{state.navScroll=e.currentTarget.scrollTop;}}>{visible.map(item=><button type="button" className={"uc2-device-item "+(item.bad?"failed":"passed")+(device?.id===item.id?" selected":"")} key={item.id} aria-label={"查看样本设备："+item.name} aria-pressed={device?.id===item.id} onClick={()=>patch({selected:item.id,check:"configuration"})}><i/><span><strong>西三旗 · {item.name}</strong><small>{item.bad?"配置存在差异":"与候选配置一致"} · {item.role}</small></span></button>)}{!visible.length&&<EmptyState text="没有匹配的设备"/>}</div></aside>
@@ -60,6 +60,6 @@ export function Uc2RuleDetail({ruleId,onBack}) {
         <div className="uc2-rule-disclaimer">{rule.cmd.includes("<")?"命令中的规划参数已填入示例值，使用前须结合设备与网络规划确认。":"当前为交互原型示例配置，核验后再决定是否调整。"}此处仅展示建议，未下发设备变更。</div>
       </>:<EmptyState text="没有匹配的设备，请调整左侧筛选条件。"/>}</article>
     </div>
-    <footer className="uc2-rule-review"><span>候选审阅状态：<strong>{reviewLabels[review]}</strong><small>仅保存审阅结果，不发布正式基线</small></span><div><button type="button" className="btn" onClick={()=>uc2Review(rule.id,"pending")}>恢复待审阅</button><button type="button" className="btn" onClick={()=>uc2Review(rule.id,"rejected")}>暂不采用</button><button type="button" className="btn primary" onClick={()=>uc2Review(rule.id,"accepted")}>采用此候选</button></div></footer>
+    <footer className="uc2-rule-review"><span>候选审阅状态：<strong>{reviewLabels[review]}</strong><small>仅保存审阅结果，不发布正式基线</small></span><div><button type="button" className="btn" onClick={()=>uc2Review(rule.id,"pending")}>恢复待审阅</button><button type="button" className="btn" onClick={()=>uc2Review(rule.id,"rejected")}>暂不采用</button><button type="button" className="btn primary" onClick={()=>uc2Review(rule.id,"accepted")}>采纳此候选</button></div></footer>
   </div>;
 }

@@ -2,6 +2,7 @@
 // No package installation or external network access is required.
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
 const root=path.resolve(__dirname,'..');
+require('./build-map-vectors.cjs');
 const Babel=require(path.join(root,'assets/library/babel.min.js'));
 const modules=new Map(),styles=new Set();
 const externals={react:'React','react-dom':'ReactDOM','react-dom/client':'ReactDOM',antd:'antd','react-intl':'ReactIntl',dayjs:'dayjs','react/jsx-runtime':'ReactJsxRuntime'};

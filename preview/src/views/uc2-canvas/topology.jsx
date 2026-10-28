@@ -8,6 +8,7 @@ export function Uc2Title({ stage, title, sub, tag }) {
 }
 
 const assets = "./assets/uploads/pixso-uc2-restoration/";
+const vectors = "./assets/uploads/pixso-uc2-v2/";
 const areas = [
   { id:"internet", name:"互联网接入区", x:73, y:180, width:379, height:249 },
   { id:"external", name:"外联区", x:655, y:180, width:287, height:394 },
@@ -51,21 +52,22 @@ export default function Uc2Topology() {
   const [artReady, setArtReady] = useState(false);
   useEffect(() => {
     let active = true;
-    Promise.all(["overview.png", "topology.png"].map(name => {
-      const image = new Image(); image.src = assets + name; return image.decode();
+    Promise.all(["topology-scan.svg", "topology-area.svg", "topology-final@2x.png"].map(name => {
+      const image = new Image(); image.src = vectors + name; return image.decode();
     })).then(() => { if (active) setArtReady(true); }).catch(() => {});
     return () => { active = false; };
   }, []);
   const elapsed = progress * uc2RestorationDuration;
-  const topologyBlend = focused ? 1 : artReady ? ease(clamp((elapsed - 3600) / 700)) : 0;
-  const countProgress = focused ? 1 : ease(clamp((elapsed - 4300) / 1200));
+  const areaBlend = focused ? 1 : artReady ? ease(clamp((elapsed - 2800) / 800)) : 0;
+  const topologyBlend = focused ? 1 : artReady ? ease(clamp((elapsed - 4700) / 900)) : 0;
+  const countProgress = focused ? 1 : ease(clamp((elapsed - 4800) / 1200));
   const phase = progress === 1 ? 2 : 0;
-  const motionPhase = progress === 1 ? "complete" : elapsed < 3600 ? "scanning" : "revealing";
+  const motionPhase = progress === 1 ? "complete" : elapsed < 2800 ? "scanning" : elapsed < 4700 ? "locating" : "revealing";
   const count = value => countProgress > 0 ? Math.floor(value * countProgress) : "--";
   const selected = devices.find(d => d.id === uc2.node);
   const detail = topologyBlend >= .98;
   const activate = (area) => { setFocused(area); uc2SelectNode(null); };
-  return <article className="uc2-restoration-card" aria-label="西三旗 DC 网络拓扑图" data-restoration-phase={phase} data-motion-phase={motionPhase} aria-busy={phase !== 2}>
+  return <article className="uc2-restoration-card uc2-pixso-v2" aria-label="西三旗 DC 网络拓扑图" data-restoration-phase={phase} data-motion-phase={motionPhase} aria-busy={phase !== 2}>
     <header className="uc2-restoration-header"><h3><img src={assets+"topology-icon.svg"} alt="" />网络拓扑图</h3><button type="button" aria-label={full ? "还原拓扑画布" : "放大拓扑画布"} onClick={() => setFull(!full)}><img src={assets+"expand-icon.svg"} alt="" /></button></header>
     <div className="uc2-restoration-overview">
       <div className="uc2-restoration-copy"><h4>还原数据中心网络拓扑</h4><p>{phase === 2 ? "32个区域已定位，1980台交换机满足条件，下图为角色区域聚合视图" : "正在扫描全网区域，识别设备角色并逐步展开网络拓扑"}</p></div>
@@ -78,16 +80,16 @@ export default function Uc2Topology() {
     </div>
     <div className={"uc2-restoration-scene" + (!uc2.running ? " is-paused" : "")}>
       <svg viewBox="0 160 1232 749" className="uc2-native-topology" role="img" aria-label={detail ? "已定位核心交换机的详细网络拓扑" : "蓝色光效自上而下扫描全网区域，连续展开设备拓扑"}>
-        <g className="uc2-overview-layer" opacity={1 - topologyBlend}>
-          <image href={assets + "overview.png"} x="0" y="160" width="1232" height="749" />
-          <rect x="74" y="182" width="1080" height="42" fill="#393939" aria-hidden="true" />
-          <g className="uc2-restoration-scan" transform={"translate(0 " + (clamp(elapsed / 3600) * 648) + ")"}>
+        <g className="uc2-overview-layer" opacity={1 - areaBlend}>
+          <image href={vectors + "topology-scan.svg"} x="0" y="160" width="1232" height="749" />
+          <g className="uc2-restoration-scan" transform={"translate(0 " + (clamp(elapsed / 2800) * 648) + ")"}>
             <defs><linearGradient id="uc2RestorationScanGradient" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#5ca2e9" stopOpacity="0"/><stop offset="1" stopColor="#5ca2e9" stopOpacity=".28"/></linearGradient></defs>
             <rect x="74" y="182" width="1080" height="42" fill="url(#uc2RestorationScanGradient)"/>
             <rect x="74" y="224" width="1080" height="2" fill="#64b2ff"/>
           </g>
         </g>
-        <image className="uc2-topology-detail" href={assets + "topology.png"} x="0" y="160" width="1232" height="749" opacity={topologyBlend} />
+        <image className="uc2-topology-area" href={vectors + "topology-area.svg"} x="0" y="160" width="1232" height="749" opacity={areaBlend * (1 - topologyBlend)} />
+        <image className="uc2-topology-detail" href={vectors + "topology-final@2x.png"} x="0" y="160" width="1232" height="749" opacity={topologyBlend} />
         {!detail && <>
           {areas.map(area=><g key={area.id} role="button" tabIndex={0} aria-label={"查看"+area.name+"详细拓扑"} className="uc2-topology-hit" onClick={()=>activate(area.name)} onKeyDown={e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();activate(area.name);}}}><rect x={area.x} y={area.y} width={area.width} height={area.height} rx="4" fill="transparent" /><title>{area.name} · 查看详细拓扑</title></g>)}
         </>}

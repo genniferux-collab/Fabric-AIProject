@@ -14,6 +14,8 @@ body{display:flex;flex-direction:column;background:#f1f2f4;color:#383d44;font:14
 .preview-toolbar select:focus-visible{outline:2px solid #2684ff;outline-offset:2px}
 .preview-scale{margin-left:auto;color:#767d87;font-size:12px;white-space:nowrap;font-variant-numeric:tabular-nums}
 .preview-workspace{display:grid;place-items:center;flex:1;min-width:0;min-height:0;padding:24px;overflow:hidden}
+.preview-workspace.is-fill{padding:0}
+.preview-workspace.is-fill .preview-frame{border-radius:0;box-shadow:none}
 .preview-frame{position:relative;flex:none;width:0;height:0;overflow:hidden;border-radius:4px;background:#191919;box-shadow:0 0 0 1px #cbd1d9,0 12px 32px #202b3b12}
 .preview-frame iframe{position:absolute;left:0;top:0;display:block;width:1920px;height:1080px;border:0;transform-origin:0 0;background:#191919}
 @media(max-width:400px){.preview-toolbar{padding:8px 12px;gap:8px}.preview-scale .scale-caption{display:none}.preview-workspace{padding:16px}}
@@ -26,6 +28,7 @@ body{display:flex;flex-direction:column;background:#f1f2f4;color:#383d44;font:14
 <option value="1920x1080" selected>1920 × 1080</option>
 <option value="1440x900">1440 × 900</option>
 <option value="1366x768">1366 × 768</option>
+<option value="fill">铺满窗口</option>
 </select>
 <span class="preview-scale"><span class="scale-caption">等比显示 · </span><output id="preview-scale">100%</output></span>
 </header>
@@ -37,15 +40,17 @@ body{display:flex;flex-direction:column;background:#f1f2f4;color:#383d44;font:14
 <script>
 (()=>{
  const workspace=document.getElementById('preview-workspace'),frame=document.getElementById('preview-frame'),app=document.getElementById('app-preview'),size=document.getElementById('preview-size'),output=document.getElementById('preview-scale');
- // Keep the app's logical viewport fixed; only the outer preview presentation fits the host panel.
+ // Fixed PC sizes remain the default; fill mode uses the current preview viewport.
  const fit=()=>{
-  const [width,height]=size.value.split('x').map(Number),style=getComputedStyle(workspace);
+  const fill=size.value==='fill';workspace.classList.toggle('is-fill',fill);
+  const style=getComputedStyle(workspace);
   const availableWidth=Math.max(1,workspace.clientWidth-parseFloat(style.paddingLeft)-parseFloat(style.paddingRight));
   const availableHeight=Math.max(1,workspace.clientHeight-parseFloat(style.paddingTop)-parseFloat(style.paddingBottom));
-  const scale=Math.min(1,availableWidth/width,availableHeight/height);
+  const [width,height]=fill?[availableWidth,availableHeight]:size.value.split('x').map(Number);
+  const scale=fill?1:Math.min(1,availableWidth/width,availableHeight/height);
   frame.style.width=width*scale+'px';frame.style.height=height*scale+'px';
   app.width=width;app.height=height;app.style.width=width+'px';app.style.height=height+'px';app.style.transform='scale('+scale+')';
-  app.title='Fabric AI · '+width+' × '+height+' PC 页面';output.value=Math.round(scale*100)+'%';
+  app.title='Fabric AI · '+width+' × '+height+' PC 页面';document.querySelector('.scale-caption').textContent=fill?'自适应 · ':'等比显示 · ';output.value=fill?width+' × '+height:Math.round(scale*100)+'%';
  };
  size.value='1920x1080';size.addEventListener('change',fit);new ResizeObserver(fit).observe(workspace);fit();
 })();

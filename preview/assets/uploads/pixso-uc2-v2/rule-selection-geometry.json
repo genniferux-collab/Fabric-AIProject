@@ -1,0 +1,134 @@
+{
+  "source_file": "EK7Fip1D5gCfj8ZkWp3wzQ",
+  "source_board": "2:339144",
+  "source_node_center": [
+    948,
+    436
+  ],
+  "canvas_origin": [
+    24,
+    106
+  ],
+  "canvas_node_center": [
+    924,
+    330
+  ],
+  "selected_band": {
+    "shape_id": "椭圆 3560",
+    "size": [
+      234.991211,
+      55.88916
+    ],
+    "relative_bounds": [
+      11.008789,
+      -30,
+      234.991211,
+      55.88916
+    ],
+    "filtered_relative_bounds": [
+      10.508789,
+      -30.5,
+      235.991211,
+      56.88916
+    ],
+    "path": "M16.6825 0C10.2342 18.2553 4.65806 36.8995 0 55.8891L224.365 55.8892L234.991 0L16.6825 0Z",
+    "transform": "matrix(-1,0,0,1,1194,406)",
+    "opacity": 0.24,
+    "blur_std_deviation": 0.166666672,
+    "gradient": {
+      "x1": 34.3889275,
+      "y1": 16.4672852,
+      "x2": 283.804962,
+      "y2": 35.5055084,
+      "stops": [
+        {
+          "offset": 0,
+          "color": "#aaa9a9",
+          "opacity": 1
+        },
+        {
+          "offset": 1,
+          "color": "#000000",
+          "opacity": 0
+        }
+      ]
+    },
+    "visible_stroke": false,
+    "original_colored_custom_gradient_visible": false
+  },
+  "selected_node": {
+    "group_id": "组合 91335039",
+    "white_core_radius": 7,
+    "white_core_fill": "#ffffff",
+    "outer_halo_radius": 13,
+    "outer_halo_stroke_width": 14,
+    "outer_halo_group_opacity": 0.8,
+    "outer_halo_stroke_opacity": 0.7,
+    "outer_halo_blur": 6.66666651,
+    "inner_halo_radius": 10,
+    "inner_halo_stroke_width": 8,
+    "inner_halo_stroke_opacity": 0.7,
+    "halo_radial_color": "#a29dff",
+    "halo_radial_alpha_start": 1,
+    "halo_radial_alpha_end": 0.505861461,
+    "white_core_shadow": {
+      "dx": 0,
+      "dy": 4,
+      "blur": 1.33333337,
+      "color": "#000000",
+      "opacity": 0.3
+    },
+    "inner_white_angular_highlight_opacity": 0.200000018
+  },
+  "text": {
+    "selected_block_bounds": [
+      981,
+      414,
+      197,
+      40
+    ],
+    "selected_relative_x": 33,
+    "selected_title_baseline": -6,
+    "selected_subtitle_baseline": 14,
+    "selected_fill": "#ffffff",
+    "regular_title_fill": "#c9c9c9",
+    "regular_subtitle_fill": "#939393",
+    "nonselected_rule_group_opacity": 0.5,
+    "title_font_size_inferred": 14,
+    "subtitle_font_size_inferred": 12,
+    "selected_title_weight_visually_bold": "font metadata unavailable: SVG paths only",
+    "regular_title_weight_visually_normal": "font metadata unavailable: SVG paths only"
+  },
+  "clipping": {
+    "custom_frame_is_not_clip": true,
+    "rule_group_clip": null,
+    "enclosing_canvas_clip": "url(#clipPath_100)",
+    "note": "Only parent canvas has actual clip-path; shape itself has curved right edge. Native band source rightmost x1194 equals local scene x1170, leaving62 to viewBox right1232."
+  },
+  "outer_arc": {
+    "source_outline_path": "M83.5691 648.245C56.4938 600.178 35.9042 550.756 21.8002 499.98C8.01518 450.353 0.625542 400.168 -0.368755 349.425C-1.64313 287.901 6.28815 227.32 23.4251 167.683C40.1004 109.652 65.1504 53.6701 98.575 -0.263389L99.425 0.263389C66.049 54.1185 41.0361 110.017 24.3862 167.959C7.27714 227.499 -0.641244 287.981 0.631053 349.405C1.6237 400.064 9.00124 450.167 22.7637 499.713C36.846 550.411 57.4049 599.758 84.4404 647.755L83.5691 648.245Z",
+    "source_transform": "matrix(-1,0,0,1,1212,273)",
+    "scene_transform": "matrix(-1,0,0,1,1188,167)",
+    "opacity": 0.25,
+    "effective_stroke_width": 1,
+    "fill": "original angular pale-purple/blue gradient",
+    "shadow": {
+      "color": "#14405f",
+      "opacity": 0.2,
+      "blur": 6.66666651,
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "source_bounds": [
+      1112.575,
+      272.737,
+      99.926,
+      648.509
+    ],
+    "same_curve_as_selection_band": true,
+    "max_measured_band_edge_distance_from_arc_centerline_at_5_points": 0.344,
+    "sample_note": "The band follows the 1px outer outline: edge differs only 0.245-0.344px from arc centerline, inside the stroke. Keep fixed outer arc and clip/curve selected band to it when moving to other rows."
+  }
+}

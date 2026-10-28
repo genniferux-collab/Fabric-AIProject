@@ -17,14 +17,15 @@ const end = delay + 100;
 
 // UC4's completion reveal, mounted once; opening history never restarts the answer.
 export default function Uc2Completion({timestamp,duration}) {
-  const {uc2Show,uc2Start} = useApp();
+  const {uc2Show,uc2Start,resultTask} = useApp();
+  const reviewing=resultTask?.uc==="uc2";
   return <>
     <section className="completion audit-completion" id="uc2Conclusion" data-report-result="true" aria-label="黄金基线挖掘结论">
-      {timeline.slice(0,3).map((line,index)=><StreamText key={index} {...line} speed={18}/>)}
-      <ul className="audit-advice">{timeline.slice(3,5).map((line,index)=><StreamText key={index} {...line} speed={18}/>)}</ul>
-      <StreamText {...timeline[5]} speed={18}/>
-      <RevealAfter delay={end}><div className="v7-step-artifact"><ArtifactTag title="黄金基线候选报告" type="conclusion" shape="report" timestamp={timestamp} onLocate={()=>uc2Show(3)}/></div></RevealAfter>
+      {timeline.slice(0,3).map((line,index)=><StreamText key={index} {...line} speed={18} animate={!reviewing} delay={reviewing?0:line.delay}/>)}
+      <ul className="audit-advice">{timeline.slice(3,5).map((line,index)=><StreamText key={index} {...line} speed={18} animate={!reviewing} delay={reviewing?0:line.delay}/>)}</ul>
+      <StreamText {...timeline[5]} speed={18} animate={!reviewing} delay={reviewing?0:timeline[5].delay}/>
+      <RevealAfter delay={reviewing?0:end}><div className="v7-step-artifact"><ArtifactTag title="黄金基线候选报告" type="conclusion" shape="report" timestamp={timestamp} onLocate={()=>uc2Show(3)}/></div></RevealAfter>
     </section>
-    <RevealAfter delay={end}><ResponseTools timestamp={timestamp.slice(5)} duration={duration} subject="挖掘" text="本轮分析100台样本设备，发现18条候选规则，其中12条高置信、6条待验证，9台设备存在候选偏离。候选规则尚未发布。" onRegenerate={uc2Start} onLocate={()=>uc2Show(3)} locateLabel="定位候选报告"/></RevealAfter>
+    <RevealAfter delay={reviewing?0:end}><ResponseTools timestamp={timestamp.slice(5)} duration={duration} subject="挖掘" text="本轮分析100台样本设备，发现18条候选规则，其中12条高置信、6条待验证，9台设备存在候选偏离。候选规则尚未发布。" onRegenerate={uc2Start} onLocate={()=>uc2Show(3)} locateLabel="定位候选报告"/></RevealAfter>
   </>;
 }

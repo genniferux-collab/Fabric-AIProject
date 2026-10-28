@@ -1,4 +1,4 @@
-import {useEffect,useRef,useState} from "react";
+import {useEffect,useLayoutEffect,useRef,useState} from "react";
 import DataCenterNetworkAgent from "../../components/network-agent-dashboard/index.jsx";
 import {useApp} from "../../context.jsx";
 import EffectivenessMetrics from "../../components/effectiveness-metrics/index.jsx";
@@ -8,8 +8,10 @@ import "./index.css";
 import useMapNavigation from "./use-map-navigation.js";
 
 const assetRoot="./assets/uploads/pixso-home-map/";
+const MAP_WIDTH=1354.487061,MAP_HEIGHT=1000.278442;
 export default function Cockpit(){
-  const {openAgentHome}=useApp();
+  const {openAgentHome,taskEntry}=useApp();
+  const [drillOrigin,setDrillOrigin]=useState({x:"50%",y:"50%"});
   const [gisOpen,setGisOpen]=useState(false),[mapView,setMapView]=useState("全国视图");
   const mapRef=useRef(null),metricsRef=useRef(null),gisRef=useRef(null);
   const {view,scene,isPanning,handlers,changeScale,reset:resetMap,focusCenters,minZoom,maxZoom}=useMapNavigation(mapRef,metricsRef);
@@ -19,16 +21,27 @@ export default function Cockpit(){
     document.addEventListener("pointerdown",close);document.addEventListener("keydown",close);
     return()=>{document.removeEventListener("pointerdown",close);document.removeEventListener("keydown",close);};
   },[gisOpen]);
+  useLayoutEffect(()=>{
+    if(!taskEntry||taskEntry.phase!=="focusing")return;
+    const map=mapRef.current,node=map?.querySelector(`.map-reference-hotspot[data-center-id="${taskEntry.centerId}"]`);
+    if(!map||!node)return;
+    const bounds=map.getBoundingClientRect(),site=node.getBoundingClientRect();
+    setDrillOrigin({x:`${(site.left+site.width/2-bounds.left)/bounds.width*100}%`,y:`${(site.top+site.height/2-bounds.top)/bounds.height*100}%`});
+  },[taskEntry]);
   const reset=()=>{resetMap();setMapView("全国视图");};
   return <main className="figma-network-page">
     <EffectivenessMetrics panelRef={metricsRef}/>
     <div className="figma-map" ref={mapRef} aria-label="可缩放的中国区域地图" {...handlers}>
-      <div className="figma-map-edges" aria-hidden="true" style={{backgroundSize:`${1691*scene.scale*view.scale}px 1px`,backgroundPosition:`${scene.left*view.scale+view.x}px ${scene.top*view.scale+view.y}px`}}/>
+      <div className="figma-map-edges" aria-hidden="true"/>
+      <div className="figma-map-drilldown" style={{transformOrigin:`${drillOrigin.x} ${drillOrigin.y}`}}>
       <div className={`figma-map-canvas${isPanning?" is-panning":""}`} style={{transform:`translate(${view.x}px,${view.y}px) scale(${view.scale})`}}>
-        <div className="figma-map-plane" style={{width:1691*scene.scale,height:1261*scene.scale,left:scene.left,top:scene.top,"--source-map-scale":scene.scale}}>
-          <img className="figma-map-image" src={`${assetRoot}source-map.png`} alt="原始设计地图：省份边界、支行连线和数据中心分布" draggable="false"/>
-          <MapNetworkOverlay/>
+        <div className="figma-map-plane" style={{width:MAP_WIDTH*scene.scale,height:MAP_HEIGHT*scene.scale,left:scene.left,top:scene.top,"--source-map-scale":scene.scale}}>
+          <div className="figma-map-vector-stack">
+            <img className="figma-map-base" src={`${assetRoot}map-geography.svg`} alt="Pixso 原始中国地图、省界与地名" draggable="false"/>
+          </div>
+          <MapNetworkOverlay displayScale={scene.scale*view.scale}/>
         </div>
+      </div>
       </div>
       <div className="figma-map-top-mask" style={{height:scene.maskHeight}} aria-hidden="true"/>
       <div className="map-gis-region" ref={gisRef}>

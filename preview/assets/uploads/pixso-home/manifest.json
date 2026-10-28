@@ -23,7 +23,10 @@
     "input-default": "8:538930",
     "summary-art": "13:362553",
     "orb": "13:364985",
-    "sidebar-background": "23:347432"
+    "sidebar-background": "23:347432",
+    "fault": "3:80608",
+    "fault-distribution": "3:80617",
+    "metrics-chevron": "3:7810"
   },
   "crops": {
     "summary-art": [
@@ -31,8 +34,20 @@
       126,
       90,
       90
+    ],
+    "fault-status-strip": [
+      0,
+      0,
+      416,
+      32
     ]
   },
   "note": "Native Pixso SVG icons, source-rendered PNG sidebar background and original document illustration; editable runtime labels, layout and interactions remain code.",
-  "format": "Native SVG assets; CSS layout and source conic gradient; original raster document illustration retained."
+  "format": "Native SVG assets; CSS layout and source conic gradient; original raster document illustration retained.",
+  "instance_overrides": {
+    "metrics-chevron.svg": {
+      "source": "I8:538217;3:81280;3:7810",
+      "fill": "#DFDFDF"
+    }
+  }
 }

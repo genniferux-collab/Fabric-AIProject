@@ -4,7 +4,10 @@ import { devices } from "./mock/devices.js";
 import { checks } from "./mock/checks.js";
 import { sortedFailedRules } from "./mock/audit.js";
 import { recs, DEFAULT_PROMPT } from "./mock/workflow.js";
-import { uc2RestorationDuration, uc2Timing, uc2RuleById } from "./mock/uc2.js";
+import { uc2RestorationDuration, uc2Timing, uc2RuleById, uc2InitialReviews } from "./mock/uc2.js";
+import useNetworkTasks from "./hooks/use-network-tasks.js";
+import useTaskEntryTransition from "./hooks/use-task-entry-transition.js";
+import {ucTaskDefinitions} from "./mock/task-registry.js";
 
 function uc2StageState(cur, stage, phase = "text") {
   return { ...cur, stage, max: Math.max(cur.max, stage), phase, phaseElapsed: 0, canvasStarted: phase === "complete" || (phase === "canvas" && stage < 2),
@@ -79,6 +82,17 @@ export function stateFor(map, id) {
 const createUc3EditorDraft=()=>({name:'用户接口空闲超时时间不能超过 10 分钟',priority:'最高优先级',ruleId:'user_interface_idle_timeout_10min',type:'单条 Rule（非 Policy）',mode:'始终执行',method:'全局',trigger:'全部满足',changed:false,testResult:null,conditions:[{id:1,field:'time',operator:'大于',value:'全部满足',relation:'或',expression:'idle-timeout  {{time}} 30'}]});
 
 export function AppProvider({ children }) {
+  const {networkTasks,tasksRef:networkTasksRef,activeTaskRef:activeNetworkTaskRef,beginWorkflow,syncWorkflow,pauseActive,finishActiveReview}=useNetworkTasks();
+  const {taskEntry,enterTaskDetail,cancelTaskEntry}=useTaskEntryTransition();
+  const [resultTask,setResultTask]=useState(null);
+  const finishTaskOnExitRef=useRef(()=>{});
+  const pendingNetworkTaskRef=useRef(null);
+  const beginNetworkWorkflow=useCallback((uc,prompt)=>{
+    setResultTask(null);
+    const existingId=pendingNetworkTaskRef.current;
+    pendingNetworkTaskRef.current=null;
+    return beginWorkflow(uc,prompt,existingId);
+  },[beginWorkflow]);
   const [isDark, setIsDark] = useState(true);
   useEffect(() => { document.documentElement.classList.toggle("dark", isDark); }, [isDark]);
 
@@ -156,6 +170,10 @@ export function AppProvider({ children }) {
   const uc2StartRef = useRef(() => {});
 
   const openAgentHome = useCallback(() => {
+    cancelTaskEntry();
+    finishTaskOnExitRef.current();
+    setResultTask(null);
+    pauseActive();
     setLuiFocus(null);
     setActiveArtifact(null);
     uc2LeaveRef.current();
@@ -167,14 +185,17 @@ export function AppProvider({ children }) {
     setCanvasHidden(true);
     setFull(false);
     setAgentActive(true);
-  }, [stopScan]);
+  }, [stopScan,cancelTaskEntry]);
 
   const goCockpit = useCallback(() => {
+    cancelTaskEntry();
+    finishTaskOnExitRef.current();
+    setResultTask(null);
     uc2LeaveRef.current();
     setLuiOpen(false);
     setCanvasHidden(true);
     setAgentActive(false);
-  }, []);
+  }, [cancelTaskEntry]);
 
   const toggleAgent = useCallback(() => {
     if (luiOpen && agentActive) goCockpit();
@@ -182,6 +203,7 @@ export function AppProvider({ children }) {
   }, [luiOpen, agentActive, goCockpit, openAgentHome]);
 
   const completeTask = useCallback((prompt) => {
+    syncWorkflow("uc4",{status:"awaiting-review",phase:"基线检查已完成，待审阅",progress:100,result:{...ucTaskDefinitions.uc4.result}});
     runningRef.current = false;
     clearTimeout(timerRef.current);
     stopScan();
@@ -215,9 +237,12 @@ export function AppProvider({ children }) {
   const uc2TimerRef = useRef(0);
   const uc2ScrollSeqRef = useRef(0);
   const [uc2Scroll, setUc2Scroll] = useState(null); // {seq, module}
-  const [uc2Reviews, setUc2Reviews] = useState({}); // 规则 id -> pending/accepted/rejected
+  const [uc2Reviews, setUc2Reviews] = useState(()=>{try{return {...uc2InitialReviews,...JSON.parse(localStorage.getItem("fabric.uc2.reviews.v2")||"{}")};}catch{return {...uc2InitialReviews};}});
+  useEffect(()=>{try{localStorage.setItem("fabric.uc2.reviews.v2",JSON.stringify(uc2Reviews));}catch{}},[uc2Reviews]);
+  useEffect(()=>{const sync=event=>{if(event.key==="fabric.uc2.reviews.v2"&&event.newValue){try{setUc2Reviews({...uc2InitialReviews,...JSON.parse(event.newValue)});}catch{}}};window.addEventListener("storage",sync);return()=>window.removeEventListener("storage",sync);},[]);
   const [uc2Fusion, setUc2Fusion] = useState({ selected: "engine", rule: null, drawer: null });
   const uc2RuleDetailsRef = useRef({});
+  const uc2RuleOriginsRef = useRef({});
   const [uc2Extra, setUc2Extra] = useState([]); // 挖掘中追加的对话消息
 
   const uc2ScheduleRef = useRef(() => {});
@@ -258,6 +283,7 @@ export function AppProvider({ children }) {
     clearTimeout(uc2TimerRef.current);
     const cur = uc2Ref.current;
     if (cur.active || cur.running) {
+      pauseActive("uc2");
       const next = { ...cur, active: false, running: false };
       uc2Ref.current = next;
       setUc2(next);
@@ -267,6 +293,7 @@ export function AppProvider({ children }) {
   uc2LeaveRef.current = uc2Leave;
 
   const uc2Start = useCallback(() => {
+    beginNetworkWorkflow("uc2",ucTaskDefinitions.uc2.prompt);
     setActiveArtifact(null);
     stopScan();
     clearTimeout(timerRef.current);
@@ -275,6 +302,7 @@ export function AppProvider({ children }) {
     setUc2Fusion({ selected: "engine", rule: null, drawer: null });
     setUc2Extra([]);
     uc2RuleDetailsRef.current = {};
+    uc2RuleOriginsRef.current = {};
     setArtifactTabs([]);
     setUc2Scroll(null);
     const next = { runId: Date.now(), active: true, stage: 0, max: 0, phase: "text", phaseElapsed: 0, canvasStarted: false, phaseStartedAt: Date.now(), restoration: 0, restorationElapsed: 0, restorationStartedAt: null, running: true, view: "stage", rule: null, node: null };
@@ -335,13 +363,14 @@ export function AppProvider({ children }) {
     setUc2Scroll({ seq: ++uc2ScrollSeqRef.current, module, target: "conversation" });
   }, []);
 
-  const uc2OpenRule = useCallback((id) => {
+  const uc2OpenRule = useCallback((id,origin="uc2-report") => {
     const rule = uc2RuleById(id);
     if (!rule) return;
     const cur = uc2Ref.current;
     uc2Ref.current = { ...cur, rule: id, view: "stage" };
     setUc2(uc2Ref.current);
     setCanvasHidden(false);
+    uc2RuleOriginsRef.current[id] = origin;
     openArtifact("uc2-rule:" + id, rule.name);
   }, [openArtifact]);
 
@@ -384,6 +413,7 @@ export function AppProvider({ children }) {
     setLuiFocus(null);
     setActiveArtifact(null);setArtifactTabs([]);
     uc2Leave();
+    beginNetworkWorkflow("uc4",prompt);
     clearTimeout(timerRef.current);
     stopScan();
     runningRef.current = true;
@@ -410,12 +440,14 @@ export function AppProvider({ children }) {
 
   const runUc1 = useCallback((prompt = "当前全网有哪些检查规则？") => {
     uc2Leave();clearTimeout(timerRef.current);runningRef.current=false;stopScan();
+    beginNetworkWorkflow("uc1",prompt);
     setUc1SummaryStage(-1);setUc1Phase(-2);setTaskPrompt(prompt);setPromptText("");setLuiView("uc1");setLuiOpen(true);setCanvasHidden(false);setAgentActive(true);
     setStage(-1);setRunningIndex(-1);setActivePane("task");setOpenDevices([]);setArtifactTabs([]);setActiveArtifact(null);setLuiFocus(null);
   }, [stopScan]);
 
   const runUc3=useCallback((prompt='帮我创建规则：用户接口空闲超时时间不能超过10分钟')=>{
     uc2Leave();clearTimeout(timerRef.current);runningRef.current=false;stopScan();setLuiFocus(null);setUc3Phase(-2);setUc3EditorDraft(createUc3EditorDraft());
+    beginNetworkWorkflow("uc3",prompt);
     setTaskPrompt(prompt);setPromptText('');setLuiView('uc3');setLuiOpen(true);setCanvasHidden(false);setAgentActive(true);
     setStage(-1);setRunningIndex(-1);setActivePane('task');setOpenDevices([]);setArtifactTabs([]);setActiveArtifact(null);
   },[stopScan]);
@@ -449,6 +481,84 @@ export function AppProvider({ children }) {
     if (/HCS1|基线|修复/i.test(p)) { runTask(p); setResetMapSignal((s) => s + 1); return; }
     toast("当前原型支持 HCS1 设备基线检查，请点击第 4 个推荐问题体验。");
   }, [runTask, runUc1, runUc3, toast]);
+
+  // The task ledger observes real UC stage changes; it never drives canvas timing.
+  useEffect(()=>{
+    if(luiView==="uc1"||luiView==="uc3"){
+      const uc=luiView,phase=uc==="uc1"?uc1Phase:uc3Phase,definition=ucTaskDefinitions[uc];
+      const done=phase>=4;
+      syncWorkflow(uc,{status:done?"completed":phase<0?"analyzing":"running",phase:done?`${definition.title}已完成`:phase<0?"意图分析":definition.steps[Math.min(phase,3)],progress:done?100:Math.max(4,Math.min(92,(phase+2)*16)),result:done?{...definition.result}:null});
+    }else if(luiView==="uc2"){
+      const done=uc2.stage===3&&uc2.phase==="complete",definition=ucTaskDefinitions.uc2;
+      syncWorkflow("uc2",{status:done?"awaiting-review":!uc2.running?"paused":uc2.stage===0?"analyzing":"running",phase:done?"黄金基线候选报告待审阅":definition.steps[uc2.stage]||"意图分析",progress:done?100:Math.min(96,uc2.stage*25+(uc2.phase==="complete"?23:uc2.phase==="canvas"?14:4)),result:done?{...definition.result}:null});
+    }else if(luiView==="running"||luiView==="done"){
+      const done=luiView==="done",definition=ucTaskDefinitions.uc4;
+      syncWorkflow("uc4",{status:done?"awaiting-review":stage<0?"analyzing":"running",phase:done?"基线检查已完成，待审阅":stage<0?"意图分析":definition.steps[Math.min(stage,3)],progress:done?100:Math.max(4,Math.min(96,(stage+1)*23)),result:done?{...definition.result}:null});
+    }
+  },[agentActive,luiView,uc1Phase,uc3Phase,uc2.stage,uc2.phase,uc2.running,stage,syncWorkflow]);
+
+  finishTaskOnExitRef.current=()=>{
+    if(canvasHidden)return;
+    const task=finishActiveReview();
+    if(!task)return;
+    clearTimeout(timerRef.current);clearTimeout(uc2TimerRef.current);runningRef.current=false;stopScan();
+    if(task.uc==="uc2"){
+      const next={...uc2StageState(uc2Ref.current,3,"complete"),running:false,phaseStartedAt:null,restoration:2};
+      uc2Ref.current=next;setUc2(next);
+    }else{setLuiView("done");setStage(4);setRunningIndex(3);setReportRevealStartedAt(null);}
+  };
+
+  const openReviewResult=useCallback(task=>{
+    clearTimeout(timerRef.current);clearTimeout(uc2TimerRef.current);runningRef.current=false;stopScan();
+    uc2Leave();
+    activeNetworkTaskRef.current=task.id;
+    setResultTask({...task,openedAt:Date.now()});
+    setTaskPrompt(task.prompt);taskPromptRef.current=task.prompt;
+    setLuiFocus(null);setActiveArtifact(null);setArtifactTabs([]);setOpenDevices([]);setActivePane("task");setFull(false);
+    setLuiOpen(true);setCanvasHidden(false);setAgentActive(true);setReportRevealStartedAt(null);
+    if(task.uc==="uc2"){
+      const next={...uc2StageState(uc2Ref.current,3,"complete"),runId:task.id,active:true,running:false,phaseStartedAt:null,restoration:2};
+      uc2Ref.current=next;setUc2(next);setLuiView("uc2");
+      setUc2Fusion({selected:"engine",rule:null,drawer:null});
+      setUc2Scroll({seq:++uc2ScrollSeqRef.current,module:3});
+    }else{setStage(4);setRunningIndex(3);setLuiView("done");reportScrollRef.current=0;}
+  },[stopScan,uc2Leave]);
+
+  const openNetworkTask=useCallback(id=>{
+    const task=networkTasksRef.current.find(item=>item.id===id);
+    if(!task)return;
+    if(task.uc==="uc4"&&task.centerId!=="xisanqi"){
+      toast(`${task.scope} · ${task.title}：仅保留任务摘要。当前HCS1检查画布对应西三旗，未切换站点或重新执行。`);return;
+    }
+    const enter=open=>enterTaskDetail(task,open,canvasHidden);
+    if(task.source==="workflow"&&task.status==="awaiting-review"&&task.result&&["uc2","uc4"].includes(task.uc)){
+      enter(()=>openReviewResult(task));return;
+    }
+    const isCurrent=activeNetworkTaskRef.current===id&&task.source==="workflow";
+    if(isCurrent&&task.uc==="uc2"){
+      enter(()=>{
+        setActiveArtifact(null);setActivePane("task");setLuiView("uc2");setLuiOpen(true);setCanvasHidden(false);setAgentActive(true);
+        const cur=uc2Ref.current;
+        if(!cur.active){const next={...cur,active:true};uc2Ref.current=next;setUc2(next);}
+      });return;
+    }
+    if(isCurrent&&task.uc==="uc4"&&(task.status==="completed"||task.status==="awaiting-review")){
+      enter(()=>{setLuiView("done");setStage(4);setActivePane("task");setActiveArtifact(null);setLuiOpen(true);setCanvasHidden(false);setAgentActive(true);});return;
+    }
+    const currentView=task.uc==="uc4"?(luiView==="running"||luiView==="done"):luiView===task.uc;
+    if(isCurrent&&currentView){enter(()=>{setLuiOpen(true);setCanvasHidden(false);setAgentActive(true);});return;}
+    if(task.status==="completed"||task.status==="awaiting-review"||task.source==="workflow"){
+      toast(`${task.title} · ${task.phase}。历史任务仅保留摘要，未重新执行。`);return;
+    }
+    if(!task.uc){toast("网络故障治理为演示任务，当前四个用例未包含故障处置详情。");return;}
+    enter(()=>{
+      pendingNetworkTaskRef.current=id;
+      if(task.uc==="uc1")runUc1(task.prompt);
+      else if(task.uc==="uc2")uc2StartRef.current();
+      else if(task.uc==="uc3")runUc3(task.prompt);
+      else runTask(task.prompt);
+    });
+  },[luiView,canvasHidden,enterTaskDetail,openReviewResult,runUc1,runUc3,runTask,toast]);
 
   // 画布页签/设备
   const switchPane = useCallback((id) => { setActiveArtifact(null);setActivePane(id); }, []);
@@ -514,6 +624,7 @@ export function AppProvider({ children }) {
   }, [escape]);
 
   const value = {
+    networkTasks,openNetworkTask,taskEntry,resultTask,
     isDark, toggleDark: () => setIsDark((d) => !d),
     luiOpen, canvasHidden, agentActive, full, setFull,
     uc3EditorDraft,setUc3EditorDraft,uc3Phase, setUc3Phase, uc1Phase, setUc1Phase, uc1SummaryStage, setUc1SummaryStage, luiView, taskPrompt, stage, reportRevealStartedAt, runningIndex, scanSeq, promptText, setPromptText,
@@ -526,7 +637,7 @@ export function AppProvider({ children }) {
     cardRefs, locate, luiFocus, focusLuiArtifact, artifactTabs, activeArtifact, openArtifact, closeArtifact,
     uc2, uc2Start, uc2Pause, uc2Next, uc2CanvasStart, uc2CanvasComplete, uc2Show, uc2FocusStep, uc2OpenRule, uc2SelectNode,
     uc2Review, uc2Reviews, uc2Fusion, uc2FusionPick, uc2FusionCloseDrawer,
-    uc2SetFilter, uc2Scroll, uc2Extra, setUc2Extra, uc2RuleDetailsRef,
+    uc2SetFilter, uc2Scroll, uc2Extra, setUc2Extra, uc2RuleDetailsRef, uc2RuleOriginsRef,
   };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

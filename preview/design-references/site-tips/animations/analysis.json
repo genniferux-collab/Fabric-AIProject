@@ -1,0 +1,1413 @@
+{
+  "metadata": {
+    "size": [
+      2304,
+      2304
+    ],
+    "mode": "P",
+    "frames": 97,
+    "loop": 0,
+    "transparencyIndex": 255,
+    "bytes": 1132675,
+    "durationMs": 2910,
+    "contentUnionBoundsLumaGT8": [
+      673,
+      673,
+      1631,
+      1631
+    ],
+    "bestFrame": 70,
+    "firstFrame": {
+      "frame": 0,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        0
+      ],
+      "contentBoundsLumaGT8": null,
+      "visiblePixels": 0
+    },
+    "bestFrameInfo": {
+      "frame": 70,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        743,
+        743,
+        1561,
+        1561
+      ],
+      "visiblePixels": 24076
+    }
+  },
+  "frames": [
+    {
+      "frame": 0,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        0
+      ],
+      "contentBoundsLumaGT8": null,
+      "visiblePixels": 0
+    },
+    {
+      "frame": 1,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        0
+      ],
+      "contentBoundsLumaGT8": null,
+      "visiblePixels": 0
+    },
+    {
+      "frame": 2,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        0
+      ],
+      "contentBoundsLumaGT8": null,
+      "visiblePixels": 0
+    },
+    {
+      "frame": 3,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        0
+      ],
+      "contentBoundsLumaGT8": null,
+      "visiblePixels": 0
+    },
+    {
+      "frame": 4,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        0
+      ],
+      "contentBoundsLumaGT8": null,
+      "visiblePixels": 0
+    },
+    {
+      "frame": 5,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        0
+      ],
+      "contentBoundsLumaGT8": null,
+      "visiblePixels": 0
+    },
+    {
+      "frame": 6,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        684,
+        684,
+        1620,
+        1620
+      ],
+      "visiblePixels": 104
+    },
+    {
+      "frame": 7,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        680,
+        680,
+        1624,
+        1624
+      ],
+      "visiblePixels": 568
+    },
+    {
+      "frame": 8,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        678,
+        678,
+        1626,
+        1626
+      ],
+      "visiblePixels": 1092
+    },
+    {
+      "frame": 9,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        675,
+        675,
+        1629,
+        1629
+      ],
+      "visiblePixels": 1864
+    },
+    {
+      "frame": 10,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        673,
+        673,
+        1631,
+        1631
+      ],
+      "visiblePixels": 2908
+    },
+    {
+      "frame": 11,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        673,
+        673,
+        1631,
+        1631
+      ],
+      "visiblePixels": 4180
+    },
+    {
+      "frame": 12,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        673,
+        673,
+        1631,
+        1631
+      ],
+      "visiblePixels": 5704
+    },
+    {
+      "frame": 13,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        674,
+        674,
+        1630,
+        1630
+      ],
+      "visiblePixels": 7812
+    },
+    {
+      "frame": 14,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        676,
+        676,
+        1628,
+        1628
+      ],
+      "visiblePixels": 10308
+    },
+    {
+      "frame": 15,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        678,
+        678,
+        1626,
+        1626
+      ],
+      "visiblePixels": 12720
+    },
+    {
+      "frame": 16,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        680,
+        680,
+        1624,
+        1624
+      ],
+      "visiblePixels": 15224
+    },
+    {
+      "frame": 17,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        681,
+        681,
+        1623,
+        1623
+      ],
+      "visiblePixels": 17236
+    },
+    {
+      "frame": 18,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        684,
+        684,
+        1620,
+        1620
+      ],
+      "visiblePixels": 19012
+    },
+    {
+      "frame": 19,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        731,
+        731,
+        1573,
+        1573
+      ],
+      "visiblePixels": 20492
+    },
+    {
+      "frame": 20,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        731,
+        731,
+        1573,
+        1573
+      ],
+      "visiblePixels": 21894
+    },
+    {
+      "frame": 21,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        732,
+        732,
+        1572,
+        1572
+      ],
+      "visiblePixels": 22628
+    },
+    {
+      "frame": 22,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        734,
+        734,
+        1570,
+        1570
+      ],
+      "visiblePixels": 23508
+    },
+    {
+      "frame": 23,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        736,
+        736,
+        1568,
+        1568
+      ],
+      "visiblePixels": 23940
+    },
+    {
+      "frame": 24,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        740,
+        740,
+        1564,
+        1564
+      ],
+      "visiblePixels": 23880
+    },
+    {
+      "frame": 25,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        743,
+        743,
+        1561,
+        1561
+      ],
+      "visiblePixels": 24028
+    },
+    {
+      "frame": 26,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        746,
+        746,
+        1558,
+        1558
+      ],
+      "visiblePixels": 23992
+    },
+    {
+      "frame": 27,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        749,
+        749,
+        1555,
+        1555
+      ],
+      "visiblePixels": 23704
+    },
+    {
+      "frame": 28,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        752,
+        752,
+        1552,
+        1552
+      ],
+      "visiblePixels": 23640
+    },
+    {
+      "frame": 29,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        755,
+        755,
+        1549,
+        1549
+      ],
+      "visiblePixels": 23428
+    },
+    {
+      "frame": 30,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        757,
+        757,
+        1547,
+        1547
+      ],
+      "visiblePixels": 23232
+    },
+    {
+      "frame": 31,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        759,
+        759,
+        1545,
+        1545
+      ],
+      "visiblePixels": 22796
+    },
+    {
+      "frame": 32,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        761,
+        761,
+        1543,
+        1543
+      ],
+      "visiblePixels": 22736
+    },
+    {
+      "frame": 33,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        763,
+        763,
+        1541,
+        1541
+      ],
+      "visiblePixels": 22528
+    },
+    {
+      "frame": 34,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        809,
+        809,
+        1495,
+        1495
+      ],
+      "visiblePixels": 22612
+    },
+    {
+      "frame": 35,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        811,
+        811,
+        1493,
+        1493
+      ],
+      "visiblePixels": 21824
+    },
+    {
+      "frame": 36,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        814,
+        814,
+        1490,
+        1490
+      ],
+      "visiblePixels": 19856
+    },
+    {
+      "frame": 37,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        817,
+        817,
+        1487,
+        1487
+      ],
+      "visiblePixels": 17212
+    },
+    {
+      "frame": 38,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        820,
+        820,
+        1484,
+        1484
+      ],
+      "visiblePixels": 14396
+    },
+    {
+      "frame": 39,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        824,
+        824,
+        1480,
+        1480
+      ],
+      "visiblePixels": 11220
+    },
+    {
+      "frame": 40,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        827,
+        827,
+        1477,
+        1477
+      ],
+      "visiblePixels": 8088
+    },
+    {
+      "frame": 41,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        831,
+        831,
+        1473,
+        1473
+      ],
+      "visiblePixels": 4944
+    },
+    {
+      "frame": 42,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        835,
+        835,
+        1469,
+        1469
+      ],
+      "visiblePixels": 2380
+    },
+    {
+      "frame": 43,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        839,
+        839,
+        1465,
+        1465
+      ],
+      "visiblePixels": 720
+    },
+    {
+      "frame": 44,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        918,
+        918,
+        1386,
+        1386
+      ],
+      "visiblePixels": 80
+    },
+    {
+      "frame": 45,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        0
+      ],
+      "contentBoundsLumaGT8": null,
+      "visiblePixels": 0
+    },
+    {
+      "frame": 46,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        0
+      ],
+      "contentBoundsLumaGT8": null,
+      "visiblePixels": 0
+    },
+    {
+      "frame": 47,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        0
+      ],
+      "contentBoundsLumaGT8": null,
+      "visiblePixels": 0
+    },
+    {
+      "frame": 48,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        0
+      ],
+      "contentBoundsLumaGT8": null,
+      "visiblePixels": 0
+    },
+    {
+      "frame": 49,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        0
+      ],
+      "contentBoundsLumaGT8": null,
+      "visiblePixels": 0
+    },
+    {
+      "frame": 50,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        0
+      ],
+      "contentBoundsLumaGT8": null,
+      "visiblePixels": 0
+    },
+    {
+      "frame": 51,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        684,
+        684,
+        1620,
+        1620
+      ],
+      "visiblePixels": 104
+    },
+    {
+      "frame": 52,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        680,
+        680,
+        1624,
+        1624
+      ],
+      "visiblePixels": 576
+    },
+    {
+      "frame": 53,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        678,
+        678,
+        1626,
+        1626
+      ],
+      "visiblePixels": 1100
+    },
+    {
+      "frame": 54,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        675,
+        675,
+        1629,
+        1629
+      ],
+      "visiblePixels": 1864
+    },
+    {
+      "frame": 55,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        673,
+        673,
+        1631,
+        1631
+      ],
+      "visiblePixels": 2924
+    },
+    {
+      "frame": 56,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        673,
+        673,
+        1631,
+        1631
+      ],
+      "visiblePixels": 4188
+    },
+    {
+      "frame": 57,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        673,
+        673,
+        1631,
+        1631
+      ],
+      "visiblePixels": 5728
+    },
+    {
+      "frame": 58,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        674,
+        674,
+        1630,
+        1630
+      ],
+      "visiblePixels": 7836
+    },
+    {
+      "frame": 59,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        676,
+        676,
+        1628,
+        1628
+      ],
+      "visiblePixels": 10356
+    },
+    {
+      "frame": 60,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        678,
+        678,
+        1626,
+        1626
+      ],
+      "visiblePixels": 12768
+    },
+    {
+      "frame": 61,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        680,
+        680,
+        1624,
+        1624
+      ],
+      "visiblePixels": 15256
+    },
+    {
+      "frame": 62,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        681,
+        681,
+        1623,
+        1623
+      ],
+      "visiblePixels": 17284
+    },
+    {
+      "frame": 63,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        684,
+        684,
+        1620,
+        1620
+      ],
+      "visiblePixels": 19076
+    },
+    {
+      "frame": 64,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        731,
+        731,
+        1573,
+        1573
+      ],
+      "visiblePixels": 20532
+    },
+    {
+      "frame": 65,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        731,
+        731,
+        1573,
+        1573
+      ],
+      "visiblePixels": 21958
+    },
+    {
+      "frame": 66,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        732,
+        732,
+        1572,
+        1572
+      ],
+      "visiblePixels": 22704
+    },
+    {
+      "frame": 67,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        734,
+        734,
+        1570,
+        1570
+      ],
+      "visiblePixels": 23544
+    },
+    {
+      "frame": 68,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        736,
+        736,
+        1568,
+        1568
+      ],
+      "visiblePixels": 24012
+    },
+    {
+      "frame": 69,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        740,
+        740,
+        1564,
+        1564
+      ],
+      "visiblePixels": 23960
+    },
+    {
+      "frame": 70,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        743,
+        743,
+        1561,
+        1561
+      ],
+      "visiblePixels": 24076
+    },
+    {
+      "frame": 71,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        746,
+        746,
+        1558,
+        1558
+      ],
+      "visiblePixels": 24072
+    },
+    {
+      "frame": 72,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        749,
+        749,
+        1555,
+        1555
+      ],
+      "visiblePixels": 23752
+    },
+    {
+      "frame": 73,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        752,
+        752,
+        1552,
+        1552
+      ],
+      "visiblePixels": 23712
+    },
+    {
+      "frame": 74,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        755,
+        755,
+        1549,
+        1549
+      ],
+      "visiblePixels": 23484
+    },
+    {
+      "frame": 75,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        757,
+        757,
+        1547,
+        1547
+      ],
+      "visiblePixels": 23284
+    },
+    {
+      "frame": 76,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        759,
+        759,
+        1545,
+        1545
+      ],
+      "visiblePixels": 22848
+    },
+    {
+      "frame": 77,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        761,
+        761,
+        1543,
+        1543
+      ],
+      "visiblePixels": 22776
+    },
+    {
+      "frame": 78,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        763,
+        763,
+        1541,
+        1541
+      ],
+      "visiblePixels": 22584
+    },
+    {
+      "frame": 79,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        809,
+        809,
+        1495,
+        1495
+      ],
+      "visiblePixels": 22680
+    },
+    {
+      "frame": 80,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        811,
+        811,
+        1493,
+        1493
+      ],
+      "visiblePixels": 21944
+    },
+    {
+      "frame": 81,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        814,
+        814,
+        1490,
+        1490
+      ],
+      "visiblePixels": 19936
+    },
+    {
+      "frame": 82,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        817,
+        817,
+        1487,
+        1487
+      ],
+      "visiblePixels": 17252
+    },
+    {
+      "frame": 83,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        820,
+        820,
+        1484,
+        1484
+      ],
+      "visiblePixels": 14444
+    },
+    {
+      "frame": 84,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        824,
+        824,
+        1480,
+        1480
+      ],
+      "visiblePixels": 11316
+    },
+    {
+      "frame": 85,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        827,
+        827,
+        1477,
+        1477
+      ],
+      "visiblePixels": 8128
+    },
+    {
+      "frame": 86,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        831,
+        831,
+        1473,
+        1473
+      ],
+      "visiblePixels": 4976
+    },
+    {
+      "frame": 87,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        835,
+        835,
+        1469,
+        1469
+      ],
+      "visiblePixels": 2404
+    },
+    {
+      "frame": 88,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        839,
+        839,
+        1465,
+        1465
+      ],
+      "visiblePixels": 748
+    },
+    {
+      "frame": 89,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        918,
+        918,
+        1386,
+        1386
+      ],
+      "visiblePixels": 80
+    },
+    {
+      "frame": 90,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        0
+      ],
+      "contentBoundsLumaGT8": null,
+      "visiblePixels": 0
+    },
+    {
+      "frame": 91,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        0
+      ],
+      "contentBoundsLumaGT8": null,
+      "visiblePixels": 0
+    },
+    {
+      "frame": 92,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        0
+      ],
+      "contentBoundsLumaGT8": null,
+      "visiblePixels": 0
+    },
+    {
+      "frame": 93,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        0
+      ],
+      "contentBoundsLumaGT8": null,
+      "visiblePixels": 0
+    },
+    {
+      "frame": 94,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        0
+      ],
+      "contentBoundsLumaGT8": null,
+      "visiblePixels": 0
+    },
+    {
+      "frame": 95,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        0
+      ],
+      "contentBoundsLumaGT8": null,
+      "visiblePixels": 0
+    },
+    {
+      "frame": 96,
+      "duration": 30,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "contentBoundsLumaGT8": [
+        684,
+        684,
+        1620,
+        1620
+      ],
+      "visiblePixels": 112
+    }
+  ]
+}

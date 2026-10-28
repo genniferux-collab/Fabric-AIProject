@@ -15,8 +15,8 @@ export function ThinkingDetails({thinking,isDark,children}){
     {children ? <div className="uc4-thinking-content">{children}</div> : <StreamText as="div" className="uc4-thinking-content" text={thoughtCopy} animate={thinking}/>}
   </details>;
 }
-export function GeneratingCanvas(){
-  return <section className="card uc4-generating-card" id="generatingCanvasCard" role="status" aria-label="画布生成中" aria-busy="true">
+export function GeneratingCanvas({id="generatingCanvasCard",paused=false,className=""}){
+  return <section className={"card uc4-generating-card "+className} id={id} style={{"--generation-play-state":paused?"paused":"running"}} role="status" aria-label="画布生成中" aria-busy="true">
     <div className="uc4-generating-cloud" aria-hidden="true"><span className="uc4-generating-orb orb-rose"/><span className="uc4-generating-orb orb-violet"/><span className="uc4-generating-orb orb-blue"/></div>
     <p className="uc4-generating-label"><InlineLoader variant="spark" size={32} color="#DFDFDF" className="uc4-generating-spark"/><span>内容生成中...</span></p>
   </section>;

@@ -1,0 +1,12 @@
+/* The existing Beam's broad orange-purple gradient stays on the input perimeter. */
+.lui .composer.aico-composer{position:relative;isolation:isolate;overflow:visible}
+.lui .aico-composer>.aico-composer-beam{position:absolute!important;inset:0!important;z-index:0;width:100%!important;height:100%!important;border-radius:16px;pointer-events:none;opacity:.78;--beam-stroke-opacity:2.2;--beam-inner-opacity:.6;--beam-bloom-opacity:1;transition:opacity .28s ease}
+.lui .aico-composer>.aico-composer-beam .orange-purple-beam-surface{display:block;width:100%;height:100%;border-radius:inherit}
+.lui .aico-composer>:not(.aico-composer-beam):not(style){position:relative;z-index:1}
+.lui .aico-composer:focus-within>.aico-composer-beam{opacity:.95;--beam-stroke-opacity:2.6;--beam-inner-opacity:.8;--beam-bloom-opacity:1.2}
+/* Menus are sibling overlays; no clipping or hit interception is added to the form. */
+@media(prefers-reduced-motion:reduce){
+  .lui .aico-composer>.aico-composer-beam{display:none!important;transition:none}
+  .lui .composer.aico-composer{outline:1px solid #9d80bf66;outline-offset:-1px}
+  .lui .composer.aico-composer:focus-within{outline-color:#bd9bde}
+}

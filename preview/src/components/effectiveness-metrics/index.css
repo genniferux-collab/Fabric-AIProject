@@ -1,5 +1,8 @@
 /* Pixso 首页全部参考图 / 数据总览 13:359657. Native desktop frame: 1232×130. */
-.pc-layout .effectiveness-metrics{position:absolute;z-index:3;top:24px;left:calc(var(--dashboard-width) + 24px);right:24px;width:auto;min-height:130px;box-sizing:border-box;margin:0;padding:16px;background:#2a2a2a;border-radius:16px;color:#fff;container:metrics-panel / inline-size;text-shadow:0 1px 6px #0008}
+.pc-layout .effectiveness-metrics{position:absolute;isolation:isolate;overflow:hidden;z-index:3;top:24px;left:calc(var(--dashboard-width) + 24px);right:24px;width:auto;min-height:130px;box-sizing:border-box;margin:0;padding:16px;background:#2a2a2a;border-radius:16px;color:#fff;container:metrics-panel / inline-size;text-shadow:0 1px 6px #0008;outline:none}
+.effectiveness-border-beam{position:absolute!important;inset:0!important;z-index:2;width:100%!important;height:100%!important;border-radius:16px;pointer-events:none;opacity:0;transition:opacity .24s ease}
+.effectiveness-metrics:hover .effectiveness-border-beam,.effectiveness-metrics:focus-visible .effectiveness-border-beam{opacity:1}
+.effectiveness-metrics:focus-visible{outline:1px solid #d37cff;outline-offset:2px}
 .effectiveness-metrics h2{margin:0;font-size:18px;font-weight:500;line-height:26px}
 .effectiveness-metrics-grid{display:grid;grid-template-columns:minmax(0,534fr) 1px minmax(0,445fr);column-gap:clamp(24px,9.2cqw,110px);align-items:center;min-height:64px;margin-top:8px;min-width:0}
 .effectiveness-metric-group{display:flex;align-items:center;justify-content:space-between;gap:24px;min-width:0;height:64px}
@@ -26,3 +29,4 @@
 
 .effectiveness-workflow>.effectiveness-metric-copy{width:172px}
 .effectiveness-compliance>.effectiveness-metric-copy{width:124px}
+@media(prefers-reduced-motion:reduce){.effectiveness-border-beam{display:none;transition:none}}

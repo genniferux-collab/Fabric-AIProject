@@ -1,8 +1,9 @@
+import OrangePurpleBeam from "../orange-purple-beam/index.jsx";
 import "./index.css";
 
 const assetRoot="./assets/uploads/pixso-home-map/";
 export default function EffectivenessMetrics({panelRef}) {
-  return <section className="effectiveness-metrics" ref={panelRef} aria-labelledby="effectiveness-title">
+  return <section className="effectiveness-metrics" ref={panelRef} aria-labelledby="effectiveness-title" tabIndex={0}>
     <h2 id="effectiveness-title">数据总览</h2>
     <div className="effectiveness-metrics-grid">
       <div className="effectiveness-metric-group" aria-label="配置生成成效">
@@ -21,6 +22,7 @@ export default function EffectivenessMetrics({panelRef}) {
         <Metric value="3280" label="累计检查设备" help="累计完成配置检查的设备数量"/>
       </div>
     </div>
+    <OrangePurpleBeam className="effectiveness-border-beam" duration={10.8} borderRadius={16} strength={.78}/>
   </section>;
 }
 function Metric({value,unit,label,help}) {

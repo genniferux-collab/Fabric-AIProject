@@ -1,0 +1,36 @@
+{
+  "file": "EK7Fip1D5gCfj8ZkWp3wzQ",
+  "report": "5:162385",
+  "all_rules": "2:323726",
+  "report_frame": [
+    1280,
+    1032
+  ],
+  "read_from": "Original Pixso editor at 100% via Chrome; remote MCP returned HTTP 504",
+  "report_content": {
+    "total": 18,
+    "common": 8,
+    "core": 4,
+    "leaf": 6,
+    "sufficient_evidence": 12,
+    "to_validate": 6,
+    "pending_review": 12,
+    "adopted": 6,
+    "deviation_devices": 9
+  },
+  "sections": [
+    "report title and candidate-stage badge",
+    "configuration snapshot S-1027",
+    "role donut and evidence distribution",
+    "golden baseline insight",
+    "one paginated candidate review table"
+  ],
+  "rule_columns": [
+    "候选规则",
+    "适用范围",
+    "支持样本",
+    "待确认事项",
+    "审阅状态",
+    "操作"
+  ]
+}
