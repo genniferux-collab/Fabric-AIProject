@@ -7979,6 +7979,28 @@ html:not(.dark) .stage-root .shell-brand img{filter:brightness(.25)}
 html:not(.dark) .stage-root .shell-mode>.ic{color:var(--text)}
 @media(max-width:680px){.stage-root.pc-layout .top.shell-top{padding:0 16px}.stage-root.pc-layout .top.shell-top .left{gap:16px}.stage-root.pc-layout .top.shell-top .right{gap:12px}.shell-account>span{display:none}.shell-mode{width:88px}}
 
+/* src/views/left-rail/index.css */
+/* Pixso 146:146740 / 146:146900: 48px rail, 250px floating expansion. */
+.stage-root.pc-layout .rail.shell-rail.floating-navigation{top:48px;bottom:0;left:0;width:48px;padding:8px 0;gap:0;overflow:hidden;align-items:stretch;background:#191919;border-right:1px solid #f3f3f326;z-index:21;transition:width 220ms cubic-bezier(.2,.7,.25,1),box-shadow 220ms ease}
+.stage-root.pc-layout .rail.shell-rail.floating-navigation.is-expanded{width:250px;box-shadow:10px 0 24px #0003}
+.floating-navigation .shell-rail-items{width:250px}
+.stage-root.pc-layout .floating-navigation .shell-assistant-button,.stage-root.pc-layout .floating-navigation .shell-rail-item{position:relative;display:flex;justify-content:flex-start;align-items:center;width:250px;height:48px;min-height:48px;flex:none;gap:16px;padding:0 16px;border:0;border-radius:0;color:#dfdfdf;background:transparent;white-space:nowrap;text-align:left;font-size:14px;line-height:22px;cursor:pointer}
+.stage-root.pc-layout .floating-navigation .shell-assistant-button{padding-left:12px;gap:8px}
+.floating-navigation .shell-assistant-button>img{width:24px;height:24px;flex:none}
+.floating-navigation .shell-rail-item>img{width:16px;height:16px;flex:none}
+.floating-navigation .floating-nav-label{opacity:0;transform:translateX(-4px);transition:opacity 140ms ease,transform 220ms cubic-bezier(.2,.7,.25,1);pointer-events:none}
+.floating-navigation.is-expanded .floating-nav-label{opacity:1;transform:none}
+.floating-navigation .floating-nav-title{font-size:18px;line-height:26px;color:#fff}
+.stage-root.pc-layout .floating-navigation .shell-rail-item.active{background:#0067d166;color:#fff}
+.stage-root.pc-layout .floating-navigation .shell-rail-item:hover,.stage-root.pc-layout .floating-navigation .shell-assistant-button:hover{background:#ffffff0d}
+.stage-root.pc-layout .floating-navigation .shell-rail-item.active:hover{background:#0067d166}
+.stage-root.pc-layout .floating-navigation .floating-nav-toggle{margin-top:auto}
+.floating-navigation.is-expanded .floating-nav-toggle>img{transform:scaleX(-1)}
+.floating-navigation button:focus-visible{outline:2px solid var(--focus-ring,#77b6fa);outline-offset:-3px}
+html:not(.dark) .stage-root .floating-navigation{background:#fff!important;border-color:var(--line)}
+html:not(.dark) .floating-navigation .floating-nav-title{color:var(--text)}
+@media(prefers-reduced-motion:reduce){.stage-root.pc-layout .rail.shell-rail.floating-navigation,.floating-navigation .floating-nav-label{transition:none}}
+
 /* src/components/chat-composer/index.css */
 /* Pixso home entry: 560×48 pill; editing takes place in the AI side panel. */
 .fabric-home-composer-region{position:absolute;z-index:10;left:16px;right:16px;bottom:24px}
@@ -8111,7 +8133,11 @@ html:not(.dark) .stage-root .shell-mode>.ic{color:var(--text)}
 .fabric-home-event-review-state{display:inline-flex;align-items:center;justify-content:center;gap:4px;flex:none;margin-left:auto;padding:0;background:transparent;color:#c9c9c9;font-size:12px;font-weight:400;line-height:20px;white-space:nowrap}
 .fabric-home-event-review-state::before{content:"";width:6px;height:6px;flex:none;border-radius:50%;background:#ff526c}
 
-.fabric-home-event.is-map-focused{box-shadow:inset 0 0 0 1px #77b7f642;background:#34383d}
+.fabric-home-event.is-map-focused{background:var(--fabric-home-card)}
+
+/* Collapse first, then pin attention navigation while event cards continue scrolling. */
+.fabric-home-attention-header{display:flex;flex-direction:column;gap:16px;flex:none}
+.fabric-home-metrics.is-collapsed+.fabric-home-attention .fabric-home-attention-header{position:sticky;top:0;z-index:5;background:#191919;box-shadow:0 8px 8px #191919}
 
 /* src/components/effectiveness-metrics/index.css */
 /* Pixso 首页全部参考图 / 数据总览 13:359657. Native desktop frame: 1232×130. */
@@ -8239,11 +8265,25 @@ html:not(.dark) .stage-root .shell-mode>.ic{color:var(--text)}
 .map-site-tracker.is-focused{z-index:4}
 .map-site-tracker.is-muted{opacity:.3}
 /* A neutral plate with a soft orange/purple halo keeps task focus separate from status color. */
-.map-site-tracker.is-focused .site-task-tip{background:#414141;color:#fff;box-shadow:inset 0 0 0 1px #ffffff30,-5px 0 18px #a77aff66,5px 0 18px #ffb16b61,0 6px 18px #0005}
-.map-site-tracker.is-focused .site-task-tip:hover{background:#474747;box-shadow:inset 0 0 0 1px #ffffff38,-5px 0 20px #a77aff75,5px 0 20px #ffb16b70,0 6px 18px #0005}
+.map-site-tracker.is-focused .site-task-tip{background:#414141;color:#fff;box-shadow:inset 0 0 0 1px #d0b9df38,0 6px 18px #0005}
+.map-site-tracker.is-focused .site-task-tip:hover{background:#414141}
 .map-site-tracker .site-task-tip:focus-visible{outline:2px solid #d8c5e7;outline-offset:3px}
 .map-popup-body .map-dc-card,.map-popup-body .map-dc-events-popup{max-width:100%;max-height:var(--map-popup-max-height);overflow:auto}
 @media(prefers-reduced-motion:reduce){.map-site-tracker,.map-popup-offset{transition:none;will-change:auto}}
+
+/* src/views/cockpit/event-map-glow.css */
+/* A shared inset glow pairs an attention event with its map task bubble. */
+.figma-network-page{--event-map-violet:#bc96fa2e;--event-map-orange:#ffb37324;--event-map-glow-edge:#ffffff16;--event-map-glow-ease:cubic-bezier(.22,.61,.36,1)}
+.fabric-home-event,.map-site-tracker[data-popup-kind="status"] .site-task-tip{position:relative;isolation:isolate;overflow:hidden}
+.fabric-home-event{transition:background-color 320ms ease,box-shadow 320ms var(--event-map-glow-ease)}
+.fabric-home-event::before,.map-site-tracker[data-popup-kind="status"] .site-task-tip::before{content:"";position:absolute;inset:0;z-index:0;border-radius:inherit;background:radial-gradient(ellipse at 6% 14%,var(--event-map-violet),transparent 72%),radial-gradient(ellipse at 98% 94%,var(--event-map-orange),transparent 72%);opacity:0;pointer-events:none;transition:opacity 360ms var(--event-map-glow-ease)}
+.fabric-home-event>*,.map-site-tracker[data-popup-kind="status"] .site-task-tip>*{position:relative;z-index:1}
+.fabric-home-event:is(:hover,:focus-visible,.is-map-focused)::before,.map-site-tracker.is-focused[data-popup-kind="status"] .site-task-tip::before{animation:event-map-glow-once 1s ease-out both}
+.fabric-home-event:is(:hover,:focus-visible,.is-map-focused){background:var(--fabric-home-card);box-shadow:inset 0 0 0 1px var(--event-map-glow-edge)}
+@media(prefers-reduced-motion:reduce){.fabric-home-event,.fabric-home-event::before,.map-site-tracker[data-popup-kind="status"] .site-task-tip::before{transition:none}}
+
+@keyframes event-map-glow-once{0%{opacity:0}18%{opacity:.85}50%{opacity:.6}100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.fabric-home-event:is(:hover,:focus-visible,.is-map-focused)::before,.map-site-tracker.is-focused[data-popup-kind="status"] .site-task-tip::before{animation:none;opacity:0}}
 
 /* src/views/lui-panel/uc3-chat.css */
 .stage-root #lui.lui-refresh .uc3-thought p{color:#939393;font-size:14px;font-weight:400;line-height:22px}
@@ -9353,7 +9393,7 @@ body:has(.stage-root) .stage-root.uc2 :is(#lui,.uc2-intent-view,.uc2-restoration
 /* Pixso 23:350169: default, selected and single-rule detail states. */
 .stage-root.pc-layout{--agent-width:clamp(320px,31vw,592px)}
 .pc-layout #uc2Module2{scroll-margin-top:20px}
-.pc-layout #uc2Module2>.card{height:clamp(600px,calc(100dvh - 182px),898px);min-height:600px;max-height:898px;padding:0;border:0;border-radius:16px;overflow:hidden;background:#2a2a2a;position:relative;container:mining-board / inline-size}
+.pc-layout #uc2Module2>.card,.pc-layout .v7-artifact-pane>.uc2-mining-artifact{height:clamp(600px,calc(100dvh - 182px),898px);min-height:600px;max-height:898px;padding:0;border:0;border-radius:16px;overflow:hidden;background:#2a2a2a;position:relative;container:mining-board / inline-size}
 body:has(.stage-root) .mining-reference,body:has(.stage-root) .mining-reference *{font-family:"Pixso Aico Sans","PingFang SC","Microsoft YaHei",sans-serif!important;-webkit-font-smoothing:antialiased;font-synthesis:none}
 .mining-reference{height:100%;min-height:0;display:flex;flex-direction:column;color:#fff;font-size:14px;line-height:22px}
 .golden-header{height:56px;min-height:56px;flex:0 0 56px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 20px;border-bottom:1px solid #ffffff0d;background:#262626}
@@ -9495,23 +9535,18 @@ body:has(.stage-root) .mining-reference,body:has(.stage-root) .mining-reference 
 .uc2-pixso-v2 .golden-flow-light-sample{pointer-events:none}
 @media(prefers-reduced-motion:reduce){.uc2-pixso-v2 .golden-flow-light{filter:drop-shadow(0 0 4.333px #ffffff66)}}
 
+/* Independent module tabs retain the same board sizing and interaction state. */
+.stage-root.uc2 .v7-artifact-pane>.uc2-mining-artifact{height:100%;min-height:600px;max-height:none}
+
 /* src/views/uc2-canvas/generation.css */
 .uc2-typed-copy{min-height:22px}
 .uc2-typing-cursor{display:inline-block;width:2px;height:14px;margin-left:3px;vertical-align:-2px;background:#89bfff;animation:uc2TextCaret 850ms steps(1) infinite}
 .uc2-canvas-progress{font-size:12px;line-height:20px;color:#aaa;margin:10px 0 0}
 .uc2-restoration-host{container-type:inline-size}
-.uc2-canvas-preparing{height:100%;min-height:320px;display:flex;flex-direction:column;overflow:hidden;border-radius:16px;background:#2a2a2a;color:#999}
-.uc2-canvas-preparing.preparing-stage-0{aspect-ratio:1233/845;height:auto}
-.uc2-canvas-preparing.preparing-stage-1{height:calc(160px + 100cqi * .607955)}
-.uc2-canvas-preparing.preparing-stage-3{min-height:700px}
-.uc2-preparing-heading{height:56px;flex:none;padding:16px 20px;font-size:16px;line-height:24px;color:#ddd;border-bottom:1px solid #ffffff0d;background:#262626}
-.uc2-preparing-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;font-size:14px;line-height:22px;background:radial-gradient(#ffffff10 .8px,transparent .9px) 0 0/16px 16px}
-.uc2-preparing-orb{width:12px;height:12px;display:block;border-radius:50%;background:radial-gradient(circle at 35% 30%,#c5ebff,#398de5 50%,#1e4583);box-shadow:0 0 22px #3886df55;animation:uc2PreparingPulse 1600ms ease-in-out infinite}
 .uc2-report-generation{position:relative;--uc2-report-play-state:running}
 .uc2-report-generation-anchor{position:absolute;left:0;top:0;width:1px;height:56px;pointer-events:none}
 @keyframes uc2TextCaret{50%{opacity:0}}
-@keyframes uc2PreparingPulse{0%,100%{opacity:.45;transform:scale(.85)}50%{opacity:1;transform:scale(1.1)}}
-@media(prefers-reduced-motion:reduce){.uc2-typing-cursor,.uc2-preparing-orb,.uc2-report-generation.is-generating{animation:none}.uc2-report-generation.is-waiting{opacity:1}}
+@media(prefers-reduced-motion:reduce){.uc2-typing-cursor,.uc2-report-generation.is-generating{animation:none}.uc2-report-generation.is-waiting{opacity:1}}
 
 .uc2-locate-conversation{display:inline-flex;align-items:center;justify-content:center;width:24px;height:22px;margin-left:8px;padding:0;border:0;border-radius:4px;color:inherit;background:transparent;cursor:pointer;opacity:.65}
 .uc2-locate-conversation:hover,.uc2-locate-conversation:focus-visible{opacity:1;background:var(--hover)}
@@ -9521,9 +9556,33 @@ body:has(.stage-root) .mining-reference,body:has(.stage-root) .mining-reference 
 .stage-root.uc2 #lui .uc2-step-settle{margin:12px 0 0;color:var(--muted);font-size:12px;line-height:20px}
 .stage-root.uc2 #lui .step-content>.response-thought{margin-bottom:8px}
 
-.uc2-canvas-preparing>.uc4-generating-card{flex:1;width:100%;margin:0;border-radius:0}
 .stage-root.uc2 .uc2-report-generation{--report-skeleton-play-state:running}
 .stage-root.uc2 .uc2-report-generation .report-reveal-skeleton::before,.stage-root.uc2 .uc2-report-generation .report-reveal-content{animation-play-state:var(--report-skeleton-play-state)}
+
+/* Use UC4's shared fixed halo card before every UC2 module is ready. */
+.stage-root.uc2 #canvas .uc2-module-artifact.is-preparing{height:264px;min-height:264px;max-height:264px;padding:0;border:0;border-radius:16px;overflow:hidden;background:transparent}
+.stage-root.uc2 #canvas .uc2-module-artifact.is-preparing>.uc4-generating-card{height:264px;min-height:264px;margin:0;width:100%}
+
+/* src/components/canvas-pagination/index.css */
+.canvas-pagination{display:flex;align-items:center;justify-content:space-between;gap:16px;flex:none;min-height:32px;margin-top:16px;font-size:12px;line-height:20px;color:var(--secondary,#c9c9c9)}
+.canvas-pagination>div{display:flex;align-items:center;gap:8px}
+.canvas-pagination .canvas-page-item{display:contents}
+.canvas-pagination button{display:grid;place-items:center;min-width:24px;height:28px;padding:0 6px;border:0;border-radius:4px;background:transparent;color:inherit;font:inherit;cursor:pointer}
+.canvas-pagination button:hover:not(:disabled){background:var(--hover,#ffffff0d)}
+.canvas-pagination button.is-current{background:var(--brand,#0067d1);color:#fff}
+.canvas-pagination button:disabled{opacity:.3;cursor:default}
+.canvas-pagination button .ic{width:14px;height:14px}
+.canvas-pagination [role=combobox]{width:110px;height:32px}
+.canvas-pagination .canvas-page-total{color:var(--muted,#939393)}
+@media(max-width:900px){.canvas-pagination{gap:8px;flex-wrap:wrap}.canvas-pagination>div{gap:4px}}
+
+/* Keep the selector and page fraction on one baseline; never shrink the fraction. */
+.stage-root.pc-layout .canvas-pagination{white-space:nowrap}
+.stage-root.pc-layout .canvas-pagination>div{flex:0 0 auto;flex-wrap:nowrap}
+.stage-root.pc-layout .canvas-pagination>div>.ui-kit-select{flex:none;width:126px;min-width:126px;height:32px}
+.stage-root.pc-layout .canvas-pagination>div>.ui-kit-select>.ui-kit-trigger{width:100%;height:32px}
+.stage-root.pc-layout .canvas-pagination>div>button,.stage-root.pc-layout .canvas-pagination .canvas-page-item>button{flex:none;width:28px;min-width:28px;height:32px;white-space:nowrap}
+.stage-root.pc-layout .canvas-pagination .canvas-page-total{display:inline-flex;align-items:center;align-self:center;flex:none;min-width:24px;line-height:32px;white-space:nowrap}
 
 /* src/views/uc2-canvas/report-visual.css */
 /* Pixso EK7Fip1D5gCfj8ZkWp3wzQ / 5:162385: report and shared candidate review list. */
@@ -9704,6 +9763,10 @@ body:has(.stage-root) .mining-reference,body:has(.stage-root) .mining-reference 
 @container workspace (max-width:1050px){.baseline-evidence-overview{grid-template-columns:minmax(240px,1fr) minmax(210px,1fr)}.baseline-evidence-summary{padding-left:16px;min-height:120px}}
 @container evidence (max-width:320px){.baseline-confidence-labels{gap:8px}.baseline-report .baseline-confidence-label{padding:8px 6px;gap:6px;grid-template-columns:6px minmax(0,1fr) auto}.baseline-confidence-copy{font-size:12px;line-height:20px}.baseline-confidence-copy>small{font-size:11px}.baseline-confidence-label>b{font-size:20px;line-height:28px}.baseline-confidence-label>b>small{font-size:11px;margin-left:2px}}
 @media(prefers-reduced-motion:reduce){.baseline-confidence-label,.baseline-confidence-track>button{transition:none}}
+
+/* UC2 topology/mining use the shared independent-card tab host, not fullscreen. */
+.stage-root.uc2 .v7-artifact-pane:has(>.uc2-module-artifact){overflow:auto}
+.stage-root.uc2 .v7-artifact-pane>.uc2-restoration-host{margin:0;min-width:0}
 
 /* src/views/uc2-canvas/rule-detail.css */
 /* Pixso v0ssSa5uEPmc2W4raTIzdA / 2:469426, read at 100% scale.
@@ -63747,14 +63810,17 @@ function Icon({
   });
 }
 }};
-modules["src/views/left-rail/index.jsx"]={deps:{"../../context.jsx":"src/context.jsx"},run:function(require,module,exports){
+modules["src/views/left-rail/index.jsx"]={deps:{"../../context.jsx":"src/context.jsx","./index.css":"src/views/left-rail/index.css"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = LeftRail;
+var _react = require("react");
 var _context = require("../../context.jsx");
+require("./index.css");
+const icon = name => './assets/uploads/navigation/nav-' + name + '.svg';
 function LeftRail() {
   const {
     agentActive,
@@ -63765,104 +63831,135 @@ function LeftRail() {
     locate,
     focusLuiArtifact
   } = (0, _context.useApp)();
-  const closeMenu = e => e.currentTarget.closest("details")?.removeAttribute("open");
-  const showReport = () => {
-    if (luiView === "done") {
-      focusLuiArtifact("report");
-      locate("report");
-    } else toast("完成基线检查后可从此处查看报告。");
+  const [expanded, setExpanded] = (0, _react.useState)(false),
+    [pinned, setPinned] = (0, _react.useState)(false);
+  const root = (0, _react.useRef)(null),
+    timer = (0, _react.useRef)(null),
+    trigger = (0, _react.useRef)(null);
+  const close = () => {
+    clearTimeout(timer.current);
+    setExpanded(false);
+    setPinned(false);
   };
+  (0, _react.useEffect)(() => {
+    const outside = e => {
+      if (!root.current?.contains(e.target)) close();
+    };
+    const escape = e => {
+      if (e.key === 'Escape' && expanded) {
+        close();
+        trigger.current?.focus();
+      }
+    };
+    document.addEventListener('pointerdown', outside);
+    document.addEventListener('keydown', escape);
+    return () => {
+      clearTimeout(timer.current);
+      document.removeEventListener('pointerdown', outside);
+      document.removeEventListener('keydown', escape);
+    };
+  }, [expanded]);
+  const showReport = () => {
+    if (luiView === 'done') {
+      focusLuiArtifact('report');
+      locate('report');
+    } else toast('完成基线检查后可从此处查看报告。');
+  };
+  const navigate = action => {
+    action();
+    close();
+  };
+  const items = [{
+    icon: 'home',
+    label: '首页',
+    aria: '健康看板',
+    active: !agentActive,
+    action: goCockpit
+  }, {
+    icon: 'chat',
+    label: '智能体对话',
+    aria: '智能体对话',
+    active: agentActive,
+    action: toggleAgent
+  }, {
+    icon: 'resource',
+    label: '网络资源',
+    aria: '查看网络资源',
+    action: goCockpit
+  }, {
+    icon: 'report',
+    label: '检查报告',
+    aria: '查看检查报告',
+    action: showReport
+  }];
   return /*#__PURE__*/React.createElement("aside", {
-    className: "rail shell-rail",
-    "aria-label": "主导航"
+    ref: root,
+    className: 'rail shell-rail floating-navigation' + (expanded ? ' is-expanded' : ''),
+    "aria-label": "主导航",
+    onPointerEnter: e => {
+      if (e.pointerType === 'mouse') {
+        clearTimeout(timer.current);
+        setExpanded(true);
+      }
+    },
+    onPointerLeave: () => {
+      if (!pinned) timer.current = setTimeout(() => setExpanded(false), 180);
+    },
+    onBlur: e => {
+      if (!e.currentTarget.contains(e.relatedTarget) && !pinned) setExpanded(false);
+    }
   }, /*#__PURE__*/React.createElement("button", {
     className: "shell-assistant-button",
-    title: "智能体 Aico",
     "aria-label": "智能体 Aico",
-    onClick: toggleAgent
+    title: "智能体 Aico",
+    onClick: () => navigate(toggleAgent)
   }, /*#__PURE__*/React.createElement("img", {
-    src: "./assets/uploads/shell-assistant.png",
+    src: icon('assistant'),
     width: "24",
     height: "24",
     alt: ""
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "shell-rail-items"
-  }, /*#__PURE__*/React.createElement("button", {
-    className: "shell-rail-item" + (!agentActive ? " active" : ""),
-    "aria-label": "健康看板",
-    title: "健康看板",
-    "aria-current": !agentActive ? "page" : undefined,
-    onClick: goCockpit
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "floating-nav-label floating-nav-title"
+  }, "数据中心网络智能体")), /*#__PURE__*/React.createElement("nav", {
+    className: "shell-rail-items",
+    "aria-label": "功能导航"
+  }, items.map(item => /*#__PURE__*/React.createElement("button", {
+    key: item.icon,
+    className: 'shell-rail-item' + (item.active ? ' active' : ''),
+    id: item.icon === 'chat' ? 'agentNav' : undefined,
+    "aria-label": item.aria,
+    title: !expanded ? item.label : undefined,
+    "aria-current": item.active ? 'page' : undefined,
+    onClick: () => navigate(item.action)
   }, /*#__PURE__*/React.createElement("img", {
-    src: "./assets/uploads/shell-home.svg",
+    src: icon(item.icon),
     width: "16",
     height: "16",
     alt: ""
-  })), /*#__PURE__*/React.createElement("button", {
-    className: "shell-rail-item" + (agentActive ? " active" : ""),
-    id: "agentNav",
-    title: "智能体对话",
-    "aria-label": "智能体对话",
-    "aria-current": agentActive ? "page" : undefined,
-    onClick: toggleAgent
-  }, /*#__PURE__*/React.createElement("img", {
-    src: "./assets/uploads/shell-chat.svg",
-    width: "16",
-    height: "16",
-    alt: ""
-  })), /*#__PURE__*/React.createElement("button", {
-    className: "shell-rail-item",
-    title: "网络资源",
-    "aria-label": "查看网络资源",
-    onClick: goCockpit
-  }, /*#__PURE__*/React.createElement("img", {
-    src: "./assets/uploads/shell-resource.svg",
-    width: "16",
-    height: "16",
-    alt: ""
-  })), /*#__PURE__*/React.createElement("button", {
-    className: "shell-rail-item",
-    title: "检查报告",
-    "aria-label": "查看检查报告",
-    onClick: showReport
-  }, /*#__PURE__*/React.createElement("img", {
-    src: "./assets/uploads/shell-checks.svg",
-    width: "16",
-    height: "16",
-    alt: ""
-  }))), /*#__PURE__*/React.createElement("details", {
-    className: "shell-rail-more"
-  }, /*#__PURE__*/React.createElement("summary", {
-    className: "shell-rail-item",
-    title: "导航菜单",
-    "aria-label": "打开侧边导航菜单"
-  }, /*#__PURE__*/React.createElement("img", {
-    src: "./assets/uploads/shell-navigation.svg",
-    width: "16",
-    height: "16",
-    alt: ""
-  })), /*#__PURE__*/React.createElement("nav", {
-    className: "shell-menu-panel",
-    "aria-label": "侧边导航菜单"
-  }, /*#__PURE__*/React.createElement("button", {
-    onClick: e => {
-      goCockpit();
-      closeMenu(e);
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "floating-nav-label"
+  }, item.label)))), /*#__PURE__*/React.createElement("button", {
+    ref: trigger,
+    className: "floating-nav-toggle shell-rail-item",
+    type: "button",
+    "aria-label": expanded ? '收起侧边导航' : '展开侧边导航',
+    "aria-expanded": expanded,
+    onClick: () => {
+      clearTimeout(timer.current);
+      setPinned(!expanded);
+      setExpanded(!expanded);
     }
-  }, "健康看板"), /*#__PURE__*/React.createElement("button", {
-    onClick: e => {
-      toggleAgent();
-      closeMenu(e);
-    }
-  }, "智能体对话"), /*#__PURE__*/React.createElement("button", {
-    onClick: e => {
-      showReport();
-      closeMenu(e);
-    }
-  }, "检查报告"))));
+  }, /*#__PURE__*/React.createElement("img", {
+    src: icon('collapse'),
+    width: "16",
+    height: "16",
+    alt: ""
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "floating-nav-label"
+  }, "收起导航")));
 }
 }};
-modules["src/views/cockpit/index.jsx"]={deps:{"../../components/network-agent-dashboard/index.jsx":"src/components/network-agent-dashboard/index.jsx","../../context.jsx":"src/context.jsx","../../components/effectiveness-metrics/index.jsx":"src/components/effectiveness-metrics/index.jsx","../../components/map-network-overlay/index.jsx":"src/components/map-network-overlay/index.jsx","./index.css":"src/views/cockpit/index.css","../../components/map-network-overlay/map-vector-layers.js":"src/components/map-network-overlay/map-vector-layers.js","./use-map-navigation.js":"src/views/cockpit/use-map-navigation.js"},run:function(require,module,exports){
+modules["src/views/cockpit/index.jsx"]={deps:{"../../components/network-agent-dashboard/index.jsx":"src/components/network-agent-dashboard/index.jsx","../../context.jsx":"src/context.jsx","../../components/effectiveness-metrics/index.jsx":"src/components/effectiveness-metrics/index.jsx","../../components/map-network-overlay/index.jsx":"src/components/map-network-overlay/index.jsx","./index.css":"src/views/cockpit/index.css","./event-map-glow.css":"src/views/cockpit/event-map-glow.css","../../components/map-network-overlay/map-vector-layers.js":"src/components/map-network-overlay/map-vector-layers.js","./use-map-navigation.js":"src/views/cockpit/use-map-navigation.js"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -63875,6 +63972,7 @@ var _context = require("../../context.jsx");
 var _index2 = _interopRequireDefault(require("../../components/effectiveness-metrics/index.jsx"));
 var _index3 = _interopRequireDefault(require("../../components/map-network-overlay/index.jsx"));
 require("./index.css");
+require("./event-map-glow.css");
 var _mapVectorLayers = require("../../components/map-network-overlay/map-vector-layers.js");
 var _useMapNavigation = _interopRequireDefault(require("./use-map-navigation.js"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
@@ -64411,6 +64509,8 @@ function DataCenterNetworkAgent({
     onTouchMove: attentionScroll.onTouchMove,
     onPointerDown: attentionScroll.onPointerDown
   }, /*#__PURE__*/React.createElement("div", {
+    className: "fabric-home-attention-header"
+  }, /*#__PURE__*/React.createElement("div", {
     className: "fabric-home-section-title"
   }, /*#__PURE__*/React.createElement("h2", {
     id: "fabric-home-attention-heading"
@@ -64450,7 +64550,7 @@ function DataCenterNetworkAgent({
     duration: 4.8,
     borderRadius: 20,
     strength: .84
-  })))), /*#__PURE__*/React.createElement("div", {
+  }))))), /*#__PURE__*/React.createElement("div", {
     className: "fabric-home-events",
     id: "fabric-home-events",
     ref: eventsRef,
@@ -69812,6 +69912,7 @@ function MapNetworkOverlay({
     className: highlighted(center) ? "is-focused" : focusedEvent ? "is-muted" : ""
   }, /*#__PURE__*/React.createElement("div", {
     className: "map-site-status-surface",
+    key: highlighted(center) ? focusedEvent.taskId : "summary",
     style: {
       width: widthById[center.id],
       height: heightById[center.id]
@@ -72013,8 +72114,6 @@ const thoughts = ["先确认挖掘意图、数据中心与设备类型，识别�
 function Uc2Chat() {
   const {
     uc2,
-    uc2Pause,
-    uc2Next,
     uc2Show,
     uc2Scroll,
     isDark,
@@ -72027,8 +72126,7 @@ function Uc2Chat() {
   });
   const [selectedStep, setSelectedStep] = (0, _react.useState)(0);
   const started = (0, _react.useRef)(Date.now());
-  const followOutput = (0, _react.useRef)(true),
-    answerRef = (0, _react.useRef)(null),
+  const answerRef = (0, _react.useRef)(null),
     focusedSeq = (0, _react.useRef)(0);
   const [finished, setFinished] = (0, _react.useState)(null);
 
@@ -72044,54 +72142,9 @@ function Uc2Chat() {
       duration: ((Date.now() - started.current) / 1000).toFixed(1)
     });
   }, [uc2.max, done, resultTask]);
-  (0, _react.useLayoutEffect)(() => {
-    const main = document.getElementById("luiMain"),
-      flow = main?.firstElementChild;
-    if (!main || !flow) return;
-    followOutput.current = true;
-    let frame = 0;
-    const align = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        if (followOutput.current) main.scrollTop = main.scrollHeight;
-      });
-    };
-    const wheel = event => {
-      if (event.deltaY < 0) followOutput.current = false;
-    };
-    const stopFollow = () => {
-      followOutput.current = false;
-    };
-    const key = event => {
-      if (["ArrowUp", "PageUp", "Home"].includes(event.key)) stopFollow();
-    };
-    const observer = new ResizeObserver(align);
-    observer.observe(flow);
-    observer.observe(main);
-    main.addEventListener("wheel", wheel, {
-      passive: true
-    });
-    main.addEventListener("touchstart", stopFollow, {
-      passive: true
-    });
-    main.addEventListener("keydown", key);
-    const track = document.querySelector('.lui-scroll-track');
-    track?.addEventListener('pointerdown', stopFollow);
-    align();
-    return () => {
-      observer.disconnect();
-      cancelAnimationFrame(frame);
-      main.removeEventListener("wheel", wheel);
-      main.removeEventListener("touchstart", stopFollow);
-      main.removeEventListener("keydown", key);
-      track?.removeEventListener('pointerdown', stopFollow);
-    };
-  }, [uc2.max, uc2.phase, done, finished]);
-
   // Canvas -> conversation is distinct from conversation -> canvas, so reviewing never causes a scroll loop.
   (0, _react.useEffect)(() => {
     if (!uc2Scroll || uc2Scroll.target !== "conversation") return;
-    followOutput.current = false;
     if (uc2Scroll.module !== 3 || !done) setExpanded(true);
     setOpenSteps(steps => ({
       ...steps,
@@ -72141,7 +72194,6 @@ function Uc2Chat() {
   };
   const timestamp = finished ? `${finished.at.getFullYear()}-${String(finished.at.getMonth() + 1).padStart(2, "0")}-${String(finished.at.getDate()).padStart(2, "0")} ${finished.at.toTimeString().slice(0, 8)}` : "";
   const toggleStep = step => {
-    followOutput.current = false;
     setSelectedStep(step);
     setOpenSteps(value => ({
       ...value,
@@ -72149,7 +72201,6 @@ function Uc2Chat() {
     }));
   };
   const toggleProcess = () => {
-    followOutput.current = false;
     setExpanded(value => !value);
   };
   const title = done ? "已完成思考" : uc2.running ? "正在执行" + _uc.uc2Names[uc2.stage] : _uc.uc2Names[uc2.stage] + "已暂停";
@@ -72221,7 +72272,7 @@ function Uc2Chat() {
       active: current && uc2.running
     })), /*#__PURE__*/React.createElement("div", {
       className: "step-actions"
-    }, completed && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("button", {
+    }, (completed || current && (step === 0 || uc2.phase !== "text")) && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("button", {
       type: "button",
       className: "step-action",
       "aria-label": `定位步骤：${_uc.uc2Names[step]}`,
@@ -72286,19 +72337,7 @@ function Uc2Chat() {
   })))), done && /*#__PURE__*/React.createElement(_uc2Completion.default, {
     timestamp: timestamp,
     duration: finished?.duration || "0.0"
-  })), !done && /*#__PURE__*/React.createElement("div", {
-    className: "uc2-run-controls"
-  }, /*#__PURE__*/React.createElement("button", {
-    type: "button",
-    className: "btn",
-    onClick: uc2Pause
-  }, uc2.running ? "暂停演示" : "继续执行"), /*#__PURE__*/React.createElement("button", {
-    type: "button",
-    className: "btn",
-    onClick: uc2Next
-  }, "下一步 ", /*#__PURE__*/React.createElement(_index2.default, {
-    icon: "arrow-right"
-  })))));
+  }))));
 }
 }};
 modules["src/views/lui-panel/uc2-typed-copy.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/uc2.js":"src/mock/uc2.js"},run:function(require,module,exports){
@@ -74520,8 +74559,9 @@ function ArtifactOpen({
     openArtifact
   } = (0, _context.useApp)();
   return /*#__PURE__*/React.createElement("button", {
+    type: "button",
     className: "icon-btn v7-open-card-tab",
-    title: "新开页签",
+    title: "在当前页面的新画布页签中独立查看",
     "aria-label": '新开页签：' + title,
     onClick: () => openArtifact(kind, title)
   }, /*#__PURE__*/React.createElement("img", {
@@ -76496,17 +76536,10 @@ function CanvasPreparing({
   stage,
   paused
 }) {
-  const titles = ["意图分析", "网络拓扑图", "黄金基线挖掘", "黄金基线候选报告"];
-  return /*#__PURE__*/React.createElement("div", {
-    className: "uc2-canvas-preparing preparing-stage-" + stage,
-    "aria-label": titles[stage] + "准备中",
-    "aria-busy": "true"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "uc2-preparing-heading"
-  }, titles[stage]), /*#__PURE__*/React.createElement(_thinking.GeneratingCanvas, {
+  return /*#__PURE__*/React.createElement(_thinking.GeneratingCanvas, {
     id: "uc2PreparingStage" + stage,
     paused: paused
-  }));
+  });
 }
 
 // UC2 画布：三级瀑布模块（设备还原 → 黄金基线挖掘 → 生成报告）
@@ -76523,7 +76556,7 @@ function Uc2Pane() {
 
   // 新模块出现 → 平滑定位
   (0, _react.useEffect)(() => {
-    if (uc2.max > 1 && uc2.max > renderedMaxRef.current || uc2.stage === 3 && uc2.phase === "canvas") {
+    if (uc2.max > 1 && uc2.max > renderedMaxRef.current || uc2.phase === "canvas") {
       requestAnimationFrame(() => document.getElementById("uc2Module" + uc2.max)?.scrollIntoView({
         behavior: resultTask?.uc === "uc2" ? "instant" : "smooth",
         block: "start"
@@ -76554,13 +76587,18 @@ function Uc2Pane() {
     2: "黄金基线挖掘",
     3: "生成报告 · 黄金基线候选结果"
   };
+  const artifactKinds = {
+    1: "uc2-topology",
+    2: "uc2-mining",
+    3: "uc2-report"
+  };
   const modules = [];
   for (let i = 1; i <= uc2.max; i++) {
     const pendingText = i === uc2.stage && uc2.phase === "text";
-    const content = i === 3 ? /*#__PURE__*/React.createElement(_reportGeneration.default, null, /*#__PURE__*/React.createElement(_report.Uc2Report, null)) : pendingText ? /*#__PURE__*/React.createElement(CanvasPreparing, {
+    const content = pendingText ? /*#__PURE__*/React.createElement(CanvasPreparing, {
       stage: i,
       paused: !uc2.running
-    }) : i === 1 ? /*#__PURE__*/React.createElement(_topology.default, null) : /*#__PURE__*/React.createElement(_mining.default, null);
+    }) : i === 3 ? /*#__PURE__*/React.createElement(_reportGeneration.default, null, /*#__PURE__*/React.createElement(_report.Uc2Report, null)) : i === 1 ? /*#__PURE__*/React.createElement(_topology.default, null) : /*#__PURE__*/React.createElement(_mining.default, null);
     modules.push(/*#__PURE__*/React.createElement("section", {
       key: i,
       hidden: uc2.view === "intent",
@@ -76585,12 +76623,13 @@ function Uc2Pane() {
       height: "12",
       alt: ""
     }))), /*#__PURE__*/React.createElement("div", {
-      className: (i === 1 ? "uc2-restoration-host" : "card") + (i === 3 ? " artifact-card uc2-report-card" : ""),
+      className: (i === 1 ? "uc2-restoration-host" : "card") + " uc2-module-artifact" + (pendingText ? " is-preparing" : "") + (i === 2 ? " uc2-mining-artifact" : "") + (i === 3 ? " artifact-card uc2-report-card" : ""),
+      "data-artifact-kind": artifactKinds[i],
+      ref: element => {
+        if (element) cardRefs.current[artifactKinds[i]] = element;
+      },
       ...(i === 3 ? {
-        id: "uc2StageContent",
-        ref: element => {
-          cardRefs.current["uc2-report"] = element;
-        }
+        id: "uc2StageContent"
       } : {})
     }, content)));
   }
@@ -76603,7 +76642,7 @@ function Uc2Pane() {
   }, uc2.view === "intent" && /*#__PURE__*/React.createElement(_intent.default, null), modules);
 }
 }};
-modules["src/views/uc2-canvas/topology.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/uc2.js":"src/mock/uc2.js","../../../assets/shared/icon.jsx":"assets/shared/icon.jsx"},run:function(require,module,exports){
+modules["src/views/uc2-canvas/topology.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../network-region-scan/sweep.jsx":"src/views/network-region-scan/sweep.jsx","../../components/artifact-open/index.jsx":"src/components/artifact-open/index.jsx","../../mock/uc2.js":"src/mock/uc2.js","../../../assets/shared/icon.jsx":"assets/shared/icon.jsx"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -76613,8 +76652,11 @@ exports.Uc2Title = Uc2Title;
 exports.default = Uc2Topology;
 var _react = require("react");
 var _context = require("../../context.jsx");
+var _sweep = _interopRequireDefault(require("../network-region-scan/sweep.jsx"));
+var _index = _interopRequireDefault(require("../../components/artifact-open/index.jsx"));
 var _uc = require("../../mock/uc2.js");
 var _icon = require("../../../assets/shared/icon.jsx");
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function Uc2Title({
   stage,
   title,
@@ -76726,9 +76768,7 @@ function useRestorationProgress(uc2) {
 function Uc2Topology() {
   const {
     uc2,
-    uc2SelectNode,
-    setFull,
-    full
+    uc2SelectNode
   } = (0, _context.useApp)();
   const [focused, setFocused] = (0, _react.useState)(null);
   const progress = useRestorationProgress(uc2);
@@ -76770,14 +76810,10 @@ function Uc2Topology() {
   }, /*#__PURE__*/React.createElement("h3", null, /*#__PURE__*/React.createElement("img", {
     src: assets + "topology-icon.svg",
     alt: ""
-  }), "网络拓扑图"), /*#__PURE__*/React.createElement("button", {
-    type: "button",
-    "aria-label": full ? "还原拓扑画布" : "放大拓扑画布",
-    onClick: () => setFull(!full)
-  }, /*#__PURE__*/React.createElement("img", {
-    src: assets + "expand-icon.svg",
-    alt: ""
-  }))), /*#__PURE__*/React.createElement("div", {
+  }), "网络拓扑图"), /*#__PURE__*/React.createElement(_index.default, {
+    kind: "uc2-topology",
+    title: "网络拓扑图"
+  })), /*#__PURE__*/React.createElement("div", {
     className: "uc2-restoration-overview"
   }, /*#__PURE__*/React.createElement("div", {
     className: "uc2-restoration-copy"
@@ -76801,7 +76837,7 @@ function Uc2Topology() {
     viewBox: "0 160 1232 749",
     className: "uc2-native-topology",
     role: "img",
-    "aria-label": detail ? "已定位核心交换机的详细网络拓扑" : "蓝色光效自上而下扫描全网区域，连续展开设备拓扑"
+    "aria-label": detail ? "已定位核心交换机的详细网络拓扑" : "彩色渐变点阵自上而下扫描全网区域，连续展开设备拓扑"
   }, /*#__PURE__*/React.createElement("g", {
     className: "uc2-overview-layer",
     opacity: 1 - areaBlend
@@ -76811,35 +76847,13 @@ function Uc2Topology() {
     y: "160",
     width: "1232",
     height: "749"
-  }), /*#__PURE__*/React.createElement("g", {
-    className: "uc2-restoration-scan",
-    transform: "translate(0 " + clamp(elapsed / 2800) * 648 + ")"
-  }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
-    id: "uc2RestorationScanGradient",
-    x1: "0",
-    y1: "0",
-    x2: "0",
-    y2: "1"
-  }, /*#__PURE__*/React.createElement("stop", {
-    stopColor: "#5ca2e9",
-    stopOpacity: "0"
-  }), /*#__PURE__*/React.createElement("stop", {
-    offset: "1",
-    stopColor: "#5ca2e9",
-    stopOpacity: ".28"
-  }))), /*#__PURE__*/React.createElement("rect", {
-    x: "74",
-    y: "182",
-    width: "1080",
-    height: "42",
-    fill: "url(#uc2RestorationScanGradient)"
-  }), /*#__PURE__*/React.createElement("rect", {
-    x: "74",
-    y: "224",
-    width: "1080",
-    height: "2",
-    fill: "#64b2ff"
-  }))), /*#__PURE__*/React.createElement("image", {
+  }), /*#__PURE__*/React.createElement(_sweep.default, {
+    progress: clamp(elapsed / 2800),
+    x: 74,
+    y: 182,
+    width: 1080,
+    height: 692
+  })), /*#__PURE__*/React.createElement("image", {
     className: "uc2-topology-area",
     href: vectors + "topology-area.svg",
     x: "0",
@@ -76920,6 +76934,135 @@ function Uc2Topology() {
   })), /*#__PURE__*/React.createElement("strong", null, selected.name), /*#__PURE__*/React.createElement("span", null, selected.role, " · 西三旗 DC"), /*#__PURE__*/React.createElement("p", null, "配置快照可用，已纳入本轮分析范围。"))));
 }
 }};
+modules["src/views/network-region-scan/sweep.jsx"]={deps:{},run:function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = RegionSweep;
+var _react = require("react");
+// Shared by UC2 and UC4: one straight sweep with a soft multicolour dot-grid tail.
+function RegionSweep({
+  progress = 0,
+  x = 73,
+  y = 154,
+  width = 1083,
+  height = 698
+}) {
+  const id = 'region-sweep-' + (0, _react.useId)().replace(/:/g, '');
+  const offset = y - 80 + Math.max(0, Math.min(1, progress)) * (height - 60);
+  return /*#__PURE__*/React.createElement("g", {
+    className: "network-region-intelligence-pulses network-region-smart-sweep",
+    "data-scan-effect": "shared-region-sweep",
+    "aria-hidden": "true",
+    transform: 'translate(0 ' + offset + ')'
+  }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
+    id: id + '-palette',
+    x1: "0",
+    y1: "0",
+    x2: "1",
+    y2: "0"
+  }, /*#__PURE__*/React.createElement("stop", {
+    stopColor: "#288cff"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: ".3",
+    stopColor: "#9169f5"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: ".6",
+    stopColor: "#b428f0"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: ".86",
+    stopColor: "#ee4b73"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "1",
+    stopColor: "#f4a05b"
+  })), /*#__PURE__*/React.createElement("linearGradient", {
+    id: id + '-fade',
+    x1: "0",
+    y1: "0",
+    x2: "0",
+    y2: "1"
+  }, /*#__PURE__*/React.createElement("stop", {
+    stopColor: "white",
+    stopOpacity: "0"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: ".45",
+    stopColor: "white",
+    stopOpacity: ".18"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: ".9",
+    stopColor: "white",
+    stopOpacity: ".7"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "1",
+    stopColor: "white"
+  })), /*#__PURE__*/React.createElement("pattern", {
+    id: id + '-grid',
+    patternUnits: "userSpaceOnUse",
+    width: "10",
+    height: "10"
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: "4",
+    y: "4",
+    width: "2",
+    height: "2",
+    rx: ".3",
+    fill: "white"
+  })), /*#__PURE__*/React.createElement("mask", {
+    id: id + '-tail',
+    maskUnits: "userSpaceOnUse",
+    x: x,
+    y: "0",
+    width: width,
+    height: "82"
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: x,
+    y: "0",
+    width: width,
+    height: "82",
+    fill: 'url(#' + id + '-fade)'
+  })), /*#__PURE__*/React.createElement("mask", {
+    id: id + '-dots',
+    maskUnits: "userSpaceOnUse",
+    x: x,
+    y: "0",
+    width: width,
+    height: "82"
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: x,
+    y: "0",
+    width: width,
+    height: "82",
+    fill: 'url(#' + id + '-grid)'
+  }))), /*#__PURE__*/React.createElement("g", {
+    mask: 'url(#' + id + '-tail)'
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: x,
+    y: "0",
+    width: width,
+    height: "82",
+    fill: 'url(#' + id + '-palette)',
+    opacity: ".18"
+  }), /*#__PURE__*/React.createElement("g", {
+    mask: 'url(#' + id + '-dots)'
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: x,
+    y: "0",
+    width: width,
+    height: "80",
+    fill: 'url(#' + id + '-palette)',
+    opacity: ".62"
+  }))), /*#__PURE__*/React.createElement("rect", {
+    x: x,
+    y: "80.8",
+    width: width,
+    height: "1.2",
+    fill: 'url(#' + id + '-palette)',
+    opacity: ".42"
+  }));
+}
+}};
 modules["src/views/uc2-canvas/intent.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../lui-panel/thinking.jsx":"src/views/lui-panel/thinking.jsx"},run:function(require,module,exports){
 "use strict";
 
@@ -76955,7 +77098,7 @@ function Uc2Intent() {
   }));
 }
 }};
-modules["src/views/uc2-canvas/mining.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/uc2.js":"src/mock/uc2.js","./mining-reference.css":"src/views/uc2-canvas/mining-reference.css","./flow-light.jsx":"src/views/uc2-canvas/flow-light.jsx"},run:function(require,module,exports){
+modules["src/views/uc2-canvas/mining.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../components/artifact-open/index.jsx":"src/components/artifact-open/index.jsx","../../mock/uc2.js":"src/mock/uc2.js","./mining-reference.css":"src/views/uc2-canvas/mining-reference.css","./flow-light.jsx":"src/views/uc2-canvas/flow-light.jsx"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -76964,6 +77107,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = Uc2Mining;
 var _react = require("react");
 var _context = require("../../context.jsx");
+var _index = _interopRequireDefault(require("../../components/artifact-open/index.jsx"));
 var _uc = require("../../mock/uc2.js");
 require("./mining-reference.css");
 var _flowLight = _interopRequireDefault(require("./flow-light.jsx"));
@@ -77189,11 +77333,8 @@ function Uc2Mining() {
     uc2Fusion,
     uc2FusionPick,
     uc2FusionCloseDrawer,
-    uc2Pause,
     uc2CanvasStart,
-    uc2CanvasComplete,
-    full,
-    setFull
+    uc2CanvasComplete
   } = (0, _context.useApp)();
   const [hover, setHover] = (0, _react.useState)(null),
     [summary, setSummary] = (0, _react.useState)(null);
@@ -77225,7 +77366,6 @@ function Uc2Mining() {
     if (motionMode === "complete") uc2CanvasComplete(2);
   }, [motionMode, uc2CanvasComplete]);
   const replay = () => {
-    if (uc2.running) uc2Pause();
     uc2FusionPick("engine");
     setHover(null);
     setSummary(null);
@@ -77250,7 +77390,6 @@ function Uc2Mining() {
     clearTimeout(clearRef.current);
     setSummary(null);
     setHover(null);
-    if (uc2.running && uc2.stage === 2) uc2Pause();
     uc2FusionPick("rule:" + id);
   };
   const leave = () => {
@@ -77365,14 +77504,10 @@ function Uc2Mining() {
     strokeWidth: "1.25",
     strokeLinecap: "round",
     strokeLinejoin: "round"
-  }))), /*#__PURE__*/React.createElement("button", {
-    type: "button",
-    "aria-label": full ? "还原基线挖掘画布" : "放大基线挖掘画布",
-    onClick: () => setFull(!full)
-  }, /*#__PURE__*/React.createElement("img", {
-    src: "./assets/uploads/pixso-uc2-restoration/expand-icon.svg",
-    alt: ""
-  })))), /*#__PURE__*/React.createElement("div", {
+  }))), /*#__PURE__*/React.createElement(_index.default, {
+    kind: "uc2-mining",
+    title: "黄金基线挖掘"
+  }))), /*#__PURE__*/React.createElement("div", {
     className: "golden-scene",
     ref: sceneRef
   }, /*#__PURE__*/React.createElement("svg", {
@@ -77837,7 +77972,7 @@ function Uc2ReportGeneration({
   }), children));
 }
 }};
-modules["src/views/uc2-canvas/report.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/uc2.js":"src/mock/uc2.js","./candidate-list.jsx":"src/views/uc2-canvas/candidate-list.jsx","./rule-detail.jsx":"src/views/uc2-canvas/rule-detail.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","./report-visual.css":"src/views/uc2-canvas/report-visual.css","./report-generation.jsx":"src/views/uc2-canvas/report-generation.jsx"},run:function(require,module,exports){
+modules["src/views/uc2-canvas/report.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/uc2.js":"src/mock/uc2.js","./candidate-list.jsx":"src/views/uc2-canvas/candidate-list.jsx","./rule-detail.jsx":"src/views/uc2-canvas/rule-detail.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","../../components/artifact-open/index.jsx":"src/components/artifact-open/index.jsx","./report-visual.css":"src/views/uc2-canvas/report-visual.css","./report-generation.jsx":"src/views/uc2-canvas/report-generation.jsx"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -77856,6 +77991,7 @@ var _uc = require("../../mock/uc2.js");
 var _candidateList = _interopRequireDefault(require("./candidate-list.jsx"));
 var _ruleDetail = require("./rule-detail.jsx");
 var _index = _interopRequireDefault(require("../../components/icon-el/index.jsx"));
+var _index2 = _interopRequireDefault(require("../../components/artifact-open/index.jsx"));
 require("./report-visual.css");
 var _reportGeneration = require("./report-generation.jsx");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
@@ -77882,7 +78018,7 @@ function RoleDonut() {
   const shown = hovered || (roles.includes(active) ? active : null),
     shownIndex = roles.indexOf(shown);
   const toggle = role => uc2SetFilter({
-    role: active === role ? "全部角色" : role
+    role
   });
   let offset = 0;
   return /*#__PURE__*/React.createElement("div", {
@@ -77984,21 +78120,11 @@ function Uc2Report() {
     uc2,
     uc2Reviews,
     uc2SetFilter,
-    toast,
-    openArtifact
+    toast
   } = (0, _context.useApp)();
   const toggleEvidence = value => uc2SetFilter({
-    confidence: uc2.confidence === value ? "全部置信度" : value
+    confidence: value
   });
-  const showAllRules = () => {
-    uc2SetFilter({
-      role: "全部角色",
-      status: "all",
-      query: "",
-      confidence: "全部置信度"
-    });
-    openArtifact("uc2-rules", "全部候选规则");
-  };
   const high = _uc.uc2Rules.filter(rule => rule.confidence === "高").length,
     total = _uc.uc2Rules.length;
   const devices = new Set(Object.values(_uc.uc2DeviationDevices).flat()).size;
@@ -78043,15 +78169,10 @@ function Uc2Report() {
     }
   }, /*#__PURE__*/React.createElement(_index.default, {
     icon: "download"
-  })), /*#__PURE__*/React.createElement("button", {
-    type: "button",
-    onClick: showAllRules,
-    title: "新页签查看全部候选规则",
-    "aria-label": "新页签查看全部候选规则"
-  }, /*#__PURE__*/React.createElement("img", {
-    src: "./assets/uploads/artifact-open-tab.svg",
-    alt: ""
-  })))), /*#__PURE__*/React.createElement("div", {
+  })), /*#__PURE__*/React.createElement(_index2.default, {
+    kind: "uc2-report",
+    title: "黄金基线候选报告"
+  }))), /*#__PURE__*/React.createElement("div", {
     className: "baseline-report-meta" + classAt(.1)
   }, /*#__PURE__*/React.createElement("span", null, "配置快照 S-1027"), /*#__PURE__*/React.createElement("span", null, "挖掘完成"), /*#__PURE__*/React.createElement("span", null, "待审阅")), /*#__PURE__*/React.createElement("section", {
     className: "baseline-report-overview",
@@ -78078,7 +78199,7 @@ function Uc2Report() {
     },
     "aria-label": `按置信度筛选：${group.label}（${group.range}）${group.count}条`,
     "aria-pressed": uc2.confidence === group.value,
-    title: uc2.confidence === group.value ? "再次点击取消筛选" : "点击筛选对应候选规则",
+    title: "点击筛选对应候选规则；通过全部入口恢复",
     onClick: () => toggleEvidence(group.value)
   }, /*#__PURE__*/React.createElement("i", null), /*#__PURE__*/React.createElement("span", {
     className: "baseline-confidence-copy"
@@ -78107,18 +78228,19 @@ function Uc2Report() {
   }));
 }
 }};
-modules["src/views/uc2-canvas/candidate-list.jsx"]={deps:{"../../components/form-controls/select.jsx":"src/components/form-controls/select.jsx","../../context.jsx":"src/context.jsx","../../mock/uc2.js":"src/mock/uc2.js","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","./report-visual.css":"src/views/uc2-canvas/report-visual.css","./report-generation.jsx":"src/views/uc2-canvas/report-generation.jsx"},run:function(require,module,exports){
+modules["src/views/uc2-canvas/candidate-list.jsx"]={deps:{"../../components/canvas-pagination/index.jsx":"src/components/canvas-pagination/index.jsx","../../components/form-controls/select.jsx":"src/components/form-controls/select.jsx","../../context.jsx":"src/context.jsx","../../mock/uc2.js":"src/mock/uc2.js","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","./report-visual.css":"src/views/uc2-canvas/report-visual.css","./report-generation.jsx":"src/views/uc2-canvas/report-generation.jsx"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = Uc2CandidateList;
+var _index = _interopRequireDefault(require("../../components/canvas-pagination/index.jsx"));
 var _select = require("../../components/form-controls/select.jsx");
 var _react = require("react");
 var _context = require("../../context.jsx");
 var _uc = require("../../mock/uc2.js");
-var _index = _interopRequireDefault(require("../../components/icon-el/index.jsx"));
+var _index2 = _interopRequireDefault(require("../../components/icon-el/index.jsx"));
 require("./report-visual.css");
 var _reportGeneration = require("./report-generation.jsx");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
@@ -78139,7 +78261,6 @@ function Uc2CandidateList({
     uc2SetFilter,
     uc2OpenRule,
     uc2Reviews,
-    uc2Show,
     toast,
     uc2RuleConfigs
   } = (0, _context.useApp)();
@@ -78171,21 +78292,16 @@ function Uc2CandidateList({
     "aria-label": embedded ? "报告候选规则" : "全部候选规则"
   }, !embedded && /*#__PURE__*/React.createElement("header", {
     className: "baseline-list-heading"
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(_index.default, {
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(_index2.default, {
     icon: "file-text"
   }), /*#__PURE__*/React.createElement("h2", null, "全部候选规则"), /*#__PURE__*/React.createElement("span", null, "西三旗 DC · 配置快照 S-1027")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
-    type: "button",
-    onClick: () => uc2Show(3)
-  }, /*#__PURE__*/React.createElement(_index.default, {
-    icon: "arrow-left"
-  }), "返回报告"), /*#__PURE__*/React.createElement("button", {
     type: "button",
     "aria-label": "导出全部候选规则 CSV",
     onClick: () => {
       (0, _uc.uc2ExportCsv)(uc2Reviews);
       toast("全部候选规则已导出");
     }
-  }, /*#__PURE__*/React.createElement(_index.default, {
+  }, /*#__PURE__*/React.createElement(_index2.default, {
     icon: "download"
   })))), /*#__PURE__*/React.createElement("h3", null, "候选规则"), /*#__PURE__*/React.createElement("p", {
     className: "baseline-rule-scope"
@@ -78201,13 +78317,13 @@ function Uc2CandidateList({
     "aria-pressed": status === value,
     className: value,
     onClick: () => patch({
-      status: status === value ? "all" : value
+      status: value
     })
   }, value !== "all" && /*#__PURE__*/React.createElement("i", null), label, /*#__PURE__*/React.createElement("b", null, value === "all" ? _uc.uc2Rules.length : _uc.uc2Rules.filter(rule => review(rule) === value).length)))), /*#__PURE__*/React.createElement("div", {
     className: "baseline-rule-tools"
   }, /*#__PURE__*/React.createElement("label", {
     className: "baseline-rule-search"
-  }, /*#__PURE__*/React.createElement(_index.default, {
+  }, /*#__PURE__*/React.createElement(_index2.default, {
     icon: "search"
   }), /*#__PURE__*/React.createElement("input", {
     "aria-label": embedded ? "搜索报告候选规则" : "搜索全部候选规则",
@@ -78222,7 +78338,7 @@ function Uc2CandidateList({
     onClick: () => patch({
       query: ""
     })
-  }, /*#__PURE__*/React.createElement(_index.default, {
+  }, /*#__PURE__*/React.createElement(_index2.default, {
     icon: "x"
   }))), /*#__PURE__*/React.createElement("label", {
     className: "baseline-rule-select"
@@ -78238,7 +78354,7 @@ function Uc2CandidateList({
     value: "高"
   }, "高置信（95%–99%）"), /*#__PURE__*/React.createElement("option", {
     value: "中"
-  }, "中置信度（94%–90%）")), /*#__PURE__*/React.createElement(_index.default, {
+  }, "中置信度（94%–90%）")), /*#__PURE__*/React.createElement(_index2.default, {
     icon: "chevron-down"
   })), role !== "全部角色" && /*#__PURE__*/React.createElement("button", {
     type: "button",
@@ -78247,7 +78363,7 @@ function Uc2CandidateList({
     onClick: () => patch({
       role: "全部角色"
     })
-  }, role === "通用" ? "共性" : role, /*#__PURE__*/React.createElement(_index.default, {
+  }, role === "通用" ? "共性" : role, /*#__PURE__*/React.createElement(_index2.default, {
     icon: "x"
   })), (query || role !== "全部角色" || confidence !== "全部置信度" || status !== "all") && /*#__PURE__*/React.createElement("button", {
     type: "button",
@@ -78270,18 +78386,18 @@ function Uc2CandidateList({
     style: {
       width: width + "%"
     }
-  }))), /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "候选规则", /*#__PURE__*/React.createElement(_index.default, {
+  }))), /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "候选规则", /*#__PURE__*/React.createElement(_index2.default, {
     icon: "filter"
-  })), /*#__PURE__*/React.createElement("th", null, "类型"), /*#__PURE__*/React.createElement("th", null, "适用范围", /*#__PURE__*/React.createElement(_index.default, {
+  })), /*#__PURE__*/React.createElement("th", null, "类型"), /*#__PURE__*/React.createElement("th", null, "适用范围", /*#__PURE__*/React.createElement(_index2.default, {
     icon: "filter"
   })), /*#__PURE__*/React.createElement("th", {
     "aria-sort": sort === "asc" ? "ascending" : sort === "desc" ? "descending" : "none"
   }, /*#__PURE__*/React.createElement("button", {
     type: "button",
     onClick: () => setSort(sort === "desc" ? "asc" : "desc")
-  }, "支持样本", /*#__PURE__*/React.createElement(_index.default, {
+  }, "支持样本", /*#__PURE__*/React.createElement(_index2.default, {
     icon: "arrow-down-up"
-  }))), /*#__PURE__*/React.createElement("th", null, "待确认事项"), /*#__PURE__*/React.createElement("th", null, "审阅状态", /*#__PURE__*/React.createElement(_index.default, {
+  }))), /*#__PURE__*/React.createElement("th", null, "待确认事项"), /*#__PURE__*/React.createElement("th", null, "审阅状态", /*#__PURE__*/React.createElement(_index2.default, {
     icon: "filter"
   })), /*#__PURE__*/React.createElement("th", null, "操作"))), /*#__PURE__*/React.createElement("tbody", null, visible.map((rule, index) => /*#__PURE__*/React.createElement("tr", {
     className: classAt(.78 + index * .018).trim(),
@@ -78324,7 +78440,7 @@ function Uc2CandidateList({
     colSpan: "7"
   }, /*#__PURE__*/React.createElement("div", {
     className: "baseline-empty"
-  }, /*#__PURE__*/React.createElement(_index.default, {
+  }, /*#__PURE__*/React.createElement(_index2.default, {
     icon: "search"
   }), /*#__PURE__*/React.createElement("p", null, "没有匹配的候选规则"), /*#__PURE__*/React.createElement("button", {
     type: "button",
@@ -78334,33 +78450,77 @@ function Uc2CandidateList({
       status: "all",
       query: ""
     })
-  }, "清除筛选，查看全部"))))))), /*#__PURE__*/React.createElement("footer", {
-    className: "baseline-pagination"
-  }, /*#__PURE__*/React.createElement("span", null, "总计：", rows.length), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(_select.NativeSelect, {
-    "aria-label": embedded ? "报告规则每页条数" : "全部规则每页条数",
+  }, "清除筛选，查看全部"))))))), /*#__PURE__*/React.createElement(_index.default, {
+    total: rows.length,
+    page: current,
+    pageSize: pageSize,
+    onPageChange: setPage,
+    onPageSizeChange: setPageSize,
+    label: "候选规则"
+  }));
+}
+}};
+modules["src/components/canvas-pagination/index.jsx"]={deps:{"../icon-el/index.jsx":"src/components/icon-el/index.jsx","../form-controls/select.jsx":"src/components/form-controls/select.jsx","./index.css":"src/components/canvas-pagination/index.css"},run:function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = CanvasPagination;
+var _index = _interopRequireDefault(require("../icon-el/index.jsx"));
+var _select = require("../form-controls/select.jsx");
+require("./index.css");
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function CanvasPagination({
+  total,
+  page,
+  pageSize,
+  onPageChange,
+  onPageSizeChange,
+  label = '规则'
+}) {
+  const pages = Math.max(1, Math.ceil(total / pageSize)),
+    current = Math.max(1, Math.min(page, pages));
+  const near = [...new Set([1, Math.max(1, current - 1), current, Math.min(pages, current + 1), pages])].sort((a, b) => a - b);
+  return /*#__PURE__*/React.createElement("footer", {
+    className: "canvas-pagination",
+    "aria-label": label + '分页'
+  }, /*#__PURE__*/React.createElement("span", null, "总计：", total), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(_select.NativeSelect, {
+    "aria-label": label + '每页条数',
     value: pageSize,
-    onChange: e => {
-      setPageSize(Number(e.target.value));
-      setPage(1);
+    onChange: event => {
+      onPageSizeChange(Number(event.target.value));
+      onPageChange(1);
     }
   }, [10, 20, 50].map(size => /*#__PURE__*/React.createElement("option", {
-    key: size,
-    value: size
+    value: size,
+    key: size
   }, size, " 条/页"))), /*#__PURE__*/React.createElement("button", {
     type: "button",
+    "aria-label": label + '上一页',
     disabled: current === 1,
-    "aria-label": "候选规则上一页",
-    onClick: () => setPage(current - 1)
+    onClick: () => onPageChange(current - 1)
   }, /*#__PURE__*/React.createElement(_index.default, {
     icon: "chevron-left"
-  })), /*#__PURE__*/React.createElement("span", null, current, " / ", pages), /*#__PURE__*/React.createElement("button", {
+  })), near.map((n, index) => /*#__PURE__*/React.createElement("span", {
+    className: "canvas-page-item",
+    key: n
+  }, index > 0 && n - near[index - 1] > 1 && /*#__PURE__*/React.createElement("span", null, "…"), /*#__PURE__*/React.createElement("button", {
     type: "button",
+    className: n === current ? 'is-current' : '',
+    "aria-label": label + '第' + n + '页',
+    "aria-current": n === current ? 'page' : undefined,
+    onClick: () => onPageChange(n)
+  }, n))), pages === 1 && /*#__PURE__*/React.createElement("span", {
+    className: "canvas-page-total"
+  }, "/ 1"), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    "aria-label": label + '下一页',
     disabled: current === pages,
-    "aria-label": "候选规则下一页",
-    onClick: () => setPage(current + 1)
+    onClick: () => onPageChange(current + 1)
   }, /*#__PURE__*/React.createElement(_index.default, {
     icon: "chevron-right"
-  })))));
+  }))));
 }
 }};
 modules["src/views/uc2-canvas/rule-detail.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../../mock/uc2.js":"src/mock/uc2.js","../../components/search-input/index.jsx":"src/components/search-input/index.jsx","../../components/empty-state/index.jsx":"src/components/empty-state/index.jsx","../../components/icon-el/index.jsx":"src/components/icon-el/index.jsx","./rule-detail.css":"src/views/uc2-canvas/rule-detail.css"},run:function(require,module,exports){
@@ -78486,13 +78646,10 @@ function differentTokens(expected, actual) {
 
 // Pixso UC2-识别完成-规则详情: rule metadata + device list + configuration evidence.
 function Uc2RuleDetail({
-  ruleId,
-  onBack,
-  returnLabel = "返回报告"
+  ruleId
 }) {
   const {
     uc2,
-    uc2SetFilter,
     uc2Review,
     uc2Reviews,
     uc2RuleDetailsRef,
@@ -78597,18 +78754,7 @@ function Uc2RuleDetail({
     className: "uc2-rule-kind"
   }, review === "accepted" && saved ? "已采纳规则" : "候选规则"), /*#__PURE__*/React.createElement("span", {
     className: "uc2-rule-state " + (rule.deviations ? "failed" : "passed")
-  }, rule.deviations ? "存在配置差异" : "样本配置一致"), /*#__PURE__*/React.createElement("button", {
-    type: "button",
-    className: "uc2-rule-return",
-    "aria-label": returnLabel,
-    title: returnLabel,
-    onClick: onBack || (() => uc2SetFilter({
-      view: "stage",
-      rule: null
-    }))
-  }, /*#__PURE__*/React.createElement(_index3.default, {
-    icon: "arrow-left"
-  }), returnLabel)), /*#__PURE__*/React.createElement("dl", {
+  }, rule.deviations ? "存在配置差异" : "样本配置一致")), /*#__PURE__*/React.createElement("dl", {
     className: "uc2-rule-metadata"
   }, [["范围", "西三旗 DC"], ["分类", rule.category], ["差异设备", rule.deviations + "台"], ["规则编号", saved?.ruleId || rule.id], ["适用规则", rule.role === "通用" ? "共性规则" : rule.role], ["配置一致", rule.support + "/" + rule.scope + "台"], ["覆盖率", (rule.support / rule.scope * 100).toFixed(1).replace(/\.0$/, "") + "%"]].map(([label, value]) => /*#__PURE__*/React.createElement("div", {
     key: label

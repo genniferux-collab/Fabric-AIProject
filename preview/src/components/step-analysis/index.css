@@ -1,0 +1,4 @@
+.step-analysis .response-thought{margin-bottom:12px}
+.step-analysis-label{display:block;font-size:12px;line-height:20px;margin-bottom:6px;color:var(--secondary,#c9c9c9)}
+.step-analysis-conclusion{margin-top:12px}
+.step-analysis-progress{margin:12px 0 0;color:var(--muted,#939393);font-size:12px;line-height:20px}

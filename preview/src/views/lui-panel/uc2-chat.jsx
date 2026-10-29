@@ -17,13 +17,13 @@ const thoughts = [
 ];
 
 export default function Uc2Chat() {
-  const { uc2, uc2Pause, uc2Next, uc2Show, uc2Scroll, isDark, resultTask } = useApp();
+  const { uc2, uc2Show, uc2Scroll, isDark, resultTask } = useApp();
   const done = uc2.max === 3 && uc2.phase === "complete";
   const [expanded, setExpanded] = useState(true);
   const [openSteps, setOpenSteps] = useState({ 0: true });
   const [selectedStep, setSelectedStep] = useState(0);
   const started = useRef(Date.now());
-  const followOutput = useRef(true), answerRef = useRef(null), focusedSeq = useRef(0);
+  const answerRef = useRef(null), focusedSeq = useRef(0);
   const [finished, setFinished] = useState(null);
 
   // Match UC4: reveal the current step, collapse past steps, then keep the result outside the process.
@@ -33,32 +33,9 @@ export default function Uc2Chat() {
     setExpanded(!done);
     if (done) setFinished({ at: new Date(resultTask?.uc==="uc2"?resultTask.completedAt:Date.now()), duration: ((Date.now() - started.current) / 1000).toFixed(1) });
   }, [uc2.max, done,resultTask]);
-  useLayoutEffect(() => {
-    const main = document.getElementById("luiMain"), flow = main?.firstElementChild;
-    if (!main || !flow) return;
-    followOutput.current = true;
-    let frame = 0;
-    const align = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => { if (followOutput.current) main.scrollTop = main.scrollHeight; });
-    };
-    const wheel = event => { if (event.deltaY < 0) followOutput.current = false; };
-    const stopFollow = () => { followOutput.current = false; };
-    const key = event => { if (["ArrowUp", "PageUp", "Home"].includes(event.key)) stopFollow(); };
-    const observer = new ResizeObserver(align);
-    observer.observe(flow); observer.observe(main);
-    main.addEventListener("wheel", wheel, { passive: true });
-    main.addEventListener("touchstart", stopFollow, { passive: true });
-    main.addEventListener("keydown", key);
-    const track = document.querySelector('.lui-scroll-track');
-    track?.addEventListener('pointerdown', stopFollow); align();
-    return () => { observer.disconnect(); cancelAnimationFrame(frame); main.removeEventListener("wheel", wheel); main.removeEventListener("touchstart", stopFollow); main.removeEventListener("keydown", key); track?.removeEventListener('pointerdown', stopFollow); };
-  }, [uc2.max, uc2.phase, done, finished]);
-
   // Canvas -> conversation is distinct from conversation -> canvas, so reviewing never causes a scroll loop.
   useEffect(() => {
     if (!uc2Scroll || uc2Scroll.target !== "conversation") return;
-    followOutput.current = false;
     if (uc2Scroll.module !== 3 || !done) setExpanded(true);
     setOpenSteps(steps => ({ ...steps, [uc2Scroll.module]: true }));
     setSelectedStep(uc2Scroll.module);
@@ -86,8 +63,8 @@ export default function Uc2Chat() {
   };
   const artifacts = { 1: "网络拓扑图", 2: "基线挖掘图谱" };
   const timestamp = finished ? `${finished.at.getFullYear()}-${String(finished.at.getMonth() + 1).padStart(2, "0")}-${String(finished.at.getDate()).padStart(2, "0")} ${finished.at.toTimeString().slice(0, 8)}` : "";
-  const toggleStep = step => { followOutput.current = false; setSelectedStep(step); setOpenSteps(value => ({ ...value, [step]: !value[step] })); };
-  const toggleProcess = () => { followOutput.current = false; setExpanded(value => !value); };
+  const toggleStep = step => { setSelectedStep(step); setOpenSteps(value => ({ ...value, [step]: !value[step] })); };
+  const toggleProcess = () => { setExpanded(value => !value); };
   const title = done ? "已完成思考" : uc2.running ? "正在执行" + uc2Names[uc2.stage] : uc2Names[uc2.stage] + "已暂停";
 
   return <>
@@ -111,7 +88,7 @@ export default function Uc2Chat() {
                 <div className="step-heading">
                   <button type="button" className="step-title" aria-expanded={open} aria-controls={`uc2WorkflowStep${step}`} onClick={() => toggleStep(step)}><MotionTitle text={uc2Names[step]} active={current && uc2.running}/></button>
                   <div className="step-actions">
-                    {completed && <><button type="button" className="step-action" aria-label={`定位步骤：${uc2Names[step]}`} title="定位到画布" onClick={() => { setSelectedStep(step); uc2Show(step); }}><img className="lui-glyph" src="./assets/uploads/lui-step-locate.svg" width="12" height="12" alt="" /></button><span className="step-action-divider" aria-hidden="true" /></>}
+                    {(completed || current && (step===0 || uc2.phase!=="text")) && <><button type="button" className="step-action" aria-label={`定位步骤：${uc2Names[step]}`} title="定位到画布" onClick={() => { setSelectedStep(step); uc2Show(step); }}><img className="lui-glyph" src="./assets/uploads/lui-step-locate.svg" width="12" height="12" alt="" /></button><span className="step-action-divider" aria-hidden="true" /></>}
                     <button type="button" className="step-action" aria-label={`${open ? "收起" : "展开"}步骤：${uc2Names[step]}`} aria-expanded={open} aria-controls={`uc2WorkflowStep${step}`} onClick={() => toggleStep(step)}><Ic variant={isDark ? "filled" : "lined"} icon={open ? "chevron-up" : "chevron-down"} /></button>
                   </div>
                 </div>
@@ -129,7 +106,6 @@ export default function Uc2Chat() {
       </div>
       {done && <Uc2Completion timestamp={timestamp} duration={finished?.duration || "0.0"}/>}
       </SoftHeight>
-      {!done && <div className="uc2-run-controls"><button type="button" className="btn" onClick={uc2Pause}>{uc2.running ? "暂停演示" : "继续执行"}</button><button type="button" className="btn" onClick={uc2Next}>下一步 <Ic icon="arrow-right" /></button></div>}
     </article>
   </>;
 }

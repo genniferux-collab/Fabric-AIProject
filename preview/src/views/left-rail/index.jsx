@@ -1,22 +1,25 @@
-import { useApp } from "../../context.jsx";
+import {useEffect,useRef,useState} from 'react';
+import {useApp} from '../../context.jsx';
+import './index.css';
 
-export default function LeftRail() {
-  const { agentActive, toggleAgent, goCockpit, toast, luiView, locate, focusLuiArtifact } = useApp();
-  const closeMenu = e => e.currentTarget.closest("details")?.removeAttribute("open");
-  const showReport = () => {
-    if(luiView === "done"){focusLuiArtifact("report");locate("report");}
-    else toast("完成基线检查后可从此处查看报告。");
-  };
-  return <aside className="rail shell-rail" aria-label="主导航">
-    <button className="shell-assistant-button" title="智能体 Aico" aria-label="智能体 Aico" onClick={toggleAgent}><img src="./assets/uploads/shell-assistant.png" width="24" height="24" alt=""/></button>
-    <div className="shell-rail-items">
-      <button className={"shell-rail-item"+(!agentActive?" active":"")} aria-label="健康看板" title="健康看板" aria-current={!agentActive?"page":undefined} onClick={goCockpit}><img src="./assets/uploads/shell-home.svg" width="16" height="16" alt=""/></button>
-      <button className={"shell-rail-item"+(agentActive?" active":"")} id="agentNav" title="智能体对话" aria-label="智能体对话" aria-current={agentActive?"page":undefined} onClick={toggleAgent}><img src="./assets/uploads/shell-chat.svg" width="16" height="16" alt=""/></button>
-      <button className="shell-rail-item" title="网络资源" aria-label="查看网络资源" onClick={goCockpit}><img src="./assets/uploads/shell-resource.svg" width="16" height="16" alt=""/></button>
-      <button className="shell-rail-item" title="检查报告" aria-label="查看检查报告" onClick={showReport}><img src="./assets/uploads/shell-checks.svg" width="16" height="16" alt=""/></button>
-    </div>
-    <details className="shell-rail-more"><summary className="shell-rail-item" title="导航菜单" aria-label="打开侧边导航菜单"><img src="./assets/uploads/shell-navigation.svg" width="16" height="16" alt=""/></summary>
-      <nav className="shell-menu-panel" aria-label="侧边导航菜单"><button onClick={e=>{goCockpit();closeMenu(e);}}>健康看板</button><button onClick={e=>{toggleAgent();closeMenu(e);}}>智能体对话</button><button onClick={e=>{showReport();closeMenu(e);}}>检查报告</button></nav>
-    </details>
+const icon=name=>'./assets/uploads/navigation/nav-'+name+'.svg';
+export default function LeftRail(){
+  const {agentActive,toggleAgent,goCockpit,toast,luiView,locate,focusLuiArtifact}=useApp();
+  const [expanded,setExpanded]=useState(false),[pinned,setPinned]=useState(false);
+  const root=useRef(null),timer=useRef(null),trigger=useRef(null);
+  const close=()=>{clearTimeout(timer.current);setExpanded(false);setPinned(false);};
+  useEffect(()=>{
+    const outside=e=>{if(!root.current?.contains(e.target))close();};
+    const escape=e=>{if(e.key==='Escape'&&expanded){close();trigger.current?.focus();}};
+    document.addEventListener('pointerdown',outside);document.addEventListener('keydown',escape);
+    return()=>{clearTimeout(timer.current);document.removeEventListener('pointerdown',outside);document.removeEventListener('keydown',escape);};
+  },[expanded]);
+  const showReport=()=>{if(luiView==='done'){focusLuiArtifact('report');locate('report');}else toast('完成基线检查后可从此处查看报告。');};
+  const navigate=action=>{action();close();};
+  const items=[{icon:'home',label:'首页',aria:'健康看板',active:!agentActive,action:goCockpit},{icon:'chat',label:'智能体对话',aria:'智能体对话',active:agentActive,action:toggleAgent},{icon:'resource',label:'网络资源',aria:'查看网络资源',action:goCockpit},{icon:'report',label:'检查报告',aria:'查看检查报告',action:showReport}];
+  return <aside ref={root} className={'rail shell-rail floating-navigation'+(expanded?' is-expanded':'')} aria-label="主导航" onPointerEnter={e=>{if(e.pointerType==='mouse'){clearTimeout(timer.current);setExpanded(true);}}} onPointerLeave={()=>{if(!pinned)timer.current=setTimeout(()=>setExpanded(false),180);}} onBlur={e=>{if(!e.currentTarget.contains(e.relatedTarget)&&!pinned)setExpanded(false);}}>
+    <button className="shell-assistant-button" aria-label="智能体 Aico" title="智能体 Aico" onClick={()=>navigate(toggleAgent)}><img src={icon('assistant')} width="24" height="24" alt=""/><span className="floating-nav-label floating-nav-title">数据中心网络智能体</span></button>
+    <nav className="shell-rail-items" aria-label="功能导航">{items.map(item=><button key={item.icon} className={'shell-rail-item'+(item.active?' active':'')} id={item.icon==='chat'?'agentNav':undefined} aria-label={item.aria} title={!expanded?item.label:undefined} aria-current={item.active?'page':undefined} onClick={()=>navigate(item.action)}><img src={icon(item.icon)} width="16" height="16" alt=""/><span className="floating-nav-label">{item.label}</span></button>)}</nav>
+    <button ref={trigger} className="floating-nav-toggle shell-rail-item" type="button" aria-label={expanded?'收起侧边导航':'展开侧边导航'} aria-expanded={expanded} onClick={()=>{clearTimeout(timer.current);setPinned(!expanded);setExpanded(!expanded);}}><img src={icon('collapse')} width="16" height="16" alt=""/><span className="floating-nav-label">收起导航</span></button>
   </aside>;
 }

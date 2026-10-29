@@ -1,0 +1,19 @@
+.canvas-pagination{display:flex;align-items:center;justify-content:space-between;gap:16px;flex:none;min-height:32px;margin-top:16px;font-size:12px;line-height:20px;color:var(--secondary,#c9c9c9)}
+.canvas-pagination>div{display:flex;align-items:center;gap:8px}
+.canvas-pagination .canvas-page-item{display:contents}
+.canvas-pagination button{display:grid;place-items:center;min-width:24px;height:28px;padding:0 6px;border:0;border-radius:4px;background:transparent;color:inherit;font:inherit;cursor:pointer}
+.canvas-pagination button:hover:not(:disabled){background:var(--hover,#ffffff0d)}
+.canvas-pagination button.is-current{background:var(--brand,#0067d1);color:#fff}
+.canvas-pagination button:disabled{opacity:.3;cursor:default}
+.canvas-pagination button .ic{width:14px;height:14px}
+.canvas-pagination [role=combobox]{width:110px;height:32px}
+.canvas-pagination .canvas-page-total{color:var(--muted,#939393)}
+@media(max-width:900px){.canvas-pagination{gap:8px;flex-wrap:wrap}.canvas-pagination>div{gap:4px}}
+
+/* Keep the selector and page fraction on one baseline; never shrink the fraction. */
+.stage-root.pc-layout .canvas-pagination{white-space:nowrap}
+.stage-root.pc-layout .canvas-pagination>div{flex:0 0 auto;flex-wrap:nowrap}
+.stage-root.pc-layout .canvas-pagination>div>.ui-kit-select{flex:none;width:126px;min-width:126px;height:32px}
+.stage-root.pc-layout .canvas-pagination>div>.ui-kit-select>.ui-kit-trigger{width:100%;height:32px}
+.stage-root.pc-layout .canvas-pagination>div>button,.stage-root.pc-layout .canvas-pagination .canvas-page-item>button{flex:none;width:28px;min-width:28px;height:32px;white-space:nowrap}
+.stage-root.pc-layout .canvas-pagination .canvas-page-total{display:inline-flex;align-items:center;align-self:center;flex:none;min-width:24px;line-height:32px;white-space:nowrap}

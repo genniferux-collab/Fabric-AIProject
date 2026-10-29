@@ -1,7 +1,7 @@
 /* Pixso 23:350169: default, selected and single-rule detail states. */
 .stage-root.pc-layout{--agent-width:clamp(320px,31vw,592px)}
 .pc-layout #uc2Module2{scroll-margin-top:20px}
-.pc-layout #uc2Module2>.card{height:clamp(600px,calc(100dvh - 182px),898px);min-height:600px;max-height:898px;padding:0;border:0;border-radius:16px;overflow:hidden;background:#2a2a2a;position:relative;container:mining-board / inline-size}
+.pc-layout #uc2Module2>.card,.pc-layout .v7-artifact-pane>.uc2-mining-artifact{height:clamp(600px,calc(100dvh - 182px),898px);min-height:600px;max-height:898px;padding:0;border:0;border-radius:16px;overflow:hidden;background:#2a2a2a;position:relative;container:mining-board / inline-size}
 body:has(.stage-root) .mining-reference,body:has(.stage-root) .mining-reference *{font-family:"Pixso Aico Sans","PingFang SC","Microsoft YaHei",sans-serif!important;-webkit-font-smoothing:antialiased;font-synthesis:none}
 .mining-reference{height:100%;min-height:0;display:flex;flex-direction:column;color:#fff;font-size:14px;line-height:22px}
 .golden-header{height:56px;min-height:56px;flex:0 0 56px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 20px;border-bottom:1px solid #ffffff0d;background:#262626}
@@ -142,3 +142,6 @@ body:has(.stage-root) .mining-reference,body:has(.stage-root) .mining-reference 
 .uc2-pixso-v2 .golden-flow-light{pointer-events:none;filter:drop-shadow(0 0 4.333px #ffffff99) drop-shadow(0 0 8.667px #ffffff44)}
 .uc2-pixso-v2 .golden-flow-light-sample{pointer-events:none}
 @media(prefers-reduced-motion:reduce){.uc2-pixso-v2 .golden-flow-light{filter:drop-shadow(0 0 4.333px #ffffff66)}}
+
+/* Independent module tabs retain the same board sizing and interaction state. */
+.stage-root.uc2 .v7-artifact-pane>.uc2-mining-artifact{height:100%;min-height:600px;max-height:none}

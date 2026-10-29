@@ -1,0 +1,12 @@
+/* A shared inset glow pairs an attention event with its map task bubble. */
+.figma-network-page{--event-map-violet:#bc96fa2e;--event-map-orange:#ffb37324;--event-map-glow-edge:#ffffff16;--event-map-glow-ease:cubic-bezier(.22,.61,.36,1)}
+.fabric-home-event,.map-site-tracker[data-popup-kind="status"] .site-task-tip{position:relative;isolation:isolate;overflow:hidden}
+.fabric-home-event{transition:background-color 320ms ease,box-shadow 320ms var(--event-map-glow-ease)}
+.fabric-home-event::before,.map-site-tracker[data-popup-kind="status"] .site-task-tip::before{content:"";position:absolute;inset:0;z-index:0;border-radius:inherit;background:radial-gradient(ellipse at 6% 14%,var(--event-map-violet),transparent 72%),radial-gradient(ellipse at 98% 94%,var(--event-map-orange),transparent 72%);opacity:0;pointer-events:none;transition:opacity 360ms var(--event-map-glow-ease)}
+.fabric-home-event>*,.map-site-tracker[data-popup-kind="status"] .site-task-tip>*{position:relative;z-index:1}
+.fabric-home-event:is(:hover,:focus-visible,.is-map-focused)::before,.map-site-tracker.is-focused[data-popup-kind="status"] .site-task-tip::before{animation:event-map-glow-once 1s ease-out both}
+.fabric-home-event:is(:hover,:focus-visible,.is-map-focused){background:var(--fabric-home-card);box-shadow:inset 0 0 0 1px var(--event-map-glow-edge)}
+@media(prefers-reduced-motion:reduce){.fabric-home-event,.fabric-home-event::before,.map-site-tracker[data-popup-kind="status"] .site-task-tip::before{transition:none}}
+
+@keyframes event-map-glow-once{0%{opacity:0}18%{opacity:.85}50%{opacity:.6}100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.fabric-home-event:is(:hover,:focus-visible,.is-map-focused)::before,.map-site-tracker.is-focused[data-popup-kind="status"] .site-task-tip::before{animation:none;opacity:0}}
