@@ -176,3 +176,7 @@
 @container workspace (max-width:1050px){.baseline-evidence-overview{grid-template-columns:minmax(240px,1fr) minmax(210px,1fr)}.baseline-evidence-summary{padding-left:16px;min-height:120px}}
 @container evidence (max-width:320px){.baseline-confidence-labels{gap:8px}.baseline-report .baseline-confidence-label{padding:8px 6px;gap:6px;grid-template-columns:6px minmax(0,1fr) auto}.baseline-confidence-copy{font-size:12px;line-height:20px}.baseline-confidence-copy>small{font-size:11px}.baseline-confidence-label>b{font-size:20px;line-height:28px}.baseline-confidence-label>b>small{font-size:11px;margin-left:2px}}
 @media(prefers-reduced-motion:reduce){.baseline-confidence-label,.baseline-confidence-track>button{transition:none}}
+
+/* UC2 topology/mining use the shared independent-card tab host, not fullscreen. */
+.stage-root.uc2 .v7-artifact-pane:has(>.uc2-module-artifact){overflow:auto}
+.stage-root.uc2 .v7-artifact-pane>.uc2-restoration-host{margin:0;min-width:0}

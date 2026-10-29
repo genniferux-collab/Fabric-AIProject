@@ -16,7 +16,7 @@ import Uc1RulesCanvas from "../uc1-canvas/index.jsx";
 import Ic from "../../components/icon-el/index.jsx";
 
 function CanvasTabs() {
-  const { activePane, openDevices, switchPane, closeDevice, uc2, uc2Show, artifactTabs, activeArtifact, openArtifact, closeArtifact, isDark } = useApp();
+  const { activePane, openDevices, switchPane, closeDevice, uc2, artifactTabs, activeArtifact, openArtifact, closeArtifact, isDark } = useApp();
   return (
     <div className="canvas-tabs" id="canvasTabs" role="tablist" aria-label="画布页签">
       <div className={"canvas-tab panorama-tab" + (activePane === "task" && !activeArtifact ? " active" : "")}>
@@ -42,7 +42,7 @@ function CanvasTabs() {
 }
 
 export default function CanvasArea() {
-  const { canvasHidden, full, setFull, activePane, stage, cardRefs, reportScrollRef, activeArtifact, luiView, uc1Phase, uc3Phase, focusLuiArtifact, uc2, openArtifact, uc2RuleOriginsRef, uc2Show, resultTask } = useApp();
+  const { canvasHidden, full, setFull, activePane, stage, cardRefs, reportScrollRef, activeArtifact, luiView, uc1Phase, uc3Phase, focusLuiArtifact, uc2, resultTask } = useApp();
   const contentRef = useRef(null);
   const innerRef = useRef(null);
   const artifactRef=useRef(null);
@@ -139,7 +139,6 @@ export default function CanvasArea() {
     focusLuiArtifact(event.target.dataset.artifactKind);
   };
 
-  const ruleOrigin=uc2RuleOriginsRef.current[activeArtifact?.slice(9)] || "uc2-report";
   return (
     <main className={"canvas" + (canvasHidden ? " hidden" : "") + (full ? " full" : "")} id="canvas" onClickCapture={onCanvasClick} onKeyDown={onCanvasKeyDown}>
       <div className="canvas-head between">
@@ -168,7 +167,7 @@ export default function CanvasArea() {
           </section>
           <section className={"workflow-canvas-step" + (stage < 4 ? " hidden" : "")} data-canvas-step="3" aria-label="步骤4：设备基线检查">
             <div className="v7-artifact-step-title">对HCS1区内的380台设备进行基线检查</div>
-            {stage >= 4 && <ReportCard cardRef={register("report")} />}
+            {stage >= 4 ? <ReportCard cardRef={register("report")} /> : <GeneratingCanvas id="uc4ReportPreparing"/>}
           </section>
         </div>
       </div>
@@ -178,7 +177,7 @@ export default function CanvasArea() {
       <section ref={artifactRef} className={"v7-artifact-pane"+(activeArtifact?"":" hidden")+(activeArtifact==="uc3-editor"?" uc3-edit-pane":"")} aria-label="独立卡片页签">
         {luiView === "uc3" && activeArtifact === "uc3-editor" && <Uc3RuleEditor/>}
         {uc2.active && activeArtifact?.startsWith("uc2-edit:") && <Uc2RuleEditor key={activeArtifact} ruleId={activeArtifact.slice(9)}/>}
-        {uc2.active && activeArtifact?.startsWith("uc2-rule:") && <section className="card uc2-rule-detail-card"><Uc2RuleDetail ruleId={activeArtifact.slice(9)} returnLabel={ruleOrigin==="uc2-rules"?"返回全部规则":"返回报告"} onBack={()=>ruleOrigin==="uc2-rules"?openArtifact("uc2-rules","全部候选规则"):uc2Show(3)}/></section>}
+        {uc2.active && activeArtifact?.startsWith("uc2-rule:") && <section className="card uc2-rule-detail-card"><Uc2RuleDetail ruleId={activeArtifact.slice(9)}/></section>}
         {uc2.active && <section key={uc2.runId} className="card uc2-rules-card" hidden={activeArtifact!=="uc2-rules"}><Uc2CandidateList/></section>}
       </section>
       <Uc2Pane />

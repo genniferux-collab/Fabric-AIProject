@@ -4,7 +4,7 @@ const assetRoot="./assets/uploads/pixso-ai-welcome/";
 const categories=["全部","检查任务","检查项/集","信息查询"];
 const templates=[
   {id:"rule",icon:"template-rule",label:"创建规则：用户接口空闲超时时间不能超过十分钟",category:"检查项/集",prompt:"帮我建一条规则：用户接口空闲超时时间不能超过10分钟"},
-  {id:"device",icon:"template-device",label:"创建设备健康度巡检项",category:"检查任务",prompt:"创建设备健康度巡检项"},
+  {id:"device",icon:"template-device",label:"创建设备健康度检查项",category:"检查任务",prompt:"创建设备健康度检查项"},
   {id:"change",icon:"template-change",label:"检查最近一次变更任务的配置是否合规",category:"检查任务",prompt:"检查最近一次变更任务的配置是否合规"},
   {id:"query",icon:"template-query",label:"查询全网所有的检查项",category:"信息查询",prompt:"查询全网所有的检查项"},
   {id:"set",icon:"template-set",label:"查询全网所有的检查集",category:"信息查询",prompt:"查询全网所有的检查集"}

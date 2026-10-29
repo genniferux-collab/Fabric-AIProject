@@ -28,7 +28,8 @@ const evidence=[
 
 const nodeDelays={scope:0,limit:850,exclude:1550,decision:2350,fail:3200,pass:3950,result:4800};
 function Graph({ready}){
- const {isDark}=useApp();
+ const {isDark,uc3RuleConfig}=useApp();
+ const graphNodes=uc3RuleConfig?nodes.map(node=>node.key==='decision'?{...node,title:'满足不合规条件？',lines:[uc3RuleConfig.trigger,...uc3RuleConfig.conditions.map(c=>c.field+' '+c.operator+' '+(c.value==='全部满足'?'10':c.value))]}:node.key==='fail'?{...node,lines:['满足保存的检查条件','依据当前规则表达式判定']}:node):nodes;
  const ref=useRef(null);const [scale,setScale]=useState(1);
  useLayoutEffect(()=>{const el=ref.current;if(!el)return;const ro=new ResizeObserver(()=>setScale(el.clientWidth/1192));ro.observe(el);setScale(el.clientWidth/1192);return()=>ro.disconnect();},[]);
  return <div ref={ref} className={'uc3-graph-viewport'+(!ready?' is-building':'')} style={{height:620*scale}} aria-label="空闲超时检查规则流程图" aria-busy={!ready}>
@@ -39,7 +40,7 @@ function Graph({ready}){
     <path className="uc3-growing-edge" pathLength="1" style={{"--edge-delay":"2700ms"}} d="M798 288H828Q848 288 848 268V150Q848 130 868 130H898" stroke="#a73c46" markerEnd="url(#uc3-arrow-fail)"/>
     <path className="uc3-growing-edge" pathLength="1" style={{"--edge-delay":"3450ms"}} d="M798 312H898" stroke="#308365" markerEnd="url(#uc3-arrow-pass)"/>
    </svg>
-   {nodes.map((node,i)=><section key={node.key} className={'uc3-graph-node '+(node.tone||'neutral')} style={{left:node.x,top:node.y,width:node.w,'--reveal-delay':`${nodeDelays[node.key]}ms`}} aria-label={node.title}>
+   {graphNodes.map((node,i)=><section key={node.key} className={'uc3-graph-node '+(node.tone||'neutral')} style={{left:node.x,top:node.y,width:node.w,'--reveal-delay':`${nodeDelays[node.key]}ms`}} aria-label={node.title}>
     {!ready&&<div className="uc3-node-intelligence" aria-hidden="true"><BorderBeam size="md" colorVariant="colorful" strength={0.7} duration={1.6} borderRadius={16} active theme={isDark?"dark":"light"} css={matchingBeamPaletteCss(isDark)} style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><span/></BorderBeam></div>}<header><RuleGlyph icon={node.icon}/><h3>{node.title}</h3></header><div className="uc3-graph-node-body">{node.lines.map(line=><p key={line}>{line}</p>)}</div>
    </section>)}
    <span className="uc3-edge-label" style={{left:835,top:201,'--label-delay':'3100ms'}}><span>是</span></span><span className="uc3-edge-label" style={{left:835,top:300,'--label-delay':'3800ms'}}><span>否</span></span><span className="uc3-edge-label pill" style={{left:573,top:450,'--label-delay':'3750ms'}}><span>未显式配置</span></span>
@@ -48,11 +49,11 @@ function Graph({ready}){
 }
 
 export default function Uc3RuleCanvas({cardRef}){
- const {uc3Phase,openArtifact}=useApp();const [ready,setReady]=useState(false);const name='用户接口空闲超时时间检查规则图谱';
+ const {uc3Phase,openArtifact,uc3RuleConfig}=useApp();const [ready,setReady]=useState(false);const name=uc3RuleConfig?.name||'用户接口空闲超时时间检查规则图谱';
  useEffect(()=>{if(uc3Phase<3){setReady(false);return;}const timer=setTimeout(()=>setReady(true),6600);return()=>clearTimeout(timer);},[uc3Phase>=3]);
  return <section className="workflow-canvas-step uc3-rule-step" aria-label="规则图谱"><div className="v7-artifact-step-title">规则图谱</div>
   <section ref={cardRef} className="card uc3-rule-canvas" data-artifact-kind="uc3Rule" tabIndex={0} aria-label={name}>
-   <header className="uc3-rule-heading"><img src="./assets/uploads/uc3-rule/title.svg" width="16" height="16" alt=""/><h2>{name}</h2><span className="uc3-rule-version">V1.0.1</span><div className="uc3-rule-tools"><span className="uc3-rule-tests">{uc3Phase>=4?'正反测试：7/7':'正反测试中…'}</span><button type="button" className="icon-btn" aria-label="编辑规则配置" title="编辑规则配置" onClick={()=>openArtifact("uc3-editor","规则配置编辑")}><img src="./assets/uploads/uc3-rule/edit.svg" width="14" height="14" alt=""/></button><button type="button" className="icon-btn v7-open-card-tab" aria-label="新开页签：巡检规则示意图" title="新开页签" onClick={()=>openArtifact("uc3Rule","巡检规则示意图")}><img src="./assets/uploads/uc3-rule/open.svg" width="14" height="14" alt=""/></button></div></header>
+   <header className="uc3-rule-heading"><img src="./assets/uploads/uc3-rule/title.svg" width="16" height="16" alt=""/><h2>{name}</h2><span className="uc3-rule-version">V1.0.1</span><div className="uc3-rule-tools"><span className="uc3-rule-tests">{uc3Phase>=4?'正反测试：7/7':'正反测试中…'}</span><button type="button" className="icon-btn" aria-label="编辑规则配置" title="编辑规则配置" onClick={()=>openArtifact("uc3-editor","规则配置编辑")}><img src="./assets/uploads/uc3-rule/edit.svg" width="14" height="14" alt=""/></button><button type="button" className="icon-btn v7-open-card-tab" aria-label="新开页签：检查规则示意图" title="新开页签" onClick={()=>openArtifact("uc3Rule","检查规则示意图")}><img src="./assets/uploads/uc3-rule/open.svg" width="14" height="14" alt=""/></button></div></header>
    <Graph ready={ready}/>
    <section className={'uc3-rule-evidence'+(!ready?' is-building':'')} aria-labelledby="uc3EvidenceTitle"><h3 id="uc3EvidenceTitle">依据与假设</h3><div className="uc3-evidence-grid">{evidence.map(item=><section className="uc3-evidence-card" key={item.title}><header><RuleGlyph icon={item.icon} className={item.tone}/><h4>{item.title}</h4></header>{item.lines.map(line=><p key={line}>{line}</p>)}</section>)}</div></section>
   </section>

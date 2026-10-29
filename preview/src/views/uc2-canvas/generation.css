@@ -2,18 +2,10 @@
 .uc2-typing-cursor{display:inline-block;width:2px;height:14px;margin-left:3px;vertical-align:-2px;background:#89bfff;animation:uc2TextCaret 850ms steps(1) infinite}
 .uc2-canvas-progress{font-size:12px;line-height:20px;color:#aaa;margin:10px 0 0}
 .uc2-restoration-host{container-type:inline-size}
-.uc2-canvas-preparing{height:100%;min-height:320px;display:flex;flex-direction:column;overflow:hidden;border-radius:16px;background:#2a2a2a;color:#999}
-.uc2-canvas-preparing.preparing-stage-0{aspect-ratio:1233/845;height:auto}
-.uc2-canvas-preparing.preparing-stage-1{height:calc(160px + 100cqi * .607955)}
-.uc2-canvas-preparing.preparing-stage-3{min-height:700px}
-.uc2-preparing-heading{height:56px;flex:none;padding:16px 20px;font-size:16px;line-height:24px;color:#ddd;border-bottom:1px solid #ffffff0d;background:#262626}
-.uc2-preparing-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;font-size:14px;line-height:22px;background:radial-gradient(#ffffff10 .8px,transparent .9px) 0 0/16px 16px}
-.uc2-preparing-orb{width:12px;height:12px;display:block;border-radius:50%;background:radial-gradient(circle at 35% 30%,#c5ebff,#398de5 50%,#1e4583);box-shadow:0 0 22px #3886df55;animation:uc2PreparingPulse 1600ms ease-in-out infinite}
 .uc2-report-generation{position:relative;--uc2-report-play-state:running}
 .uc2-report-generation-anchor{position:absolute;left:0;top:0;width:1px;height:56px;pointer-events:none}
 @keyframes uc2TextCaret{50%{opacity:0}}
-@keyframes uc2PreparingPulse{0%,100%{opacity:.45;transform:scale(.85)}50%{opacity:1;transform:scale(1.1)}}
-@media(prefers-reduced-motion:reduce){.uc2-typing-cursor,.uc2-preparing-orb,.uc2-report-generation.is-generating{animation:none}.uc2-report-generation.is-waiting{opacity:1}}
+@media(prefers-reduced-motion:reduce){.uc2-typing-cursor,.uc2-report-generation.is-generating{animation:none}.uc2-report-generation.is-waiting{opacity:1}}
 
 .uc2-locate-conversation{display:inline-flex;align-items:center;justify-content:center;width:24px;height:22px;margin-left:8px;padding:0;border:0;border-radius:4px;color:inherit;background:transparent;cursor:pointer;opacity:.65}
 .uc2-locate-conversation:hover,.uc2-locate-conversation:focus-visible{opacity:1;background:var(--hover)}
@@ -23,6 +15,9 @@
 .stage-root.uc2 #lui .uc2-step-settle{margin:12px 0 0;color:var(--muted);font-size:12px;line-height:20px}
 .stage-root.uc2 #lui .step-content>.response-thought{margin-bottom:8px}
 
-.uc2-canvas-preparing>.uc4-generating-card{flex:1;width:100%;margin:0;border-radius:0}
 .stage-root.uc2 .uc2-report-generation{--report-skeleton-play-state:running}
 .stage-root.uc2 .uc2-report-generation .report-reveal-skeleton::before,.stage-root.uc2 .uc2-report-generation .report-reveal-content{animation-play-state:var(--report-skeleton-play-state)}
+
+/* Use UC4's shared fixed halo card before every UC2 module is ready. */
+.stage-root.uc2 #canvas .uc2-module-artifact.is-preparing{height:264px;min-height:264px;max-height:264px;padding:0;border:0;border-radius:16px;overflow:hidden;background:transparent}
+.stage-root.uc2 #canvas .uc2-module-artifact.is-preparing>.uc4-generating-card{height:264px;min-height:264px;margin:0;width:100%}

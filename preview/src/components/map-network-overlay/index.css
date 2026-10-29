@@ -68,8 +68,8 @@
 .map-site-tracker.is-focused{z-index:4}
 .map-site-tracker.is-muted{opacity:.3}
 /* A neutral plate with a soft orange/purple halo keeps task focus separate from status color. */
-.map-site-tracker.is-focused .site-task-tip{background:#414141;color:#fff;box-shadow:inset 0 0 0 1px #ffffff30,-5px 0 18px #a77aff66,5px 0 18px #ffb16b61,0 6px 18px #0005}
-.map-site-tracker.is-focused .site-task-tip:hover{background:#474747;box-shadow:inset 0 0 0 1px #ffffff38,-5px 0 20px #a77aff75,5px 0 20px #ffb16b70,0 6px 18px #0005}
+.map-site-tracker.is-focused .site-task-tip{background:#414141;color:#fff;box-shadow:inset 0 0 0 1px #d0b9df38,0 6px 18px #0005}
+.map-site-tracker.is-focused .site-task-tip:hover{background:#414141}
 .map-site-tracker .site-task-tip:focus-visible{outline:2px solid #d8c5e7;outline-offset:3px}
 .map-popup-body .map-dc-card,.map-popup-body .map-dc-events-popup{max-width:100%;max-height:var(--map-popup-max-height);overflow:auto}
 @media(prefers-reduced-motion:reduce){.map-site-tracker,.map-popup-offset{transition:none;will-change:auto}}

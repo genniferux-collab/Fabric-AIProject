@@ -34,8 +34,8 @@ function CodePanel({lines,onCopy,mode,onModeChange,repair=false}) {
 function differentTokens(expected,actual){const left=expected.split(/\s+/),right=actual.split(/\s+/);const first=right.findIndex((token,index)=>token!==left[index]);return first<0?"":right.slice(first).join(" ");}
 
 // Pixso UC2-识别完成-规则详情: rule metadata + device list + configuration evidence.
-export function Uc2RuleDetail({ruleId,onBack,returnLabel="返回报告"}) {
-  const {uc2,uc2SetFilter,uc2Review,uc2Reviews,uc2RuleDetailsRef,uc2EditRule,uc2RuleConfigs,toast} = useApp();
+export function Uc2RuleDetail({ruleId}) {
+  const {uc2,uc2Review,uc2Reviews,uc2RuleDetailsRef,uc2EditRule,uc2RuleConfigs,toast} = useApp();
   const sourceRule = uc2Rules.find(item=>item.id === (ruleId || uc2.rule));
   const saved=sourceRule?uc2RuleConfigs[sourceRule.id]:null;
   const rule=sourceRule?{...sourceRule,name:saved?.name||sourceRule.name}:null;
@@ -61,7 +61,7 @@ export function Uc2RuleDetail({ruleId,onBack,returnLabel="返回报告"}) {
 
   const lines=state.mode==="full"?fullLines:relatedLines;
   return <div className="uc2-rule-workspace" data-rule-detail={rule.id} data-design-node="2:469426">
-    <header className="uc2-rule-overview"><div className="uc2-rule-heading"><h2>{rule.name}</h2><span className="uc2-rule-kind">{review==="accepted"&&saved?"已采纳规则":"候选规则"}</span><span className={"uc2-rule-state "+(rule.deviations?"failed":"passed")}>{rule.deviations?"存在配置差异":"样本配置一致"}</span><button type="button" className="uc2-rule-return" aria-label={returnLabel} title={returnLabel} onClick={onBack || (()=>uc2SetFilter({view:"stage",rule:null}))}><Ic icon="arrow-left"/>{returnLabel}</button></div>
+    <header className="uc2-rule-overview"><div className="uc2-rule-heading"><h2>{rule.name}</h2><span className="uc2-rule-kind">{review==="accepted"&&saved?"已采纳规则":"候选规则"}</span><span className={"uc2-rule-state "+(rule.deviations?"failed":"passed")}>{rule.deviations?"存在配置差异":"样本配置一致"}</span></div>
       <dl className="uc2-rule-metadata">{[["范围","西三旗 DC"],["分类",rule.category],["差异设备",rule.deviations+"台"],["规则编号",saved?.ruleId||rule.id],["适用规则",rule.role==="通用"?"共性规则":rule.role],["配置一致",rule.support+"/"+rule.scope+"台"],["覆盖率",(rule.support/rule.scope*100).toFixed(1).replace(/\.0$/,"")+"%"]].map(([label,value])=><div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
     </header>
     <div className="uc2-rule-body"><aside className="uc2-rule-devices" aria-label="设备配置核验"><h3>设备配置核验</h3><div className="uc2-device-filters" role="group" aria-label="样本设备配置核验状态">{[["all","全部",rule.scope],["failed","不通过",rule.deviations],["passed","通过",rule.support]].map(([id,label,count])=><button type="button" key={id} aria-pressed={state.status===id} onClick={()=>selectStatus(id)}><i className={id}/>{label}<strong>{count}</strong></button>)}</div><SearchInput value={state.query} onChange={query=>patch({query,selected:null,navScroll:0})} placeholder="请输入搜索内容" ariaLabel="搜索核验设备" clearable/><div className="uc2-device-list" ref={navRef} onScroll={e=>{state.navScroll=e.currentTarget.scrollTop;}}>{visible.map(item=><button type="button" className={"uc2-device-item "+(item.bad?"failed":"passed")+(device?.id===item.id?" selected":"")} key={item.id} aria-label={"查看样本设备："+item.name} aria-pressed={device?.id===item.id} onClick={()=>patch({selected:item.id,check:"configuration"})}><i/><span><strong>西三旗 · {item.name}</strong><small>{item.bad?"差异待核验":"与候选配置一致"} · 配置快照示例</small></span></button>)}{!visible.length&&<EmptyState text="没有匹配的设备"/>}</div></aside>

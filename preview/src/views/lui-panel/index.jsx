@@ -1,8 +1,10 @@
+import LuiScrollArea from '../../components/follow-scroll/index.jsx';
+import StepAnalysis from '../../components/step-analysis/index.jsx';
 import Uc3Chat from './uc3-chat.jsx';
 import {completionTimeline} from '../../mock/uc4-completion.js';
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useApp, highlightLocate } from "../../context.jsx";
-import { v7WorkflowSteps, v7WorkflowRunning } from "../../mock/workflow.js";
+import { v7WorkflowSteps, v7WorkflowRunning, v7WorkflowThoughts } from "../../mock/workflow.js";
 import { ArtifactTag } from "../../components/status-marks/index.jsx";
 import { summaryParts } from "../../mock/audit.js";
 import LuiGlyph from "./glyph.jsx";
@@ -16,79 +18,9 @@ import WelcomeHome from "./welcome.jsx";
 import { ThinkingDetails } from "./thinking.jsx";
 import { StreamText, RevealAfter, MotionTitle, SoftHeight, streamDuration } from "./motion.jsx";
 
-function LuiScrollArea({ children, scrollRef, enhanced }) {
-  const flowRef = useRef(null);
-  const trackRef = useRef(null);
-  const thumbRef = useRef(null);
-  const dragRef = useRef(null);
-  const sync = useCallback(() => {
-    const main = scrollRef.current, track = trackRef.current, thumb = thumbRef.current;
-    if (!main || !track || !thumb) return;
-    const overflow = main.scrollHeight - main.clientHeight;
-    track.style.display = overflow > 1 ? "block" : "none";
-    if (overflow <= 1) return;
-    const height = Math.min(track.clientHeight, Math.max(32, track.clientHeight * main.clientHeight / main.scrollHeight));
-    thumb.style.height = `${height}px`;
-    thumb.style.transform = `translateY(${(track.clientHeight - height) * main.scrollTop / overflow}px)`;
-    track.setAttribute("aria-valuenow", String(Math.round(main.scrollTop / overflow * 100)));
-  }, [scrollRef]);
-
-  useEffect(() => {
-    const observer = new ResizeObserver(sync);
-    if (scrollRef.current) observer.observe(scrollRef.current);
-    if (flowRef.current) observer.observe(flowRef.current);
-    const frame = requestAnimationFrame(sync);
-    return () => { observer.disconnect(); cancelAnimationFrame(frame); };
-  }, [enhanced, sync, scrollRef]);
-
-  useEffect(() => {
-    const main=scrollRef.current, flow=flowRef.current;
-    if(!main||!flow)return;
-    let frame=0, previousHeight=flow.getBoundingClientRect().height;
-    const follow=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{main.scrollTop=main.scrollHeight;sync();});};
-    const resize=new ResizeObserver(()=>{const height=flow.getBoundingClientRect().height;if(height>previousHeight+.1)follow();previousHeight=height;});
-    const mutations=new MutationObserver(records=>{if(records.some(record=>record.type==='characterData'||record.addedNodes.length))follow();});
-    resize.observe(flow);mutations.observe(flow,{subtree:true,childList:true,characterData:true});
-    return()=>{resize.disconnect();mutations.disconnect();cancelAnimationFrame(frame);};
-  },[scrollRef,sync]);
-
-  const onPointerDown = event => {
-    const main = scrollRef.current, track = trackRef.current, thumb = thumbRef.current;
-    if (!main || !track || !thumb) return;
-    event.preventDefault();
-    const rect = track.getBoundingClientRect();
-    const scale = rect.height / track.clientHeight;
-    const travel = track.clientHeight - thumb.clientHeight;
-    const overflow = main.scrollHeight - main.clientHeight;
-    if (travel <= 0 || overflow <= 0) return;
-    if (event.target !== thumb) {
-      main.scrollTop = Math.max(0, Math.min(travel, (event.clientY - rect.top) / scale - thumb.clientHeight / 2)) / travel * overflow;
-      sync();
-    }
-    dragRef.current = { y: event.clientY, scroll: main.scrollTop, ratio: overflow / travel / scale };
-    track.setPointerCapture(event.pointerId);
-  };
-
-  const onKeyDown = event => {
-    const main = scrollRef.current;
-    if (!main) return;
-    const delta = { ArrowDown: 40, ArrowUp: -40, PageDown: main.clientHeight * .8, PageUp: -main.clientHeight * .8 }[event.key];
-    if (delta !== undefined) main.scrollTop += delta;
-    else if (event.key === "Home") main.scrollTop = 0;
-    else if (event.key === "End") main.scrollTop = main.scrollHeight;
-    else return;
-    event.preventDefault(); sync();
-  };
-
-  return <div className="lui-main-shell">
-    <div className="lui-main" id="luiMain" ref={scrollRef} onScroll={sync}><div className="lui-flow" ref={flowRef}>{children}</div></div>
-    {enhanced && <div className="lui-scroll-track" ref={trackRef} role="scrollbar" tabIndex={0} aria-label="LUI 内容滚动条" aria-controls="luiMain" aria-orientation="vertical" aria-valuemin={0} aria-valuemax={100} onKeyDown={onKeyDown} onPointerDown={onPointerDown} onPointerMove={event => { if (dragRef.current) { scrollRef.current.scrollTop = dragRef.current.scroll + (event.clientY - dragRef.current.y) * dragRef.current.ratio; sync(); } }} onPointerUp={() => { dragRef.current = null; }} onPointerCancel={() => { dragRef.current = null; }} onLostPointerCapture={() => { dragRef.current = null; }}><div className="lui-scroll-thumb" ref={thumbRef} /></div>}
-  </div>;
-}
-
 // 四阶段执行步骤（active = 当前进行到第几步，0 基）
 function WorkflowSteps({ active, groupExpanded }) {
-  const { locate, isDark, luiFocus } = useApp();
+  const { locate, isDark, luiFocus, workflowSettled } = useApp();
   const [openSteps, setOpenSteps] = useState({});
   const [selectedStep, setSelectedStep] = useState(null);
   const stepsRef = useRef(null);
@@ -129,8 +61,8 @@ function WorkflowSteps({ active, groupExpanded }) {
   return (
     <div className="steps workflow-steps" ref={stepsRef}>
       {v7WorkflowSteps.slice(0, Math.min(active + 1, v7WorkflowSteps.length)).map((step, index) => {
-        const done = index < active;
-        const current = index === active;
+        const done = index < active || workflowSettled.includes(index);
+        const current = index === active && !done;
         const available = done || current;
         const expanded = available && !!openSteps[index];
         const product = products[index];
@@ -149,7 +81,7 @@ function WorkflowSteps({ active, groupExpanded }) {
             </div>
             {body ? (
               <div className="step-content" id={`workflowStep${index}`} hidden={!expanded}>
-                <StreamText text={body} animate={current}/>
+                <StepAnalysis active={current} thought={v7WorkflowThoughts[index]} conclusion={step.description} conclusionReady={done} progressCopy={v7WorkflowRunning[index]}/>
                 {index === 0 && (done || current) ? (
                   <div className="v7-step-artifact">
                     <ArtifactTag title="全网设备概览" type="process" shape="overview" onLocate={() => locate("network")} />
@@ -234,10 +166,6 @@ export default function LuiPanel() {
   useEffect(() => { setMenuOpen(false); }, [luiView, luiOpen]);
 
   useEffect(() => { if (mainRef.current) mainRef.current.scrollTop = 0; }, [luiView]);
-  // UC2 挖掘中追加对话 → 滚到底部
-  useEffect(() => {
-    if (uc2Extra.length && mainRef.current) mainRef.current.scrollTop = mainRef.current.scrollHeight;
-  }, [uc2Extra.length]);
 
   return (
     <aside className={"lui lui-refresh" + (luiView === "home" ? " lui-welcome" : "") + (luiOpen ? "" : " closed")} id="lui">
@@ -254,7 +182,7 @@ export default function LuiPanel() {
           </div>}
         </div>
       </div>
-      <LuiScrollArea scrollRef={mainRef} enhanced={true}>
+      <LuiScrollArea scrollRef={mainRef} enhanced={true} followKey={(luiView==="home"?"home":taskPrompt)+":"+(app.uc2.active?app.uc2.runId:"")} focusSignal={(app.luiFocus?.seq||0)+":"+(app.uc2Scroll?.seq||0)}>
         {luiView === "home" ? (
           <WelcomeHome onChoose={(prompt,feature)=>{setWelcomeFeature(feature);setPromptText(prompt);requestAnimationFrame(()=>document.getElementById("prompt")?.focus({preventScroll:true}));}}/>
         ) : luiView === "uc1" ? (

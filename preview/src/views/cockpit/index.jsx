@@ -4,6 +4,7 @@ import {useApp} from "../../context.jsx";
 import EffectivenessMetrics from "../../components/effectiveness-metrics/index.jsx";
 import MapNetworkOverlay from "../../components/map-network-overlay/index.jsx";
 import "./index.css";
+import "./event-map-glow.css";
 import {referenceCenters} from "../../components/map-network-overlay/map-vector-layers.js";
 
 import useMapNavigation from "./use-map-navigation.js";

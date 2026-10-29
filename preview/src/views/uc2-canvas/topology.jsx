@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useApp } from "../../context.jsx";
+import ArtifactOpen from "../../components/artifact-open/index.jsx";
 import { uc2Names, uc2RestorationDuration } from "../../mock/uc2.js";
 import { Icon } from "../../../assets/shared/icon.jsx";
 
@@ -46,7 +47,7 @@ function useRestorationProgress(uc2) {
 }
 
 export default function Uc2Topology() {
-  const { uc2, uc2SelectNode, setFull, full } = useApp();
+  const { uc2, uc2SelectNode } = useApp();
   const [focused, setFocused] = useState(null);
   const progress = useRestorationProgress(uc2);
   const [artReady, setArtReady] = useState(false);
@@ -68,7 +69,7 @@ export default function Uc2Topology() {
   const detail = topologyBlend >= .98;
   const activate = (area) => { setFocused(area); uc2SelectNode(null); };
   return <article className="uc2-restoration-card uc2-pixso-v2" aria-label="西三旗 DC 网络拓扑图" data-restoration-phase={phase} data-motion-phase={motionPhase} aria-busy={phase !== 2}>
-    <header className="uc2-restoration-header"><h3><img src={assets+"topology-icon.svg"} alt="" />网络拓扑图</h3><button type="button" aria-label={full ? "还原拓扑画布" : "放大拓扑画布"} onClick={() => setFull(!full)}><img src={assets+"expand-icon.svg"} alt="" /></button></header>
+    <header className="uc2-restoration-header"><h3><img src={assets+"topology-icon.svg"} alt="" />网络拓扑图</h3><ArtifactOpen kind="uc2-topology" title="网络拓扑图"/></header>
     <div className="uc2-restoration-overview">
       <div className="uc2-restoration-copy"><h4>还原数据中心网络拓扑</h4><p>{phase === 2 ? "32个区域已定位，1980台交换机满足条件，下图为角色区域聚合视图" : "正在扫描全网区域，识别设备角色并逐步展开网络拓扑"}</p></div>
       <dl className="uc2-restoration-metrics">

@@ -3,10 +3,10 @@ import "./welcome.css";
 
 const assetRoot="./assets/uploads/pixso-ai-welcome/";
 const scenarios=[
-  {icon:"scenario-query",title:"查询当前全量配置检查项",description:"搜索当前全网有多少巡检项",prompt:"当前全网有哪些检查规则？"},
+  {icon:"scenario-query",title:"查询当前全量配置检查项",description:"搜索当前全网有多少检查项",prompt:"当前全网有哪些检查规则？"},
   {icon:"scenario-mining",title:"帮我自动挖掘一下西三旗DC的黄金基线",description:"自动挖掘西三旗DC黄金基线，针对交换机角色设备，查看不合规项",prompt:"帮我自动挖掘一下西三旗DC的黄金基线，看看现网有哪些不合规？"},
   {icon:"scenario-rule",title:"帮我建一条检查规则",description:"帮我创建规则：用户接口空闲超时时间不能超过10分钟",prompt:"帮我创建规则：用户接口空闲超时时间不能超过10分钟"},
-  {icon:"scenario-check",title:"检查设备是否负责基线要求，出修复建议",description:"检查HCS1的设备是否负责基线要求，并给出修复建议",prompt:"检查HCS1的设备是否符合基线要求，并给出修复建议。"}
+  {icon:"scenario-check",title:"检查设备是否符合基线要求，出修复建议",description:"检查HCS1的设备是否符合基线要求，并给出修复建议",prompt:"检查HCS1的设备是否符合基线要求，并给出修复建议。"}
 ];
 
 // One welcome entry is shared by UC1–UC4; scenario selection prepares a draft.

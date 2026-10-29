@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useApp } from "../../context.jsx";
+import ArtifactOpen from "../../components/artifact-open/index.jsx";
 import { uc2Rules,uc2Timing, fusionRelevant, fusionTopRules, fusionImpact, uc2RuleById, miningImpact, uc2DeviationDevices, uc2Actual } from "../../mock/uc2.js";
 import "./mining-reference.css";
 import FlowLight from "./flow-light.jsx";
@@ -69,7 +70,7 @@ function RulePanel({ rule, onClose }) {
 }
 
 export default function Uc2Mining() {
-  const { uc2, uc2Fusion, uc2FusionPick, uc2FusionCloseDrawer, uc2Pause, uc2CanvasStart, uc2CanvasComplete, full, setFull } = useApp();
+  const { uc2, uc2Fusion, uc2FusionPick, uc2FusionCloseDrawer, uc2CanvasStart, uc2CanvasComplete } = useApp();
   const [hover, setHover] = useState(null), [summary, setSummary] = useState(null);
   const sceneRef = useRef(null), clearRef = useRef(0);
   const [motionMode, setMotionMode] = useState(() => uc2.running && uc2.stage === 2 && !window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "waiting" : "complete");
@@ -88,7 +89,6 @@ export default function Uc2Mining() {
   }, [motionMode, uc2CanvasStart]);
   useEffect(() => { if (motionMode === "complete") uc2CanvasComplete(2); }, [motionMode, uc2CanvasComplete]);
   const replay = () => {
-    if (uc2.running) uc2Pause();
     uc2FusionPick("engine"); setHover(null); setSummary(null); clearTimeout(clearRef.current);
     setMotionKey(value => value + 1);
     setMotionMode(window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "complete" : "replay");
@@ -98,7 +98,7 @@ export default function Uc2Mining() {
   const all = activeId === "engine";
   useEffect(()=>()=>clearTimeout(clearRef.current),[]);
   useEffect(()=>{if(drawerRule){setSummary(null);setHover(null);}},[drawerRule?.id]);
-  const open = id => { setMotionMode("complete"); clearTimeout(clearRef.current);setSummary(null);setHover(null);if(uc2.running&&uc2.stage===2)uc2Pause();uc2FusionPick("rule:"+id); };
+  const open = id => { setMotionMode("complete"); clearTimeout(clearRef.current);setSummary(null);setHover(null);uc2FusionPick("rule:"+id); };
   const leave = () => {clearTimeout(clearRef.current);clearRef.current=setTimeout(()=>{setHover(null);setSummary(null);},160);};
   const enter = () => clearTimeout(clearRef.current);
   const inspect = (id, event, rule) => {
@@ -114,7 +114,7 @@ export default function Uc2Mining() {
   const handlers = (id, rule) => ({onMouseEnter:e=>inspect(id,e,rule),onMouseLeave:leave,onFocus:e=>inspect(id,e,rule),onBlur:leave,onClick:e=>{e.stopPropagation();setMotionMode("complete");if(rule)open(rule.id);else uc2FusionPick(id);},onKeyDown:e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();setMotionMode("complete");if(rule)open(rule.id);else uc2FusionPick(id);}}});
   const drawEdge = (from,to,path,key,delay) => {const hot=related.has(from)&&related.has(to);return <g key={key} className={"golden-edge"+(hot?" is-related":" is-muted")+(all?" is-default":"")} data-edge-from={from} data-edge-to={to}><g className="golden-edge-reveal" style={reveal(delay)}><path className="golden-edge-tube" pathLength="1" d={path}/><path className="golden-edge-line" pathLength="1" d={path}/>{!all&&hot&&<FlowLight path={path} phase={from==="engine"?.84:from==="leafsample"?.57:.64}/>}</g></g>;};
   return <div className={"mining-reference uc2-pixso-v2"+(drawerRule?" has-rule-panel":"")+(revealing?" is-revealing":"")} data-motion-mode={motionMode} style={{"--mining-time-scale":uc2Timing.canvas[2]/4800,"--mining-reveal-state":playState,"--mining-ambient-state":playState}} onAnimationEnd={e=>{if(e.animationName==="goldenReveal"&&e.target.dataset.motionLast==="true")setMotionMode("complete");}} onKeyDown={e=>{if(e.key==="Escape"){uc2FusionCloseDrawer();setSummary(null);setHover(null);}}}>
-    <header className="golden-header"><h2><img src={art+"title-icon.svg"} alt=""/>西三旗DC黄金基线挖掘 <span>检索交换机设备：<strong>1980</strong> 台</span></h2><div className="golden-header-actions"><button type="button" aria-label="重播挖掘动效" title="重播挖掘动效" onClick={replay}><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 5a5.2 5.2 0 1 1-.1 5.8M3 1.8V5h3.2" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/></svg></button><button type="button" aria-label={full?"还原基线挖掘画布":"放大基线挖掘画布"} onClick={()=>setFull(!full)}><img src="./assets/uploads/pixso-uc2-restoration/expand-icon.svg" alt=""/></button></div></header>
+    <header className="golden-header"><h2><img src={art+"title-icon.svg"} alt=""/>西三旗DC黄金基线挖掘 <span>检索交换机设备：<strong>1980</strong> 台</span></h2><div className="golden-header-actions"><button type="button" aria-label="重播挖掘动效" title="重播挖掘动效" onClick={replay}><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 5a5.2 5.2 0 1 1-.1 5.8M3 1.8V5h3.2" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/></svg></button><ArtifactOpen kind="uc2-mining" title="黄金基线挖掘"/></div></header>
     <div className="golden-scene" ref={sceneRef}>
       <svg key={motionKey} className="golden-diagram" aria-busy={revealing} viewBox="0 56 1232 842" role="group" aria-label="黄金基线挖掘图谱" onClick={e=>{if(e.target===e.currentTarget){uc2FusionPick("engine");setSummary(null);setHover(null);}}}>
         <defs><clipPath id="goldenRuleOuterClip" clipPathUnits="userSpaceOnUse"><path d={outerRuleBoundary} transform="matrix(-1,0,0,1,1188,167)"/></clipPath><filter id="goldenRuleBandSoft" x="-1%" y="-2%" width="102%" height="104%"><feGaussianBlur stdDeviation=".166666672"/></filter><linearGradient id="goldenFlow" x1="0" x2="1"><stop stopColor="#6d9ab5"/><stop offset="1" stopColor="#9582cb"/></linearGradient><radialGradient id="goldenEnergyGlow"><stop stopColor="#419eff" stopOpacity=".26"/><stop offset=".65" stopColor="#47c7ff" stopOpacity=".12"/><stop offset="1" stopColor="#68a7ff" stopOpacity="0"/></radialGradient><radialGradient id="goldenNodeFade"><stop offset=".9" stopColor="white"/><stop offset="1" stopColor="black"/></radialGradient><mask id="goldenNodeMask" maskContentUnits="objectBoundingBox" x="0" y="0" width="1" height="1"><rect width="1" height="1" fill="url(#goldenNodeFade)"/></mask><radialGradient id="goldenEngineFade" gradientUnits="userSpaceOnUse" cx="604" cy="488" r="100"><stop offset=".78" stopColor="white"/><stop offset=".96" stopColor="black"/></radialGradient><mask id="goldenEngineMask" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="504" y="388" width="200" height="200"><circle cx="604" cy="488" r="100" fill="url(#goldenEngineFade)"/></mask></defs>
