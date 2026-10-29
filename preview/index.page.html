@@ -9057,6 +9057,13 @@ body:has(.stage-root) #lui.lui-welcome,body:has(.stage-root) #lui.lui-welcome *{
 
 .stage-root.uc4 #networkOverviewCard[data-scan-phase="regions"] .network-array-header,.stage-root.uc4 #networkOverviewCard[data-scan-phase="focus"] .network-array-header{transform:translateY(24px)}
 
+/* src/views/network-region-scan/scan-beam.css */
+/* Contained above the artwork; no pointer hit area or layout allocation. */
+.topology-scan-beam{position:absolute;z-index:20;overflow:hidden;pointer-events:none;isolation:isolate}
+.topology-scan-surface{display:block;width:100%;height:100%;background:transparent}
+.topology-scan-beam.is-paused [data-beam],.topology-scan-beam.is-paused [data-beam]::before,.topology-scan-beam.is-paused [data-beam]::after,.topology-scan-beam.is-paused [data-beam-bloom]{animation-play-state:paused!important}
+@media(prefers-reduced-motion:reduce){.topology-scan-beam{display:none}}
+
 /* src/views/network-region-scan/index.css */
 /* Every stage fills the same normal-flow canvas card, independently of its asset size. */
 .stage-root.uc4 #canvasContent{scrollbar-gutter:stable}
@@ -9072,17 +9079,13 @@ body:has(.stage-root) #lui.lui-welcome,body:has(.stage-root) #lui.lui-welcome *{
 .network-region-scan-open:focus-visible{outline:var(--outline-width-focus) solid var(--focus-ring);outline-offset:var(--outline-offset-gap)}
 .network-region-scan-caption{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 
-@media(prefers-reduced-motion:reduce){.network-region-intelligence-pulses{display:none}}
 
 /* Reuse matching-card intelligence, clipped inside the topology floor. */
-.network-region-inner-beam{position:absolute;left:5.9253246753%;top:16.9416941694%;width:87.9058441558%;height:76.7876787679%;overflow:hidden;pointer-events:none;isolation:isolate}
-.network-region-beam-surface{display:block;width:100%;height:100%;background:transparent}
-@media(prefers-reduced-motion:reduce){.network-region-inner-beam{display:none}}
+.network-region-inner-beam{left:5.9253246753%;top:16.9416941694%;width:87.9058441558%;height:76.7876787679%}
 
 /* The intelligence layer sits ABOVE the topology artwork, within the selected bounds. */
 .stage-root.uc4 #networkOverviewCard .v7-network-art-layer{z-index:4}
 .network-region-scan-art{position:relative;z-index:0}
-.network-region-inner-beam{z-index:20}
 
 /* src/views/mapping-card/design.css */
 /* Pixso 8:522844. Scoped to mapping content; canvas frame rules stay shared. */
@@ -9351,7 +9354,6 @@ html:not(.dark) .stage-root.uc4 #mappingCard.mapping-design .node-name{color:#19
 .uc2-restoration-metrics small{font-size:14px;line-height:22px;font-weight:400;color:#939393;margin-left:4px}
 .uc2-restoration-scene{position:relative;overflow:hidden}
 .uc2-native-topology{display:block;width:100%;height:auto;overflow:hidden}
-.uc2-restoration-scan{filter:drop-shadow(0 0 8px #549fff)}
 .uc2-topology-hit{cursor:pointer;outline:none}
 .uc2-topology-hit rect{stroke:transparent;stroke-width:1.5;transition:stroke .12s,fill .12s}
 .uc2-topology-hit:hover rect,.uc2-topology-hit:focus-visible rect,.uc2-topology-hit.is-selected rect{stroke:#6ab6ff;fill:#5ca2e90d}
@@ -9372,7 +9374,7 @@ html:not(.dark) .stage-root.uc4 #mappingCard.mapping-design .node-name{color:#19
 .stage-root.uc2 #lui .workflow-steps .step.is-done:not(:last-child)::before{background:#36c18d}
 .stage-root.uc2 #lui .uc2-workflow-steps .step-content strong{font-weight:400}
 @container workspace (max-width:1100px){.uc2-restoration-overview{flex-wrap:wrap}.uc2-restoration-metrics{width:100%;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.uc2-restoration-copy p{font-size:12px}.uc2-device-popover{left:15%;top:25%}}
-@media(prefers-reduced-motion:reduce){.uc2-intent-halo,.uc2-restoration-scan{animation:none;will-change:auto}}
+@media(prefers-reduced-motion:reduce){.uc2-intent-halo{animation:none;will-change:auto}}
 
 /* Match the native design's regular text and antialiasing, scoped to UC2. */
 body:has(.stage-root) .stage-root.uc2 :is(#lui,.uc2-intent-view,.uc2-restoration-card),body:has(.stage-root) .stage-root.uc2 :is(#lui,.uc2-intent-view,.uc2-restoration-card) *{font-family:"Pixso Aico Sans","PingFang SC","Microsoft YaHei",sans-serif!important;-webkit-font-smoothing:antialiased;font-synthesis:none}
@@ -9386,7 +9388,6 @@ body:has(.stage-root) .stage-root.uc2 :is(#lui,.uc2-intent-view,.uc2-restoration
 .uc2-pixso-v2 .uc2-restoration-header{margin:0 20px;border-bottom-color:#ffffff0a}
 .uc2-pixso-v2 .uc2-restoration-overview{padding-top:24px;padding-bottom:20px}
 .uc2-pixso-v2 .uc2-restoration-scene{background:#282828}
-.uc2-pixso-v2 .uc2-restoration-scan{filter:drop-shadow(0 0 12px #76adff88)}
 .uc2-pixso-v2 .uc2-device-popover{border-color:#ffffff26;background:#393939;box-shadow:0 6px 24px #0005}
 
 /* src/views/uc2-canvas/mining-reference.css */
@@ -74606,37 +74607,17 @@ function ArtifactOpen({
   }));
 }
 }};
-modules["src/views/network-region-scan/index.jsx"]={deps:{"border-beam":"assets/library/border-beam/index.cjs","../../context.jsx":"src/context.jsx","../mapping-card/beam-palette.js":"src/views/mapping-card/beam-palette.js","./index.css":"src/views/network-region-scan/index.css"},run:function(require,module,exports){
+modules["src/views/network-region-scan/index.jsx"]={deps:{"./scan-beam.jsx":"src/views/network-region-scan/scan-beam.jsx","../../context.jsx":"src/context.jsx","./index.css":"src/views/network-region-scan/index.css"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = NetworkRegionScan;
-var _borderBeam = require("border-beam");
+var _scanBeam = _interopRequireDefault(require("./scan-beam.jsx"));
 var _context = require("../../context.jsx");
-var _beamPalette = require("../mapping-card/beam-palette.js");
 require("./index.css");
-// A broad feathered band gives the rotating beam a visible inward scanning footprint.
-const regionScanGlowCss = `
-[data-beam="{id}"][data-active]::before,
-[data-beam="{id}"][data-fading]::before{
-  padding:0;
-  background:conic-gradient(from var(--beam-angle-{id}),
-    transparent 0deg,transparent 145deg,
-    rgba(65,85,255,.08) 175deg,rgba(65,85,255,.6) 210deg,
-    rgba(145,85,245,.65) 250deg,rgba(238,65,105,.5) 280deg,rgba(255,125,65,.18) 305deg,
-    rgba(180,40,240,.12) 320deg,transparent 350deg);
-  -webkit-mask-image:linear-gradient(to bottom,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px),linear-gradient(to top,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px),linear-gradient(to right,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px),linear-gradient(to left,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px);
-  -webkit-mask-composite:source-over;
-  mask-image:linear-gradient(to bottom,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px),linear-gradient(to top,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px),linear-gradient(to right,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px),linear-gradient(to left,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px);
-  mask-composite:add;
-  animation:none;
-  filter:blur(18px) saturate(.45);
-  opacity:calc(var(--beam-opacity-{id}) * .95);
-  mix-blend-mode:screen;
-}`;
-
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 // Region and topology exports retain their own coordinates inside one stable card.
 function NetworkRegionScan({
   progress = 0,
@@ -74703,10 +74684,61 @@ function NetworkRegionScan({
     width: "1248",
     height: "860",
     clipPath: "url(#hcs1-topology-body-clip)"
-  }))), blend < 1 && /*#__PURE__*/React.createElement("div", {
-    className: "network-region-inner-beam",
+  }))), blend < 1 && /*#__PURE__*/React.createElement(_scanBeam.default, {
+    isDark: isDark,
+    opacity: 1 - blend,
+    className: "network-region-inner-beam"
+  }), /*#__PURE__*/React.createElement("figcaption", {
+    className: "network-region-scan-caption",
+    role: "status"
+  }, description));
+}
+}};
+modules["src/views/network-region-scan/scan-beam.jsx"]={deps:{"border-beam":"assets/library/border-beam/index.cjs","../mapping-card/beam-palette.js":"src/views/mapping-card/beam-palette.js","./scan-beam.css":"src/views/network-region-scan/scan-beam.css"},run:function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = TopologyScanBeam;
+var _borderBeam = require("border-beam");
+var _beamPalette = require("../mapping-card/beam-palette.js");
+require("./scan-beam.css");
+// A broad feathered band gives the rotating beam a visible inward scanning footprint.
+const regionScanGlowCss = `
+[data-beam="{id}"][data-active]::before,
+[data-beam="{id}"][data-fading]::before{
+  padding:0;
+  background:conic-gradient(from var(--beam-angle-{id}),
+    transparent 0deg,transparent 145deg,
+    rgba(65,85,255,.08) 175deg,rgba(65,85,255,.6) 210deg,
+    rgba(145,85,245,.65) 250deg,rgba(238,65,105,.5) 280deg,rgba(255,125,65,.18) 305deg,
+    rgba(180,40,240,.12) 320deg,transparent 350deg);
+  -webkit-mask-image:linear-gradient(to bottom,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px),linear-gradient(to top,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px),linear-gradient(to right,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px),linear-gradient(to left,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px);
+  -webkit-mask-composite:source-over;
+  mask-image:linear-gradient(to bottom,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px),linear-gradient(to top,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px),linear-gradient(to right,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px),linear-gradient(to left,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px);
+  mask-composite:add;
+  animation:none;
+  filter:blur(18px) saturate(.45);
+  opacity:calc(var(--beam-opacity-{id}) * .95);
+  mix-blend-mode:screen;
+}`;
+
+// Both UC2 and UC4 use this exact palette, inward feathering and 2.6s rotation.
+function TopologyScanBeam({
+  isDark = true,
+  opacity = 1,
+  paused = false,
+  className = "",
+  style
+}) {
+  if (opacity <= 0) return null;
+  return /*#__PURE__*/React.createElement("div", {
+    className: "topology-scan-beam " + className + (paused ? " is-paused" : ""),
+    "data-scan-effect": "topology-inner-glow",
     style: {
-      opacity: 1 - blend
+      ...style,
+      opacity: Math.max(0, Math.min(1, opacity))
     },
     "aria-hidden": "true"
   }, /*#__PURE__*/React.createElement(_borderBeam.BorderBeam, {
@@ -74730,11 +74762,8 @@ function NetworkRegionScan({
       pointerEvents: "none"
     }
   }, /*#__PURE__*/React.createElement("span", {
-    className: "network-region-beam-surface"
-  }))), /*#__PURE__*/React.createElement("figcaption", {
-    className: "network-region-scan-caption",
-    role: "status"
-  }, description));
+    className: "topology-scan-surface"
+  })));
 }
 }};
 modules["src/views/mapping-card/beam-palette.js"]={deps:{},run:function(require,module,exports){
@@ -76676,7 +76705,7 @@ function Uc2Pane() {
   }, uc2.view === "intent" && /*#__PURE__*/React.createElement(_intent.default, null), modules);
 }
 }};
-modules["src/views/uc2-canvas/topology.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../network-region-scan/sweep.jsx":"src/views/network-region-scan/sweep.jsx","../../components/artifact-open/index.jsx":"src/components/artifact-open/index.jsx","../../mock/uc2.js":"src/mock/uc2.js","../../../assets/shared/icon.jsx":"assets/shared/icon.jsx"},run:function(require,module,exports){
+modules["src/views/uc2-canvas/topology.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../network-region-scan/scan-beam.jsx":"src/views/network-region-scan/scan-beam.jsx","../../components/artifact-open/index.jsx":"src/components/artifact-open/index.jsx","../../mock/uc2.js":"src/mock/uc2.js","../../../assets/shared/icon.jsx":"assets/shared/icon.jsx"},run:function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -76686,7 +76715,7 @@ exports.Uc2Title = Uc2Title;
 exports.default = Uc2Topology;
 var _react = require("react");
 var _context = require("../../context.jsx");
-var _sweep = _interopRequireDefault(require("../network-region-scan/sweep.jsx"));
+var _scanBeam = _interopRequireDefault(require("../network-region-scan/scan-beam.jsx"));
 var _index = _interopRequireDefault(require("../../components/artifact-open/index.jsx"));
 var _uc = require("../../mock/uc2.js");
 var _icon = require("../../../assets/shared/icon.jsx");
@@ -76802,7 +76831,8 @@ function useRestorationProgress(uc2) {
 function Uc2Topology() {
   const {
     uc2,
-    uc2SelectNode
+    uc2SelectNode,
+    isDark
   } = (0, _context.useApp)();
   const [focused, setFocused] = (0, _react.useState)(null);
   const progress = useRestorationProgress(uc2);
@@ -76871,7 +76901,7 @@ function Uc2Topology() {
     viewBox: "0 160 1232 749",
     className: "uc2-native-topology",
     role: "img",
-    "aria-label": detail ? "已定位核心交换机的详细网络拓扑" : "彩色渐变点阵自上而下扫描全网区域，连续展开设备拓扑"
+    "aria-label": detail ? "已定位核心交换机的详细网络拓扑" : "沿拓扑边缘流动的彩色柔光向内扫描全网区域，连续展开设备拓扑"
   }, /*#__PURE__*/React.createElement("g", {
     className: "uc2-overview-layer",
     opacity: 1 - areaBlend
@@ -76881,12 +76911,6 @@ function Uc2Topology() {
     y: "160",
     width: "1232",
     height: "749"
-  }), /*#__PURE__*/React.createElement(_sweep.default, {
-    progress: clamp(elapsed / 2800),
-    x: 74,
-    y: 182,
-    width: 1080,
-    height: 692
   })), /*#__PURE__*/React.createElement("image", {
     className: "uc2-topology-area",
     href: vectors + "topology-area.svg",
@@ -76943,7 +76967,18 @@ function Uc2Topology() {
     height: "60",
     rx: "4",
     fill: "transparent"
-  }), /*#__PURE__*/React.createElement("title", null, device.name)))), focused && /*#__PURE__*/React.createElement("button", {
+  }), /*#__PURE__*/React.createElement("title", null, device.name)))), phase !== 2 && areaBlend < 1 && /*#__PURE__*/React.createElement(_scanBeam.default, {
+    isDark: isDark,
+    opacity: 1 - areaBlend,
+    paused: !uc2.running,
+    className: "uc2-topology-scan-beam",
+    style: {
+      left: 74 / 1232 * 100 + "%",
+      top: 22 / 749 * 100 + "%",
+      width: 1080 / 1232 * 100 + "%",
+      height: 692 / 749 * 100 + "%"
+    }
+  }), focused && /*#__PURE__*/React.createElement("button", {
     className: "uc2-topology-back",
     type: "button",
     onClick: () => {
@@ -76966,135 +77001,6 @@ function Uc2Topology() {
     name: "x",
     size: 14
   })), /*#__PURE__*/React.createElement("strong", null, selected.name), /*#__PURE__*/React.createElement("span", null, selected.role, " · 西三旗 DC"), /*#__PURE__*/React.createElement("p", null, "配置快照可用，已纳入本轮分析范围。"))));
-}
-}};
-modules["src/views/network-region-scan/sweep.jsx"]={deps:{},run:function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = RegionSweep;
-var _react = require("react");
-// Shared by UC2 and UC4: one straight sweep with a soft multicolour dot-grid tail.
-function RegionSweep({
-  progress = 0,
-  x = 73,
-  y = 154,
-  width = 1083,
-  height = 698
-}) {
-  const id = 'region-sweep-' + (0, _react.useId)().replace(/:/g, '');
-  const offset = y - 80 + Math.max(0, Math.min(1, progress)) * (height - 60);
-  return /*#__PURE__*/React.createElement("g", {
-    className: "network-region-intelligence-pulses network-region-smart-sweep",
-    "data-scan-effect": "shared-region-sweep",
-    "aria-hidden": "true",
-    transform: 'translate(0 ' + offset + ')'
-  }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
-    id: id + '-palette',
-    x1: "0",
-    y1: "0",
-    x2: "1",
-    y2: "0"
-  }, /*#__PURE__*/React.createElement("stop", {
-    stopColor: "#288cff"
-  }), /*#__PURE__*/React.createElement("stop", {
-    offset: ".3",
-    stopColor: "#9169f5"
-  }), /*#__PURE__*/React.createElement("stop", {
-    offset: ".6",
-    stopColor: "#b428f0"
-  }), /*#__PURE__*/React.createElement("stop", {
-    offset: ".86",
-    stopColor: "#ee4b73"
-  }), /*#__PURE__*/React.createElement("stop", {
-    offset: "1",
-    stopColor: "#f4a05b"
-  })), /*#__PURE__*/React.createElement("linearGradient", {
-    id: id + '-fade',
-    x1: "0",
-    y1: "0",
-    x2: "0",
-    y2: "1"
-  }, /*#__PURE__*/React.createElement("stop", {
-    stopColor: "white",
-    stopOpacity: "0"
-  }), /*#__PURE__*/React.createElement("stop", {
-    offset: ".45",
-    stopColor: "white",
-    stopOpacity: ".18"
-  }), /*#__PURE__*/React.createElement("stop", {
-    offset: ".9",
-    stopColor: "white",
-    stopOpacity: ".7"
-  }), /*#__PURE__*/React.createElement("stop", {
-    offset: "1",
-    stopColor: "white"
-  })), /*#__PURE__*/React.createElement("pattern", {
-    id: id + '-grid',
-    patternUnits: "userSpaceOnUse",
-    width: "10",
-    height: "10"
-  }, /*#__PURE__*/React.createElement("rect", {
-    x: "4",
-    y: "4",
-    width: "2",
-    height: "2",
-    rx: ".3",
-    fill: "white"
-  })), /*#__PURE__*/React.createElement("mask", {
-    id: id + '-tail',
-    maskUnits: "userSpaceOnUse",
-    x: x,
-    y: "0",
-    width: width,
-    height: "82"
-  }, /*#__PURE__*/React.createElement("rect", {
-    x: x,
-    y: "0",
-    width: width,
-    height: "82",
-    fill: 'url(#' + id + '-fade)'
-  })), /*#__PURE__*/React.createElement("mask", {
-    id: id + '-dots',
-    maskUnits: "userSpaceOnUse",
-    x: x,
-    y: "0",
-    width: width,
-    height: "82"
-  }, /*#__PURE__*/React.createElement("rect", {
-    x: x,
-    y: "0",
-    width: width,
-    height: "82",
-    fill: 'url(#' + id + '-grid)'
-  }))), /*#__PURE__*/React.createElement("g", {
-    mask: 'url(#' + id + '-tail)'
-  }, /*#__PURE__*/React.createElement("rect", {
-    x: x,
-    y: "0",
-    width: width,
-    height: "82",
-    fill: 'url(#' + id + '-palette)',
-    opacity: ".18"
-  }), /*#__PURE__*/React.createElement("g", {
-    mask: 'url(#' + id + '-dots)'
-  }, /*#__PURE__*/React.createElement("rect", {
-    x: x,
-    y: "0",
-    width: width,
-    height: "80",
-    fill: 'url(#' + id + '-palette)',
-    opacity: ".62"
-  }))), /*#__PURE__*/React.createElement("rect", {
-    x: x,
-    y: "80.8",
-    width: width,
-    height: "1.2",
-    fill: 'url(#' + id + '-palette)',
-    opacity: ".42"
-  }));
 }
 }};
 modules["src/views/uc2-canvas/intent.jsx"]={deps:{"../../context.jsx":"src/context.jsx","../lui-panel/thinking.jsx":"src/views/lui-panel/thinking.jsx"},run:function(require,module,exports){

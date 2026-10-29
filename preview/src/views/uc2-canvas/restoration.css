@@ -32,7 +32,6 @@
 .uc2-restoration-metrics small{font-size:14px;line-height:22px;font-weight:400;color:#939393;margin-left:4px}
 .uc2-restoration-scene{position:relative;overflow:hidden}
 .uc2-native-topology{display:block;width:100%;height:auto;overflow:hidden}
-.uc2-restoration-scan{filter:drop-shadow(0 0 8px #549fff)}
 .uc2-topology-hit{cursor:pointer;outline:none}
 .uc2-topology-hit rect{stroke:transparent;stroke-width:1.5;transition:stroke .12s,fill .12s}
 .uc2-topology-hit:hover rect,.uc2-topology-hit:focus-visible rect,.uc2-topology-hit.is-selected rect{stroke:#6ab6ff;fill:#5ca2e90d}
@@ -53,7 +52,7 @@
 .stage-root.uc2 #lui .workflow-steps .step.is-done:not(:last-child)::before{background:#36c18d}
 .stage-root.uc2 #lui .uc2-workflow-steps .step-content strong{font-weight:400}
 @container workspace (max-width:1100px){.uc2-restoration-overview{flex-wrap:wrap}.uc2-restoration-metrics{width:100%;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.uc2-restoration-copy p{font-size:12px}.uc2-device-popover{left:15%;top:25%}}
-@media(prefers-reduced-motion:reduce){.uc2-intent-halo,.uc2-restoration-scan{animation:none;will-change:auto}}
+@media(prefers-reduced-motion:reduce){.uc2-intent-halo{animation:none;will-change:auto}}
 
 /* Match the native design's regular text and antialiasing, scoped to UC2. */
 body:has(.stage-root) .stage-root.uc2 :is(#lui,.uc2-intent-view,.uc2-restoration-card),body:has(.stage-root) .stage-root.uc2 :is(#lui,.uc2-intent-view,.uc2-restoration-card) *{font-family:"Pixso Aico Sans","PingFang SC","Microsoft YaHei",sans-serif!important;-webkit-font-smoothing:antialiased;font-synthesis:none}
@@ -67,5 +66,4 @@ body:has(.stage-root) .stage-root.uc2 :is(#lui,.uc2-intent-view,.uc2-restoration
 .uc2-pixso-v2 .uc2-restoration-header{margin:0 20px;border-bottom-color:#ffffff0a}
 .uc2-pixso-v2 .uc2-restoration-overview{padding-top:24px;padding-bottom:20px}
 .uc2-pixso-v2 .uc2-restoration-scene{background:#282828}
-.uc2-pixso-v2 .uc2-restoration-scan{filter:drop-shadow(0 0 12px #76adff88)}
 .uc2-pixso-v2 .uc2-device-popover{border-color:#ffffff26;background:#393939;box-shadow:0 6px 24px #0005}

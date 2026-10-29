@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useApp } from "../../context.jsx";
-import RegionSweep from "../network-region-scan/sweep.jsx";
+import TopologyScanBeam from "../network-region-scan/scan-beam.jsx";
 import ArtifactOpen from "../../components/artifact-open/index.jsx";
 import { uc2Names, uc2RestorationDuration } from "../../mock/uc2.js";
 import { Icon } from "../../../assets/shared/icon.jsx";
@@ -48,7 +48,7 @@ function useRestorationProgress(uc2) {
 }
 
 export default function Uc2Topology() {
-  const { uc2, uc2SelectNode } = useApp();
+  const { uc2, uc2SelectNode, isDark } = useApp();
   const [focused, setFocused] = useState(null);
   const progress = useRestorationProgress(uc2);
   const [artReady, setArtReady] = useState(false);
@@ -81,10 +81,9 @@ export default function Uc2Topology() {
       </dl>
     </div>
     <div className={"uc2-restoration-scene" + (!uc2.running ? " is-paused" : "")}>
-      <svg viewBox="0 160 1232 749" className="uc2-native-topology" role="img" aria-label={detail ? "已定位核心交换机的详细网络拓扑" : "彩色渐变点阵自上而下扫描全网区域，连续展开设备拓扑"}>
+      <svg viewBox="0 160 1232 749" className="uc2-native-topology" role="img" aria-label={detail ? "已定位核心交换机的详细网络拓扑" : "沿拓扑边缘流动的彩色柔光向内扫描全网区域，连续展开设备拓扑"}>
         <g className="uc2-overview-layer" opacity={1 - areaBlend}>
           <image href={vectors + "topology-scan.svg"} x="0" y="160" width="1232" height="749" />
-          <RegionSweep progress={clamp(elapsed / 2800)} x={74} y={182} width={1080} height={692} />
         </g>
         <image className="uc2-topology-area" href={vectors + "topology-area.svg"} x="0" y="160" width="1232" height="749" opacity={areaBlend * (1 - topologyBlend)} />
         <image className="uc2-topology-detail" href={vectors + "topology-final@2x.png"} x="0" y="160" width="1232" height="749" opacity={topologyBlend} />
@@ -93,6 +92,7 @@ export default function Uc2Topology() {
         </>}
         {detail && devices.map(device=><g key={device.id} role="button" tabIndex={0} aria-label={"查看设备 "+device.name} className={"uc2-topology-hit"+(uc2.node===device.id?" is-selected":"")} onClick={()=>uc2SelectNode(device.id)} onKeyDown={e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();uc2SelectNode(device.id);}}}><rect x={device.x-12} y={device.y-12} width="52" height="60" rx="4" fill="transparent"/><title>{device.name}</title></g>)}
       </svg>
+      {phase!==2&&areaBlend<1&&<TopologyScanBeam isDark={isDark} opacity={1-areaBlend} paused={!uc2.running} className="uc2-topology-scan-beam" style={{left:(74/1232*100)+"%",top:(22/749*100)+"%",width:(1080/1232*100)+"%",height:(692/749*100)+"%"}}/>}
       {focused && <button className="uc2-topology-back" type="button" onClick={()=>{setFocused(null);uc2SelectNode(null);}}><Icon className="ic" name="arrow-left" size={12} />返回区域视图</button>}
       {selected && <aside className="uc2-device-popover" aria-label="设备信息"><button type="button" aria-label="关闭设备信息" onClick={()=>uc2SelectNode(null)}><Icon className="ic" name="x" size={14}/></button><strong>{selected.name}</strong><span>{selected.role} · 西三旗 DC</span><p>配置快照可用，已纳入本轮分析范围。</p></aside>}
     </div>

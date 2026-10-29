@@ -1,0 +1,5 @@
+/* Contained above the artwork; no pointer hit area or layout allocation. */
+.topology-scan-beam{position:absolute;z-index:20;overflow:hidden;pointer-events:none;isolation:isolate}
+.topology-scan-surface{display:block;width:100%;height:100%;background:transparent}
+.topology-scan-beam.is-paused [data-beam],.topology-scan-beam.is-paused [data-beam]::before,.topology-scan-beam.is-paused [data-beam]::after,.topology-scan-beam.is-paused [data-beam-bloom]{animation-play-state:paused!important}
+@media(prefers-reduced-motion:reduce){.topology-scan-beam{display:none}}

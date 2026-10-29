@@ -12,14 +12,10 @@
 .network-region-scan-open:focus-visible{outline:var(--outline-width-focus) solid var(--focus-ring);outline-offset:var(--outline-offset-gap)}
 .network-region-scan-caption{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 
-@media(prefers-reduced-motion:reduce){.network-region-intelligence-pulses{display:none}}
 
 /* Reuse matching-card intelligence, clipped inside the topology floor. */
-.network-region-inner-beam{position:absolute;left:5.9253246753%;top:16.9416941694%;width:87.9058441558%;height:76.7876787679%;overflow:hidden;pointer-events:none;isolation:isolate}
-.network-region-beam-surface{display:block;width:100%;height:100%;background:transparent}
-@media(prefers-reduced-motion:reduce){.network-region-inner-beam{display:none}}
+.network-region-inner-beam{left:5.9253246753%;top:16.9416941694%;width:87.9058441558%;height:76.7876787679%}
 
 /* The intelligence layer sits ABOVE the topology artwork, within the selected bounds. */
 .stage-root.uc4 #networkOverviewCard .v7-network-art-layer{z-index:4}
 .network-region-scan-art{position:relative;z-index:0}
-.network-region-inner-beam{z-index:20}
