@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useApp } from "../../context.jsx";
+import RegionSweep from "../network-region-scan/sweep.jsx";
 import ArtifactOpen from "../../components/artifact-open/index.jsx";
 import { uc2Names, uc2RestorationDuration } from "../../mock/uc2.js";
 import { Icon } from "../../../assets/shared/icon.jsx";
@@ -80,14 +81,10 @@ export default function Uc2Topology() {
       </dl>
     </div>
     <div className={"uc2-restoration-scene" + (!uc2.running ? " is-paused" : "")}>
-      <svg viewBox="0 160 1232 749" className="uc2-native-topology" role="img" aria-label={detail ? "已定位核心交换机的详细网络拓扑" : "蓝色光效自上而下扫描全网区域，连续展开设备拓扑"}>
+      <svg viewBox="0 160 1232 749" className="uc2-native-topology" role="img" aria-label={detail ? "已定位核心交换机的详细网络拓扑" : "彩色渐变点阵自上而下扫描全网区域，连续展开设备拓扑"}>
         <g className="uc2-overview-layer" opacity={1 - areaBlend}>
           <image href={vectors + "topology-scan.svg"} x="0" y="160" width="1232" height="749" />
-          <g className="uc2-restoration-scan" transform={"translate(0 " + (clamp(elapsed / 2800) * 648) + ")"}>
-            <defs><linearGradient id="uc2RestorationScanGradient" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#5ca2e9" stopOpacity="0"/><stop offset="1" stopColor="#5ca2e9" stopOpacity=".28"/></linearGradient></defs>
-            <rect x="74" y="182" width="1080" height="42" fill="url(#uc2RestorationScanGradient)"/>
-            <rect x="74" y="224" width="1080" height="2" fill="#64b2ff"/>
-          </g>
+          <RegionSweep progress={clamp(elapsed / 2800)} x={74} y={182} width={1080} height={692} />
         </g>
         <image className="uc2-topology-area" href={vectors + "topology-area.svg"} x="0" y="160" width="1232" height="749" opacity={areaBlend * (1 - topologyBlend)} />
         <image className="uc2-topology-detail" href={vectors + "topology-final@2x.png"} x="0" y="160" width="1232" height="749" opacity={topologyBlend} />
