@@ -1,10 +1,9 @@
-import {analysisStepDuration} from './components/step-analysis/timing.js';
 import { useState, useEffect, useRef, createContext, useContext, useCallback } from "react";
 import { THINKING_DURATION } from './views/lui-panel/thought-copy.js';
 import { devices } from "./mock/devices.js";
 import { checks } from "./mock/checks.js";
 import { sortedFailedRules } from "./mock/audit.js";
-import { recs, DEFAULT_PROMPT, v7WorkflowThoughts, v7WorkflowSteps } from "./mock/workflow.js";
+import { recs, DEFAULT_PROMPT } from "./mock/workflow.js";
 import { uc2RestorationDuration, uc2Timing, uc2RuleById, uc2InitialReviews } from "./mock/uc2.js";
 import useNetworkTasks from "./hooks/use-network-tasks.js";
 import useTaskEntryTransition from "./hooks/use-task-entry-transition.js";
@@ -80,7 +79,7 @@ export function stateFor(map, id) {
   return map[id] || (map[id] = { rule: "timeout", instance: "vty", filter: "failed", search: "", excluded: false, mode: "related", scroll: 0 });
 }
 
-const createUc3EditorDraft=()=>({name:'用户接口空闲超时时间不能超过 10 分钟',priority:'最高优先级',ruleId:'user_interface_idle_timeout_10min',type:'单条 Rule（非 Policy）',mode:'始终执行',method:'全局',trigger:'全部满足',changed:false,testResult:null,conditions:[{id:1,field:'time',operator:'大于',value:'全部满足',relation:'且',expression:'idle-timeout  {{time}} 30'}]});
+const createUc3EditorDraft=()=>({name:'用户接口空闲超时时间不能超过 10 分钟',priority:'最高优先级',ruleId:'user_interface_idle_timeout_10min',type:'单条 Rule（非 Policy）',mode:'始终执行',method:'全局',trigger:'全部满足',changed:false,testResult:null,conditions:[{id:1,field:'time',operator:'大于',value:'全部满足',relation:'或',expression:'idle-timeout  {{time}} 30'}]});
 
 export function AppProvider({ children }) {
   const {networkTasks,tasksRef:networkTasksRef,activeTaskRef:activeNetworkTaskRef,beginWorkflow,syncWorkflow,pauseActive,finishActiveReview}=useNetworkTasks();
@@ -109,9 +108,6 @@ export function AppProvider({ children }) {
   const [luiView, setLuiView] = useState("home");
   const [taskPrompt, setTaskPrompt] = useState(DEFAULT_PROMPT);
   const [stage, setStage] = useState(4);
-  const [workflowSettled,setWorkflowSettled]=useState([]);
-  const workflowSettledRef=useRef([]);
-  const settleWorkflowStep=index=>{workflowSettledRef.current=[...new Set([...workflowSettledRef.current,index])];setWorkflowSettled(workflowSettledRef.current);};
   const [reportRevealStartedAt,setReportRevealStartedAt]=useState(null);
   const [runningIndex, setRunningIndex] = useState(0);
   const [scanSeq, setScanSeq] = useState(0);
@@ -123,9 +119,7 @@ export function AppProvider({ children }) {
 
   const [uc1Phase,setUc1Phase] = useState(-2);
   const [uc3Phase,setUc3Phase] = useState(-2);
-  const [uc3RuleConfig,setUc3RuleConfig]=useState(()=>{try{return JSON.parse(localStorage.getItem('fabric.uc3.rule-config.v1')||'null');}catch{return null;}});
-  const [uc3EditorDraft,setUc3EditorDraft] = useState(()=>{try{return JSON.parse(localStorage.getItem('fabric.uc3.rule-config.v1')||'null')||createUc3EditorDraft();}catch{return createUc3EditorDraft();}});
-  useEffect(()=>{if(uc3RuleConfig){try{localStorage.setItem('fabric.uc3.rule-config.v1',JSON.stringify(uc3RuleConfig));}catch{}}},[uc3RuleConfig]);
+  const [uc3EditorDraft,setUc3EditorDraft]=useState(createUc3EditorDraft);
   const [uc1SummaryStage,setUc1SummaryStage]=useState(-1);
 
   // 画布页签
@@ -138,11 +132,8 @@ export function AppProvider({ children }) {
   // UC4 card tabs retain the same mounted card and its filters/scroll position.
   const [artifactTabs,setArtifactTabs]=useState([]);
   const [activeArtifact,setActiveArtifact]=useState(null);
-  const openArtifact=useCallback((kind,title)=>{setArtifactTabs(xs=>xs.some(x=>x.kind===kind)?xs.map(x=>x.kind===kind?{...x,title}:x):[...xs,{kind,title}]);setFull(false);setLuiOpen(true);setCanvasHidden(false);setActivePane('task');setActiveArtifact(kind)},[]);
+  const openArtifact=useCallback((kind,title)=>{setArtifactTabs(xs=>xs.some(x=>x.kind===kind)?xs.map(x=>x.kind===kind?{...x,title}:x):[...xs,{kind,title}]);setActivePane('task');setActiveArtifact(kind)},[]);
   const closeArtifact=useCallback(kind=>{setArtifactTabs(xs=>xs.filter(x=>x.kind!==kind));setActiveArtifact(x=>x===kind?null:x)},[]);
-
-  const uc3CancelEdit=useCallback(()=>{setUc3EditorDraft(uc3RuleConfig?{...uc3RuleConfig,changed:false}:createUc3EditorDraft());closeArtifact('uc3-editor');openArtifact('uc3Rule','检查规则示意图');},[uc3RuleConfig,closeArtifact,openArtifact]);
-  const uc3SaveRule=configuration=>{const saved={...configuration,name:configuration.name.trim(),ruleId:configuration.ruleId.trim(),changed:false,savedAt:new Date().toISOString()};setUc3RuleConfig(saved);setUc3EditorDraft(saved);closeArtifact('uc3-editor');openArtifact('uc3Rule','检查规则示意图');toast('规则配置已保存');};
 
   // 设备详情状态（跨页签保留）
   const deviceStatesRef = useRef({});
@@ -159,11 +150,12 @@ export function AppProvider({ children }) {
   const cardRefs = useRef({});
   const [luiFocus, setLuiFocus] = useState(null);
   const luiFocusSeq = useRef(0);
-  const focusLuiArtifact = useCallback(kind => {
+  const focusLuiArtifact = useCallback((kind, target = "artifact") => {
     setLuiOpen(true);
     setAgentActive(true);
     setFull(false);
-    setLuiFocus({ kind, seq: ++luiFocusSeq.current });
+    document.getElementById('luiMain')?.dispatchEvent(new Event('lui-review'));
+    setLuiFocus({ kind, target, seq: ++luiFocusSeq.current });
   }, []);
 
   const toast = useCallback((t) => {
@@ -236,7 +228,7 @@ export function AppProvider({ children }) {
     setStage(index);
     setRunningIndex(index);
     // Matching owns completion, so its connections can finish before advancing.
-    if (index !== 2) timerRef.current = setTimeout(() => { if(!runningRef.current)return;settleWorkflowStep(index);timerRef.current=setTimeout(()=>{if(runningRef.current)advanceRef.current(index+1);},2200); }, analysisStepDuration(v7WorkflowThoughts[index],v7WorkflowSteps[index].description));
+    if (index !== 2) timerRef.current = setTimeout(() => advanceRef.current(index + 1), 1200);
   };
 
   // ---- UC2 黄金基线挖掘状态机 ----
@@ -422,15 +414,14 @@ export function AppProvider({ children }) {
   }, []);
 
   const notifyScanComplete = useCallback(() => {
-    if (runningRef.current&&!workflowSettledRef.current.includes(0)){settleWorkflowStep(0);timerRef.current=setTimeout(()=>{if(runningRef.current)advanceRef.current(1);},2200);}
+    if (runningRef.current) advanceRef.current(1);
   }, []);
 
   const notifyMappingComplete = useCallback(() => {
-    if (runningRef.current&&!workflowSettledRef.current.includes(2)){settleWorkflowStep(2);timerRef.current=setTimeout(()=>{if(runningRef.current)advanceRef.current(3);},2200);}
+    if (runningRef.current) advanceRef.current(3);
   }, []);
 
   const runTask = useCallback((prompt) => {
-    workflowSettledRef.current=[];setWorkflowSettled([]);
     setReportRevealStartedAt(null);
     setLuiFocus(null);
     setActiveArtifact(null);setArtifactTabs([]);
@@ -468,11 +459,11 @@ export function AppProvider({ children }) {
   }, [stopScan]);
 
   const runUc3=useCallback((prompt='帮我创建规则：用户接口空闲超时时间不能超过10分钟')=>{
-    uc2Leave();clearTimeout(timerRef.current);runningRef.current=false;stopScan();setLuiFocus(null);setUc3Phase(-2);setUc3EditorDraft(uc3RuleConfig?{...uc3RuleConfig,changed:false}:createUc3EditorDraft());
+    uc2Leave();clearTimeout(timerRef.current);runningRef.current=false;stopScan();setLuiFocus(null);setUc3Phase(-2);setUc3EditorDraft(createUc3EditorDraft());
     beginNetworkWorkflow("uc3",prompt);
     setTaskPrompt(prompt);setPromptText('');setLuiView('uc3');setLuiOpen(true);setCanvasHidden(false);setAgentActive(true);
     setStage(-1);setRunningIndex(-1);setActivePane('task');setOpenDevices([]);setArtifactTabs([]);setActiveArtifact(null);
-  },[stopScan,uc3RuleConfig]);
+  },[stopScan]);
   const chooseUC = useCallback((i) => {
     if (i === 0) { runUc1(); return; }
     if(i===2){runUc3();return;}
@@ -649,7 +640,7 @@ export function AppProvider({ children }) {
     networkTasks,openNetworkTask,taskEntry,resultTask,
     isDark, toggleDark: () => setIsDark((d) => !d),
     luiOpen, canvasHidden, agentActive, full, setFull,
-    uc3EditorDraft,setUc3EditorDraft,uc3RuleConfig,uc3SaveRule,uc3CancelEdit,uc3Phase, setUc3Phase, uc1Phase, setUc1Phase, uc1SummaryStage, setUc1SummaryStage, luiView, taskPrompt, stage, workflowSettled, reportRevealStartedAt, runningIndex, scanSeq, promptText, setPromptText,
+    uc3EditorDraft,setUc3EditorDraft,uc3Phase, setUc3Phase, uc1Phase, setUc1Phase, uc1SummaryStage, setUc1SummaryStage, luiView, taskPrompt, stage, reportRevealStartedAt, runningIndex, scanSeq, promptText, setPromptText,
     scanCtlRef, notifyScanComplete, notifyMappingComplete,
     openAgentHome, goCockpit, toggleAgent, runTask, chooseUC, submitPrompt,
     openDevices, activePane, switchPane, openDevice, closeDevice,

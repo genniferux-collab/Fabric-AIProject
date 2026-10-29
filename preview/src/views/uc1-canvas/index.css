@@ -57,7 +57,6 @@ html:not(.dark) .stage-root.uc1 :is(.uc1-rules-heading h2,.uc1-source-card stron
 /* Use the same artifact action and nested-hover contract as UC4. */
 .stage-root.uc1 .uc1-rules-heading .v7-open-card-tab{position:static;margin-left:auto;display:grid;place-items:center;width:24px;height:24px;padding:5px;border-radius:4px;color:#aeaeae}
 .stage-root.uc1 .uc1-rules-heading .v7-open-card-tab:hover{background:#ffffff0d}
-html.dark .stage-root.uc1 .canvas .card.uc1-rules-canvas:hover:has(:is(button,a[href],input,select,textarea,summary,label,.uc1-rules-search,[role="button"],[data-canvas-interactive]):hover){background-image:none}
 
 .stage-root.uc1 .uc1-select-all>span{display:flex;align-items:center;height:22px;line-height:22px}
 

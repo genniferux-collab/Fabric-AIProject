@@ -23,5 +23,3 @@ html:not(.dark) .stage-root:is(.uc4,.uc2,.uc1,.uc3) .uc4-generating-orb{mix-blen
 .stage-root:is(.uc4,.uc2,.uc1,.uc3) .uc4-generating-spark .il-spark i{background:#dfdfdf}
 
 .uc4-generating-card .uc4-generating-orb,.uc4-generating-card .uc4-generating-spark *{animation-play-state:var(--generation-play-state,running)}
-
-.stage-root:is(.uc4,.uc2,.uc1,.uc3) .uc4-generating-card .uc4-generating-orb{animation-play-state:var(--generation-play-state,running)}

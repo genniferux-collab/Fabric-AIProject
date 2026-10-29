@@ -32,7 +32,6 @@
 .stage-root.uc3 .uc3-evidence-card .blue{color:#2070f3}.stage-root.uc3 .uc3-evidence-card .cyan{color:#2fb3c5}.stage-root.uc3 .uc3-evidence-card .violet{color:#8563ff}
 .stage-root.uc3 .uc3-evidence-card p{margin:0;font-size:14px;line-height:24px;color:#c9c9c9}
 
-html.dark .stage-root.uc3 .canvas .card.uc3-rule-canvas:hover:has(:is(button,input,[role="button"]):hover){background-image:radial-gradient(#ffffff0c .8px,transparent .8px)}
 @keyframes uc3-skeleton{to{background-position:-200% 0}}@keyframes uc3-node-reveal{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.stage-root.uc3 .uc3-graph-node{animation:none}.stage-root.uc3 .is-building :is(h3,h4,p){animation:none}}
 

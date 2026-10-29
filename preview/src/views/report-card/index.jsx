@@ -1,4 +1,3 @@
-import CanvasPagination from '../../components/canvas-pagination/index.jsx';
 import {NativeSelect} from '../../components/form-controls/select.jsx';
 import {completionTimeline} from '../../mock/uc4-completion.js';
 import {streamDuration} from '../lui-panel/motion.jsx';
@@ -201,7 +200,21 @@ export default function ReportCard({ cardRef }) {
               </tbody>
             </table>
           </div>
-          <CanvasPagination total={rows.length} page={current} pageSize={detailPageSize} onPageChange={setPage} onPageSizeChange={setDetailPageSize} label="检查设备"/>
+          <div className="v7-pagination">
+            <span>总计：{rows.length}</span>
+            <div className="row">
+              <NativeSelect className="report-page-size" aria-label="每页条数" value={detailPageSize} onChange={e => {setDetailPageSize(Number(e.target.value));setPage(1);}}>{[10,20,50].map(size=><option key={size} value={size}>{size} 条/页</option>)}</NativeSelect>
+              <button className="btn report-page-arrow" aria-label="上一页" disabled={current === 1} onClick={() => setPage(current - 1)}><Ic icon="chevron-left"/></button>
+              {near.map((n, i) => (
+                <span key={n} style={{ display: "contents" }}>
+                  {i && n - near[i - 1] > 1 ? <span>…</span> : null}
+                  <button className={"v7-page" + (n === current ? " active" : "")} aria-label={"第" + n + "页"} aria-current={n === current ? "page" : undefined} onClick={() => setPage(n)}>{n}</button>
+                </span>
+              ))}
+              {near.length === 1 && <span className="report-page-total">/ {pages}</span>}
+              <button className="btn report-page-arrow" aria-label="下一页" disabled={current === pages} onClick={() => setPage(current + 1)}><Ic icon="chevron-right"/></button>
+            </div>
+          </div>
         </div>
       </section>
     </section>

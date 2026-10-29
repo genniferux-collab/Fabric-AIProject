@@ -1,3 +1,4 @@
+import CanvasStepTitle from '../../components/canvas-step-title.jsx';
 import { useEffect, useRef, useLayoutEffect } from "react";
 import { useApp, scrollCanvasTo } from "../../context.jsx";
 import { deviceById } from "../../mock/devices.js";
@@ -16,7 +17,7 @@ import Uc1RulesCanvas from "../uc1-canvas/index.jsx";
 import Ic from "../../components/icon-el/index.jsx";
 
 function CanvasTabs() {
-  const { activePane, openDevices, switchPane, closeDevice, uc2, artifactTabs, activeArtifact, openArtifact, closeArtifact, isDark } = useApp();
+  const { activePane, openDevices, switchPane, closeDevice, uc2, uc2Show, artifactTabs, activeArtifact, openArtifact, closeArtifact, isDark } = useApp();
   return (
     <div className="canvas-tabs" id="canvasTabs" role="tablist" aria-label="画布页签">
       <div className={"canvas-tab panorama-tab" + (activePane === "task" && !activeArtifact ? " active" : "")}>
@@ -42,7 +43,7 @@ function CanvasTabs() {
 }
 
 export default function CanvasArea() {
-  const { canvasHidden, full, setFull, activePane, stage, cardRefs, reportScrollRef, activeArtifact, luiView, uc1Phase, uc3Phase, focusLuiArtifact, uc2, resultTask } = useApp();
+  const { canvasHidden, full, setFull, activePane, stage, cardRefs, reportScrollRef, activeArtifact, luiView, uc1Phase, uc3Phase, focusLuiArtifact, uc2, openArtifact, uc2RuleOriginsRef, uc2Show, resultTask } = useApp();
   const contentRef = useRef(null);
   const innerRef = useRef(null);
   const artifactRef=useRef(null);
@@ -139,6 +140,7 @@ export default function CanvasArea() {
     focusLuiArtifact(event.target.dataset.artifactKind);
   };
 
+  const ruleOrigin=uc2RuleOriginsRef.current[activeArtifact?.slice(9)] || "uc2-report";
   return (
     <main className={"canvas" + (canvasHidden ? " hidden" : "") + (full ? " full" : "")} id="canvas" onClickCapture={onCanvasClick} onKeyDown={onCanvasKeyDown}>
       <div className="canvas-head between">
@@ -158,16 +160,16 @@ export default function CanvasArea() {
           {luiView === "uc1" && (uc1Phase < 4 ? <GeneratingCanvas/> : <Uc1RulesCanvas cardRef={register("uc1Rules")}/>)}
           {luiView === "running" && stage < 0 && <section className="workflow-canvas-step" data-canvas-step="-1" aria-label="思考阶段：正在生成画布"><GeneratingCanvas/></section>}
           <section className={"workflow-canvas-step" + (stage < 0 ? " hidden" : "")} data-canvas-step="0" aria-label="步骤1：全网设备概览">
-            <div id="networkOverviewStep" className="v7-artifact-step-title">{luiView === "running" && stage === 0 ? "正在扫描拓扑并识别全网设备" : "全网设备概览已获取"}</div>
+            <CanvasStepTitle id="networkOverviewStep" kind="network">{luiView === "running" && stage === 0 ? "正在扫描拓扑并识别全网设备" : "全网设备概览已获取"}</CanvasStepTitle>
             {stage >= 0 && <NetworkOverview cardRef={register("network")} />}
           </section>
           <section className={"workflow-canvas-step" + (stage < 2 ? " hidden" : "")} data-canvas-step="2" aria-label="步骤3：规则选择与自动推荐">
-            <div className="v7-artifact-step-title">规则选择与自动推荐<img className="artifact-step-locate" src="./assets/uploads/artifact-locate-panel.svg" width="12" height="12" alt="" aria-hidden="true" /></div>
+            <CanvasStepTitle kind="artifact">规则选择与自动推荐</CanvasStepTitle>
             <MappingCard cardRef={register("artifact")} />
           </section>
           <section className={"workflow-canvas-step" + (stage < 4 ? " hidden" : "")} data-canvas-step="3" aria-label="步骤4：设备基线检查">
-            <div className="v7-artifact-step-title">对HCS1区内的380台设备进行基线检查</div>
-            {stage >= 4 ? <ReportCard cardRef={register("report")} /> : <GeneratingCanvas id="uc4ReportPreparing"/>}
+            <CanvasStepTitle kind="report">对HCS1区内的380台设备进行基线检查</CanvasStepTitle>
+            {stage >= 4 && <ReportCard cardRef={register("report")} />}
           </section>
         </div>
       </div>
@@ -177,7 +179,7 @@ export default function CanvasArea() {
       <section ref={artifactRef} className={"v7-artifact-pane"+(activeArtifact?"":" hidden")+(activeArtifact==="uc3-editor"?" uc3-edit-pane":"")} aria-label="独立卡片页签">
         {luiView === "uc3" && activeArtifact === "uc3-editor" && <Uc3RuleEditor/>}
         {uc2.active && activeArtifact?.startsWith("uc2-edit:") && <Uc2RuleEditor key={activeArtifact} ruleId={activeArtifact.slice(9)}/>}
-        {uc2.active && activeArtifact?.startsWith("uc2-rule:") && <section className="card uc2-rule-detail-card"><Uc2RuleDetail ruleId={activeArtifact.slice(9)}/></section>}
+        {uc2.active && activeArtifact?.startsWith("uc2-rule:") && <section className="card uc2-rule-detail-card"><Uc2RuleDetail ruleId={activeArtifact.slice(9)} returnLabel={ruleOrigin==="uc2-rules"?"返回全部规则":"返回报告"} onBack={()=>ruleOrigin==="uc2-rules"?openArtifact("uc2-rules","全部候选规则"):uc2Show(3)}/></section>}
         {uc2.active && <section key={uc2.runId} className="card uc2-rules-card" hidden={activeArtifact!=="uc2-rules"}><Uc2CandidateList/></section>}
       </section>
       <Uc2Pane />
