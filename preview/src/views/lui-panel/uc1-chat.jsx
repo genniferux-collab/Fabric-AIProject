@@ -35,7 +35,8 @@ export default function Uc1Chat(){
  useEffect(()=>{const deadlines=[Math.max(2600,streamDuration(thought)+500),Math.max(2200,streamDuration(intro)+500),3500,4400,3200,4200];let elapsed=0;const timers=deadlines.map((ms,index)=>{elapsed+=ms;return setTimeout(()=>setPhase(index-1),elapsed);});return()=>timers.forEach(clearTimeout);},[replay]);
  useEffect(()=>{setThoughtOpen(phase===-2);setOpenSteps(phase>=0&&phase<4?{[phase]:true}:{});setSelected(phase>=0&&phase<4?phase:null);if(phase===4){setExpanded(false);setCompletedAt(Date.now());}},[phase]);
  useEffect(()=>setUc1Phase(phase),[phase,setUc1Phase]);
- useEffect(()=>{if(luiFocus?.kind==='uc1Rules'){const tag=root.current?.querySelector('.uc1-rules-artifact');if(tag){highlightLocate(tag);tag.scrollIntoView({block:'nearest',behavior:'smooth'});}}},[luiFocus]);
+ useEffect(()=>{if(luiFocus?.kind==='uc1Rules'&&luiFocus.target==='step'){setExpanded(true);setOpenSteps(value=>({...value,3:true}));setSelected(3);}},[luiFocus]);
+ useEffect(()=>{if(luiFocus?.kind!=='uc1Rules')return;if(luiFocus.target==='step'&&(!expanded||!openSteps[3]))return;let frame=requestAnimationFrame(()=>{const target=root.current?.querySelector(luiFocus.target==='step'?'[data-step-index="3"]':'.uc1-rules-artifact');if(target){highlightLocate(target);target.scrollIntoView({block:'nearest',behavior:'smooth'});}});return()=>cancelAnimationFrame(frame);},[luiFocus,expanded,openSteps]);
  const done=phase===4;
  useEffect(()=>{if(!done){setUc1SummaryStage(-1);return;}const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;if(reduced){setUc1SummaryStage(11);return;}setUc1SummaryStage(0);const timers=uc1SummaryCues.slice(1).map(c=>setTimeout(()=>setUc1SummaryStage(c.index),c.delay));timers.push(setTimeout(()=>setUc1SummaryStage(11),uc1SummaryEnd));return()=>timers.forEach(clearTimeout);},[done,setUc1SummaryStage]);
  const cue=key=>uc1SummaryCues.find(c=>c.key===key);

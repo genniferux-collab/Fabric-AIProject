@@ -1,11 +1,31 @@
-import {useId} from "react";
+import {BorderBeam} from "border-beam";
+import {useApp} from "../../context.jsx";
+import {matchingBeamPaletteCss} from "../mapping-card/beam-palette.js";
 import "./index.css";
+
+// A broad feathered band gives the rotating beam a visible inward scanning footprint.
+const regionScanGlowCss = `
+[data-beam="{id}"][data-active]::before,
+[data-beam="{id}"][data-fading]::before{
+  padding:0;
+  background:conic-gradient(from var(--beam-angle-{id}),
+    transparent 0deg,transparent 145deg,
+    rgba(65,85,255,.08) 175deg,rgba(65,85,255,.6) 210deg,
+    rgba(145,85,245,.65) 250deg,rgba(238,65,105,.5) 280deg,rgba(255,125,65,.18) 305deg,
+    rgba(180,40,240,.12) 320deg,transparent 350deg);
+  -webkit-mask-image:linear-gradient(to bottom,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px),linear-gradient(to top,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px),linear-gradient(to right,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px),linear-gradient(to left,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px);
+  -webkit-mask-composite:source-over;
+  mask-image:linear-gradient(to bottom,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px),linear-gradient(to top,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px),linear-gradient(to right,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px),linear-gradient(to left,#fff 0,rgba(255,255,255,.5) 25px,transparent 95px);
+  mask-composite:add;
+  animation:none;
+  filter:blur(18px) saturate(.45);
+  opacity:calc(var(--beam-opacity-{id}) * .95);
+  mix-blend-mode:screen;
+}`;
 
 // Region and topology exports retain their own coordinates inside one stable card.
 export default function NetworkRegionScan({ progress = 0, lockProgress = 0, topologyProgress = 0 }) {
-  const pulseId = 'region-pulse-' + useId().replace(/:/g, '');
-  const scanProgress = Math.max(0, Math.min(1, progress));
-  const offset = -80 + scanProgress * 638;
+  const {isDark}=useApp();
   const blend = Math.max(0, Math.min(1, lockProgress));
   const topologyBlend = Math.max(0, Math.min(1, topologyProgress));
   const locked = blend > 0;
@@ -19,39 +39,11 @@ export default function NetworkRegionScan({ progress = 0, lockProgress = 0, topo
     <figure className="network-region-scan" aria-label={topology ? "HCS1区网络架构" : locked ? "锁定核心区和HCS1区" : "全网区域识别"} data-region-stage={topology ? "topology" : locked ? "locked" : "scanning"} data-lock-progress={blend.toFixed(3)} data-topology-progress={topologyBlend.toFixed(3)}>
       <svg className="network-region-scan-art" viewBox="0 0 1232 909" preserveAspectRatio="none" role="img" aria-label={description}>
         {/* The exported floor includes a dark outer matte; retain only its framed area. */}
-        <defs>
-          <linearGradient id={pulseId+'-palette'} x1="0" y1="0" x2="1" y2="0">
-            <stop stopColor="#288cff"/><stop offset=".3" stopColor="#9169f5"/>
-            <stop offset=".6" stopColor="#b428f0"/><stop offset=".86" stopColor="#ee4b73"/><stop offset="1" stopColor="#f4a05b"/>
-          </linearGradient>
-          <linearGradient id={pulseId+'-fade'} x1="0" y1="0" x2="0" y2="1">
-            <stop stopColor="white" stopOpacity="0"/><stop offset=".45" stopColor="white" stopOpacity=".18"/>
-            <stop offset=".9" stopColor="white" stopOpacity=".7"/><stop offset="1" stopColor="white" stopOpacity="1"/>
-          </linearGradient>
-          <pattern id={pulseId+'-grid'} patternUnits="userSpaceOnUse" width="10" height="10">
-            <rect x="4" y="4" width="2" height="2" rx=".3" fill="white"/>
-          </pattern>
-          <mask id={pulseId+'-tail'} maskUnits="userSpaceOnUse" x="73" y="0" width="1083" height="82">
-            <rect x="73" y="0" width="1083" height="82" fill={'url(#'+pulseId+'-fade)'}/>
-          </mask>
-          <mask id={pulseId+'-dots'} maskUnits="userSpaceOnUse" x="73" y="0" width="1083" height="82">
-            <rect x="73" y="0" width="1083" height="82" fill={'url(#'+pulseId+'-grid)'}/>
-          </mask>
-          <clipPath id="region-floor-clip"><rect x="73" y="154" width="1083" height="698" /></clipPath>
-        </defs>
+        <defs><clipPath id="region-floor-clip"><rect x="73" y="154" width="1083" height="698" /></clipPath></defs>
         <g clipPath="url(#region-floor-clip)">
         <g opacity={1 - blend}>
           <image href="./assets/uploads/network-regions-v2.svg" width="1232" height="909" />
-          {/* Original straight top-to-bottom sweep, with an ordered 10px dot-grid tail. */}
-          <g className="network-region-intelligence-pulses network-region-smart-sweep" aria-hidden="true" transform={'translate(0 '+(154+offset)+')'}>
-            <g mask={'url(#'+pulseId+'-tail)'}>
-              <rect x="73" y="0" width="1083" height="82" fill={'url(#'+pulseId+'-palette)'} opacity=".18"/>
-              <g mask={'url(#'+pulseId+'-dots)'}>
-                <rect x="73" y="0" width="1083" height="80" fill={'url(#'+pulseId+'-palette)'} opacity=".62"/>
-              </g>
-            </g>
-            <rect x="73" y="80.8" width="1083" height="1.2" fill={'url(#'+pulseId+'-palette)'} opacity=".42"/>
-          </g>
+
         </g>
         <image href="./assets/uploads/network-regions-locked-v2.svg" width="1232" height="909" opacity={blend * (1 - topologyBlend)} />
         </g>
@@ -61,6 +53,9 @@ export default function NetworkRegionScan({ progress = 0, lockProgress = 0, topo
           <image href="./assets/uploads/network-hcs1-topology-v2.svg" width="1248" height="860" clipPath="url(#hcs1-topology-body-clip)" />
         </svg>
       </svg>
+      {blend<1&&<div className="network-region-inner-beam" style={{opacity:1-blend}} aria-hidden="true">
+        <BorderBeam size="md" colorVariant="colorful" hueRange={0} strength={1} brightness={1.7} saturation={0.45} glowSize={2} duration={2.6} theme={isDark?"dark":"light"} borderRadius={0} active css={'[data-beam="{id}"][data-active]{animation:beam-spin-{id} 2.6s linear infinite,beam-fade-in-{id} .2s ease forwards;}'+matchingBeamPaletteCss(isDark).replace(/ellipse (\d+)px (\d+)px/g,(_,w,h)=>`ellipse ${Number(w)*1.5}px ${Number(h)*1.5}px`)+regionScanGlowCss} style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><span className="network-region-beam-surface"/></BorderBeam>
+      </div>}
       <figcaption className="network-region-scan-caption" role="status">{description}</figcaption>
     </figure>
   );

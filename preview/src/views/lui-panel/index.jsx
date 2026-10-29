@@ -44,17 +44,23 @@ function LuiScrollArea({ children, scrollRef, enhanced }) {
   useEffect(() => {
     const main=scrollRef.current, flow=flowRef.current;
     if(!main||!flow)return;
-    let frame=0, previousHeight=flow.getBoundingClientRect().height;
-    const follow=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{main.scrollTop=main.scrollHeight;sync();});};
+    let frame=0, previousHeight=flow.getBoundingClientRect().height, following=true;
+    const pause=()=>{following=false;cancelAnimationFrame(frame);};
+    const review=event=>{if(event.target.closest('button,summary,[role="button"]'))pause();};
+    const wheel=event=>{if(event.deltaY<0)pause();else if(main.scrollHeight-main.clientHeight-main.scrollTop<48)following=true;};
+    const resumeForNewMessage=records=>records.some(record=>[...record.addedNodes].some(node=>node.nodeType===1&&(node.matches('.user-msg')||node.querySelector('.user-msg'))));
+    const follow=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{if(following){main.scrollTop=main.scrollHeight;sync();}});};
     const resize=new ResizeObserver(()=>{const height=flow.getBoundingClientRect().height;if(height>previousHeight+.1)follow();previousHeight=height;});
-    const mutations=new MutationObserver(records=>{if(records.some(record=>record.type==='characterData'||record.addedNodes.length))follow();});
+    const mutations=new MutationObserver(records=>{if(resumeForNewMessage(records))following=true;if(following&&records.some(record=>record.type==='characterData'||record.addedNodes.length))follow();});
+    flow.addEventListener('click',review,true);main.addEventListener('wheel',wheel,{passive:true});main.addEventListener('lui-review',pause);
     resize.observe(flow);mutations.observe(flow,{subtree:true,childList:true,characterData:true});
-    return()=>{resize.disconnect();mutations.disconnect();cancelAnimationFrame(frame);};
+    return()=>{resize.disconnect();mutations.disconnect();cancelAnimationFrame(frame);flow.removeEventListener('click',review,true);main.removeEventListener('wheel',wheel);main.removeEventListener('lui-review',pause);};
   },[scrollRef,sync]);
 
   const onPointerDown = event => {
     const main = scrollRef.current, track = trackRef.current, thumb = thumbRef.current;
     if (!main || !track || !thumb) return;
+    main.dispatchEvent(new Event('lui-review'));
     event.preventDefault();
     const rect = track.getBoundingClientRect();
     const scale = rect.height / track.clientHeight;
@@ -114,12 +120,13 @@ function WorkflowSteps({ active, groupExpanded }) {
       const tag = luiFocus.kind === "report"
         ? stepsRef.current?.closest(".generated-card")?.querySelector(".v7-conclusion-card")
         : stepsRef.current?.querySelector(`[data-step-index="${index}"] [data-lui-artifact="${luiFocus.kind}"]`);
-      const step = tag?.closest('.step') || tag, main = tag?.closest('#luiMain');
-      if (!tag || !step || !main || !tag.getClientRects().length) return;
+      const target = luiFocus.target === 'step' ? stepsRef.current?.querySelector('[data-step-index="'+index+'"]') : tag;
+      const step = target?.closest('.step') || target, main = target?.closest('#luiMain');
+      if (!target || !step || !main || !target.getClientRects().length) return;
       const rect = main.getBoundingClientRect();
       const scale = rect.height / main.offsetHeight || 1;
       main.scrollTo({ top: Math.max(0, main.scrollTop + (step.getBoundingClientRect().top - rect.top) / scale - 16), behavior: 'smooth' });
-      highlightLocate(tag);
+      highlightLocate(target);
       highlightedSeq.current = luiFocus.seq;
     });
     return () => cancelAnimationFrame(frame);

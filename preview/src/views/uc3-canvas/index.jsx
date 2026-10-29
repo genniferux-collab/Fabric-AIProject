@@ -1,3 +1,4 @@
+import CanvasStepTitle from '../../components/canvas-step-title.jsx';
 import {BorderBeam} from 'border-beam';
 import {matchingBeamPaletteCss} from '../mapping-card/beam-palette.js';
 import {useEffect,useLayoutEffect,useRef,useState} from 'react';
@@ -50,7 +51,7 @@ function Graph({ready}){
 export default function Uc3RuleCanvas({cardRef}){
  const {uc3Phase,openArtifact}=useApp();const [ready,setReady]=useState(false);const name='用户接口空闲超时时间检查规则图谱';
  useEffect(()=>{if(uc3Phase<3){setReady(false);return;}const timer=setTimeout(()=>setReady(true),6600);return()=>clearTimeout(timer);},[uc3Phase>=3]);
- return <section className="workflow-canvas-step uc3-rule-step" aria-label="规则图谱"><div className="v7-artifact-step-title">规则图谱</div>
+ return <section className="workflow-canvas-step uc3-rule-step" aria-label="规则图谱"><CanvasStepTitle kind="uc3Rule">规则图谱</CanvasStepTitle>
   <section ref={cardRef} className="card uc3-rule-canvas" data-artifact-kind="uc3Rule" tabIndex={0} aria-label={name}>
    <header className="uc3-rule-heading"><img src="./assets/uploads/uc3-rule/title.svg" width="16" height="16" alt=""/><h2>{name}</h2><span className="uc3-rule-version">V1.0.1</span><div className="uc3-rule-tools"><span className="uc3-rule-tests">{uc3Phase>=4?'正反测试：7/7':'正反测试中…'}</span><button type="button" className="icon-btn" aria-label="编辑规则配置" title="编辑规则配置" onClick={()=>openArtifact("uc3-editor","规则配置编辑")}><img src="./assets/uploads/uc3-rule/edit.svg" width="14" height="14" alt=""/></button><button type="button" className="icon-btn v7-open-card-tab" aria-label="新开页签：巡检规则示意图" title="新开页签" onClick={()=>openArtifact("uc3Rule","巡检规则示意图")}><img src="./assets/uploads/uc3-rule/open.svg" width="14" height="14" alt=""/></button></div></header>
    <Graph ready={ready}/>

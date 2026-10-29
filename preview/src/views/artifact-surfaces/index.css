@@ -32,12 +32,15 @@ html.dark .stage-root:is(.uc4,.uc2) #networkOverviewCard.network-overview-stable
 .stage-root:is(.uc4,.uc2) .card.artifact-card.locate-highlight::after{padding:2px}
 .stage-root:is(.uc4,.uc2) .v7-artifact-tag.locate-highlight::after{padding:1px}
 @keyframes artifact-locate-border{0%,100%{opacity:0}10%,75%{opacity:.8}}
-/* A nested control owns hover feedback; restore only the outer artifact fill.
-   No image, border, selection or locate-highlight styles are reset here. */
-html.dark .stage-root:is(.uc4,.uc2) .canvas .card.artifact-card:hover:has(:is(button,a[href],input,select,textarea,summary,label[for],.search,.v7-rule-select,.v7-top-card,.v7-map-node,.v7-map-split,[role="button"],[role="link"],[role="checkbox"],[role="radio"],[role="tab"],[role="switch"],[role="slider"],[role="combobox"],[role="menuitem"],[data-canvas-interactive]):hover),
-html.dark .stage-root:is(.uc4,.uc2) #networkOverviewCard.network-overview-stable-card:hover:has(:is(button,a[href],input,select,textarea,summary,[role="button"],[role="link"],[data-canvas-interactive]):hover){background-color:rgba(42,42,42,.75)}
+
 
 /* Candidate reports use the same plain report surface, with no dot grid. */
 html.dark .stage-root.uc2 #uc2StageContent.uc2-report-card,
 html.dark .stage-root.uc2 #uc2StageContent.uc2-report-card:hover{background-image:none}
 .stage-root.uc2 #uc2StageContent .v7-report-heading .v7-artifact-icon{width:16px;height:16px;object-fit:contain}
+
+/* Canvas title actions share the exact design glyph and color-only feedback. */
+.stage-root .canvas-step-locate{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;width:20px;height:20px;padding:4px;margin-left:4px;background:transparent;color:#aeaeae;border:0;border-radius:0}
+.stage-root .canvas-step-locate>span{display:block;width:12px;height:12px;background:currentColor;mask:url('./assets/uploads/artifact-locate-panel.svg') center/contain no-repeat;-webkit-mask:url('./assets/uploads/artifact-locate-panel.svg') center/contain no-repeat}
+html .stage-root:is(.uc1,.uc2,.uc3,.uc4) .canvas :is(.canvas-step-locate,.icon-btn,.v7-open-card-tab,.uc2-locate-conversation):hover,html .stage-root:is(.uc1,.uc2,.uc3,.uc4) .lui .step-action:hover{color:#8abef3;background:transparent}
+.stage-root .canvas :is(.icon-btn,.v7-open-card-tab,.uc2-locate-conversation):hover>img,.stage-root .lui .step-action:hover>img{filter:brightness(0) saturate(100%) invert(77%) sepia(29%) saturate(831%) hue-rotate(176deg) brightness(99%) contrast(92%)}

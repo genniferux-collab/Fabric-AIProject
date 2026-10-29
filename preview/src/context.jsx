@@ -150,11 +150,12 @@ export function AppProvider({ children }) {
   const cardRefs = useRef({});
   const [luiFocus, setLuiFocus] = useState(null);
   const luiFocusSeq = useRef(0);
-  const focusLuiArtifact = useCallback(kind => {
+  const focusLuiArtifact = useCallback((kind, target = "artifact") => {
     setLuiOpen(true);
     setAgentActive(true);
     setFull(false);
-    setLuiFocus({ kind, seq: ++luiFocusSeq.current });
+    document.getElementById('luiMain')?.dispatchEvent(new Event('lui-review'));
+    setLuiFocus({ kind, target, seq: ++luiFocusSeq.current });
   }, []);
 
   const toast = useCallback((t) => {

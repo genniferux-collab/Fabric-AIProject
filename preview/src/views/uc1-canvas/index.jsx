@@ -1,3 +1,4 @@
+import CanvasStepTitle from '../../components/canvas-step-title.jsx';
 import {NativeSelect} from '../../components/form-controls/select.jsx';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {useApp} from '../../context.jsx';
@@ -22,7 +23,7 @@ export default function Uc1RulesCanvas({cardRef}){
  const navigate=n=>{setPage(Math.max(1,Math.min(pages,n)));};
  const jumpPage=()=>{if(/^\d+$/.test(jump))navigate(Number(jump));setJump('');};
  const pageNumbers=[...new Set([1,...Array.from({length:5},(_,i)=>Math.max(1,Math.min(pages-4,page-2))+i).filter(x=>x<=pages),pages])].sort((a,b)=>a-b);
- return <section className="workflow-canvas-step uc1-rules-step" aria-label="检查规则详情"><div className="v7-artifact-step-title">规则检查完成</div>
+ return <section className="workflow-canvas-step uc1-rules-step" aria-label="检查规则详情"><CanvasStepTitle kind="uc1Rules">规则检查完成</CanvasStepTitle>
  <section className={"card uc1-rules-canvas"+(!ready?" is-loading":"")} aria-busy={!ready} ref={cardRef} data-artifact-kind="uc1Rules" tabIndex={0} aria-label="检查规则详情 V1.0.1">
   <header className="uc1-rules-heading"><img src="./assets/uploads/lui-report-file.svg" width="16" height="16" alt=""/><h2>检查规则详情</h2><span className="uc1-rule-version">V1.0.1</span><ArtifactOpen kind="uc1Rules" title="检查规则详情"/></header>
   <div inert={!ready?"":undefined} className="uc1-source-cards" aria-label="按规则来源筛选">{uc1Sources.map((item,i)=><button type="button" className={'uc1-source-card'+(source===item.key?' selected':'')+(uc1SummaryStage<([3,6,7,8][i])?' is-skeleton':' is-revealed')} aria-pressed={source===item.key} key={item.key} onClick={()=>setSource(item.key)}><img src={'./assets/uploads/uc1-rules/'+item.key+'.svg'} width="36" height="36" alt=""/><span><strong>{item.count}</strong><span>{item.label}</span></span></button>)}</div>
