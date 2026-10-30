@@ -21,11 +21,11 @@ html.dark .stage-root:is(.uc4,.uc2) .canvas #reportCard.card.artifact-card,
 html.dark .stage-root:is(.uc4,.uc2) .canvas #reportCard.card.artifact-card:hover{background-image:none}
 /* Pixso 8:376010. Hover is a 5% white layer over the 75% #2A2A2A fill. */
 .stage-root:is(.uc4,.uc2) .canvas .card.artifact-card,.stage-root:is(.uc4,.uc2) .canvas #reportCard.card.artifact-card{border-radius:16px}
-.stage-root:is(.uc4,.uc2) .canvas .card.artifact-card .card-title{color:#fff}
-.stage-root:is(.uc4,.uc2) .v7-artifact-tag{height:24px;gap:4px;padding:2px 8px;border:0;border-radius:4px;background:rgba(174,174,174,.15);color:#fff;font-size:12px;font-weight:400;line-height:20px;position:relative;isolation:isolate}
-.stage-root:is(.uc4,.uc2) .v7-artifact-tag:hover{background:linear-gradient(rgba(42,42,42,.3),rgba(42,42,42,.3)),rgba(174,174,174,.15);color:#fff}
+.stage-root:is(.uc4,.uc2) .canvas .card.artifact-card .card-title{color:var(--gray-0)}
+.stage-root:is(.uc4,.uc2) .v7-artifact-tag{height:24px;gap:4px;padding:2px 8px;border:0;border-radius:4px;background:rgba(174,174,174,.15);color:var(--gray-0);font-size:12px;font-weight:400;line-height:20px;position:relative;isolation:isolate}
+.stage-root:is(.uc4,.uc2) .v7-artifact-tag:hover{background:linear-gradient(rgba(42,42,42,.3),rgba(42,42,42,.3)),rgba(174,174,174,.15);color:var(--gray-0)}
 .stage-root:is(.uc4,.uc2) .v7-artifact-tag .v7-artifact-icon{width:12px;height:12px;object-fit:contain}
-.stage-root:is(.uc4,.uc2) .v7-artifact-tag.locate-highlight,.stage-root:is(.uc4,.uc2) .v7-artifact-tag.locate-highlight:hover{background:rgba(243,243,243,.1);color:#fff}
+.stage-root:is(.uc4,.uc2) .v7-artifact-tag.locate-highlight,.stage-root:is(.uc4,.uc2) .v7-artifact-tag.locate-highlight:hover{background:rgba(243,243,243,.1);color:var(--gray-0)}
 html.dark .stage-root:is(.uc4,.uc2) .canvas .card.artifact-card.locate-highlight,
 html.dark .stage-root:is(.uc4,.uc2) #networkOverviewCard.network-overview-stable-card.locate-highlight{background-color:rgba(42,42,42,.75)}
 .stage-root:is(.uc4,.uc2) .card.artifact-card.locate-highlight::after,.stage-root:is(.uc4,.uc2) .v7-artifact-tag.locate-highlight::after{inset:0;border-radius:inherit;background:conic-gradient(from 90deg at 45% 40%,#669fff 17.9%,#9566ff 36.7%,#bc6467 53.2%,#cd5b5a 54.7%,#669fff 78.6%);animation:artifact-locate-border 2.4s ease forwards}
@@ -40,7 +40,7 @@ html.dark .stage-root.uc2 #uc2StageContent.uc2-report-card:hover{background-imag
 .stage-root.uc2 #uc2StageContent .v7-report-heading .v7-artifact-icon{width:16px;height:16px;object-fit:contain}
 
 /* Canvas title actions share the exact design glyph and color-only feedback. */
-.stage-root .canvas-step-locate{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;width:20px;height:20px;padding:4px;margin-left:4px;background:transparent;color:#aeaeae;border:0;border-radius:0}
+.stage-root .canvas-step-locate{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;width:20px;height:20px;padding:4px;margin-left:4px;background:transparent;color:var(--gray-30);border:0;border-radius:0}
 .stage-root .canvas-step-locate>span{display:block;width:12px;height:12px;background:currentColor;mask:url('./assets/uploads/artifact-locate-panel.svg') center/contain no-repeat;-webkit-mask:url('./assets/uploads/artifact-locate-panel.svg') center/contain no-repeat}
-html .stage-root:is(.uc1,.uc2,.uc3,.uc4) .canvas :is(.canvas-step-locate,.icon-btn,.v7-open-card-tab,.uc2-locate-conversation):hover,html .stage-root:is(.uc1,.uc2,.uc3,.uc4) .lui .step-action:hover{color:#8abef3;background:transparent}
+html .stage-root:is(.uc1,.uc2,.uc3,.uc4) .canvas :is(.canvas-step-locate,.icon-btn,.v7-open-card-tab,.uc2-locate-conversation):hover,html .stage-root:is(.uc1,.uc2,.uc3,.uc4) .lui .step-action:hover{color:var(--brand-20);background:transparent}
 .stage-root .canvas :is(.icon-btn,.v7-open-card-tab,.uc2-locate-conversation):hover>img,.stage-root .lui .step-action:hover>img{filter:brightness(0) saturate(100%) invert(77%) sepia(29%) saturate(831%) hue-rotate(176deg) brightness(99%) contrast(92%)}

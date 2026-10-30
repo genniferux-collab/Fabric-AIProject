@@ -1,6 +1,6 @@
 /* migrated from config-agent-merged.html — stage */
 
-.stage-root{color-scheme:dark;--primary:#0067d1;--link:#5ca2e9;--text:#fff;--secondary:#c9c9c9;--muted:#939393;--bg:#000;--panel:#191919;--sub:#242424;--line:rgba(243,243,243,.15);--blue:#5990fd;--purple:#a18bfa;--success:#36c18d;--shadow:0 1px 6px #0008}
+.stage-root{color-scheme:dark;--primary:var(--brand-50);--link:var(--brand-30);--text:var(--gray-0);--secondary:var(--gray-20);--muted:var(--gray-40);--bg:var(--gray-100);--panel:var(--gray-90);--sub:#242424;--line:rgba(243,243,243,.15);--blue:#5990fd;--purple:#a18bfa;--success:var(--mint-40);--shadow:0 1px 6px #0008}
 
 *{box-sizing:border-box}
 
@@ -12,7 +12,7 @@ button{cursor:pointer;color:inherit}
 
 button:disabled{cursor:default;opacity:.45}
 
-button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid #5ca2e9;outline-offset:3px}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--brand-30);outline-offset:3px}
 
 button{border:0;background:none}
 
@@ -22,7 +22,7 @@ svg{flex-shrink:0}
 
 .icon-btn{width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border-radius:4px;color:var(--secondary)}
 
-.icon-btn:hover{color:#8abef3}
+.icon-btn:hover{color:var(--brand-20)}
 
 .row{display:flex;align-items:center;gap:8px}
 
@@ -40,9 +40,9 @@ svg{flex-shrink:0}
 
 .btn:hover{border-color:var(--link);color:var(--link)}
 
-.btn.primary{border:0;background:var(--primary);color:#fff}
+.btn.primary{border:0;background:var(--primary);color:var(--gray-0)}
 
-.btn.primary:hover{background:#2e86de}
+.btn.primary:hover{background:var(--brand-40)}
 
 .stage{position:absolute;width:1920px;height:1080px;transform-origin:top left;background:var(--bg)}
 
@@ -50,17 +50,17 @@ svg{flex-shrink:0}
 
 .rail .icon-btn{width:36px;height:36px}
 
-.rail .active{background:#112857;color:#8abef3;position:relative}
+.rail .active{background:var(--blue-80);color:var(--brand-20);position:relative}
 
-.rail .active:before{content:"";position:absolute;left:-6px;top:8px;bottom:8px;background:#5ca2e9;width:2px}
+.rail .active:before{content:"";position:absolute;left:-6px;top:8px;bottom:8px;background:var(--brand-30);width:2px}
 
 .rail-bottom{margin-top:auto;display:grid;gap:16px}
 
-@keyframes flash{0%,100%{box-shadow:0 0 0 0 #5ca2e900}35%{box-shadow:0 0 0 2px #5ca2e9,0 0 24px #5ca2e933}}
+@keyframes flash{0%,100%{box-shadow:0 0 0 0 #5ca2e900}35%{box-shadow:0 0 0 2px var(--brand-30),0 0 24px #5ca2e933}}
 
 .tag{padding:2px 8px;font-size:12px;line-height:20px;border-radius:4px;background:#ffffff0a;color:var(--secondary)}
 
-.tag.blue{background:#2070f31a;color:#8abef3}
+.tag.blue{background:#2070f31a;color:var(--brand-20)}
 
 .tag.purple{background:#a18bfa1a;color:#b5a3ff}
 
@@ -72,19 +72,19 @@ svg{flex-shrink:0}
 
 .detail-devices{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
 
-.detail-devices button{font-size:12px;padding:4px 10px;background:#ffffff0a;border-radius:4px;color:#c9c9c9}
+.detail-devices button{font-size:12px;padding:4px 10px;background:#ffffff0a;border-radius:4px;color:var(--gray-20)}
 
 .detail-devices button:hover{color:var(--link)}
 
 .detail-count{font-size:12px;color:var(--muted);margin-top:16px}
 
-.toast{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);background:#393939;border:1px solid #555;padding:12px 20px;border-radius:6px;z-index:20;display:none;font-size:14px;box-shadow:0 8px 30px #0009}
+.toast{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);background:var(--gray-70);border:1px solid #555;padding:12px 20px;border-radius:6px;z-index:20;display:none;font-size:14px;box-shadow:0 8px 30px #0009}
 
 .pill{display:inline-flex;align-items:center;gap:4px}
 
 .hidden{display:none!important}
 
-html:not(.dark) .stage-root{color-scheme:light;--text:#191919;--secondary:#555;--muted:#777;--bg:#f3f3f3;--panel:#fff;--sub:#f3f3f3;--line:#dfdfdf;--link:#0067d1}
+html:not(.dark) .stage-root{color-scheme:light;--text:var(--gray-90);--secondary:#555;--muted:var(--gray-50);--bg:var(--gray-05);--panel:var(--gray-0);--sub:var(--gray-05);--line:var(--gray-10);--link:var(--brand-50)}
 
 .stage-root{--fail:#ed7880;--good:#48bc8e;--fail-bg:#e7434a14;--good-bg:#36c18d10}
 

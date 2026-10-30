@@ -1,12 +1,12 @@
 
 /* UC4 inventory card, measured from Pixso 3:69463. */
 .stage-root.uc4 #networkOverviewCard.network-overview-stable-card{aspect-ratio:1248 / 860;border-radius:16px}
-.stage-root.uc4 #networkOverviewCard .network-array-art .v7-network-device.identified>rect{fill:#2e86de}
+.stage-root.uc4 #networkOverviewCard .network-array-art .v7-network-device.identified>rect{fill:var(--brand-40)}
 .stage-root.uc4 #networkOverviewCard .network-array-art .v7-network-device>rect{filter:drop-shadow(0 5px 7px #0004)}
 .stage-root.uc4 #networkOverviewCard .array-panel{fill:#f3f3f30d;stroke:#ffffff0d}
 .stage-root.uc4 #networkOverviewCard .array-summary-divider{stroke:#f3f3f326;stroke-width:1}
-.stage-root.uc4 #networkOverviewCard .array-group-title{font-size:16px;fill:#c9c9c9;font-weight:400}
-.stage-root.uc4 #networkOverviewCard .array-model{font-size:11px;fill:#939393}
+.stage-root.uc4 #networkOverviewCard .array-group-title{font-size:16px;fill:var(--gray-20);font-weight:400}
+.stage-root.uc4 #networkOverviewCard .array-model{font-size:11px;fill:var(--gray-40)}
 .stage-root.uc4 #networkOverviewCard .network-overview-heading .card-title{font-size:16px;line-height:24px;font-weight:500}
 
 .stage-root.uc4 #networkOverviewCard[data-scan-phase="regions"] .network-array-header,.stage-root.uc4 #networkOverviewCard[data-scan-phase="focus"] .network-array-header{transform:translateY(24px)}

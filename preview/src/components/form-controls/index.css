@@ -1,6 +1,6 @@
 /* Pixso mWi6uLzz3CHYi05K6LePlw · 3:98236. Shared form primitives; layout widths stay with each view. */
-html{--control-border:#c9c9c9;--control-hover:#191919;--control-focus:#0067d1;--control-ring:#b8d9f9;--control-copy:#191919;--control-placeholder:#aeaeae;--control-icon:#595959;--control-menu:#fff;--control-disabled:#1919190d;--control-disabled-copy:#c9c9c9;--control-error:#e02128;--control-brand:#0067d1;--control-option-hover:#1919190f;--control-option-selected:#0067d10f}
-html.dark{--control-border:#777;--control-hover:#aeaeae;--control-focus:#2e86de;--control-ring:#002e6a;--control-copy:#fff;--control-placeholder:#939393;--control-icon:#aeaeae;--control-menu:#393939;--control-disabled:#f3f3f30d;--control-disabled-copy:#777;--control-error:#f24751;--control-option-hover:#f3f3f30f;--control-option-selected:#0067d126}
+html{--control-border:var(--gray-20);--control-hover:var(--gray-90);--control-focus:var(--brand-50);--control-ring:var(--brand-10);--control-copy:var(--gray-90);--control-placeholder:var(--gray-30);--control-icon:var(--gray-60);--control-menu:var(--gray-0);--control-disabled:#1919190d;--control-disabled-copy:var(--gray-20);--control-error:var(--red-50);--control-brand:var(--brand-50);--control-option-hover:#1919190f;--control-option-selected:#0067d10f}
+html.dark{--control-border:var(--gray-50);--control-hover:var(--gray-30);--control-focus:var(--brand-40);--control-ring:var(--brand-80);--control-copy:var(--gray-0);--control-placeholder:var(--gray-40);--control-icon:var(--gray-30);--control-menu:var(--gray-70);--control-disabled:#f3f3f30d;--control-disabled-copy:var(--gray-50);--control-error:#f24751;--control-option-hover:#f3f3f30f;--control-option-selected:#0067d126}
 .stage-root.pc-layout .ui-kit-select{position:relative;display:inline-flex;vertical-align:middle;flex:0 1 auto;width:100%;min-width:0;height:32px;box-sizing:border-box;color:var(--control-copy)}
 .stage-root.pc-layout .ui-kit-select>.ui-kit-trigger{position:relative;display:flex;align-items:center;gap:4px;width:100%;min-width:0;height:32px;box-sizing:border-box;padding:4px 33px 4px 11px;margin:0;border:1px solid var(--control-border);border-radius:4px;background:transparent;color:var(--control-copy);font-family:'HarmonyOS Sans SC',sans-serif;font-size:14px;font-weight:400;line-height:22px;text-align:left;cursor:pointer;outline:none;box-shadow:none;transition:border-color .15s,box-shadow .15s}
 .stage-root.pc-layout .ui-kit-trigger>span{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -16,8 +16,8 @@ html:not(.dark) .ui-kit-options{box-shadow:0 4px 12px #00000029}
 .ui-kit-options>.ui-kit-option{display:flex;align-items:center;gap:4px;box-sizing:border-box;flex:none;width:100%;height:32px;min-height:32px;margin:0;padding:5px 8px;border:0;border-radius:4px;background:transparent;color:var(--control-copy);font-family:'HarmonyOS Sans SC',sans-serif;font-size:14px;font-weight:400;line-height:22px;text-align:left;cursor:pointer;outline:none}
 .ui-kit-option>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
 .ui-kit-options>.ui-kit-option.is-active{background:var(--control-option-hover)}
-.ui-kit-options>.ui-kit-option[aria-selected=true]{color:#5ca2e9;background:var(--control-option-selected)}
-html:not(.dark) .ui-kit-options>.ui-kit-option[aria-selected=true]{color:#0067d1}
+.ui-kit-options>.ui-kit-option[aria-selected=true]{color:var(--brand-30);background:var(--control-option-selected)}
+html:not(.dark) .ui-kit-options>.ui-kit-option[aria-selected=true]{color:var(--brand-50)}
 .ui-kit-options>.ui-kit-option:disabled{color:var(--control-disabled-copy);background:transparent;cursor:not-allowed}
 .uc3-kit-priority-dot{width:8px;height:8px;border-radius:50%;display:block;flex:none}
 /* Existing layout owners retain their width; the replacement selector only supplies the control skin. */
@@ -60,11 +60,11 @@ html .stage-root.pc-layout .uc1-rules-canvas input[type=checkbox]{border-radius:
 html .stage-root.pc-layout .uc3-edit-condition-grid input[type=radio]{border-radius:50%}
 html .stage-root.pc-layout :is(.uc1-rules-canvas input[type=checkbox],.uc3-edit-condition-grid input[type=radio]):hover:where(:not(:disabled)){border-color:var(--control-hover)}
 html .stage-root.pc-layout :is(.uc1-rules-canvas input[type=checkbox],.uc3-edit-condition-grid input[type=radio]):is(:checked,:indeterminate){border-color:var(--control-brand);background:var(--control-brand)}
-html .stage-root.pc-layout .uc1-rules-canvas input[type=checkbox]:checked::after{content:'';width:8px;height:4px;border:0;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;background:transparent;transform:translateY(-1px) rotate(-45deg)}
-html .stage-root.pc-layout .uc1-rules-canvas input[type=checkbox]:indeterminate::after{content:'';width:8px;height:1px;border:0;background:#fff;transform:none}
-html .stage-root.pc-layout .uc3-edit-condition-grid input[type=radio]:checked::after{content:'';position:static;width:7px;height:7px;border-radius:50%;background:#fff;transform:none;box-shadow:0 0 4px #0006}
+html .stage-root.pc-layout .uc1-rules-canvas input[type=checkbox]:checked::after{content:'';width:8px;height:4px;border:0;border-left:1.5px solid var(--gray-0);border-bottom:1.5px solid var(--gray-0);background:transparent;transform:translateY(-1px) rotate(-45deg)}
+html .stage-root.pc-layout .uc1-rules-canvas input[type=checkbox]:indeterminate::after{content:'';width:8px;height:1px;border:0;background:var(--gray-0);transform:none}
+html .stage-root.pc-layout .uc3-edit-condition-grid input[type=radio]:checked::after{content:'';position:static;width:7px;height:7px;border-radius:50%;background:var(--gray-0);transform:none;box-shadow:0 0 4px #0006}
 html .stage-root.pc-layout :is(.uc1-rules-canvas input[type=checkbox],.uc3-edit-condition-grid input[type=radio]):focus-visible{outline:1px solid var(--control-focus);outline-offset:2px}
-html .stage-root.pc-layout .uc1-rules-canvas input[type=checkbox]:disabled{background:#595959;border-color:#777;cursor:not-allowed;opacity:.6}
+html .stage-root.pc-layout .uc1-rules-canvas input[type=checkbox]:disabled{background:var(--gray-60);border-color:var(--gray-50);cursor:not-allowed;opacity:.6}
 /* The LUI command composer has its own established geometry; share text/state colors only. */
 html .stage-root.pc-layout .composer textarea{font-size:14px;line-height:22px;color:var(--control-copy)}
 html .stage-root.pc-layout .composer textarea::placeholder{color:var(--control-placeholder);opacity:1}
@@ -76,14 +76,14 @@ html .stage-root.pc-layout .composer textarea::placeholder{color:var(--control-p
 .stage-root.pc-layout #reportCard.report-design .v7-lens.ui-kit-segmented{display:inline-flex;align-items:center;box-sizing:border-box;gap:4px;height:32px;padding:2px;border:0;border-radius:6px;background:#f3f3f333}
 .stage-root.pc-layout .ui-kit-segmented>button,
 .stage-root.pc-layout #mappingCard.mapping-design .filters.ui-kit-segmented>button,
-.stage-root.pc-layout #reportCard.report-design .v7-lens.ui-kit-segmented>button{display:flex;align-items:center;justify-content:center;box-sizing:border-box;gap:4px;height:28px;padding:3px 16px;border:0;border-radius:4px;color:#c9c9c9;background:transparent;font:400 14px/22px 'HarmonyOS Sans SC',sans-serif;white-space:nowrap}
+.stage-root.pc-layout #reportCard.report-design .v7-lens.ui-kit-segmented>button{display:flex;align-items:center;justify-content:center;box-sizing:border-box;gap:4px;height:28px;padding:3px 16px;border:0;border-radius:4px;color:var(--gray-20);background:transparent;font:400 14px/22px 'HarmonyOS Sans SC',sans-serif;white-space:nowrap}
 .stage-root.pc-layout .ui-kit-segmented>button:hover:not([aria-pressed=true]){background:var(--control-option-hover)}
 .stage-root.pc-layout .ui-kit-segmented>button[aria-pressed=true],
 .stage-root.pc-layout #mappingCard.mapping-design .filters.ui-kit-segmented>button[aria-pressed=true],
-.stage-root.pc-layout #reportCard.report-design .v7-lens.ui-kit-segmented>button[aria-pressed=true]{background:#0067d1;color:#fff;box-shadow:0 1px 6px #00000080}
+.stage-root.pc-layout #reportCard.report-design .v7-lens.ui-kit-segmented>button[aria-pressed=true]{background:var(--brand-50);color:var(--gray-0);box-shadow:0 1px 6px #00000080}
 .stage-root.pc-layout .ui-kit-segmented>button:focus-visible{outline:1px solid var(--control-focus);outline-offset:1px}
 html:not(.dark) .stage-root.pc-layout .ui-kit-segmented{background:#1919190d}
-html:not(.dark) .stage-root.pc-layout .ui-kit-segmented>button:not([aria-pressed=true]){color:#595959}
+html:not(.dark) .stage-root.pc-layout .ui-kit-segmented>button:not([aria-pressed=true]){color:var(--gray-60)}
 html .stage-root.pc-layout :is(.search,.uc1-rules-search,.baseline-rule-search):has(input:disabled){background:var(--control-disabled);border-color:var(--control-border);box-shadow:none;cursor:not-allowed}
 html .stage-root.pc-layout :is(.search,.uc1-rules-search,.baseline-rule-search) input:disabled{color:var(--control-disabled-copy);cursor:not-allowed}
 html .stage-root.pc-layout :is(.search,.uc1-rules-search,.baseline-rule-search):has(input[aria-invalid=true]){border-color:var(--control-error)}/* Old report selectors target the page-size class itself; remove that outer border after replacing native selects. */

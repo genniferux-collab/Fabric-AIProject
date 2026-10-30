@@ -13,7 +13,7 @@ const metricShortcuts = [{id:"inspection",glyph:"inspection",title:"网络配置
 const inspectionLabels = [{id:"verification",label:"待验证"},{id:"analyzing",label:"分析中"},{id:"completed",label:"已完成"}];
 const periods = ["最近三小时", "最近一天", "最近一周", "最近半个月"];
 
-export default function DataCenterNetworkAgent({onOpenAgent,onFocusEvent,onBlurEvent,focusedEventId}) {
+export default function DataCenterNetworkAgent({onOpenAgent,onOpenSkill,onFocusEvent,onBlurEvent,focusedEventId}) {
   const {networkTasks,openNetworkTask}=useApp();
   const events=networkTasks.events.filter(event=>event.status!=="completed");
   const liveMetrics=useLiveMetrics();
@@ -73,19 +73,19 @@ export default function DataCenterNetworkAgent({onOpenAgent,onFocusEvent,onBlurE
         </div>
         <div className="fabric-home-stats-reveal" aria-hidden={metricsCollapsed} inert={metricsCollapsed?"":undefined}><div className="fabric-home-stats-clip">
         <div className="fabric-home-stats" id="fabric-home-metric-cards">
-          <button type="button" id="fabric-home-metric-inspection" className={`fabric-home-stat fabric-home-inspection${focusedMetric==="inspection"?" is-selected":""}`} onClick={onOpenAgent} aria-label={`网络配置检查，总任务数${inspectionTotal}，${inspectionDescription}，打开AI对话`}>
+          <button type="button" id="fabric-home-metric-inspection" className={`fabric-home-stat fabric-home-inspection${focusedMetric==="inspection"?" is-selected":""}`} onClick={()=>onOpenSkill?.("inspection")} aria-label={`网络配置检查，总任务数${inspectionTotal}，${inspectionDescription}，查看执行详情`}>
             <h3><img src={`${assetRoot}inspection.svg`} alt=""/>网络配置检查</h3>
             <div className="fabric-home-inspection-detail"><div className="fabric-home-inspection-total"><strong><LiveMetricValue value={inspectionTotal} minDigits={2}/></strong><span>总任务数</span></div><div className="fabric-home-inspection-distribution"><div className="fabric-home-inspection-track"><div className="fabric-home-inspection-bar" role="img" aria-label={`任务分布：${inspectionDescription}`}>{inspectionStates.map(status=><span key={status.id} className={status.id} style={{flex:status.value}}/>)}</div></div><ul aria-label="配置检查任务状态">{inspectionStates.map(status=><li key={status.id}><i className={status.id}/><span>{status.label}</span><b><LiveMetricValue value={status.value}/></b></li>)}</ul></div></div>
             <HomeCardBeam duration={6.8}/>
           </button>
-          <Stat glyph="generation" title="网络配置生成" primary={liveMetrics.generation.processing} secondary={liveMetrics.generation.completed} note="处理中 / 处理完成" selected={focusedMetric==="generation"} onClick={onOpenAgent} beamDuration={7.6}/>
-          <Stat glyph="fault" title="网络故障治理" primary={liveMetrics.fault.processing} secondary={liveMetrics.fault.completed} note="进行中 / 处理完成" selected={focusedMetric==="fault"} onClick={onOpenAgent} beamDuration={8.4}/>
+          <Stat glyph="generation" title="网络配置生成" primary={liveMetrics.generation.processing} secondary={liveMetrics.generation.completed} note="处理中 / 处理完成" selected={focusedMetric==="generation"} onClick={()=>onOpenSkill?.("generation")} beamDuration={7.6}/>
+          <Stat glyph="fault" title="网络故障治理" primary={liveMetrics.fault.processing} secondary={liveMetrics.fault.completed} note="进行中 / 处理完成" selected={focusedMetric==="fault"} onClick={()=>onOpenSkill?.("fault")} beamDuration={8.4}/>
         </div>
         </div></div>
       </section>
       <section className="fabric-home-attention" ref={attentionRef} tabIndex={0} aria-labelledby="fabric-home-attention-heading" onScroll={attentionScroll.onScroll} onKeyDown={attentionScroll.onKeyDown} onTouchStart={attentionScroll.onTouchStart} onTouchMove={attentionScroll.onTouchMove} onPointerDown={attentionScroll.onPointerDown}>
         <div className="fabric-home-attention-header">
-        <div className="fabric-home-section-title"><h2 id="fabric-home-attention-heading">待您关注</h2><a role="button" tabIndex={0} onClick={onOpenAgent} onKeyDown={event=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();onOpenAgent?.();}}}>更多</a></div>
+        <div className="fabric-home-section-title"><h2 id="fabric-home-attention-heading">待您关注</h2><a role="button" tabIndex={0} onClick={()=>onOpenSkill?.("attention")} onKeyDown={event=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();onOpenSkill?.("attention");}}}>更多</a></div>
         <div className="fabric-home-tabs" role="tablist" aria-label="关注任务状态" style={{"--active-tab":activeTab}}><span className="fabric-home-tabs-indicator" aria-hidden="true"/>{tabs.map((tab,index)=><button type="button" key={tab.label} role="tab" id={`fabric-home-tab-${index}`} aria-controls="fabric-home-events" aria-selected={activeTab===index} className={activeTab===index?"is-active":""} onClick={()=>selectAttentionTab(index)}>{tab.label}<b className={tab.filter||""}>{events.filter(event=>!tab.filter||event.status===tab.filter).length}</b>{attentionBeam===index&&<OrangePurpleBeam className="fabric-home-tab-beam" duration={4.8} borderRadius={20} strength={.84}/>}</button>)}</div>
         </div>
         <div className="fabric-home-events" id="fabric-home-events" ref={eventsRef} role="tabpanel" aria-labelledby={`fabric-home-tab-${activeTab}`}>

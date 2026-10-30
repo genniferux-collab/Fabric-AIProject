@@ -6,30 +6,30 @@
 .stage-root.uc4 #mappingCard.mapping-design .summary-item strong{font-size:24px;font-weight:600;line-height:28px;color:var(--text)}
 .stage-root.uc4 #mappingCard.mapping-design .summary-item span{color:var(--secondary)}
 html.dark .stage-root.uc4 #mappingCard.mapping-design .filters[aria-label="厂商筛选"]{width:220px;height:32px;padding:2px;gap:0;background:#555;border-radius:6px;flex-shrink:0}
-.stage-root.uc4 #mappingCard.mapping-design .filter{flex:1;height:28px;padding:0 8px;color:#c9c9c9;font-size:14px;white-space:nowrap}
+.stage-root.uc4 #mappingCard.mapping-design .filter{flex:1;height:28px;padding:0 8px;color:var(--gray-20);font-size:14px;white-space:nowrap}
 .stage-root.uc4 #mappingCard.mapping-design .filter:first-child{flex:0 0 88px}
-.stage-root.uc4 #mappingCard.mapping-design .filter.selected{background:#0067d1;color:#fff;box-shadow:0 1px 4px #0005}
+.stage-root.uc4 #mappingCard.mapping-design .filter.selected{background:var(--brand-50);color:var(--gray-0);box-shadow:0 1px 4px #0005}
 .stage-root.uc4 #mappingCard.mapping-design .mapping-design-search{margin-top:8px;height:32px}
-.stage-root.uc4 #mappingCard.mapping-design .search{width:286px;max-width:100%;height:32px;border:1px solid #777;border-radius:3px;background:transparent}
+.stage-root.uc4 #mappingCard.mapping-design .search{width:286px;max-width:100%;height:32px;border:1px solid var(--gray-50);border-radius:3px;background:transparent}
 .stage-root.uc4 #mappingCard.mapping-design .search input{font-size:14px}
 .stage-root.uc4 #mappingCard.mapping-design .graph-head{grid-template-columns:var(--mapping-column) 1fr var(--mapping-column);margin:46px 0 12px;height:22px}
 .stage-root.uc4 #mappingCard.mapping-design .column-title{gap:0;font-size:14px;line-height:22px;color:var(--text)}
 .stage-root.uc4 #mappingCard.mapping-design .column-title:last-child{transform:translateY(24px)}
 .stage-root.uc4 #mappingCard.mapping-design .match-caption{font-size:12px}
 .stage-root.uc4 #mappingCard.mapping-design .graph{background:none;border-radius:0}
-.stage-root.uc4 #mappingCard.mapping-design .vendor{width:var(--mapping-column);height:22px;gap:0;font-size:14px;line-height:22px;color:#c9c9c9}
-.stage-root.uc4 #mappingCard.mapping-design .vendor span:last-child{margin-left:0;color:#c9c9c9}
+.stage-root.uc4 #mappingCard.mapping-design .vendor{width:var(--mapping-column);height:22px;gap:0;font-size:14px;line-height:22px;color:var(--gray-20)}
+.stage-root.uc4 #mappingCard.mapping-design .vendor span:last-child{margin-left:0;color:var(--gray-20)}
 .stage-root.uc4 #mappingCard.mapping-design .mapping-vendor-mark{width:95.24px;height:20px;object-fit:contain;object-position:left center;flex-shrink:0}
 .stage-root.uc4 #mappingCard.mapping-design .h3c .mapping-vendor-mark{width:57.7px;height:15px}
 .stage-root.uc4 #mappingCard.mapping-design .v7-map-node,.stage-root.uc4 #mappingCard.mapping-design .v7-map-split{width:var(--mapping-column)}
 .stage-root.uc4 #mappingCard.mapping-design .v7-map-split>.v7-map-device-card{width:100%}
-.stage-root.uc4 #mappingCard.mapping-design .v7-map-node{border:0;border-radius:8px;background:#393939}
+.stage-root.uc4 #mappingCard.mapping-design .v7-map-node{border:0;border-radius:8px;background:var(--gray-70)}
 .stage-root.uc4 #mappingCard.mapping-design .v7-map-node::after{inset:0;border-color:transparent}
-.stage-root.uc4 #mappingCard.mapping-design .v7-map-node>.node{gap:12px;padding:12px;border-radius:8px;background:#393939}
-.stage-root.uc4 #mappingCard.mapping-design .node-name{font-size:14px;line-height:22px;font-weight:400;color:#f3f3f3}
-.stage-root.uc4 #mappingCard.mapping-design .node-meta{font-size:12px;line-height:20px;color:#939393}
-.stage-root.uc4 #mappingCard.mapping-design .node-count{font-size:20px;line-height:28px;font-weight:500;color:#fff}
-.stage-root.uc4 #mappingCard.mapping-design .node-count span{font-size:12px;color:#939393}
+.stage-root.uc4 #mappingCard.mapping-design .v7-map-node>.node{gap:12px;padding:12px;border-radius:8px;background:var(--gray-70)}
+.stage-root.uc4 #mappingCard.mapping-design .node-name{font-size:14px;line-height:22px;font-weight:400;color:var(--gray-05)}
+.stage-root.uc4 #mappingCard.mapping-design .node-meta{font-size:12px;line-height:20px;color:var(--gray-40)}
+.stage-root.uc4 #mappingCard.mapping-design .node-count{font-size:20px;line-height:28px;font-weight:500;color:var(--gray-0)}
+.stage-root.uc4 #mappingCard.mapping-design .node-count span{font-size:12px;color:var(--gray-40)}
 .stage-root.uc4 #mappingCard.mapping-design .node-icon{height:32px;width:32px;flex-shrink:0;background:transparent;color:#20c398;border-radius:4px}
 .stage-root.uc4 #mappingCard.mapping-design .ruleset .node-icon{width:36px;height:36px;color:#a9baff;border-radius:50%}
 .stage-root.uc4 #mappingCard.mapping-design .node-icon img{display:block;width:100%;height:100%}

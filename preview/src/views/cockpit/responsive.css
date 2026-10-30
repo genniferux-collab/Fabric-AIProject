@@ -11,13 +11,13 @@
 .pc-layout .figma-dashboard .dcna-events{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:0 2px 16px 0}
 .pc-layout .figma-dashboard .dcna-event{flex-shrink:0;padding:14px;box-shadow:none}.pc-layout .figma-dashboard .dcna-event-head b{font-size:13px;line-height:1.7;overflow-wrap:anywhere}.pc-layout .figma-dashboard .dcna-event-body{font-size:12px;line-height:1.8}
 /* Center the original China artwork below the fixed metrics, with a 24px safe margin. */
-.pc-layout .figma-map{container:home-map / size;background:#191919;isolation:isolate}
+.pc-layout .figma-map{container:home-map / size;background:var(--gray-90);isolation:isolate}
 .pc-layout .figma-map-canvas{position:absolute;inset:0;transform-origin:0 0;transition:none;will-change:auto}
 .pc-layout .figma-map-plane{--source-map-scale:1;position:absolute;aspect-ratio:auto;transform:none}
-.pc-layout .figma-map-edges{position:absolute;inset:0;background-color:#191919;background-image:repeating-linear-gradient(90deg,#202020 0,#202020 1px,#191919 1px,#191919 3px);pointer-events:none}
+.pc-layout .figma-map-edges{position:absolute;inset:0;background-color:var(--gray-90);background-image:repeating-linear-gradient(90deg,#202020 0,#202020 1px,var(--gray-90) 1px,var(--gray-90) 3px);pointer-events:none}
 .pc-layout .figma-map-vector-stack{position:absolute;inset:0;z-index:1;overflow:visible;pointer-events:none}
-.pc-layout .figma-map-base{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:fill;object-position:center;filter:none;mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 18px),transparent),linear-gradient(180deg,transparent,#000 18px,#000 calc(100% - 18px),transparent);mask-composite:intersect;user-select:none;pointer-events:none}
-.pc-layout .figma-map-top-mask{position:absolute;z-index:2;top:0;left:0;right:0;background:linear-gradient(180deg,#191919 0%,#191919 56%,#19191900 100%);pointer-events:none}
+.pc-layout .figma-map-base{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:fill;object-position:center;filter:none;mask-image:linear-gradient(90deg,transparent,var(--gray-100) 18px,var(--gray-100) calc(100% - 18px),transparent),linear-gradient(180deg,transparent,var(--gray-100) 18px,var(--gray-100) calc(100% - 18px),transparent);mask-composite:intersect;user-select:none;pointer-events:none}
+.pc-layout .figma-map-top-mask{position:absolute;z-index:2;top:0;left:0;right:0;background:linear-gradient(180deg,var(--gray-90) 0%,var(--gray-90) 56%,#19191900 100%);pointer-events:none}
 .pc-layout .figma-map-controls{position:absolute;z-index:4;top:auto;right:24px;bottom:24px;display:flex;flex-direction:column;width:32px;height:112px;padding:0;border:0;border-radius:8px;background:#393939b3;box-shadow:none;backdrop-filter:blur(3.333px);overflow:hidden}
 .pc-layout .figma-map-controls::after{content:"";position:absolute;left:8px;right:8px;top:72px;height:1px;background:#eeeeee33;pointer-events:none}
 .pc-layout .figma-map-controls button{display:grid;place-items:center;flex:none;width:32px;height:32px;padding:0;border:0;background:transparent;cursor:pointer}
@@ -31,8 +31,8 @@
 .pc-layout .map-gis-switch>img{position:absolute;left:-3px;top:-3px;width:78px;height:78px;max-width:none;pointer-events:none}
 .pc-layout .map-gis-switch:focus-visible{outline:2px solid #76b3ff;outline-offset:-2px}
 .pc-layout .map-gis-menu{position:absolute;left:4px;bottom:80px;width:156px;padding:4px;border:1px solid #454545;border-radius:8px;background:#292929;box-shadow:0 8px 24px #0006}
-.pc-layout .map-gis-menu button{display:block;width:100%;padding:8px 12px;border:0;border-radius:4px;background:none;color:#c9c9c9;font:inherit;font-size:14px;line-height:22px;text-align:left;cursor:pointer}
-.pc-layout .map-gis-menu button:hover,.pc-layout .map-gis-menu button[aria-checked=true]{background:#ffffff0d;color:#fff}
+.pc-layout .map-gis-menu button{display:block;width:100%;padding:8px 12px;border:0;border-radius:4px;background:none;color:var(--gray-20);font:inherit;font-size:14px;line-height:22px;text-align:left;cursor:pointer}
+.pc-layout .map-gis-menu button:hover,.pc-layout .map-gis-menu button[aria-checked=true]{background:#ffffff0d;color:var(--gray-0)}
 @media(max-height:850px){.pc-layout .figma-dashboard .dcna-container{padding:20px}.pc-layout .figma-dashboard .dcna-header{margin-bottom:18px}.pc-layout .figma-dashboard .dcna-summary{margin-bottom:16px}.pc-layout .figma-dashboard .dcna-stats{margin-bottom:18px}.pc-layout .figma-dashboard .dcna-stat p{margin-bottom:8px}}
 @media(max-width:760px){.pc-layout .figma-network-page{--dashboard-width:min(592px,100%)}}
 

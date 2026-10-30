@@ -1,3 +1,4 @@
+import ReportExport from '../../components/report-export/index.jsx';
 import {NativeSelect} from '../../components/form-controls/select.jsx';
 import {completionTimeline} from '../../mock/uc4-completion.js';
 import {streamDuration} from '../lui-panel/motion.jsx';
@@ -106,7 +107,7 @@ export default function ReportCard({ cardRef }) {
 
   return (
     <section className="card report-card v7-report artifact-card conclusion-artifact v7-card-tabbed report-design" id="reportCard" ref={cardRef} aria-busy={!ready} inert={!ready?"":undefined}>
-      <ArtifactOpen kind="report" title="HCS1 区基线检查报告"/>
+      <div className="report-export-actions"><ReportExport uc="uc4" disabled={!ready}/><ArtifactOpen kind="report" title="HCS1 区基线检查报告"/></div>
       <div className="v7-report-heading">
         <div className="row">
           <ArtifactIcon type="conclusion" shape="report" />

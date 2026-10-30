@@ -2,12 +2,12 @@
 .stage-root.uc4 #mappingCard.mapping-design{--mapping-column:33.75%;background-color:rgba(42,42,42,.75);border-radius:8px;min-height:882px}
 .stage-root.uc4 #mappingCard.mapping-design .mapping-title-icon{display:block;flex:none}
 .stage-root.uc4 #mappingCard.mapping-design .card-title{font-size:16px;line-height:24px;font-weight:500}
-.stage-root.uc4 #mappingCard.mapping-design .node-name{color:#fff}
-.stage-root.uc4 #mappingCard.mapping-design .node-icon{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:#2e86de66;color:#fff}
+.stage-root.uc4 #mappingCard.mapping-design .node-name{color:var(--gray-0)}
+.stage-root.uc4 #mappingCard.mapping-design .node-icon{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:#2e86de66;color:var(--gray-0)}
 .stage-root.uc4 #mappingCard.mapping-design .node-icon img{width:16px;height:16px;object-fit:contain;flex:none}
-.stage-root.uc4 #mappingCard.mapping-design .ruleset .node-icon{background:#a89ff966;color:#fff}
-.stage-root.uc4 #mappingCard.mapping-design .node.group::after{background:#2e86de}
-.stage-root.uc4 #mappingCard.mapping-design .node.ruleset::before{background:#a89ff9}
+.stage-root.uc4 #mappingCard.mapping-design .ruleset .node-icon{background:#a89ff966;color:var(--gray-0)}
+.stage-root.uc4 #mappingCard.mapping-design .node.group::after{background:var(--brand-40)}
+.stage-root.uc4 #mappingCard.mapping-design .node.ruleset::before{background:var(--indigo-30)}
 .stage-root.uc4 #mappingCard.mapping-design .v7-match-route .v7-match-base{stroke:var(--mapping-edge-gradient);stroke-width:1;opacity:.4}
 .stage-root.uc4 #mappingCard.mapping-design .v7-match-route.is-growing .v7-match-base{stroke:var(--mapping-edge-gradient);opacity:.6}
 .stage-root.uc4 #mappingCard.mapping-design .v7-match-route.hot .v7-match-base{stroke:var(--mapping-edge-gradient);opacity:.9;stroke-width:1.6}
@@ -18,5 +18,5 @@
 .stage-root.uc4 #mappingCard.mapping-design .v7-match-route .mapping-flow-head{stroke:#efedff;filter:drop-shadow(0 0 1px #a89ff966)}
 .stage-root.uc4 #mappingCard.mapping-design .v7-matching-status{position:absolute;width:1px;height:1px;min-height:0;padding:0;margin:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 html:not(.dark) .stage-root.uc4 #mappingCard.mapping-design{background-color:#fafafa}
-html:not(.dark) .stage-root.uc4 #mappingCard.mapping-design .node-name{color:#191919}
+html:not(.dark) .stage-root.uc4 #mappingCard.mapping-design .node-name{color:var(--gray-90)}
 .stage-root.uc4 #mappingCard.mapping-design{background-image:radial-gradient(circle,#93939320 .8px,transparent .9px);background-size:16px 16px}

@@ -1,5 +1,5 @@
 /* Pixso 首页全部参考图 / 数据总览 13:359657. Native desktop frame: 1232×130. */
-.pc-layout .effectiveness-metrics{position:absolute;isolation:isolate;overflow:hidden;z-index:3;top:24px;left:calc(var(--dashboard-width) + 24px);right:24px;width:auto;min-height:130px;box-sizing:border-box;margin:0;padding:16px;background:#2a2a2a;border-radius:16px;color:#fff;container:metrics-panel / inline-size;text-shadow:0 1px 6px #0008;outline:none}
+.pc-layout .effectiveness-metrics{position:absolute;isolation:isolate;overflow:hidden;z-index:3;top:24px;left:calc(var(--dashboard-width) + 24px);right:24px;width:auto;min-height:130px;box-sizing:border-box;margin:0;padding:16px;background:var(--gray-80);border-radius:16px;color:var(--gray-0);container:metrics-panel / inline-size;text-shadow:0 1px 6px #0008;outline:none}
 .effectiveness-border-beam{position:absolute!important;inset:0!important;z-index:2;width:100%!important;height:100%!important;border-radius:16px;pointer-events:none;opacity:0;transition:opacity .24s ease}
 .effectiveness-metrics:hover .effectiveness-border-beam,.effectiveness-metrics:focus-visible .effectiveness-border-beam{opacity:1}
 .effectiveness-metrics:focus-visible{outline:1px solid #d37cff;outline-offset:2px}
@@ -9,9 +9,9 @@
 .effectiveness-group-divider{display:block;width:1px;height:42px;border-radius:4px;background:#f3f3f333}
 .effectiveness-metric{display:flex;align-items:center;gap:8px;min-width:0;flex:none;height:64px}
 .effectiveness-metric-copy{display:flex;flex-direction:column;justify-content:center;flex:none;min-width:0;height:54px}
-.effectiveness-metric-copy strong{display:flex;align-items:baseline;gap:4px;font-size:24px;font-weight:600;line-height:32px;font-variant-numeric:tabular-nums;white-space:nowrap;color:#fff}
-.effectiveness-metric-copy strong>span{font-size:12px;font-weight:500;line-height:20px;color:#c9c9c9}
-.effectiveness-metric-copy>span{display:flex;align-items:center;gap:4px;font-size:14px;font-weight:500;line-height:22px;color:#c9c9c9;white-space:nowrap}
+.effectiveness-metric-copy strong{display:flex;align-items:baseline;gap:4px;font-size:24px;font-weight:600;line-height:32px;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--gray-0)}
+.effectiveness-metric-copy strong>span{font-size:12px;font-weight:500;line-height:20px;color:var(--gray-20)}
+.effectiveness-metric-copy>span{display:flex;align-items:center;gap:4px;font-size:14px;font-weight:500;line-height:22px;color:var(--gray-20);white-space:nowrap}
 .effectiveness-metric-copy>span img{width:14px;height:14px;flex:none}
 .effectiveness-workflow{width:322px}.effectiveness-compliance{width:233px}
 .effectiveness-distribution{display:block;width:142.65px;height:52px;flex:none;max-width:none}

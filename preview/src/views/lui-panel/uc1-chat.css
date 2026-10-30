@@ -1,10 +1,10 @@
-.stage-root #lui.lui-refresh .uc1-conversation .uc1-thought p{color:#939393;font-size:14px;font-weight:400;line-height:22px}
+.stage-root #lui.lui-refresh .uc1-conversation .uc1-thought p{color:var(--gray-40);font-size:14px;font-weight:400;line-height:22px}
 .stage-root #lui.lui-refresh .uc1-query-scope{margin:12px 0 0;line-height:22px;font-size:14px}
 .stage-root #lui.lui-refresh .uc1-query-scope>div{display:flex;align-items:flex-start;gap:4px;margin-top:4px}
-.stage-root #lui.lui-refresh .uc1-query-scope dt{flex:none;color:#dfdfdf;font-weight:500}
-.stage-root #lui.lui-refresh .uc1-query-scope dd{margin:0;color:#c9c9c9;min-width:0}
+.stage-root #lui.lui-refresh .uc1-query-scope dt{flex:none;color:var(--gray-10);font-weight:500}
+.stage-root #lui.lui-refresh .uc1-query-scope dd{margin:0;color:var(--gray-20);min-width:0}
 .stage-root #lui.lui-refresh .uc1-table-wrap{margin-top:12px;width:100%;overflow-x:auto}
-.stage-root #lui.lui-refresh .uc1-rule-table{width:100%;border-collapse:collapse;table-layout:auto;font-size:14px;font-weight:400;line-height:22px;color:#dfdfdf}
+.stage-root #lui.lui-refresh .uc1-rule-table{width:100%;border-collapse:collapse;table-layout:auto;font-size:14px;font-weight:400;line-height:22px;color:var(--gray-10)}
 .stage-root #lui.lui-refresh .uc1-rule-table th{background:#ffffff14;font-weight:500;text-align:left}
 .stage-root #lui.lui-refresh .uc1-rule-table :is(th,td){padding:8px 12px;border-bottom:1px solid #ffffff0d;vertical-align:top;overflow-wrap:break-word}
 .stage-root #lui.lui-refresh .uc1-rule-table tbody tr:nth-child(even){background:#ffffff08}
@@ -13,30 +13,30 @@
 .stage-root #lui.lui-refresh .uc1-completion h3{font-size:14px;font-weight:500;margin:16px 0 8px}
 .stage-root #lui.lui-refresh .uc1-completion>p{margin:0}
 .stage-root #lui.lui-refresh .uc1-completion ul{padding-left:20px;margin:0 0 12px;line-height:24px}
-.stage-root #lui.lui-refresh .uc1-success{color:#36c18d}
+.stage-root #lui.lui-refresh .uc1-success{color:var(--mint-40)}
 .stage-root #lui.lui-refresh .uc1-rules-artifact{margin-top:16px;border-radius:12px}
-.stage-root #lui.lui-refresh .uc1-rules-artifact small{font-size:12px;font-weight:400;color:#aeaeae;background:#ffffff14;padding:2px 6px;border-radius:4px;margin-left:4px}
+.stage-root #lui.lui-refresh .uc1-rules-artifact small{font-size:12px;font-weight:400;color:var(--gray-30);background:#ffffff14;padding:2px 6px;border-radius:4px;margin-left:4px}
 .stage-root #lui.lui-refresh .uc1-completion .uc1-followup{margin-top:16px}
-html:not(.dark) .stage-root #lui.lui-refresh .uc1-rule-table{color:#393939}
+html:not(.dark) .stage-root #lui.lui-refresh .uc1-rule-table{color:var(--gray-70)}
 html:not(.dark) .stage-root #lui.lui-refresh .uc1-rule-table th{background:#0000000d}
 html:not(.dark) .stage-root #lui.lui-refresh .uc1-rule-table tbody tr:nth-child(even){background:#00000005}
-html:not(.dark) .stage-root #lui.lui-refresh .uc1-query-scope :is(dt,dd){color:#595959}
+html:not(.dark) .stage-root #lui.lui-refresh .uc1-query-scope :is(dt,dd){color:var(--gray-60)}
 
 /* Pixso 2:261905: compact 14/22 summary and 32px table rows. */
-.stage-root #lui.lui-refresh .generated-card .uc1-completion{font-size:14px;line-height:22px;font-weight:400;color:#fff}
+.stage-root #lui.lui-refresh .generated-card .uc1-completion{font-size:14px;line-height:22px;font-weight:400;color:var(--gray-0)}
 .stage-root #lui.lui-refresh .generated-card .uc1-completion>p{margin:0;font-weight:400}
 .stage-root #lui.lui-refresh .generated-card .uc1-completion h3{margin:16px 0 8px;font-size:14px;line-height:22px;font-weight:500}
 .stage-root #lui.lui-refresh .generated-card .uc1-completion ul{margin:0 0 8px;padding-left:22px;line-height:22px;list-style:disc}
 .stage-root #lui.lui-refresh .generated-card .uc1-completion .uc1-table-wrap{margin:0}
-.stage-root #lui.lui-refresh .uc1-completion .uc1-rule-table{table-layout:fixed;color:#fff}
+.stage-root #lui.lui-refresh .uc1-completion .uc1-rule-table{table-layout:fixed;color:var(--gray-0)}
 .stage-root #lui.lui-refresh .uc1-completion .uc1-rule-table :is(th,td){height:32px;box-sizing:border-box;padding:4px 16px;line-height:22px;border-bottom:1px solid #ffffff0d}
 .stage-root #lui.lui-refresh .uc1-completion .uc1-rule-table th{background:#f3f3f31a;font-weight:500;position:relative}
-.stage-root #lui.lui-refresh .uc1-completion .uc1-rule-table th+th::before{content:"";position:absolute;left:0;top:10px;height:13px;width:1px;background:#777}
+.stage-root #lui.lui-refresh .uc1-completion .uc1-rule-table th+th::before{content:"";position:absolute;left:0;top:10px;height:13px;width:1px;background:var(--gray-50)}
 .stage-root #lui.lui-refresh .uc1-completion .uc1-rule-table td:first-child{font-weight:500}
 .stage-root #lui.lui-refresh .uc1-completion .uc1-rule-table tbody tr:nth-child(even){background:#9393931a}
 .stage-root #lui.lui-refresh .uc1-completion .uc1-rules-artifact{margin-top:16px;height:93px;padding:16px;gap:16px;border-radius:12px;background:radial-gradient(ellipse at 100% 50%,#1e84e90a,transparent 72%),rgba(119,119,119,.15);text-align:left}
 .stage-root #lui.lui-refresh .uc1-rules-artifact .v7-conclusion-copy strong{padding:0;display:flex;align-items:center;gap:4px;font-size:16px;line-height:24px;font-weight:700}
-.stage-root #lui.lui-refresh .uc1-rules-artifact .v7-conclusion-copy small{height:20px;padding:0 8px;margin:0;background:#aeaeae26;font-size:12px;line-height:20px;color:#aeaeae}
-.stage-root #lui.lui-refresh .uc1-rules-artifact .v7-conclusion-copy>span{font-size:14px;line-height:22px;color:#939393;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stage-root #lui.lui-refresh .uc1-rules-artifact .v7-conclusion-copy small{height:20px;padding:0 8px;margin:0;background:#aeaeae26;font-size:12px;line-height:20px;color:var(--gray-30)}
+.stage-root #lui.lui-refresh .uc1-rules-artifact .v7-conclusion-copy>span{font-size:14px;line-height:22px;color:var(--gray-40);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .stage-root #lui.lui-refresh .generated-card .uc1-completion .uc1-followup{margin:16px 0 0;font-weight:400}
-.stage-root #lui.lui-refresh .uc1-completion .response-footer{margin-top:16px;color:#c9c9c9}
+.stage-root #lui.lui-refresh .uc1-completion .response-footer{margin-top:16px;color:var(--gray-20)}

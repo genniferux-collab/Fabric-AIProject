@@ -30,7 +30,7 @@ const bundle=`const ReactJsxRuntime={Fragment:React.Fragment,jsx:(type,props,key
  [...modules].map(([id,m])=>'modules['+JSON.stringify(id)+']={deps:'+JSON.stringify(m.deps)+',run:function(require,module,exports){\n'+m.code+'\n}};').join('\n')+
  `\nfunction load(id){if(Object.hasOwn(external,id))return external[id];if(id.endsWith('.css'))return {};if(cache[id])return cache[id].exports;const record=modules[id];if(!record)throw Error('Missing module '+id);const module={exports:{}};cache[id]=module;record.run(spec=>load(record.deps[spec]||spec),module,module.exports);return module.exports;}\nconst App=load('app.jsx').default;ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));\n})();`;
 new vm.Script(bundle,{filename:'preview-bundle.js'});
-const libs=['react.production.min.js','react-dom.production.min.js','dayjs.min.js','antd.min.js','echarts.min.js','hui-charts.umd.js','react-intl.umd.js'];
+const libs=['react.production.min.js','react-dom.production.min.js','jszip.min.js','dayjs.min.js','antd.min.js','echarts.min.js','hui-charts.umd.js','react-intl.umd.js'];
 const html='<!DOCTYPE html>\n<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ICT页面 · UC4 基线合规检查</title>\n'+libs.map(file=>'<script src="./assets/library/'+file+'"></script>').join('\n')+'\n<style>\n'+css+'\n</style></head><body><div id="root"></div><script>\n'+bundle.replace(/<\/script/gi,'<\\/script')+'\n</script></body></html>\n';
 // Vendored assets may use CRLF; keep the generated document consistent for Git.
 fs.writeFileSync(path.join(root,'index.page.html'),html.replace(/\r\n?/g,'\n').replace(/[\t ]+$/gm,''));

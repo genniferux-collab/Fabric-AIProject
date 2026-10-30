@@ -1,11 +1,11 @@
 /* Pixso 8:375697 — device inspection detail. Scoped to the existing UC4 pane. */
 .stage-root.uc4 #devicePane{padding:16px;gap:16px;overflow:hidden;container:device-detail / inline-size}
-.stage-root.uc4 #devicePane .device-overview,.stage-root.uc4 #devicePane .device-workspace{--detail-panel:#2a2a2a;--detail-nav:#2a2a2a;--detail-raised:#393939;--detail-inset:#191919;--detail-line:#ffffff15;--detail-strong:#fff;--detail-copy:#c9c9c9;--detail-muted:#939393;--detail-selected:#393939;--detail-accent:#0067d1;background:var(--detail-panel);border:0;border-radius:16px;box-shadow:none;background-image:none}
+.stage-root.uc4 #devicePane .device-overview,.stage-root.uc4 #devicePane .device-workspace{--detail-panel:var(--gray-80);--detail-nav:var(--gray-80);--detail-raised:var(--gray-70);--detail-inset:var(--gray-90);--detail-line:#ffffff15;--detail-strong:var(--gray-0);--detail-copy:var(--gray-20);--detail-muted:var(--gray-40);--detail-selected:var(--gray-70);--detail-accent:var(--brand-50);background:var(--detail-panel);border:0;border-radius:16px;box-shadow:none;background-image:none}
 .stage-root.uc4 #devicePane .device-overview{padding:16px}
 .stage-root.uc4 #devicePane .device-overview>.between>.row{gap:8px}
 .stage-root.uc4 #devicePane .device-title{font-size:16px;font-weight:500;line-height:24px;letter-spacing:0;color:var(--detail-strong)}
 .stage-root.uc4 #devicePane .device-design-icon{flex-shrink:0}
-.stage-root.uc4 #devicePane .bad-tag{border:0;border-radius:4px;padding:0 8px;line-height:20px;font-size:12px;background:#e7434a26;color:#e7434a}
+.stage-root.uc4 #devicePane .bad-tag{border:0;border-radius:4px;padding:0 8px;line-height:20px;font-size:12px;background:#e7434a26;color:var(--red-40)}
 .stage-root.uc4 #devicePane .v14-device-meta{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin-top:12px}
 .stage-root.uc4 #devicePane .v14-device-meta>div{gap:0;min-width:0}
 .stage-root.uc4 #devicePane .v14-device-meta>div+div{border-left:1px solid var(--detail-line);padding-left:12px}
@@ -13,30 +13,30 @@
 .stage-root.uc4 #devicePane .v14-device-meta strong{font-size:14px;line-height:20px;font-weight:400;color:var(--detail-strong)}
 .stage-root.uc4 #devicePane .device-workspace{grid-template-columns:clamp(280px,28.5%,356px) minmax(0,1fr);min-height:0}
 .stage-root.uc4 #devicePane .device-workspace>.rule-navigation{padding:16px;border-right:1px solid #ffffff26;background:transparent}
-.stage-root.uc4 #devicePane .device-workspace>.rule-detail{padding:16px;background:transparent;scrollbar-width:thin;scrollbar-color:#595959 transparent}
+.stage-root.uc4 #devicePane .device-workspace>.rule-detail{padding:16px;background:transparent;scrollbar-width:thin;scrollbar-color:var(--gray-60) transparent}
 .stage-root.uc4 #devicePane .rule-navigation-title{font-size:16px;line-height:24px;font-weight:500;color:var(--detail-strong);padding:0;margin:0 0 16px}
 .stage-root.uc4 #devicePane .v13-rule-filters{gap:16px;flex-wrap:wrap;border:0;padding:0;margin:0 0 16px}
 .stage-root.uc4 #devicePane .v13-rule-filters button{padding:0;border:0;background:none;box-shadow:none;display:flex;align-items:center;gap:6px;font-size:14px;line-height:24px;color:var(--detail-copy)}
-.stage-root.uc4 #devicePane .v13-rule-filters button span{font-size:16px;color:var(--detail-strong);border-bottom:1px solid #c9c9c9}
-.stage-root.uc4 #devicePane .v13-rule-filters button.active span{border:1px solid #5ca2e9;border-radius:50%;min-width:24px;height:24px;line-height:22px;text-align:center;background:#0067d14d}
-.stage-root.uc4 #devicePane .v13-rule-filters i{width:8px;height:8px;border-radius:50%;background:#09aa71}
-.stage-root.uc4 #devicePane .v13-rule-filters i.failed{background:#e7434a}
+.stage-root.uc4 #devicePane .v13-rule-filters button span{font-size:16px;color:var(--detail-strong);border-bottom:1px solid var(--gray-20)}
+.stage-root.uc4 #devicePane .v13-rule-filters button.active span{border:1px solid var(--brand-30);border-radius:50%;min-width:24px;height:24px;line-height:22px;text-align:center;background:#0067d14d}
+.stage-root.uc4 #devicePane .v13-rule-filters i{width:8px;height:8px;border-radius:50%;background:var(--mint-50)}
+.stage-root.uc4 #devicePane .v13-rule-filters i.failed{background:var(--red-40)}
 .stage-root.uc4 #devicePane .v13-rule-filters i.all{display:none}
 .stage-root.uc4 #devicePane .rule-nav-search{width:100%;height:32px;margin:0 0 12px;padding:0 12px;border:1px solid #93939380;border-radius:4px;background:none;gap:4px}
 .stage-root.uc4 #devicePane .rule-nav-search input{font-size:14px;line-height:22px}
 .stage-root.uc4 #devicePane .rule-list-item{border:1px solid #ffffff1a;border-radius:8px;padding:14px 12px;margin:0 0 8px;gap:8px;box-shadow:none;background:transparent;color:var(--detail-strong)}
 .stage-root.uc4 #devicePane .rule-list-item:hover{background:#ffffff0d}
-.stage-root.uc4 #devicePane .rule-list-item.active{border-color:#0067d1;background:transparent;box-shadow:none}
+.stage-root.uc4 #devicePane .rule-list-item.active{border-color:var(--brand-50);background:transparent;box-shadow:none}
 .stage-root.uc4 #devicePane .rule-list-item .rule-name{font-size:14px;font-weight:400;line-height:22px}
 .stage-root.uc4 #devicePane .rule-list-item .rule-sub{font-size:14px;line-height:20px;margin-top:8px;color:var(--detail-muted)}
 .stage-root.uc4 #devicePane .rule-list-item .state-dot{width:6px;height:6px;margin-top:8px}
 .stage-root.uc4 #devicePane .rule-detail-heading{gap:8px;align-items:center;margin:0 0 4px}
 .stage-root.uc4 #devicePane .rule-detail-heading h3{font-size:16px;line-height:24px;font-weight:500;letter-spacing:0}
 .stage-root.uc4 #devicePane .rule-detail-heading .v7-priority-badge{padding:0;border:0;background:none;font-size:14px;line-height:22px;color:var(--detail-copy);display:inline-flex;align-items:center;gap:4px}
-.stage-root.uc4 #devicePane .rule-detail-heading .v7-priority-badge::before{content:'';width:8px;height:8px;border-radius:50%;background:#e7434a}
+.stage-root.uc4 #devicePane .rule-detail-heading .v7-priority-badge::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--red-40)}
 .stage-root.uc4 #devicePane .rule-detail-heading .v7-priority-badge.medium::before{background:#eaaa45}
-.stage-root.uc4 #devicePane .rule-detail-heading .v7-priority-badge.low::before{background:#939393}
-.stage-root.uc4 #devicePane .rule-detail-heading .status-label{background:#e7434a26;border-radius:4px;padding:0 8px;color:#e7434a;font-size:12px;line-height:20px}
+.stage-root.uc4 #devicePane .rule-detail-heading .v7-priority-badge.low::before{background:var(--gray-40)}
+.stage-root.uc4 #devicePane .rule-detail-heading .status-label{background:#e7434a26;border-radius:4px;padding:0 8px;color:var(--red-40);font-size:12px;line-height:20px}
 .stage-root.uc4 #devicePane .rule-detail-heading .status-label .ic{display:none}
 .stage-root.uc4 #devicePane .criterion{gap:4px;margin:0}
 .stage-root.uc4 #devicePane .criterion>span,.stage-root.uc4 #devicePane .criterion>div{font-size:12px;line-height:20px;color:var(--detail-muted)}
@@ -44,12 +44,12 @@
 .stage-root.uc4 #devicePane .instance-heading .v14-section-label{font-size:12px}
 .stage-root.uc4 #devicePane .v13-instance-cards{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 28px}
 .stage-root.uc4 #devicePane .v13-instance-card{flex:0 1 auto;width:auto;min-width:166px;max-width:100%;padding:10px 12px;gap:8px;border:1px solid transparent;border-radius:8px;background:var(--detail-raised);box-shadow:none}
-.stage-root.uc4 #devicePane .v13-instance-card.selected{border-color:#0067d1;background:var(--detail-raised);box-shadow:none}
-.stage-root.uc4 #devicePane .v13-instance-card.selected::after{content:'';position:absolute;bottom:-9px;left:50%;transform:translateX(-50%);border:8px solid transparent;border-top-color:#0067d1;border-bottom:0}
+.stage-root.uc4 #devicePane .v13-instance-card.selected{border-color:var(--brand-50);background:var(--detail-raised);box-shadow:none}
+.stage-root.uc4 #devicePane .v13-instance-card.selected::after{content:'';position:absolute;bottom:-9px;left:50%;transform:translateX(-50%);border:8px solid transparent;border-top-color:var(--brand-50);border-bottom:0}
 .stage-root.uc4 #devicePane .v13-instance-top{justify-content:flex-start;align-items:center;gap:8px}
 .stage-root.uc4 #devicePane .v13-instance-top strong{font-size:14px;font-weight:400;line-height:22px;padding-left:12px;position:relative}
-.stage-root.uc4 #devicePane .v13-instance-top strong::before{content:'';position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:#09aa71}
-.stage-root.uc4 #devicePane .v13-instance-card.failed strong::before{background:#e7434a}
+.stage-root.uc4 #devicePane .v13-instance-top strong::before{content:'';position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--mint-50)}
+.stage-root.uc4 #devicePane .v13-instance-card.failed strong::before{background:var(--red-40)}
 .stage-root.uc4 #devicePane .v13-instance-top>span{font-size:10px;color:var(--detail-muted)}
 .stage-root.uc4 #devicePane .v13-instance-top>span i{display:none}
 .stage-root.uc4 #devicePane .v13-instance-card code{padding:0 0 0 12px;background:none;font-size:14px;line-height:20px;color:var(--detail-copy);border:0}
@@ -57,50 +57,50 @@
 .stage-root.uc4 #devicePane .v13-instance-location{display:none}
 .stage-root.uc4 #devicePane .evidence-heading{margin:0 0 8px}
 .stage-root.uc4 #devicePane .evidence-heading h4,.stage-root.uc4 #devicePane .fix-heading{font-size:14px;font-weight:500;line-height:22px;margin:0;color:var(--detail-strong)}
-.stage-root.uc4 #devicePane .v7-ssh-impact{display:flex;align-items:flex-start;gap:8px;padding:12px 16px;margin:0 0 8px;border:0;border-radius:8px;background:#393939}
+.stage-root.uc4 #devicePane .v7-ssh-impact{display:flex;align-items:flex-start;gap:8px;padding:12px 16px;margin:0 0 8px;border:0;border-radius:8px;background:var(--gray-70)}
 .stage-root.uc4 #devicePane .v7-ssh-impact img{margin-top:3px;flex-shrink:0}
 .stage-root.uc4 #devicePane .v7-ssh-impact p,.stage-root.uc4 #devicePane .v7-ssh-impact strong{font-size:12px;line-height:20px;font-weight:400;color:var(--detail-strong);margin:0}
-.stage-root.uc4 #devicePane .v13-evidence,.stage-root.uc4 #devicePane .detail-repair-panel{border:0;border-radius:8px;overflow:hidden;background:#191919;box-shadow:none}
-.stage-root.uc4 #devicePane .detail-command-header{height:46px;padding:0 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff26;background:#191919;color:#fff}
+.stage-root.uc4 #devicePane .v13-evidence,.stage-root.uc4 #devicePane .detail-repair-panel{border:0;border-radius:8px;overflow:hidden;background:var(--gray-90);box-shadow:none}
+.stage-root.uc4 #devicePane .detail-command-header{height:46px;padding:0 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff26;background:var(--gray-90);color:var(--gray-0)}
 .stage-root.uc4 #devicePane .detail-command-header>span,.stage-root.uc4 #devicePane .detail-command-header>div{display:flex;align-items:center;gap:8px;font-size:14px;line-height:22px}
 .stage-root.uc4 #devicePane .detail-command-header button{width:20px;height:24px;padding:0;display:grid;place-items:center;border:0;background:none;border-radius:4px}
 .stage-root.uc4 #devicePane .detail-command-header button:hover{background:#ffffff15}
-.stage-root.uc4 #devicePane .v13-evidence-context{padding:4px 12px;color:#676767;background:#191919;font-size:10px;line-height:18px}
-.stage-root.uc4 #devicePane .code-scroll{padding:4px 0;max-height:120px;background:#191919}
+.stage-root.uc4 #devicePane .v13-evidence-context{padding:4px 12px;color:#676767;background:var(--gray-90);font-size:10px;line-height:18px}
+.stage-root.uc4 #devicePane .code-scroll{padding:4px 0;max-height:120px;background:var(--gray-90)}
 .stage-root.uc4 #devicePane .v13-evidence.expanded .code-scroll{height:300px;max-height:45vh}
 .stage-root.uc4 #devicePane .code-line{font-size:12px;line-height:24px;min-height:24px;background:transparent}
-.stage-root.uc4 #devicePane .code-line.bad-line{background:#e7434a15;border-left:1px solid #e7434a}
+.stage-root.uc4 #devicePane .code-line.bad-line{background:#e7434a15;border-left:1px solid var(--red-40)}
 .stage-root.uc4 #devicePane .code-line .gutter{display:none}
 .stage-root.uc4 #devicePane .code-line .lineno{color:#676767}
-.stage-root.uc4 #devicePane .code-line .code-text{color:#fff}
-.stage-root.uc4 #devicePane .code-line.bad-line .annotation,.stage-root.uc4 #devicePane .code-line .fail-param,.stage-root.uc4 #devicePane .code-line mark{color:#e7434a;background:none}
-.stage-root.uc4 #devicePane .config-footer{background:#191919;padding:8px 12px 4px;font-size:10px;line-height:18px;color:#676767}
+.stage-root.uc4 #devicePane .code-line .code-text{color:var(--gray-0)}
+.stage-root.uc4 #devicePane .code-line.bad-line .annotation,.stage-root.uc4 #devicePane .code-line .fail-param,.stage-root.uc4 #devicePane .code-line mark{color:var(--red-40);background:none}
+.stage-root.uc4 #devicePane .config-footer{background:var(--gray-90);padding:8px 12px 4px;font-size:10px;line-height:18px;color:#676767}
 .stage-root.uc4 #devicePane .fix-section{margin-top:24px;padding-top:0;border:0}
-.stage-root.uc4 #devicePane .fix-text{padding:12px 16px;margin:8px 0;background:#393939;border-radius:8px;font-size:12px;line-height:20px;color:#fff}
-.stage-root.uc4 #devicePane .v7-ssh-change{font-size:10px;color:#939393;gap:12px;margin:0 0 8px;display:flex;flex-wrap:wrap}
-.stage-root.uc4 #devicePane .fix-diff{border:0;border-radius:0;box-shadow:none;background:#191919;max-height:100px;overflow:auto;padding:8px 0}
+.stage-root.uc4 #devicePane .fix-text{padding:12px 16px;margin:8px 0;background:var(--gray-70);border-radius:8px;font-size:12px;line-height:20px;color:var(--gray-0)}
+.stage-root.uc4 #devicePane .v7-ssh-change{font-size:10px;color:var(--gray-40);gap:12px;margin:0 0 8px;display:flex;flex-wrap:wrap}
+.stage-root.uc4 #devicePane .fix-diff{border:0;border-radius:0;box-shadow:none;background:var(--gray-90);max-height:100px;overflow:auto;padding:8px 0}
 .stage-root.uc4 #devicePane .detail-repair-panel.expanded .fix-diff{max-height:300px;min-height:180px}
 .stage-root.uc4 #devicePane .fix-diff>div{font-size:12px;line-height:24px;padding:0 12px;background:none;white-space:pre}
-.stage-root.uc4 #devicePane .fix-diff .minus{color:#e7434a;background:none}
-.stage-root.uc4 #devicePane .fix-diff .plus{color:#09aa71;background:none}
+.stage-root.uc4 #devicePane .fix-diff .minus{color:var(--red-40);background:none}
+.stage-root.uc4 #devicePane .fix-diff .plus{color:var(--mint-50);background:none}
 .stage-root.uc4 #devicePane .v7-ssh-rollback{margin-top:12px}
 @container device-detail (max-width:1000px){.stage-root.uc4 #devicePane .device-workspace{grid-template-columns:280px minmax(0,1fr)}.stage-root.uc4 #devicePane .v13-rule-filters{gap:10px}.stage-root.uc4 #devicePane .v14-device-meta{grid-template-columns:repeat(5,minmax(0,1fr))}}
 @container device-detail (max-width:680px){.stage-root.uc4 #devicePane .device-workspace{display:flex;flex-direction:column;overflow:auto}.stage-root.uc4 #devicePane .device-workspace>.rule-navigation{max-height:260px;flex-shrink:0;border-right:0;border-bottom:1px solid #ffffff26}.stage-root.uc4 #devicePane .device-workspace>.rule-detail{overflow:visible;flex-shrink:0}.stage-root.uc4 #devicePane .v14-device-meta{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:8px}}
-html:not(.dark) .stage-root.uc4 #devicePane .device-overview,html:not(.dark) .stage-root.uc4 #devicePane .device-workspace{--detail-panel:#fff;--detail-strong:#191919;--detail-copy:#393939;--detail-muted:#676767;--detail-raised:#f3f3f3;--detail-line:#00000015;background:var(--detail-panel)}
+html:not(.dark) .stage-root.uc4 #devicePane .device-overview,html:not(.dark) .stage-root.uc4 #devicePane .device-workspace{--detail-panel:var(--gray-0);--detail-strong:var(--gray-90);--detail-copy:var(--gray-70);--detail-muted:#676767;--detail-raised:var(--gray-05);--detail-line:#00000015;background:var(--detail-panel)}
 .stage-root.uc4 #devicePane .rule-detail-heading .v7-priority-badge>i{display:none}
-.stage-root.uc4 #devicePane .rule-detail-heading .status-label.good{background:#09aa7126;color:#36c18d}
+.stage-root.uc4 #devicePane .rule-detail-heading .status-label.good{background:#09aa7126;color:var(--mint-40)}
 .stage-root.uc4 #devicePane .rule-nav-search .ic{order:-1;flex-shrink:0}
 
 /* UC4 rule detail — Pixso 19:142405. */
-.stage-root.uc4 #devicePane{padding:0;gap:0;background:#191919}
-.stage-root.uc4 #devicePane .device-overview,.stage-root.uc4 #devicePane .device-workspace{--detail-panel:#191919;--detail-raised:#262626;--detail-copy:#c9c9c9;background:#191919;border-radius:0}
-.stage-root.uc4 #devicePane .device-overview{display:grid;grid-template-columns:48px minmax(0,1fr);column-gap:24px;row-gap:8px;padding:16px 24px;border-bottom:1px solid #ffffff26;flex-shrink:0;background:linear-gradient(#191919,#222)}
-.stage-root.uc4 #devicePane .device-icon-disc{grid-row:1 / 3;display:grid;place-items:center;align-self:center;width:48px;height:48px;border-radius:50%;background:#393939}
+.stage-root.uc4 #devicePane{padding:0;gap:0;background:var(--gray-90)}
+.stage-root.uc4 #devicePane .device-overview,.stage-root.uc4 #devicePane .device-workspace{--detail-panel:var(--gray-90);--detail-raised:#262626;--detail-copy:var(--gray-20);background:var(--gray-90);border-radius:0}
+.stage-root.uc4 #devicePane .device-overview{display:grid;grid-template-columns:48px minmax(0,1fr);column-gap:24px;row-gap:8px;padding:16px 24px;border-bottom:1px solid #ffffff26;flex-shrink:0;background:linear-gradient(var(--gray-90),#222)}
+.stage-root.uc4 #devicePane .device-icon-disc{grid-row:1 / 3;display:grid;place-items:center;align-self:center;width:48px;height:48px;border-radius:50%;background:var(--gray-70)}
 .stage-root.uc4 #devicePane .device-icon-disc img{width:24px;height:24px}
 .stage-root.uc4 #devicePane .v14-device-meta{display:flex;gap:40px;margin:0;grid-column:2;flex-wrap:wrap}
 .stage-root.uc4 #devicePane .v14-device-meta>div{display:flex;flex-direction:column;gap:0}
 .stage-root.uc4 #devicePane .v14-device-meta>div+div{border:0;padding:0}
-.stage-root.uc4 #devicePane .v14-device-meta span{font-size:12px;line-height:20px;color:#939393}
+.stage-root.uc4 #devicePane .v14-device-meta span{font-size:12px;line-height:20px;color:var(--gray-40)}
 .stage-root.uc4 #devicePane .v14-device-meta strong{line-height:22px}
 .stage-root.uc4 #devicePane .device-workspace{grid-template-columns:356px minmax(0,1fr);padding:0;gap:0;flex:1}
 .stage-root.uc4 #devicePane .device-workspace>.rule-navigation,.stage-root.uc4 #devicePane .device-workspace>.rule-detail{padding:24px;background:transparent}
@@ -114,25 +114,25 @@ html:not(.dark) .stage-root.uc4 #devicePane .device-overview,html:not(.dark) .st
 .stage-root.uc4 #devicePane .rule-detail-heading{margin-bottom:4px}
 .stage-root.uc4 #devicePane .rule-detail-heading .v7-priority-badge,.stage-root.uc4 #devicePane .rule-detail-heading .status-label{display:none}
 .stage-root.uc4 #devicePane .criterion{display:flex;align-items:baseline;gap:4px}
-.stage-root.uc4 #devicePane .criterion>span,.stage-root.uc4 #devicePane .criterion>div{font-size:14px;line-height:22px;color:#c9c9c9}
+.stage-root.uc4 #devicePane .criterion>span,.stage-root.uc4 #devicePane .criterion>div{font-size:14px;line-height:22px;color:var(--gray-20)}
 .stage-root.uc4 #devicePane .instance-heading,.stage-root.uc4 #devicePane .evidence-heading{display:none}
 .stage-root.uc4 #devicePane .v13-instance-cards{margin:16px 0 24px;gap:8px}
 .stage-root.uc4 #devicePane .v13-instance-card{width:292px;min-width:0;flex:0 1 292px;padding:10px 12px;gap:8px;background:#262626}
 .stage-root.uc4 #devicePane .v13-instance-top>span{display:none}
-.stage-root.uc4 #devicePane .v13-instance-card code{padding-left:12px;font-family:inherit;color:#c9c9c9}
+.stage-root.uc4 #devicePane .v13-instance-card code{padding-left:12px;font-family:inherit;color:var(--gray-20)}
 .stage-root.uc4 #devicePane .v13-instance-card .fail-param{color:inherit}
 .stage-root.uc4 #devicePane .v7-ssh-impact{padding:0;margin:0 0 16px;background:none;border-radius:0}
 .stage-root.uc4 #devicePane .v7-ssh-impact img{display:none}
-.stage-root.uc4 #devicePane .v7-ssh-impact p{font-size:14px;line-height:22px;color:#c9c9c9}
-.stage-root.uc4 #devicePane .v7-ssh-impact strong{display:block;font-size:14px;font-weight:500;line-height:22px;margin-bottom:4px;color:#fff}
+.stage-root.uc4 #devicePane .v7-ssh-impact p{font-size:14px;line-height:22px;color:var(--gray-20)}
+.stage-root.uc4 #devicePane .v7-ssh-impact strong{display:block;font-size:14px;font-weight:500;line-height:22px;margin-bottom:4px;color:var(--gray-0)}
 .stage-root.uc4 #devicePane .v13-evidence,.stage-root.uc4 #devicePane .detail-repair-panel,.stage-root.uc4 #devicePane .detail-command-header,.stage-root.uc4 #devicePane .code-scroll,.stage-root.uc4 #devicePane .fix-diff{background:#262626}
 .stage-root.uc4 #devicePane .detail-command-header{height:46px}
-.stage-root.uc4 #devicePane .detail-command-header button.detail-config-switch{display:flex;align-items:center;gap:4px;width:auto;color:#c9c9c9;font-size:12px}
+.stage-root.uc4 #devicePane .detail-command-header button.detail-config-switch{display:flex;align-items:center;gap:4px;width:auto;color:var(--gray-20);font-size:12px}
 .stage-root.uc4 #devicePane .v13-evidence-context,.stage-root.uc4 #devicePane .config-footer{display:none}
 .stage-root.uc4 #devicePane .code-scroll{padding:8px 0 12px;max-height:144px}
 .stage-root.uc4 #devicePane .code-line{font-family:inherit;font-size:12px;line-height:24px;min-height:24px}
 .stage-root.uc4 #devicePane .code-line.bad-line{border:0;background:#e7434a15}
-.stage-root.uc4 #devicePane .fix-text{padding:0;margin:4px 0 12px;background:none;border-radius:0;color:#c9c9c9;font-size:14px;line-height:22px}
+.stage-root.uc4 #devicePane .fix-text{padding:0;margin:4px 0 12px;background:none;border-radius:0;color:var(--gray-20);font-size:14px;line-height:22px}
 .stage-root.uc4 #devicePane .v7-ssh-change,.stage-root.uc4 #devicePane .fix-section>.between>.muted{display:none}
 .stage-root.uc4 #devicePane .v7-ssh-rollback{margin-top:12px}
 @container device-detail (max-width:1050px){.stage-root.uc4 #devicePane .device-workspace{grid-template-columns:300px minmax(0,1fr)}.stage-root.uc4 #devicePane .v13-rule-filters{gap:12px}.stage-root.uc4 #devicePane .v13-rule-filters button:first-child{padding-right:12px}.stage-root.uc4 #devicePane .v13-instance-card{flex:1 1 160px}.stage-root.uc4 #devicePane .v14-device-meta{gap:24px}}

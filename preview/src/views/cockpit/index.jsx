@@ -7,12 +7,14 @@ import "./index.css";
 import "./event-map-glow.css";
 import {referenceCenters} from "../../components/map-network-overlay/map-vector-layers.js";
 
+import SkillExecutionDrawer from "../../components/skill-execution-drawer/index.jsx";
 import useMapNavigation from "./use-map-navigation.js";
 
 const assetRoot="./assets/uploads/pixso-home-map/";
 const MAP_WIDTH=1354.487061,MAP_HEIGHT=1000.278442;
 export default function Cockpit(){
   const {openAgentHome,taskEntry,networkTasks}=useApp();
+  const [skillCategory,setSkillCategory]=useState(()=>{const panel=new URLSearchParams(window.location.search).get('panel');return ['inspection','generation','fault','attention'].includes(panel)?panel:null;});
   const [floatingRoot,setFloatingRoot]=useState(null),[eventFocus,setEventFocus]=useState(null);
   const hoverTimers=useRef({enter:null,leave:null});
   const [drillOrigin,setDrillOrigin]=useState({x:"50%",y:"50%"});
@@ -77,6 +79,7 @@ export default function Cockpit(){
         <button type="button" onClick={reset} aria-label="重置地图视图"><img src={`${assetRoot}zoom-reset.svg`} alt=""/></button>
       </div>
     </div>
-    <aside className="figma-dashboard"><DataCenterNetworkAgent onOpenAgent={openAgentHome} onFocusEvent={focusEvent} onBlurEvent={blurEvent} focusedEventId={eventFocus?.taskId}/></aside>
+    <aside className="figma-dashboard"><DataCenterNetworkAgent onOpenSkill={setSkillCategory} onOpenAgent={openAgentHome} onFocusEvent={focusEvent} onBlurEvent={blurEvent} focusedEventId={eventFocus?.taskId}/></aside>
+    {skillCategory&&<SkillExecutionDrawer key={skillCategory} category={skillCategory} onClose={()=>setSkillCategory(null)}/>}
   </main>;
 }

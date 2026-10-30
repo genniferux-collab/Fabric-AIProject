@@ -2,8 +2,8 @@
 .stage-root.uc3 .v7-artifact-pane:has(>.uc3-rule-editor-shell){padding:0;overflow:hidden}
 .uc3-rule-editor-shell{height:100%;min-height:0;display:flex;flex-direction:column}
 .uc3-rule-editor-shell>.uc3-rule-editor{min-height:0;flex:1;overflow:auto;padding:24px 32px 32px}
-.uc3-rule-editor-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;flex:none;min-height:72px;padding:16px 32px;border-top:1px solid var(--line,#ffffff1a);background:var(--panel,#262626);font-size:12px;color:var(--secondary,#c9c9c9)}
-.uc3-rule-editor-footer>div{display:flex;gap:12px}.uc3-rule-editor-footer small{display:block;color:var(--muted,#939393);font-size:12px;margin-top:4px}
+.uc3-rule-editor-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;flex:none;min-height:72px;padding:16px 32px;border-top:1px solid var(--line,#ffffff1a);background:var(--panel,#262626);font-size:12px;color:var(--secondary,var(--gray-20))}
+.uc3-rule-editor-footer>div{display:flex;gap:12px}.uc3-rule-editor-footer small{display:block;color:var(--muted,var(--gray-40));font-size:12px;margin-top:4px}
 .uc3-edit-field{position:relative;min-width:0}.uc3-edit-error{position:absolute;left:0;top:100%;margin:2px 0 0;color:var(--danger,#ff6b7d);font-size:12px;line-height:16px}
 .uc3-condition-error{margin:8px 0 0;color:var(--danger,#ff6b7d);font-size:12px;line-height:18px}
 .uc3-rule-editor-shell [aria-invalid=true]{border-color:var(--danger,#ff6b7d)!important}

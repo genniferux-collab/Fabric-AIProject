@@ -1,8 +1,8 @@
 /* migrated from config-agent-merged.html — device-pane */
 
-.search{height:32px;border:1px solid #595959;border-radius:4px;display:flex;align-items:center;padding:0 10px;width:240px;gap:8px;background:transparent}
+.search{height:32px;border:1px solid var(--gray-60);border-radius:4px;display:flex;align-items:center;padding:0 10px;width:240px;gap:8px;background:transparent}
 
-.search input{width:100%;border:0;outline:none;background:transparent;color:#fff;font-size:12px}
+.search input{width:100%;border:0;outline:none;background:transparent;color:var(--gray-0);font-size:12px}
 
 .search .ic{width:16px;height:16px;color:var(--muted)}
 
@@ -20,7 +20,7 @@
 
 .rule-code{font:12px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;color:#b8cbdf}
 
-html:not(.dark) .stage-root .composer textarea,html:not(.dark) .stage-root .search input{color:#191919}
+html:not(.dark) .stage-root .composer textarea,html:not(.dark) .stage-root .search input{color:var(--gray-90)}
 
 html:not(.dark) .stage-root .rule-code{color:#42617f}
 
@@ -54,7 +54,7 @@ html:not(.dark) .stage-root .rule-code{color:#42617f}
 
 .rule-list-item:hover{background:#ffffff05}
 
-.rule-list-item.active{border-color:#5990fd77;background:#17253a;color:#fff}
+.rule-list-item.active{border-color:#5990fd77;background:#17253a;color:var(--gray-0)}
 
 .rule-list-item .state-dot{width:6px;height:6px;border-radius:50%;background:var(--good);margin-top:7px;flex-shrink:0}
 
@@ -108,11 +108,11 @@ html:not(.dark) .stage-root .rule-code{color:#42617f}
 
 .evidence-heading h4,.fix-heading{font-size:14px;font-weight:500;margin:0}
 
-.config-modes{display:flex;gap:2px;background:#000;border-radius:4px;padding:2px}
+.config-modes{display:flex;gap:2px;background:var(--gray-100);border-radius:4px;padding:2px}
 
 .config-modes button{height:24px;font-size:12px;color:var(--muted);padding:0 10px;border-radius:3px}
 
-.config-modes button.active{background:#393939;color:#fff}
+.config-modes button.active{background:var(--gray-70);color:var(--gray-0)}
 
 .semantic-comparison{background:#ffffff04;border-radius:4px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:16px}
 
@@ -134,7 +134,7 @@ html:not(.dark) .stage-root .rule-code{color:#42617f}
 
 .threshold-safe{position:absolute;left:0;width:50%;top:18px;height:5px;background:#48bc8e66;border-radius:3px 0 0 3px}
 
-.threshold-limit{position:absolute;left:50%;top:12px;height:17px;border-left:1px dashed #939393}
+.threshold-limit{position:absolute;left:50%;top:12px;height:17px;border-left:1px dashed var(--gray-40)}
 
 .threshold-limit-label{position:absolute;left:50%;top:27px;transform:translateX(-50%);font-size:10px;color:var(--muted)}
 
@@ -204,9 +204,9 @@ html:not(.dark) .stage-root .rule-code{color:#42617f}
 
 .canvas.full .device-meta{gap:32px}
 
-html:not(.dark) .stage-root .lui-diff,html:not(.dark) .stage-root .config-modes{background:#f3f3f3}
+html:not(.dark) .stage-root .lui-diff,html:not(.dark) .stage-root .config-modes{background:var(--gray-05)}
 
-html:not(.dark) .stage-root .rule-list-item.active{color:#191919;background:#eef3fe}
+html:not(.dark) .stage-root .rule-list-item.active{color:var(--gray-90);background:var(--blue-05)}
 
 html:not(.dark) .stage-root .config-view,html:not(.dark) .stage-root .fix-diff{background:#f5f7fa}
 
@@ -214,7 +214,7 @@ html:not(.dark) .stage-root .source-line{background:#e9edf2}
 
 html:not(.dark) .stage-root .code-text{color:#354356}
 
-html:not(.dark) .stage-root .config-modes button.active{background:#fff;color:#191919}
+html:not(.dark) .stage-root .config-modes button.active{background:var(--gray-0);color:var(--gray-90)}
 
 .audit-device-list{padding-top:20px;margin-top:20px;border-top:1px solid var(--line)}
 
@@ -249,7 +249,7 @@ html.dark .stage-root .canvas .device-pane {
 
 .v7-table-tools .search{width:252px;flex-shrink:0}
 
-.v7-report,.device-pane{--priority-high:var(--error,#E7434A);--priority-medium:var(--critical,#F4840C);--priority-low:var(--warning,#FCD72E)}
+.v7-report,.device-pane{--priority-high:var(--error,var(--red-40));--priority-medium:var(--critical,var(--orange-50));--priority-low:var(--warning,var(--yellow-40))}
 
 .v7-device-priority{margin-bottom:12px}
 
@@ -297,7 +297,7 @@ html.dark .stage-root .canvas .device-pane {
 
 .v7-ssh-command button,.v7-ssh-rollback button{font-size:12px;padding:0}
 
-.v7-ssh-command pre,.v7-ssh-rollback pre{background:#191919;border:1px solid var(--line);border-radius:4px;padding:12px;margin:8px 0;font:12px/24px ui-monospace,Consolas,monospace;overflow:auto;color:var(--secondary)}
+.v7-ssh-command pre,.v7-ssh-rollback pre{background:var(--gray-90);border:1px solid var(--line);border-radius:4px;padding:12px;margin:8px 0;font:12px/24px ui-monospace,Consolas,monospace;overflow:auto;color:var(--secondary)}
 
 .v7-ssh-rollback{margin-top:16px}
 

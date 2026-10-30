@@ -1,10 +1,10 @@
-.stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh .uc4-thinking-content{margin-top:16px;padding-left:22px;color:#939393;font-size:14px;font-weight:400;line-height:20.272px;white-space:pre-wrap;overflow-wrap:break-word}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh .uc4-thinking-content{margin-top:16px;padding-left:22px;color:var(--gray-40);font-size:14px;font-weight:400;line-height:20.272px;white-space:pre-wrap;overflow-wrap:break-word}
 .stage-root:is(.uc4,.uc2,.uc1,.uc3) .canvas .uc4-generating-card{position:relative;box-sizing:border-box;height:264px;min-height:264px;padding:0;background:rgba(42,42,42,.75);border:0;border-radius:16px;overflow:hidden;isolation:isolate}
 .stage-root:is(.uc4,.uc2,.uc1,.uc3) .uc4-generating-cloud{position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:inherit}
-.stage-root:is(.uc4,.uc2,.uc1,.uc3) .uc4-generating-label{position:absolute;z-index:1;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;color:#939393;font-size:14px;font-weight:400;line-height:22px;white-space:nowrap}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) .uc4-generating-label{position:absolute;z-index:1;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;color:var(--gray-40);font-size:14px;font-weight:400;line-height:22px;white-space:nowrap}
 @media(prefers-reduced-motion:reduce){.stage-root:is(.uc4,.uc2,.uc1,.uc3) .uc4-generating-cloud{animation:none!important;will-change:auto}}
 html:not(.dark) .stage-root:is(.uc4,.uc2,.uc1,.uc3) .canvas .uc4-generating-card{background:rgba(245,245,245,.75)}
-html:not(.dark) .stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh .uc4-thinking-content{color:#595959}
+html:not(.dark) .stage-root:is(.uc4,.uc2,.uc1,.uc3) #lui.lui-refresh .uc4-thinking-content{color:var(--gray-60)}
 
 /* Three overlapping round fields: preserve softness on a wide canvas. */
 .stage-root:is(.uc4,.uc2,.uc1,.uc3) .uc4-generating-cloud{container-type:inline-size;filter:blur(18px);inset:-18px;overflow:visible;opacity:.95}
@@ -20,6 +20,6 @@ html:not(.dark) .stage-root:is(.uc4,.uc2,.uc1,.uc3) .uc4-generating-orb{mix-blen
 
 /* Original InlineLoader spark motion with a neutral status color. */
 .stage-root:is(.uc4,.uc2,.uc1,.uc3) .uc4-generating-label{display:flex;align-items:center;justify-content:center;gap:12px;min-height:32px;font-size:16px;line-height:24px}
-.stage-root:is(.uc4,.uc2,.uc1,.uc3) .uc4-generating-spark .il-spark i{background:#dfdfdf}
+.stage-root:is(.uc4,.uc2,.uc1,.uc3) .uc4-generating-spark .il-spark i{background:var(--gray-10)}
 
 .uc4-generating-card .uc4-generating-orb,.uc4-generating-card .uc4-generating-spark *{animation-play-state:var(--generation-play-state,running)}

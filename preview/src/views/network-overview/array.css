@@ -1,17 +1,17 @@
 /* Four states share the requested translucent surface and dot grid. */
 .stage-root.uc4 .canvas .card.artifact-card,.stage-root.uc4 #networkOverviewCard.network-overview-stable-card{background-color:rgba(42,42,42,.75);background-image:radial-gradient(rgba(255,255,255,.065) .8px,transparent .8px);background-size:16px 16px}
-.network-array-art{position:absolute;inset:0;display:block;width:100%;height:100%;color:#c9c9c9;font-family:inherit;font-size:14px;pointer-events:none}
+.network-array-art{position:absolute;inset:0;display:block;width:100%;height:100%;color:var(--gray-20);font-family:inherit;font-size:14px;pointer-events:none}
 .network-array-art text{fill:currentColor}
-.network-array-art .array-heading{font-size:16px;fill:#f3f3f3;font-weight:500}
-.network-array-art .array-total{font-size:20px;fill:#fff;font-weight:500;font-variant-numeric:tabular-nums}
-.network-array-art .array-muted,.network-array-art .array-legend{color:#939393}
+.network-array-art .array-heading{font-size:16px;fill:var(--gray-05);font-weight:500}
+.network-array-art .array-total{font-size:20px;fill:var(--gray-0);font-weight:500;font-variant-numeric:tabular-nums}
+.network-array-art .array-muted,.network-array-art .array-legend{color:var(--gray-40)}
 .network-array-art .array-legend{font-size:12px}
 .network-array-art .array-enclosure{fill:none;stroke:#ffffff0c;stroke-width:1.5}
 .network-array-art .array-panel{fill:#ffffff0b;stroke:#ffffff10;stroke-width:1}
 .network-array-art .array-group-title{font-size:16px}
-.network-array-art .array-vendor{fill:#777;font-size:14px}
-.network-array-art .array-model{fill:#939393;font-size:11px}
-.stage-root.uc4 .network-array-art .v7-network-device>rect{fill:#777777;transition:fill 180ms linear;filter:url(#array-panel-shadow)}
+.network-array-art .array-vendor{fill:var(--gray-50);font-size:14px}
+.network-array-art .array-model{fill:var(--gray-40);font-size:11px}
+.stage-root.uc4 .network-array-art .v7-network-device>rect{fill:var(--gray-50);transition:fill 180ms linear;filter:url(#array-panel-shadow)}
 .stage-root.uc4 .network-array-art .v7-network-device.identified>rect{fill:#12b886}
 .network-array-rescan{position:absolute;right:5%;top:1.9%;padding:2px 6px;border:0;border-radius:4px;background:transparent;color:var(--secondary);font:inherit;font-size:12px;cursor:pointer;opacity:0;transition:opacity .15s}
 #networkOverviewCard:hover .network-array-rescan,.network-array-rescan:focus-visible{opacity:1}

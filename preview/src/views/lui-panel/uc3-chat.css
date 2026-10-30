@@ -1,31 +1,31 @@
-.stage-root #lui.lui-refresh .uc3-thought p{color:#939393;font-size:14px;font-weight:400;line-height:22px}
+.stage-root #lui.lui-refresh .uc3-thought p{color:var(--gray-40);font-size:14px;font-weight:400;line-height:22px}
 .stage-root #lui.lui-refresh .uc3-fields{margin:12px 0 0;font-size:14px;line-height:22px}
 .stage-root #lui.lui-refresh .uc3-fields>div{display:flex;align-items:flex-start;gap:4px;margin-top:4px}
-.stage-root #lui.lui-refresh .uc3-fields dt{flex:none;color:#dfdfdf;font-weight:500}
-.stage-root #lui.lui-refresh .uc3-fields dd{margin:0;min-width:0;color:#dfdfdf}
+.stage-root #lui.lui-refresh .uc3-fields dt{flex:none;color:var(--gray-10);font-weight:500}
+.stage-root #lui.lui-refresh .uc3-fields dd{margin:0;min-width:0;color:var(--gray-10)}
 .stage-root #lui.lui-refresh .uc3-logic{padding-left:20px;margin:12px 0 0;line-height:22px}
 .stage-root #lui.lui-refresh .uc3-table-wrap{margin-top:12px;overflow-x:auto}
-.stage-root #lui.lui-refresh .uc3-rule-table{width:100%;border-collapse:collapse;font-size:14px;line-height:22px;color:#fff;table-layout:auto}
+.stage-root #lui.lui-refresh .uc3-rule-table{width:100%;border-collapse:collapse;font-size:14px;line-height:22px;color:var(--gray-0);table-layout:auto}
 .stage-root #lui.lui-refresh .uc3-rule-table :is(th,td){padding:5px 12px;min-height:32px;text-align:left;vertical-align:middle;border-bottom:1px solid #ffffff0d;font-weight:400}
 .stage-root #lui.lui-refresh .uc3-rule-table th{background:#f3f3f31a;font-weight:500;white-space:nowrap}
 .stage-root #lui.lui-refresh .uc3-rule-table tbody tr:nth-child(even){background:#9393931a}
 .stage-root #lui.lui-refresh .uc3-rule-table td:nth-child(n+2){white-space:nowrap}
 .stage-root #lui.lui-refresh .uc3-test-pass{display:inline-flex;align-items:center;gap:6px}
-.stage-root #lui.lui-refresh .uc3-test-pass i{width:8px;height:8px;border-radius:50%;background:#36c18d}
-.stage-root #lui.lui-refresh .generated-card .uc3-completion{font-size:14px;line-height:22px;color:#fff;font-weight:400}
+.stage-root #lui.lui-refresh .uc3-test-pass i{width:8px;height:8px;border-radius:50%;background:var(--mint-40)}
+.stage-root #lui.lui-refresh .generated-card .uc3-completion{font-size:14px;line-height:22px;color:var(--gray-0);font-weight:400}
 .stage-root #lui.lui-refresh .generated-card .uc3-completion>p{margin:0;font-weight:400}
 .stage-root #lui.lui-refresh .generated-card .uc3-completion h3{margin:16px 0 8px;font-size:14px;line-height:22px;font-weight:500}
 .stage-root #lui.lui-refresh .uc3-completion ul{margin:0;padding-left:22px;line-height:22px}
 .stage-root #lui.lui-refresh .uc3-rule-artifact{margin-top:16px;height:84px;border-radius:12px;text-align:left}
-.stage-root #lui.lui-refresh .uc3-rule-artifact small{padding:0 8px;margin-left:4px;border-radius:4px;background:#aeaeae26;font-size:12px;line-height:20px;color:#aeaeae;font-weight:400}
+.stage-root #lui.lui-refresh .uc3-rule-artifact small{padding:0 8px;margin-left:4px;border-radius:4px;background:#aeaeae26;font-size:12px;line-height:20px;color:var(--gray-30);font-weight:400}
 .stage-root #lui.lui-refresh .uc3-rule-artifact .v7-conclusion-copy strong{padding:0}
 .stage-root #lui.lui-refresh .generated-card .uc3-completion .uc3-followup{margin:16px 0 0}
 .stage-root #lui.lui-refresh .uc3-completion .response-footer{margin-top:16px}
-html:not(.dark) .stage-root #lui.lui-refresh .uc3-rule-table{color:#393939}
-html:not(.dark) .stage-root #lui.lui-refresh .uc3-fields :is(dt,dd){color:#595959}
+html:not(.dark) .stage-root #lui.lui-refresh .uc3-rule-table{color:var(--gray-70)}
+html:not(.dark) .stage-root #lui.lui-refresh .uc3-fields :is(dt,dd){color:var(--gray-60)}
 
 .stage-root #lui.lui-refresh .uc3-conversation :is(.uc3-completion,.uc3-logic) li{list-style-type:disc}
-.stage-root #lui.lui-refresh .uc3-conversation li::marker{color:#c9c9c9}
+.stage-root #lui.lui-refresh .uc3-conversation li::marker{color:var(--gray-20)}
 
 /* Keep summary rhythm independent of shared completion defaults. */
 .stage-root #lui.lui-refresh .generated-card .completion.uc3-completion>p{margin:0;font-size:14px;font-weight:400;line-height:22px}

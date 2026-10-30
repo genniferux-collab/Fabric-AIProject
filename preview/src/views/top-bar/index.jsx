@@ -30,7 +30,7 @@ export default function TopBar() {
       <span className="shell-brand"><img src="./assets/uploads/shell-brand.svg" width="136" height="24" alt="iMaster NCE"/></span>
     </div>
     <div className="right">
-      <label className="shell-mode"><NativeSelect aria-label="驾驶模式" defaultValue="auto"><option value="auto">智驾模式</option></NativeSelect><Ic icon="chevron-down"/></label>
+      <label className="shell-mode"><NativeSelect aria-label="驾驶模式" defaultValue="auto"><option value="auto">智驾模式</option><option value="normal">常规模式</option></NativeSelect><Ic icon="chevron-down"/></label>
       <div className="shell-search-anchor" ref={searchRef}>
         <button className="shell-top-icon" title="搜索" aria-label="搜索导航" aria-expanded={searchOpen} onClick={()=>setSearchOpen(!searchOpen)}><img src="./assets/uploads/shell-search.svg" width="20" height="20" alt=""/></button>
         {searchOpen && <div className="shell-menu-panel shell-search-panel" role="dialog" aria-label="搜索导航菜单"><input autoFocus aria-label="搜索导航项" placeholder="搜索导航" value={query} onChange={e=>setQuery(e.target.value)}/>{items.filter(item=>item.name.toLowerCase().includes(query.toLowerCase())).map(item=><button key={item.name} onClick={()=>{item.action();setSearchOpen(false);setQuery("");}}>{item.name}</button>)}{!items.some(item=>item.name.toLowerCase().includes(query.toLowerCase()))&&<span className="shell-menu-caption">未找到匹配导航</span>}</div>}

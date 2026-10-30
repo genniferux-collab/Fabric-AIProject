@@ -996,7 +996,7 @@
 
 .fusion-rule-tooltip>small{font-size:10px;color:#9999a4}
 
-.fusion-rule-drawer .btn.primary{background:#66666e;color:#fff;border:1px solid #8c8c97}
+.fusion-rule-drawer .btn.primary{background:#66666e;color:var(--gray-0);border:1px solid #8c8c97}
 
 @keyframes fusionDrawerIn{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:translateX(0)}}
 
@@ -1030,7 +1030,7 @@
 
 .fusion-drawer-body pre.deviation{border-left-color:#c69e7d;color:#d5b79b}
 
-.fusion-rule-drawer .btn.primary{background:#6d5a98;border-color:#9b83c5;color:#fff}
+.fusion-rule-drawer .btn.primary{background:#6d5a98;border-color:#9b83c5;color:var(--gray-0)}
 
 .fusion-tooltip-meta{color:#c4b3db}
 
