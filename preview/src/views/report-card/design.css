@@ -1,107 +1,135 @@
 /* Pixso 8:450302: report content only; the shared artifact frame stays intact. */
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-report-meta{display:flex;align-items:center;gap:0;margin-top:16px;font-size:12px;line-height:20px;color:var(--gray-20)}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-report-meta>span{display:flex;align-items:center;gap:4px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-report-meta>span+span{margin-left:12px;padding-left:12px;border-left:1px solid var(--gray-50);line-height:12px}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-report-meta{display:flex;align-items:center;gap:0;margin-top:var(--spacing-4);font-size:var(--font-size-base);line-height:1.25rem;color:var(--gray-20)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-report-meta>span{display:flex;align-items:center;gap:var(--spacing-1)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-report-meta>span+span{margin-left:var(--spacing-3);padding-left:var(--spacing-3);border-left:1px solid var(--gray-50);line-height:0.75rem}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-report-meta .ic{width:14px;height:14px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-summary{grid-template-columns:287px minmax(0,1fr);gap:16px;align-items:center;margin:16px 0 24px;min-height:167px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-compliance{gap:24px;padding:0;border:0}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-summary{grid-template-columns:287px minmax(0,1fr);gap:var(--spacing-4);align-items:center;margin:var(--spacing-4) 0 var(--spacing-6);min-height:167px}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-compliance{gap:var(--spacing-6);padding:0;border:0}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-ring{width:176px;height:167px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-ring svg{width:167px;height:167px;margin-left:10px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-ring>div{left:10px;right:-1px;justify-content:center;gap:4px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-ring strong{font-size:32px;line-height:40px;font-weight:600}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-ring small{font-size:12px;font-weight:400;margin-left:1px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-ring span{font-size:12px;line-height:20px;color:var(--gray-20)}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-summary-counts{gap:8px;font-size:12px;color:var(--gray-20)}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-summary-counts>span,.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-summary-counts>button{font-size:12px;gap:6px;line-height:22px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-summary-counts strong{font-size:16px;font-weight:500;color:var(--gray-0);margin-left:2px}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-ring svg{width:167px;height:167px;margin-left:var(--spacing-2-5)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-ring>div{left:10px;right:-1px;justify-content:center;gap:var(--spacing-1)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-ring strong{font-size:2rem;line-height:2.5rem;font-weight:var(--font-weight-semibold)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-ring small{font-size:var(--font-size-base);font-weight:var(--font-weight-normal);margin-left:0.0625rem}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-ring span{font-size:var(--font-size-base);line-height:1.25rem;color:var(--gray-20)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-summary-counts{gap:var(--spacing-2);font-size:var(--font-size-base);color:var(--gray-20)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-summary-counts>span,.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-summary-counts>button{font-size:var(--font-size-base);gap:var(--spacing-1-5);line-height:1.375rem}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-summary-counts strong{font-size:var(--font-size-lg);font-weight:var(--font-weight-medium);color:var(--gray-0);margin-left:var(--spacing-0-5)}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-summary-counts i{width:6px;height:6px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v11-conclusion{position:relative;min-height:106px;padding:16px;border:1px solid transparent;border-radius:5px;background:linear-gradient(105deg,#353535,#343640) padding-box,linear-gradient(110deg,#985a6e,#8371ae 55%,#47619c) border-box}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-conclusion-label{gap:8px;margin:0 0 8px;font-size:14px;line-height:22px;color:var(--gray-05)}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v12-summary-copy{font-size:12px;line-height:24px;color:var(--gray-20);margin:0}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v12-summary-copy strong{font-weight:400;color:var(--gray-05)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v11-conclusion{position:relative;min-height:106px;padding:var(--spacing-4);border:1px solid transparent;border-radius:0.3125rem;background:linear-gradient(105deg,#353535,#343640) padding-box,linear-gradient(110deg,#985a6e,#8371ae 55%,#47619c) border-box}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-conclusion-label{gap:var(--spacing-2);margin:0 0 var(--spacing-2);font-size:var(--font-size-md);line-height:1.375rem;color:var(--gray-05)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v12-summary-copy{font-size:var(--font-size-base);line-height:1.5rem;color:var(--gray-20);margin:0}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v12-summary-copy strong{font-weight:var(--font-weight-normal);color:var(--gray-05)}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-advice-primary{color:#b58cff}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-advice-confirm{background:linear-gradient(90deg,#d290ff,#f68f5a);background-clip:text;color:transparent}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-overview-section>.v7-result-toolbar{min-height:32px;height:32px;margin-bottom:12px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-section-title{font-size:16px;line-height:24px;font-weight:500}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-lens{height:32px;width:156px;padding:2px;gap:0;border-radius:5px;background:#454545}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-lens button{height:28px;flex:1;padding:0 12px;font-size:14px;color:var(--gray-20)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-overview-section>.v7-result-toolbar{min-height:32px;height:32px;margin-bottom:var(--spacing-3)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-section-title{font-size:var(--font-size-lg);line-height:1.5rem;font-weight:var(--font-weight-medium)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-lens{height:32px;width:156px;padding:var(--spacing-0-5);gap:0;border-radius:0.3125rem;background:#454545}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-lens button{height:28px;flex:1;padding:0 var(--spacing-3);font-size:var(--font-size-md);color:var(--gray-20)}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-lens button.selected{background:var(--brand-50);color:var(--gray-0)}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-top-grid{gap:8px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-card{padding:0;border:0;border-radius:8px;background:transparent;min-width:0;overflow:hidden;box-shadow:none}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-main{height:176px;padding:24px 16px 16px;background:#333}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-top-grid{gap:var(--spacing-2)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-card{padding:0;border:0;border-radius:var(--radius-lg);background:transparent;min-width:0;overflow:hidden;box-shadow:none}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-main{height:176px;padding:var(--spacing-6) var(--spacing-4) var(--spacing-4);background:#333}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-card:hover .report-device-main{background:var(--gray-70)}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;height:22px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-heading h3{margin:0;font-size:16px;line-height:22px;font-weight:500;min-width:0}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-heading{display:flex;align-items:center;justify-content:space-between;gap:var(--spacing-2);height:22px}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-heading h3{margin:0;font-size:var(--font-size-lg);line-height:1.375rem;font-weight:var(--font-weight-medium);min-width:0}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-heading button{font:inherit;color:var(--gray-05);padding:0;white-space:nowrap}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-heading button:hover{color:var(--link)}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-rank{font-size:14px;color:var(--gray-40)}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-ip{display:flex;align-items:center;gap:4px;font-size:14px;color:var(--gray-40);line-height:22px;margin-top:2px}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-rank{font-size:var(--font-size-md);color:var(--gray-40)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-ip{display:flex;align-items:center;gap:var(--spacing-1);font-size:var(--font-size-md);color:var(--gray-40);line-height:1.375rem;margin-top:var(--spacing-0-5)}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-ip .ic{width:12px;height:12px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-main .v7-card-number{margin-top:24px;gap:4px;height:48px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-main .v7-card-number>strong{font-size:40px;line-height:48px;font-weight:500;color:var(--gray-0)}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-main .v7-card-number>span{font-size:12px;color:var(--gray-20)}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-ratio{display:flex;align-items:center;gap:12px;font-size:12px;line-height:20px;margin-top:0;white-space:nowrap}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-ratio-track{flex:1;min-width:24px;height:8px;border-radius:6px;background:#5b5b5b;overflow:hidden}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-ratio-track i{display:block;height:100%;background:#ef454f;border-radius:6px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-ratio>span{font-size:12px;color:var(--gray-20)}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-ratio strong{font-size:12px;font-weight:500;color:var(--gray-0)}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-priority{height:80px;padding:16px;background:var(--gray-80)}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-priority>span{display:block;font-size:12px;line-height:20px;color:var(--gray-40);margin-bottom:4px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-priority-distribution{gap:16px;font-size:14px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-priority-count{gap:4px;font-size:14px}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-main .v7-card-number{margin-top:var(--spacing-6);gap:var(--spacing-1);height:48px}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-main .v7-card-number>strong{font-size:2.5rem;line-height:3rem;font-weight:var(--font-weight-medium);color:var(--gray-0)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-main .v7-card-number>span{font-size:var(--font-size-base);color:var(--gray-20)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-ratio{display:flex;align-items:center;gap:var(--spacing-3);font-size:var(--font-size-base);line-height:1.25rem;margin-top:0;white-space:nowrap}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-ratio-track{flex:1;min-width:24px;height:8px;border-radius:var(--radius-md);background:#5b5b5b;overflow:hidden}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-ratio>span{font-size:var(--font-size-base);color:var(--gray-20)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-ratio strong{font-size:var(--font-size-base);font-weight:var(--font-weight-medium);color:var(--gray-0)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-priority{height:80px;padding:var(--spacing-4);background:var(--gray-80)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-device-priority>span{display:block;font-size:var(--font-size-base);line-height:1.25rem;color:var(--gray-40);margin-bottom:var(--spacing-1)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-priority-distribution{gap:var(--spacing-4);font-size:var(--font-size-md)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-priority-count{gap:var(--spacing-1);font-size:var(--font-size-md)}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-priority-count i{width:8px;height:8px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-priority-count strong{font-size:14px;font-weight:400}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-check-details{margin-top:40px;padding-top:0;border:0}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-check-details>.v7-section-title{margin-bottom:16px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-status-row{margin-bottom:16px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-status-filters{height:22px;gap:16px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-status-filters button{height:22px;padding:0;border:0;border-radius:0;font-size:14px;gap:6px;color:var(--gray-20)}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-status-filters button+button{padding-left:16px;border-left:1px solid #666}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-priority-count strong{font-size:var(--font-size-md);font-weight:var(--font-weight-normal)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-check-details{margin-top:var(--spacing-10);padding-top:0;border:0}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-check-details>.v7-section-title{margin-bottom:var(--spacing-4)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-status-row{margin-bottom:var(--spacing-4)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-status-filters{height:22px;gap:var(--spacing-4)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-status-filters button{height:22px;padding:0;border:0;border-radius:0;font-size:var(--font-size-md);gap:var(--spacing-1-5);color:var(--gray-20)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-status-filters button+button{padding-left:var(--spacing-4);border-left:1px solid #666}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-status-filters button.selected{background:transparent;color:var(--gray-05)}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-status-filters i.all{display:none}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-status-filters i{width:8px;height:8px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-status-filters strong{font-size:16px;line-height:20px;font-weight:400;padding:0 4px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-status-filters .selected strong{border:1px solid var(--brand-30);background:#0067d160;border-radius:12px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-table-tools{gap:8px;margin-bottom:12px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-table-tools .search{width:296px;height:32px;border-color:var(--gray-50);border-radius:3px;background:transparent}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-status-filters strong{font-size:var(--font-size-lg);line-height:1.25rem;font-weight:var(--font-weight-normal);padding:0 var(--spacing-1)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-status-filters .selected strong{border:1px solid var(--brand-30);background:#0067d160;border-radius:var(--radius-xl)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-table-tools{gap:var(--spacing-2);margin-bottom:var(--spacing-3)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-table-tools .search{width:296px}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-rule-select{margin-left:0}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-rule-select select{width:174px;height:32px;border-color:var(--gray-50);font-size:14px}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-rule-select select{width:174px;height:32px;border-color:var(--gray-50);font-size:var(--font-size-md)}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-table{width:100%;table-layout:auto}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-table th{height:32px;padding:0 16px;background:#454545;font-size:14px;font-weight:500;line-height:22px;border-bottom:1px solid #666;text-align:left}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-table td{height:40px;padding:0 16px;font-size:14px;line-height:22px;border-bottom:1px solid #494949;text-align:left}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-table th{height:32px;padding:0 var(--spacing-4);background:#454545;font-size:var(--font-size-md);font-weight:var(--font-weight-medium);line-height:1.375rem;border-bottom:1px solid #666;text-align:left}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-table td{height:40px;padding:0 var(--spacing-4);font-size:var(--font-size-md);line-height:1.375rem;border-bottom:1px solid #494949;text-align:left}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-table tbody tr:nth-child(odd){background:transparent}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-table tbody tr:nth-child(even){background:#ffffff0a}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-table tbody tr:hover{background:#ffffff14}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-table .link{font-size:14px;color:var(--gray-05)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-table .link{font-size:var(--font-size-md);color:var(--gray-05)}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-table .link:hover{color:var(--link)}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-table td:nth-child(5) .bad{color:var(--gray-05)}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-table .bad-tag{background:#e7434a26;color:#ef454f;border:0;border-radius:3px;padding:2px 8px;font-size:12px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-pagination{margin-top:12px;font-size:14px;min-height:32px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-pagination .btn{height:32px;font-size:14px}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-table .bad-tag{background:#e7434a26;color:#ef454f;border:0;border-radius:0.1875rem;padding:var(--spacing-0-5) var(--spacing-2);font-size:var(--font-size-base)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-pagination{margin-top:var(--spacing-3);font-size:var(--font-size-md);min-height:32px}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-pagination .btn{height:32px;font-size:var(--font-size-md)}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v11-conclusion::before{content:"";position:absolute;left:-6px;top:35px;width:10px;height:10px;transform:rotate(45deg);background:#353535;border-left:1px solid #985a6e;border-bottom:1px solid #985a6e}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-sort-button{display:flex;align-items:center;gap:10px;padding:0;font:inherit;color:inherit;text-align:left;white-space:nowrap}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-sort-button{display:flex;align-items:center;gap:var(--spacing-2-5);padding:0;font:inherit;color:inherit;text-align:left;white-space:nowrap}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-sort-button .ic{width:12px;height:12px;color:var(--gray-40)}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design th[aria-sort="ascending"] .ic,.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design th[aria-sort="descending"] .ic{color:var(--gray-20)}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-page-size{height:32px;width:155px;padding:0 12px;color:var(--gray-05);background:transparent;border:1px solid var(--gray-50);border-radius:3px;font:inherit}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-page-size{height:32px;width:155px;padding:0 var(--spacing-3);color:var(--gray-05);background:transparent;border:1px solid var(--gray-50);border-radius:0.1875rem;font:inherit}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-page-size option{background:var(--gray-70)}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-page-arrow{width:24px;min-width:24px;padding:0;border:0;background:transparent;color:var(--gray-20)}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-page-arrow .ic{width:16px;height:16px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-pagination .v7-page{background:transparent;min-width:16px;width:auto;padding:0;color:var(--gray-05);font-size:14px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v9-overview-card{border:0;border-radius:8px;background:#333;box-shadow:none}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v7-pagination .v7-page{background:transparent;min-width:16px;width:auto;padding:0;color:var(--gray-05);font-size:var(--font-size-md)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v9-overview-card{border:0;border-radius:var(--radius-lg);background:#333;box-shadow:none}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .v9-overview-card:hover{background:var(--gray-70);box-shadow:none}
 /* Pixso 8:472877 — rule TOP cards share the existing upper section, with guidance below. */
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-card{padding:0;border:0;border-radius:8px;background:transparent;min-width:0;overflow:hidden;box-shadow:none}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-card{padding:0;border:0;border-radius:var(--radius-lg);background:transparent;min-width:0;overflow:hidden;box-shadow:none}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-card:hover .report-device-main{background:var(--gray-70)}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-heading h3{flex:1;min-width:0}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-heading h3 button{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-priority{height:22px;margin-top:2px;display:flex;align-items:center}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-priority .v7-priority-badge{padding:0;border:0;border-radius:0;background:transparent;gap:4px;font-size:14px;line-height:22px;color:var(--gray-40)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-priority{height:22px;margin-top:var(--spacing-0-5);display:flex;align-items:center}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-priority .v7-priority-badge{padding:0;border:0;border-radius:0;background:transparent;gap:var(--spacing-1);font-size:var(--font-size-md);line-height:1.375rem;color:var(--gray-40)}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-priority .v7-priority-badge i{width:8px;height:8px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-guidance{height:164px;min-height:164px;padding:16px;background:var(--gray-80)}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-guidance section+section{margin-top:12px}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-guidance h4{display:flex;align-items:center;gap:4px;font-size:12px;line-height:20px;font-weight:400;color:var(--gray-10);margin:0}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-guidance{height:164px;min-height:164px;padding:var(--spacing-4);background:var(--gray-80)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-guidance section+section{margin-top:var(--spacing-3)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-guidance h4{display:flex;align-items:center;gap:var(--spacing-1);font-size:var(--font-size-base);line-height:1.25rem;font-weight:var(--font-weight-normal);color:var(--gray-10);margin:0}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-guidance h4 img{display:block;flex-shrink:0}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-guidance p{margin:0 0 0 18px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;min-height:40px;max-height:40px;font-size:12px;line-height:20px;color:var(--gray-40)}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,.uc2-report).report-design .report-rule-guidance p{margin:0 0 0 var(--spacing-4-5);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;min-height:40px;max-height:40px;font-size:var(--font-size-base);line-height:1.25rem;color:var(--gray-40)}
 
 /* Inspection rows keep text and inline indicators vertically centered. */
 .stage-root.uc4 #reportCard.report-design .v7-table :is(th,td){vertical-align:middle}
+
+/* Reflow report content by its workspace, never by shrinking the root font. */
+.stage-root.uc4 #reportCard.report-design{min-width:0;max-width:100%}
+.stage-root.uc4 #reportCard.report-design .v7-top-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,12.5rem),1fr))}
+.stage-root.uc4 #reportCard.report-design .report-device-heading h3{flex:1;overflow:hidden}
+.stage-root.uc4 #reportCard.report-design .report-device-heading h3 button{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.stage-root.uc4 #reportCard.report-design .report-device-rank{flex-shrink:0}
+.stage-root.uc4 #reportCard.report-design .v7-report-meta{flex-wrap:wrap;row-gap:var(--spacing-1-5)}
+.stage-root.uc4 #reportCard.report-design .v7-status-filters{height:auto;min-height:22px;flex-wrap:wrap;row-gap:var(--spacing-2-5)}
+.stage-root.uc4 #reportCard.report-design .v7-table-tools{flex-wrap:wrap;min-width:0}
+.stage-root.uc4 #reportCard.report-design .v7-table-tools .search{flex:1 1 18.5rem;min-width:0;max-width:100%}
+.stage-root.uc4 #reportCard.report-design .v7-table-scroll{max-width:100%;overflow:auto;overscroll-behavior:contain}
+.stage-root.uc4 #reportCard.report-design .v7-table{min-width:54rem}
+.stage-root.uc4 #reportCard.report-design .v7-table :is(th,td){white-space:nowrap}
+.stage-root.uc4 #reportCard.report-design .v7-pagination{gap:var(--spacing-3);flex-wrap:wrap}
+.stage-root.uc4 #reportCard.report-design .v7-pagination>.row{max-width:100%;flex-wrap:wrap;row-gap:var(--spacing-1-5)}
+.stage-root.uc4 #reportCard.report-design .v7-pagination .report-page-size{flex-shrink:0}
+@container workspace (max-width:760px){
+ .stage-root.uc4 #reportCard.report-design .v7-summary{grid-template-columns:minmax(0,1fr);gap:var(--spacing-5)}
+ .stage-root.uc4 #reportCard.report-design .v7-compliance{justify-content:center;min-width:0;padding-right:0;border-right:0}
+ .stage-root.uc4 #reportCard.report-design .v11-conclusion::before{content:none}
+ .stage-root.uc4 #reportCard.report-design .v7-summary-counts{flex-shrink:0}
+}
+@container workspace (max-width:480px){
+ .stage-root.uc4 #reportCard.report-design .v7-overview-section>.v7-result-toolbar{height:auto;gap:var(--spacing-3);flex-wrap:wrap}
+ .stage-root.uc4 #reportCard.report-design .v7-report-heading>.row{min-width:0}
+ .stage-root.uc4 #reportCard.report-design .card-title{overflow-wrap:anywhere}
+ .stage-root.uc4 #reportCard.report-design .v7-compliance{gap:var(--spacing-3)}
+}

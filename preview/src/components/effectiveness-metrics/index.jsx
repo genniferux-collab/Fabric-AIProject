@@ -1,7 +1,9 @@
+import {Tooltip} from "antd";
 import OrangePurpleBeam from "../orange-purple-beam/index.jsx";
 import "./index.css";
 
 const assetRoot="./assets/uploads/pixso-home-map/";
+// panelRef 供地图测量指标栏高度，为聚焦位置和悬浮提示预留空间。
 export default function EffectivenessMetrics({panelRef}) {
   return <section className="effectiveness-metrics" ref={panelRef} aria-labelledby="effectiveness-title" tabIndex={0}>
     <h2 id="effectiveness-title">数据总览</h2>
@@ -22,9 +24,9 @@ export default function EffectivenessMetrics({panelRef}) {
         <Metric value="3280" label="累计检查设备" help="累计完成配置检查的设备数量"/>
       </div>
     </div>
-    <OrangePurpleBeam className="effectiveness-border-beam" duration={10.8} borderRadius={16} strength={.78}/>
+    <OrangePurpleBeam className="effectiveness-border-beam" duration={10.8} strength={.78}/>
   </section>;
 }
 function Metric({value,unit,label,help}) {
-  return <div className="effectiveness-metric-copy"><strong>{value}{unit&&<span>{unit}</span>}</strong><span>{label}<img src={`${assetRoot}metric-info.svg`} alt="" title={help}/></span></div>;
+  return <div className="effectiveness-metric-copy"><strong>{value}{unit&&<span>{unit}</span>}</strong><span>{label}<Tooltip trigger={['hover','focus']} title={help}><img src={`${assetRoot}metric-info.svg`} alt={help} tabIndex={0}/></Tooltip></span></div>;
 }

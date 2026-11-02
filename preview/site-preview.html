@@ -58,7 +58,7 @@ body{display:flex;flex-direction:column;background:#f1f2f4;color:#383d44;font:14
   app.width=width;app.height=height;app.style.width=width+'px';app.style.height=height+'px';app.style.transform='scale('+scale+')';
   app.title='Fabric AI · '+width+' × '+height+' PC 页面';document.querySelector('.scale-caption').textContent=fill?'自适应 · ':'等比显示 · ';output.value=fill?width+' × '+height:Math.round(scale*100)+'%';
  };
- size.value='1920x1080';size.addEventListener('change',fit);new ResizeObserver(fit).observe(workspace);fit();
+ const preferred=new URLSearchParams(location.search).get('viewport');size.value=['fill','1920x1080','1440x900','1366x768'].includes(preferred)?preferred:'1920x1080';size.addEventListener('change',fit);new ResizeObserver(fit).observe(workspace);fit();
 })();
 </script>
 </body>

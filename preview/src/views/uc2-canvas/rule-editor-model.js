@@ -1,10 +1,12 @@
 import {fusionImpact,uc2Actual} from '../../mock/uc2.js';
 
+// 从候选配置派生编辑草稿，不直接修改原始候选或已保存规则。
 export function createRuleDraft(rule){
   const words=rule.cmd.split(' '),value=words.pop(),prefix=words.join(' ');
   return {name:rule.name,priority:fusionImpact[rule.id]==='高'?'高优先级':fusionImpact[rule.id]==='中'?'中优先级':'低优先级',ruleId:'golden_'+rule.id.toLowerCase().replace('-','_'),type:'单条 Rule（非 Policy）',mode:'始终执行',method:'全局',trigger:'全部满足',conditions:[{id:1,field:'value',operator:'包含',value,relation:'且',expression:(prefix?prefix+' ':'')+'{{value}}'}]};
 }
 export function expandCondition(condition){return condition.expression.replace(/\{\{\s*([\w]+)\s*\}\}/g,(whole,name)=>name===condition.field?condition.value:whole);}
+// 校验与样本测试保持纯函数；保存、采纳等状态写回由上层负责。
 export function validateRuleDraft(draft,others={},sourceId){
  const errors={};
  if(!draft.name.trim())errors.name='请输入规则名称';

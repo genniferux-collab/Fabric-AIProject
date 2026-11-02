@@ -142,6 +142,7 @@ export function AppProvider({ children }) {
 
   // toast / 信号
   const [toastText, setToastText] = useState(null);
+  const [toastVersion,setToastVersion]=useState(0);
   const toastTimer = useRef(0);
   const [resetMapSignal, setResetMapSignal] = useState(0);
   const [clearSelSignal, setClearSelSignal] = useState(0);
@@ -161,6 +162,7 @@ export function AppProvider({ children }) {
   const toast = useCallback((t) => {
     clearTimeout(toastTimer.current);
     setToastText(t);
+    setToastVersion(version=>version+1);
     toastTimer.current = setTimeout(() => setToastText(null), 3200);
   }, []);
 
@@ -645,7 +647,7 @@ export function AppProvider({ children }) {
     openAgentHome, goCockpit, toggleAgent, runTask, chooseUC, submitPrompt,
     openDevices, activePane, switchPane, openDevice, closeDevice,
     reportScrollRef, deviceStatesRef, deviceVersion, bumpDevices,
-    toast, toastText,
+    toast, toastText, toastVersion,
     resetMapSignal, clearSelSignal,
     cardRefs, locate, luiFocus, focusLuiArtifact, artifactTabs, activeArtifact, openArtifact, closeArtifact,
     uc2, uc2Start, uc2Pause, uc2Next, uc2CanvasStart, uc2CanvasComplete, uc2Show, uc2FocusStep, uc2OpenRule, uc2SelectNode,

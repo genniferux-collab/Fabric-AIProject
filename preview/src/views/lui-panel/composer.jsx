@@ -10,7 +10,7 @@ const commands = [
   { kind: "document", label: "MOP文档变更", prompt: "请帮我修改MOP文档，补充操作步骤、验证方法和回退方案。", colors: ["#ffcf83", "#ee83bb"] },
 ];
 
-function CommandIcon({ command, native=false }) { if(native&&command.kind==="check")return <img className="lui-glyph command-icon" src="./assets/uploads/pixso-ai-welcome/mode-check.svg" width="14" height="14" alt=""/>;return <LuiGlyph name={"command-" + command.kind} size={14} className="command-icon"/>; }
+function CommandIcon({ command, native=false }) { if(native&&command.kind==="check")return <img className="lui-glyph command-icon" src="./assets/uploads/pixso-ai-welcome/mode-check.svg" style={{width:"0.875rem",height:"0.875rem"}} alt=""/>;return <LuiGlyph name={"command-" + command.kind} size="0.875rem" className="command-icon"/>; }
 
 export default function Composer({welcome=false,feature=null,onFeatureChange}) {
   const { promptText, setPromptText, submitPrompt, toast } = useApp();
@@ -30,6 +30,7 @@ export default function Composer({welcome=false,feature=null,onFeatureChange}) {
 
   useEffect(() => () => { speechRef.current?.abort(); }, []);
 
+  // 欢迎态仅选择特性并保留草稿；进入任务后，快捷指令直接填入对应提示词。
   const choose = command => {
     if(welcome){onFeatureChange?.(command.kind);if(promptText.trimStart().startsWith("/"))setPromptText("");}
     else setPromptText(command.prompt);
@@ -43,6 +44,7 @@ export default function Composer({welcome=false,feature=null,onFeatureChange}) {
     submitPrompt(promptText);
     setAttachments([]);
   };
+  // 输入法组词时不响应回车；普通回车发送，Shift+Enter 保留为换行。
   const onKeyDown = event => {
     if (event.nativeEvent.isComposing) return;
     if (slashOpen && event.key === "Escape") { event.preventDefault(); setSlashDismissed(true); return; }
@@ -92,13 +94,13 @@ export default function Composer({welcome=false,feature=null,onFeatureChange}) {
           <span className="composer-count" aria-label={`已输入 ${promptText.length} 字符，最多 2000 字符`}>{promptText.length}/2000</span>
           <div className="composer-actions">
             <input className="composer-file-input" ref={fileRef} type="file" multiple tabIndex={-1} aria-label="选择附件" onChange={event => { setAttachments(files => [...files, ...Array.from(event.target.files || [])]); event.target.value = ""; }} />
-            <button type="button" className="composer-tool" title="上传附件" aria-label="上传附件" onClick={() => fileRef.current?.click()}><LuiGlyph name="attachment" size={32}/></button>
-            <button type="button" className={"composer-tool" + (recording ? " is-recording" : "")} title={recording ? "停止语音输入" : "语音输入"} aria-label={recording ? "停止语音输入" : "语音输入"} aria-pressed={recording} onClick={toggleSpeech}><LuiGlyph name="microphone" size={32}/></button>
-            <button type="submit" className="composer-send" aria-label="发送问题" disabled={!canSend}><LuiGlyph name={canSend ? "send-active" : "send"} size={32}/></button>
+            <button type="button" className="composer-tool" title="上传附件" aria-label="上传附件" onClick={() => fileRef.current?.click()}><LuiGlyph name="attachment" size="2rem"/></button>
+            <button type="button" className={"composer-tool" + (recording ? " is-recording" : "")} title={recording ? "停止语音输入" : "语音输入"} aria-label={recording ? "停止语音输入" : "语音输入"} aria-pressed={recording} onClick={toggleSpeech}><LuiGlyph name="microphone" size="2rem"/></button>
+            <button type="submit" className="composer-send" aria-label="发送问题" disabled={!canSend}><LuiGlyph name={canSend ? "send-active" : "send"} size="2rem"/></button>
           </div>
         </div>
       </form>
     </div>
-    <div className="composer-hint">内容由AI生成，无法确保准确性和完整性，仅供参考。<LuiGlyph name="info" size={12}/></div>
+    <div className="composer-hint">内容由AI生成，无法确保准确性和完整性，仅供参考。<LuiGlyph name="info" size="0.75rem"/></div>
   </div>;
 }

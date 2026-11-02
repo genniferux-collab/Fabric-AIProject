@@ -3,6 +3,7 @@ import "./index.css";
 const assetRoot="./assets/uploads/pixso-site-tips/icons/";
 const kindLabels={"rule-query":"规则查询","baseline-mining":"黄金基线挖掘","rule-creation":"规则生成","compliance-check":"合规检查","fault-governance":"故障治理"};
 
+// 将任务源状态归一为站点提示的视觉状态，避免地图另维护一套状态口径。
 export function siteTaskState(task){
   if(!task)return "idle";
   if(task.status==="paused")return "paused";

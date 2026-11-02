@@ -11,10 +11,11 @@ export function ThinkingDetails({thinking,isDark,children}){
   const [expanded,setExpanded]=useState(thinking);
   useEffect(()=>setExpanded(thinking),[thinking]);
   return <details className="response-thought uc4-thinking" open={expanded} onToggle={event=>{if(event.currentTarget.open!==expanded)setExpanded(event.currentTarget.open);}}>
-    <summary><LuiGlyph name="thought" size={14}/><MotionTitle text={thinking?'正在思考':'已思考'} active={thinking}/><Ic variant={isDark?'filled':'lined'} icon={expanded?'chevron-up':'chevron-down'}/></summary>
+    <summary><LuiGlyph name="thought" size="0.875rem"/><MotionTitle text={thinking?'正在思考':'已思考'} active={thinking}/><Ic variant={isDark?'filled':'lined'} icon={expanded?'chevron-up':'chevron-down'}/></summary>
     {children ? <div className="uc4-thinking-content">{children}</div> : <StreamText as="div" className="uc4-thinking-content" text={thoughtCopy} animate={thinking}/>}
   </details>;
 }
+// 各用例共用固定加载卡片；这里只呈现暂停/进行状态，不推进业务步骤。
 export function GeneratingCanvas({id="generatingCanvasCard",paused=false,className=""}){
   return <section className={"card uc4-generating-card "+className} id={id} style={{"--generation-play-state":paused?"paused":"running"}} role="status" aria-label="画布生成中" aria-busy="true">
     <div className="uc4-generating-cloud" aria-hidden="true"><span className="uc4-generating-orb orb-rose"/><span className="uc4-generating-orb orb-violet"/><span className="uc4-generating-orb orb-blue"/></div>

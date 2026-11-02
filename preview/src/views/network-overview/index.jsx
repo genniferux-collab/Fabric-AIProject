@@ -1,6 +1,6 @@
+import {Button} from 'antd';
 import NetworkArray, { OverviewHeader } from "./array.jsx";
 import ArtifactOpen from "../../components/artifact-open/index.jsx";
-import { ArtifactIcon } from "../../components/status-marks/index.jsx";
 import "./array.css";
 import "./revision-69463.css";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
@@ -22,6 +22,7 @@ export default function NetworkOverview({ cardRef }) {
   const phase = elapsed < REGION_DURATION ? "regions" : elapsed < REGION_DURATION + FOCUS_DURATION ? "focus" : fraction === 1 ? "complete" : topologyFraction < .29 ? "topology" : topologyFraction < .53 ? "clustering" : "counting";
   const status = { topology: "正在扫描物理拓扑", clustering: "网络架构已明确 · 正在聚类设备", counting: "正在识别设备类型与数量", complete: "设备识别完成" }[phase];
 
+  // 代次号阻断已取消的旧动画；只有当前一轮扫描能发出完成通知。
   const runScan = (onDone) => {
     cancelAnimationFrame(animRef.current);
     const generation = ++genRef.current;
@@ -56,6 +57,8 @@ export default function NetworkOverview({ cardRef }) {
 
   return (
     <section className="card artifact-card process-artifact v7-card-tabbed network-overview-stable-card" id="networkOverviewCard" ref={cardRef} data-scan-phase={phase} aria-busy={busy}>
+      <div className="network-overview-viewport" role="region" aria-label="网络设备概览，可滚动查看" tabIndex={0}>
+      <div className="network-overview-stage">
       {artworkVisible && <div className="v7-network-art-layer" style={{ opacity: 1 - nativeOpacity }}>
         <NetworkRegionScan progress={elapsed / REGION_DURATION} lockProgress={ease(clamp((elapsed - REGION_DURATION) / 700))} topologyProgress={ease(clamp((elapsed - REGION_DURATION - FOCUS_DURATION) / 650))} />
       </div>}
@@ -63,9 +66,11 @@ export default function NetworkOverview({ cardRef }) {
         <OverviewHeader countProgress={countProgress} phase={phase} />
         {nativeVisible && <g opacity={nativeOpacity}><NetworkArray morph={morph} countProgress={countProgress} /></g>}
       </svg>
+      </div>
+      </div>
       <div className="v7-artifact-title network-overview-heading"><img src="./assets/uploads/uc4-overview/title.svg" width="14" height="14" alt=""/><h2 className="card-title">HCS1全量设备概览</h2></div>
       <ArtifactOpen kind="network" title="全网设备概览" iconSrc="./assets/uploads/uc4-overview/open.svg" />
-      <button type="button" className="network-array-rescan" disabled={busy} onClick={() => runScan()}>{busy ? "识别中" : "重新识别"}</button>
+      <Button type="text" size="small" className="network-array-rescan" disabled={busy} onClick={() => runScan()}>{busy ? "识别中" : "重新识别"}</Button>
       <span className="network-region-scan-caption" role="status">{status}</span>
     </section>
   );

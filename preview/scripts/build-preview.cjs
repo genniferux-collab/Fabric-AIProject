@@ -4,7 +4,7 @@ const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
 const root=path.resolve(__dirname,'..');
 require('./build-map-vectors.cjs');
 const Babel=require(path.join(root,'assets/library/babel.min.js'));
-const modules=new Map(),styles=new Set();
+const modules=new Map(),styles=new Set(),usedExternals=new Set();
 const externals={react:'React','react-dom':'ReactDOM','react-dom/client':'ReactDOM',antd:'antd','react-intl':'ReactIntl',dayjs:'dayjs','react/jsx-runtime':'ReactJsxRuntime'};
 function visit(id){
  if(id.endsWith('.css')){styles.add(id);return}
@@ -20,17 +20,21 @@ function visit(id){
   else if(spec==='generative-loaders'||spec==='generative-loaders/styles.css'){const dep='assets/library/generative-loaders/'+(spec.endsWith('styles.css')?'styles.css':'index.cjs');modules.get(id).deps[spec]=dep;visit(dep)}
   else if(spec==='border-beam'){const dep='assets/library/border-beam/index.cjs';modules.get(id).deps[spec]=dep;visit(dep)}
   else if(!externals[spec])throw Error('Unsupported external '+spec+' in '+id);
+  else usedExternals.add(spec);
  }
 }
 visit('app.jsx');
 const baseStyles=['base','light','theme','dark','ant'].map(name=>fs.readFileSync(path.join(root,'assets/style/'+name+'.css'),'utf8')).join('\n');
 const css=baseStyles+'\n'+[...styles].map(id=>'/* '+id+' */\n'+fs.readFileSync(path.join(root,id),'utf8')).join('\n');
 const lucide=fs.readFileSync(path.join(root,'assets/library/lucide-icon-nodes.json'),'utf8');
-const bundle=`const ReactJsxRuntime={Fragment:React.Fragment,jsx:(type,props,key)=>React.createElement(type,key===undefined?props:{...props,key}),jsxs:(type,props,key)=>React.createElement(type,key===undefined?props:{...props,key})};\nconst LUCIDE=${lucide};\n(function(){\nconst modules={},cache={};\nconst external={${Object.entries(externals).map(([id,value])=>JSON.stringify(id)+':'+value).join(',')}};\n`+
+const bundle=`const ReactJsxRuntime={Fragment:React.Fragment,jsx:(type,props,key)=>React.createElement(type,key===undefined?props:{...props,key}),jsxs:(type,props,key)=>React.createElement(type,key===undefined?props:{...props,key})};\nconst LUCIDE=${lucide};\n(function(){\nconst modules={},cache={};\nconst external={${Object.entries(externals).filter(([id])=>usedExternals.has(id)).map(([id,value])=>JSON.stringify(id)+':'+value).join(',')}};\n`+
  [...modules].map(([id,m])=>'modules['+JSON.stringify(id)+']={deps:'+JSON.stringify(m.deps)+',run:function(require,module,exports){\n'+m.code+'\n}};').join('\n')+
  `\nfunction load(id){if(Object.hasOwn(external,id))return external[id];if(id.endsWith('.css'))return {};if(cache[id])return cache[id].exports;const record=modules[id];if(!record)throw Error('Missing module '+id);const module={exports:{}};cache[id]=module;record.run(spec=>load(record.deps[spec]||spec),module,module.exports);return module.exports;}\nconst App=load('app.jsx').default;ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));\n})();`;
 new vm.Script(bundle,{filename:'preview-bundle.js'});
-const libs=['react.production.min.js','react-dom.production.min.js','jszip.min.js','dayjs.min.js','antd.min.js','echarts.min.js','hui-charts.umd.js','react-intl.umd.js'];
+// Optional libraries stay vendored for reuse, but inactive helpers need not load.
+const libs=['react.production.min.js','react-dom.production.min.js','jszip.min.js','dayjs.min.js','antd.min.js','echarts.min.js'];
+if(modules.has('assets/shared/chart.jsx'))libs.push('hui-charts.umd.js');
+if(usedExternals.has('react-intl'))libs.push('react-intl.umd.js');
 const html='<!DOCTYPE html>\n<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ICT页面 · UC4 基线合规检查</title>\n'+libs.map(file=>'<script src="./assets/library/'+file+'"></script>').join('\n')+'\n<style>\n'+css+'\n</style></head><body><div id="root"></div><script>\n'+bundle.replace(/<\/script/gi,'<\\/script')+'\n</script></body></html>\n';
 // Vendored assets may use CRLF; keep the generated document consistent for Git.
 fs.writeFileSync(path.join(root,'index.page.html'),html.replace(/\r\n?/g,'\n').replace(/[\t ]+$/gm,''));

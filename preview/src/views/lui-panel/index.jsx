@@ -1,3 +1,4 @@
+import {Dropdown,Tooltip} from "antd";
 import Uc3Chat from './uc3-chat.jsx';
 import {completionTimeline} from '../../mock/uc4-completion.js';
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
@@ -16,6 +17,7 @@ import WelcomeHome from "./welcome.jsx";
 import { ThinkingDetails } from "./thinking.jsx";
 import { StreamText, RevealAfter, MotionTitle, SoftHeight, streamDuration } from "./motion.jsx";
 
+// 滚动内容与覆盖式滚动条分开，避免滚动条出现时挤压流式回答的宽度。
 function LuiScrollArea({ children, scrollRef, enhanced }) {
   const flowRef = useRef(null);
   const trackRef = useRef(null);
@@ -41,6 +43,7 @@ function LuiScrollArea({ children, scrollRef, enhanced }) {
     return () => { observer.disconnect(); cancelAnimationFrame(frame); };
   }, [enhanced, sync, scrollRef]);
 
+  // 生成时跟随底部；用户上滚或审阅旧内容后暂停，直到接近底部或提交新消息。
   useEffect(() => {
     const main=scrollRef.current, flow=flowRef.current;
     if(!main||!flow)return;
@@ -145,12 +148,12 @@ function WorkflowSteps({ active, groupExpanded }) {
         return (
           <div key={step.title} className={"step " + (done ? "is-done" : current ? "is-running" : "pending") + (selectedStep === index ? " is-selected" : "")} data-step-index={index}>
             <span className={"status " + (done ? "done" : current ? "running" : "")} aria-label={done ? "已完成" : current ? "进行中" : "待执行"}>
-              {done ? <LuiGlyph name={selectedStep === index ? "step-selected" : "step-done"} size={16}/> : current ? <LuiGlyph name="step-running" size={16}/> : index + 1}
+              {done ? <LuiGlyph name={selectedStep === index ? "step-selected" : "step-done"} size="1rem"/> : current ? <LuiGlyph name="step-running" size="1rem"/> : index + 1}
             </span>
             <div className="step-heading">
               <button type="button" className="step-title" disabled={!available} aria-expanded={expanded} aria-controls={`workflowStep${index}`} onClick={() => toggle(index)}><MotionTitle text={index === 0 && current ? "扫描拓扑并识别全网设备" : step.title} active={current}/></button>
               {available && <div className="step-actions">
-                {product && <><button type="button" className="step-action" aria-label={`定位步骤：${step.title}`} title="定位到画布" onClick={() => { setSelectedStep(index); locate(product, "step"); }}><img className="lui-glyph" src="./assets/uploads/lui-step-locate.svg" width="12" height="12" alt=""/></button><span className="step-action-divider" aria-hidden="true" /></>}
+                {product && <><button type="button" className="step-action" aria-label={`定位步骤：${step.title}`} title="定位到画布" onClick={() => { setSelectedStep(index); locate(product, "step"); }}><img className="lui-glyph" src="./assets/uploads/lui-step-locate.svg" style={{width:"0.75rem",height:"0.75rem"}} alt=""/></button><span className="step-action-divider" aria-hidden="true" /></>}
                 <button type="button" className="step-action" aria-label={`${expanded ? "收起" : "展开"}步骤：${step.title}`} aria-expanded={expanded} aria-controls={`workflowStep${index}`} onClick={() => toggle(index)}><Ic variant={isDark ? "filled" : "lined"} icon={expanded ? "chevron-up" : "chevron-down"} /></button>
               </div>}
             </div>
@@ -206,7 +209,7 @@ function InspectionConversation({ running, active, prompt, onLocateReport }) {
         <SoftHeight>
         <div className="response-process">
           <button type="button" className="response-title" aria-expanded={expanded} aria-controls="uc4WorkflowSteps" onClick={() => setExpanded(value => !value)}>
-            <LuiGlyph name={running ? "processing" : "completed"} size={14}/><MotionTitle text={title} active={running}/><Ic variant={isDark ? "filled" : "lined"} icon={expanded ? "chevron-up" : "chevron-down"} />
+            <LuiGlyph name={running ? "processing" : "completed"} size="0.875rem"/><MotionTitle text={title} active={running}/><Ic variant={isDark ? "filled" : "lined"} icon={expanded ? "chevron-up" : "chevron-down"} />
           </button>
           <div className="response-steps" id="uc4WorkflowSteps" hidden={!expanded}>
             <ThinkingDetails thinking={running && active < 0} isDark={isDark}/>
@@ -221,23 +224,15 @@ function InspectionConversation({ running, active, prompt, onLocateReport }) {
   );
 }
 
+// 欢迎页与 UC1–UC4 共用同一侧栏外壳；只切换滚动区内容，输入区保持独立。
 export default function LuiPanel() {
   const app = useApp();
-  const { luiOpen, luiView, taskPrompt, runningIndex, promptText, setPromptText, submitPrompt, chooseUC, openAgentHome, goCockpit, toast, locate, uc2Extra, isDark } = app;
+  const { luiOpen, luiView, taskPrompt, runningIndex, setPromptText, openAgentHome, goCockpit, locate, uc2Extra } = app;
   const mainRef = useRef(null);
-  const menuRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [welcomeFeature,setWelcomeFeature]=useState(null);
   const detailTitle = luiView === "home" ? "网络运维智能体" : luiView === "uc1" ? "查询检查规则" : luiView === "uc3" ? "创建检查规则" : luiView === "uc2" ? "挖掘黄金基线" : "检查基线要求";
 
-  useEffect(() => {
-    if (!menuOpen) return;
-    const closeOutside = event => { if (!menuRef.current?.contains(event.target)) setMenuOpen(false); };
-    const closeOnEscape = event => { if (event.key === "Escape") setMenuOpen(false); };
-    document.addEventListener("pointerdown", closeOutside);
-    document.addEventListener("keydown", closeOnEscape);
-    return () => { document.removeEventListener("pointerdown", closeOutside); document.removeEventListener("keydown", closeOnEscape); };
-  }, [menuOpen]);
   useEffect(() => { setMenuOpen(false); }, [luiView, luiOpen]);
 
   useEffect(() => { if (mainRef.current) mainRef.current.scrollTop = 0; }, [luiView]);
@@ -250,15 +245,13 @@ export default function LuiPanel() {
     <aside className={"lui lui-refresh" + (luiView === "home" ? " lui-welcome" : "") + (luiOpen ? "" : " closed")} id="lui">
       <div className="lui-head between">
         <div className="lui-detail-heading">
-          <button className="lui-header-icon" aria-label={luiView === "home" ? "返回首页" : "返回智能体首页"} onClick={luiView === "home" ? goCockpit : openAgentHome}><LuiGlyph name="back" size={20}/></button>
+          <button className="lui-header-icon" aria-label={luiView === "home" ? "返回首页" : "返回智能体首页"} onClick={luiView === "home" ? goCockpit : openAgentHome}><LuiGlyph name="back" size="1.25rem"/></button>
           <span className="lui-detail-title">{detailTitle}</span>
         </div>
-        <div className="lui-more" ref={menuRef}>
-          <button className="lui-header-icon" title="更多" aria-label="更多" aria-haspopup="menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(value => !value)}><img className="lui-glyph" src="./assets/uploads/lui-more.svg" width="20" height="20" alt=""/></button>
-          {menuOpen && <div className="lui-more-menu" role="menu" aria-label="LUI 更多操作">
-            <button role="menuitem" onClick={() => { setMenuOpen(false); openAgentHome(); }}>新对话</button>
-            <button role="menuitem" onClick={() => { setMenuOpen(false); goCockpit(); }}>关闭面板</button>
-          </div>}
+        <div className="lui-more">
+          <Dropdown trigger={['click']} placement="bottomRight" open={menuOpen} onOpenChange={setMenuOpen} autoFocus menu={{'aria-label':'LUI 更多操作',items:[{key:'new',label:'新对话'},{key:'close',label:'关闭面板'}],onClick:({key})=>{setMenuOpen(false);if(key==='new')openAgentHome();else goCockpit();}}}>
+            <Tooltip trigger={['hover','focus']} title="更多"><button type="button" className="lui-header-icon" aria-label="更多" aria-haspopup="menu" aria-expanded={menuOpen}><img className="lui-glyph" src="./assets/uploads/lui-more.svg" style={{width:"1.25rem",height:"1.25rem"}} alt=""/></button></Tooltip>
+          </Dropdown>
         </div>
       </div>
       <LuiScrollArea scrollRef={mainRef} enhanced={true}>

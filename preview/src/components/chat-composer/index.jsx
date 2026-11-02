@@ -2,6 +2,7 @@ import { useApp } from "../../context.jsx";
 import "./index.css";
 
 const assetRoot="./assets/uploads/pixso-home/";
+// 首页按钮只唤起侧栏并展示共享草稿，下一帧再将焦点交给真实输入框。
 export default function ChatComposer({onOpen}){
   const {promptText,luiOpen,openAgentHome}=useApp();
   const open=()=>{

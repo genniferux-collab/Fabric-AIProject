@@ -1,7 +1,7 @@
 /* Skeletons reserve report geometry; real data is revealed on the LUI completion timeline. */
 .stage-root:is(.uc4,.uc2) :is(#reportCard,#uc2Report) .report-reveal-skeleton{position:relative;overflow:hidden;isolation:isolate;border-color:transparent;pointer-events:none}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,#uc2Report) .report-reveal-skeleton>*{visibility:hidden}
-.stage-root:is(.uc4,.uc2) :is(#reportCard,#uc2Report) .report-reveal-skeleton::before{content:'';position:absolute;inset:0;z-index:1;border-radius:8px;background:linear-gradient(100deg,#ffffff05 15%,#ffffff0c 45%,#ffffff05 75%);background-size:240% 100%;animation:uc4-report-skeleton 1.8s ease-in-out infinite}
+.stage-root:is(.uc4,.uc2) :is(#reportCard,#uc2Report) .report-reveal-skeleton::before{content:'';position:absolute;inset:0;z-index:1;border-radius:var(--radius-lg);background:linear-gradient(100deg,#ffffff05 15%,#ffffff0c 45%,#ffffff05 75%);background-size:240% 100%;animation:uc4-report-skeleton 1.8s ease-in-out infinite}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,#uc2Report) .v7-report-meta.report-reveal-skeleton{min-height:20px;width:55%}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,#uc2Report) .v7-compliance.report-reveal-skeleton{min-height:167px}
 .stage-root:is(.uc4,.uc2) :is(#reportCard,#uc2Report) .v7-compliance.report-reveal-skeleton::before{border-radius:50%;width:142px;height:142px;inset:12px auto auto 12px}

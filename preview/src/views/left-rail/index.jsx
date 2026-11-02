@@ -5,6 +5,7 @@ import './index.css';
 const icon=name=>'./assets/uploads/navigation/nav-'+name+'.svg';
 export default function LeftRail(){
   const {agentActive,toggleAgent,goCockpit,toast,luiView,locate,focusLuiArtifact}=useApp();
+  // 展开只由点击触发；不要把 hover 绑定到此状态，以免经过导航时打断当前任务。
   const [expanded,setExpanded]=useState(false);
   const root=useRef(null),trigger=useRef(null);
   const close=()=>setExpanded(false);

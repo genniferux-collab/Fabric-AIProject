@@ -11,11 +11,14 @@ import SkillExecutionDrawer from "../../components/skill-execution-drawer/index.
 import useMapNavigation from "./use-map-navigation.js";
 
 const assetRoot="./assets/uploads/pixso-home-map/";
+// 原稿地图的逻辑尺寸，与节点素材共用坐标；响应式缩放交给地图导航层。
 const MAP_WIDTH=1354.487061,MAP_HEIGHT=1000.278442;
 export default function Cockpit(){
   const {openAgentHome,taskEntry,networkTasks}=useApp();
   const [skillCategory,setSkillCategory]=useState(()=>{const panel=new URLSearchParams(window.location.search).get('panel');return ['inspection','generation','fault','attention'].includes(panel)?panel:null;});
+  // 提示卡挂到未缩放的悬浮层，位置跟随地图，文字和交互尺寸保持可读。
   const [floatingRoot,setFloatingRoot]=useState(null),[eventFocus,setEventFocus]=useState(null);
+  // 短暂延迟过滤掠过事件卡片的鼠标移动，避免地图频繁推进和提示闪烁。
   const hoverTimers=useRef({enter:null,leave:null});
   const [drillOrigin,setDrillOrigin]=useState({x:"50%",y:"50%"});
   const [gisOpen,setGisOpen]=useState(false),[mapView,setMapView]=useState("全国视图");

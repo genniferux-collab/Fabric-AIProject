@@ -28,7 +28,7 @@ import "./src/views/device-pane/design.css";
 
 import "./src/components/form-controls/index.css";
 
-import { ConfigProvider } from "antd";
+import { ConfigProvider, Empty } from "antd";
 import zhCN from "./assets/shared/antd-zh.js";
 import { AppProvider } from "./src/context.jsx";
 import Stage from "./src/views/stage/index.jsx";
@@ -36,7 +36,7 @@ import Stage from "./src/views/stage/index.jsx";
 export default function App() {
   return (
     <AppProvider>
-      <ConfigProvider locale={zhCN} wave={{ disabled: true }}>
+      <ConfigProvider locale={zhCN} wave={{ disabled: true }} empty={{image:"./assets/uploads/empty.svg"}} renderEmpty={()=><Empty style={{padding:"var(--spacing-8) 0"}}/>}>
         <Stage />
       </ConfigProvider>
     </AppProvider>

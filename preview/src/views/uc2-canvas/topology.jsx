@@ -1,3 +1,4 @@
+import {Button} from 'antd';
 import { useEffect, useRef, useState } from "react";
 import { useApp } from "../../context.jsx";
 import TopologyScanBeam from "../network-region-scan/scan-beam.jsx";
@@ -11,6 +12,7 @@ export function Uc2Title({ stage, title, sub, tag }) {
 
 const assets = "./assets/uploads/pixso-uc2-restoration/";
 const vectors = "./assets/uploads/pixso-uc2-v2/";
+// 素材与交互热区共用 SVG 坐标，替换底图时须同步核对 viewBox 和节点位置。
 const areas = [
   { id:"internet", name:"互联网接入区", x:73, y:180, width:379, height:249 },
   { id:"external", name:"外联区", x:655, y:180, width:287, height:394 },
@@ -93,8 +95,8 @@ export default function Uc2Topology() {
         {detail && devices.map(device=><g key={device.id} role="button" tabIndex={0} aria-label={"查看设备 "+device.name} className={"uc2-topology-hit"+(uc2.node===device.id?" is-selected":"")} onClick={()=>uc2SelectNode(device.id)} onKeyDown={e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();uc2SelectNode(device.id);}}}><rect x={device.x-12} y={device.y-12} width="52" height="60" rx="4" fill="transparent"/><title>{device.name}</title></g>)}
       </svg>
       {phase!==2&&areaBlend<1&&<TopologyScanBeam isDark={isDark} opacity={1-areaBlend} paused={!uc2.running} className="uc2-topology-scan-beam" style={{left:(74/1232*100)+"%",top:(22/749*100)+"%",width:(1080/1232*100)+"%",height:(692/749*100)+"%"}}/>}
-      {focused && <button className="uc2-topology-back" type="button" onClick={()=>{setFocused(null);uc2SelectNode(null);}}><Icon className="ic" name="arrow-left" size={12} />返回区域视图</button>}
-      {selected && <aside className="uc2-device-popover" aria-label="设备信息"><button type="button" aria-label="关闭设备信息" onClick={()=>uc2SelectNode(null)}><Icon className="ic" name="x" size={14}/></button><strong>{selected.name}</strong><span>{selected.role} · 西三旗 DC</span><p>配置快照可用，已纳入本轮分析范围。</p></aside>}
+      {focused && <Button className="uc2-topology-back" size="small" onClick={()=>{setFocused(null);uc2SelectNode(null);}}><Icon className="ic" name="arrow-left" size="0.75rem" />返回区域视图</Button>}
+      {selected && <aside className="uc2-device-popover" aria-label="设备信息"><button type="button" aria-label="关闭设备信息" onClick={()=>uc2SelectNode(null)}><Icon className="ic" name="x" size="0.875rem"/></button><strong>{selected.name}</strong><span>{selected.role} · 西三旗 DC</span><p>配置快照可用，已纳入本轮分析范围。</p></aside>}
     </div>
   </article>;
 }

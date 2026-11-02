@@ -1,4 +1,4 @@
-import { BorderBeam } from "border-beam";
+import ResponsiveBeam from "../responsive-beam/index.jsx";
 
 const orangePurpleBeamCss = `
 [data-beam="{id}"][data-active]::after,
@@ -14,6 +14,7 @@ const orangePurpleBeamCss = `
 }
 `;
 
-export default function OrangePurpleBeam({className,duration=8.6,borderRadius=12,strength=.72,active=true}){
-  return <BorderBeam className={className} size="md" colorVariant="colorful" staticColors duration={duration} strength={strength} brightness={1.08} saturation={1.08} glowSize={1.1} theme="dark" borderRadius={borderRadius} active={active} css={orangePurpleBeamCss} aria-hidden="true"><span className="orange-purple-beam-surface"/></BorderBeam>;
+// 统一橙紫流光参数；触发及持续时长由调用方的 active 或容器交互样式控制。
+export default function OrangePurpleBeam({className,duration=8.6,borderRadius="var(--radius-xl)",strength=.72,active=true}){
+  return <ResponsiveBeam className={className} size="md" colorVariant="colorful" staticColors duration={duration} strength={strength} brightness={1.08} saturation={1.08} glowSize={1.1} theme="dark" borderRadius={borderRadius} active={active} css={orangePurpleBeamCss} aria-hidden="true"><span className="orange-purple-beam-surface"/></ResponsiveBeam>;
 }

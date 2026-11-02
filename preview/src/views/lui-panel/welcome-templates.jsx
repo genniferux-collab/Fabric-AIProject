@@ -10,10 +10,12 @@ const templates=[
   {id:"set",icon:"template-set",label:"查询全网所有的检查集",category:"信息查询",prompt:"查询全网所有的检查集"}
 ];
 
+// 模板选择只回填提示词，任务仍由共享输入框提交；分类和焦点只属于当前弹层。
 export default function WelcomeTemplates({onChoose,onClose}){
   const [category,setCategory]=useState("全部"),[active,setActive]=useState(0);
   const panelRef=useRef(null);
   const filtered=templates.filter(item=>category==="全部"||item.category===category);
+  // 弹层打开时接管列表焦点，关闭/卸载时成对移除全局监听。
   useEffect(()=>{
     const close=event=>{if(event.type==="keydown"){if(event.key==="Escape"){event.preventDefault();onClose();}}else if(!panelRef.current?.contains(event.target)&&!event.target.closest(".welcome-template-trigger"))onClose();};
     document.addEventListener("pointerdown",close);document.addEventListener("keydown",close);

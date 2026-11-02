@@ -42,9 +42,11 @@ function MapPopup({center,scene,view,displayScale,placement="top",size,offset,cl
   </div>;
 }
 
+// 站点、任务气泡和左侧事件共用 networkTasks 快照，此层只管理展示与联动。
 export default function MapNetworkOverlay({displayScale=1,scene,view,floatingRoot,focusedEvent}){
   const {networkTasks,openNetworkTask}=useApp();
   const [detailId,setDetailId]=useState(null),[eventListId,setEventListId]=useState(null);
+  // 悬浮短暂离开时延迟收起，点击后固定；卸载统一清理开关延时。
   const listCloseTimer=useRef(null),listPinned=useRef(false),detailTimers=useRef({open:null,close:null}),detailPinned=useRef(false);
   useEffect(()=>()=>{clearTimeout(listCloseTimer.current);clearTimeout(detailTimers.current.open);clearTimeout(detailTimers.current.close);},[]);
   const closeEvents=()=>{clearTimeout(listCloseTimer.current);listPinned.current=false;setEventListId(null);};

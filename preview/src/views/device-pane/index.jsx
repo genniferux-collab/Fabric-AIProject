@@ -1,11 +1,9 @@
 import { useEffect, useRef } from "react";
 import { useApp, stateFor } from "../../context.jsx";
 import { deviceById, failFor } from "../../mock/devices.js";
-import { checks, checkById, instancesFor, applicableChecks, deviceRuleTotal } from "../../mock/checks.js";
+import { checkById, instancesFor, applicableChecks, deviceRuleTotal } from "../../mock/checks.js";
 import { priorityLabels, priorityIndex, detailRulePosition } from "../../mock/audit.js";
-import { ArtifactIcon } from "../../components/status-marks/index.jsx";
 import RuleDetail from "./rule-detail.jsx";
-import Ic from "../../components/icon-el/index.jsx";
 import SearchInput from "../../components/search-input/index.jsx";
 import EmptyState from "../../components/empty-state/index.jsx";
 
@@ -33,6 +31,7 @@ export default function DevicePane({ deviceId }) {
     .filter((r) => (s.filter === "all" || (s.filter === "failed" ? failFor(d,r) : !failFor(d,r))) && r.name.toLowerCase().includes(s.search.toLowerCase()))
     .sort((a, b) => Number(failFor(d, b)) - Number(failFor(d, a)) || priorityIndex(a.priority) - priorityIndex(b.priority) || detailRulePosition(d, a.id) - detailRulePosition(d, b.id));
 
+  // 设备级状态保存在 context 的 ref 中，修改后须 bumpDevices 才能同步刷新视图。
   const patch = (fn) => { fn(s); bumpDevices(); };
 
   const chooseRule = (id) => patch((st) => { st.rule = id; st.instance = id === "timeout" ? "vty" : "single"; st.scroll = 0; });

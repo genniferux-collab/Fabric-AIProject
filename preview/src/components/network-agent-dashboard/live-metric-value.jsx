@@ -1,5 +1,6 @@
 import {useEffect,useRef,useState} from "react";
 
+// 只表现外部 value 的旧值到新值过渡，不在展示组件内模拟或改写指标。
 export default function LiveMetricValue({value,minDigits=1}){
   const previousValue=useRef(value);
   const [change,setChange]=useState(null);

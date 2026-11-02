@@ -1,3 +1,4 @@
+import {Button} from 'antd';
 import { useState } from "react";
 import { useApp } from "../../context.jsx";
 import { v7RuleRequirements,v7RepairDirections } from "../../mock/audit.js";
@@ -101,7 +102,7 @@ function FixSection({ d, r, i, onCopy }) {
       </RepairCommands>
       <div className="fix-actions">
         <span className="small muted">红/绿表示拟删除与新增内容</span>
-        <button className="btn" onClick={onCopy}>复制修复命令</button>
+        <Button onClick={onCopy}>复制修复命令</Button>
       </div>
     </section>
   );
@@ -135,7 +136,7 @@ function SshRepair({d,i,onCopy,onCopyRollback}) {
     <p className="fix-text">{cipher?'将当前 Cipher 加密算法替换为允许的 CTR 套件。':'将当前 HMAC 完整性校验替换为 SHA2 套件。'}建议在凌晨维护窗口执行，执行前核验 SSH 客户端兼容性。</p>
     <div className="v7-ssh-change"><span>变更单 <strong>CH20261021-003</strong></span><span>建议窗口：凌晨</span><span>含回退命令</span></div>
     <RepairCommands onCopy={onCopy}><div className="minus">− {i.cmd} {i.raw}</div><div className="plus">+ {i.cmd} {cipher?r.target:SSH_TARGET_HMAC}</div></RepairCommands>
-    <details className="v7-ssh-rollback"><summary>回退命令</summary><p className="small muted">变更异常时恢复本次快照中的原配置。</p><pre><code>{sshCommands(d,true,i.id)}</code></pre><button className="link" onClick={onCopyRollback}>复制回退命令</button></details>
+    <details className="v7-ssh-rollback"><summary>回退命令</summary><p className="small muted">变更异常时恢复本次快照中的原配置。</p><pre><code>{sshCommands(d,true,i.id)}</code></pre><a href="#" className="detail-copy-link" onClick={event=>{event.preventDefault();onCopyRollback();}}>复制回退命令</a></details>
   </section>;
 }
 
@@ -147,6 +148,7 @@ export default function RuleDetail({d,s,patch}) {
   const setMode=mode=>patch(st=>{st.mode=mode});
   const toggleExcluded=()=>patch(st=>{st.excluded=!st.excluded;if(!st.excluded&&st.instance==='restconf')st.instance='vty'});
   const copy=async(text,kind)=>{try{await navigator.clipboard.writeText(text);toast(kind+'已复制，未下发到设备。')}catch{toast('浏览器未允许复制，请选中建议命令手动复制。')}};
+  // 修复入口只生成并复制当前配置位置的命令，不修改检查结果或直接下发设备。
   const repair=()=>{
     if(isSsh)return copy(sshCommands(d,false,chosen.id),'整改命令');
     if(r.id==='ntp2')return copy('system-view\nundo ntp-service unicast-server '+chosen.raw+'\nntp-service unicast-server '+r.target,'修复命令');
@@ -161,7 +163,7 @@ export default function RuleDetail({d,s,patch}) {
     {!isSsh&&<details className="scope-details"><summary>检查范围与判定说明</summary><p>{isTime?'检查范围：所有 user-interface 视图块（VTY / CONSOLE / AUX）下的直接子命令 idle-timeout。排除 NETCONF、RESTCONF、gRPC 视图。分钟×60＋秒≤600秒为通过，省略秒数按0计算。':'检查范围：'+r.view+'。基于当前配置快照解析参数后，与本规则条件比较。'}</p></details>}
     <div className="instance-heading"><span className="v14-section-label">检查项</span><span>{status}</span>{isTime&&<button onClick={toggleExcluded}>{s.excluded?'收起':'查看'}已排除项（1）</button>}</div>
     <InstanceCards d={d} r={r} s={s} records={records} onChoose={choose}/>
-    <div className="evidence-heading"><h4>{isSsh?'当前配置命中片段':<>配置证据 <span className="small muted" style={{fontWeight:400,marginLeft:8}}>{chosen.name}</span></>}</h4></div>
+    <div className="evidence-heading"><h4>{isSsh?'当前配置命中片段':<>配置证据 <span className="small muted" style={{fontWeight:400,marginLeft:"0.5rem"}}>{chosen.name}</span></>}</h4></div>
     {isSsh&&chosen.bad&&<section className="v7-ssh-impact"><img src="./assets/uploads/detail-warning.svg" width="14" height="14" alt=""/><p><strong>影响说明</strong>当前启用了基线禁止的 {chosen.id==='single'?'CBC':'MD5'} 算法，增加 SSH 会话的密码安全与完整性保护风险。建议按组织密码安全基线整改。</p></section>}
     {!isSsh&&<SemanticComparison d={d} r={r} i={chosen}/>}
     <ConfigView d={d} r={r} i={chosen} s={s} records={records} onSetMode={setMode} onCopy={()=>copy(snapshotFor(d).map((text,index)=>({text,line:index+1})).filter(row=>s.mode==='full'||(row.line>=Math.max(1,chosen.line-2)&&row.line<=chosen.line+1)).map(row=>row.text).join("\n"),"配置片段")}/>

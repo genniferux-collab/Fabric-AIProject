@@ -1,17 +1,20 @@
+import EChart from "../../components/echart/index.jsx";
+import DataTable from "../../components/data-table/index.jsx";
+import { Icon } from "../../../assets/shared/icon.jsx";
 import ReportExport from '../../components/report-export/index.jsx';
 import {NativeSelect} from '../../components/form-controls/select.jsx';
 import {completionTimeline} from '../../mock/uc4-completion.js';
 import {streamDuration} from '../lui-panel/motion.jsx';
 import './generation.css';
 import ArtifactOpen from "../../components/artifact-open/index.jsx";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useApp, scrollCanvasTo } from "../../context.jsx";
 import { devices } from "../../mock/devices.js";
 import { checks, checkById, deviceRuleTotal, applicableChecks } from "../../mock/checks.js";
 import {
   summaryParts, audit, compliance, failedDevices, overviewDevices, priorityRankedRules, comparePriorityDevices,
-  priorityLabels, priorityOf, priorityCounts, ruleShort, sortedFailedRules, v7RuleRequirements,
-  v7RepairDirections, v7RuleDeviation, deviceTypeLabel, deviceVendorLabel,
+  priorityLabels, priorityOf, priorityCounts, ruleShort, v7RuleRequirements,
+  v7RepairDirections, deviceTypeLabel, deviceVendorLabel,
 } from "../../mock/audit.js";
 import { ArtifactIcon, PriorityBadge, PriorityDistribution } from "../../components/status-marks/index.jsx";
 import Ic from "../../components/icon-el/index.jsx";
@@ -19,10 +22,30 @@ import SearchInput from "../../components/search-input/index.jsx";
 import OptionGroup from "../../components/option-group/index.jsx";
 import EmptyState from "../../components/empty-state/index.jsx";
 import "./design.css";
+import "./table-layout.css";
+import "./compliance-ring.css";
 
 
 export function SummaryCopy(){const s=summaryParts();return <>已检查 HCS1 区 <strong>{s.total} 台设备</strong>，其中 <strong>{s.failed} 台未通过</strong>、{s.passed} 台通过，整网合规度 <strong>{s.compliance}%</strong>。发现共计 <strong>{s.rules} 条规则不通过</strong>，包括{s.top}等。建议优先核验高优先级项，结合变更记录确认后修复。</>}
-function RatioBar({failed,total,unit="条"}){const percent=total?failed/total*100:0;return <div className="report-ratio"><div className="report-ratio-track" role="img" aria-label={failed+unit+'不通过，'+(total-failed)+unit+'通过'}><i style={{width:percent+'%'}} /></div><span>不通过率<strong>{Number(percent.toFixed(1))}%</strong></span></div>}
+// Match the former 104×104 SVG exactly; the old -90° rotation makes its gradient vertical.
+function complianceRingOption({width,height}){
+ const scale=Math.min(width,height)/104,cx=width/2,cy=height/2,r=44*scale;
+ const start=-Math.PI/2,share=audit.total?audit.passed/audit.total:0;
+ const stroke={fill:'none',lineWidth:6.5*scale,lineCap:'butt'};
+ return {animation:false,tooltip:{show:false},series:[{
+  type:'custom',coordinateSystem:'none',silent:true,data:[[audit.passed,audit.total]],
+  renderItem:()=>({type:'group',children:[
+   {type:'circle',shape:{cx,cy,r},style:{fill:'none',stroke:'#ffffff04',lineWidth:22*scale}},
+   {type:'circle',shape:{cx,cy,r},style:{...stroke,stroke:'#ef454f'}},
+   {type:'arc',shape:{cx,cy,r,startAngle:start,endAngle:start+Math.PI*2*share,clockwise:true},style:{...stroke,stroke:{type:'linear',x:cx,y:cy+r,x2:cx,y2:cy-r,global:true,colorStops:[{offset:0,color:'#25bc91'},{offset:.72,color:'#36c9a0'},{offset:1,color:'#d7fff2'}]}}}
+  ]})
+ }]};
+}
+function ratioBarOption({width,height},ratio){
+ const filled=width*ratio;
+ return {animation:false,tooltip:{show:false},series:[{type:'custom',coordinateSystem:'none',silent:true,data:[ratio],renderItem:()=>({type:'rect',shape:{x:0,y:0,width:filled,height,r:Math.min(6,filled/2,height/2)},style:{fill:'#ef454f'}})}]};
+}
+function RatioBar({failed,total,unit="条"}){const percent=total?failed/total*100:0;return <div className="report-ratio"><div className="report-ratio-track" role="img" aria-label={failed+unit+'不通过，'+(total-failed)+unit+'通过'}><EChart className="uc4-ratio-chart" option={size=>ratioBarOption(size,percent/100)}/></div><span>不通过率<strong>{Number(percent.toFixed(1))}%</strong></span></div>}
 function RuleCard({r,index,onShowList}){
   const total = devices.filter(d => applicableChecks(d).some(rule => rule.id === r.id)).length;
   const requirement = v7RuleRequirements[r.id] || checkById(r.id).expected;
@@ -46,6 +69,7 @@ export default function ReportCard({ cardRef }) {
   const { openDevice, reportRevealStartedAt } = useApp();
   const [reveal,setReveal]=useState({stamp:null,elapsed:Infinity});
   const elapsed=!reportRevealStartedAt?Infinity:reveal.stamp===reportRevealStartedAt?reveal.elapsed:0;
+  // 骨架揭示与左侧完成结论共用时间线，右侧不要另起固定延时。
   const lines=completionTimeline(summaryParts());
   const end=lines.at(-1).delay+streamDuration(lines.at(-1).text)+180;
   const summaryAt=lines[2].delay, conclusionAt=lines[3].delay;
@@ -65,14 +89,16 @@ export default function ReportCard({ cardRef }) {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const [detailPageSize, setDetailPageSize] = useState(10);
-  const [sortKey, setSortKey] = useState("priority");
-  const [sortDirection, setSortDirection] = useState("desc");
+  const [tableFilters, setTableFilters] = useState({});
   const overviewRef = useRef(null);
   const detailsRef = useRef(null);
+  const tableSurfaceRef = useRef(null);
+  const [tableBodyHeight, setTableBodyHeight] = useState(undefined);
 
   const rules = priorityRankedRules();
   const ranked = overviewDevices();
 
+  // 状态、规则与搜索仅筛选设备明细，报告总览统计继续使用全量设备口径。
   const rows = useMemo(() => (
     [...devices]
       .filter((d) => (
@@ -80,23 +106,66 @@ export default function ReportCard({ cardRef }) {
         (!ruleFilter || d.fails.includes(ruleFilter)) &&
         (d.name + " " + d.ip + " " + d.model + " " + deviceTypeLabel(d) + " " + deviceVendorLabel(d)).toLowerCase().includes(query.toLowerCase())
       ))
-      .sort((a,b) => {
-        if(sortKey === "priority") return (sortDirection === "desc" ? 1 : -1) * comparePriorityDevices(a,b);
-        const value = d => sortKey === "name" ? d.name : sortKey === "ip" ? d.ip : sortKey === "type" ? deviceTypeLabel(d) : sortKey === "vendor" ? deviceVendorLabel(d) : d.fails.length ? "不通过" : "通过";
-        return value(a).localeCompare(value(b), "zh-CN", {numeric:true}) * (sortDirection === "asc" ? 1 : -1) || comparePriorityDevices(a,b);
-      })
-  ), [status, ruleFilter, query, sortKey, sortDirection]);
+      .sort(comparePriorityDevices)
+  ), [status, ruleFilter, query]);
 
-  const sortHeader = (label, key) => <th aria-sort={sortKey === key ? (sortDirection === "asc" ? "ascending" : "descending") : "none"}><button className="report-sort-button" aria-label={"按"+label+"排序"} onClick={() => {setSortKey(key);setSortDirection(sortKey === key && sortDirection === "asc" ? "desc" : "asc");setPage(1);}}>{label}<Ic icon="arrow-down-up" /></button></th>;
+  // 表头排序、有限取值多选筛选和分页统一交给共享 Table；总览仍保持全量口径。
+  const columns = useMemo(() => {
+    const compareText = value => (a,b) => value(a).localeCompare(value(b), "zh-CN", {numeric:true});
+    const options = value => [...new Set(devices.map(value))].map(text => ({text,value:text}));
+    const openDetail = (event,device) => { event.preventDefault(); openDevice(device.id, ruleFilter || undefined); };
+    return [
+      {title:"设备名称",key:"name",dataIndex:"name",sorter:compareText(device => device.name),
+        render:(name,device)=><a href="#" className="uc4-report-table-link uc4-report-device-name" title={name} onClick={event=>openDetail(event,device)}>{name}</a>},
+      {title:"设备IP",key:"ip",dataIndex:"ip",sorter:compareText(device => device.ip),render:ip=><span className="uc4-report-single-value">{ip}</span>},
+      {title:"设备类型",key:"type",sorter:compareText(deviceTypeLabel),filters:options(deviceTypeLabel),filteredValue:tableFilters.type || null,
+        onFilter:(value,device)=>deviceTypeLabel(device)===value,render:(_,device)=><span className="uc4-report-cell-copy" title={deviceTypeLabel(device)}>{deviceTypeLabel(device)}</span>},
+      {title:"厂商",key:"vendor",sorter:compareText(deviceVendorLabel),filters:options(deviceVendorLabel),filteredValue:tableFilters.vendor || null,
+        onFilter:(value,device)=>deviceVendorLabel(device)===value,render:(_,device)=><span className="uc4-report-cell-copy" title={deviceVendorLabel(device)}>{deviceVendorLabel(device)}</span>},
+      {title:"不通过规则数量",key:"failedCount",align:'left',sorter:(a,b)=>a.fails.length-b.fails.length,render:(_,device)=>device.fails.length},
+      {title:"优先级分布",key:"priority",align:'left',defaultSortOrder:"descend",sorter:(a,b)=>-comparePriorityDevices(a,b),
+        filters:Object.entries(priorityLabels).map(([value,text])=>({value,text:text+"优先级"})),filteredValue:tableFilters.priority || null,
+        onFilter:(value,device)=>priorityCounts(device)[value]>0,render:(_,device)=><div className="uc4-report-priority-values"><PriorityDistribution device={device}/></div>},
+      {title:"检查结果",key:"result",sorter:(a,b)=>Number(a.fails.length>0)-Number(b.fails.length>0),
+        filters:[{text:"不通过",value:"failed"},{text:"通过",value:"passed"}],filteredValue:tableFilters.result || null,
+        onFilter:(value,device)=>value==="failed"?device.fails.length>0:device.fails.length===0,
+        render:(_,device)=><span className={"uc4-report-table-result "+(device.fails.length?"is-failed":"is-passed")}><Icon name={device.fails.length?"circle-x":"circle-check"} size="0.875rem"/>{device.fails.length?"不通过":"通过"}</span>},
+      {title:"操作",key:"actions",width:"4rem",align:"left",render:(_,device)=><div className="uc4-report-table-actions"><a href="#" aria-label={"查看设备检查详情："+device.name} title={"查看设备检查详情："+device.name} onClick={event=>openDetail(event,device)}><Icon name="external-link" size="0.875rem"/></a></div>},
+    ];
+  }, [openDevice,ruleFilter,tableFilters]);
+  const hasColumnFilters = Object.values(tableFilters).some(values=>values?.length);
+  const matchingRowCount = rows.filter(device=>columns.every(column=>!column.onFilter||!tableFilters[column.key]?.length||tableFilters[column.key].some(value=>column.onFilter(value,device)))).length;
+  // 少量记录沿正常内容流展示；较多记录的表体上限取自当前画布，而非固定像素高度。
+  useLayoutEffect(()=>{
+    const surface=tableSurfaceRef.current;
+    if(!surface)return;
+    const report=surface.closest('.report-card'),viewport=surface.closest('.canvas-content,.v7-artifact-pane')||document.documentElement;
+    const measure=()=>{
+      if(!surface.clientWidth||!report)return;
+      let next;
+      if(Math.min(detailPageSize,matchingRowCount)>5){
+        const header=surface.querySelector('.ant-table-header,.ant-table-thead'),pager=surface.querySelector('.ant-pagination');
+        const pagerStyle=pager?getComputedStyle(pager):null,viewportStyle=getComputedStyle(viewport),reportStyle=getComputedStyle(report);
+        const pagerHeight=pager?pager.getBoundingClientRect().height+(parseFloat(pagerStyle.marginTop)||0)+(parseFloat(pagerStyle.marginBottom)||0):0;
+        const beforeTable=surface.getBoundingClientRect().top-report.getBoundingClientRect().top;
+        const insets=(parseFloat(viewportStyle.paddingTop)||0)+(parseFloat(viewportStyle.paddingBottom)||0)+(parseFloat(reportStyle.paddingBottom)||0);
+        const available=Math.floor(viewport.clientHeight-beforeTable-(header?.getBoundingClientRect().height||40)-pagerHeight-insets);
+        // 至少容纳四行才启用内层滚动，否则沿报告滚动，避免出现狭窄的表格窗口。
+        if(available>=160)next=available;
+      }
+      setTableBodyHeight(current=>current===next?current:next);
+    };
+    const observer=new ResizeObserver(measure);
+    for(const node of new Set([viewport,report,surface,...surface.querySelectorAll('.ant-table-header,.ant-table-thead,.ant-pagination')]))observer.observe(node);
+    measure();return()=>observer.disconnect();
+  },[detailPageSize,matchingRowCount,lens,ruleFilter,ready]);
 
-  const pages = Math.max(1, Math.ceil(rows.length / detailPageSize));
-  const current = Math.max(1, Math.min(page, pages));
-  const near = [...new Set([1, Math.max(1, current - 1), current, Math.min(pages, current + 1), pages])].sort((a, b) => a - b);
 
   const showDeviceList = (rule = null) => {
     setStatus("failed");
     setRuleFilter(rule);
     setQuery("");
+    setTableFilters({});
     setPage(1);
     requestAnimationFrame(() => requestAnimationFrame(() => scrollCanvasTo(detailsRef.current)));
   };
@@ -118,10 +187,7 @@ export default function ReportCard({ cardRef }) {
       <div className="v7-summary v11-summary">
         <section className={"v7-compliance"+loadingClass(summaryAt)}>
           <div className="v7-ring" role="img" aria-label={`整网合规度${compliance()}%，${audit.passed}台通过，${failedDevices().length}台不通过`}>
-            <svg viewBox="0 0 104 104" aria-hidden="true">
-              <defs><linearGradient id="report-compliance-green"><stop stopColor="#25bc91"/><stop offset=".72" stopColor="#36c9a0"/><stop offset="1" stopColor="#d7fff2"/></linearGradient><filter id="report-ring-glow"><feGaussianBlur stdDeviation="2"/></filter></defs><circle cx="52" cy="52" r="44" fill="none" stroke="#ffffff04" strokeWidth="22"/><circle cx="52" cy="52" r="44" pathLength="100" fill="none" stroke="#ef454f" strokeWidth="6.5" />
-              <circle cx="52" cy="52" r="44" pathLength="100" fill="none" stroke="url(#report-compliance-green)" strokeWidth="6.5" strokeDasharray={`${(audit.passed / audit.total) * 100} 100`} />
-            </svg>
+            <EChart className="uc4-compliance-chart" option={complianceRingOption} style={{width:'10.4375rem',height:'10.4375rem',marginLeft:'var(--spacing-2-5)'}}/>
             <div>
               <strong>{compliance()}<small>%</small></strong>
               <span title="全部适用规则均通过的设备数 ÷ 已检查设备数">整网合规度</span>
@@ -170,6 +236,7 @@ export default function ReportCard({ cardRef }) {
                 ))}
               </NativeSelect>
             </label>
+            {hasColumnFilters && <a href="#" className="uc4-report-table-link" onClick={event=>{event.preventDefault();setTableFilters({});setPage(1);}}>清除表头筛选</a>}
           </div>
           {ruleFilter ? (
             <div className="v7-filter-context">
@@ -177,44 +244,20 @@ export default function ReportCard({ cardRef }) {
               <button onClick={() => { setRuleFilter(null); setPage(1); }} aria-label="清除规则筛选"><Ic icon="x" /></button>
             </div>
           ) : null}
-          <div className="v7-table-scroll">
-            <table className="rule-table v7-table">
-              <thead>
-                <tr>
-                  {sortHeader("设备名称","name")}{sortHeader("设备IP","ip")}{sortHeader("设备类型","type")}{sortHeader("厂商","vendor")}<th>不通过规则数量</th>
-                  {sortHeader("优先级分布","priority")}{sortHeader("检查结果","result")}
-                </tr>
-              </thead>
-              <tbody>
-                {rows.slice((current - 1) * detailPageSize, current * detailPageSize).map((d,i) => (
-                  <tr key={d.id} className={loadingClass(detailsAt+120+i*80)}>
-                    <td><a href="#" className="link" onClick={(e) => { e.preventDefault(); openDevice(d.id, ruleFilter || undefined); }}>{d.name}</a></td>
-                    <td>{d.ip}</td>
-                    <td>{deviceTypeLabel(d)}</td>
-                    <td>{deviceVendorLabel(d)}</td>
-                    <td><span className={d.fails.length ? "bad" : "muted"}>{d.fails.length}</span></td>
-                    <td><PriorityDistribution device={d} /></td>
-                    <td><span className={d.fails.length ? "bad-tag" : "good-tag"}>{d.fails.length ? "不通过" : "通过"}</span></td>
-                  </tr>
-                ))}
-                {!rows.length ? <tr><td colSpan="7"><EmptyState text="未找到匹配设备" /></td></tr> : null}
-              </tbody>
-            </table>
-          </div>
-          <div className="v7-pagination">
-            <span>总计：{rows.length}</span>
-            <div className="row">
-              <NativeSelect className="report-page-size" aria-label="每页条数" value={detailPageSize} onChange={e => {setDetailPageSize(Number(e.target.value));setPage(1);}}>{[10,20,50].map(size=><option key={size} value={size}>{size} 条/页</option>)}</NativeSelect>
-              <button className="btn report-page-arrow" aria-label="上一页" disabled={current === 1} onClick={() => setPage(current - 1)}><Ic icon="chevron-left"/></button>
-              {near.map((n, i) => (
-                <span key={n} style={{ display: "contents" }}>
-                  {i && n - near[i - 1] > 1 ? <span>…</span> : null}
-                  <button className={"v7-page" + (n === current ? " active" : "")} aria-label={"第" + n + "页"} aria-current={n === current ? "page" : undefined} onClick={() => setPage(n)}>{n}</button>
-                </span>
-              ))}
-              {near.length === 1 && <span className="report-page-total">/ {pages}</span>}
-              <button className="btn report-page-arrow" aria-label="下一页" disabled={current === pages} onClick={() => setPage(current + 1)}><Ic icon="chevron-right"/></button>
-            </div>
+          <div className="uc4-report-table-surface" ref={tableSurfaceRef}>
+            <DataTable
+              className="uc4-report-device-table"
+              rowKey="id"
+              columns={columns}
+              dataSource={rows}
+              tableLayout="auto"
+              density="comfortable"
+              scroll={{x:true,...(tableBodyHeight?{y:tableBodyHeight}:{})}}
+              locale={{emptyText:<EmptyState text="未找到匹配设备"/>}}
+              rowClassName={(_,index)=>loadingClass(detailsAt+120+index*80).trim()}
+              pagination={{current:page,pageSize:detailPageSize,pageSizeOptions:[10,20,50]}}
+              onChange={(pagination,filters)=>{setPage(pagination.current || 1);setDetailPageSize(pagination.pageSize || 10);setTableFilters(filters);}}
+            />
           </div>
         </div>
       </section>

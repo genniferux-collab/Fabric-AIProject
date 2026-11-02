@@ -292,7 +292,8 @@ export function Icon({
       if (timer) clearTimeout(timer);
       timer = setTimeout(readColor, 300);
     });
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    const themeRoot=document.documentElement;
+    if(themeRoot) observer.observe(themeRoot, { attributes: true, attributeFilter: ['class'] });
     return function () {
       observer.disconnect();
       if (timer) clearTimeout(timer);
@@ -326,22 +327,18 @@ export function Icon({
     return React.createElement("img", {
       src: src,
       id,
-      width: resolvedSize,
-      height: resolvedSize,
       className: className,
       alt: "",
       "aria-hidden": true,
       onClick,
       title,
-      style: { ...mergedStyle, display: "inline-block", verticalAlign: "middle" },
+      // HTML img dimensions do not accept rem attributes; keep display size in CSS.
+      style: { width: resolvedSize, height: resolvedSize, ...mergedStyle, display: "inline-block", verticalAlign: "middle" },
     });
   }
 
-  // probe not finished yet → render nothing
-  if (plus === null) return null;
-
-  // icon-plus unavailable (offline) → Lucide fallback (original behavior)
-  if (plus === false) {
+  // 网络探测或远端 SVG 未完成时先显示本地 Lucide，操作入口不依赖网络。
+  if (plus === false || !svg) {
     const nodes = lookupIcon(name);
     if (!nodes) return null;
     return React.createElement(

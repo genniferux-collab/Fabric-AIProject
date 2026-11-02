@@ -16,6 +16,7 @@ import Uc3RuleCanvas from '../uc3-canvas/index.jsx';
 import Uc1RulesCanvas from "../uc1-canvas/index.jsx";
 import Ic from "../../components/icon-el/index.jsx";
 
+// 页签属于当前工作台，保留左侧 AI；另开产物页签与全屏放大是两种独立操作。
 function CanvasTabs() {
   const { activePane, openDevices, switchPane, closeDevice, uc2, uc2Show, artifactTabs, activeArtifact, openArtifact, closeArtifact, isDark } = useApp();
   return (
@@ -71,6 +72,7 @@ export default function CanvasArea() {
     if(!activeArtifact)return;
     const card=cardRefs.current[activeArtifact],host=artifactRef.current;
     if(!card||!host)return;
+    // 移动同一张产物卡而非重建组件，保留筛选、选中与生成状态；清理时还原原位置。
     const anchor=document.createComment('Artifact source');card.before(anchor);host.appendChild(card);
     host.scrollTop=artifactScrollsRef.current[activeArtifact] || 0;
     return ()=>{artifactScrollsRef.current[activeArtifact]=host.scrollTop;if(anchor.parentNode)anchor.replaceWith(card)};

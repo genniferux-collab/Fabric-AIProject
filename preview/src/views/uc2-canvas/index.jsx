@@ -52,7 +52,7 @@ export default function Uc2Pane() {
         <h2 className="uc2-module-name">
           <Icon name={i === 1 ? "network" : i === 2 ? "sparkles" : "file-text"} className="ic" strokeWidth={1.6} />
           {headings[i]}
-          <button type="button" className="uc2-locate-conversation" aria-label={`定位分析对话：${headings[i]}`} title="定位到 AI 对话" onClick={() => uc2FocusStep(i)}><img src="./assets/uploads/artifact-locate-panel.svg" width="12" height="12" alt=""/></button>
+          <button type="button" className="uc2-locate-conversation" aria-label={`定位分析对话：${headings[i]}`} title="定位到 AI 对话" onClick={() => uc2FocusStep(i)}><img src="./assets/uploads/artifact-locate-panel.svg" style={{width:"0.75rem",height:"0.75rem"}} alt=""/></button>
         </h2>
         <div className={(i === 1 ? "uc2-restoration-host" : "card") + " uc2-module-artifact" + (pendingText ? " is-preparing" : "") + (i === 2 ? " uc2-mining-artifact" : "") + (i === 3 ? " artifact-card uc2-report-card" : "")} data-artifact-kind={artifactKinds[i]} ref={element => { if (element) cardRefs.current[artifactKinds[i]] = element; }} {...(i === 3 ? { id: "uc2StageContent" } : {})}>{content}</div>
       </section>

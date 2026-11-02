@@ -6,33 +6,33 @@
 
 .canvas.full{left:48px}
 
-.canvas-head{height:56px;flex-shrink:0;padding:0 24px;border-bottom:1px solid var(--line);background:var(--panel)}
+.canvas-head{height:56px;flex-shrink:0;padding:0 var(--spacing-6);border-bottom:1px solid var(--line);background:var(--panel)}
 
-.canvas-head .heading{font-size:16px;font-weight:500}
+.canvas-head .heading{font-size:var(--font-size-lg);font-weight:var(--font-weight-medium)}
 
 .canvas-head .ic{color:#b4a6f2}
 
-.canvas-content{padding:16px;overflow:auto;flex:1;scrollbar-width:none}
+.canvas-content{padding:var(--spacing-4);overflow:auto;flex:1;scrollbar-width:none}
 
 .canvas-content::-webkit-scrollbar{display:none}
 
 .scroll-track{position:absolute;right:3px;top:64px;bottom:8px;width:3px;pointer-events:none;z-index:10}
 
-.scroll-thumb{position:absolute;left:0;width:3px;border-radius:3px;background:#ffffff38}
+.scroll-thumb{position:absolute;left:0;width:3px;border-radius:0.1875rem;background:#ffffff38}
 
-.card{background:var(--panel);border-radius:8px;box-shadow:var(--shadow);padding:24px;margin-bottom:16px}
+.card{background:var(--panel);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:var(--spacing-6);margin-bottom:var(--spacing-4)}
 
-.card-title{font-size:18px;font-weight:500;margin:0}
+.card-title{font-size:var(--font-size-xl);font-weight:var(--font-weight-medium);margin:0}
 
-.card-desc{color:var(--muted);font-size:12px;margin-top:8px}
+.card-desc{color:var(--muted);font-size:var(--font-size-base);margin-top:var(--spacing-2)}
 
-.canvas-tabs{display:flex;align-items:stretch;gap:0;height:40px;flex-shrink:0;background:var(--panel);border-bottom:1px solid var(--line);padding:0 16px;overflow-x:auto;scrollbar-width:none}
+.canvas-tabs{display:flex;align-items:stretch;gap:0;height:40px;flex-shrink:0;background:var(--panel);border-bottom:1px solid var(--line);padding:0 var(--spacing-4);overflow-x:auto;scrollbar-width:none}
 
-.canvas-tab{display:flex;align-items:center;gap:12px;padding:0 16px;border-bottom:2px solid transparent;color:var(--muted);font-size:12px;white-space:nowrap;flex-shrink:0}
+.canvas-tab{display:flex;align-items:center;gap:var(--spacing-3);padding:0 var(--spacing-4);border-bottom:2px solid transparent;color:var(--muted);font-size:var(--font-size-base);white-space:nowrap;flex-shrink:0}
 
 .canvas-tab.active{border-bottom-color:var(--link);color:var(--link);background:#5ca2e909}
 
-.canvas-tab button{padding:0;color:inherit;height:100%;font-size:12px}
+.canvas-tab button{padding:0;color:inherit;height:100%;font-size:var(--font-size-base)}
 
 .canvas-tab .ic{width:14px;height:14px}
 
@@ -56,22 +56,22 @@ html.dark .stage-root .canvas .card:hover {
 }
 
 /* One header hosts the task and device tabs. */
-.canvas-head{gap:12px;padding:0 16px}
+.canvas-head{gap:var(--spacing-3);padding:0 var(--spacing-4)}
 
 .canvas-head>.canvas-tabs{flex:1;min-width:0;height:auto;align-self:stretch;border:0;padding:0;background:transparent;overflow-x:auto}
 
-.canvas-head .canvas-tab{font-size:16px;gap:8px}
+.canvas-head .canvas-tab{font-size:var(--font-size-lg);gap:var(--spacing-2)}
 
-.canvas-head .canvas-tab>button[role=tab]{font-size:16px;display:flex;align-items:center;gap:8px}
+.canvas-head .canvas-tab>button[role=tab]{font-size:var(--font-size-lg);display:flex;align-items:center;gap:var(--spacing-2)}
 
 .canvas-head .canvas-tab .ic{width:16px;height:16px}
 
 .scroll-track{top:64px}
 
 /* Shared canvas artifact-card specification. Nested TOP and graph nodes keep their own layout. */
-.canvas .card{padding:16px;border-radius:16px;box-shadow:none;scroll-margin-top:38px}
+.canvas .card{padding:var(--spacing-4);border-radius:1rem;box-shadow:none;scroll-margin-top:2.375rem}
 
-.v7-artifact-title{display:flex;align-items:center;gap:8px}
+.v7-artifact-title{display:flex;align-items:center;gap:var(--spacing-2)}
 
 /* Original Pixso export supplied by the designer; shared across UC1–UC4. */
 .stage-root #canvas .panorama-design-icon{display:block;flex:none;width:14px;height:14px;object-fit:contain;filter:brightness(0) invert(.682353)}

@@ -18,7 +18,7 @@
   --gray-0: #FFFFFF;
   --gray-05: #F3F3F3;
   --gray-10: #DFDFDF;
-  --gray-20: #C9C9C9; 
+  --gray-20: #C9C9C9;
   --gray-30: #AEAEAE;
   --gray-40: #939393;
   --gray-50: #777777;
@@ -164,11 +164,11 @@
     2. 尺寸与形状 (Sizes & Shapes)
     ========================================================================== */
   --radius-none: 0;
-  --radius-xs: 2px;
-  --radius-base: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
+  --radius-xs: 0.125rem;
+  --radius-base: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
   --radius-full: 9999px;
 
   /* ==========================================================================

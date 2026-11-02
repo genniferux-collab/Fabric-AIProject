@@ -1,0 +1,7 @@
+/* Keep the ECharts plot separate from the unchanged HTML center caption. */
+.stage-root.uc4 #reportCard.report-design .v7-ring>.uc4-compliance-chart{position:relative;inset:auto;display:block;overflow:hidden;gap:0}
+/* Legacy ring rules rotated the source SVG; custom-series coordinates already include that rotation. */
+.stage-root.uc4 #reportCard.report-design .v7-ring>.uc4-compliance-chart svg{display:block;width:100%;height:100%;margin:0;transform:none;overflow:hidden}
+
+/* The track and labels remain native; the silent foreground never captures card input. */
+.stage-root.uc4 #reportCard.report-design .report-ratio-track>.uc4-ratio-chart{pointer-events:none}

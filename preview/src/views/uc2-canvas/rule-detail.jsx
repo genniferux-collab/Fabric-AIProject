@@ -1,3 +1,4 @@
+import {Button} from 'antd';
 import { useLayoutEffect, useRef, useState } from "react";
 import { useApp } from "../../context.jsx";
 import { uc2Rules, miningImpact, fusionImpact } from "../../mock/uc2.js";
@@ -19,6 +20,7 @@ function CodePanel({lines,onCopy,mode,onModeChange,repair=false}) {
 function differentTokens(expected,actual){const left=expected.split(/\s+/),right=actual.split(/\s+/);const first=right.findIndex((token,index)=>token!==left[index]);return first<0?"":right.slice(first).join(" ");}
 
 // Pixso UC2-识别完成-规则详情: rule metadata + device list + configuration evidence.
+// 采纳入口打开独立编辑页签，最终审阅状态由保存并采纳写回，不在此下发配置。
 export function Uc2RuleDetail({ruleId}) {
   const {uc2,uc2Review,uc2Reviews,uc2RuleDetailsRef,uc2EditRule,uc2RuleConfigs,toast} = useApp();
   const sourceRule = uc2Rules.find(item=>item.id === (ruleId || uc2.rule));
@@ -27,6 +29,7 @@ export function Uc2RuleDetail({ruleId}) {
   const [,setVersion] = useState(0),navRef=useRef(null);
   const devices = rule ? samplesFor(rule) : [];
   const initial = devices.find(device=>device.bad) || devices[0];
+  // 每条候选分别缓存筛选、选中设备与滚动位置，切换页签时恢复自己的上下文。
   const state = rule ? uc2RuleDetailsRef.current[rule.id] || (uc2RuleDetailsRef.current[rule.id]={status:rule.deviations?"failed":"all",query:"",selected:initial?.id,mode:"related",navScroll:0}) : null;
   const visible = state ? devices.filter(device=>(state.status==="all" || (state.status==="failed"?device.bad:!device.bad)) && ("西三旗 "+device.name+" "+device.role).toLowerCase().includes(state.query.trim().toLowerCase())) : [];
   const device = visible.find(item=>item.id===state?.selected) || visible[0];
@@ -57,6 +60,6 @@ export function Uc2RuleDetail({ruleId}) {
         <div className="uc2-rule-disclaimer">{rule.cmd.includes("<")?"命令中的规划参数已填入示例值，使用前须结合设备与网络规划确认。":"当前为交互原型示例配置，核验后再决定是否调整。"}此处仅展示建议，未下发设备变更。</div>
       </>:<EmptyState text="没有匹配的设备，请调整左侧筛选条件。"/>}</article>
     </div>
-    <footer className="uc2-rule-review"><span>候选审阅状态：<strong>{reviewLabels[review]}</strong><small>{review==="accepted"&&saved?"规则配置已保存到本地规则库":"编辑确认后采纳，不下发设备配置"}</small></span><div><button type="button" className="btn" onClick={()=>uc2Review(rule.id,"pending")}>恢复待审阅</button><button type="button" className="btn" onClick={()=>uc2Review(rule.id,"rejected")}>暂不采用</button><button type="button" className="btn primary" onClick={()=>uc2EditRule(rule.id)}>{review==="accepted"?"编辑已采纳规则":"采纳此候选"}</button></div></footer>
+    <footer className="uc2-rule-review"><span>候选审阅状态：<strong>{reviewLabels[review]}</strong><small>{review==="accepted"&&saved?"规则配置已保存到本地规则库":"编辑确认后采纳，不下发设备配置"}</small></span><div><Button onClick={()=>uc2Review(rule.id,"pending")}>恢复待审阅</Button><Button onClick={()=>uc2Review(rule.id,"rejected")}>暂不采用</Button><Button type="primary" onClick={()=>uc2EditRule(rule.id)}>{review==="accepted"?"编辑已采纳规则":"采纳此候选"}</Button></div></footer>
   </div>;
 }

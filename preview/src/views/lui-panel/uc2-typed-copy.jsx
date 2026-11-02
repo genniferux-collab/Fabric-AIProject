@@ -2,6 +2,7 @@ import { cloneElement, isValidElement, useEffect, useState } from "react";
 import { useApp } from "../../context.jsx";
 import { uc2Timing } from "../../mock/uc2.js";
 
+// 对 React 子树分配字符预算，保留 strong、列表等富文本结构，不转换为纯字符串。
 function textLength(node) {
   if (typeof node === "string" || typeof node === "number") return Array.from(String(node)).length;
   if (Array.isArray(node)) return node.reduce((sum, child) => sum + textLength(child), 0);
@@ -20,6 +21,7 @@ function revealText(node, budget) {
 export default function Uc2TypedCopy({ step, kind = "conclusion", children }) {
   const { uc2 } = useApp();
   const [fraction, setFraction] = useState(0);
+  // 文字使用任务阶段的同一时钟；暂停、恢复和右侧画布进度保持同步。
   const typing = step === uc2.stage && uc2.phase === (kind === "thought" ? "text" : "canvas");
   useEffect(() => {
     if (!typing) return;

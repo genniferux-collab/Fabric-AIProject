@@ -1,6 +1,7 @@
 import {useCallback,useEffect,useRef,useState} from "react";
 import {clamp,logicalMapPoint} from "../../components/map-network-overlay/map-coordinates.js";
 
+// scene 负责原稿适配，view 负责用户平移/缩放；两层坐标不要合并进节点数据。
 const MIN_ZOOM=.7,MAX_ZOOM=3,DEFAULT_MAP_MAGNIFICATION=1.15;
 const CHINA={left:0,top:16,right:1354.487,bottom:992,cx:677.244,cy:504};
 const initialView={scale:1,x:0,y:0};
@@ -58,6 +59,7 @@ export default function useMapNavigation(mapRef,metricsRef){
     };
     motion.current.frame=requestAnimationFrame(tick);
   },[stopMotion,commit]);
+  // 以指针所在逻辑位置为缩放锚点；按钮无指针时使用指标栏下方的可视区中心。
   const zoom=useCallback((scale,point,wheel=false)=>{
     const current=state.current.target,s=state.current.scene,anchor=point||{x:s.width/2,y:(s.bottom+s.height)/2};
     const nextScale=clamp(scale,MIN_ZOOM,MAX_ZOOM),ratio=nextScale/current.scale;
@@ -73,6 +75,7 @@ export default function useMapNavigation(mapRef,metricsRef){
       const scale=Math.max(.05,Math.min(Math.max(1,width-2*padding)/(CHINA.right-CHINA.left),areaHeight/(CHINA.bottom-CHINA.top)))*DEFAULT_MAP_MAGNIFICATION;
       const next={scale,left:width/2-CHINA.cx*scale,top:(bottom+height)/2-CHINA.cy*scale,maskHeight:bottom+padding,width,height,bottom};
       const previous=state.current.scene,current=state.current.view;state.current.scene=next;setScene(next);
+      // 窗口改变后保留用户当前查看的原稿位置，避免地图突然跳回默认中心。
       if(current.scale!==1||current.x||current.y){
         const sourceX=((previous.width/2-current.x)/current.scale-previous.left)/previous.scale;
         const sourceY=(((previous.bottom+previous.height)/2-current.y)/current.scale-previous.top)/previous.scale;

@@ -252,6 +252,12 @@ input.ant-input.ant-input-sm {
 .ant-input-affix-wrapper .ant-input-suffix {
   color: var(--color-text-primary);
 }
+.ant-input-affix-wrapper .ant-input-suffix .anticon {
+  color: var(--color-icon-secondary);
+}
+.ant-input-affix-wrapper .ant-input-suffix svg {
+  color: var(--color-icon-secondary);
+}
 .ant-input-outlined {
   border-color: var(--color-border);
   background-color: var(--color-fill-subtle);
@@ -662,6 +668,9 @@ input.ant-input.ant-input-sm {
 }
 .ant-select-single.ant-select-sm .ant-select-selector .ant-select-selection-wrap::after {
   line-height: 1.375rem;
+}
+.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+  padding: 0 0.75rem;
 }
 .ant-select-single:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-search-input {
   font-size: var(--font-size-md);
@@ -1284,21 +1293,22 @@ input.ant-input.ant-input-sm {
   color: var(--yellow-50);
 }
 
+/* 固定表头使用 header/body，普通表格使用 content；三种容器共享同一 ICT 皮肤。 */
 /* Table 组件样式（token 映射；单元格高度按尺寸区分，rem：大 2.5rem / 中 2rem / 小 1.75rem） */
 .ant-table {
   font-family: var(--font-family) !important;
-  /* antd 5.29 在 .ant-table 上设置了 scrollbar-color（ant-design#47486），且该属性会继承到 .ant-table-content；
+  /* antd 5.29 在 .ant-table 上设置了 scrollbar-color（ant-design#47486），且该属性会继承到 :is(.ant-table-content,.ant-table-header,.ant-table-body)；
      Chrome 121+ 中滚动元素上非 auto 的标准滚动条属性会让 ::-webkit-scrollbar 自定义样式全部失效，
      重置为 auto 以恢复 6px 自定义滚动条（含 base.css 的全局规则） */
   scrollbar-color: auto !important;
 }
-.ant-table .ant-table-content {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) {
   border-start-start-radius: 0 !important;
   border-start-end-radius: 0 !important;
   /* 滚动条下移：横向滚动条渲染在 padding 之下，这里留出与表格的间距；负 margin 抵消无滚动条表格多占的空间 */
   padding-bottom: 2px;
   margin-bottom: -2px;
-  /* 横向滚动条（scroll.x 的滚动容器就是 .ant-table-content，规则生效依赖上方 .ant-table 的 scrollbar-color 重置）
+  /* 横向滚动条（scroll.x 的滚动容器就是 :is(.ant-table-content,.ant-table-header,.ant-table-body)，规则生效依赖上方 .ant-table 的 scrollbar-color 重置）
 		   注意：Chromium 中 hover 改 ::-webkit-scrollbar 高度存在渲染滞后（需交互才刷新且不还原），
 		   故轨道固定 8px；滑块用固定 2px 透明边框把可视区缩到 4px（内半径 = 4-2 = 2px，圆角生效），
 		   hover 只切换 background-clip/颜色（纯绘制属性，即时生效）铺满 8px */
@@ -1310,63 +1320,63 @@ input.ant-input.ant-input-sm {
 		   hover 高亮只响应图标区域，悬停标题文字不再变色 */
   /* 排序列：手型光标只在排序图标上，表头其余区域恢复默认箭头（点击任意位置仍可排序） */
 }
-.ant-table .ant-table-content::-webkit-scrollbar {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body)::-webkit-scrollbar {
   width: 8px;
   height: 8px;
   background: transparent;
   border: none;
 }
-.ant-table .ant-table-content::-webkit-scrollbar-thumb {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body)::-webkit-scrollbar-thumb {
   cursor: pointer;
   border-radius: 4px;
   border: 2px solid transparent;
   background-color: #dfdfdf;
   background-clip: padding-box;
 }
-.ant-table .ant-table-content::-webkit-scrollbar-thumb:hover {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body)::-webkit-scrollbar-thumb:hover {
   background-color: #dededf;
   background-clip: border-box;
 }
-.ant-table .ant-table-content::-webkit-scrollbar-track {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body)::-webkit-scrollbar-track {
   background: transparent;
   border: none;
 }
-.ant-table .ant-table-content::-webkit-scrollbar-button {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body)::-webkit-scrollbar-button {
   display: none;
   width: 0;
   height: 0;
 }
-.ant-table .ant-table-content::-webkit-scrollbar-corner {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body)::-webkit-scrollbar-corner {
   background: transparent;
 }
-.ant-table .ant-table-content .ant-table-thead > tr > th[style*="text-align: right"] .ant-table-column-sorters {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-thead > tr > th[style*="text-align: right"] .ant-table-column-sorters {
   justify-content: flex-end;
 }
-.ant-table .ant-table-content .ant-table-column-sorters {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-column-sorters {
   justify-content: flex-start;
   max-width: 100%;
 }
-.ant-table .ant-table-content .ant-table-column-sorters .ant-table-column-title {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-column-sorters .ant-table-column-title {
   flex: 0 1 auto;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.ant-table .ant-table-content .ant-table-column-sorters .ant-table-column-sorter {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-column-sorters .ant-table-column-sorter {
   display: inline-flex;
   align-items: center;
   line-height: 0;
   margin-inline-start: 0.5rem;
 }
-.ant-table .ant-table-content .ant-table-column-sorters .ant-table-column-sorter .ant-table-column-sorter-inner:has(.ant-table-column-sorter-up.active) {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-column-sorters .ant-table-column-sorter .ant-table-column-sorter-inner:has(.ant-table-column-sorter-up.active) {
   background: url("data:image/svg+xml,%3csvg%20width='12.000000'%20height='12.000000'%20viewBox='0%200%2012%2012'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdefs%3e%3cclipPath%20id='clip2_45'%3e%3crect%20id='ic_public_sort_up'%20width='12.000000'%20height='12.000000'%20fill='white'%20fill-opacity='0'/%3e%3c/clipPath%3e%3c/defs%3e%3cg%20clip-path='url(%23clip2_45)'%3e%3cpath%20id='path4%20(边框)'%20d='M6.5%201.95L10.02%205.46C10.22%205.66%2010.53%205.66%2010.72%205.46C10.92%205.26%2010.92%204.95%2010.72%204.75L6.35%200.39C6.25%200.29%206.13%200.25%206%200.25C5.86%200.25%205.74%200.29%205.64%200.39L1.27%204.75C1.07%204.95%201.07%205.26%201.27%205.46C1.46%205.66%201.77%205.66%201.97%205.46L5.5%201.95L5.5%2011.25C5.5%2011.53%205.72%2011.75%206%2011.75C6.28%2011.75%206.5%2011.53%206.5%2011.25L6.5%201.95Z'%20fill='%23191919'%20fill-opacity='1.000000'%20fill-rule='evenodd'/%3e%3c/g%3e%3c/svg%3e") center no-repeat !important;
   background-size: 0.75rem;
 }
-.ant-table .ant-table-content .ant-table-column-sorters .ant-table-column-sorter .ant-table-column-sorter-inner:has(.ant-table-column-sorter-down.active) {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-column-sorters .ant-table-column-sorter .ant-table-column-sorter-inner:has(.ant-table-column-sorter-down.active) {
   background: url("data:image/svg+xml,%3csvg%20width='12.000000'%20height='12.000000'%20viewBox='0%200%2012%2012'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdefs%3e%3cclipPath%20id='clip2_31'%3e%3crect%20id='ic_public_sort_down'%20width='12.000000'%20height='12.000000'%20fill='white'%20fill-opacity='0'/%3e%3c/clipPath%3e%3c/defs%3e%3cg%20clip-path='url(%23clip2_31)'%3e%3cpath%20id='path4%20(边框)'%20d='M6.5%200.75C6.5%200.47%206.28%200.25%206%200.25C5.72%200.25%205.5%200.47%205.5%200.75L5.5%2010.04L1.97%206.53C1.77%206.33%201.46%206.33%201.27%206.53C1.07%206.73%201.07%207.04%201.27%207.24L5.64%2011.6C5.74%2011.7%205.86%2011.75%206%2011.75C6.13%2011.75%206.25%2011.7%206.35%2011.6L10.72%207.24C10.92%207.04%2010.92%206.73%2010.72%206.53C10.53%206.33%2010.22%206.33%2010.02%206.53L6.5%2010.04L6.5%200.75Z'%20fill='%23191919'%20fill-opacity='1.000000'%20fill-rule='evenodd'/%3e%3c/g%3e%3c/svg%3e") center no-repeat !important;
   background-size: 0.75rem;
 }
-.ant-table .ant-table-content .ant-table-column-sorters .ant-table-column-sorter .ant-table-column-sorter-inner {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-column-sorters .ant-table-column-sorter .ant-table-column-sorter-inner {
   display: inline-block;
   width: 1rem;
   height: 1.5rem;
@@ -1375,47 +1385,47 @@ input.ant-input.ant-input-sm {
   background: url("data:image/svg+xml,%3csvg%20width='12.000000'%20height='12.000000'%20viewBox='0%200%2012%2012'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdefs/%3e%3cpath%20id='合并'%20d='M4.44%2011.5C4.44%2011.78%204.22%2012%203.94%2012C3.66%2012%203.44%2011.78%203.44%2011.5L3.44%201.7L1.72%203.41C1.53%203.61%201.22%203.61%201.02%203.41C0.82%203.22%200.82%202.91%201.02%202.71L3.58%200.14C3.63%200.09%203.69%200.06%203.75%200.03C3.8%200.01%203.87%200%203.94%200C4.1%200%204.23%200.04%204.31%200.12C4.4%200.2%204.44%200.33%204.44%200.5L4.44%2011.5ZM7.85%200C7.57%200%207.35%200.21%207.35%200.5L7.35%2011.5C7.35%2011.66%207.39%2011.79%207.47%2011.87C7.56%2011.95%207.68%2012%207.85%2012C7.99%2012%208.1%2011.95%208.2%2011.85L10.77%209.28C10.97%209.08%2010.97%208.77%2010.77%208.58C10.57%208.38%2010.26%208.38%2010.06%208.58L8.35%2010.29L8.35%200.5C8.35%200.21%208.13%200%207.85%200Z'%20fill='%23191919'%20fill-opacity='1.000000'%20fill-rule='evenodd'/%3e%3c/svg%3e") center no-repeat;
   background-size: 0.75rem;
 }
-.ant-table .ant-table-content .ant-table-column-sorters .ant-table-column-sorter .ant-table-column-sorter-inner > span {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-column-sorters .ant-table-column-sorter .ant-table-column-sorter-inner > span {
   display: none;
 }
-.ant-table .ant-table-content .ant-table-column-sorters .ant-table-column-sorter .ant-table-column-sorter-inner:hover {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-column-sorters .ant-table-column-sorter .ant-table-column-sorter-inner:hover {
   background: url("data:image/svg+xml,%3csvg%20width='12.000000'%20height='12.000000'%20viewBox='0%200%2012%2012'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdesc%3e%20Created%20with%20Pixso.%20%3c/desc%3e%3cdefs/%3e%3cpath%20id='合并'%20d='M4.44%2011.5C4.44%2011.78%204.22%2012%203.94%2012C3.66%2012%203.44%2011.78%203.44%2011.5L3.44%201.7L1.72%203.41C1.53%203.61%201.22%203.61%201.02%203.41C0.82%203.22%200.82%202.91%201.02%202.71L3.58%200.14C3.63%200.09%203.69%200.06%203.75%200.03C3.8%200.01%203.87%200%203.94%200C4.1%200%204.23%200.04%204.31%200.12C4.4%200.2%204.44%200.33%204.44%200.5L4.44%2011.5ZM7.85%200C7.57%200%207.35%200.21%207.35%200.5L7.35%2011.5C7.35%2011.66%207.39%2011.79%207.47%2011.87C7.56%2011.95%207.68%2012%207.85%2012C7.99%2012%208.1%2011.95%208.2%2011.85L10.77%209.28C10.97%209.08%2010.97%208.77%2010.77%208.58C10.57%208.38%2010.26%208.38%2010.06%208.58L8.35%2010.29L8.35%200.5C8.35%200.21%208.13%200%207.85%200Z'%20fill='%232E86DE'%20fill-opacity='1.000000'%20fill-rule='evenodd'/%3e%3c/svg%3e") center no-repeat !important;
   background-size: 0.75rem;
 }
-.ant-table .ant-table-content .ant-table-thead > tr > th.ant-table-column-has-sorters {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-thead > tr > th.ant-table-column-has-sorters {
   cursor: default !important;
 }
-.ant-table .ant-table-content .ant-table-column-sorter-inner {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-column-sorter-inner {
   cursor: pointer;
 }
-.ant-table .ant-table-content .ant-table-column-sorters::after {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-column-sorters::after {
   pointer-events: none;
 }
-.ant-table .ant-table-content .ant-table-column-sorters .ant-table-column-sorter .ant-table-column-sorter-inner:hover:has(.ant-table-column-sorter-up.active) {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-column-sorters .ant-table-column-sorter .ant-table-column-sorter-inner:hover:has(.ant-table-column-sorter-up.active) {
   background: url("data:image/svg+xml,%3csvg%20width='12.000000'%20height='12.000000'%20viewBox='0%200%2012%2012'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdefs%3e%3cclipPath%20id='clip2_45'%3e%3crect%20id='ic_public_sort_up'%20width='12.000000'%20height='12.000000'%20fill='white'%20fill-opacity='0'/%3e%3c/clipPath%3e%3c/defs%3e%3cg%20clip-path='url(%23clip2_45)'%3e%3cpath%20id='path4%20(边框)'%20d='M6.5%201.95L10.02%205.46C10.22%205.66%2010.53%205.66%2010.72%205.46C10.92%205.26%2010.92%204.95%2010.72%204.75L6.35%200.39C6.25%200.29%206.13%200.25%206%200.25C5.86%200.25%205.74%200.29%205.64%200.39L1.27%204.75C1.07%204.95%201.07%205.26%201.27%205.46C1.46%205.66%201.77%205.66%201.97%205.46L5.5%201.95L5.5%2011.25C5.5%2011.53%205.72%2011.75%206%2011.75C6.28%2011.75%206.5%2011.53%206.5%2011.25L6.5%201.95Z'%20fill='%232E86DE'%20fill-opacity='1.000000'%20fill-rule='evenodd'/%3e%3c/g%3e%3c/svg%3e") center no-repeat !important;
   background-size: 0.75rem;
 }
-.ant-table .ant-table-content .ant-table-column-sorters .ant-table-column-sorter .ant-table-column-sorter-inner:hover:has(.ant-table-column-sorter-down.active) {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-column-sorters .ant-table-column-sorter .ant-table-column-sorter-inner:hover:has(.ant-table-column-sorter-down.active) {
   background: url("data:image/svg+xml,%3csvg%20width='12.000000'%20height='12.000000'%20viewBox='0%200%2012%2012'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdefs%3e%3cclipPath%20id='clip2_31'%3e%3crect%20id='ic_public_sort_down'%20width='12.000000'%20height='12.000000'%20fill='white'%20fill-opacity='0'/%3e%3c/clipPath%3e%3c/defs%3e%3cg%20clip-path='url(%23clip2_31)'%3e%3cpath%20id='path4%20(边框)'%20d='M6.5%200.75C6.5%200.47%206.28%200.25%206%200.25C5.72%200.25%205.5%200.47%205.5%200.75L5.5%2010.04L1.97%206.53C1.77%206.33%201.46%206.33%201.27%206.53C1.07%206.73%201.07%207.04%201.27%207.24L5.64%2011.6C5.74%2011.7%205.86%2011.75%206%2011.75C6.13%2011.75%206.25%2011.7%206.35%2011.6L10.72%207.24C10.92%207.04%2010.92%206.73%2010.72%206.53C10.53%206.33%2010.22%206.33%2010.02%206.53L6.5%2010.04L6.5%200.75Z'%20fill='%232E86DE'%20fill-opacity='1.000000'%20fill-rule='evenodd'/%3e%3c/g%3e%3c/svg%3e") center no-repeat !important;
   background-size: 0.75rem;
 }
-.ant-table .ant-table-content .ant-table-filter-column {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-filter-column {
   justify-content: flex-start;
   align-items: center;
 }
-.ant-table .ant-table-content .ant-table-filter-column > .ant-table-column-title:has(> .ant-table-column-sorters) {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-filter-column > .ant-table-column-title:has(> .ant-table-column-sorters) {
   display: contents;
 }
-.ant-table .ant-table-content .ant-table-filter-column .ant-table-column-sorters {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-filter-column .ant-table-column-sorters {
   display: contents;
 }
-.ant-table .ant-table-content .ant-table-filter-column .ant-table-column-title {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-filter-column .ant-table-column-title {
   flex: 0 1 auto;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.ant-table .ant-table-content .ant-table-filter-column .ant-table-filter-trigger {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-filter-column .ant-table-filter-trigger {
   order: 1;
   margin-inline-start: 0.5rem;
   margin-inline-end: 0;
@@ -1426,25 +1436,25 @@ input.ant-input.ant-input-sm {
   background: url("data:image/svg+xml,%3csvg%20width='12.000000'%20height='12.000000'%20viewBox='0%200%2012%2012'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdesc%3e%20Created%20with%20Pixso.%20%3c/desc%3e%3cdefs/%3e%3cpath%20id='合并'%20d='M7.98%209.25L7.98%206.96C7.98%206.68%207.76%206.46%207.48%206.46C7.2%206.46%206.98%206.68%206.98%206.96L6.98%209.25C6.98%209.33%206.96%209.4%206.92%209.46C6.9%209.49%206.8%209.6%206.77%209.62L4.88%2010.71L4.88%205.5C4.88%205.36%204.83%205.25%204.74%205.15L1.41%201.71C1.36%201.66%201.33%201.61%201.31%201.55C1.3%201.47%201.29%201.33%201.32%201.25C1.36%201.18%201.41%201.11%201.47%201.07C1.54%201.02%201.62%201%201.71%201L10.24%201C10.3%201%2010.37%201.01%2010.42%201.04C10.44%201.05%2010.52%201.1%2010.54%201.12C10.58%201.16%2010.6%201.2%2010.63%201.26C10.66%201.33%2010.67%201.41%2010.66%201.49C10.64%201.58%2010.6%201.65%2010.54%201.72L7.12%205.14C6.93%205.34%206.93%205.65%207.13%205.85C7.32%206.05%207.64%206.05%207.83%205.85L11.24%202.42C11.46%202.21%2011.59%201.95%2011.64%201.66C11.66%201.54%2011.67%201.42%2011.66%201.3C11.64%201.16%2011.61%201.01%2011.55%200.87C11.49%200.73%2011.41%200.6%2011.32%200.49C11.24%200.4%2011.15%200.32%2011.05%200.25C10.81%200.08%2010.54%200%2010.24%200L1.71%200C1.54%200%201.38%200.02%201.23%200.08C1.11%200.12%201%200.18%200.9%200.25C0.8%200.32%200.71%200.4%200.63%200.49C0.54%200.6%200.46%200.72%200.4%200.86C0.34%201%200.31%201.14%200.29%201.29C0.28%201.41%200.29%201.53%200.31%201.65C0.33%201.77%200.36%201.89%200.41%202C0.48%202.15%200.57%202.28%200.69%202.41L3.88%205.7L3.88%2010.77C3.88%2010.95%203.93%2011.12%204.02%2011.27C4.1%2011.41%204.22%2011.52%204.36%2011.61C4.51%2011.69%204.66%2011.73%204.83%2011.73C4.91%2011.74%204.99%2011.73%205.06%2011.71C5.15%2011.69%205.24%2011.65%205.32%2011.61L7.27%2010.48C7.49%2010.36%207.66%2010.18%207.79%209.96C7.91%209.74%207.98%209.51%207.98%209.25Z'%20fill='%23191919'%20fill-opacity='1.000000'%20fill-rule='evenodd'/%3e%3c/svg%3e") center no-repeat;
   background-size: 0.75rem;
 }
-.ant-table .ant-table-content .ant-table-filter-column .ant-table-filter-trigger > span {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-filter-column .ant-table-filter-trigger > span {
   display: none;
 }
-.ant-table .ant-table-content .ant-table-filter-column .ant-table-filter-trigger:hover {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-filter-column .ant-table-filter-trigger:hover {
   background: url("data:image/svg+xml,%3csvg%20width='12.000000'%20height='12.000000'%20viewBox='0%200%2012%2012'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdesc%3e%20Created%20with%20Pixso.%20%3c/desc%3e%3cdefs/%3e%3cpath%20id='合并'%20d='M7.98%209.25L7.98%206.96C7.98%206.68%207.76%206.46%207.48%206.46C7.2%206.46%206.98%206.68%206.98%206.96L6.98%209.25C6.98%209.33%206.96%209.4%206.92%209.46C6.9%209.49%206.8%209.6%206.77%209.62L4.88%2010.71L4.88%205.5C4.88%205.36%204.83%205.25%204.74%205.15L1.41%201.71C1.36%201.66%201.33%201.61%201.31%201.55C1.3%201.47%201.29%201.33%201.32%201.25C1.36%201.18%201.41%201.11%201.47%201.07C1.54%201.02%201.62%201%201.71%201L10.24%201C10.3%201%2010.37%201.01%2010.42%201.04C10.44%201.05%2010.52%201.1%2010.54%201.12C10.58%201.16%2010.6%201.2%2010.63%201.26C10.66%201.33%2010.67%201.41%2010.66%201.49C10.64%201.58%2010.6%201.65%2010.54%201.72L7.12%205.14C6.93%205.34%206.93%205.65%207.13%205.85C7.32%206.05%207.64%206.05%207.83%205.85L11.24%202.42C11.46%202.21%2011.59%201.95%2011.64%201.66C11.66%201.54%2011.67%201.42%2011.66%201.3C11.64%201.16%2011.61%201.01%2011.55%200.87C11.49%200.73%2011.41%200.6%2011.32%200.49C11.24%200.4%2011.15%200.32%2011.05%200.25C10.81%200.08%2010.54%200%2010.24%200L1.71%200C1.54%200%201.38%200.02%201.23%200.08C1.11%200.12%201%200.18%200.9%200.25C0.8%200.32%200.71%200.4%200.63%200.49C0.54%200.6%200.46%200.72%200.4%200.86C0.34%201%200.31%201.14%200.29%201.29C0.28%201.41%200.29%201.53%200.31%201.65C0.33%201.77%200.36%201.89%200.41%202C0.48%202.15%200.57%202.28%200.69%202.41L3.88%205.7L3.88%2010.77C3.88%2010.95%203.93%2011.12%204.02%2011.27C4.1%2011.41%204.22%2011.52%204.36%2011.61C4.51%2011.69%204.66%2011.73%204.83%2011.73C4.91%2011.74%204.99%2011.73%205.06%2011.71C5.15%2011.69%205.24%2011.65%205.32%2011.61L7.27%2010.48C7.49%2010.36%207.66%2010.18%207.79%209.96C7.91%209.74%207.98%209.51%207.98%209.25Z'%20fill='%232E86DE'%20fill-opacity='1.000000'%20fill-rule='evenodd'/%3e%3c/svg%3e") center no-repeat;
   background-size: 0.75rem;
 }
-.ant-table .ant-table-content .ant-table-filter-column .ant-table-column-sorter {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-filter-column .ant-table-column-sorter {
   order: 2;
 }
-.ant-table .ant-table-content .ant-table-filter-column .ant-table-column-sorter .ant-table-column-sorter-inner:has(.ant-table-column-sorter-up.active) {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-filter-column .ant-table-column-sorter .ant-table-column-sorter-inner:has(.ant-table-column-sorter-up.active) {
   background: url("data:image/svg+xml,%3csvg%20width='12.000000'%20height='12.000000'%20viewBox='0%200%2012%2012'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdefs%3e%3cclipPath%20id='clip2_45'%3e%3crect%20id='ic_public_sort_up'%20width='12.000000'%20height='12.000000'%20fill='white'%20fill-opacity='0'/%3e%3c/clipPath%3e%3c/defs%3e%3cg%20clip-path='url(%23clip2_45)'%3e%3cpath%20id='path4%20(边框)'%20d='M6.5%201.95L10.02%205.46C10.22%205.66%2010.53%205.66%2010.72%205.46C10.92%205.26%2010.92%204.95%2010.72%204.75L6.35%200.39C6.25%200.29%206.13%200.25%206%200.25C5.86%200.25%205.74%200.29%205.64%200.39L1.27%204.75C1.07%204.95%201.07%205.26%201.27%205.46C1.46%205.66%201.77%205.66%201.97%205.46L5.5%201.95L5.5%2011.25C5.5%2011.53%205.72%2011.75%206%2011.75C6.28%2011.75%206.5%2011.53%206.5%2011.25L6.5%201.95Z'%20fill='%23191919'%20fill-opacity='1.000000'%20fill-rule='evenodd'/%3e%3c/g%3e%3c/svg%3e") center no-repeat;
   background-size: 0.75rem;
 }
-.ant-table .ant-table-content .ant-table-filter-column .ant-table-column-sorter .ant-table-column-sorter-inner:has(.ant-table-column-sorter-down.active) {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-filter-column .ant-table-column-sorter .ant-table-column-sorter-inner:has(.ant-table-column-sorter-down.active) {
   background: url("data:image/svg+xml,%3csvg%20width='12.000000'%20height='12.000000'%20viewBox='0%200%2012%2012'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdefs%3e%3cclipPath%20id='clip2_31'%3e%3crect%20id='ic_public_sort_down'%20width='12.000000'%20height='12.000000'%20fill='white'%20fill-opacity='0'/%3e%3c/clipPath%3e%3c/defs%3e%3cg%20clip-path='url(%23clip2_31)'%3e%3cpath%20id='path4%20(边框)'%20d='M6.5%200.75C6.5%200.47%206.28%200.25%206%200.25C5.72%200.25%205.5%200.47%205.5%200.75L5.5%2010.04L1.97%206.53C1.77%206.33%201.46%206.33%201.27%206.53C1.07%206.73%201.07%207.04%201.27%207.24L5.64%2011.6C5.74%2011.7%205.86%2011.75%206%2011.75C6.13%2011.75%206.25%2011.7%206.35%2011.6L10.72%207.24C10.92%207.04%2010.92%206.73%2010.72%206.53C10.53%206.33%2010.22%206.33%2010.02%206.53L6.5%2010.04L6.5%200.75Z'%20fill='%23191919'%20fill-opacity='1.000000'%20fill-rule='evenodd'/%3e%3c/g%3e%3c/svg%3e") center no-repeat !important;
   background-size: 0.75rem;
 }
-.ant-table .ant-table-content .ant-table-filter-column .ant-table-column-sorter .ant-table-column-sorter-inner {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-filter-column .ant-table-column-sorter .ant-table-column-sorter-inner {
   display: inline-block;
   width: 1rem;
   height: 1.5rem;
@@ -1453,14 +1463,14 @@ input.ant-input.ant-input-sm {
   background: url("data:image/svg+xml,%3csvg%20width='12.000000'%20height='12.000000'%20viewBox='0%200%2012%2012'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdefs/%3e%3cpath%20id='合并'%20d='M4.44%2011.5C4.44%2011.78%204.22%2012%203.94%2012C3.66%2012%203.44%2011.78%203.44%2011.5L3.44%201.7L1.72%203.41C1.53%203.61%201.22%203.61%201.02%203.41C0.82%203.22%200.82%202.91%201.02%202.71L3.58%200.14C3.63%200.09%203.69%200.06%203.75%200.03C3.8%200.01%203.87%200%203.94%200C4.1%200%204.23%200.04%204.31%200.12C4.4%200.2%204.44%200.33%204.44%200.5L4.44%2011.5ZM7.85%200C7.57%200%207.35%200.21%207.35%200.5L7.35%2011.5C7.35%2011.66%207.39%2011.79%207.47%2011.87C7.56%2011.95%207.68%2012%207.85%2012C7.99%2012%208.1%2011.95%208.2%2011.85L10.77%209.28C10.97%209.08%2010.97%208.77%2010.77%208.58C10.57%208.38%2010.26%208.38%2010.06%208.58L8.35%2010.29L8.35%200.5C8.35%200.21%208.13%200%207.85%200Z'%20fill='%23191919'%20fill-opacity='1.000000'%20fill-rule='evenodd'/%3e%3c/svg%3e") center no-repeat;
   background-size: 0.75rem;
 }
-.ant-table .ant-table-content .ant-table-filter-column .ant-table-column-sorter .ant-table-column-sorter-inner > span {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-filter-column .ant-table-column-sorter .ant-table-column-sorter-inner > span {
   display: none;
 }
-.ant-table .ant-table-content .ant-table-filter-column .ant-table-column-sorter .ant-table-column-sorter-inner:hover {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-filter-column .ant-table-column-sorter .ant-table-column-sorter-inner:hover {
   background: url("data:image/svg+xml,%3csvg%20width='12.000000'%20height='12.000000'%20viewBox='0%200%2012%2012'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdesc%3e%20Created%20with%20Pixso.%20%3c/desc%3e%3cdefs/%3e%3cpath%20id='合并'%20d='M4.44%2011.5C4.44%2011.78%204.22%2012%203.94%2012C3.66%2012%203.44%2011.78%203.44%2011.5L3.44%201.7L1.72%203.41C1.53%203.61%201.22%203.61%201.02%203.41C0.82%203.22%200.82%202.91%201.02%202.71L3.58%200.14C3.63%200.09%203.69%200.06%203.75%200.03C3.8%200.01%203.87%200%203.94%200C4.1%200%204.23%200.04%204.31%200.12C4.4%200.2%204.44%200.33%204.44%200.5L4.44%2011.5ZM7.85%200C7.57%200%207.35%200.21%207.35%200.5L7.35%2011.5C7.35%2011.66%207.39%2011.79%207.47%2011.87C7.56%2011.95%207.68%2012%207.85%2012C7.99%2012%208.1%2011.95%208.2%2011.85L10.77%209.28C10.97%209.08%2010.97%208.77%2010.77%208.58C10.57%208.38%2010.26%208.38%2010.06%208.58L8.35%2010.29L8.35%200.5C8.35%200.21%208.13%200%207.85%200Z'%20fill='%232E86DE'%20fill-opacity='1.000000'%20fill-rule='evenodd'/%3e%3c/svg%3e") center no-repeat !important;
   background-size: 0.75rem;
 }
-.ant-table .ant-table-content .ant-table-thead > tr > th {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-thead > tr > th {
   height: 2.5rem;
   line-height: 2.5rem;
   padding: 0 0.5rem;
@@ -1475,21 +1485,21 @@ input.ant-input.ant-input-sm {
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-normal);
 }
-.ant-table .ant-table-content .ant-table-thead > tr > th::before {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-thead > tr > th::before {
   background-color: var(--gray-20) !important;
   height: 1em !important;
 }
-.ant-table .ant-table-content .ant-table-thead > tr > th:first-child {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-thead > tr > th:first-child {
   border-start-start-radius: 0 !important;
 }
-.ant-table .ant-table-content .ant-table-thead > tr > th:last-child {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-thead > tr > th:last-child {
   border-start-end-radius: 0 !important;
 }
-.ant-table .ant-table-content .ant-table-thead > tr > th.ant-table-cell-fix-right,
-.ant-table .ant-table-content .ant-table-thead > tr > th.ant-table-cell-fix-left {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-thead > tr > th.ant-table-cell-fix-right,
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-thead > tr > th.ant-table-cell-fix-left {
   background-color: var(--gray-05) !important;
 }
-.ant-table .ant-table-content .ant-table-tbody > tr:not(.ant-table-measure-row) > td {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-tbody > tr:not(.ant-table-measure-row) > td {
   height: 2.5rem;
   line-height: 1.5714;
   vertical-align: middle;
@@ -1500,30 +1510,30 @@ input.ant-input.ant-input-sm {
   font-size: var(--font-size-md);
   border-bottom: 1px solid var(--gray-05);
 }
-.ant-table .ant-table-content .ant-table-tbody > tr:not(.ant-table-measure-row) > td > * {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-tbody > tr:not(.ant-table-measure-row) > td > * {
   vertical-align: top;
 }
-.ant-table .ant-table-content .ant-table-tbody > tr:not(.ant-table-measure-row):not(.ant-table-expanded-row) > td {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-tbody > tr:not(.ant-table-measure-row):not(.ant-table-expanded-row) > td {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.ant-table .ant-table-content .ant-table-tbody .ant-table-row > .ant-table-cell-row-hover {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-tbody .ant-table-row > .ant-table-cell-row-hover {
   background-color: var(--brand-10) !important;
 }
-.ant-table .ant-table-content .ant-table-tbody .ant-table-row.ant-table-row-selected > .ant-table-cell {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-tbody .ant-table-row.ant-table-row-selected > .ant-table-cell {
   background-color: var(--brand-05);
 }
-.ant-table .ant-table-content .ant-table-tbody .ant-table-expanded-row .ant-table-cell {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-tbody .ant-table-expanded-row .ant-table-cell {
   background-color: rgb(from var(--gray-90) r g b / 0.05);
 }
-.ant-table .ant-table-content .ant-table-tbody .ant-table-column-sort {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-tbody .ant-table-column-sort {
   background: initial;
 }
-.ant-table .ant-table-content .ant-table-cell.ant-table-cell-fix-right {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-cell.ant-table-cell-fix-right {
   overflow: visible !important;
 }
-.ant-table .ant-table-content .ant-table-cell.ant-table-cell-fix-right::after {
+.ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-cell.ant-table-cell-fix-right::after {
   position: absolute;
   top: 0;
   bottom: -1px;
@@ -1536,22 +1546,22 @@ input.ant-input.ant-input-sm {
   background: none !important;
   box-shadow: inset -8px 0 12px -8px rgb(from var(--gray-90) r g b / 0.3);
 }
-.ant-table.ant-table-middle .ant-table-content .ant-table-thead > tr > th {
+.ant-table.ant-table-middle :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-thead > tr > th {
   height: 2rem;
   line-height: 2rem;
   padding: 0 0.5rem;
 }
-.ant-table.ant-table-middle .ant-table-content .ant-table-tbody > tr:not(.ant-table-measure-row) > td {
+.ant-table.ant-table-middle :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-tbody > tr:not(.ant-table-measure-row) > td {
   height: 2rem;
   line-height: 1.5714;
   padding: 0 0.5rem;
 }
-.ant-table.ant-table-small .ant-table-content .ant-table-thead > tr > th {
+.ant-table.ant-table-small :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-thead > tr > th {
   height: 1.75rem;
   line-height: 1.75rem;
   padding: 0 0.5rem;
 }
-.ant-table.ant-table-small .ant-table-content .ant-table-tbody > tr:not(.ant-table-measure-row) > td {
+.ant-table.ant-table-small :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-tbody > tr:not(.ant-table-measure-row) > td {
   height: 1.75rem;
   line-height: 1.5714;
   padding: 0 0.5rem;
@@ -1562,75 +1572,75 @@ input.ant-input.ant-input-sm {
 .dark .ant-table {
   background-color: rgba(0, 0, 0, 0);
 }
-.dark .ant-table .ant-table-content {
+.dark .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) {
   /* 深色模式滚动条滑块用亮色（#f3f3f3），其余几何/圆角/hover 放大规则沿用上方浅色定义 */
 }
-.dark .ant-table .ant-table-content .ant-table-column-sorters .ant-table-column-sorter .ant-table-column-sorter-inner,
-.dark .ant-table .ant-table-content .ant-table-filter-column .ant-table-column-sorter .ant-table-column-sorter-inner {
+.dark .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-column-sorters .ant-table-column-sorter .ant-table-column-sorter-inner,
+.dark .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-filter-column .ant-table-column-sorter .ant-table-column-sorter-inner {
   background: url("data:image/svg+xml,%3csvg%20width='12.000000'%20height='12.000000'%20viewBox='0%200%2012%2012'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdefs/%3e%3cpath%20id='合并'%20d='M4.44%2011.5C4.44%2011.78%204.22%2012%203.94%2012C3.66%2012%203.44%2011.78%203.44%2011.5L3.44%201.7L1.72%203.41C1.53%203.61%201.22%203.61%201.02%203.41C0.82%203.22%200.82%202.91%201.02%202.71L3.58%200.14C3.63%200.09%203.69%200.06%203.75%200.03C3.8%200.01%203.87%200%203.94%200C4.1%200%204.23%200.04%204.31%200.12C4.4%200.2%204.44%200.33%204.44%200.5L4.44%2011.5ZM7.85%200C7.57%200%207.35%200.21%207.35%200.5L7.35%2011.5C7.35%2011.66%207.39%2011.79%207.47%2011.87C7.56%2011.95%207.68%2012%207.85%2012C7.99%2012%208.1%2011.95%208.2%2011.85L10.77%209.28C10.97%209.08%2010.97%208.77%2010.77%208.58C10.57%208.38%2010.26%208.38%2010.06%208.58L8.35%2010.29L8.35%200.5C8.35%200.21%208.13%200%207.85%200Z'%20fill='%23FFFFFF'%20fill-opacity='1.000000'%20fill-rule='evenodd'/%3e%3c/svg%3e") center no-repeat;
   background-size: 0.75rem;
 }
-.dark .ant-table .ant-table-content .ant-table-column-sorter .ant-table-column-sorter-inner:has(.ant-table-column-sorter-up.active) {
+.dark .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-column-sorter .ant-table-column-sorter-inner:has(.ant-table-column-sorter-up.active) {
   background: url("data:image/svg+xml,%3csvg%20width='12.000000'%20height='12.000000'%20viewBox='0%200%2012%2012'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdefs%3e%3cclipPath%20id='clip2_45'%3e%3crect%20id='ic_public_sort_up'%20width='12.000000'%20height='12.000000'%20fill='white'%20fill-opacity='0'/%3e%3c/clipPath%3e%3c/defs%3e%3cg%20clip-path='url(%23clip2_45)'%3e%3cpath%20id='path4%20(边框)'%20d='M6.5%201.95L10.02%205.46C10.22%205.66%2010.53%205.66%2010.72%205.46C10.92%205.26%2010.92%204.95%2010.72%204.75L6.35%200.39C6.25%200.29%206.13%200.25%206%200.25C5.86%200.25%205.74%200.29%205.64%200.39L1.27%204.75C1.07%204.95%201.07%205.26%201.27%205.46C1.46%205.66%201.77%205.66%201.97%205.46L5.5%201.95L5.5%2011.25C5.5%2011.53%205.72%2011.75%206%2011.75C6.28%2011.75%206.5%2011.53%206.5%2011.25L6.5%201.95Z'%20fill='%23FFFFFF'%20fill-opacity='1.000000'%20fill-rule='evenodd'/%3e%3c/g%3e%3c/svg%3e") center no-repeat !important;
   background-size: 0.75rem;
 }
-.dark .ant-table .ant-table-content .ant-table-column-sorter .ant-table-column-sorter-inner:has(.ant-table-column-sorter-down.active) {
+.dark .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-column-sorter .ant-table-column-sorter-inner:has(.ant-table-column-sorter-down.active) {
   background: url("data:image/svg+xml,%3csvg%20width='12.000000'%20height='12.000000'%20viewBox='0%200%2012%2012'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdefs%3e%3cclipPath%20id='clip2_31'%3e%3crect%20id='ic_public_sort_down'%20width='12.000000'%20height='12.000000'%20fill='white'%20fill-opacity='0'/%3e%3c/clipPath%3e%3c/defs%3e%3cg%20clip-path='url(%23clip2_31)'%3e%3cpath%20id='path4%20(边框)'%20d='M6.5%200.75C6.5%200.47%206.28%200.25%206%200.25C5.72%200.25%205.5%200.47%205.5%200.75L5.5%2010.04L1.97%206.53C1.77%206.33%201.46%206.33%201.27%206.53C1.07%206.73%201.07%207.04%201.27%207.24L5.64%2011.6C5.74%2011.7%205.86%2011.75%206%2011.75C6.13%2011.75%206.25%2011.7%206.35%2011.6L10.72%207.24C10.92%207.04%2010.92%206.73%2010.72%206.53C10.53%206.33%2010.22%206.33%2010.02%206.53L6.5%2010.04L6.5%200.75Z'%20fill='%23FFFFFF'%20fill-opacity='1.000000'%20fill-rule='evenodd'/%3e%3c/g%3e%3c/svg%3e") center no-repeat !important;
   background-size: 0.75rem;
 }
-.dark .ant-table .ant-table-content .ant-table-filter-column .ant-table-filter-trigger:not(:hover) {
+.dark .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-filter-column .ant-table-filter-trigger:not(:hover) {
   background: url("data:image/svg+xml,%3csvg%20width='12.000000'%20height='12.000000'%20viewBox='0%200%2012%2012'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdesc%3e%20Created%20with%20Pixso.%20%3c/desc%3e%3cdefs/%3e%3cpath%20id='合并'%20d='M7.98%209.25L7.98%206.96C7.98%206.68%207.76%206.46%207.48%206.46C7.2%206.46%206.98%206.68%206.98%206.96L6.98%209.25C6.98%209.33%206.96%209.4%206.92%209.46C6.9%209.49%206.8%209.6%206.77%209.62L4.88%2010.71L4.88%205.5C4.88%205.36%204.83%205.25%204.74%205.15L1.41%201.71C1.36%201.66%201.33%201.61%201.31%201.55C1.3%201.47%201.29%201.33%201.32%201.25C1.36%201.18%201.41%201.11%201.47%201.07C1.54%201.02%201.62%201%201.71%201L10.24%201C10.3%201%2010.37%201.01%2010.42%201.04C10.44%201.05%2010.52%201.1%2010.54%201.12C10.58%201.16%2010.6%201.2%2010.63%201.26C10.66%201.33%2010.67%201.41%2010.66%201.49C10.64%201.58%2010.6%201.65%2010.54%201.72L7.12%205.14C6.93%205.34%206.93%205.65%207.13%205.85C7.32%206.05%207.64%206.05%207.83%205.85L11.24%202.42C11.46%202.21%2011.59%201.95%2011.64%201.66C11.66%201.54%2011.67%201.42%2011.66%201.3C11.64%201.16%2011.61%201.01%2011.55%200.87C11.49%200.73%2011.41%200.6%2011.32%200.49C11.24%200.4%2011.15%200.32%2011.05%200.25C10.81%200.08%2010.54%200%2010.24%200L1.71%200C1.54%200%201.38%200.02%201.23%200.08C1.11%200.12%201%200.18%200.9%200.25C0.8%200.32%200.71%200.4%200.63%200.49C0.54%200.6%200.46%200.72%200.4%200.86C0.34%201%200.31%201.14%200.29%201.29C0.28%201.41%200.29%201.53%200.31%201.65C0.33%201.77%200.36%201.89%200.41%202C0.48%202.15%200.57%202.28%200.69%202.41L3.88%205.7L3.88%2010.77C3.88%2010.95%203.93%2011.12%204.02%2011.27C4.1%2011.41%204.22%2011.52%204.36%2011.61C4.51%2011.69%204.66%2011.73%204.83%2011.73C4.91%2011.74%204.99%2011.73%205.06%2011.71C5.15%2011.69%205.24%2011.65%205.32%2011.61L7.27%2010.48C7.49%2010.36%207.66%2010.18%207.79%209.96C7.91%209.74%207.98%209.51%207.98%209.25Z'%20fill='%23FFFFFF'%20fill-opacity='1.000000'%20fill-rule='evenodd'/%3e%3c/svg%3e") center no-repeat;
   background-size: 0.75rem;
 }
-.dark .ant-table .ant-table-content::-webkit-scrollbar-thumb {
+.dark .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body)::-webkit-scrollbar-thumb {
   background-color: rgb(from var(--gray-05) r g b / 0.15);
 }
-.dark .ant-table .ant-table-content .ant-table-thead > tr > th {
+.dark .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-thead > tr > th {
   color: var(--color-text-primary);
   background-color: rgb(from var(--gray-05) r g b / 0.1) !important;
   border-bottom: 1px solid rgb(from var(--gray-05) r g b / 0.1);
 }
-.dark .ant-table .ant-table-content .ant-table-thead > tr > th::before {
+.dark .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-thead > tr > th::before {
   background-color: var(--gray-50) !important;
 }
-.dark .ant-table .ant-table-content .ant-table-tbody > tr > td {
+.dark .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-tbody > tr > td {
   color: var(--color-text-primary);
   border-bottom: 1px solid rgb(from var(--gray-05) r g b / 0.1);
   background-color: rgba(0, 0, 0, 0);
 }
-.dark .ant-table .ant-table-content .ant-table-tbody .ant-table-row {
+.dark .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-tbody .ant-table-row {
   /* 固定列是 sticky 定位，横向滚动时有内容从其下方穿过；悬停/选中的半透明背景会透出
 				   其他单元格内容，故固定列（左/右）改为「不透明底色 + 半透明渐变叠加层」，视觉一致但不透底 */
 }
-.dark .ant-table .ant-table-content .ant-table-tbody .ant-table-row > .ant-table-cell-row-hover {
+.dark .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-tbody .ant-table-row > .ant-table-cell-row-hover {
   background-color: rgb(from var(--brand-50) r g b / 0.4) !important;
 }
-.dark .ant-table .ant-table-content .ant-table-tbody .ant-table-row.ant-table-row-selected > .ant-table-cell {
+.dark .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-tbody .ant-table-row.ant-table-row-selected > .ant-table-cell {
   background-color: rgb(from var(--brand-50) r g b / 0.2);
 }
-.dark .ant-table .ant-table-content .ant-table-tbody .ant-table-row > .ant-table-cell-fix-left.ant-table-cell-row-hover,
-.dark .ant-table .ant-table-content .ant-table-tbody .ant-table-row > .ant-table-cell-fix-right.ant-table-cell-row-hover {
+.dark .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-tbody .ant-table-row > .ant-table-cell-fix-left.ant-table-cell-row-hover,
+.dark .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-tbody .ant-table-row > .ant-table-cell-fix-right.ant-table-cell-row-hover {
   background-color: var(--gray-70) !important;
   background-image: linear-gradient(rgb(from var(--brand-50) r g b / 0.4), rgb(from var(--brand-50) r g b / 0.4));
 }
-.dark .ant-table .ant-table-content .ant-table-tbody .ant-table-row.ant-table-row-selected > .ant-table-cell-fix-left,
-.dark .ant-table .ant-table-content .ant-table-tbody .ant-table-row.ant-table-row-selected > .ant-table-cell-fix-right {
+.dark .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-tbody .ant-table-row.ant-table-row-selected > .ant-table-cell-fix-left,
+.dark .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-tbody .ant-table-row.ant-table-row-selected > .ant-table-cell-fix-right {
   background-color: var(--gray-70) !important;
   background-image: linear-gradient(rgb(from var(--brand-50) r g b / 0.2), rgb(from var(--brand-50) r g b / 0.2));
 }
-.dark .ant-table .ant-table-content .ant-table-tbody .ant-table-expanded-row .ant-table-cell {
+.dark .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-tbody .ant-table-expanded-row .ant-table-cell {
   background-color: rgb(from var(--gray-05) r g b / 0.1);
 }
-.dark .ant-table .ant-table-content .ant-table-placeholder {
+.dark .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-placeholder {
   background-color: transparent;
 }
-.dark .ant-table .ant-table-content .ant-table-cell.ant-table-cell-fix-left {
+.dark .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-cell.ant-table-cell-fix-left {
   background-color: var(--gray-70) !important;
 }
-.dark .ant-table .ant-table-content .ant-table-cell.ant-table-cell-fix-right {
+.dark .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-cell.ant-table-cell-fix-right {
   background-color: var(--gray-70) !important;
 }
-.dark .ant-table .ant-table-content .ant-table-cell.ant-table-cell-fix-right::after {
+.dark .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-cell.ant-table-cell-fix-right::after {
   box-shadow: inset -8px 0 12px -8px rgb(from var(--gray-100) r g b / 0.7);
 }
 
@@ -1796,25 +1806,37 @@ input.ant-input.ant-input-sm {
 }
 
 /* Badge 组件样式（占位，待填充 token 映射） */
+.ant-badge {
+  color: var(--color-text-primary);
+}
 .ant-badge .ant-badge-count {
+  /* 单数字 16×16 正圆（半径=高度一半）；多位数字按内容+padding 撑开成胶囊；
+       不设 line-height（antd 默认 20px 偏大会压偏文字），用 flex 垂直居中兜底 */
+  box-sizing: border-box;
   min-width: 1rem;
-  border: none;
-  padding: 0.125rem 0.25rem;
+  height: 1rem;
+  padding: 0 0.25rem;
+  border-radius: 0.5rem;
+  align-items: center;
   font-size: var(--font-size-base);
-  line-height: 0.75rem;
-  height: 1.125rem;
-  border: 1px solid var(--gray-0);
   box-shadow: 0 0 0 1px var(--gray-0);
   background-color: var(--color-error);
   color: var(--color-text-inverse);
+  /* 数字滚动结构：antd 固定 20px 高，滚动条与行盒对齐 16px 盒高，配合 align-items 精确垂直居中 */
+}
+.ant-badge .ant-badge-count > bdi > .ant-scroll-number-only {
+  height: 1rem;
+  line-height: 1rem;
 }
 .ant-badge .ant-badge-dot {
   box-shadow: 0 0 0 1px var(--gray-0);
   border: 1px solid var(--gray-0);
   background-color: var(--color-error);
 }
+.dark {
+  color: var(--color-text-primary);
+}
 .dark .ant-badge .ant-badge-count {
-  border: 1px solid rgb(from var(--gray-0) r g b / 0);
   box-shadow: 0 0 0 1px rgb(from var(--gray-0) r g b / 0);
 }
 .dark .ant-badge .ant-badge-dot {
@@ -1894,6 +1916,9 @@ input.ant-input.ant-input-sm {
   border-color: var(--color-border-focus);
   background-color: var(--color-brand);
   color: var(--color-border-focus);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .ant-steps .ant-steps-item.ant-steps-item-process.ant-steps-item-active .ant-steps-item-container .ant-steps-item-content .ant-steps-item-title {
   color: var(--color-link);
@@ -2074,7 +2099,8 @@ input.ant-input.ant-input-sm {
   /* flex 容器默认 stretch 会把固定高度的子项顶对齐，统一垂直居中 */
   align-items: center;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: var(--spacing-inline);
   flex-wrap: wrap;
 }
 .ant-pagination .ant-pagination-total-text,
@@ -2406,6 +2432,9 @@ input.ant-input.ant-input-sm {
 .ant-timeline.ant-timeline-right .ant-timeline-item .ant-timeline-item-head {
   margin-inline-start: -0.375rem;
 }
+.dark .ant-timeline .ant-timeline-item .ant-timeline-item-head {
+  background-color: transparent;
+}
 .dark .ant-timeline .ant-timeline-item .ant-timeline-item-head.ant-timeline-item-head-green {
   color: var(--mint-60);
   border-color: var(--mint-60);
@@ -2435,31 +2464,54 @@ input.ant-input.ant-input-sm {
 /* Tree 组件样式（占位，待填充 token 映射） */
 .ant-tree {
   color: var(--color-text-primary);
+  font-size: var(--font-size-md);
 }
 .ant-tree .ant-tree-list .ant-tree-list-holder .ant-tree-list-holder-inner .ant-tree-treenode {
   margin-bottom: var(--spacing-0);
-  line-height: 1.75rem;
-  padding: 0.25rem 0;
+  height: 2.25rem;
+  align-items: center;
 }
 .ant-tree .ant-tree-list .ant-tree-list-holder .ant-tree-list-holder-inner .ant-tree-switcher {
   width: 1rem;
   height: 1rem;
   line-height: 1rem;
-  margin-right: 0.5rem;
+  margin-right: 0.25rem;
   align-self: center;
 }
-.ant-tree .ant-tree-list .ant-tree-list-holder .ant-tree-list-holder-inner .ant-tree-switcher:hover {
-  background: var(--color-fill);
-  border-radius: var(--radius-base);
+.ant-tree .ant-tree-list .ant-tree-list-holder .ant-tree-list-holder-inner .ant-tree-switcher.ant-tree-switcher_close {
+  background: url("data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%20width='24px'%20height='24px'%20viewBox='0%200%2024%2024'%20version='1.1'%3e%3ctitle%3eic_chevron_up_lined%3c/title%3e%3cg%20id='ic_chevron_up_lined'%20stroke='none'%20stroke-width='1'%20fill='none'%20fill-rule='evenodd'%3e%3cg%20id='编组'%3e%3crect%20id='矩形'%20fill='%23D8D8D8'%20opacity='0'%20x='0'%20y='0'%20width='24'%20height='24'/%3e%3cpath%20d='M2.96966991,7.53041991%20C3.23593648,7.26415335%203.65260016,7.2399473%203.94621165,7.45780176%20L4.03033009,7.53041991%20L11.4693301,14.9694199%20C11.7357908,15.2358806%2012.1526808,15.2601043%2012.4464923,15.042091%20L12.5306699,14.9694199%20L19.9696699,7.53041991%20C20.2625631,7.2375267%2020.7374369,7.2375267%2021.0303301,7.53041991%20C21.2965966,7.79668648%2021.3208027,8.21335016%2021.1029482,8.50696165%20L21.0303301,8.59108009%20L13.5913301,16.0300801%20C12.7542889,16.8671212%2011.4220273,16.9069803%2010.5378223,16.1496574%20L10.4086699,16.0300801%20L2.96966991,8.59108009%20C2.6767767,8.29818687%202.6767767,7.82331313%202.96966991,7.53041991%20Z'%20id='Stroke-1'%20fill='%23191919'/%3e%3c/g%3e%3c/g%3e%3c/svg%3e") no-repeat center;
+  transform: rotate(-90deg);
+  background-size: 0.75rem;
+}
+.ant-tree .ant-tree-list .ant-tree-list-holder .ant-tree-list-holder-inner .ant-tree-switcher.ant-tree-switcher_open {
+  background: url("data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%20width='24px'%20height='24px'%20viewBox='0%200%2024%2024'%20version='1.1'%3e%3ctitle%3eic_chevron_up_lined%3c/title%3e%3cg%20id='ic_chevron_up_lined'%20stroke='none'%20stroke-width='1'%20fill='none'%20fill-rule='evenodd'%3e%3cg%20id='编组'%3e%3crect%20id='矩形'%20fill='%23D8D8D8'%20opacity='0'%20x='0'%20y='0'%20width='24'%20height='24'/%3e%3cpath%20d='M2.96966991,7.53041991%20C3.23593648,7.26415335%203.65260016,7.2399473%203.94621165,7.45780176%20L4.03033009,7.53041991%20L11.4693301,14.9694199%20C11.7357908,15.2358806%2012.1526808,15.2601043%2012.4464923,15.042091%20L12.5306699,14.9694199%20L19.9696699,7.53041991%20C20.2625631,7.2375267%2020.7374369,7.2375267%2021.0303301,7.53041991%20C21.2965966,7.79668648%2021.3208027,8.21335016%2021.1029482,8.50696165%20L21.0303301,8.59108009%20L13.5913301,16.0300801%20C12.7542889,16.8671212%2011.4220273,16.9069803%2010.5378223,16.1496574%20L10.4086699,16.0300801%20L2.96966991,8.59108009%20C2.6767767,8.29818687%202.6767767,7.82331313%202.96966991,7.53041991%20Z'%20id='Stroke-1'%20fill='%23191919'/%3e%3c/g%3e%3c/g%3e%3c/svg%3e") no-repeat center;
+  transform: rotate(0deg);
+  background-size: 0.75rem;
+}
+.ant-tree .ant-tree-list .ant-tree-list-holder .ant-tree-list-holder-inner .ant-tree-switcher .anticon {
+  display: none;
 }
 .ant-tree .ant-tree-list .ant-tree-list-holder .ant-tree-list-holder-inner .ant-tree-switcher::before {
   width: 1rem;
   height: 1rem;
+  display: none;
 }
 .ant-tree .ant-tree-list .ant-tree-list-holder .ant-tree-list-holder-inner .ant-tree-checkbox {
   margin-top: var(--spacing-0);
   align-self: center;
-  margin-right: 0.5rem;
+  margin: 0 0.25rem;
+}
+.ant-tree .ant-tree-list .ant-tree-list-holder .ant-tree-list-holder-inner .ant-tree-checkbox + span {
+  padding-inline-end: 0;
+  padding-inline-start: 0.25rem;
+  width: 100%;
+  border-radius: 0.25rem;
+  display: inline-block;
+}
+.ant-tree .ant-tree-list .ant-tree-list-holder .ant-tree-list-holder-inner .ant-tree-node-content-wrapper {
+  border-radius: var(--radius-base);
+  display: flex;
+  align-items: center;
 }
 .ant-tree .ant-tree-list .ant-tree-list-holder .ant-tree-list-holder-inner .ant-tree-node-content-wrapper:hover {
   background: var(--color-fill);
@@ -2467,6 +2519,7 @@ input.ant-input.ant-input-sm {
 }
 .ant-tree .ant-tree-list .ant-tree-list-holder .ant-tree-list-holder-inner .ant-tree-node-content-wrapper.ant-tree-node-selected {
   background: var(--color-select);
+  color: var(--color-text-primary);
 }
 
 /* Segmented 组件样式（占位，待填充 token 映射） */
@@ -2474,6 +2527,7 @@ input.ant-input.ant-input-sm {
   border-radius: var(--radius-md);
   padding: 0.125rem;
   background: var(--color-fill);
+  width: initial !important;
   /* 尺寸变体：label 基础样式固定了行高/字号，需按 antd 的 lg/sm 类分别覆盖
      规格高度为最外层（.ant-segmented）高度 = label 行高 + 轨道上下内边距 4px：大 40 = 36+4，小 28 = 24+4 */
 }
@@ -3160,3 +3214,32 @@ input.ant-input.ant-input-sm {
 .dark .ant-notification .ant-notification-notice-wrapper .ant-notification-notice-close {
   color: var(--gray-0);
 }
+
+/* 多行信息仍使用标准 Table；以共享密度修饰保证上下留白和列间对齐。 */
+.ict-data-table.ict-table-comfortable .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-thead > tr > th{padding-inline:var(--spacing-3)}
+.ict-data-table.ict-table-comfortable .ant-table :is(.ant-table-content,.ant-table-header,.ant-table-body) .ant-table-tbody > tr:not(.ant-table-measure-row) > td{padding:var(--spacing-2) var(--spacing-3)}
+/* 页码、箭头及每页条数聚合；总量继续由 margin-right:auto 保持左对齐。 */
+.ant-pagination :is(.ant-pagination-prev,.ant-pagination-next,.ant-pagination-item,.ant-pagination-options-size-changer){margin-inline-end:0;margin-right:0}
+
+/* Fabric 工作台浮层共享适配：兼容当前 Antd 5 DOM，不依赖 darkAlgorithm。 */
+.ant-popover,.ant-tooltip,.ant-dropdown,.ant-select-dropdown,.ant-picker-dropdown{z-index:9500}
+.ant-popover .ant-popover-inner{padding:var(--spacing-4);background:var(--surface-container-high);color:var(--on-surface);border-radius:var(--radius-overlay);box-shadow:var(--shadow-popover)}
+.ant-popover .ant-popover-inner-content{color:var(--on-surface);font:var(--font-body-m)}
+.ant-popover .ant-popover-arrow::before{background:var(--surface-container-high)}
+.ant-message{z-index:11000}
+.ant-message .ant-message-notice-wrapper .ant-message-notice-content{padding:var(--spacing-3) var(--spacing-4);color:var(--on-surface);background:var(--surface-container-high);border:1px solid var(--outline-variant);border-radius:var(--radius-overlay);box-shadow:var(--shadow-popover);font:var(--font-body-m)}
+.ant-message .ant-message-custom-content{display:flex;align-items:center;gap:var(--spacing-inline);text-align:left}
+.ant-message .ant-message-custom-content>svg{color:var(--info);flex:none}
+.ant-picker-dropdown .ant-picker-panel-container{color:var(--on-surface);background:var(--surface-container-high);border-radius:var(--radius-overlay);box-shadow:var(--shadow-popover)}
+.ant-picker-dropdown :is(.ant-picker-panel,.ant-picker-header,.ant-picker-footer){border-color:var(--outline-variant)}
+.ant-picker-dropdown .ant-picker-header,.ant-picker-dropdown .ant-picker-header button{color:var(--on-surface)}
+.ant-picker-dropdown .ant-picker-content th{color:var(--on-surface-variant)}
+.ant-picker-dropdown .ant-picker-cell{color:var(--text-disabled)}
+.ant-picker-dropdown .ant-picker-cell-in-view{color:var(--on-surface)}
+.ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before{border-color:var(--primary)}
+.ant-picker-dropdown .ant-picker-cell:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(.ant-picker-cell-disabled):hover .ant-picker-cell-inner{background:var(--surface-variant)}
+.ant-picker-dropdown .ant-picker-cell-in-view:is(.ant-picker-cell-selected,.ant-picker-cell-range-start,.ant-picker-cell-range-end) .ant-picker-cell-inner{color:var(--on-primary);background:var(--primary)}
+.ant-picker-dropdown .ant-picker-cell-in-view:is(.ant-picker-cell-in-range,.ant-picker-cell-range-hover)::before{background:var(--primary-container)}
+.ant-picker-dropdown .ant-picker-cell-disabled .ant-picker-cell-inner{color:var(--text-disabled)}
+.ant-picker-dropdown .ant-picker-cell-disabled::before{background:var(--surface-variant)}
+.ant-picker-dropdown :is(.ant-picker-now-btn,.ant-picker-today-btn){color:var(--interactive-link)}

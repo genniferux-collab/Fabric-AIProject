@@ -1,11 +1,10 @@
-import { BorderBeam } from "border-beam";
+import ResponsiveBeam from "../../components/responsive-beam/index.jsx";
 import { matchingBeamPaletteCss } from "./beam-palette.js";
 import ArtifactOpen from "../../components/artifact-open/index.jsx";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { useApp } from "../../context.jsx";
 import { devices } from "../../mock/devices.js";
-import { mapGroups, mapSets, mapRelations, mapRelated } from "../../mock/graph.js";
-import Ic from "../../components/icon-el/index.jsx";
+import { mapGroups, mapSets, mapRelations } from "../../mock/graph.js";
 import SearchInput from "../../components/search-input/index.jsx";
 import OptionGroup from "../../components/option-group/index.jsx";
 import "./design.css";
@@ -15,7 +14,7 @@ const BEAM_CYCLE_SECONDS = 2;
 const BEAM_CROSSFADE_MS = 300;
 function MatchingBeam({ active, isDark, opacity = 1 }) {
   if (!active) return null;
-  return <BorderBeam className="mapping-node-beam" size="md" colorVariant="colorful" hueRange={10} strength={0.7} duration={BEAM_CYCLE_SECONDS} css={'[data-beam="{id}"][data-active]{animation:beam-spin-{id} 2s linear infinite,beam-fade-in-{id} .2s ease forwards;}' + matchingBeamPaletteCss(isDark)} theme={isDark ? "dark" : "light"} borderRadius={8} active={active} style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none",opacity}} aria-hidden="true"><span className="mapping-beam-surface"/></BorderBeam>;
+  return <ResponsiveBeam className="mapping-node-beam" size="md" colorVariant="colorful" hueRange={10} strength={0.7} duration={BEAM_CYCLE_SECONDS} css={'[data-beam="{id}"][data-active]{animation:beam-spin-{id} 2s linear infinite,beam-fade-in-{id} .2s ease forwards;}' + matchingBeamPaletteCss(isDark)} theme={isDark ? "dark" : "light"} borderRadius="var(--radius-container)" radiusSelector=".node" active={active} style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none",opacity}} aria-hidden="true"><span className="mapping-beam-surface"/></ResponsiveBeam>;
 }
 
 // The shared safety check appears once per vendor, as in the design; its rules stay shared.
@@ -103,6 +102,7 @@ export default function MappingCard({ cardRef }) {
   const [width, setWidth] = useState(1200);
   const graphRef = useRef(null);
 
+  // 单一进度时钟驱动节点、连线与完成通知，切换阶段时清理上一轮动画。
   useEffect(() => {
     if (luiView === "done" || (luiView === "running" && stage > 2)) { setElapsed(MATCH_DURATION); return; }
     setElapsed(0);
@@ -328,6 +328,7 @@ export default function MappingCard({ cardRef }) {
       <div className="mapping-design-search">
         <SearchInput id="graphSearch" value={searchText} onChange={onSearch} placeholder="请输入搜索设备组或检查集" ariaLabel="搜索设备组或检查集" clearable />
       </div>
+      <div className="mapping-graph-viewport" role="region" aria-label="设备组与检查集关联，可滚动查看" tabIndex={0}>
       <div className="graph-head">
         <div className="column-title">设备组（<span id="groupCount">{visibleGroupCount}</span>）</div>
         <div className={"match-caption" + (matching ? " is-active" : "")} role="status">{matching && activeGroup ? `正在匹配第 ${activeGroupIndex + 1} 组` : ""}</div>
@@ -361,6 +362,7 @@ export default function MappingCard({ cardRef }) {
         {layout.groups.map((r) => renderShell(r, "group"))}
         {layout.sets.map((r) => renderShell(r, "set"))}
         <div className="empty" id="empty" style={{ display: visibleGroupCount && visibleSetCount ? "none" : "flex" }}>没有找到匹配的设备组或检查集</div>
+      </div>
       </div>
       <div className="v7-matching-status">
         <span className={matching ? "is-active" : ""}><i />{elapsed >= MATCH_DURATION ? `设备组与检查集匹配完成 · 已建立 ${mappingRelations.length} 条关联` : completedGroups === mapGroups.length ? "全部关联已建立 · 正在确认匹配结果" : activeGroup ? `${activeGroup.name} · 正在建立检查集关联` : "设备组与检查集已就绪 · 等待建立关联"}</span>

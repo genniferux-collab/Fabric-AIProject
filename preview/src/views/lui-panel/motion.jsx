@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 
 const SPEED = 48;
 const reducedMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+// 默认按词分段，speed 表示每秒分段数；需要逐字节奏的调用方显式传 character。
 export const textUnits = text => typeof Intl.Segmenter === 'function' ? [...new Intl.Segmenter('zh-CN', {granularity:'word'}).segment(text)].map(x=>x.segment) : Array.from(text);
 export const streamDuration = (text, speed = SPEED) => Math.ceil(textUnits(text).length / speed * 1000);
 
@@ -30,6 +31,7 @@ export function RevealAfter({delay,children}){
 export function MotionTitle({text,active}){
   return <span key={text} className={'lui-motion-title'+(active?' is-streaming':'')} data-text={text}>{text}</span>;
 }
+// 观察真实内容高度，再写入外层可过渡的高度，避免展开/收起时直接跳变。
 export function SoftHeight({children}){
   const outer=useRef(null),inner=useRef(null);
   useLayoutEffect(()=>{const update=()=>{if(outer.current&&inner.current)outer.current.style.height=inner.current.offsetHeight+'px';};update();const observer=new ResizeObserver(update);observer.observe(inner.current);return()=>observer.disconnect();},[]);

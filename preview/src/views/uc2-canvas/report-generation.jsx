@@ -34,6 +34,7 @@ export default function Uc2ReportGeneration({ children }) {
     tick();return()=>cancelAnimationFrame(frame);
   },[loading,generating,uc2.canvasStarted,uc2.running,uc2.phaseElapsed,uc2.phaseStartedAt]);
   useEffect(()=>{if(generating&&uc2.canvasStarted&&progress>=1)uc2CanvasComplete(3);},[generating,uc2.canvasStarted,progress,uc2CanvasComplete]);
+  // 对子模块只暴露阶段判定；完成回调沿用工作流时钟，避免左右两侧各自计时。
   const reveal={loading,classAt:point=>loading&&progress<point?" report-reveal-skeleton":" report-reveal-content"};
   return <ReportRevealContext.Provider value={reveal}><div className="uc2-report-generation" data-report-state={loading?"generating":"complete"} data-report-progress={progress.toFixed(3)} aria-busy={loading} style={{"--report-skeleton-play-state":uc2.running?"running":"paused"}}><span className="uc2-report-generation-anchor" ref={headerRef} aria-hidden="true"/>{children}</div></ReportRevealContext.Provider>;
 }

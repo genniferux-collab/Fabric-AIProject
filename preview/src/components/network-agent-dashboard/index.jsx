@@ -1,3 +1,4 @@
+import {Tooltip} from "antd";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useApp } from "../../context.jsx";
 import ChatComposer from "../chat-composer/index.jsx";
@@ -13,6 +14,7 @@ const metricShortcuts = [{id:"inspection",glyph:"inspection",title:"网络配置
 const inspectionLabels = [{id:"verification",label:"待验证"},{id:"analyzing",label:"分析中"},{id:"completed",label:"已完成"}];
 const periods = ["最近三小时", "最近一天", "最近一周", "最近半个月"];
 
+// 首页统计和事件读取共享任务源；本组件只保留筛选、折叠等界面状态。
 export default function DataCenterNetworkAgent({onOpenAgent,onOpenSkill,onFocusEvent,onBlurEvent,focusedEventId}) {
   const {networkTasks,openNetworkTask}=useApp();
   const events=networkTasks.events.filter(event=>event.status!=="completed");
@@ -66,10 +68,10 @@ export default function DataCenterNetworkAgent({onOpenAgent,onOpenSkill,onFocusE
       <section className={`fabric-home-metrics${metricsCollapsed?" is-collapsed":""}`} aria-label="网络运行指标">
         <div className="fabric-home-metrics-header">
         <div className="fabric-home-metric-capsule" aria-label="已收起的指标卡片" aria-hidden={!metricsCollapsed} inert={!metricsCollapsed?"":undefined}>
-          <div className="fabric-home-metric-shortcuts">{metricShortcuts.map(metric=><button type="button" key={metric.id} className={`fabric-home-metric-shortcut${focusedMetric===metric.id?" is-selected":""}`} aria-label={`展开并聚焦${metric.title}`} aria-controls="fabric-home-metric-cards" aria-expanded="false" aria-describedby={`fabric-home-tip-${metric.id}`} onClick={()=>expandMetrics(metric.id)}><img src={`${assetRoot}${metric.glyph}.svg`} alt=""/><span className="fabric-home-metric-tooltip" role="tooltip" id={`fabric-home-tip-${metric.id}`}>{metric.title}</span></button>)}</div>
+          <div className="fabric-home-metric-shortcuts">{metricShortcuts.map(metric=><Tooltip trigger={['hover','focus']} key={metric.id} title={metric.title}><button type="button" className={`fabric-home-metric-shortcut${focusedMetric===metric.id?" is-selected":""}`} aria-label={`展开并聚焦${metric.title}`} aria-controls="fabric-home-metric-cards" aria-expanded="false" onClick={()=>expandMetrics(metric.id)}><img src={`${assetRoot}${metric.glyph}.svg`} alt=""/></button></Tooltip>)}</div>
           <button type="button" className="fabric-home-metrics-expand" ref={metricsExpandRef} aria-label="展开指标卡片" aria-expanded="false" aria-controls="fabric-home-metric-cards" onClick={()=>expandMetrics()}><img src={`${assetRoot}metrics-chevron.svg`} alt=""/></button>
         </div>
-        <div className="fabric-home-metrics-toolbar" aria-hidden={metricsCollapsed} inert={metricsCollapsed?"":undefined}><h2 className="fabric-home-metrics-title">技能统计</h2><button type="button" className="fabric-home-metrics-collapse" id="fabric-home-collapse-metrics" aria-label="收起指标卡片" title="收起指标卡片" aria-expanded={!metricsCollapsed} aria-controls="fabric-home-metric-cards" onClick={collapseMetrics}><img src={`${assetRoot}metrics-chevron.svg`} alt=""/></button></div>
+        <div className="fabric-home-metrics-toolbar" aria-hidden={metricsCollapsed} inert={metricsCollapsed?"":undefined}><h2 className="fabric-home-metrics-title">技能统计</h2><Tooltip trigger={['hover','focus']} title="收起指标卡片"><button type="button" className="fabric-home-metrics-collapse" id="fabric-home-collapse-metrics" aria-label="收起指标卡片" aria-expanded={!metricsCollapsed} aria-controls="fabric-home-metric-cards" onClick={collapseMetrics}><img src={`${assetRoot}metrics-chevron.svg`} alt=""/></button></Tooltip></div>
         </div>
         <div className="fabric-home-stats-reveal" aria-hidden={metricsCollapsed} inert={metricsCollapsed?"":undefined}><div className="fabric-home-stats-clip">
         <div className="fabric-home-stats" id="fabric-home-metric-cards">
@@ -86,7 +88,7 @@ export default function DataCenterNetworkAgent({onOpenAgent,onOpenSkill,onFocusE
       <section className="fabric-home-attention" ref={attentionRef} tabIndex={0} aria-labelledby="fabric-home-attention-heading" onScroll={attentionScroll.onScroll} onKeyDown={attentionScroll.onKeyDown} onTouchStart={attentionScroll.onTouchStart} onTouchMove={attentionScroll.onTouchMove} onPointerDown={attentionScroll.onPointerDown}>
         <div className="fabric-home-attention-header">
         <div className="fabric-home-section-title"><h2 id="fabric-home-attention-heading">待您关注</h2><a role="button" tabIndex={0} onClick={()=>onOpenSkill?.("attention")} onKeyDown={event=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();onOpenSkill?.("attention");}}}>更多</a></div>
-        <div className="fabric-home-tabs" role="tablist" aria-label="关注任务状态" style={{"--active-tab":activeTab}}><span className="fabric-home-tabs-indicator" aria-hidden="true"/>{tabs.map((tab,index)=><button type="button" key={tab.label} role="tab" id={`fabric-home-tab-${index}`} aria-controls="fabric-home-events" aria-selected={activeTab===index} className={activeTab===index?"is-active":""} onClick={()=>selectAttentionTab(index)}>{tab.label}<b className={tab.filter||""}>{events.filter(event=>!tab.filter||event.status===tab.filter).length}</b>{attentionBeam===index&&<OrangePurpleBeam className="fabric-home-tab-beam" duration={4.8} borderRadius={20} strength={.84}/>}</button>)}</div>
+        <div className="fabric-home-tabs" role="tablist" aria-label="关注任务状态" style={{"--active-tab":activeTab}}><span className="fabric-home-tabs-indicator" aria-hidden="true"/>{tabs.map((tab,index)=><button type="button" key={tab.label} role="tab" id={`fabric-home-tab-${index}`} aria-controls="fabric-home-events" aria-selected={activeTab===index} className={activeTab===index?"is-active":""} onClick={()=>selectAttentionTab(index)}>{tab.label}<b className={tab.filter||""}>{events.filter(event=>!tab.filter||event.status===tab.filter).length}</b>{attentionBeam===index&&<OrangePurpleBeam className="fabric-home-tab-beam" duration={4.8} strength={.84}/>}</button>)}</div>
         </div>
         <div className="fabric-home-events" id="fabric-home-events" ref={eventsRef} role="tabpanel" aria-labelledby={`fabric-home-tab-${activeTab}`}>
           {filtered.map(event=><button className={`fabric-home-event${event.status==="manual"?" is-priority":""}${focusedEventId===event.id?" is-map-focused":""}`} type="button" key={event.id} data-task-id={event.id} data-center-id={event.centerId||"all"} data-event-status={event.status} onMouseEnter={()=>onFocusEvent?.(event)} onMouseLeave={()=>onBlurEvent?.(event)} onFocus={()=>onFocusEvent?.(event)} onBlur={()=>onBlurEvent?.(event)} onClick={()=>openNetworkTask(event.id)}>
@@ -108,7 +110,7 @@ function Stat({glyph,title,primary,secondary,note,alert,selected,onClick,beamDur
   const vertical=`${primary}/${secondary}`.length>8;
   return <button type="button" id={`fabric-home-metric-${glyph}`} className={`fabric-home-stat${vertical?" is-vertical":""}${selected?" is-selected":""}`} onClick={onClick}>
     <h3><img src={`${assetRoot}${glyph}.svg`} alt=""/>{title}</h3>
-    <div className="fabric-home-stat-detail"><strong><span className={alert?"is-alert":""}><LiveMetricValue value={primary}/></span><i>/</i><LiveMetricValue value={secondary}/></strong><p>{note}{alert&&<img src={`${assetRoot}info.svg`} alt="告警数量 / 合规数量" title="告警数量 / 合规数量"/>}</p></div>
+    <div className="fabric-home-stat-detail"><strong><span className={alert?"is-alert":""}><LiveMetricValue value={primary}/></span><i>/</i><LiveMetricValue value={secondary}/></strong><p>{note}{alert&&<Tooltip trigger={['hover','focus']} title="告警数量 / 合规数量"><img src={`${assetRoot}info.svg`} alt="告警数量 / 合规数量" tabIndex={0}/></Tooltip>}</p></div>
     <HomeCardBeam duration={beamDuration}/>
   </button>;
 }

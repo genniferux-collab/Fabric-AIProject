@@ -9,6 +9,7 @@ export function samplesFor(rule) {
 function exampleCommand(rule) {
   return rule.cmd.replace("<角色集合>","100 200").replace("<按规划>","10.10.10.1").replace("<session>","core-peer").replace("<peer>","10.10.0.2").replace("<连接对象-端口>","To-LeafSwitch-01-10GE1/0/1");
 }
+// 证据限定在当前候选与当前设备，单设备在本详情中最多对应一项异常。
 export function evidenceFor(rule,device) {
   const expected = exampleCommand(rule), meta = miningImpact[rule.id];
   const actual = !device.bad ? expected : rule.id === "GB-014" ? "undo stp edged-port enable" : rule.id === "GB-017" ? "description Uplink-Temporary" : meta?.actual || uc2Actual(rule);

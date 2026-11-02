@@ -1,42 +1,42 @@
-.stage-root.uc3 .canvas .card.uc3-rule-canvas{padding:0 20px 20px;border-radius:16px;background-color:#2a2a2abf;background-image:radial-gradient(#ffffff0c .8px,transparent .8px);background-size:16px 16px;border:0;overflow:hidden;box-sizing:border-box;color:var(--gray-20)}
-.stage-root.uc3 .uc3-rule-heading{display:flex;align-items:center;gap:8px;height:56px;border-bottom:1px solid #f3f3f326;box-sizing:border-box}
-.stage-root.uc3 .uc3-rule-heading h2{margin:0;color:var(--gray-0);font-size:16px;line-height:24px;font-weight:500;min-width:0}
-.stage-root.uc3 .uc3-rule-version{color:var(--gray-30);background:#aeaeae26;border-radius:4px;padding:0 8px;font-size:12px;line-height:20px;white-space:nowrap}
-.stage-root.uc3 .uc3-rule-tools{display:flex;align-items:center;gap:16px;margin-left:auto;flex:none}
-.stage-root.uc3 .uc3-rule-tests{color:var(--mint-40);background:#09aa7126;border-radius:4px;padding:0 8px;font-size:12px;line-height:20px;white-space:nowrap}
+.stage-root.uc3 .canvas .card.uc3-rule-canvas{padding:0 var(--spacing-5) var(--spacing-5);border-radius:1rem;background-color:#2a2a2abf;background-image:radial-gradient(#ffffff0c .8px,transparent .8px);background-size:16px 16px;border:0;overflow:hidden;min-width:0;container:uc3-rule / inline-size;box-sizing:border-box;color:var(--gray-20)}
+.stage-root.uc3 .uc3-rule-heading{display:flex;align-items:center;gap:var(--spacing-2);height:56px;border-bottom:1px solid #f3f3f326;box-sizing:border-box}
+.stage-root.uc3 .uc3-rule-heading h2{margin:0;color:var(--gray-0);font-size:var(--font-size-lg);line-height:1.5rem;font-weight:var(--font-weight-medium);min-width:0}
+.stage-root.uc3 .uc3-rule-version{color:var(--gray-30);background:#aeaeae26;border-radius:var(--radius-base);padding:0 var(--spacing-2);font-size:var(--font-size-base);line-height:1.25rem;white-space:nowrap}
+.stage-root.uc3 .uc3-rule-tools{display:flex;align-items:center;gap:var(--spacing-4);margin-left:auto;flex:none}
+.stage-root.uc3 .uc3-rule-tests{color:var(--mint-40);background:#09aa7126;border-radius:var(--radius-base);padding:0 var(--spacing-2);font-size:var(--font-size-base);line-height:1.25rem;white-space:nowrap}
 .stage-root.uc3 .uc3-rule-tools .icon-btn{width:16px;height:20px;padding:0;display:grid;place-items:center;color:var(--gray-10);background:none;border:0;cursor:pointer}
 .stage-root.uc3 .uc3-rule-tools .icon-btn:hover{color:var(--gray-0)}
 .stage-root.uc3 .uc3-rule-tools .icon-btn :is(svg,img){width:16px;height:16px}
-.stage-root.uc3 .uc3-graph-viewport{position:relative;width:100%;margin-top:20px;overflow:hidden}
-.stage-root.uc3 .uc3-graph-layout{position:relative;width:1192px;height:620px;transform-origin:top left}
+.stage-root.uc3 .uc3-graph-viewport{position:relative;width:100%;max-width:100%;margin-top:var(--spacing-5);overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--gray-60) transparent}
+.stage-root.uc3 .uc3-graph-layout{position:absolute;left:0;top:0;width:1192px;height:620px;transform-origin:top left}
 .stage-root.uc3 .uc3-graph-edges{position:absolute;inset:0;pointer-events:none}
-.stage-root.uc3 .uc3-graph-node{position:absolute;border:1px solid #ffffff26;background:#282828;border-radius:16px;box-sizing:border-box;overflow:hidden;min-height:144px;animation:uc3-node-reveal .45s ease both;animation-delay:var(--reveal-delay)}
-.stage-root.uc3 .uc3-graph-node header{height:54px;display:flex;align-items:center;gap:8px;padding:0 16px;box-sizing:border-box;background:var(--gray-70);color:var(--gray-10)}
+.stage-root.uc3 .uc3-graph-node{position:absolute;border:1px solid #ffffff26;background:#282828;border-radius:1rem;box-sizing:border-box;overflow:hidden;min-height:144px;animation:uc3-node-reveal .45s ease both;animation-delay:var(--reveal-delay)}
+.stage-root.uc3 .uc3-graph-node header{height:54px;display:flex;align-items:center;gap:var(--spacing-2);padding:0 var(--spacing-4);box-sizing:border-box;background:var(--gray-70);color:var(--gray-10)}
 .stage-root.uc3 .uc3-graph-node header :is(svg,img){width:14px;height:14px;flex:none}
-.stage-root.uc3 .uc3-graph-node h3{font-size:16px;font-weight:600;line-height:22px;margin:0;color:#f2f2f7}
-.stage-root.uc3 .uc3-graph-node-body{padding:6px 16px;font-size:14px;line-height:26px;height:90px;min-height:90px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center}
-.stage-root.uc3 .uc3-graph-node p{margin:0;color:var(--gray-20);font-size:14px;line-height:26px;white-space:nowrap}
+.stage-root.uc3 .uc3-graph-node h3{font-size:var(--font-size-lg);font-weight:var(--font-weight-semibold);line-height:1.375rem;margin:0;color:#f2f2f7}
+.stage-root.uc3 .uc3-graph-node-body{padding:var(--spacing-1-5) var(--spacing-4);font-size:var(--font-size-md);line-height:1.625rem;height:90px;min-height:90px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center}
+.stage-root.uc3 .uc3-graph-node p{margin:0;color:var(--gray-20);font-size:var(--font-size-md);line-height:1.625rem;white-space:nowrap}
 .stage-root.uc3 .uc3-graph-node.fail{border-color:#a73c46}
 .stage-root.uc3 .uc3-graph-node.fail header{background:#f247511f}.stage-root.uc3 .uc3-graph-node.fail header svg{color:#f24751}
 .stage-root.uc3 .uc3-graph-node.pass{border-color:#308365}
 .stage-root.uc3 .uc3-graph-node.pass header{background:#36c18d26}.stage-root.uc3 .uc3-graph-node.pass header svg{color:var(--mint-40)}
 .stage-root.uc3 .uc3-graph-node[aria-label="整份配置结果"]{min-height:106px}.stage-root.uc3 .uc3-graph-node[aria-label="整份配置结果"] .uc3-graph-node-body{height:52px;min-height:52px}
-.stage-root.uc3 .uc3-edge-label{position:absolute;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:24px;height:24px;padding:1px 5px;font-size:12px;line-height:20px;color:var(--gray-0);background:#f3f3f333;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-radius:4px;white-space:nowrap}
-.stage-root.uc3 .uc3-edge-label>span{display:block;flex:none;line-height:20px;height:20px}
-.stage-root.uc3 .uc3-edge-label.pill{width:86px;height:22px;border-radius:12px;padding:1px 8px}
-.stage-root.uc3 .uc3-rule-evidence>h3{margin:0 0 16px;font-size:14px;line-height:22px;color:var(--gray-0);font-weight:500}
-.stage-root.uc3 .uc3-evidence-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.stage-root.uc3 .uc3-evidence-card{border:1px solid #ffffff26;border-radius:8px;padding:16px;min-height:144px;box-sizing:border-box}
-.stage-root.uc3 .uc3-evidence-card header{display:flex;align-items:center;gap:16px;margin-bottom:16px;height:24px}
-.stage-root.uc3 .uc3-evidence-card header :is(svg,img){width:24px;height:24px}.stage-root.uc3 .uc3-evidence-card h4{font-size:14px;font-weight:600;line-height:22px;color:#f2f2f7;margin:0}
+.stage-root.uc3 .uc3-edge-label{position:absolute;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:24px;height:24px;padding:0.0625rem 0.3125rem;font-size:var(--font-size-base);line-height:1.25rem;color:var(--gray-0);background:#f3f3f333;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-radius:var(--radius-base);white-space:nowrap}
+.stage-root.uc3 .uc3-edge-label>span{display:block;flex:none;line-height:1.25rem;height:20px}
+.stage-root.uc3 .uc3-edge-label.pill{width:86px;height:22px;border-radius:var(--radius-xl);padding:0.0625rem var(--spacing-2)}
+.stage-root.uc3 .uc3-rule-evidence>h3{margin:0 0 var(--spacing-4);font-size:var(--font-size-md);line-height:1.375rem;color:var(--gray-0);font-weight:var(--font-weight-medium)}
+.stage-root.uc3 .uc3-evidence-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--spacing-4)}
+.stage-root.uc3 .uc3-evidence-card{border:1px solid #ffffff26;border-radius:var(--radius-lg);padding:var(--spacing-4);min-height:144px;box-sizing:border-box}
+.stage-root.uc3 .uc3-evidence-card header{display:flex;align-items:center;gap:var(--spacing-4);margin-bottom:var(--spacing-4);height:24px}
+.stage-root.uc3 .uc3-evidence-card header :is(svg,img){width:24px;height:24px}.stage-root.uc3 .uc3-evidence-card h4{font-size:var(--font-size-md);font-weight:var(--font-weight-semibold);line-height:1.375rem;color:#f2f2f7;margin:0}
 .stage-root.uc3 .uc3-evidence-card .blue{color:var(--blue-50)}.stage-root.uc3 .uc3-evidence-card .cyan{color:#2fb3c5}.stage-root.uc3 .uc3-evidence-card .violet{color:#8563ff}
-.stage-root.uc3 .uc3-evidence-card p{margin:0;font-size:14px;line-height:24px;color:var(--gray-20)}
+.stage-root.uc3 .uc3-evidence-card p{margin:0;font-size:var(--font-size-md);line-height:1.5rem;color:var(--gray-20)}
 
 @keyframes uc3-skeleton{to{background-position:-200% 0}}@keyframes uc3-node-reveal{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.stage-root.uc3 .uc3-graph-node{animation:none}.stage-root.uc3 .is-building :is(h3,h4,p){animation:none}}
 
 .stage-root.uc3 .locate-highlight{position:relative;isolation:isolate}
-.stage-root.uc3 .locate-highlight::after{content:"";position:absolute;inset:0;padding:1px;border-radius:inherit;background:linear-gradient(110deg,var(--brand-30),#a18bfa);-webkit-mask:linear-gradient(var(--gray-0) 0 0) content-box,linear-gradient(var(--gray-0) 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:10;animation:smart-locate-border 2.4s ease forwards}
+.stage-root.uc3 .locate-highlight::after{content:"";position:absolute;inset:0;padding:0.0625rem;border-radius:inherit;background:linear-gradient(110deg,var(--brand-30),#a18bfa);-webkit-mask:linear-gradient(var(--gray-0) 0 0) content-box,linear-gradient(var(--gray-0) 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:10;animation:smart-locate-border 2.4s ease forwards}
 
 .stage-root.uc3 .uc3-design-icon{display:block;object-fit:contain;flex:none}
 .stage-root.uc3 .uc3-rule-tools .icon-btn :is(svg,img){width:14px;height:14px}
@@ -52,3 +52,33 @@
 @keyframes uc3-edge-grow{0%{opacity:0;stroke-dashoffset:1}10%{opacity:1}100%{opacity:1;stroke-dashoffset:0}}
 @keyframes uc3-node-glow{0%{opacity:0}15%,70%{opacity:1}100%{opacity:0}}
 @media(prefers-reduced-motion:reduce){.stage-root.uc3 .uc3-graph-node,.stage-root.uc3 .uc3-edge-label,.stage-root.uc3 .uc3-rule-evidence{animation:none}.stage-root.uc3 .uc3-growing-edge{animation:none;opacity:1;stroke-dashoffset:0}.stage-root.uc3 .uc3-node-intelligence{display:none}}
+
+/* The diagram owns its pan/zoom; the page and its text keep their native scale. */
+.stage-root.uc3 .uc3-graph-extent{position:relative;margin-inline:auto}
+.stage-root.uc3 .uc3-graph-controls{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--spacing-2);margin-top:var(--spacing-4);color:var(--gray-30);font-size:var(--font-size-base);line-height:1.25rem}
+.stage-root.uc3 .uc3-graph-controls>div{display:flex;align-items:center;flex-wrap:wrap;gap:var(--spacing-1)}
+
+
+
+.stage-root.uc3 .uc3-graph-controls output{min-width:3rem;text-align:center;font-variant-numeric:tabular-nums}
+.stage-root.uc3 .has-zoom-tools .uc3-graph-viewport{margin-top:var(--spacing-2)}
+.stage-root.uc3 .uc3-graph-viewport:focus-visible{outline:1px solid var(--brand-30);outline-offset:2px}
+.stage-root.uc3 .uc3-evidence-card{min-width:0;overflow-wrap:anywhere}
+@container uc3-rule (max-width:860px){
+ .stage-root.uc3 .uc3-rule-heading{height:auto;min-height:56px;flex-wrap:wrap;padding:var(--spacing-3) 0}
+ .stage-root.uc3 .uc3-rule-heading h2{flex:1 1 13rem;overflow-wrap:anywhere}
+ .stage-root.uc3 .uc3-rule-tools{gap:var(--spacing-3);flex-wrap:wrap}
+ .stage-root.uc3 .uc3-evidence-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@container uc3-rule (max-width:560px){
+ .stage-root.uc3 .uc3-evidence-grid{grid-template-columns:minmax(0,1fr)}
+ .stage-root.uc3 .uc3-evidence-card{min-height:0}
+ .stage-root.uc3 .uc3-evidence-card header{margin-bottom:var(--spacing-3);gap:var(--spacing-3)}
+ .stage-root.uc3 .uc3-rule-tools{width:100%;justify-content:flex-end}
+}
+
+/* Zoom text actions use Button; pure-icon actions retain a compact keyboard target. */
+.stage-root.uc3 .uc3-zoom-action{display:inline-flex;align-items:center;justify-content:center;width:1.75rem;height:1.75rem;flex:none;color:var(--on-surface-variant);cursor:pointer}
+.stage-root.uc3 .uc3-zoom-action:hover{color:var(--interactive-link)}
+.stage-root.uc3 .uc3-zoom-action[aria-disabled=true]{color:var(--text-disabled);cursor:default}
+.stage-root.uc3 .uc3-zoom-action:focus-visible{outline:1px solid var(--focus-ring);outline-offset:2px}

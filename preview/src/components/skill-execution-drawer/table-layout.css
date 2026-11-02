@@ -1,0 +1,22 @@
+/* 业务单元格与抽屉容器布局；Table 的皮肤、排序、筛选和分页使用共享 ICT 样式。 */
+.skill-execution-table-wrap{min-height:0;flex:1;overflow:hidden;border:0}
+.skill-task-title-cell small,.skill-task-progress-cell small{display:block;margin-top:var(--spacing-0-5);font:var(--font-caption-m);color:var(--on-surface)}
+.skill-task-name,.skill-task-action{color:var(--interactive-link);cursor:pointer;text-decoration:none}
+.skill-task-name:hover,.skill-task-action:hover{color:var(--interactive-link-hover)}
+.skill-task-action{display:inline-flex;align-items:center;justify-content:flex-start;gap:var(--spacing-4)}
+.skill-task-action:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.skill-task-progress-cell{min-width:8rem;max-width:10rem;margin-left:0}
+.skill-task-progress-cell small{text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.skill-task-progress>span{background:var(--surface-variant)}
+.skill-task-progress i{background:var(--primary)}
+.skill-task-progress b{font:var(--font-body-m);width:2.5rem;flex:none}
+.skill-task-detail-content{display:grid;gap:var(--spacing-3);margin:0;color:var(--on-surface)}
+.skill-task-detail-content>div{display:grid;grid-template-columns:5rem minmax(0,1fr);gap:var(--spacing-3)}
+.skill-task-detail-content dt,.skill-task-detail-content dd{margin:0;font:var(--font-body-m);overflow-wrap:anywhere}
+.skill-execution-empty a{color:var(--interactive-link);cursor:pointer}
+
+.skill-task-title-cell{min-width:18rem;max-width:28rem;white-space:normal}
+.skill-task-title-cell .skill-task-name{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;line-height:1.375rem}
+.skill-task-title-cell small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.skill-execution-filterline{gap:var(--spacing-3);min-height:3.5rem}
+.skill-execution-filterline .skill-attention-toggle{margin:0;flex:none}

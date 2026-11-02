@@ -1,8 +1,9 @@
 /* Desktop workbench: stable controls, fluid panes, local scrolling. */
+/* 首页、欢迎页与 UC1–4 共用侧栏宽度；画布偏移也读取同一变量，切换任务不改变分栏。 */
 html:has(.stage-viewport),body:has(.stage-viewport){margin:0;width:100%;height:100%;overflow:hidden;font-size:16px}
 .stage-viewport:has(.pc-layout){overflow:hidden;background:var(--surface-container-lowest)}
-.stage-root.pc-layout{--agent-width:clamp(320px,28vw,420px);position:relative;inset:auto;width:100%;height:100%;min-width:0;min-height:0;transform:none;overflow:hidden;container:stage-layout / inline-size}
-.pc-layout .top{width:100%;padding:0 16px;gap:16px;white-space:nowrap}.pc-layout .top .left,.pc-layout .top .right{gap:16px;min-width:0}.pc-layout .brand{font-size:16px}.pc-layout .top .right{margin-left:auto}.pc-layout .version-compare a{padding:0 8px}
+.stage-root.pc-layout{--agent-panel-width:clamp(360px,max(calc((100vw - 48px) * .3162393162),calc((100vh - 48px) * .52)),min(720px,calc((100vw - 48px) * .5)));--agent-width:var(--agent-panel-width);position:relative;inset:auto;width:100%;height:100%;min-width:0;min-height:0;transform:none;overflow:hidden;container:stage-layout / inline-size}
+.pc-layout .top{width:100%;padding:0 var(--spacing-4);gap:var(--spacing-4);white-space:nowrap}.pc-layout .top .left,.pc-layout .top .right{gap:var(--spacing-4);min-width:0}.pc-layout .brand{font-size:var(--font-size-lg)}.pc-layout .top .right{margin-left:auto}.pc-layout .version-compare a{padding:0 var(--spacing-2)}
 .stage-root.pc-layout #lui{width:var(--agent-width);min-width:0;transition:transform .18s ease}
 .stage-root.pc-layout #lui.closed{transform:translateX(calc(-100% - 48px));pointer-events:none;visibility:hidden}
 .stage-root.pc-layout #canvas:not(.full){left:calc(48px + var(--agent-width));min-width:0;transition:none}
@@ -10,38 +11,38 @@ html:has(.stage-viewport),body:has(.stage-viewport){margin:0;width:100%;height:1
 .pc-layout .canvas{container:workspace / inline-size}
 .pc-layout .canvas-content{min-width:0;min-height:0;scrollbar-width:thin}
 .pc-layout .figma-network-page{--dashboard-width:clamp(360px,32vw,480px);width:auto;height:auto;min-width:0}
-.pc-layout .figma-dashboard .dcna-container{padding:24px}.pc-layout .figma-dashboard .dcna-header{margin-bottom:24px}.pc-layout .figma-dashboard .dcna-header h1{font-size:18px}
-.pc-layout .figma-dashboard .dcna-stat{padding:12px}.pc-layout .figma-dashboard .dcna-stat>strong{font-size:22px}.pc-layout .figma-dashboard .dcna-stat p{font-size:12px;gap:6px}.pc-layout .dcna-events{padding-bottom:24px}
+.pc-layout .figma-dashboard .dcna-container{padding:var(--spacing-6)}.pc-layout .figma-dashboard .dcna-header{margin-bottom:var(--spacing-6)}.pc-layout .figma-dashboard .dcna-header h1{font-size:var(--font-size-xl)}
+.pc-layout .figma-dashboard .dcna-stat{padding:var(--spacing-3)}.pc-layout .figma-dashboard .dcna-stat>strong{font-size:1.375rem}.pc-layout .figma-dashboard .dcna-stat p{font-size:var(--font-size-base);gap:var(--spacing-1-5)}.pc-layout .dcna-events{padding-bottom:var(--spacing-6)}
 .stage-root.pc-layout.uc2-intent .figma-network-page{visibility:visible}
 .pc-layout .uc2-report-grid,.stage-root.pc-layout .v7-top-grid{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
-.pc-layout .uc2-report-summary{grid-template-columns:240px minmax(0,1fr);gap:20px;padding:20px}
-.pc-layout .uc2-report-progress{padding-right:16px;gap:12px}
+.pc-layout .uc2-report-summary{grid-template-columns:240px minmax(0,1fr);gap:var(--spacing-5);padding:var(--spacing-5)}
+.pc-layout .uc2-report-progress{padding-right:var(--spacing-4);gap:var(--spacing-3)}
 .pc-layout .uc2-report-toolbar,.pc-layout .uc2-report-pagination,.pc-layout .v7-pagination{flex-wrap:wrap}
 .pc-layout .uc2-report-filters{flex-wrap:wrap}.pc-layout .uc2-report-filters .search{flex:1;min-width:220px;width:auto}
 .pc-layout .uc2-report-table-scroll,.pc-layout .v7-table-scroll{max-width:100%;overflow:auto}
-.pc-layout .uc2-report-status{gap:20px;overflow:auto;white-space:nowrap}
+.pc-layout .uc2-report-status{gap:var(--spacing-5);overflow:auto;white-space:nowrap}
 .pc-layout .uc2-metrics{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
 .pc-layout .fusion-workspace{flex-wrap:wrap}.pc-layout .fusion-visual{min-width:0;flex:1 1 450px}.pc-layout .fusion-rule-drawer{flex:1 1 280px;max-height:none;width:auto}
 @container workspace (max-width:900px){
- .pc-layout .uc2-report-summary,.stage-root.pc-layout .v7-summary{grid-template-columns:1fr;gap:20px}
+ .pc-layout .uc2-report-summary,.stage-root.pc-layout .v7-summary{grid-template-columns:1fr;gap:var(--spacing-5)}
  .pc-layout .uc2-report-progress,.stage-root.pc-layout .v7-compliance{border-right:0;padding-right:0}
  .pc-layout .uc2-report-grid,.stage-root.pc-layout .v7-top-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
  .pc-layout .uc2-report-grid.by-role{grid-template-columns:repeat(2,minmax(0,1fr))}
  .pc-layout .uc2-split{grid-template-columns:1fr}
- .pc-layout .card{padding:20px}
+ .pc-layout .card{padding:var(--spacing-5)}
  .stage-root.pc-layout .v7-table-tools{flex-wrap:wrap}
  .stage-root.pc-layout .v7-table-tools .search{flex:1;min-width:200px}
 }
 @container workspace (max-width:600px){
  .pc-layout .uc2-report-grid,.pc-layout .uc2-report-grid.by-role,.stage-root.pc-layout .v7-top-grid{grid-template-columns:1fr}
  .pc-layout .uc2-report-heading{align-items:flex-start;flex-wrap:wrap}
- .pc-layout .uc2-report-heading h2{font-size:18px}
- .pc-layout .uc2-report-status{gap:14px}
+ .pc-layout .uc2-report-heading h2{font-size:var(--font-size-xl)}
+ .pc-layout .uc2-report-status{gap:var(--spacing-3-5)}
  .pc-layout .uc2-report-filters select{flex:1;min-width:130px}
  .pc-layout .uc2-report-pagination>.row{flex-wrap:wrap}
- .pc-layout .uc2-report-summary{padding:16px}
+ .pc-layout .uc2-report-summary{padding:var(--spacing-4)}
  .stage-root.pc-layout .canvas .device-workspace{grid-template-columns:1fr}
 }
-@media(max-width:1280px){.pc-layout .version-compare>span,.pc-layout .top .tag{display:none}.pc-layout .top .left,.pc-layout .top .right{gap:12px}.pc-layout .version-compare a{padding:0 6px}}
-@media(max-width:1050px){.pc-layout .version-compare{display:none}.stage-root.pc-layout{--agent-width:300px}.pc-layout .figma-network-page{--dashboard-width:360px}.pc-layout .uc2-report-meta{line-height:1.7}}
-@media(max-width:760px){.pc-layout .topnav:last-child,.pc-layout .top .divider,.pc-layout .top .right>.row{display:none}.stage-root.pc-layout{--agent-width:280px}.stage-root.pc-layout #lui{box-shadow:var(--shadow-popover)}.stage-root.pc-layout #canvas:not(.full){left:48px}.stage-root.pc-layout #canvas{z-index:1}.pc-layout .figma-network-page{--dashboard-width:min(360px,100%)}.pc-layout .figma-map{left:0}.pc-layout .figma-dashboard{background:var(--panel)}}
+@media(max-width:1280px){.pc-layout .version-compare>span,.pc-layout .top .tag{display:none}.pc-layout .top .left,.pc-layout .top .right{gap:var(--spacing-3)}.pc-layout .version-compare a{padding:0 var(--spacing-1-5)}}
+@media(max-width:1050px){.pc-layout .version-compare{display:none}.pc-layout .figma-network-page{--dashboard-width:360px}.pc-layout .uc2-report-meta{line-height:1.7}}
+@media(max-width:760px){.pc-layout .topnav:last-child,.pc-layout .top .divider,.pc-layout .top .right>.row{display:none}.stage-root.pc-layout #lui{box-shadow:var(--shadow-popover)}.stage-root.pc-layout #canvas:not(.full){left:48px}.stage-root.pc-layout #canvas{z-index:1}.pc-layout .figma-network-page{--dashboard-width:min(360px,100%)}.pc-layout .figma-map{left:0}.pc-layout .figma-dashboard{background:var(--panel)}}

@@ -1,0 +1,21 @@
+/* Business cell layout only; shared ant.css owns Table and pagination appearance. */
+.uc4-report-table-surface{min-width:0;max-width:100%}
+.uc4-report-table-link{color:var(--interactive-link);cursor:pointer;text-decoration:none}
+.uc4-report-table-link:hover{color:var(--interactive-link-hover)}
+.uc4-report-priority-values{display:flex;justify-content:flex-start;white-space:nowrap}
+.uc4-report-table-result{display:inline-flex;align-items:center;gap:var(--spacing-inline);white-space:nowrap}
+.uc4-report-table-result.is-failed{color:var(--error)}
+.uc4-report-table-result.is-passed{color:var(--success)}
+.uc4-report-table-actions{display:flex;align-items:center;gap:var(--spacing-4)}
+.uc4-report-table-actions>a{display:inline-flex;align-items:center;color:var(--on-surface);cursor:pointer}
+.uc4-report-table-actions>a:hover{color:var(--color-brand)}
+.uc4-report-table-actions>a[aria-disabled="true"]{color:var(--color-text-disabled);cursor:not-allowed}
+.uc4-report-table-actions>a:focus-visible{outline:var(--outline-width-focus) solid var(--focus-ring);outline-offset:var(--outline-offset-gap)}
+
+/* Constrain business text, not every column; only the action column has a set width. */
+.uc4-report-table-surface{overflow:visible}
+.uc4-report-device-name{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;max-inline-size:18rem;min-inline-size:6rem;overflow:hidden;white-space:normal;overflow-wrap:anywhere;line-height:1.375rem}
+.uc4-report-cell-copy{display:block;max-inline-size:12rem;white-space:normal;overflow-wrap:anywhere;line-height:1.375rem}
+.uc4-report-single-value{white-space:nowrap;font-variant-numeric:tabular-nums}
+.uc4-report-priority-values{min-width:0}
+.uc4-report-table-actions{width:max-content;min-width:0;white-space:nowrap}

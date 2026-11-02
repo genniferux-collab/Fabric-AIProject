@@ -1,29 +1,29 @@
 /* Pixso 首页全部参考图 / 数据总览 13:359657. Native desktop frame: 1232×130. */
-.pc-layout .effectiveness-metrics{position:absolute;isolation:isolate;overflow:hidden;z-index:3;top:24px;left:calc(var(--dashboard-width) + 24px);right:24px;width:auto;min-height:130px;box-sizing:border-box;margin:0;padding:16px;background:var(--gray-80);border-radius:16px;color:var(--gray-0);container:metrics-panel / inline-size;text-shadow:0 1px 6px #0008;outline:none}
-.effectiveness-border-beam{position:absolute!important;inset:0!important;z-index:2;width:100%!important;height:100%!important;border-radius:16px;pointer-events:none;opacity:0;transition:opacity .24s ease}
+.pc-layout .effectiveness-metrics{position:absolute;isolation:isolate;overflow:hidden;z-index:3;top:24px;left:calc(var(--dashboard-width) + 24px);right:24px;width:auto;min-height:130px;box-sizing:border-box;margin:0;padding:var(--spacing-4);background:var(--gray-80);border-radius:1rem;color:var(--gray-0);container:metrics-panel / inline-size;text-shadow:0 1px 6px #0008;outline:none}
+.effectiveness-border-beam{position:absolute!important;inset:0!important;z-index:2;width:100%!important;height:100%!important;border-radius:1rem;pointer-events:none;opacity:0;transition:opacity .24s ease}
 .effectiveness-metrics:hover .effectiveness-border-beam,.effectiveness-metrics:focus-visible .effectiveness-border-beam{opacity:1}
 .effectiveness-metrics:focus-visible{outline:1px solid #d37cff;outline-offset:2px}
-.effectiveness-metrics h2{margin:0;font-size:18px;font-weight:500;line-height:26px}
-.effectiveness-metrics-grid{display:grid;grid-template-columns:minmax(0,534fr) 1px minmax(0,445fr);column-gap:clamp(24px,9.2cqw,110px);align-items:center;min-height:64px;margin-top:8px;min-width:0}
-.effectiveness-metric-group{display:flex;align-items:center;justify-content:space-between;gap:24px;min-width:0;height:64px}
-.effectiveness-group-divider{display:block;width:1px;height:42px;border-radius:4px;background:#f3f3f333}
-.effectiveness-metric{display:flex;align-items:center;gap:8px;min-width:0;flex:none;height:64px}
+.effectiveness-metrics h2{margin:0;font-size:var(--font-size-xl);font-weight:var(--font-weight-medium);line-height:1.625rem}
+.effectiveness-metrics-grid{display:grid;grid-template-columns:minmax(0,534fr) 1px minmax(0,445fr);column-gap:clamp(var(--spacing-6),9.2cqw,6.875rem);align-items:center;min-height:64px;margin-top:var(--spacing-2);min-width:0}
+.effectiveness-metric-group{display:flex;align-items:center;justify-content:space-between;gap:var(--spacing-6);min-width:0;height:64px}
+.effectiveness-group-divider{display:block;width:1px;height:42px;border-radius:var(--radius-base);background:#f3f3f333}
+.effectiveness-metric{display:flex;align-items:center;gap:var(--spacing-2);min-width:0;flex:none;height:64px}
 .effectiveness-metric-copy{display:flex;flex-direction:column;justify-content:center;flex:none;min-width:0;height:54px}
-.effectiveness-metric-copy strong{display:flex;align-items:baseline;gap:4px;font-size:24px;font-weight:600;line-height:32px;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--gray-0)}
-.effectiveness-metric-copy strong>span{font-size:12px;font-weight:500;line-height:20px;color:var(--gray-20)}
-.effectiveness-metric-copy>span{display:flex;align-items:center;gap:4px;font-size:14px;font-weight:500;line-height:22px;color:var(--gray-20);white-space:nowrap}
+.effectiveness-metric-copy strong{display:flex;align-items:baseline;gap:var(--spacing-1);font-size:var(--font-size-3xl);font-weight:var(--font-weight-semibold);line-height:2rem;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--gray-0)}
+.effectiveness-metric-copy strong>span{font-size:var(--font-size-base);font-weight:var(--font-weight-medium);line-height:1.25rem;color:var(--gray-20)}
+.effectiveness-metric-copy>span{display:flex;align-items:center;gap:var(--spacing-1);font-size:var(--font-size-md);font-weight:var(--font-weight-medium);line-height:1.375rem;color:var(--gray-20);white-space:nowrap}
 .effectiveness-metric-copy>span img{width:14px;height:14px;flex:none}
 .effectiveness-workflow{width:322px}.effectiveness-compliance{width:233px}
 .effectiveness-distribution{display:block;width:142.65px;height:52px;flex:none;max-width:none}
 .effectiveness-trend{display:block;align-self:flex-start;width:101px;height:69.784px;flex:none;max-width:none}
 @container metrics-panel (max-width:1050px){
- .effectiveness-metrics-grid{display:flex;flex-direction:column;gap:16px;align-items:center}
+ .effectiveness-metrics-grid{display:flex;flex-direction:column;gap:var(--spacing-4);align-items:center}
  .effectiveness-metric-group{width:min(100%,534px);flex:none}
  .effectiveness-metric-group:last-child{width:min(100%,445px)}
  .effectiveness-group-divider{width:42px;height:1px;flex:none}
 }
 @container metrics-panel (max-width:480px){
- .effectiveness-metric-group{gap:16px;flex-wrap:wrap;height:auto;justify-content:flex-start}
+ .effectiveness-metric-group{gap:var(--spacing-4);flex-wrap:wrap;height:auto;justify-content:flex-start}
  .effectiveness-metric-group:last-child{width:100%}
 }
 

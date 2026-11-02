@@ -74,7 +74,7 @@ export default function Uc2Chat() {
       <SoftHeight>
       <div className="response-process">
         <button type="button" className="response-title" aria-expanded={expanded} aria-controls="uc2WorkflowSteps" onClick={toggleProcess}>
-          <LuiGlyph name={done ? "completed" : "processing"} size={14} /><MotionTitle text={title} active={!done && uc2.running}/><Ic variant={isDark ? "filled" : "lined"} icon={expanded ? "chevron-up" : "chevron-down"} />
+          <LuiGlyph name={done ? "completed" : "processing"} size="0.875rem" /><MotionTitle text={title} active={!done && uc2.running}/><Ic variant={isDark ? "filled" : "lined"} icon={expanded ? "chevron-up" : "chevron-down"} />
         </button>
         <div className="response-steps" id="uc2WorkflowSteps" hidden={!expanded}>
           <p className="response-intent">已理解您的需求并明确实施路径。我将通过黄金基线挖掘 Skill，依次完成意图识别、设备发现、基线挖掘和结果呈现，下面开始执行。</p>
@@ -84,11 +84,11 @@ export default function Uc2Chat() {
               const current = !completed && step === uc2.max;
               const open = !!openSteps[step];
               return <div key={step} data-step-index={step} className={"step " + (completed ? "is-done" : "is-running") + (selectedStep === step ? " is-selected" : "") + (current && !uc2.running ? " is-paused" : "")}>
-                <span className={"status " + (completed ? "done" : "running")} aria-label={completed ? "已完成" : uc2.running ? "进行中" : "已暂停"}><LuiGlyph name={completed ? selectedStep === step ? "step-selected" : "step-done" : "step-running"} size={16} /></span>
+                <span className={"status " + (completed ? "done" : "running")} aria-label={completed ? "已完成" : uc2.running ? "进行中" : "已暂停"}><LuiGlyph name={completed ? selectedStep === step ? "step-selected" : "step-done" : "step-running"} size="1rem" /></span>
                 <div className="step-heading">
                   <button type="button" className="step-title" aria-expanded={open} aria-controls={`uc2WorkflowStep${step}`} onClick={() => toggleStep(step)}><MotionTitle text={uc2Names[step]} active={current && uc2.running}/></button>
                   <div className="step-actions">
-                    {(completed || current && (step===0 || uc2.phase!=="text")) && <><button type="button" className="step-action" aria-label={`定位步骤：${uc2Names[step]}`} title="定位到画布" onClick={() => { setSelectedStep(step); uc2Show(step); }}><img className="lui-glyph" src="./assets/uploads/lui-step-locate.svg" width="12" height="12" alt="" /></button><span className="step-action-divider" aria-hidden="true" /></>}
+                    {(completed || current && (step===0 || uc2.phase!=="text")) && <><button type="button" className="step-action" aria-label={`定位步骤：${uc2Names[step]}`} title="定位到画布" onClick={() => { setSelectedStep(step); uc2Show(step); }}><img className="lui-glyph" src="./assets/uploads/lui-step-locate.svg" style={{width:"0.75rem",height:"0.75rem"}} alt="" /></button><span className="step-action-divider" aria-hidden="true" /></>}
                     <button type="button" className="step-action" aria-label={`${open ? "收起" : "展开"}步骤：${uc2Names[step]}`} aria-expanded={open} aria-controls={`uc2WorkflowStep${step}`} onClick={() => toggleStep(step)}><Ic variant={isDark ? "filled" : "lined"} icon={open ? "chevron-up" : "chevron-down"} /></button>
                   </div>
                 </div>

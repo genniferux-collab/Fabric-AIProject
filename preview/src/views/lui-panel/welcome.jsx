@@ -2,6 +2,7 @@ import {useState} from "react";
 import "./welcome.css";
 
 const assetRoot="./assets/uploads/pixso-ai-welcome/";
+// 展示文案与提交提示词分开维护；点击场景只准备草稿，由输入框统一发送。
 const scenarios=[
   {icon:"scenario-query",title:"查询当前全量配置检查项",description:"搜索当前全网有多少巡检项",prompt:"当前全网有哪些检查规则？"},
   {icon:"scenario-mining",title:"帮我自动挖掘一下西三旗DC的黄金基线",description:"自动挖掘西三旗DC黄金基线，针对交换机角色设备，查看不合规项",prompt:"帮我自动挖掘一下西三旗DC的黄金基线，看看现网有哪些不合规？"},

@@ -1,0 +1,24 @@
+/* Only business layout and cell content; Antd skin stays in assets/style/ant.css. */
+.baseline-rule-list.baseline-antd-list .baseline-rule-status{flex-wrap:wrap;gap:var(--spacing-3) var(--spacing-6)}
+.baseline-antd-list .uc2-candidate-search{flex:1 1 18.5rem;min-width:0;max-width:22rem}
+.baseline-antd-list .uc2-candidate-confidence{flex:0 0 13rem;max-width:100%}
+.uc2-candidate-table-region{display:flex;flex-direction:column;flex:1 1 0;min-width:0;min-height:0;overflow:hidden}
+.uc2-candidate-name{min-width:12rem;max-width:21rem;white-space:normal;overflow-wrap:anywhere;color:var(--on-surface)}
+.uc2-candidate-name a,.baseline-antd-list .baseline-empty a{color:var(--interactive-link);cursor:pointer;text-decoration:none}
+.uc2-candidate-name a:hover,.baseline-antd-list .baseline-empty a:hover{color:var(--interactive-link-hover)}
+.uc2-candidate-name small{display:block;margin-top:var(--spacing-1);color:var(--on-surface);font-size:var(--font-size-base);line-height:1.25rem}
+.uc2-candidate-support{display:flex;align-items:center;justify-content:flex-start;gap:var(--spacing-2);min-width:6.5rem;color:var(--on-surface);font-variant-numeric:tabular-nums}
+.uc2-candidate-support-track{display:flex;align-items:center;gap:var(--spacing-0-5);flex:1 1 4rem;min-width:3rem;max-width:5rem;height:6px}
+.uc2-candidate-support-track i{height:6px;background:var(--baseline-support-blue);border-radius:var(--radius-base);min-width:1px;max-width:100%}
+.uc2-candidate-support-track i+i{background:var(--error);min-width:4px}
+.uc2-candidate-support strong{flex:none;white-space:nowrap;font-weight:var(--font-weight-normal)}
+.uc2-candidate-support em{font-style:normal}
+.uc2-candidate-confirmation{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;min-width:10rem;max-width:18rem;white-space:normal;overflow-wrap:anywhere;color:var(--on-surface)}
+.uc2-candidate-actions{display:inline-flex;align-items:center;gap:var(--spacing-4);color:var(--on-surface-variant);cursor:pointer}
+.uc2-candidate-actions:hover{color:var(--color-brand)}
+.uc2-candidate-actions:focus-visible{outline:1px solid var(--focus-ring);outline-offset:2px}
+@container workspace (max-width:600px){.baseline-antd-list .uc2-candidate-search{flex-basis:100%;max-width:none}.baseline-antd-list .uc2-candidate-confidence{flex-basis:100%}}
+
+/* 狭窄画布仍为明细保留约四行空间，余下高度继续弹性分配。 */
+.baseline-rule-list.baseline-antd-list.is-embedded{flex:1 0 30rem;min-height:30rem}
+.baseline-report:has(>.baseline-antd-list){overflow:auto}

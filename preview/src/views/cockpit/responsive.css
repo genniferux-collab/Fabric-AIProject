@@ -1,15 +1,15 @@
 /* Home uses stable PC controls; only the map's own scene scales. */
-.stage-root.pc-layout:not(.uc4):not(.uc2){--agent-width:592px}
-.pc-layout .figma-network-page{--dashboard-width:592px}
+.stage-root.pc-layout{--home-panel-width:var(--agent-panel-width)}
+.pc-layout .figma-network-page{--dashboard-width:var(--home-panel-width)}
 .pc-layout .figma-dashboard{border-right:1px solid var(--line);box-shadow:none;overflow:hidden}
-.pc-layout .figma-dashboard .dcna-container{height:100%;min-height:0;padding:24px;overflow:hidden;background-size:100% auto;background-position:top center;background-color:var(--panel)}
+.pc-layout .figma-dashboard .dcna-container{height:100%;min-height:0;padding:var(--spacing-6);overflow:hidden;background-size:100% auto;background-position:top center;background-color:var(--panel)}
 .pc-layout .figma-dashboard .dcna-header,.pc-layout .figma-dashboard .dcna-summary,.pc-layout .figma-dashboard .dcna-stats,.pc-layout .figma-dashboard .dcna-section-title,.pc-layout .figma-dashboard .dcna-tabs{flex-shrink:0}
-.pc-layout .figma-dashboard .dcna-summary>div{min-width:0}.pc-layout .figma-dashboard .dcna-summary img{width:56px;height:56px;flex:none;margin-left:8px}
-.pc-layout .figma-dashboard .dcna-summary span{font-size:13px;line-height:1.7}.pc-layout .figma-dashboard .dcna-summary br{display:none}
-.pc-layout .figma-dashboard .dcna-stats{gap:12px}.pc-layout .figma-dashboard .dcna-stat{min-width:0;padding:14px 12px}.pc-layout .figma-dashboard .dcna-stat p{min-height:34px;align-items:flex-start;font-size:12px}.pc-layout .figma-dashboard .dcna-stat>strong{font-size:22px;letter-spacing:0;white-space:nowrap}
-.pc-layout .figma-dashboard .dcna-stat>span{font-size:11px}.pc-layout .figma-dashboard .dcna-tabs{height:38px;min-height:38px}.pc-layout .figma-dashboard .dcna-tabs button{font-size:12px;gap:5px;padding:0 4px;white-space:nowrap}
-.pc-layout .figma-dashboard .dcna-events{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:0 2px 16px 0}
-.pc-layout .figma-dashboard .dcna-event{flex-shrink:0;padding:14px;box-shadow:none}.pc-layout .figma-dashboard .dcna-event-head b{font-size:13px;line-height:1.7;overflow-wrap:anywhere}.pc-layout .figma-dashboard .dcna-event-body{font-size:12px;line-height:1.8}
+.pc-layout .figma-dashboard .dcna-summary>div{min-width:0}.pc-layout .figma-dashboard .dcna-summary img{width:56px;height:56px;flex:none;margin-left:var(--spacing-2)}
+.pc-layout .figma-dashboard .dcna-summary span{font-size:0.8125rem;line-height:1.7}.pc-layout .figma-dashboard .dcna-summary br{display:none}
+.pc-layout .figma-dashboard .dcna-stats{gap:var(--spacing-3)}.pc-layout .figma-dashboard .dcna-stat{min-width:0;padding:var(--spacing-3-5) var(--spacing-3)}.pc-layout .figma-dashboard .dcna-stat p{min-height:34px;align-items:flex-start;font-size:var(--font-size-base)}.pc-layout .figma-dashboard .dcna-stat>strong{font-size:1.375rem;letter-spacing:0;white-space:nowrap}
+.pc-layout .figma-dashboard .dcna-stat>span{font-size:0.6875rem}.pc-layout .figma-dashboard .dcna-tabs{height:38px;min-height:38px}.pc-layout .figma-dashboard .dcna-tabs button{font-size:var(--font-size-base);gap:0.3125rem;padding:0 var(--spacing-1);white-space:nowrap}
+.pc-layout .figma-dashboard .dcna-events{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:0 var(--spacing-0-5) var(--spacing-4) 0}
+.pc-layout .figma-dashboard .dcna-event{flex-shrink:0;padding:var(--spacing-3-5);box-shadow:none}.pc-layout .figma-dashboard .dcna-event-head b{font-size:0.8125rem;line-height:1.7;overflow-wrap:anywhere}.pc-layout .figma-dashboard .dcna-event-body{font-size:var(--font-size-base);line-height:var(--line-height-lg)}
 /* Center the original China artwork below the fixed metrics, with a 24px safe margin. */
 .pc-layout .figma-map{container:home-map / size;background:var(--gray-90);isolation:isolate}
 .pc-layout .figma-map-canvas{position:absolute;inset:0;transform-origin:0 0;transition:none;will-change:auto}
@@ -18,23 +18,43 @@
 .pc-layout .figma-map-vector-stack{position:absolute;inset:0;z-index:1;overflow:visible;pointer-events:none}
 .pc-layout .figma-map-base{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:fill;object-position:center;filter:none;mask-image:linear-gradient(90deg,transparent,var(--gray-100) 18px,var(--gray-100) calc(100% - 18px),transparent),linear-gradient(180deg,transparent,var(--gray-100) 18px,var(--gray-100) calc(100% - 18px),transparent);mask-composite:intersect;user-select:none;pointer-events:none}
 .pc-layout .figma-map-top-mask{position:absolute;z-index:2;top:0;left:0;right:0;background:linear-gradient(180deg,var(--gray-90) 0%,var(--gray-90) 56%,#19191900 100%);pointer-events:none}
-.pc-layout .figma-map-controls{position:absolute;z-index:4;top:auto;right:24px;bottom:24px;display:flex;flex-direction:column;width:32px;height:112px;padding:0;border:0;border-radius:8px;background:#393939b3;box-shadow:none;backdrop-filter:blur(3.333px);overflow:hidden}
+.pc-layout .figma-map-controls{position:absolute;z-index:4;top:auto;right:24px;bottom:24px;display:flex;flex-direction:column;width:32px;height:112px;padding:0;border:0;border-radius:var(--radius-lg);background:#393939b3;box-shadow:none;backdrop-filter:blur(3.333px);overflow:hidden}
 .pc-layout .figma-map-controls::after{content:"";position:absolute;left:8px;right:8px;top:72px;height:1px;background:#eeeeee33;pointer-events:none}
 .pc-layout .figma-map-controls button{display:grid;place-items:center;flex:none;width:32px;height:32px;padding:0;border:0;background:transparent;cursor:pointer}
-.pc-layout .figma-map-controls button:last-child{margin-top:16px}
+.pc-layout .figma-map-controls button:last-child{margin-top:var(--spacing-4)}
 .pc-layout .figma-map-controls button img{display:block;width:16px;height:16px}
 .pc-layout .figma-map-controls button:hover{background:#ffffff0d}
 .pc-layout .figma-map-controls button:disabled{opacity:.35;cursor:default}
 .pc-layout .figma-map-controls button:focus-visible{outline:2px solid #76b3ff;outline-offset:-2px}
 .pc-layout .map-gis-region{position:absolute;z-index:4;left:24px;bottom:24px;width:72px;height:72px}
-.pc-layout .map-gis-switch{position:relative;display:block;width:72px;height:72px;padding:0;border:0;border-radius:8px;background:transparent;cursor:pointer}
+.pc-layout .map-gis-switch{position:relative;display:block;width:72px;height:72px;padding:0;border:0;border-radius:var(--radius-lg);background:transparent;cursor:pointer}
 .pc-layout .map-gis-switch>img{position:absolute;left:-3px;top:-3px;width:78px;height:78px;max-width:none;pointer-events:none}
 .pc-layout .map-gis-switch:focus-visible{outline:2px solid #76b3ff;outline-offset:-2px}
-.pc-layout .map-gis-menu{position:absolute;left:4px;bottom:80px;width:156px;padding:4px;border:1px solid #454545;border-radius:8px;background:#292929;box-shadow:0 8px 24px #0006}
-.pc-layout .map-gis-menu button{display:block;width:100%;padding:8px 12px;border:0;border-radius:4px;background:none;color:var(--gray-20);font:inherit;font-size:14px;line-height:22px;text-align:left;cursor:pointer}
+.pc-layout .map-gis-menu{position:absolute;left:4px;bottom:80px;width:156px;padding:var(--spacing-1);border:1px solid #454545;border-radius:var(--radius-lg);background:#292929;box-shadow:0 8px 24px #0006}
+.pc-layout .map-gis-menu button{display:block;width:100%;padding:var(--spacing-2) var(--spacing-3);border:0;border-radius:var(--radius-base);background:none;color:var(--gray-20);font:inherit;font-size:var(--font-size-md);line-height:1.375rem;text-align:left;cursor:pointer}
 .pc-layout .map-gis-menu button:hover,.pc-layout .map-gis-menu button[aria-checked=true]{background:#ffffff0d;color:var(--gray-0)}
-@media(max-height:850px){.pc-layout .figma-dashboard .dcna-container{padding:20px}.pc-layout .figma-dashboard .dcna-header{margin-bottom:18px}.pc-layout .figma-dashboard .dcna-summary{margin-bottom:16px}.pc-layout .figma-dashboard .dcna-stats{margin-bottom:18px}.pc-layout .figma-dashboard .dcna-stat p{margin-bottom:8px}}
-@media(max-width:760px){.pc-layout .figma-network-page{--dashboard-width:min(592px,100%)}}
+@media(max-height:850px){.pc-layout .figma-dashboard .dcna-container{padding:var(--spacing-5)}.pc-layout .figma-dashboard .dcna-header{margin-bottom:var(--spacing-4-5)}.pc-layout .figma-dashboard .dcna-summary{margin-bottom:var(--spacing-4)}.pc-layout .figma-dashboard .dcna-stats{margin-bottom:var(--spacing-4-5)}.pc-layout .figma-dashboard .dcna-stat p{margin-bottom:var(--spacing-2)}}
+@media(max-width:760px){.pc-layout .figma-network-page{--dashboard-width:min(var(--home-panel-width),100%)}}
 
 
 @media(prefers-reduced-motion:reduce){.pc-layout .figma-map-canvas{transition:none}}
+
+/* Intrinsic sidebar reflow; only containers change width, never the rem baseline. */
+.fabric-home-sidebar{container:home-sidebar / inline-size}
+@container home-sidebar (max-width:500px){
+ .pc-layout .fabric-home-header{left:24px;right:24px}
+ .pc-layout .fabric-home-content{padding-inline:var(--spacing-6)}
+ .pc-layout .fabric-home-attention{margin-right:calc(-1 * var(--spacing-6));padding-right:var(--spacing-6)}
+ .pc-layout .fabric-home-intro p{white-space:normal;max-width:calc(100% - 84px);margin-top:var(--spacing-2)}
+ .pc-layout .fabric-home-intro h2{max-width:calc(100% - 84px)}
+ .pc-layout .fabric-home-intro{height:auto;min-height:90px;padding-bottom:var(--spacing-2)}
+ .pc-layout .fabric-home-intro>img{width:72px;height:72px;right:0}
+ .pc-layout .fabric-home-inspection{grid-template-rows:22px auto;height:auto}
+ .pc-layout .fabric-home-inspection-detail,.pc-layout .fabric-home-inspection-distribution{height:auto}
+ .pc-layout .fabric-home-inspection-distribution{grid-template-rows:32px auto}
+ .pc-layout .fabric-home-inspection-distribution ul{gap:var(--spacing-1) var(--spacing-3);flex-wrap:wrap}
+
+ .pc-layout .fabric-home-stat:not(.fabric-home-inspection){grid-template-rows:22px auto;min-height:116px}
+ .pc-layout .fabric-home-stat-detail{display:flex;flex-direction:column;align-items:flex-start;gap:var(--spacing-0-5)}
+ .pc-layout .fabric-home-stat-detail>p{order:1}
+}

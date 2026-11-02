@@ -10,6 +10,7 @@ export function logicalMapPoint(clientX,clientY,rect,width,height){
   return {x:(clientX-rect.left)*width/rect.width,y:(clientY-rect.top)*height/rect.height};
 }
 
+// 返回相对站点锚点的位移：优先按指定方向摆放，再约束到可视区域。
 export function fitPopup(point,size,scene,radius,placement="top",offset={x:0,y:12}){
   const pad=12,width=Math.min(size.width,Math.max(1,scene.width-2*pad));
   const height=Math.min(size.height,Math.max(1,scene.height-scene.bottom-2*pad));
