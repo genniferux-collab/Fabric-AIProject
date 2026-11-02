@@ -5,6 +5,7 @@ import ChatComposer from "../chat-composer/index.jsx";
 import OrangePurpleBeam from "../orange-purple-beam/index.jsx";
 import useLiveMetrics from "./use-live-metrics.js";
 import LiveMetricValue from "./live-metric-value.jsx";
+import SegmentedBar from "../segmented-bar/index.jsx";
 import useAttentionAutoCollapse from "./use-attention-auto-collapse.js";
 import "./index.css";
 
@@ -77,7 +78,7 @@ export default function DataCenterNetworkAgent({onOpenAgent,onOpenSkill,onFocusE
         <div className="fabric-home-stats" id="fabric-home-metric-cards">
           <button type="button" id="fabric-home-metric-inspection" className={`fabric-home-stat fabric-home-inspection${focusedMetric==="inspection"?" is-selected":""}`} onClick={()=>onOpenSkill?.("inspection")} aria-label={`网络配置检查，总任务数${inspectionTotal}，${inspectionDescription}，查看执行详情`}>
             <h3><img src={`${assetRoot}inspection.svg`} alt=""/>网络配置检查</h3>
-            <div className="fabric-home-inspection-detail"><div className="fabric-home-inspection-total"><strong><LiveMetricValue value={inspectionTotal} minDigits={2}/></strong><span>总任务数</span></div><div className="fabric-home-inspection-distribution"><div className="fabric-home-inspection-track"><div className="fabric-home-inspection-bar" role="img" aria-label={`任务分布：${inspectionDescription}`}>{inspectionStates.map(status=><span key={status.id} className={status.id} style={{flex:status.value}}/>)}</div></div><ul aria-label="配置检查任务状态">{inspectionStates.map(status=><li key={status.id}><i className={status.id}/><span>{status.label}</span><b><LiveMetricValue value={status.value}/></b></li>)}</ul></div></div>
+            <div className="fabric-home-inspection-detail"><div className="fabric-home-inspection-total"><strong><LiveMetricValue value={inspectionTotal} minDigits={2}/></strong><span>总任务数</span></div><div className="fabric-home-inspection-distribution"><div className="fabric-home-inspection-track"><div className="fabric-home-inspection-bar" role="img" aria-label={`任务分布：${inspectionDescription}`}><SegmentedBar segments={inspectionStates.map(status=>({id:status.id,value:status.value,color:status.id==="verification"?"var(--indigo-30)":status.id==="analyzing"?"#5990fd":"var(--mint-40)"}))} minSegmentWidth="0.375rem" stripe/></div></div><ul aria-label="配置检查任务状态">{inspectionStates.map(status=><li key={status.id}><i className={status.id}/><span>{status.label}</span><b><LiveMetricValue value={status.value}/></b></li>)}</ul></div></div>
             <HomeCardBeam duration={6.8}/>
           </button>
           <Stat glyph="generation" title="网络配置生成" primary={liveMetrics.generation.processing} secondary={liveMetrics.generation.completed} note="处理中 / 处理完成" selected={focusedMetric==="generation"} onClick={()=>onOpenSkill?.("generation")} beamDuration={7.6}/>

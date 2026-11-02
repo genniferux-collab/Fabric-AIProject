@@ -1,5 +1,5 @@
 import EChart from "../../components/echart/index.jsx";
-import {readCssLength} from "../../lib/css-length.js";
+import {readCssLength} from "../../utils/css-length.js";
 import ReportExport from '../../components/report-export/index.jsx';
 import {useState} from "react";
 import {createRoleDonutOption} from "./role-donut-chart.js";

@@ -8,7 +8,7 @@ import OptionGroup from '../option-group/index.jsx';
 import DataTable from '../data-table/index.jsx';
 import {Icon} from '../../../assets/shared/icon.jsx';
 import {NativeSelect} from '../form-controls/select.jsx';
-import {resolveCssLength,readCssLength} from '../../lib/css-length.js';
+import {resolveCssLength,readCssLength} from '../../utils/css-length.js';
 import './index.css';
 import './table-layout.css';
 

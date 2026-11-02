@@ -15,8 +15,8 @@
 在 `D:\ADN_L4` 执行：
 
 ```powershell
-node preview/scripts/build-preview.cjs
-node preview/scripts/verify-uc4.cjs
+node scripts/build-preview.cjs
+node scripts/verify-uc4.cjs
 ```
 
 构建使用工程内的 Babel、React 和本地图标资源，无需安装依赖或访问网络。修改源码后应重建 `preview/index.page.html`，避免源码与独立预览副本不一致。

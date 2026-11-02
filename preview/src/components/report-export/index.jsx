@@ -3,10 +3,10 @@ import {Button,Popover,Radio} from 'antd';
 import {Icon} from '../../../assets/shared/icon.jsx';
 import {useApp} from '../../context.jsx';
 import {NativeSelect} from '../form-controls/select.jsx';
-import {getReportExportScopes,downloadReportExcel} from '../../lib/report-export.js';
+import {getReportExportScopes,downloadReportExcel} from '../../utils/report-export.js';
 import './index.css';
 
-// UC2/UC4 共用导出选项；弹层只负责收集受控字段，Excel 模型仍由 lib/report-export 生成。
+// UC2/UC4 共用导出选项；弹层只负责收集受控字段，Excel 模型仍由 utils/report-export 生成。
 export default function ReportExport({uc,reviews,ruleConfigs,disabled=false}){
  const {toast}=useApp(),uid=useId(),buttonRef=useRef(null),panelRef=useRef(null),timer=useRef(null);
  const pinned=useRef(false),busyRef=useRef(false);

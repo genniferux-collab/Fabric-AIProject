@@ -3,8 +3,10 @@
 // libraries and the assets used by dynamically constructed React/SVG URLs.
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 const args=process.argv.slice(2),option=name=>{const index=args.indexOf(name);return index>=0?args[index+1]:undefined;};
-const dir=path.resolve(option('--dir')||process.cwd()),out=path.resolve(option('--out')||'FabricAI-standalone.html');
+const previewRoot=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../preview');
+const dir=path.resolve(option('--dir')||previewRoot),out=path.resolve(option('--out')||'FabricAI-standalone.html');
 const revision=args.includes('--revision')?option('--revision'):'working-tree';
 const mime={'.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webp':'image/webp','.gif':'image/gif','.svg':'image/svg+xml','.ttf':'font/ttf','.woff':'font/woff','.woff2':'font/woff2','.otf':'font/otf','.json':'application/json'};
 const assets={};

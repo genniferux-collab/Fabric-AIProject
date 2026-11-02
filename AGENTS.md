@@ -9,6 +9,8 @@
 - AI 欢迎页、特性选择和模板状态是 UC1–UC4 共用的入口，维护一套共享实现；发送任务后再进入各用例流程。
 - 本地预览和用户明确要求的 Site 首页都必须使用 `preview/site-preview.html` 的 PC 预览外层；默认逻辑视口为 1920×1080，并在宿主预览区域内等比缩小。应用本身保留 `index.page.html` 的响应式布局。发布时复制 `site-preview.html` 为 `dist/index.html`，不得再将应用 HTML 直接覆盖站点首页。
 
-- 构建使用 `node preview/scripts/build-preview.cjs`，它包含 border-beam 等本项目依赖的打包支持；基础数据验证使用 `node preview/scripts/verify-uc4.cjs`，界面改动还需实际浏览器检查。
+- 构建使用 `node scripts/build-preview.cjs`，它包含 border-beam 等本项目依赖的打包支持；基础数据验证使用 `node scripts/verify-uc4.cjs`，界面改动还需实际浏览器检查。
 
 - 仅在用户明确要求时导出独立单文件 HTML；普通界面更新只构建应用并刷新同一个本地预览。
+
+- 目录边界：`preview/` 是应用与页面交付目录；根目录 `design-references/` 仅作设计溯源，`scripts/` 仅供构建、校验和导出，不包含在页面交付包中。运行时资源统一放在 `preview/assets/`，项目公共工具统一放在 `preview/src/utils/`。不要让应用反向引用两个开发辅助目录。

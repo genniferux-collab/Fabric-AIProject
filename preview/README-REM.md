@@ -74,7 +74,7 @@ rem 与 ict-react-coder 在 1920 设计基准一致；本项目有意保留固�
 
 ### 浏览器与绘图库边界
 
-- `src/lib/css-length.js` 统一将 px/rem/em、var/calc/clamp 解析为绘图库所需的未缩放 CSS px。字符串长度交给 CSS 引擎解析，不用 parseFloat 截取表达式。
+- `src/utils/css-length.js` 统一将 px/rem/em、var/calc/clamp 解析为绘图库所需的未缩放 CSS px。字符串长度交给 CSS 引擎解析，不用 parseFloat 截取表达式。
 - ECharts 使用容器的 clientWidth/clientHeight；根字号或主题/token 变化时重新绘制现有实例。每个 document 共用一个不可见 1rem 探针，最后一个订阅卸载时清理，不使用轮询。
 - `responsive-beam` 从实际卡片读取圆角后传给只接受数字的光效库，避免卡片与光效的圆角分别维护。
 - UC2 环形图继续保持半透明环内侧 .5rem 圆角、外侧直角；精确相切路径未改，当前根字号下绘制半径为 8px。

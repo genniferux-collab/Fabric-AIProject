@@ -1,6 +1,6 @@
 // Derive a focused homepage map from the unmodified original Pixso SVG artwork.
 const fs=require('node:fs'),path=require('node:path');
-const previewRoot=process.env.FABRIC_PREVIEW_ROOT?path.resolve(process.env.FABRIC_PREVIEW_ROOT):path.resolve(__dirname,'..');
+const previewRoot=process.env.FABRIC_PREVIEW_ROOT?path.resolve(process.env.FABRIC_PREVIEW_ROOT):path.resolve(__dirname,'../preview');
 const assetRoot=path.join(previewRoot,'assets/uploads/pixso-home-map');
 const referenceCenters=[
   {id:'xisanqi',name:'西三旗',x:946.19165,y:426.261047},
@@ -129,7 +129,7 @@ function inlineLayer(file,prefix,derive){
     .replace(/<(?:path|line|polyline|circle|ellipse)\b[^>]*>/g,tag=>tag.includes('stroke=')&&!tag.includes('vector-effect=')?tag.replace(/\s*\/>$/,' vector-effect="non-scaling-stroke"/>'):tag);
   return svg;
 }
-const output='// Generated focused layers from unmodified Pixso SVG assets by preview/scripts/build-map-vectors.cjs.\n'+
+const output='// Generated focused layers from unmodified Pixso SVG assets by scripts/build-map-vectors.cjs.\n'+
   'export const referenceCenters='+JSON.stringify(referenceCenters)+';\n'+
   'export const branchLayerSvg='+JSON.stringify(inlineLayer('map-branches.svg','map-branches',focusBranches))+';\n'+
   'export const connectionLayerSvg='+JSON.stringify(inlineLayer('map-connections.svg','map-connections',focusConnections))+';\n';

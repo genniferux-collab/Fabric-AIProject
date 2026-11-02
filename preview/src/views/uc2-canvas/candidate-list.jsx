@@ -1,11 +1,12 @@
 import ReportExport from '../../components/report-export/index.jsx';
 import DataTable from '../../components/data-table/index.jsx';
+import SegmentedBar from '../../components/segmented-bar/index.jsx';
 import {Input,Select,Empty} from 'antd';
 import {useEffect,useLayoutEffect,useRef,useState} from 'react';
 import {useApp} from '../../context.jsx';
 import {uc2Rules,uc2ReportEvidence} from '../../mock/uc2.js';
 import {Icon} from '../../../assets/shared/icon.jsx';
-import {resolveCssLength} from '../../lib/css-length.js';
+import {resolveCssLength} from '../../utils/css-length.js';
 import './report-visual.css';
 import './table-layout.css';
 import {useUc2ReportReveal} from './report-generation.jsx';
@@ -63,7 +64,7 @@ export default function Uc2CandidateList({embedded=false}){
     {title:'候选规则',key:'name',dataIndex:'name',sorter:(a,b)=>compareText(a.name,b.name),render:(name,rule)=><div className="uc2-candidate-name"><div><a href="#" onClick={event=>{event.preventDefault();open(rule);}} title={name}>{name}</a>{['GB-002','GB-005','GB-012'].includes(rule.id)&&<span className="baseline-rule-priority">优先</span>}</div><small>{uc2ReportEvidence[rule.id]?.category||rule.category}</small></div>},
     {title:'类型',key:'role',dataIndex:'role',sorter:(a,b)=>compareText(roleLabel(a.role),roleLabel(b.role)),filters:roles.map(value=>({text:roleLabel(value),value})),filterMultiple:false,filteredValue:role==='全部角色'?null:[role],onFilter:(value,rule)=>rule.role===value,render:roleLabel},
     {title:'适用范围',key:'scope',sorter:(a,b)=>compareText(scopeLabel(a),scopeLabel(b)),filters:roles.map(role=>({text:scopeLabel({role}),value:scopeLabel({role})})),filteredValue:scopeFilters.length?scopeFilters:null,onFilter:(value,rule)=>scopeLabel(rule)===value,render:(_,rule)=>scopeLabel(rule)},
-    {title:'支持样本',key:'support',dataIndex:'support',align:'left',sorter:(a,b)=>a.support/a.scope-b.support/b.scope,render:(_,rule)=><div className="uc2-candidate-support"><span className="uc2-candidate-support-track" role="img" aria-label={`${rule.support}台支持，${rule.deviations}台存在差异`}><i style={{width:rule.support/rule.scope*100+'%'}}/>{rule.deviations>0&&<i style={{width:rule.deviations/rule.scope*100+'%'}}/>}</span><strong>{rule.support}<em>/{rule.scope}</em></strong></div>},
+    {title:'支持样本',key:'support',dataIndex:'support',align:'left',sorter:(a,b)=>a.support/a.scope-b.support/b.scope,render:(_,rule)=><div className="uc2-candidate-support"><span className="uc2-candidate-support-track" role="img" aria-label={`${rule.support}台支持，${rule.deviations}台存在差异`}><SegmentedBar segments={[{id:'support',value:rule.support,color:'var(--baseline-support-blue)',minWidth:'1px'},...(rule.deviations>0?[{id:'deviation',value:rule.deviations,color:'var(--error)',minWidth:'4px'}]:[])]}/></span><strong>{rule.support}<em>/{rule.scope}</em></strong></div>},
     {title:'待确认事项',key:'confirmation',sorter:(a,b)=>compareText(confirmation(a),confirmation(b)),render:(_,rule)=><span className="uc2-candidate-confirmation" title={confirmation(rule)}>{confirmation(rule)}</span>},
     {title:'审阅状态',key:'reviewStatus',dataIndex:'reviewStatus',sorter:(a,b)=>compareText(statuses[a.reviewStatus],statuses[b.reviewStatus]),filters:Object.entries(statuses).map(([value,text])=>({text,value})),filterMultiple:false,filteredValue:status==='all'?null:[status],onFilter:(value,rule)=>rule.reviewStatus===value,render:value=><span className={'baseline-review-state '+value}><i/>{statuses[value]}</span>},
     {title:'操作',key:'actions',width:'5.5rem',align:'left',render:(_,rule)=><span className="uc2-candidate-actions" role="button" tabIndex={0} aria-label={`审阅候选规则：${rule.name}`} onKeyDown={event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();open(rule);}}}><Icon name="square-pen" size="0.875rem" title={`审阅候选规则：${rule.name}`} onClick={()=>open(rule)}/></span>},
